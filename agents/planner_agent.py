@@ -44,13 +44,35 @@ import ollama
 from pydantic import BaseModel
 
 from agents.analytics_agent import generate_charts
-from agents.compilation_agent import compile_cim, compile_proforma_document, compile_teaser, generate_proforma_projection
+from agents.compilation_agent import (
+    CompilationBlockedError,
+    compile_cim,
+    compile_proforma_document,
+    compile_teaser,
+    generate_proforma_projection,
+)
 from agents.extraction_agent import extract
 from agents.ingestion_agent import ingest_document
 from agents.research_agent import SectorNotesIndex, research_deal
-from agents.review_checkpoint import is_ready_for_compilation, review_extraction, review_research_findings
+from agents.review_checkpoint import (
+    is_ready_for_compilation,
+    recompute_deal_review_status,
+    review_extraction,
+    review_research_findings,
+)
 from agents.sourcing_agent import discover_ib_targets, discover_leads
-from schemas import Deal, DealStatus, InvestorContact, LeadStatus, SourcedLead, utcnow
+from schemas import (
+    ChartArtifact,
+    Deal,
+    DealStatus,
+    ExtractionResult,
+    InvestorContact,
+    LeadStatus,
+    MemoVersion,
+    ResearchFinding,
+    SourcedLead,
+    utcnow,
+)
 from store import Store
 
 # Not the fastest model (1b, 90.6 tok/s) -- confirmed live that 1b
@@ -129,7 +151,10 @@ class PlannerDecision(BaseModel):
 
 # --- Routing -------------------------------------------------------------
 
-def _classify_directive(deal: Deal, directive: str) -> PlannerDecision:
+def classify_directive(deal: Deal, directive: str) -> PlannerDecision:
+    """Already fully non-interactive (no input()/print()) -- public so a
+    future API's "preview what the planner would do" endpoint can call it
+    directly, the same function the CLI's confirm step is built on."""
     valid = VALID_ACTIONS[deal.status]
     prompt = f"""You are the routing component of a deal-screening pipeline. A deal is
 currently in state "{deal.status.value}". The valid next actions from this
@@ -234,12 +259,22 @@ def promote_lead_to_deal(store: Store, lead: SourcedLead, name: Optional[str] = 
     return deal
 
 
-def _run_sign_mandate(store: Store, deal: Deal, reviewer: str) -> None:
+def apply_sign_mandate(store: Store, deal: Deal, mandate_type: str, terms_summary: str) -> Deal:
     """Origination (§5.1 addendum, §2's Stage 2): the pitch-to-founder /
     RFP outcome. Purely a record of what was agreed -- this function does
     not pitch anyone or negotiate anything, it captures the terms a human
-    already agreed to, the same way _run_compile_teaser captures a human's
-    business description rather than generating one."""
+    already agreed to, the same way generate_teaser_draft captures a
+    human's business description rather than generating one. Pure: no
+    input()/print(), callable directly by a future API."""
+    deal.mandate_type = mandate_type
+    deal.mandate_terms_summary = terms_summary
+    deal.mandate_signed_at = utcnow()
+    deal.status = DealStatus.MANDATE_SIGNED
+    store.save_deal(deal)
+    return deal
+
+
+def _run_sign_mandate(store: Store, deal: Deal, reviewer: str) -> None:
     print(f"\n[Planner] Recording the engagement mandate for '{deal.name}'.")
     mandate_type = input(
         "  Mandate type -- 'sell_side_advisory' (IB-style, helping them raise/exit) "
@@ -247,31 +282,39 @@ def _run_sign_mandate(store: Store, deal: Deal, reviewer: str) -> None:
     ).strip() or "sell_side_advisory"
     terms = input("  One-line terms summary (fee %, exclusivity period, etc.): ").strip()
 
-    deal.mandate_type = mandate_type
-    deal.mandate_terms_summary = terms
-    deal.mandate_signed_at = utcnow()
-    deal.status = DealStatus.MANDATE_SIGNED
-    store.save_deal(deal)
+    apply_sign_mandate(store, deal, mandate_type, terms)
     print(f"[Planner] Mandate signed ({mandate_type}). Deal can now proceed to ingestion.")
 
 
-def _run_add_investor(store: Store, deal: Deal) -> None:
+def apply_add_investor(
+    store: Store, deal: Deal, investor_name: str, *,
+    firm: Optional[str] = None, nda_status: str = "not_sent",
+    interest_level: str = "new", notes: Optional[str] = None,
+) -> InvestorContact:
     """Roadshow tracking (§5 Stage 5): pure record-keeping for a human-led
     process. This never contacts anyone -- it records that a human already
     reached out, the same boundary main.py's SOURCING_SCOPE_NOTE states
-    explicitly for sourcing."""
+    explicitly for sourcing. Pure: no input()/print()."""
+    contact = InvestorContact(
+        tenant_id=deal.tenant_id, deal_id=deal.id, investor_name=investor_name, firm=firm,
+        nda_status=nda_status, interest_level=interest_level, notes=notes,
+    )
+    store.save_investor_contact(contact)
+    return contact
+
+
+def _run_add_investor(store: Store, deal: Deal) -> None:
     name = input("  Investor name: ").strip()
     firm = input("  Firm: ").strip() or None
     nda_status = input("  NDA status ('not_sent' / 'sent' / 'signed', blank = not_sent): ").strip() or "not_sent"
     interest = input("  Interest level ('cold'/'warm'/'hot'/'passed'/'committed', blank = new): ").strip() or "new"
     notes = input("  Notes (optional): ").strip() or None
 
-    contact = InvestorContact(
-        tenant_id=deal.tenant_id, deal_id=deal.id, investor_name=name, firm=firm,
-        nda_status=nda_status, interest_level=interest, notes=notes,
+    contact = apply_add_investor(
+        store, deal, name, firm=firm, nda_status=nda_status, interest_level=interest, notes=notes,
     )
-    store.save_investor_contact(contact)
-    print(f"[Planner] Tracked {name} ({firm or 'no firm given'}) -- {interest}/{nda_status}.")
+    print(f"[Planner] Tracked {contact.investor_name} ({contact.firm or 'no firm given'}) "
+          f"-- {contact.interest_level}/{contact.nda_status}.")
 
 
 def _run_view_demand_book(store: Store, deal: Deal) -> None:
@@ -294,7 +337,7 @@ def _run_ingest(store: Store, deal: Deal, document_path: str) -> None:
     print(f"[Planner] Ingested {document.filename}: {len(document.blocks)} blocks.")
 
 
-def _run_extract(store: Store, deal: Deal, model: str, reviewer_feedback: Optional[str] = None) -> None:
+def _run_extract(store: Store, deal: Deal, model: str, reviewer_feedback: Optional[str] = None) -> ExtractionResult:
     documents = store.get_documents_for_deal(deal.tenant_id, deal.id)
     if not documents:
         raise RuntimeError("No documents ingested for this deal yet.")
@@ -303,6 +346,7 @@ def _run_extract(store: Store, deal: Deal, model: str, reviewer_feedback: Option
     deal.status = DealStatus.EXTRACTED
     store.save_deal(deal)
     print(f"[Planner] Extraction complete. Cross-check flags: {result.cross_check_flags or 'none'}")
+    return result
 
 
 def _run_review(store: Store, deal: Deal, reviewer: str, model: str) -> None:
@@ -317,7 +361,7 @@ def _run_review(store: Store, deal: Deal, reviewer: str, model: str) -> None:
     store.save_extraction_result(reviewed)
     store.append_audit_events(audit)
 
-    deal.status = DealStatus.REVIEWED if is_ready_for_compilation(reviewed) else DealStatus.NEEDS_MANUAL_INPUT
+    deal.status = recompute_deal_review_status(reviewed)
     store.save_deal(deal)
     print(f"[Planner] Review complete. Deal status: {deal.status.value}")
 
@@ -325,7 +369,7 @@ def _run_review(store: Store, deal: Deal, reviewer: str, model: str) -> None:
 def _run_research(
     store: Store, deal: Deal, company_name: str,
     sector_query: Optional[str], sector_index: Optional[SectorNotesIndex],
-) -> None:
+) -> list[ResearchFinding]:
     findings = research_deal(
         deal.tenant_id, deal.id, company_name, sector_query=sector_query, sector_index=sector_index,
     )
@@ -333,6 +377,18 @@ def _run_research(
     deal.status = DealStatus.RESEARCHED
     store.save_deal(deal)
     print(f"[Planner] Research complete. {len(findings)} finding(s).")
+    return findings
+
+
+def mark_research_reviewed(store: Store, deal: Deal) -> Deal:
+    """Decoupled from any single finding decision -- research review is
+    "look at everything, then explicitly say you're done," not implicitly
+    finished when the last finding gets a decision (unlike field review,
+    where completeness is computable from is_ready_for_compilation()).
+    Pure: no input()/print()."""
+    deal.status = DealStatus.RESEARCH_REVIEWED
+    store.save_deal(deal)
+    return deal
 
 
 def _run_review_research(store: Store, deal: Deal, reviewer: str) -> None:
@@ -340,25 +396,30 @@ def _run_review_research(store: Store, deal: Deal, reviewer: str) -> None:
     reviewed, audit = review_research_findings(findings, reviewer)
     store.save_research_findings(reviewed)
     store.append_audit_events(audit)
-    deal.status = DealStatus.RESEARCH_REVIEWED
-    store.save_deal(deal)
+    mark_research_reviewed(store, deal)
 
 
-def _memo_versions_of_type(store: Store, deal: Deal, document_type: str) -> list:
-    return [m for m in store.get_memo_versions(deal.tenant_id, deal.id) if m.document_type == document_type]
-
-
-def _run_compile(store: Store, deal: Deal) -> None:
+def _run_compile(store: Store, deal: Deal) -> MemoVersion:
     """The CIM -- the comprehensive, NDA-gated document. This is the only
     one of the three document types that flips Deal.status to COMPILED;
     generating a teaser or pro-forma alongside/instead of it doesn't change
     what COMPILED means."""
     result = store.get_extraction_result(deal.tenant_id, deal.id)
+    if not is_ready_for_compilation(result):
+        # compile_cim() enforces this same gate, but only after generating
+        # and persisting chart artifacts below -- checking here too means a
+        # blocked compile attempt never writes a single chart file or
+        # ChartArtifact row for data that was never approved (caught live
+        # while testing the Milestone 4 compilation API: a 409 still left a
+        # memo_output/{deal_id}/charts/ directory behind).
+        raise CompilationBlockedError(
+            f"Deal {result.deal_id} has not cleared human review; refusing to compile."
+        )
     findings = store.get_research_findings(deal.tenant_id, deal.id)
     charts = generate_charts(result, out_dir=f"memo_output/{deal.id}/charts")
     store.save_charts(charts)
 
-    existing = _memo_versions_of_type(store, deal, "cim")
+    existing = store.list_memo_versions_by_type(deal.tenant_id, deal.id, "cim")
     memo = compile_cim(
         result, charts, out_dir=f"memo_output/{deal.id}",
         research_findings=findings, version_number=len(existing) + 1,
@@ -367,28 +428,57 @@ def _run_compile(store: Store, deal: Deal) -> None:
     deal.status = DealStatus.COMPILED
     store.save_deal(deal)
     print(f"[Planner] CIM compiled: {memo.content_uri}")
+    return memo
 
 
-def _run_compile_teaser(store: Store, deal: Deal, reviewer: str) -> None:
-    """The Anonymous Teaser. Requires the reviewer to supply the one-line
-    business description (never generated -- see compile_teaser's own
-    docstring) and requires an explicit human sign-off that the rendered
-    document doesn't leak identity before it's treated as safe to send --
-    the concrete implementation of gemini_vc_response.txt's "NDA/
-    anonymization boundary" point, not just a design note."""
+def generate_teaser_draft(store: Store, deal: Deal, business_description: str) -> MemoVersion:
+    """The Anonymous Teaser's first of two human decisions: the reviewer
+    supplies the one-line business description (never generated -- see
+    compile_teaser's own docstring). Persists the draft with
+    approved_by=None; the second decision (confirm_teaser_safe_to_send)
+    is a genuinely separate call, matching the frontend's two-step flow
+    1:1. Pure: no input()/print()."""
     result = store.get_extraction_result(deal.tenant_id, deal.id)
+    if not is_ready_for_compilation(result):
+        # Same reasoning as _run_compile's identical check: compile_teaser()
+        # enforces this gate too, but only after charts are generated/
+        # persisted below -- check first so a blocked draft never writes
+        # chart artifacts for data that was never approved.
+        raise CompilationBlockedError(
+            f"Deal {result.deal_id} has not cleared human review; refusing to compile a teaser."
+        )
     charts = store.get_charts(deal.tenant_id, deal.id) or generate_charts(
         result, out_dir=f"memo_output/{deal.id}/charts",
     )
     if charts:
         store.save_charts(charts)
 
-    description = input("  One-line anonymized business description (no company name): ").strip()
-    existing = _memo_versions_of_type(store, deal, "teaser")
+    existing = store.list_memo_versions_by_type(deal.tenant_id, deal.id, "teaser")
     memo = compile_teaser(
-        result, charts, deal_name=deal.name, business_description=description,
+        result, charts, deal_name=deal.name, business_description=business_description,
         out_dir=f"memo_output/{deal.id}", version_number=len(existing) + 1,
     )
+    store.save_memo_version(memo)
+    return memo
+
+
+def confirm_teaser_safe_to_send(store: Store, deal: Deal, memo_id: str, reviewer: str, confirmed: bool) -> MemoVersion:
+    """The Anonymous Teaser's second human decision, and the concrete
+    implementation of gemini_vc_response.txt's "NDA/anonymization
+    boundary" point, not just a design note: only this function may set
+    `MemoVersion.approved_by`, and only on an explicit `confirmed=True`.
+    Pure: no input()/print()."""
+    memo = store.get_memo_version(deal.tenant_id, memo_id)
+    if memo is None:
+        raise ValueError(f"No memo {memo_id!r} found for deal {deal.id!r}.")
+    memo.approved_by = reviewer if confirmed else None
+    store.save_memo_version(memo)
+    return memo
+
+
+def _run_compile_teaser(store: Store, deal: Deal, reviewer: str) -> None:
+    description = input("  One-line anonymized business description (no company name): ").strip()
+    memo = generate_teaser_draft(store, deal, description)
 
     with open(memo.content_uri) as f:
         content = f.read()
@@ -396,21 +486,35 @@ def _run_compile_teaser(store: Store, deal: Deal, reviewer: str) -> None:
     confirm = input(
         "  Confirm this does NOT leak the company's identity -- safe to send externally? [y]es / [n]o: "
     ).strip().lower()
-    if confirm == "y":
-        memo.approved_by = reviewer
-    else:
+
+    memo = confirm_teaser_safe_to_send(store, deal, memo.id, reviewer, confirmed=(confirm == "y"))
+    if memo.approved_by is None:
         print("  -> Saved as a draft, NOT marked safe to send. Revise the description and regenerate.")
-    store.save_memo_version(memo)
     print(f"[Planner] Teaser saved: {memo.content_uri} (approved_by={memo.approved_by})")
 
 
-def _run_compile_proforma(store: Store, deal: Deal, reviewer: str) -> None:
-    """The Pro-Forma Model. Lets the reviewer override the growth-rate
-    assumption before it's written -- since this document computes
-    projected numbers rather than arranging extracted ones, the reviewer
-    should see and be able to challenge the exact assumption driving it,
-    not just approve/reject the output after the fact."""
+def apply_compile_proforma(
+    store: Store, deal: Deal, reviewer: str, growth_rate_override: Optional[float] = None,
+) -> MemoVersion:
+    """The Pro-Forma Model. `growth_rate_override`, when given, is the
+    reviewer directly challenging the assumption driving the projection --
+    since this document computes projected numbers rather than arranging
+    extracted ones, that's the point where a human should intervene, not
+    an approve/reject of the output after the fact (hence no separate
+    leak-check step the way the teaser has one). Pure: no input()/print()."""
     result = store.get_extraction_result(deal.tenant_id, deal.id)
+    projection = generate_proforma_projection(result, years=3, annual_growth_rate_pct_override=growth_rate_override)
+
+    existing = store.list_memo_versions_by_type(deal.tenant_id, deal.id, "proforma")
+    memo = compile_proforma_document(
+        result, projection, out_dir=f"memo_output/{deal.id}", version_number=len(existing) + 1,
+    )
+    memo.approved_by = reviewer
+    store.save_memo_version(memo)
+    return memo
+
+
+def _run_compile_proforma(store: Store, deal: Deal, reviewer: str) -> None:
     override_raw = input(
         "  Override the annual ARR growth-rate assumption? (%, blank = use extracted YoY rate): "
     ).strip()
@@ -421,25 +525,25 @@ def _run_compile_proforma(store: Store, deal: Deal, reviewer: str) -> None:
         except ValueError:
             print(f"  '{override_raw}' isn't a number -- ignoring, using the extracted YoY rate instead.")
 
-    projection = generate_proforma_projection(result, years=3, annual_growth_rate_pct_override=override)
+    memo = apply_compile_proforma(store, deal, reviewer, growth_rate_override=override)
     print("\n--- Pro-forma assumptions ---")
+    # Re-read from the saved document's structured content isn't available yet
+    # (that's the Milestone 4 structured-data split) -- regenerate the
+    # projection once more here purely to print it, since apply_compile_
+    # proforma doesn't return the intermediate dict, only the persisted memo.
+    result = store.get_extraction_result(deal.tenant_id, deal.id)
+    projection = generate_proforma_projection(result, years=3, annual_growth_rate_pct_override=override)
     for a in projection["assumptions"]:
         print(f"  - {a}")
-
-    existing = _memo_versions_of_type(store, deal, "proforma")
-    memo = compile_proforma_document(
-        result, projection, out_dir=f"memo_output/{deal.id}", version_number=len(existing) + 1,
-    )
-    memo.approved_by = reviewer  # reviewer set the assumptions directly above; no separate leak-check needed
-    store.save_memo_version(memo)
     print(f"[Planner] Pro-forma model saved: {memo.content_uri}")
 
 
-def _run_rerun_analytics(store: Store, deal: Deal) -> None:
+def _run_rerun_analytics(store: Store, deal: Deal) -> list[ChartArtifact]:
     result = store.get_extraction_result(deal.tenant_id, deal.id)
     charts = generate_charts(result, out_dir=f"memo_output/{deal.id}/charts")
     store.save_charts(charts)
     print(f"[Planner] Re-rendered {len(charts)} chart(s).")
+    return charts
 
 
 # --- Single entrypoint -----------------------------------------------------
@@ -467,7 +571,7 @@ def handle_directive(
             reasoning="Plain continue -- using the deterministic next step for this state.",
         )
     else:
-        decision = _classify_directive(deal, directive)
+        decision = classify_directive(deal, directive)
 
     if not auto_confirm:
         decision = _confirm_with_human(deal, decision)

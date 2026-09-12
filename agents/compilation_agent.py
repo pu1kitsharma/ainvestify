@@ -30,6 +30,19 @@ CLAUDE.md's findings log):
 Every document still refuses to run if the review gate (§5.5/§12) hasn't
 cleared -- this agent must never run around it, whichever document it's
 assembling.
+
+Frontend plan §4 -- structured data, not raw Markdown: each document splits
+into a `build_*_data(...) -> dict` step (computing/arranging values into
+plain JSON-safe dicts) and a `render_*_markdown(data) -> str` step (pure
+string formatting from that dict, nothing else). `compile_cim`/
+`compile_teaser`/`compile_proforma_document` call both, still write the
+same Markdown file to `content_uri` as before (unchanged, byte-for-byte --
+still the archival/CLI-compatible artifact), and additionally persist the
+dict on `MemoVersion.structured_data` for a future frontend to render with
+real components instead of markdown-in-an-iframe. The teaser's build
+function is written as an explicit *allowlist* (see its own docstring) --
+this is the concrete mechanism that makes identity leakage structurally
+harder, not just a convention a renderer has to remember to honor.
 """
 from __future__ import annotations
 
@@ -48,6 +61,28 @@ APPROVED = (FieldStatus.APPROVED, FieldStatus.EDITED)
 
 _DIGIT_RE = re.compile(r"\d")
 
+# Fixed field order + display label, shared between build and render so the
+# two can't drift apart. The teaser's list is intentionally a strict subset
+# of the CIM's -- not a coincidence, see build_teaser_data's docstring.
+CIM_FIELD_ORDER = [
+    ("arr", "ARR"),
+    ("arr_prior_year", "ARR (Prior Year)"),
+    ("mrr", "MRR"),
+    ("growth_rate_yoy", "YoY Growth Rate"),
+    ("burn_monthly", "Monthly Burn"),
+    ("cash_on_hand", "Cash on Hand"),
+    ("runway_months", "Runway (months)"),
+    ("headcount", "Headcount"),
+]
+
+TEASER_FIELD_ORDER = [
+    ("arr", "ARR"),
+    ("growth_rate_yoy", "YoY Growth Rate"),
+    ("burn_monthly", "Monthly Burn"),
+    ("runway_months", "Runway (months)"),
+    ("headcount", "Headcount"),
+]
+
 
 class CompilationBlockedError(Exception):
     """Raised when Compilation is invoked before the review gate has cleared."""
@@ -64,35 +99,61 @@ def _anonymize(text: str, *identifying_strings: Optional[str]) -> str:
     return text
 
 
-def _fmt_scalar(result: ExtractionResult, name: str, label: str, include_source: bool = True) -> str:
+# --- Build: ExtractionResult -> plain JSON-safe dicts ----------------------
+# No string formatting below this point -- only data shape decisions
+# (what's included, in what order, with or without a source citation).
+
+def _scalar_data(result: ExtractionResult, name: str, label: str, include_source: bool = True) -> dict:
     ev = getattr(result, name)
-    if ev.status == FieldStatus.NOT_FOUND:
-        return f"- **{label}:** Not disclosed"
-    value = f"${ev.value:,.0f}" if ev.unit == "USD" else f"{ev.value}{(' ' + ev.unit) if ev.unit else ''}"
-    edited = " _(reviewer-edited)_" if ev.status == FieldStatus.EDITED else ""
-    source = f" `[source: {ev.source_block_id}, page {ev.source_page}]`" if include_source else ""
-    return f"- **{label}:** {value}{edited}{source}"
+    return {
+        "label": label,
+        "value": ev.value,
+        "unit": ev.unit,
+        "status": ev.status.value,
+        "edited": ev.status == FieldStatus.EDITED,
+        "show_source": include_source,
+        "source_block_id": ev.source_block_id if include_source else None,
+        "source_page": ev.source_page if include_source else None,
+    }
 
 
-def _cap_table_section(result: ExtractionResult) -> str:
-    if result.cap_table_status not in APPROVED or not result.cap_table:
-        return "_Cap table not available or not approved for this memo._"
-    lines = ["| Holder | Ownership % | Share Class |", "| --- | --- | --- |"]
-    for row in result.cap_table:
-        pct = f"{row.pct}%" if row.pct is not None else "-"
-        lines.append(f"| {row.holder or '-'} | {pct} | {row.share_class or '-'} |")
-    lines.append(f"\n`[source: {result.cap_table_source_block_id}]`")
-    return "\n".join(lines)
+def _cap_table_data(result: ExtractionResult) -> dict:
+    available = result.cap_table_status in APPROVED and bool(result.cap_table)
+    return {
+        "available": available,
+        "rows": [
+            {"holder": row.holder, "pct": row.pct, "share_class": row.share_class}
+            for row in result.cap_table
+        ] if available else [],
+        "source_block_id": result.cap_table_source_block_id if available else None,
+    }
 
 
-def _funding_history_section(result: ExtractionResult) -> str:
-    if result.funding_history_status not in APPROVED or not result.funding_history:
-        return "_No approved funding history for this memo._"
-    lines = ["| Round | Amount | Date | Lead Investor | Source |", "| --- | --- | --- | --- | --- |"]
-    for r in result.funding_history:
-        amount = f"${r.amount:,.0f}" if r.amount is not None else "-"
-        lines.append(f"| {r.round_name or '-'} | {amount} | {r.date or '-'} | {r.lead_investor or '-'} | `{r.source_block_id}` |")
-    return "\n".join(lines)
+def _funding_history_data(result: ExtractionResult) -> dict:
+    available = result.funding_history_status in APPROVED and bool(result.funding_history)
+    return {
+        "available": available,
+        "rounds": [
+            {
+                "round_name": r.round_name, "amount": r.amount, "date": r.date,
+                "lead_investor": r.lead_investor, "source_block_id": r.source_block_id,
+            }
+            for r in result.funding_history
+        ] if available else [],
+    }
+
+
+def _external_signals_data(findings: list[ResearchFinding]) -> list[dict]:
+    """§10.5: only findings a reviewer has explicitly approved -- never
+    blended into the same confidence tier as a cited financial figure."""
+    return [
+        {"topic": f.topic, "content": f.content, "source": f.source_url or "internal sector notes"}
+        for f in findings if f.status == FieldStatus.APPROVED
+    ]
+
+
+def _chart_data(charts: list[ChartArtifact]) -> list[dict]:
+    return [{"chart_type": c.chart_type, "storage_uri": c.storage_uri} for c in charts]
 
 
 def _generate_narrative_summary(result: ExtractionResult) -> Optional[str]:
@@ -131,15 +192,102 @@ def _generate_narrative_summary(result: ExtractionResult) -> Optional[str]:
     return text
 
 
-def _external_signals_section(findings: list[ResearchFinding]) -> str:
-    """§10.5: research findings are supporting/corroborating signal, never
-    presented in the same confidence tier as a cited financial figure from
-    the deal's own documents -- hence its own section, its own framing
-    sentence, and only ever the findings a reviewer has explicitly approved."""
-    approved = [f for f in findings if f.status == FieldStatus.APPROVED]
-    if not approved:
-        return "_No approved external findings for this memo._"
+def build_cim_data(
+    result: ExtractionResult,
+    charts: list[ChartArtifact],
+    research_findings: Optional[list[ResearchFinding]] = None,
+    version_number: int = 1,
+    include_narrative: bool = True,
+) -> dict:
+    return {
+        "deal_id": result.deal_id,
+        "generated_at": result.extracted_at,
+        "version_number": version_number,
+        "narrative": _generate_narrative_summary(result) if include_narrative else None,
+        "financials": {name: _scalar_data(result, name, label) for name, label in CIM_FIELD_ORDER},
+        "cross_check_flags": list(result.cross_check_flags),
+        "cap_table": _cap_table_data(result),
+        "funding_history": _funding_history_data(result),
+        "external_signals": _external_signals_data(research_findings or []),
+        "charts": _chart_data(charts),
+    }
 
+
+def build_teaser_data(
+    result: ExtractionResult,
+    charts: list[ChartArtifact],
+    deal_name: str,
+    business_description: str,
+    version_number: int = 1,
+) -> dict:
+    """Allowlist, not a blocklist: this function's return statement is the
+    complete, exhaustive set of keys the Anonymous Teaser is allowed to
+    carry -- business description, five named financial fields with no
+    source citations (same as the Markdown teaser's include_source=False),
+    and only the one chart whose axes never reference the company
+    (agents/analytics_agent.py). There is deliberately no code path here
+    that could add a deal_id, deal_name, tenant_id, cap table, funding
+    history, or external signal to this dict -- unlike a blocklist/regex
+    scrub applied after the fact, a field that was never assembled here
+    can't leak through a future renderer that forgets to strip it.
+    `business_description` is scrubbed through the same `_anonymize` pass
+    the Markdown path applies, since this dict -- not the Markdown file --
+    is what a frontend actually renders to the screen."""
+    return {
+        "generated_at": result.extracted_at,
+        "version_number": version_number,
+        "business_description": _anonymize(business_description, deal_name),
+        "financials": {
+            name: _scalar_data(result, name, label, include_source=False)
+            for name, label in TEASER_FIELD_ORDER
+        },
+        "charts": [c for c in _chart_data(charts) if c["chart_type"] == "arr_growth_bar"],
+    }
+
+
+# --- Render: dict -> Markdown string ---------------------------------------
+# Pure string formatting -- no lookups into ExtractionResult/ChartArtifact
+# below this point, only the dicts build_*_data already produced.
+
+def _render_scalar_line(field: dict) -> str:
+    if field["status"] == FieldStatus.NOT_FOUND.value:
+        return f"- **{field['label']}:** Not disclosed"
+    value = (
+        f"${field['value']:,.0f}" if field["unit"] == "USD"
+        else f"{field['value']}{(' ' + field['unit']) if field['unit'] else ''}"
+    )
+    edited = " _(reviewer-edited)_" if field["edited"] else ""
+    source = f" `[source: {field['source_block_id']}, page {field['source_page']}]`" if field["show_source"] else ""
+    return f"- **{field['label']}:** {value}{edited}{source}"
+
+
+def _render_cap_table(data: dict) -> str:
+    if not data["available"]:
+        return "_Cap table not available or not approved for this memo._"
+    lines = ["| Holder | Ownership % | Share Class |", "| --- | --- | --- |"]
+    for row in data["rows"]:
+        pct = f"{row['pct']}%" if row["pct"] is not None else "-"
+        lines.append(f"| {row['holder'] or '-'} | {pct} | {row['share_class'] or '-'} |")
+    lines.append(f"\n`[source: {data['source_block_id']}]`")
+    return "\n".join(lines)
+
+
+def _render_funding_history(data: dict) -> str:
+    if not data["available"]:
+        return "_No approved funding history for this memo._"
+    lines = ["| Round | Amount | Date | Lead Investor | Source |", "| --- | --- | --- | --- | --- |"]
+    for r in data["rounds"]:
+        amount = f"${r['amount']:,.0f}" if r["amount"] is not None else "-"
+        lines.append(
+            f"| {r['round_name'] or '-'} | {amount} | {r['date'] or '-'} | "
+            f"{r['lead_investor'] or '-'} | `{r['source_block_id']}` |"
+        )
+    return "\n".join(lines)
+
+
+def _render_external_signals(items: list[dict]) -> str:
+    if not items:
+        return "_No approved external findings for this memo._"
     lines = [
         "_The items below are external corroborating signal (public repos, filings, "
         "press mentions, sector benchmarks) -- supporting context, not independent "
@@ -147,11 +295,77 @@ def _external_signals_section(findings: list[ResearchFinding]) -> str:
         "deal's own submitted documents._",
         "",
     ]
-    for f in approved:
-        source = f.source_url or "internal sector notes"
-        lines.append(f"- **[{f.topic}]** {f.content} `[source: {source}]`")
+    for item in items:
+        lines.append(f"- **[{item['topic']}]** {item['content']} `[source: {item['source']}]`")
     return "\n".join(lines)
 
+
+def render_cim_markdown(data: dict) -> str:
+    lines: list[str] = [f"# Confidential Information Memorandum — {data['deal_id']}", ""]
+    lines.append(f"_Generated {data['generated_at']} · memo v{data['version_number']}_")
+    lines.append("")
+
+    if data["narrative"]:
+        lines += [data["narrative"], ""]
+
+    lines.append("## Key Financials")
+    for name, _ in CIM_FIELD_ORDER:
+        lines.append(_render_scalar_line(data["financials"][name]))
+    lines.append("")
+
+    if data["cross_check_flags"]:
+        lines.append("## Reviewer Notes / Cross-Check Flags")
+        for flag in data["cross_check_flags"]:
+            lines.append(f"- {flag}")
+        lines.append("")
+
+    lines.append("## Cap Table")
+    lines.append(_render_cap_table(data["cap_table"]))
+    lines.append("")
+
+    lines.append("## Funding History")
+    lines.append(_render_funding_history(data["funding_history"]))
+    lines.append("")
+
+    lines.append("## External Signals (Supporting Context)")
+    lines.append(_render_external_signals(data["external_signals"]))
+    lines.append("")
+
+    if data["charts"]:
+        lines.append("## Charts")
+        for chart in data["charts"]:
+            lines.append(f"![{chart['chart_type']}]({chart['storage_uri']})")
+        lines.append("")
+
+    return "\n".join(lines)
+
+
+def render_teaser_markdown(data: dict) -> str:
+    lines = [
+        "# Investment Opportunity — Anonymous Teaser",
+        "",
+        f"_Confidential — prepared {data['generated_at']} · v{data['version_number']}_",
+        "",
+        "## Overview",
+        data["business_description"],
+        "",
+        "## Key Financials",
+    ]
+    for name, _ in TEASER_FIELD_ORDER:
+        lines.append(_render_scalar_line(data["financials"][name]))
+    lines.append("")
+
+    if data["charts"]:
+        lines.append("## Growth Trajectory")
+        for chart in data["charts"]:
+            lines.append(f"![{chart['chart_type']}]({chart['storage_uri']})")
+        lines.append("")
+
+    lines.append("_Full financials, cap table, and company identity are available under NDA._")
+    return "\n".join(lines)
+
+
+# --- Assemble: build + render + write file + persist structured_data ------
 
 def compile_cim(
     result: ExtractionResult,
@@ -170,51 +384,11 @@ def compile_cim(
             f"Deal {result.deal_id} has not cleared human review; refusing to compile."
         )
 
-    lines: list[str] = [f"# Confidential Information Memorandum — {result.deal_id}", ""]
-    lines.append(f"_Generated {result.extracted_at} · memo v{version_number}_")
-    lines.append("")
-
-    if include_narrative:
-        narrative = _generate_narrative_summary(result)
-        if narrative:
-            lines += [narrative, ""]
-
-    lines.append("## Key Financials")
-    lines.append(_fmt_scalar(result, "arr", "ARR"))
-    lines.append(_fmt_scalar(result, "arr_prior_year", "ARR (Prior Year)"))
-    lines.append(_fmt_scalar(result, "mrr", "MRR"))
-    lines.append(_fmt_scalar(result, "growth_rate_yoy", "YoY Growth Rate"))
-    lines.append(_fmt_scalar(result, "burn_monthly", "Monthly Burn"))
-    lines.append(_fmt_scalar(result, "cash_on_hand", "Cash on Hand"))
-    lines.append(_fmt_scalar(result, "runway_months", "Runway (months)"))
-    lines.append(_fmt_scalar(result, "headcount", "Headcount"))
-    lines.append("")
-
-    if result.cross_check_flags:
-        lines.append("## Reviewer Notes / Cross-Check Flags")
-        for flag in result.cross_check_flags:
-            lines.append(f"- {flag}")
-        lines.append("")
-
-    lines.append("## Cap Table")
-    lines.append(_cap_table_section(result))
-    lines.append("")
-
-    lines.append("## Funding History")
-    lines.append(_funding_history_section(result))
-    lines.append("")
-
-    lines.append("## External Signals (Supporting Context)")
-    lines.append(_external_signals_section(research_findings or []))
-    lines.append("")
-
-    if charts:
-        lines.append("## Charts")
-        for chart in charts:
-            lines.append(f"![{chart.chart_type}]({chart.storage_uri})")
-        lines.append("")
-
-    content = "\n".join(lines)
+    data = build_cim_data(
+        result, charts, research_findings=research_findings,
+        version_number=version_number, include_narrative=include_narrative,
+    )
+    content = render_cim_markdown(data)
 
     out_path = Path(out_dir)
     out_path.mkdir(parents=True, exist_ok=True)
@@ -227,6 +401,7 @@ def compile_cim(
         version_number=version_number,
         content_uri=str(memo_path),
         document_type="cim",
+        structured_data=data,
     )
 
 
@@ -263,34 +438,9 @@ def compile_teaser(
             f"Deal {result.deal_id} has not cleared human review; refusing to compile a teaser."
         )
 
-    lines = [
-        "# Investment Opportunity — Anonymous Teaser",
-        "",
-        f"_Confidential — prepared {result.extracted_at} · v{version_number}_",
-        "",
-        "## Overview",
-        business_description,
-        "",
-        "## Key Financials",
-        _fmt_scalar(result, "arr", "ARR", include_source=False),
-        _fmt_scalar(result, "growth_rate_yoy", "YoY Growth Rate", include_source=False),
-        _fmt_scalar(result, "burn_monthly", "Monthly Burn", include_source=False),
-        _fmt_scalar(result, "runway_months", "Runway (months)", include_source=False),
-        _fmt_scalar(result, "headcount", "Headcount", include_source=False),
-        "",
-    ]
-
-    arr_charts = [c for c in charts if c.chart_type == "arr_growth_bar"]
-    if arr_charts:
-        lines.append("## Growth Trajectory")
-        for chart in arr_charts:
-            lines.append(f"![{chart.chart_type}]({chart.storage_uri})")
-        lines.append("")
-
-    lines.append("_Full financials, cap table, and company identity are available under NDA._")
-
-    content = "\n".join(lines)
-    content = _anonymize(content, deal_name)  # defense in depth over the whole document
+    data = build_teaser_data(result, charts, deal_name, business_description, version_number)
+    content = render_teaser_markdown(data)
+    content = _anonymize(content, deal_name)  # defense in depth over the whole rendered document
 
     out_path = Path(out_dir)
     out_path.mkdir(parents=True, exist_ok=True)
@@ -303,6 +453,7 @@ def compile_teaser(
         version_number=version_number,
         content_uri=str(teaser_path),
         document_type="teaser",
+        structured_data=data,
     )
 
 
@@ -316,7 +467,9 @@ def generate_proforma_projection(
     projection built on explicitly stated assumptions, and every assumption
     is recorded here so the document can disclose exactly what it assumed
     rather than presenting a projection as if it carried the same certainty
-    as a cited historical figure."""
+    as a cited historical figure. `is_projected: True` is carried in the
+    return value itself (not just this docstring) so a frontend keys its
+    visual treatment off the data, not off convention."""
     if result.arr.status not in APPROVED or result.arr.value is None:
         raise CompilationBlockedError("Cannot build a pro-forma model without an approved ARR figure.")
 
@@ -361,18 +514,10 @@ def generate_proforma_projection(
             "-- an additional funding round would be needed before then."
         )
 
-    return {"assumptions": assumptions, "rows": rows, "growth_rate_pct": growth_rate}
+    return {"assumptions": assumptions, "rows": rows, "growth_rate_pct": growth_rate, "is_projected": True}
 
 
-def compile_proforma_document(
-    result: ExtractionResult,
-    projection: dict,
-    out_dir: str,
-    version_number: int = 1,
-) -> MemoVersion:
-    """Render a projection from generate_proforma_projection() -- kept as a
-    separate step from generating it so a reviewer can inspect/adjust the
-    assumptions (e.g. override the growth rate) before it's written out."""
+def render_proforma_markdown(result: ExtractionResult, projection: dict, version_number: int = 1) -> str:
     lines = [
         f"# Pro-Forma Financial Model — {result.deal_id}",
         "",
@@ -397,12 +542,31 @@ def compile_proforma_document(
         cash_str = f"${row['cash_on_hand']:,.0f}" if row["cash_on_hand"] is not None else "not projected"
         lines.append(f"| Year {row['year']} | {arr_str} | {cash_str} |")
 
-    content = "\n".join(lines)
+    return "\n".join(lines)
+
+
+def compile_proforma_document(
+    result: ExtractionResult,
+    projection: dict,
+    out_dir: str,
+    version_number: int = 1,
+) -> MemoVersion:
+    """Render a projection from generate_proforma_projection() -- kept as a
+    separate step from generating it so a reviewer can inspect/adjust the
+    assumptions (e.g. override the growth rate) before it's written out."""
+    content = render_proforma_markdown(result, projection, version_number)
 
     out_path = Path(out_dir)
     out_path.mkdir(parents=True, exist_ok=True)
     proforma_path = out_path / f"{result.deal_id}_proforma_v{version_number}.md"
     proforma_path.write_text(content)
+
+    structured_data = {
+        **projection,
+        "deal_id": result.deal_id,
+        "generated_at": result.extracted_at,
+        "version_number": version_number,
+    }
 
     return MemoVersion(
         tenant_id=result.tenant_id,
@@ -410,4 +574,5 @@ def compile_proforma_document(
         version_number=version_number,
         content_uri=str(proforma_path),
         document_type="proforma",
+        structured_data=structured_data,
     )

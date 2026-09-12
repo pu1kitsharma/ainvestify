@@ -29,6 +29,7 @@ from schemas import (
     AuditEvent,
     ChartArtifact,
     Deal,
+    DealSummary,
     Document,
     ExtractionResult,
     InvestorContact,
@@ -107,6 +108,9 @@ class Store:
             "SELECT data FROM deals WHERE tenant_id = ? ORDER BY id", (tenant_id,)
         ).fetchall()
         return [Deal.model_validate_json(r[0]) for r in rows]
+
+    def list_deals_by_status(self, tenant_id: str, status: str) -> list[Deal]:
+        return [d for d in self.list_deals(tenant_id) if d.status.value == status]
 
     # --- Document -------------------------------------------------------
 
@@ -190,12 +194,34 @@ class Store:
         )
         self.conn.commit()
 
+    def get_memo_version(self, tenant_id: str, memo_id: str) -> Optional[MemoVersion]:
+        """Single-row getter by id -- needed once a memo's draft and its
+        safe-to-send confirmation become two separate calls (e.g. two
+        separate API requests) instead of one in-memory object handed
+        straight from generation to a same-process confirm prompt."""
+        row = self.conn.execute(
+            "SELECT data FROM memo_versions WHERE id = ? AND tenant_id = ?", (memo_id, tenant_id)
+        ).fetchone()
+        return MemoVersion.model_validate_json(row[0]) if row else None
+
     def get_memo_versions(self, tenant_id: str, deal_id: str) -> list[MemoVersion]:
         rows = self.conn.execute(
             "SELECT data FROM memo_versions WHERE deal_id = ? AND tenant_id = ? ORDER BY id",
             (deal_id, tenant_id),
         ).fetchall()
         return [MemoVersion.model_validate_json(r[0]) for r in rows]
+
+    def list_memo_versions_by_type(self, tenant_id: str, deal_id: str, document_type: str) -> list[MemoVersion]:
+        """Was a Python list-comprehension helper duplicated across three
+        planner functions (compile_cim/generate_teaser_draft/apply_compile_
+        proforma, each computing "existing versions of this type" to pick
+        the next version_number) -- belongs here, not re-implemented per
+        caller."""
+        return [m for m in self.get_memo_versions(tenant_id, deal_id) if m.document_type == document_type]
+
+    def get_latest_memo_version(self, tenant_id: str, deal_id: str, document_type: str) -> Optional[MemoVersion]:
+        versions = self.list_memo_versions_by_type(tenant_id, deal_id, document_type)
+        return max(versions, key=lambda m: m.version_number) if versions else None
 
     # --- AuditEvent -------------------------------------------------------
 
@@ -224,11 +250,20 @@ class Store:
         )
         self.conn.commit()
 
-    def list_leads(self, tenant_id: str) -> list[SourcedLead]:
+    def get_lead(self, tenant_id: str, lead_id: str) -> Optional[SourcedLead]:
+        row = self.conn.execute(
+            "SELECT data FROM sourced_leads WHERE id = ? AND tenant_id = ?", (lead_id, tenant_id)
+        ).fetchone()
+        return SourcedLead.model_validate_json(row[0]) if row else None
+
+    def list_leads(self, tenant_id: str, status: Optional[str] = None) -> list[SourcedLead]:
         rows = self.conn.execute(
             "SELECT data FROM sourced_leads WHERE tenant_id = ? ORDER BY id", (tenant_id,)
         ).fetchall()
-        return [SourcedLead.model_validate_json(r[0]) for r in rows]
+        leads = [SourcedLead.model_validate_json(r[0]) for r in rows]
+        if status is not None:
+            leads = [l for l in leads if l.status.value == status]
+        return leads
 
     # --- InvestorContact (demand book, §5 Roadshow stage) ------------------
 
@@ -246,3 +281,45 @@ class Store:
             (deal_id, tenant_id),
         ).fetchall()
         return [InvestorContact.model_validate_json(r[0]) for r in rows]
+
+    def get_investor_contact(self, tenant_id: str, deal_id: str, investor_id: str) -> Optional[InvestorContact]:
+        row = self.conn.execute(
+            "SELECT data FROM investor_contacts WHERE id = ? AND deal_id = ? AND tenant_id = ?",
+            (investor_id, deal_id, tenant_id),
+        ).fetchone()
+        return InvestorContact.model_validate_json(row[0]) if row else None
+
+    # --- Dashboard read-model ----------------------------------------------
+
+    def list_deals_with_summary(self, tenant_id: str, status: Optional[str] = None) -> list[DealSummary]:
+        """One row per deal with cheap COUNT(*) rollups across the deal's
+        related tables -- built so the dashboard can render deal cards
+        without the frontend doing an N+1 fetch per deal (plan §3)."""
+        deals = self.list_deals(tenant_id)
+        if status is not None:
+            deals = [d for d in deals if d.status.value == status]
+
+        summaries = []
+        for deal in deals:
+            document_count = self.conn.execute(
+                "SELECT COUNT(*) FROM documents WHERE deal_id = ? AND tenant_id = ?", (deal.id, tenant_id)
+            ).fetchone()[0]
+            research_finding_count = self.conn.execute(
+                "SELECT COUNT(*) FROM research_findings WHERE deal_id = ? AND tenant_id = ?", (deal.id, tenant_id)
+            ).fetchone()[0]
+            memo_version_count = self.conn.execute(
+                "SELECT COUNT(*) FROM memo_versions WHERE deal_id = ? AND tenant_id = ?", (deal.id, tenant_id)
+            ).fetchone()[0]
+            investor_count = self.conn.execute(
+                "SELECT COUNT(*) FROM investor_contacts WHERE deal_id = ? AND tenant_id = ?", (deal.id, tenant_id)
+            ).fetchone()[0]
+            summaries.append(
+                DealSummary(
+                    deal=deal,
+                    document_count=document_count,
+                    research_finding_count=research_finding_count,
+                    memo_version_count=memo_version_count,
+                    investor_count=investor_count,
+                )
+            )
+        return summaries

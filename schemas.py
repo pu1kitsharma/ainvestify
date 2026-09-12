@@ -71,6 +71,10 @@ class ExtractedValue(BaseModel):
     reviewer: Optional[str] = None
     reviewed_at: Optional[str] = None
     edit_note: Optional[str] = None
+    # Was a loop-local variable in the old input()-driven review loop; needs
+    # to be real state now that a reject-and-retry decision can be its own
+    # API request, separate from the next look at the retried value.
+    retry_count: int = 0
 
 
 class CapTableRow(BaseModel):
@@ -110,10 +114,12 @@ class ExtractionResult(BaseModel):
     cap_table_status: FieldStatus = FieldStatus.PROPOSED
     cap_table_reviewer: Optional[str] = None
     cap_table_reviewed_at: Optional[str] = None
+    cap_table_retry_count: int = 0
     funding_history: list[FundingRound] = Field(default_factory=list)
     funding_history_status: FieldStatus = FieldStatus.PROPOSED
     funding_history_reviewer: Optional[str] = None
     funding_history_reviewed_at: Optional[str] = None
+    funding_history_retry_count: int = 0
     extracted_at: str = Field(default_factory=utcnow)
     cross_check_flags: list[str] = Field(default_factory=list)
 
@@ -193,6 +199,11 @@ class MemoVersion(BaseModel):
     # pre-NDA), "cim" (full comprehensive memo, the original compile_memo
     # output), "proforma" (forward projection, explicitly labeled as such).
     document_type: str = "cim"
+    # Frontend plan §4: the same dict compile_cim/compile_teaser/
+    # compile_proforma_document render the Markdown in content_uri from --
+    # not a second, independently-derived representation that could drift.
+    # None only for memo versions persisted before this field existed.
+    structured_data: Optional[dict] = None
 
 
 class DealStatus(str, Enum):
@@ -255,6 +266,18 @@ class InvestorContact(BaseModel):
     interest_level: str = "new"  # "new" | "cold" | "warm" | "hot" | "passed" | "committed"
     notes: Optional[str] = None
     updated_at: str = Field(default_factory=utcnow)
+
+
+class DealSummary(BaseModel):
+    """Dashboard read-model (plan §3): a deal plus cheap rollup counts, so
+    the frontend's dashboard list doesn't have to issue a separate fetch
+    per related table for every deal card."""
+
+    deal: Deal
+    document_count: int = 0
+    research_finding_count: int = 0
+    memo_version_count: int = 0
+    investor_count: int = 0
 
 
 class AuditEvent(BaseModel):

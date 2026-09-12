@@ -2,7 +2,11 @@
 # both per-user/per-run -- never meant to be shared via the repo)
 *.db
 memo_output/
+uploads/
 .DS_Store
+
+# Claude Code local session state -- machine-local, not project source
+.claude/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
