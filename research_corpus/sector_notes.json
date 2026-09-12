@@ -1,0 +1,42 @@
+[
+  {
+    "id": "note_saas_burn_multiple",
+    "sector": "SaaS",
+    "text": "Burn multiple (net burn / net new ARR) is a widely used efficiency benchmark for early-stage SaaS: below 1x is considered excellent capital efficiency, 1-1.5x is healthy for Series A/B, 1.5-2x is worth questioning, and above 2x usually invites a deeper look at whether growth is being bought rather than earned."
+  },
+  {
+    "id": "note_saas_arr_growth_bar",
+    "sector": "SaaS",
+    "text": "For Series A SaaS companies, YoY ARR growth in the 2x-3x range (100%-200%) is the commonly cited bar for 'on track' by seed-to-Series-A benchmarks; growth below 100% YoY at this stage tends to draw questions about product-market fit unless the company has an unusually large ACV or long sales cycle (e.g. enterprise/regulated verticals)."
+  },
+  {
+    "id": "note_saas_runway_norms",
+    "sector": "SaaS",
+    "text": "18-24 months of runway at the time of a Series A close is a common target, giving the company room to hit the metrics needed for a Series B without being forced into a bridge round. Runway under 12 months at the time of fundraising is a common red flag unless the round itself is explicitly sized to extend it well past that."
+  },
+  {
+    "id": "note_saas_headcount_efficiency",
+    "sector": "SaaS",
+    "text": "ARR per full-time employee is a commonly tracked efficiency metric; top-quartile early-stage SaaS companies are often cited in the $150k-$250k ARR/FTE range at Series A/B, though this varies significantly by whether the company is PLG (lower headcount per dollar of ARR) or enterprise/sales-led (higher headcount per dollar of ARR due to sales and CS headcount)."
+  },
+  {
+    "id": "note_hardware_robotics_capex",
+    "sector": "Hardware / Robotics",
+    "text": "Hardware and robotics startups typically show a materially higher burn-to-revenue ratio than pure-software peers at the same ARR, because COGS includes physical unit costs, inventory, and field service -- comparing a robotics company's burn multiple directly against a SaaS benchmark without adjusting for hardware COGS will understate its capital efficiency unfairly."
+  },
+  {
+    "id": "note_hardware_deployment_signal",
+    "sector": "Hardware / Robotics",
+    "text": "For robotics/hardware companies pre-scale, unit deployment count and fleet uptime are often more informative early traction signals than ARR alone, since revenue recognition timing can lag actual deployed-unit growth (e.g. hardware-as-a-service or long enterprise pilot-to-contract conversion cycles)."
+  },
+  {
+    "id": "note_cap_table_dilution_norms",
+    "sector": "General / Cap Table",
+    "text": "A Series A round priced such that the incoming lead investor holds roughly 15-25% post-money, with a combined founder + ESOP pool still above 50-60% post-round, is a commonly cited healthy dilution pattern; a founder stack diluted well below that by Series A is worth understanding the cause of (e.g. a large prior seed round, or a difficult prior bridge)."
+  },
+  {
+    "id": "note_esop_pool_sizing",
+    "sector": "General / Cap Table",
+    "text": "A 10-15% ESOP pool at Series A is a common range for companies that will need to make meaningful engineering and go-to-market hires post-round; a pool under 5% at this stage often means a pool top-up will be needed at the next round, which effectively dilutes existing shareholders further."
+  }
+]
