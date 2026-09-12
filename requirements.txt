@@ -1,0 +1,8 @@
+ollama
+pydantic>=2.9
+pdfplumber
+openpyxl
+requests
+numpy
+faiss-cpu
+matplotlib
