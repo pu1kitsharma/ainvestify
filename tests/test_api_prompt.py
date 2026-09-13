@@ -36,6 +36,20 @@ def test_classify_prompt_source_leads(tmp_path):
     body = r.json()
     assert body["action"] == "source_leads"
     assert body["sector_keyword"]
+    # Regression: found live through the frontend's prompt bar -- the
+    # router extracted location_filter="the" from "...in the robotics
+    # space..." (a bare stopword, not a real geography). This exact
+    # prompt shape ("...in the X space...") is what triggered it.
+    assert body["location_filter"] is None
+
+
+def test_classify_prompt_rejects_stopword_location(tmp_path):
+    client = _client_for(tmp_path / "test.db")
+    r = client.post("/api/prompt/classify", json={
+        "prompt": "find early-stage companies in the robotics space worth incubating",
+    })
+    assert r.status_code == 200
+    assert r.json()["location_filter"] is None
 
 
 def test_classify_prompt_screen_deal(tmp_path):

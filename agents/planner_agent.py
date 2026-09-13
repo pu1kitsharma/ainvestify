@@ -331,9 +331,18 @@ def _run_view_demand_book(store: Store, deal: Deal) -> None:
 def _run_ingest(store: Store, deal: Deal, document_path: str) -> None:
     document = ingest_document(document_path, deal.tenant_id, deal.id)
     store.save_document(document)
-    deal.document_ids.append(document.id)
-    deal.status = DealStatus.INGESTED
-    store.save_deal(deal)
+
+    def _append_document(d: Deal) -> None:
+        d.document_ids.append(document.id)
+        d.status = DealStatus.INGESTED
+
+    # Atomic read-modify-write (store.update_deal), not get_deal()+save_deal():
+    # two concurrent uploads for the same deal would otherwise both read
+    # document_ids=[], each append their own id locally, and whichever
+    # save_deal() lands second silently discards the other's upload.
+    updated = store.update_deal(deal.tenant_id, deal.id, _append_document)
+    deal.document_ids = updated.document_ids
+    deal.status = updated.status
     print(f"[Planner] Ingested {document.filename}: {len(document.blocks)} blocks.")
 
 
@@ -373,6 +382,31 @@ def _run_research(
     findings = research_deal(
         deal.tenant_id, deal.id, company_name, sector_query=sector_query, sector_index=sector_index,
     )
+
+    # Fold in the originating lead's own discovery signals, if this deal was
+    # promoted from one -- real feedback that research findings feel thin/
+    # generic for early-stage private companies, where a fresh public-web
+    # search often turns up little to nothing (§10.5's documented "honest
+    # gap"). But a lead's discovery_signals were already real and already
+    # the specific reason this company got sourced in the first place --
+    # they were being silently discarded at promotion time instead of
+    # carried forward, so a fuzzy name re-search here had to independently
+    # rediscover the same signal (or miss it) rather than just reusing it.
+    # Deduped by source_url against what the fresh search already found.
+    lead = store.get_lead_by_promoted_deal_id(deal.tenant_id, deal.id)
+    if lead:
+        already_seen = {f.source_url for f in findings if f.source_url}
+        for signal in lead.discovery_signals:
+            if signal.source_url and signal.source_url in already_seen:
+                continue
+            findings.append(ResearchFinding(
+                tenant_id=deal.tenant_id, deal_id=deal.id,
+                topic="sourcing_signal",
+                content=signal.content,
+                source_url=signal.source_url,
+                source_type=signal.source_type,
+            ))
+
     store.save_research_findings(findings)
     deal.status = DealStatus.RESEARCHED
     store.save_deal(deal)

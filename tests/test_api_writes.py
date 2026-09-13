@@ -61,6 +61,31 @@ def test_sign_mandate_404_for_unknown_deal(tmp_path):
     assert r.status_code == 404
 
 
+def test_list_source_documents_returns_blocks_for_citation_lookup(tmp_path, monkeypatch):
+    db_path = tmp_path / "test.db"
+    store = Store(db_path)
+    deal = start_deal(store, TENANT, "Acme Robotics")
+    store.close()
+
+    import api.routers.deals as deals_router
+    monkeypatch.setattr(deals_router, "UPLOAD_ROOT", tmp_path / "uploads")
+
+    client = _client_for(db_path)
+    with open(SAMPLE_DOC, "rb") as f:
+        client.post(
+            f"/api/deals/{deal.id}/documents",
+            files={"file": ("acme_robotics_fact_sheet.pdf", f, "application/pdf")},
+        )
+
+    r = client.get(f"/api/deals/{deal.id}/source-documents")
+    assert r.status_code == 200
+    docs = r.json()
+    assert len(docs) == 1
+    assert docs[0]["filename"] == "acme_robotics_fact_sheet.pdf"
+    assert len(docs[0]["blocks"]) == 7  # matches the live-verified block count from earlier milestones
+    assert all("id" in b and "page" in b and "content" in b for b in docs[0]["blocks"])
+
+
 def test_upload_document_ingests_and_advances_status(tmp_path, monkeypatch):
     db_path = tmp_path / "test.db"
     store = Store(db_path)
@@ -81,7 +106,12 @@ def test_upload_document_ingests_and_advances_status(tmp_path, monkeypatch):
     assert r.status_code == 200
     assert r.json()["status"] == "ingested"
     assert len(r.json()["document_ids"]) == 1
-    assert (tmp_path / "uploads" / deal.id / "acme_robotics_fact_sheet.pdf").exists()
+    # Saved under a fresh per-upload subdirectory, not directly at
+    # uploads/{deal_id}/{filename} -- see api/routers/deals.py's
+    # upload_document docstring comment on the filename-collision bug this
+    # avoids. The original filename is still the leaf name, one level down.
+    matches = list((tmp_path / "uploads" / deal.id).glob("*/acme_robotics_fact_sheet.pdf"))
+    assert len(matches) == 1
 
 
 def test_upload_document_rejects_unsupported_extension(tmp_path, monkeypatch):

@@ -48,6 +48,21 @@ _NON_GEO_LOCATION_WORDS = {
     "the world", "worldwide", "global", "globally", "anywhere",
 }
 
+# Found live through the frontend's prompt bar (not a synthetic test): the
+# router extracted location_filter="the" from "...in the robotics space
+# worth incubating" -- "the" passes the existing substring check (it's a
+# real word in the prompt) and isn't in _NON_GEO_LOCATION_WORDS (which only
+# covers specific observed temporal/scope phrases), so it slipped through
+# uncaught. That's a different failure shape: not a fabrication, not a
+# temporal phrase, just a bare function word the model mistook for a place
+# name. A real geography is never one of these regardless of prompt
+# wording, so this check is structural rather than another one-off phrase
+# to add to the blocklist above.
+_ENGLISH_STOPWORDS = {
+    "the", "a", "an", "in", "at", "on", "for", "with", "of", "to", "from",
+    "by", "and", "or", "this", "that", "these", "those", "it", "its",
+}
+
 SOURCING_SCOPE_NOTE = (
     "\n[Note] This surfaces candidate companies with a citable, recent discovery "
     "signal (new GitHub activity, HN launches) matching the theme you described -- "
@@ -114,9 +129,19 @@ Give a one-sentence reasoning. Return only the JSON object."""
     #     time reference. A substring check alone doesn't catch this --
     #     also reject known non-geographic phrases even when they're real
     #     substrings of the prompt.
+    #  3. Bare function words: labeled "the" (real prompt text, from "...in
+    #     the robotics space...") as a geography -- neither a fabrication
+    #     nor a known temporal/scope phrase, just a stopword. Reject those
+    #     structurally rather than one at a time.
+    #  4. Sector/geography confusion: for "...in the fintech space...",
+    #     llama3.2:3b consistently (confirmed over repeated calls, not a
+    #     one-off) returns location_filter="fintech" -- the exact same
+    #     string as sector_keyword. A sector is never also a geography, so
+    #     this is a structural check, not another word to blocklist.
     if decision.location_filter:
         loc = decision.location_filter.strip().lower()
-        if loc not in prompt.lower() or loc in _NON_GEO_LOCATION_WORDS:
+        same_as_sector = bool(decision.sector_keyword) and loc == decision.sector_keyword.strip().lower()
+        if loc not in prompt.lower() or loc in _NON_GEO_LOCATION_WORDS or loc in _ENGLISH_STOPWORDS or same_as_sector:
             decision.location_filter = None
 
     return decision

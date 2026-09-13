@@ -1,6 +1,8 @@
 # Phase 0 runtime artifacts (local SQLite state + generated deal documents,
 # both per-user/per-run -- never meant to be shared via the repo)
 *.db
+*.db-shm
+*.db-wal
 memo_output/
 uploads/
 .DS_Store
