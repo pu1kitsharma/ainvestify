@@ -1,5 +1,7 @@
 # Deal Automation System — Revised Architecture & Design Document
 
+**Current product direction (2026-09-13):** See §16 for the controlling lifecycle and implementation plan: identify companies worth incubation effort → incubate toward market and investment readiness → prepare fundraising materials → support VC fundraising through closing. The user explicitly wants LLM-driven work across this lifecycle. §16 supersedes older scope exclusions for evidence-backed selection, incubation, and fundraising/closing workflow support. Earlier sections still describe the existing prototype; features proposed in §16 are not implemented merely by appearing here.
+
 **Status:** Design proposal, supersedes the original executive briefing where noted.
 **Scope decisions locked in for this version** (from stakeholder input):
 - Target: a product to eventually pitch/sell to funds and boutique IB/PE shops, not a single-user personal tool.
@@ -547,3 +549,177 @@ Run that once, and §14.1's table stops being a set of citations from other peop
 - [Best Small Language Models 2026: Top SLMs Ranked (1B-14B) — LocalAIMaster](https://localaimaster.com/blog/small-language-models-guide-2026)
 - [Human in the loop (HITL) AI Agents with LangGraph & Elastic — Elastic Search Labs](https://www.elastic.co/search-labs/blog/human-in-the-loop-hitllanggraph-elasticsearch)
 - [Building Human-In-The-Loop Agentic Workflows — Towards Data Science](https://towardsdatascience.com/building-human-in-the-loop-agentic-workflows/)
+
+## 16. LLM-driven company selection, incubation, and VC fundraising plan
+
+**Decision date:** 2026-09-13. **Status:** implementation plan; runtime remains the existing prototype.
+
+### 16.1 Product objective and scope
+
+Build a workspace that helps an incubation/advisory firm identify companies worth its effort, improve their market and investment readiness, prepare the right fundraising materials, and support VC financing through closing. This is the primary product path. Broad investment banking, public-company transaction sourcing, buy-side fund management, and exits are secondary extensions.
+
+**User-confirmed targeting:** companies in any sector and ultimately any region; pilot in India. Do not default to software, B2B, ARR-based businesses, or technology-only sources. Company stage is configurable and remains unspecified; the pilot should include a range of readiness levels and document them. A company can be attractive to incubate without being appropriate for VC financing. The system must explain that distinction and allow a different financing recommendation or a hold decision.
+
+**Further user clarification, same session:** The intended operating model combines a YC-style accelerator with VC/IB capabilities, reducing the workforce through end-to-end automation and minimal human intervention. The system should operate the routine workflow, not require an analyst to manually drive every stage. Whether the firm also invests its own capital, and on what terms, remains configurable; do not assume fund size, ownership, or investment terms.
+
+LLM-driven means a conversational supervisor researches, reasons, prioritizes, drafts, executes authorized routine workflows, and revises work as evidence changes. Tools still fetch sources, calculate numbers, enforce access and state rules, and save records. LLM memory is not company evidence, and a second LLM agreeing with the first is not independent corroboration. Use automated validations and an exception queue rather than mandatory manual review of every field or routine step. Reserve human decisions for company acceptance, binding engagement/capital commitments, unresolved material exceptions, final externally shared materials, and legal/financial execution. This request authorizes planning; it does not authorize sending messages, purchasing data, deploying, signing contracts, or moving funds.
+
+The existing local Phase 0 and no-unapproved-paid-services constraints remain. Prototype source access can use analyst-supplied URLs, authorized uploads, and approved public sources. Scalable search/data providers are pluggable dependencies and require a source-specific cost/access decision, not an assumed free entitlement. No model/vendor choice is fixed until measured on representative tasks.
+
+### 16.2 Why current sourcing is vague — code findings
+
+1. `discover_github_leads()` assigns the repository owner's login as `company_name`. An account can be a person, student, clone publisher, or open-source project; company identity is not established.
+2. `discover_hn_launches()` uses a launch title as the company name. Product, brand, founder, and legal entity are not reconciled.
+3. The default 30-day window finds recent launches/repositories, excluding many operating companies that could benefit from incubation. A repository creation date is not a company founding date.
+4. `discover_leads()` concatenates two lists without cross-source entity resolution. Same-name repository deduplication does not establish distinct companies.
+5. Geography filtering applies only to GitHub owner profiles; HN receives no geography filter. Missing/ambiguous geography is not represented adequately.
+6. Connector exceptions return empty lists, conflating service failures with genuine zero matches.
+7. Keyword matching and popularity supply discovery signals, not evidence of demand, team capability, financial health, incubation fit, or VC suitability.
+8. `SourcedLead` lacks canonical domain/entity, dated business claims, evidence quality, conflicts, and a selection assessment. Later enrichment therefore has little reliable identity context.
+
+Fixing prompts alone cannot address these structural gaps. Preserve GitHub/HN as optional sector-specific signals; remove their role as the default universe of companies.
+
+### 16.3 Source strategy: discovery, identity, and diligence
+
+| Source family | Intended use | Evidence limits / implementation approach |
+|---|---|---|
+| Founder applications, referrals, partner incubator submissions | Cross-sector intake, founder consent, objectives, direct documents | Submitted claims remain founder-reported until checked; build structured forms and authorized imports first |
+| Company website, product catalog, pricing, team and customer pages | Establish brand/domain, offering, target customers, location claims, current activity | First-party marketing can be incomplete or promotional; preserve exact text and date |
+| Accelerator/incubator portfolios, university incubators, industry associations | Discover actual operating businesses across sectors | Directory inclusion establishes only what the publisher asserts; stale entries and selection bias remain |
+| Startup India Showcase and relevant public programs | India pilot discovery and program participation | Validate individual profiles; distinguish company-level listings from aggregate statistics |
+| Relevant official registries and filings | Legal entity, status, registered jurisdiction, filed financial information when accessible | Registry jurisdiction is not necessarily operating geography; use official permitted access or authorized documents; coverage varies by country |
+| Investor portfolio pages and original funding announcements | Corroborate reported investor relationships and historical rounds | Funding announcements do not establish cash balance, current fundraising intent, or willingness to invest again |
+| Customer references, invoices, contracts, sales/product exports, financial records supplied with permission | Evaluate demand, revenues, margins, retention, cash, operations, ownership | Reconcile sources and reporting periods; confidential, permission-scoped evidence; references require separately authorized contact |
+| Sector-specific sources | Product/regulatory milestones, distribution, manufacturing capacity, trials, patents, tenders, etc. | Select per sector and jurisdiction; applications, grants, awards, sales, and approvals must remain distinct claims |
+| News, GitHub, HN and other activity signals | Find candidates or questions worth investigating | Secondary/weak signals; never substitute for commercial validation |
+| Licensed company data providers | Optional broader discovery and enrichment | Evaluate coverage, freshness, permitted product use, and incremental selection quality before procurement |
+
+Public-page existence is not verification of an automated API or redistribution license. Maintain a source registry with access method, coverage, allowed use, terms URL/check date, rate limits, cost, refresh policy, and operational status. Earlier §10 blanket source-permission claims are historical and must be revalidated per connector before implementation. Search results are pointers: inspect original pages before accepting claims. Separate `ok`, `no_results`, `blocked`, `rate_limited`, `failed`, and `partial` source outcomes in both API and UI.
+
+Reviewed discovery examples: [YC company directory](https://www.ycombinator.com/companies/), [Techstars portfolio](https://www.techstars.com/portfolio), and [Startup India Showcase](https://www.startupindia.gov.in/content/sih/en/startup_india_showcase.html). These demonstrate candidate source families, not a guarantee of bulk access or comprehensive coverage. [Crunchbase data licensing](https://about.crunchbase.com/products/data-licensing) is a possible future procurement route; no access has been purchased or integration approved.
+
+### 16.4 Company evidence model
+
+Create a persistent `Company` independent of a deal. Keep brands, products, founders, legal entities, and domains linked but distinct. Track registered location, operating markets, and founder location separately. Domain matches are useful but not sufficient: retain ambiguity, rebrands, subsidiaries, and manual merge/split decisions.
+
+Each `EvidenceClaim` stores: tenant/company ID, subject, claim type, value/text, unit/currency, period/as-of date, source ID, exact supporting passage/page/cell, publisher, publication/retrieval dates, extraction/model version, origin category, review status, contradictory claim IDs, and superseded-by ID. Store snapshots/hashes where permitted and apply source-specific retention. Distinguish first-party, independently corroborated, derived, inferred, unknown, and disputed information. Preserve lineage back to a shared original announcement so syndicated articles do not count as independent sources.
+
+Numeric evidence requires the exact period and definition: revenue differs from ARR, GMV, bookings, grants, and funding raised. Missing data remains unknown. Explicitly labeled estimates and forecasts store assumptions and never become observed facts. Refresh policy varies by claim type; stale funding information and current cash are different problems.
+
+Downstream assessments, plans, and documents reference evidence versions. When an input changes, mark affected outputs stale, explain the change, and require relevant re-review. Keep legacy leads and documents intact; migrate incrementally with compatibility adapters and reversible local migration tests.
+
+### 16.5 Stage A — identify companies worth incubation effort
+
+Input: configurable `SelectionThesis` containing regions, sector inclusion/exclusion, stage, business models, support capabilities, effort capacity, expected milestones, and financing objectives. Broad discovery can cover any sector; depth of research and selection criteria depend on the company's business model.
+
+LLM workflow: translate thesis into source/query plan → collect candidates → resolve identity → build evidence dossier → seek disconfirming evidence → identify missing information → assess incubation fit → propose next action. Limit research calls, depth, tokens, and elapsed time; stop with a missing-evidence task when further browsing is unlikely to resolve private information.
+
+Evaluate customer problem and demand; team execution evidence; market/distribution; differentiation; business-model economics; operational feasibility; capital needs; risks; and **whether this firm's support can materially help within its capacity**. Separate evidence completeness from opportunity attractiveness. A sparse public footprint must not automatically mean a weak business.
+
+Output: a cited one-page selection brief with established identity, company description, evidence-backed strengths, concerns, unknowns, proposed incubation intervention, effort estimate, founder questions, and recommendation: `investigate`, `invite_to_discussion`, `nurture`, or `pass`. A later acceptance decision requires founder engagement and stronger evidence. Do not present an LLM score as an investment-success probability. Start with explainable dimension-level judgments; introduce weighted ranking only after calibration against analyst-reviewed examples.
+
+Example, illustrative only: a consumer company has documented repeat orders but weak channel margins. The brief proposes margin verification and channel experiments; it does not reject the company for lacking ARR or public code. A research venture instead needs technical and commercialization milestones appropriate to its stage.
+
+### 16.6 Stage B — founder engagement and incubation
+
+The LLM drafts a founder conversation brief, discovery questions, proposed support plan, engagement proposal, and follow-up drafts. CRM records contacts, meetings, consent, objectives, and outcomes. Actual outreach follows explicit authorization. Allow preliminary public/authorized materials before a mandate; confidential access follows the relevant engagement/permission basis. Replace the universal mandate-before-ingestion assumption with explicit document permissions and engagement types. Recording a signed status is distinct from retaining an executed agreement.
+
+After onboarding, collect a baseline dossier and missing-document requests, then generate a configurable milestone plan (for example, a 30/60/90-day plan where appropriate). Each task has an owner, dependency, baseline, target, due date, required evidence, effort estimate, and acceptance rule. Completion is demonstrated by evidence, not by generated prose.
+
+Workstreams include customer discovery, product/service validation, positioning, pricing, channel strategy, sales/distribution experiments, unit economics, financial reporting, team gaps, operational capacity, ownership cleanup, and relevant specialist reviews. The LLM reviews updates, identifies blockers, drafts deliverables, and proposes plan changes. Human founders/operators perform real-world experiments and supply outcomes; a strategy document alone does not make a company market-ready.
+
+Use separate readiness assessments:
+
+- **Market readiness:** defined customer/problem, appropriate demand evidence, viable offering, feasible delivery, credible pricing/unit economics, and a tested path to customers appropriate to stage.
+- **Investment readiness:** explainable business and market, reliable financial/ownership records, risks disclosed, capital ask and use of proceeds, milestone-linked financing plan, investor fit, and diligence materials appropriate to the round.
+
+Criteria are versioned by sector, business model, stage, and jurisdiction. Pre-revenue companies can qualify on appropriate scientific, product, or customer-validation milestones. Do not impose software revenue metrics on manufacturers, services, consumer brands, agriculture, or life sciences. Show blockers and evidence per criterion rather than an unexplained readiness percentage. A reviewer may approve a disclosed exception with rationale; no requirement disappears silently.
+
+### 16.7 Stage C — fundraising materials
+
+The approved company dossier and readiness assessment feed narrative drafting, market analysis, competitor comparisons, financial scenarios, funding strategy, and document generation. Reuse existing citation/review infrastructure, replacing the single-document extraction assumption with multi-document reconciliation and period/currency-aware metrics.
+
+Deliverables are configurable: founder pitch deck, executive summary, investor FAQ, financial model, use-of-funds/milestone plan, organized data-room index, and teaser or CIM when the process calls for them. Internal incubation-selection briefs and external fundraising materials are different templates. Do not require every startup to produce an anonymous teaser and CIM.
+
+Financial models use business drivers: price/volume/margin/capacity for relevant operating businesses, retention/customer acquisition for recurring businesses, development timelines and costs for pre-commercial ventures. Code calculates scenarios, cash runway, dilution, and sensitivities from explicit approved assumptions. LLMs explain and challenge assumptions; they do not supply unsupported actuals. Final review checks claim support, narrative accuracy, omissions, contradictions, projections, and document identity/disclosure before release.
+
+### 16.8 Stage D — investor matching, fundraising, and closing
+
+Create a separate `Fundraise` per round, linked to Company and Engagement. Model investor firms, specific funds, people, relationships, and per-round opportunities separately. Match on stage, sector, geography, check size when evidenced, portfolio conflicts, strategy, and relevant activity. Record why each match fits, what is unknown, evidence date, and whether a warm introduction exists. A portfolio investment is not evidence that the fund currently has deployable capital.
+
+LLM deliverables: tailored investor research briefs, meeting preparation, approved-source outreach drafts, Q&A answers, follow-up drafts, feedback synthesis, and revised targeting. Persist a per-investor pipeline: `identified → qualified → introduction_pending → contacted → meeting → diligence → terms → committed → closed`, with `passed`, `on_hold`, and reasoned reversals. No status changes solely because an email was drafted. No sending or sharing is enabled by this plan; later authorized integrations must record recipient, content/version, approval, outcome, and retries without duplicate sends.
+
+Closing support includes term-sheet extraction/comparison, dilution scenarios, diligence tasks, specialist/legal owners, document versions, required approvals, signatures, conditions, allocations, and evidence of funds received. Distinguish verbal interest, written commitment, executed documents, and received funds. Closing requires recorded completion of the applicable conditions and authorized confirmation; the LLM must not equate a positive response or a generated agreement with a closed round. Support multiple closings/tranches and unsuccessful raises. Drafting and tracking do not replace legal execution or guarantee financing.
+
+After close, track use of proceeds, company milestones, investor updates, and next-round readiness. If VC is a poor fit, explain that finding rather than forcing the company down a VC path.
+
+### 16.9 Technical design and implementation boundaries
+
+Keep the existing React/FastAPI/Pydantic/store architecture initially. Implement specialist capabilities behind one supervisor rather than deploying a microservice per agent. Capabilities: discovery, identity resolution, evidence extraction/verification, selection, incubation/GTM planning, readiness assessment, materials, investor research, and closing coordination. Each returns typed results with evidence IDs, unknowns, proposed actions, and tool/run metadata.
+
+Add entities incrementally: `SelectionThesis`, `Company`, `SourceRecord`, `SourceRun`, `EvidenceClaim`, `SelectionAssessment`, `Engagement`, `IncubationPlan`, `Milestone`, `ReadinessAssessment`, `Fundraise`, `InvestorFirm`, `InvestorOpportunity`, `ClosingChecklist`, and `AgentRun`. Every private entity is tenant-scoped. Keep document-processing status independent from company lifecycle, milestone status, and investor pipeline.
+
+Company lifecycle: `candidate → researching → qualified → engagement_pending → incubating → readiness_review → fundraise_ready`, with `needs_information`, `nurture`, `declined`, and `paused` paths. Fundraising and incubation can overlap; a closed round does not terminate company support. Every transition has typed preconditions and audit history. Reuse current deals as legacy document-workflow records until migrated; do not overwrite the live SQLite database during development.
+
+Add durable background jobs with progress, cancellation, bounded retries, source outcomes, token/call budgets, and resumable checkpoints. Treat fetched pages/documents as untrusted evidence, never instructions. Fetch tools need public-address validation, redirect checks, limits on sizes/types/time, and protection against local/private-network access. Source text cannot authorize tool actions or change policies. Before external collaboration, implement actual authentication, authorization, approved document sharing, and audit attribution; tenant headers alone are insufficient.
+
+### 16.10 Build sequence and acceptance gates
+
+**Milestone 1 — reliable company discovery and selection (first implementation slice).**
+
+- Extend schemas/store with Company, EvidenceClaim, SourceRun, SelectionThesis, and SelectionAssessment; preserve current lead APIs through adapters.
+- Refactor `agents/sourcing_agent.py` into source collection → candidate normalization → entity resolution → dossier → selection assessment. Start with founder/analyst intake and supplied company URLs plus individually approved sources. Add source registry and bounded evidence-fetch tools; no invented bulk API.
+- Replace lead cards with verified identity, sector/business model, location basis, evidence dates, strengths, concerns, unknowns, source failures, recommendation, and next action. Raw projects stay unverified candidates.
+- Add APIs for starting/resuming a sourcing run, reviewing claims/identity, assessing a company, and promoting an approved company to engagement. Preserve existing document pipeline behavior.
+- Build an analyst-labeled pilot set of approximately 30 Indian companies across at least five business-model/sector groups, including non-software companies, weak candidates, duplicates, ambiguous entities, and sparse-data cases. This is an evaluation sample, not a representative market census. Separate tuning and held-out cases; repeat model runs to assess instability.
+- Proposed release targets: at least 90% correct company/domain identity on held-out resolvable cases, zero unflagged cross-company evidence merges in the sample, at least 95% manually verified support among cited factual claims, and source failures never rendered as true zero-result success. Report denominators, unresolved cases, and errors; small samples are not accuracy guarantees. Set an explicit precision-at-10 and analyst-time baseline before claiming ranking improvement. Test geography, currency/period handling, contradictions, stale claims, tenant isolation, and source-text prompt injection.
+
+**Milestone 2 — engagement, baseline diligence, and incubation.**
+
+- Founder intake, CRM, engagement records, multi-document reconciliation, milestone/task workspace, and evidence-based updates.
+- Exit gate: at least one real, authorized non-software company and one company of another business model can move from selection to an owner-assigned plan with measured outcomes. Synthetic fixtures prove software behavior only; actual outcomes require founder participation and time.
+
+**Milestone 3 — readiness and fundraising package.**
+
+- Sector/stage readiness templates, blocker handling, reviewer decisions, business-driver models, deck/summary/FAQ/data-room output, document-level release approval, and stale-output invalidation.
+- Exit gate: an authorized company can produce a coherent reviewed package; every factual assertion is supported or explicitly qualified; projections reconcile with model inputs; unresolved material blockers prevent an unqualified ready status.
+
+**Milestone 4 — investor matching and fundraising workspace.**
+
+- Verified investor profiles, fund-level fit assessments, relationship tracking, per-investor opportunities, meeting/feedback/Q&A workflows, and human-reviewed message drafts.
+- Exit gate: each proposed investor has evidenced fit or explicit unknowns; stages reflect actual recorded events; no message is sent without authorization. Live outreach is a later separately authorized action, not an acceptance requirement for offline development.
+
+**Milestone 5 — closing and post-close support.**
+
+- Term comparison, conditions/approvals/signature/funding evidence, multi-close handling, allocation records, and milestone/investor updates.
+- Exit gate: simulations distinguish interest, commitments, signatures, and funding correctly; real close status requires actual evidence and authorized confirmation. The product supports the process and does not claim to have closed a financing without those events.
+
+Model evaluations are separate from deterministic unit/integration tests. Benchmark task quality, citation support, abstention, latency, and cost on the selected local models before choosing larger or hosted models. Expand infrastructure only when measurements justify it and authorization covers it. Build order follows these gates rather than unsupported calendar estimates.
+
+### 16.11 Product success measures and remaining inputs
+
+Measure verified-company yield by source and sector; false entity matches; supported-claim rate; unknown/conflict rate; freshness; analyst time per accepted candidate; founder acceptance; milestone completion supported by outcomes; readiness progression; investor meeting/diligence progression; and eventual financing outcomes. Attribute funding outcomes to observed events, not document generation. Disaggregate sector results so software-heavy sources cannot hide poor coverage elsewhere.
+
+Confirmed: India pilot, global-capable design, any sector. Still configurable: stage, incubation capacity, engagement economics, exclusions, and readiness thresholds. These do not block the shared evidence model. Founder access is required to validate private business performance; paid data and hosted-model budgets remain unapproved. The first engineering work should be Milestone 1, not another generic CIM template or additional GitHub keyword searches.
+
+### 16.12 Minimal-human operating model
+
+This clarification replaces a per-field/per-action manual approval target with supervision by exception. Existing runtime review gates remain until the replacement validation, approval, and audit system is implemented and tested; do not simply bypass them using `auto_confirm=True`.
+
+| Work | Target autonomous behavior | Human involvement |
+|---|---|---|
+| Origination | Recurring searches under configured thesis, identity checks, evidence refresh, dossiers, shortlist updates | Review shortlist/accept companies; resolve ambiguous identity or material evidence gaps |
+| Initial qualification | Assess fit and support needs, prepare founder questions, analyze submitted answers | Review consequential exceptions and final acceptance; founders provide truthful business inputs |
+| Incubation | Generate plans, prioritize work, draft GTM assets, analyze experiment results, monitor milestones, propose changes | Founders/operators execute physical/customer work; supervisor resolves material strategy/resource commitments |
+| Financial analysis | Extract/reconcile metrics, run code-based models, analyze scenarios, flag conflicts | Resolve material discrepancies and approve material assumptions where required |
+| Materials | Draft and check cross-document consistency, refresh stale sections, generate release package | One accountable final release decision; review exceptions rather than every clean field |
+| Fundraising | Research/match investors, prepare meeting briefs, manage pipeline, draft answers and follow-ups | Relationship/negotiation decisions and approved external communications policy |
+| Closing | Track conditions, compare terms, assemble checklists, monitor missing evidence | Authorized legal signatories and funds/closing confirmation |
+
+Future sending integrations may execute within an explicitly authorized scope (recipients, channels, templates/content boundaries, cadence, confidentiality, and stop rules) without asking for approval on every routine follow-up. Until that authorization and integration exist, drafts remain drafts. This plan does not grant such authorization. Material new claims, new recipient scopes, confidential disclosures, or commitments escalate outside that scope.
+
+Implement a durable supervisor that wakes on new evidence, founder updates, due tasks, or investor events. It builds a bounded plan, invokes typed tools, verifies results, updates records, schedules follow-up work, and escalates only when a defined condition is met. Long-running actions have idempotency, retry limits, budgets, progress, cancellation, and a full audit trail. Multiple LLM roles are logical responsibilities, not a requirement to spawn independent agents for every task.
+
+Add review states such as `machine_validated`, `needs_review`, `human_approved`, and `rejected`; never attribute machine approval to a human. Automated acceptance requires source/identity/period checks, schema and numerical validation, and calibrated thresholds. Material contradictions, identity ambiguity, unsupported claims, and high-impact judgment calls enter the exception queue. Measure false negatives through sampled human audits of otherwise auto-accepted work and maintain rollback/re-review paths. Readiness checklists can run automatically; material exceptions and external readiness representations need accountable sign-off.
+
+The primary efficiency measures are human minutes per researched company, accepted company, completed incubation milestone, released package, and active raise; also track autonomous task completion, exception rate, rework, and missed material errors. Establish the current baseline before setting reduction targets. Do not promise a particular workforce reduction or fully autonomous company growth/fundraising before pilot evidence exists.

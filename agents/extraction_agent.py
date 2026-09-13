@@ -20,6 +20,7 @@ by asking the model nicely:
 """
 from __future__ import annotations
 
+import re
 from typing import Optional
 
 import ollama
@@ -52,26 +53,47 @@ class LLMValue(BaseModel):
     # an unconstrained `{}` branch in the JSON schema that Ollama's grammar-
     # constrained decoder collapsed to `null` almost every time on phi4-mini
     # -- pinning the type fixed it (verified against the sample doc).
-    value: Optional[float] = None
-    source_block_id: Optional[str] = None
-    source_page: Optional[int] = None
+    #
+    # value/source_block_id/source_page have NO default (`= None`)
+    # deliberately, even though their type is Optional -- a field with a
+    # default isn't marked "required" in the generated JSON schema, and
+    # found live on a second, differently-worded test document: phi4-mini's
+    # grammar-constrained decoder sometimes omits the "value" key from its
+    # JSON output *entirely* for a field it struggled with, rather than
+    # writing `"value": null`. Pydantic then silently defaults the missing
+    # key to None, which _to_extracted_value can't distinguish from a
+    # genuine "not stated in the document" -- it silently misclassifies a
+    # decoding failure as a confident not-found result. Making these three
+    # fields required-but-nullable forces "required" into the schema, so
+    # the model must emit the key (with an explicit null if it has nothing)
+    # rather than being able to skip it.
+    value: Optional[float]
+    source_block_id: Optional[str]
+    source_page: Optional[int]
     confidence: Optional[float] = None
     reason: Optional[str] = None
 
 
 class LLMCapTableRow(BaseModel):
     holder: Optional[str] = None
-    pct: Optional[float] = None
+    # No default, same reasoning as LLMValue.value above -- pct is the
+    # numeric field a dropped-key decoding failure would otherwise silently
+    # misreport as "not stated."
+    pct: Optional[float]
     share_class: Optional[str] = None
 
 
 class LLMFundingRound(BaseModel):
     round_name: Optional[str] = None
-    amount: Optional[float] = None
+    # No default: same reasoning as LLMValue -- amount/source_block_id/
+    # source_page are exactly what funding_history's own guardrail below
+    # checks for presence of, so a silently-defaulted None here would slip
+    # straight past that check instead of being caught by it.
+    amount: Optional[float]
     date: Optional[str] = None
     lead_investor: Optional[str] = None
-    source_block_id: Optional[str] = None
-    source_page: Optional[int] = None
+    source_block_id: Optional[str]
+    source_page: Optional[int]
 
 
 class LLMExtraction(BaseModel):
@@ -114,6 +136,14 @@ Rules, no exceptions:
   percentage field. If both arr and arr_prior_year are extractable, prefer
   leaving growth_rate_yoy to be derived from those instead of guessing from
   prose.
+- arr (Annual Recurring Revenue) and mrr (Monthly Recurring Revenue) are
+  DIFFERENT metrics stated under different labels -- never copy one's value
+  into the other, and never multiply/divide between them yourself. If the
+  document states MRR but never separately states ARR under an "ARR" or
+  "Annual Recurring Revenue" label, arr must be null/not_found, even though
+  a human could compute ARR ≈ MRR × 12 -- that computation is for the human
+  reviewer to make deliberately, not something you infer silently. The same
+  independence applies to arr_prior_year vs mrr's own prior-year figure.
 - If cap_table has any rows, you MUST also set cap_table_source_block_id to
   the block id of the table those rows came from -- rows without it will be
   discarded.
@@ -247,6 +277,150 @@ def _cross_check_growth_rate(result: ExtractionResult) -> None:
         )
 
 
+def _cross_check_arr_mrr_conflation(result: ExtractionResult) -> None:
+    """Flag arr/mrr (and their prior-year counterparts) sharing the same
+    cited block AND the same value -- a real, reproduced-live failure mode
+    where phi4-mini copies a stated MRR figure straight into arr (or vice
+    versa) despite an explicit prompt instruction not to. ARR and MRR are
+    different metrics on different time scales; the only way they'd
+    legitimately be numerically identical is if the shared value were 0.
+    Consistent with every other cross-check in this file: flag for the
+    human reviewer, don't silently null the value -- prompting alone
+    couldn't be trusted to prevent this, but code can at least surface it
+    rather than let it pass as a normal-looking pair of extracted fields."""
+    for annual_field, monthly_field, label in (
+        ("arr", "mrr", "arr/mrr"),
+        ("arr_prior_year", "mrr", "arr_prior_year/mrr"),
+    ):
+        annual = getattr(result, annual_field)
+        monthly = getattr(result, monthly_field)
+        if (
+            annual.value is not None
+            and annual.value != 0
+            and annual.value == monthly.value
+            and annual.source_block_id == monthly.source_block_id
+        ):
+            result.cross_check_flags.append(
+                f"{label} share the same value ({annual.value}) and source block -- "
+                "the model may have copied a monthly figure into the annual field "
+                "(or vice versa) instead of treating them as distinct metrics"
+            )
+
+
+CONTEXT_WINDOW_BUCKETS = [4096, 8192, 16384, 32768, 65536]
+GENERATION_HEADROOM_TOKENS = 1024  # room for the JSON extraction output itself
+
+
+def _estimate_num_ctx(prompt: str) -> int:
+    """Pick a context window large enough for this specific document's
+    full-document-context prompt, rounded up to a fixed bucket.
+
+    Found live on a real, dense multi-page SEC filing: the fixed 4096
+    default (fine for the small synthetic fixture docs this was originally
+    validated against) was smaller than the prompt itself, silently
+    triggering llama.cpp's --context-shift fallback -- which discards early
+    context and re-processes on overflow, at wall-clock costs an order of
+    magnitude worse than just requesting a correctly-sized window up front.
+    A ~4 chars/token estimate is intentionally rough; bucketing (rather than
+    sizing exactly) keeps Ollama from having to reload the model on every
+    slightly-different document.
+    """
+    estimated_tokens = len(prompt) // 4 + GENERATION_HEADROOM_TOKENS
+    for bucket in CONTEXT_WINDOW_BUCKETS:
+        if estimated_tokens <= bucket:
+            return bucket
+    return CONTEXT_WINDOW_BUCKETS[-1]
+
+
+_NUMBER_PATTERN = re.compile(r"\(?-?\$?\s?\d[\d,]*\.?\d*\)?")
+_CITATION_CHECK_SCALES = (1, 1000, 0.001, 100, 0.01)
+_CITATION_CHECK_RELATIVE_TOLERANCE = 1e-6
+
+
+def _numbers_in_block(document: Document, block_id: str) -> set[float]:
+    """Every plain number that literally appears in one block's rendered
+    content, parsed from '$1,125,000'/'(2,229)'-style formatting."""
+    block = next((b for b in document.blocks if b.id == block_id), None)
+    if block is None:
+        return set()
+    if block.block_type == BlockType.TABLE:
+        if isinstance(block.content, dict):
+            content_str = ", ".join(f"{ref}={val}" for ref, val in block.content.items())
+        else:
+            content_str = "\n".join(
+                " | ".join("" if cell is None else str(cell) for cell in row)
+                for row in block.content
+            )
+    else:
+        content_str = str(block.content)
+
+    numbers = set()
+    for match in _NUMBER_PATTERN.finditer(content_str):
+        token = match.group().strip()
+        is_negative = token.startswith("(") and token.endswith(")")
+        token = token.strip("()").replace("$", "").replace(",", "").strip()
+        if not token or token == ".":
+            continue
+        try:
+            value = float(token)
+        except ValueError:
+            continue
+        numbers.add(-value if is_negative else value)
+    return numbers
+
+
+def _cross_check_citations_supported_by_content(result: ExtractionResult, document: Document) -> None:
+    """Flag a field whose cited block doesn't actually contain its value.
+
+    Found live on a real SEC filing: the mandatory-provenance guardrail
+    (_to_extracted_value) only checks that source_block_id is a real block
+    in this document -- it was never checked that the block's own content
+    backs up the number attached to it. On DigitalOcean's real 10-Q,
+    phi4-mini cited cash_on_hand and headcount to blocks that are pure
+    boilerplate text containing no numbers at all -- the *values* it
+    reported happened to be correct (pulled from elsewhere in the document),
+    but a reviewer clicking the citation to verify would find nothing there.
+    This is a heuristic, not a hard rejection (scale conversions like
+    "$1,125 million" -> 1,125,000 in thousands-of-dollars are legitimate and
+    shouldn't be flagged as unsupported) -- checked at common scale factors
+    (x1/x1000/x100 and their inverses) before flagging, and always flags
+    rather than nulls the value, consistent with every other cross-check
+    here: surface it for the human reviewer, don't decide on their behalf.
+    """
+    fields = [
+        ("arr", result.arr),
+        ("arr_prior_year", result.arr_prior_year),
+        ("mrr", result.mrr),
+        ("burn_monthly", result.burn_monthly),
+        ("cash_on_hand", result.cash_on_hand),
+        ("runway_months", result.runway_months),
+        ("headcount", result.headcount),
+    ]
+    for field_name, extracted in fields:
+        if extracted.value is None or not extracted.source_block_id:
+            continue
+        block_numbers = _numbers_in_block(document, extracted.source_block_id)
+        if not block_numbers:
+            result.cross_check_flags.append(
+                f"{field_name}={extracted.value} cites block {extracted.source_block_id}, "
+                "but that block contains no numbers at all -- citation is likely fabricated "
+                "or misattributed; verify manually before trusting this value"
+            )
+            continue
+        supported = any(
+            abs(extracted.value * scale - n) <= max(abs(n) * _CITATION_CHECK_RELATIVE_TOLERANCE, 1e-6)
+            for scale in _CITATION_CHECK_SCALES
+            for n in block_numbers
+        )
+        if not supported:
+            result.cross_check_flags.append(
+                f"{field_name}={extracted.value} cites block {extracted.source_block_id}, but no "
+                "number in that block's content matches this value at common unit scales "
+                "(x1/x1000/x100) -- citation may be fabricated or misattributed; verify manually "
+                "before trusting this value"
+            )
+
+
 def extract(document: Document, model: str = DEFAULT_MODEL, reviewer_feedback: Optional[str] = None) -> ExtractionResult:
     """Run the Structured Extraction Agent against one ingested document.
 
@@ -262,7 +436,7 @@ def extract(document: Document, model: str = DEFAULT_MODEL, reviewer_feedback: O
         model=model,
         messages=[{"role": "user", "content": prompt}],
         format=LLMExtraction.model_json_schema(),
-        options={"temperature": 0},
+        options={"temperature": 0, "num_ctx": _estimate_num_ctx(prompt)},
     )
     llm_extraction = LLMExtraction.model_validate_json(response["message"]["content"])
 
@@ -305,4 +479,6 @@ def extract(document: Document, model: str = DEFAULT_MODEL, reviewer_feedback: O
 
     _cross_check_runway(result)
     _cross_check_growth_rate(result)
+    _cross_check_arr_mrr_conflation(result)
+    _cross_check_citations_supported_by_content(result, document)
     return result

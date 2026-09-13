@@ -23,7 +23,7 @@ from __future__ import annotations
 
 import sqlite3
 from pathlib import Path
-from typing import Optional, Union
+from typing import Callable, Optional, Union
 
 from schemas import (
     AuditEvent,
@@ -74,8 +74,33 @@ CREATE TABLE IF NOT EXISTS sourced_leads (
 
 class Store:
     def __init__(self, db_path: Union[str, Path] = DEFAULT_DB_PATH):
-        self.conn = sqlite3.connect(str(db_path))
+        # timeout=30: how long a connection waits for another connection's
+        # write lock to clear before raising "database is locked" -- without
+        # this, concurrent API requests (each opening their own Store, per
+        # api/deps.get_store) hitting the same SQLite file can fail outright
+        # under real concurrent load, not just run slowly.
+        #
+        # check_same_thread=False: found live under real concurrent load (a
+        # ThreadPoolExecutor-driven test, not TestClient), not assumed --
+        # FastAPI dispatches a sync generator dependency's setup (up to the
+        # `yield`) and its teardown (after) as two separate
+        # anyio.to_thread.run_sync jobs. Both land on *a* thread-pool worker,
+        # but under concurrent load they are not guaranteed to be the *same*
+        # worker, so a request can create this connection on one thread and
+        # close() it on another. That's still safe here specifically because
+        # each Store is used by exactly one request, strictly sequentially in
+        # time (create -> use -> close, never two threads touching it at
+        # once) -- sqlite3's default check_same_thread=True doesn't know
+        # that, it just compares thread ids and raises unconditionally.
+        self.conn = sqlite3.connect(str(db_path), timeout=30.0, check_same_thread=False)
         self.conn.executescript(_SCHEMA)
+        # WAL: readers no longer block on a writer (and vice versa) the way
+        # SQLite's default rollback-journal mode does -- the single biggest
+        # lever for a multi-connection workload like concurrent API requests
+        # against one local file. journal_mode is persisted in the database
+        # file itself, so this is a one-time no-op after the first call.
+        self.conn.execute("PRAGMA journal_mode=WAL")
+        self.conn.execute("PRAGMA busy_timeout=30000")
         self.conn.commit()
 
     def close(self) -> None:
@@ -112,6 +137,41 @@ class Store:
     def list_deals_by_status(self, tenant_id: str, status: str) -> list[Deal]:
         return [d for d in self.list_deals(tenant_id) if d.status.value == status]
 
+    def update_deal(self, tenant_id: str, deal_id: str, mutate: Callable[[Deal], None]) -> Optional[Deal]:
+        """Atomic read-modify-write for a Deal: a plain get_deal() + mutate
+        + save_deal() sequence is a real last-write-wins race under
+        concurrent requests against the same deal -- two concurrent
+        document uploads can each read document_ids=[], each locally append
+        their own id, and whichever save_deal() commits second silently
+        discards the first upload's id. BEGIN IMMEDIATE takes SQLite's write
+        lock before the read, so a second concurrent caller blocks (up to
+        the busy_timeout set in __init__) until this transaction commits,
+        instead of interleaving with it. Used for the one call site
+        (_run_ingest's document_ids.append) where a lost update is silent
+        data loss rather than a merely-stale field a page refresh would
+        fix -- see agents/planner_agent.py for why the other save_deal()
+        call sites weren't converted to this (a documented, deliberate
+        Phase 0 scope decision, not an oversight)."""
+        self.conn.execute("BEGIN IMMEDIATE")
+        try:
+            row = self.conn.execute(
+                "SELECT data FROM deals WHERE id = ? AND tenant_id = ?", (deal_id, tenant_id)
+            ).fetchone()
+            if row is None:
+                self.conn.rollback()
+                return None
+            deal = Deal.model_validate_json(row[0])
+            mutate(deal)
+            self.conn.execute(
+                "UPDATE deals SET data = ? WHERE id = ? AND tenant_id = ?",
+                (deal.model_dump_json(), deal_id, tenant_id),
+            )
+            self.conn.commit()
+            return deal
+        except Exception:
+            self.conn.rollback()
+            raise
+
     # --- Document -------------------------------------------------------
 
     def save_document(self, document: Document) -> None:
@@ -143,6 +203,42 @@ class Store:
             (result.deal_id, result.tenant_id, result.model_dump_json()),
         )
         self.conn.commit()
+
+    def get_extraction_result_with_raw(self, tenant_id: str, deal_id: str) -> tuple[Optional[ExtractionResult], Optional[str]]:
+        """Same row get_extraction_result() returns, plus the exact raw JSON
+        text read -- pass that text back into
+        save_extraction_result_if_unchanged() as the compare-and-swap guard.
+        Needed instead of a plain get+mutate+save because a review decision
+        can trigger a real Ollama re-extraction call (apply_field_decision's
+        reject branch) that takes a minute or more: holding a SQLite write
+        lock for that whole duration (the BEGIN IMMEDIATE approach
+        update_deal() uses) would block every other write in the database,
+        not just this deal's -- WAL mode keeps readers unblocked, but a
+        second writer would wait out the full busy_timeout and then fail.
+        Optimistic concurrency never blocks a writer; it just detects, after
+        the fact, whether the row changed underneath a slow caller."""
+        row = self.conn.execute(
+            "SELECT data FROM extraction_results WHERE deal_id = ? AND tenant_id = ?", (deal_id, tenant_id)
+        ).fetchone()
+        if row is None:
+            return None, None
+        return ExtractionResult.model_validate_json(row[0]), row[0]
+
+    def save_extraction_result_if_unchanged(self, result: ExtractionResult, expected_raw: str) -> bool:
+        """Compare-and-swap write: succeeds only if the row's JSON text is
+        still exactly `expected_raw` (i.e. nothing else wrote to this deal's
+        extraction result since the caller's get_extraction_result_with_raw
+        call). Returns False on conflict -- the caller's mutation was
+        computed against data that's no longer current, and must not be
+        written over whatever the concurrent writer landed. See
+        api/routers/review.py for how a False return becomes an HTTP 409
+        rather than a silently discarded concurrent update."""
+        cur = self.conn.execute(
+            "UPDATE extraction_results SET data = ? WHERE deal_id = ? AND tenant_id = ? AND data = ?",
+            (result.model_dump_json(), result.deal_id, result.tenant_id, expected_raw),
+        )
+        self.conn.commit()
+        return cur.rowcount > 0
 
     def get_extraction_result(self, tenant_id: str, deal_id: str) -> Optional[ExtractionResult]:
         row = self.conn.execute(
@@ -264,6 +360,18 @@ class Store:
         if status is not None:
             leads = [l for l in leads if l.status.value == status]
         return leads
+
+    def get_lead_by_promoted_deal_id(self, tenant_id: str, deal_id: str) -> Optional[SourcedLead]:
+        """The originating lead for a deal that was promoted from one, if
+        any -- needed so research_deal's fresh public-web search isn't the
+        only chance to surface a signal: the lead's own discovery_signals
+        (e.g. a specific GitHub repo) were already real and already the
+        reason this company was sourced in the first place, and were
+        otherwise being silently discarded at promotion time."""
+        for lead in self.list_leads(tenant_id):
+            if lead.promoted_deal_id == deal_id:
+                return lead
+        return None
 
     # --- InvestorContact (demand book, §5 Roadshow stage) ------------------
 

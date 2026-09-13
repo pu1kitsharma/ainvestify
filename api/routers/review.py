@@ -45,10 +45,10 @@ def _load_deal_and_result(store: Store, tenant_id: str, deal_id: str):
     deal = store.get_deal(tenant_id, deal_id)
     if deal is None:
         raise HTTPException(status_code=404, detail="Deal not found")
-    result = store.get_extraction_result(tenant_id, deal_id)
+    result, raw = store.get_extraction_result_with_raw(tenant_id, deal_id)
     if result is None:
         raise HTTPException(status_code=404, detail="No extraction result for this deal yet")
-    return deal, result
+    return deal, result, raw
 
 
 def _first_document(store: Store, tenant_id: str, deal_id: str) -> Optional[Document]:
@@ -56,12 +56,26 @@ def _first_document(store: Store, tenant_id: str, deal_id: str) -> Optional[Docu
     return documents[0] if documents else None
 
 
-def _persist_and_respond(store: Store, deal, result, outcome) -> FieldDecisionResponse:
-    store.save_extraction_result(result)
+def _persist_and_respond(store: Store, deal, result, raw_before, outcome) -> FieldDecisionResponse:
+    # Compare-and-swap, not a plain save: two review decisions on the same
+    # deal (even on different fields) racing this same read-mutate-write
+    # sequence would otherwise be a last-write-wins loss of whichever
+    # commits first -- and unlike agents/planner_agent._run_ingest's
+    # document_ids race, this can't be closed with a held write lock
+    # (store.update_deal's BEGIN IMMEDIATE) because a reject decision can
+    # run a real multi-minute Ollama re-extraction (apply_field_decision's
+    # retry_extraction) -- holding SQLite's write lock that long would
+    # block every other write in the database, not just this deal's.
+    if not store.save_extraction_result_if_unchanged(result, raw_before):
+        raise HTTPException(
+            status_code=409,
+            detail="This deal's review data changed while processing your request -- refresh and try again.",
+        )
     store.append_audit_events(outcome.audit_events)
     if outcome.resolved:
-        deal.status = recompute_deal_review_status(result)
-        store.save_deal(deal)
+        new_status = recompute_deal_review_status(result)
+        updated_deal = store.update_deal(deal.tenant_id, deal.id, lambda d: setattr(d, "status", new_status))
+        deal = updated_deal or deal
     return FieldDecisionResponse(outcome=outcome, extraction_result=result, deal=deal)
 
 
@@ -74,7 +88,7 @@ def decide_field(
     tenant_id: str = Depends(get_tenant_id),
     reviewer: str = Depends(get_reviewer),
 ):
-    deal, result = _load_deal_and_result(store, tenant_id, deal_id)
+    deal, result, raw_before = _load_deal_and_result(store, tenant_id, deal_id)
     if not hasattr(result, field_name):
         raise HTTPException(status_code=404, detail=f"No such field {field_name!r}")
     document = _first_document(store, tenant_id, deal_id)
@@ -91,7 +105,7 @@ def decide_field(
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-    return _persist_and_respond(store, deal, result, outcome)
+    return _persist_and_respond(store, deal, result, raw_before, outcome)
 
 
 @router.post("/{deal_id}/review/cap-table", response_model=FieldDecisionResponse)
@@ -102,7 +116,7 @@ def decide_cap_table(
     tenant_id: str = Depends(get_tenant_id),
     reviewer: str = Depends(get_reviewer),
 ):
-    deal, result = _load_deal_and_result(store, tenant_id, deal_id)
+    deal, result, raw_before = _load_deal_and_result(store, tenant_id, deal_id)
     document = _first_document(store, tenant_id, deal_id)
 
     def retry_fn(doc, note):
@@ -116,7 +130,7 @@ def decide_cap_table(
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-    return _persist_and_respond(store, deal, result, outcome)
+    return _persist_and_respond(store, deal, result, raw_before, outcome)
 
 
 @router.post("/{deal_id}/review/funding-history", response_model=FieldDecisionResponse)
@@ -127,7 +141,7 @@ def decide_funding_history(
     tenant_id: str = Depends(get_tenant_id),
     reviewer: str = Depends(get_reviewer),
 ):
-    deal, result = _load_deal_and_result(store, tenant_id, deal_id)
+    deal, result, raw_before = _load_deal_and_result(store, tenant_id, deal_id)
     document = _first_document(store, tenant_id, deal_id)
 
     def retry_fn(doc, note):
@@ -141,4 +155,4 @@ def decide_funding_history(
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-    return _persist_and_respond(store, deal, result, outcome)
+    return _persist_and_respond(store, deal, result, raw_before, outcome)

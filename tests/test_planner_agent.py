@@ -16,15 +16,17 @@ from conftest import make_extraction_result
 from agents.compilation_agent import CompilationBlockedError
 from agents.planner_agent import (
     _run_compile,
+    _run_research,
     apply_add_investor,
     apply_compile_proforma,
     apply_sign_mandate,
     confirm_teaser_safe_to_send,
     generate_teaser_draft,
     mark_research_reviewed,
+    promote_lead_to_deal,
     start_deal,
 )
-from schemas import DealStatus, FieldStatus
+from schemas import DealStatus, DiscoverySignal, FieldStatus, SourcedLead
 
 MEMO_OUTPUT_ROOT = Path(__file__).parent.parent / "memo_output"
 
@@ -76,6 +78,77 @@ def test_mark_research_reviewed(store):
     deal = start_deal(store, "tenant_test", "Acme Robotics")
     updated = mark_research_reviewed(store, deal)
     assert updated.status == DealStatus.RESEARCH_REVIEWED
+
+
+def test_run_research_folds_in_promoted_leads_discovery_signals(store, monkeypatch):
+    """Real user feedback: research findings feel thin for early-stage
+    private companies, where a fresh public-web search often turns up
+    little (a documented, honest limitation). But a lead's own
+    discovery_signals were already real and already the specific reason
+    this company was sourced -- they were being silently discarded at
+    promotion time instead of carried into the deal's research findings.
+    Monkeypatches research_deal (real network calls) with a fixed list so
+    this stays a fast, deterministic test of just the carry-forward logic."""
+    lead = SourcedLead(
+        tenant_id="tenant_test", company_name="Acme Robotics", sector_tag="robotics",
+        discovery_signals=[
+            DiscoverySignal(
+                content="GitHub repo acme/robotics-core: 40 stars, created last week",
+                source_url="https://github.com/acme/robotics-core",
+                source_type="github",
+            ),
+        ],
+    )
+    store.save_lead(lead)
+    deal = promote_lead_to_deal(store, lead)
+
+    import agents.planner_agent as planner_module
+
+    def fake_research_deal(tenant_id, deal_id, company_name, sector_query=None, sector_index=None):
+        return []  # simulates the documented "honest gap" -- fresh search finds nothing
+
+    monkeypatch.setattr(planner_module, "research_deal", fake_research_deal)
+
+    findings = _run_research(store, deal, "Acme Robotics", None, None)
+
+    assert len(findings) == 1
+    assert findings[0].topic == "sourcing_signal"
+    assert findings[0].source_url == "https://github.com/acme/robotics-core"
+    assert findings[0].source_type == "github"
+
+
+def test_run_research_dedupes_lead_signal_against_fresh_search_result(store, monkeypatch):
+    lead = SourcedLead(
+        tenant_id="tenant_test", company_name="Acme Robotics", sector_tag="robotics",
+        discovery_signals=[
+            DiscoverySignal(
+                content="GitHub repo acme/robotics-core: 40 stars",
+                source_url="https://github.com/acme/robotics-core",
+                source_type="github",
+            ),
+        ],
+    )
+    store.save_lead(lead)
+    deal = promote_lead_to_deal(store, lead)
+
+    import agents.planner_agent as planner_module
+    from schemas import ResearchFinding
+
+    def fake_research_deal(tenant_id, deal_id, company_name, sector_query=None, sector_index=None):
+        return [ResearchFinding(
+            tenant_id=tenant_id, deal_id=deal_id, topic="oss_traction",
+            content="GitHub repo acme/robotics-core: 41 stars (re-fetched)",
+            source_url="https://github.com/acme/robotics-core", source_type="github",
+        )]
+
+    monkeypatch.setattr(planner_module, "research_deal", fake_research_deal)
+
+    findings = _run_research(store, deal, "Acme Robotics", None, None)
+
+    # The fresh search already found this exact URL -- the lead's own copy
+    # must not be appended a second time.
+    assert len(findings) == 1
+    assert findings[0].topic == "oss_traction"
 
 
 def test_teaser_draft_then_confirm_two_step_flow(store):
