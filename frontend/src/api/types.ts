@@ -127,6 +127,49 @@ export interface SourcedLead {
   discovery_signals: DiscoverySignal[];
   status: LeadStatus;
   promoted_deal_id: string | null;
+  company_id?: string | null;
+  company_profile?: {
+    name: string;
+    website: string;
+    discovery_source_url?: string | null;
+    criteria_review?: { dimension: string; requirement: string; status: string; reason: string; evidence_needed: string; evidence_ids: string[] }[];
+    growth_analysis?: { status: string; explanation: string; required: string; research_queries?: string[]; comparisons: { metric: string; before: string; after: string; unit: string; period_before: string; period_after: string; change_pct: number; source_url: string }[] };
+    identity_status: string;
+    evidence: { id: string; field: string; value: string; quote: string; source_url: string; retrieved_at: string }[];
+    assessment: {
+      recommendation: string; rationale: string; strengths: string[]; concerns: string[];
+      missing_information: string[]; incubation_actions: string[]; model: string; status: string;
+    } | null;
+  } | null;
+}
+
+export interface WebSourcingRun {
+  id: string;
+  thesis: string;
+  geography: string | null;
+  seed_urls: string[];
+  search_queries: string[];
+  discovered_urls: string[];
+  warnings: string[];
+  phase: string;
+  status: string;
+  sources: { url: string; status: string; detail: string; retrieved_at: string }[];
+  lead_ids: string[];
+  company_ids: string[];
+  model: string;
+  started_at: string;
+  completed_at: string | null;
+  error: string | null;
+  source_coverage?: SourceCoverage[];
+  research_plan?: { interpretation: string; status: string; model: string; criteria: { dimension: string; requirement: string; evidence_needed: string }[] };
+  reasoning_log?: { step: string; company?: string; decision?: string; detail: string; model: string }[];
+}
+
+export interface SourceCoverage {
+  host: string; name: string; category: string; url: string; status: string;
+  records_read: number; matches: number; discovered_companies: number;
+  supported_companies: number; cited_claims: number; issues: number;
+  outcomes: { url: string; status: string; detail: string; retrieved_at: string }[];
 }
 
 export interface ResearchFinding {

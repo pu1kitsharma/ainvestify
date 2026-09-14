@@ -1,0 +1,12 @@
+{
+  "counts": {
+    "train": 8,
+    "validation": 2
+  },
+  "source_sha256": "b734667f68543331e4c1ce5faaa87e2d968b3c295d05ceebfe036db746a68436",
+  "provenance": "Original synthetic examples authored for this repository. No client documents or copied practitioner prose. Not reviewed by a banker; seed teaching data, not a production fine-tuning dataset.",
+  "weights_trained": false,
+  "expert_reviewed": false,
+  "held_out_cases_exported": false,
+  "release_suitable": false
+}

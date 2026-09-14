@@ -29,6 +29,9 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
     } catch {
       // response body wasn't JSON -- keep statusText
     }
+    if (res.status === 405 && path.startsWith("/api/leads/web-runs")) {
+      detail = "The running API does not support this research endpoint. Restart the project backend with python3 scripts/serve_local.py, then try again.";
+    }
     throw new ApiClientError(res.status, detail);
   }
   if (res.status === 204) return undefined as T;

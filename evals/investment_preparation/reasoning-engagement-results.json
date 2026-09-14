@@ -1,0 +1,424 @@
+{
+  "input_file": "evals/investment_preparation/reasoning-engagement-input.json",
+  "case": "Waybill",
+  "live_data_updated": false,
+  "calls": [
+    {
+      "policy_version": 1,
+      "task": "investment_case",
+      "model": "qwen3:14b",
+      "thinking": true,
+      "complexity_score": 1.0,
+      "reason": "high input complexity and quality preference",
+      "attempt": 0,
+      "quality_weight": 0.8,
+      "latency_weight": 0.2,
+      "max_tokens": 6144,
+      "context_tokens": 12288,
+      "temperature": 0.6,
+      "thinking_used": true,
+      "sampling": {
+        "top_p": 0.95,
+        "top_k": 20,
+        "min_p": 0
+      },
+      "elapsed_seconds": 164.34,
+      "prompt_tokens": 3814,
+      "generated_tokens": 1189,
+      "done_reason": "stop"
+    },
+    {
+      "policy_version": 1,
+      "task": "investment_case",
+      "model": "qwen3:14b",
+      "thinking": true,
+      "complexity_score": 1.0,
+      "reason": "retry after failed validation",
+      "attempt": 1,
+      "quality_weight": 0.8,
+      "latency_weight": 0.2,
+      "max_tokens": 8192,
+      "context_tokens": 12288,
+      "temperature": 0.6,
+      "thinking_used": true,
+      "sampling": {
+        "top_p": 0.95,
+        "top_k": 20,
+        "min_p": 0
+      },
+      "elapsed_seconds": 200.03,
+      "prompt_tokens": 3840,
+      "generated_tokens": 826,
+      "done_reason": "stop"
+    },
+    {
+      "policy_version": 1,
+      "task": "review:investment_case",
+      "model": "qwen3:14b",
+      "thinking": true,
+      "complexity_score": 1.0,
+      "reason": "quality review",
+      "attempt": 0,
+      "quality_weight": 0.8,
+      "latency_weight": 0.2,
+      "max_tokens": 6144,
+      "context_tokens": 12288,
+      "temperature": 0.6,
+      "thinking_used": true,
+      "sampling": {
+        "top_p": 0.95,
+        "top_k": 20,
+        "min_p": 0
+      },
+      "elapsed_seconds": 162.87,
+      "prompt_tokens": 3154,
+      "generated_tokens": 676,
+      "done_reason": "stop"
+    }
+  ],
+  "original_review": {
+    "issues": []
+  },
+  "attempts": [
+    {
+      "attempt": 0,
+      "draft": {
+        "numeric_claims": [
+          {
+            "statement": "3 employees",
+            "source_id": "E8",
+            "quote": "Team Size: 3"
+          },
+          {
+            "statement": "Founded: 2026",
+            "source_id": "E7",
+            "quote": "Founded: 2026"
+          }
+        ],
+        "measurements": [
+          {
+            "question": "Time saved per procurement cycle",
+            "left": {
+              "name": "Manual process duration",
+              "dimension": "duration",
+              "unit": "hours",
+              "record_needed": "Customer interview data"
+            },
+            "operation": "subtract",
+            "right": {
+              "name": "Automated process duration",
+              "dimension": "duration",
+              "unit": "hours",
+              "record_needed": "Customer interview data"
+            },
+            "population_basis": "Hardware engineering teams using Waybill vs. those using manual processes, over 1 month"
+          },
+          {
+            "question": "Customer retention rate",
+            "left": {
+              "name": "Active customers",
+              "dimension": "count",
+              "unit": "customers",
+              "record_needed": "Monthly subscription data"
+            },
+            "operation": "divide",
+            "right": {
+              "name": "Total customers",
+              "dimension": "count",
+              "unit": "customers",
+              "record_needed": "Monthly subscription data"
+            },
+            "population_basis": "All customers over 6 months, excluding early-stage pilots"
+          }
+        ],
+        "title": "Waybill Preliminary Investment Case",
+        "purpose": "Assess value proposition, monetization clarity, and founder request alignment for early-stage hardware procurement automation.",
+        "sections": [
+          {
+            "heading": "Observed Customer Problem",
+            "content": "Hardware engineers spend weeks managing procurement: sourcing parts, chasing quotes, handling logistics, and tracking inventory. Manual processes lead to delays, errors, and inefficient capital use (E2, E5)."
+          },
+          {
+            "heading": "Value Creation",
+            "content": "Waybill automates end-to-end procurement: sourcing, negotiation, freight, customs, delivery, and inventory updates. Reduces time spent on procurement and improves supply chain visibility (E3, E5)."
+          },
+          {
+            "heading": "Monetization Model",
+            "content": "Pricing structure unspecified in evidence. Founder request for intros to procurement leads suggests B2B sales focus, but no explicit revenue model or pricing tiers are documented (E1, E3)."
+          },
+          {
+            "heading": "Founder Request Context",
+            "content": "Founder explicitly requests intros to procurement leads at hardware enterprises. This signals need for outreach assistance, not direct customer demand or willingness to pay (E1)."
+          }
+        ],
+        "missing_inputs": [
+          {
+            "record": "Customer retention rates",
+            "why": "To validate repeat demand and product-market fit"
+          },
+          {
+            "record": "Time saved per procurement cycle",
+            "why": "To quantify operational efficiency gains"
+          },
+          {
+            "record": "Revenue per customer",
+            "why": "To clarify monetization potential"
+          },
+          {
+            "record": "Customer concentration data",
+            "why": "To assess risk of over-reliance on specific industries"
+          },
+          {
+            "record": "Delivery cost per transaction",
+            "why": "To evaluate scalability and margin potential"
+          }
+        ],
+        "decision_question": "Is Waybill's procurement automation solution viable for hardware enterprises, and can the team scale with minimal capital?",
+        "next_action": "Prepare researched procurement-lead prospect brief and draft founder proposal to confirm outreach scope",
+        "completion_test": "Secure 3 verified procurement lead intros and quantify time-saving claims via customer interviews",
+        "evidence_ids": [
+          "E1",
+          "E2",
+          "E3",
+          "E5",
+          "E8"
+        ]
+      },
+      "error": "Numeric assertion does not match its document text and cited quote. Use source-reported quantities without invented numbers or conversions.",
+      "raw_response": "{\n  \"title\": \"Waybill Preliminary Investment Case\",\n  \"purpose\": \"Assess value proposition, monetization clarity, and founder request alignment for early-stage hardware procurement automation.\",\n  \"sections\": [\n    {\n      \"heading\": \"Observed Customer Problem\",\n      \"content\": \"Hardware engineers spend weeks managing procurement: sourcing parts, chasing quotes, handling logistics, and tracking inventory. Manual processes lead to delays, errors, and inefficient capital use (E2, E5).\"\n    },\n    {\n      \"heading\": \"Value Creation\",\n      \"content\": \"Waybill automates end-to-end procurement: sourcing, negotiation, freight, customs, delivery, and inventory updates. Reduces time spent on procurement and improves supply chain visibility (E3, E5).\"\n    },\n    {\n      \"heading\": \"Monetization Model\",\n      \"content\": \"Pricing structure unspecified in evidence. Founder request for intros to procurement leads suggests B2B sales focus, but no explicit revenue model or pricing tiers are documented (E1, E3).\"\n    },\n    {\n      \"heading\": \"Founder Request Context\",\n      \"content\": \"Founder explicitly requests intros to procurement leads at hardware enterprises. This signals need for outreach assistance, not direct customer demand or willingness to pay (E1).\"\n    }\n  ],\n  \"missing_inputs\": [\n    {\"record\": \"Customer retention rates\", \"why\": \"To validate repeat demand and product-market fit\"},\n    {\"record\": \"Time saved per procurement cycle\", \"why\": \"To quantify operational efficiency gains\"},\n    {\"record\": \"Revenue per customer\", \"why\": \"To clarify monetization potential\"},\n    {\"record\": \"Customer concentration data\", \"why\": \"To assess risk of over-reliance on specific industries\"},\n    {\"record\": \"Delivery cost per transaction\", \"why\": \"To evaluate scalability and margin potential\"}\n  ],\n  \"numeric_claims\": [\n    {\n      \"statement\": \"3 employees\",\n      \"source_id\": \"E8\",\n      \"quote\": \"Team Size: 3\"\n    },\n    {\n      \"statement\": \"Founded: 2026\",\n      \"source_id\": \"E7\",\n      \"quote\": \"Founded: 2026\"\n    }\n  ],\n  \"measurements\": [\n    {\n      \"question\": \"Time saved per procurement cycle\",\n      \"left\": {\"name\": \"Manual process duration\", \"dimension\": \"duration\", \"unit\": \"hours\", \"record_needed\": \"Customer interview data\"},\n      \"operation\": \"subtract\",\n      \"right\": {\"name\": \"Automated process duration\", \"dimension\": \"duration\", \"unit\": \"hours\", \"record_needed\": \"Customer interview data\"},\n      \"population_basis\": \"Hardware engineering teams using Waybill vs. those using manual processes, over 1 month\"\n    },\n    {\n      \"question\": \"Customer retention rate\",\n      \"left\": {\"name\": \"Active customers\", \"dimension\": \"count\", \"unit\": \"customers\", \"record_needed\": \"Monthly subscription data\"},\n      \"operation\": \"divide\",\n      \"right\": {\"name\": \"Total customers\", \"dimension\": \"count\", \"unit\": \"customers\", \"record_needed\": \"Monthly subscription data\"},\n      \"population_basis\": \"All customers over 6 months, excluding early-stage pilots\"\n    }\n  ],\n  \"decision_question\": \"Is Waybill's procurement automation solution viable for hardware enterprises, and can the team scale with minimal capital?\",\n  \"next_action\": \"Prepare researched procurement-lead prospect brief and draft founder proposal to confirm outreach scope\",\n  \"completion_test\": \"Secure 3 verified procurement lead intros and quantify time-saving claims via customer interviews\",\n  \"evidence_ids\": [\"E1\", \"E2\", \"E3\", \"E5\", \"E8\"]\n}"
+    },
+    {
+      "attempt": 1,
+      "draft": {
+        "numeric_claims": [],
+        "measurements": [],
+        "title": "Waybill Investment Case Assessment",
+        "purpose": "Evaluate procurement automation value proposition for hardware teams",
+        "sections": [
+          {
+            "heading": "Customer Problem",
+            "content": "Hardware engineers spend weeks on procurement: chasing quotes, managing approvals, tracking shipments, and reconciling inventory. Waybill automates sourcing, negotiation, freight, customs, delivery, and inventory tracking."
+          },
+          {
+            "heading": "Value Creation",
+            "content": "End-to-end procurement automation reduces manual effort, accelerates time-to-shelf, and ensures inventory accuracy. Built on experience from LAT Aerospace and WareIQ (YC S20)."
+          },
+          {
+            "heading": "Monetization",
+            "content": "Unknown charging model. No explicit pricing or revenue metrics in evidence. Founder requests intros to procurement leads, not direct monetization claims."
+          },
+          {
+            "heading": "Founder Request",
+            "content": "Request for introductions to procurement leads at hardware enterprises indicates need for outreach, not validated buyer demand or willingness to pay."
+          }
+        ],
+        "missing_inputs": [
+          {
+            "record": "Revenue per customer",
+            "why": "To assess monetization scalability"
+          },
+          {
+            "record": "Customer acquisition cost",
+            "why": "To evaluate outreach ROI"
+          },
+          {
+            "record": "Inventory error rate reduction",
+            "why": "To quantify value proposition impact"
+          }
+        ],
+        "decision_question": "Does Waybill's automation create sufficient value to justify investment, given unknown monetization and early-stage traction?",
+        "next_action": "Prepare researched procurement-lead prospect brief and draft founder outreach proposal",
+        "completion_test": "Verify if proposed outreach leads to engagement with hardware procurement leads",
+        "evidence_ids": [
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "E8",
+          "E9",
+          "E10",
+          "E11",
+          "E12"
+        ]
+      },
+      "review": {
+        "version": 3,
+        "checks": {
+          "quantitative_logic": {
+            "verdict": "pass",
+            "draft_field": "sections.2.content",
+            "reason": "Correctly notes absence of revenue metrics; no unsupported financial claims made."
+          },
+          "grounding": {
+            "verdict": "pass",
+            "draft_field": "sections.0.content",
+            "reason": "Customer problem statement matches evidence about hardware teams' procurement challenges."
+          },
+          "usefulness": {
+            "verdict": "pass",
+            "draft_field": "decision_question",
+            "reason": "Question directly addresses investment justification with explicit reference to evidence gaps."
+          },
+          "stage_fit": {
+            "verdict": "pass",
+            "draft_field": "next_action",
+            "reason": "Outreach proposal aligns with early-stage traction (3 employees, no revenue) in evidence."
+          },
+          "completion": {
+            "verdict": "pass",
+            "draft_field": "missing_inputs.0.record",
+            "reason": "Revenue per customer is explicitly identified as needed for monetization assessment."
+          }
+        },
+        "issues": [],
+        "model": "qwen3:14b",
+        "at": "2026-09-14T01:49:30.068175+00:00",
+        "kind": "automated_critique",
+        "independent_verification": false,
+        "routing": {
+          "policy_version": 1,
+          "task": "review:investment_case",
+          "model": "qwen3:14b",
+          "thinking": true,
+          "complexity_score": 1.0,
+          "reason": "quality review",
+          "attempt": 0,
+          "quality_weight": 0.8,
+          "latency_weight": 0.2,
+          "max_tokens": 6144,
+          "context_tokens": 12288,
+          "temperature": 0.6,
+          "thinking_used": true,
+          "sampling": {
+            "top_p": 0.95,
+            "top_k": 20,
+            "min_p": 0
+          },
+          "elapsed_seconds": 162.87,
+          "prompt_tokens": 3154,
+          "generated_tokens": 676,
+          "done_reason": "stop"
+        }
+      }
+    }
+  ],
+  "revised_draft": {
+    "numeric_claims": [],
+    "measurements": [],
+    "title": "Waybill Investment Case Assessment",
+    "purpose": "Evaluate procurement automation value proposition for hardware teams",
+    "sections": [
+      {
+        "heading": "Customer Problem",
+        "content": "Hardware engineers spend weeks on procurement: chasing quotes, managing approvals, tracking shipments, and reconciling inventory. Waybill automates sourcing, negotiation, freight, customs, delivery, and inventory tracking."
+      },
+      {
+        "heading": "Value Creation",
+        "content": "End-to-end procurement automation reduces manual effort, accelerates time-to-shelf, and ensures inventory accuracy. Built on experience from LAT Aerospace and WareIQ (YC S20)."
+      },
+      {
+        "heading": "Monetization",
+        "content": "Unknown charging model. No explicit pricing or revenue metrics in evidence. Founder requests intros to procurement leads, not direct monetization claims."
+      },
+      {
+        "heading": "Founder Request",
+        "content": "Request for introductions to procurement leads at hardware enterprises indicates need for outreach, not validated buyer demand or willingness to pay."
+      }
+    ],
+    "missing_inputs": [
+      {
+        "record": "Revenue per customer",
+        "why": "To assess monetization scalability"
+      },
+      {
+        "record": "Customer acquisition cost",
+        "why": "To evaluate outreach ROI"
+      },
+      {
+        "record": "Inventory error rate reduction",
+        "why": "To quantify value proposition impact"
+      }
+    ],
+    "decision_question": "Does Waybill's automation create sufficient value to justify investment, given unknown monetization and early-stage traction?",
+    "next_action": "Prepare researched procurement-lead prospect brief and draft founder outreach proposal",
+    "completion_test": "Verify if proposed outreach leads to engagement with hardware procurement leads",
+    "evidence_ids": [
+      "E1",
+      "E2",
+      "E3",
+      "E4",
+      "E5",
+      "E6",
+      "E7",
+      "E8",
+      "E9",
+      "E10",
+      "E11",
+      "E12"
+    ]
+  },
+  "revised_review": {
+    "version": 3,
+    "checks": {
+      "quantitative_logic": {
+        "verdict": "pass",
+        "draft_field": "sections.2.content",
+        "reason": "Correctly notes absence of revenue metrics; no unsupported financial claims made."
+      },
+      "grounding": {
+        "verdict": "pass",
+        "draft_field": "sections.0.content",
+        "reason": "Customer problem statement matches evidence about hardware teams' procurement challenges."
+      },
+      "usefulness": {
+        "verdict": "pass",
+        "draft_field": "decision_question",
+        "reason": "Question directly addresses investment justification with explicit reference to evidence gaps."
+      },
+      "stage_fit": {
+        "verdict": "pass",
+        "draft_field": "next_action",
+        "reason": "Outreach proposal aligns with early-stage traction (3 employees, no revenue) in evidence."
+      },
+      "completion": {
+        "verdict": "pass",
+        "draft_field": "missing_inputs.0.record",
+        "reason": "Revenue per customer is explicitly identified as needed for monetization assessment."
+      }
+    },
+    "issues": [],
+    "model": "qwen3:14b",
+    "at": "2026-09-14T01:49:30.068175+00:00",
+    "kind": "automated_critique",
+    "independent_verification": false,
+    "routing": {
+      "policy_version": 1,
+      "task": "review:investment_case",
+      "model": "qwen3:14b",
+      "thinking": true,
+      "complexity_score": 1.0,
+      "reason": "quality review",
+      "attempt": 0,
+      "quality_weight": 0.8,
+      "latency_weight": 0.2,
+      "max_tokens": 6144,
+      "context_tokens": 12288,
+      "temperature": 0.6,
+      "thinking_used": true,
+      "sampling": {
+        "top_p": 0.95,
+        "top_k": 20,
+        "min_p": 0
+      },
+      "elapsed_seconds": 162.87,
+      "prompt_tokens": 3154,
+      "generated_tokens": 676,
+      "done_reason": "stop"
+    }
+  },
+  "status": "checked_draft",
+  "elapsed_seconds": 527.33
+}

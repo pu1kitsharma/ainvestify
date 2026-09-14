@@ -1,0 +1,74 @@
+{
+  "live_data_updated": false,
+  "draft": {
+    "numeric_claims": [],
+    "measurements": [],
+    "title": "Waybill: Procurement Autopilot - Investment Screening Memo",
+    "purpose": "Resolve ambiguity on company type/engagement; assess suitability for advisory support.",
+    "sections": [
+      {
+        "heading": "Observed Facts",
+        "content": "Waybill (S2026) operates in India with 3 employees. Founders Rishi Laddha and Tushar Goyal leverage prior experience at LAT Aerospace and WareIQ. They claim to run procurement 'from request to stock,' handling sourcing, payments, customs, and inventory matching. The company states it sources items for hardware teams, including jet engines and obsolete RF components."
+      },
+      {
+        "heading": "Hypotheses",
+        "content": "Hardware engineers face fragmented workflows across five distributors, approvals, and logistics tracking. Waybill creates value by automating the loop from spec to shelf. The business model implies recurring revenue per order processed, though specific unit economics remain undefined."
+      },
+      {
+        "heading": "Unknowns",
+        "content": "The charging model is unknown. Total revenue and customer retention rates are missing. Geographic scope extends beyond Gurugram but lacks definition. Specific metrics on orders fulfilled or gross merchandise value processed are not provided in evidence."
+      },
+      {
+        "heading": "Decision Memo",
+        "content": "Suitability: Proceed with limited advisory scope. The founder explicitly requested intros to procurement leads, which constitutes a request for assistance rather than demonstrated buyer demand or willingness to pay. A sourced prospect brief is required before committing deeper resources."
+      }
+    ],
+    "missing_inputs": [
+      {
+        "record": "Customer Acquisition Cost",
+        "why": "To validate if founder's outreach cost is justified against potential deal size."
+      },
+      {
+        "record": "Average Order Value",
+        "why": "To determine revenue per transaction and scalability of the 'autopilot' model."
+      },
+      {
+        "record": "Customer Retention Rate",
+        "why": "To assess if hardware clients stick around or churn after initial procurement cycles."
+      }
+    ],
+    "decision_question": "Can Waybill demonstrate repeat demand from hardware enterprises before scaling outreach efforts?",
+    "next_action": "Draft a founder proposal confirming outreach scope and request metrics on order volume and client retention.",
+    "completion_test": "Founder response includes specific numbers on revenue, churn, or acquisition costs.",
+    "evidence_ids": [
+      "E1",
+      "E2",
+      "E3",
+      "E4",
+      "E9"
+    ]
+  },
+  "error": "Unattributed numeric assertions in sections.0.content: 3. Remove unsupported figures or bind actual facts to quotes; proposed test parameters belong in measurements.",
+  "raw_response": "{\n  \"title\": \"Waybill: Procurement Autopilot - Investment Screening Memo\",\n  \"purpose\": \"Resolve ambiguity on company type/engagement; assess suitability for advisory support.\",\n  \"sections\": [\n    {\n      \"heading\": \"Observed Facts\",\n      \"content\": \"Waybill (S2026) operates in India with 3 employees. Founders Rishi Laddha and Tushar Goyal leverage prior experience at LAT Aerospace and WareIQ. They claim to run procurement 'from request to stock,' handling sourcing, payments, customs, and inventory matching. The company states it sources items for hardware teams, including jet engines and obsolete RF components.\"\n    },\n    {\n      \"heading\": \"Hypotheses\",\n      \"content\": \"Hardware engineers face fragmented workflows across five distributors, approvals, and logistics tracking. Waybill creates value by automating the loop from spec to shelf. The business model implies recurring revenue per order processed, though specific unit economics remain undefined.\"\n    },\n    {\n      \"heading\": \"Unknowns\",\n      \"content\": \"The charging model is unknown. Total revenue and customer retention rates are missing. Geographic scope extends beyond Gurugram but lacks definition. Specific metrics on orders fulfilled or gross merchandise value processed are not provided in evidence.\"\n    },\n    {\n      \"heading\": \"Decision Memo\",\n      \"content\": \"Suitability: Proceed with limited advisory scope. The founder explicitly requested intros to procurement leads, which constitutes a request for assistance rather than demonstrated buyer demand or willingness to pay. A sourced prospect brief is required before committing deeper resources.\"\n    }\n  ],\"missing_inputs\": [\n    {\n      \"record\": \"Customer Acquisition Cost\",\n      \"why\": \"To validate if founder's outreach cost is justified against potential deal size.\"\n    },\n    {\n      \"record\": \"Average Order Value\",\n      \"why\": \"To determine revenue per transaction and scalability of the 'autopilot' model.\"\n    },\n    {\n      \"record\": \"Customer Retention Rate\",\n      \"why\": \"To assess if hardware clients stick around or churn after initial procurement cycles.\"\n    }\n  ],\"decision_question\": \"Can Waybill demonstrate repeat demand from hardware enterprises before scaling outreach efforts?\",\n  \"next_action\": \"Draft a founder proposal confirming outreach scope and request metrics on order volume and client retention.\",\"completion_test\": \"Founder response includes specific numbers on revenue, churn, or acquisition costs.\",\"evidence_ids\": [\"E1\", \"E2\", \"E3\", \"E4\", \"E9\"]}",
+  "routing": {
+    "model": "qwen3.5:4b",
+    "thinking": false,
+    "max_tokens": 2200,
+    "thinking_used": false,
+    "context_tokens": 16384,
+    "temperature": 0.7,
+    "sampling": {
+      "top_p": 0.8,
+      "top_k": 20,
+      "min_p": 0,
+      "presence_penalty": 1.5,
+      "repeat_penalty": 1.0
+    },
+    "elapsed_seconds": 33.25,
+    "queue_seconds": 0.0,
+    "prompt_tokens": 2707,
+    "generated_tokens": 561,
+    "done_reason": "stop"
+  },
+  "elapsed_seconds": 33.26
+}

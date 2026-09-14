@@ -1,0 +1,119 @@
+{
+  "company": "Waybill",
+  "payload": {
+    "company": "Waybill",
+    "sources": [
+      {
+        "id": "E1",
+        "field": "founder_ask",
+        "quote": "Intros to procurement leads at hardware enterprises.",
+        "source_url": "https://www.ycombinator.com/companies/waybill"
+      },
+      {
+        "id": "E2",
+        "field": "offering",
+        "quote": "ill S2026 \u2022 Active \u2022 3 employees \u2022 Gurugram, Haryana, India Hardware teams burn weeks on procurement. An engineer needs a part. Someone emails five distributors, chases quotes, gets an approval, wires the money, tracks a shipment across three carriers, clears customs, and then nobody knows where the box is or what's actually on the shelf. Waybill runs that entire loop. Send us a part, a spec, or a BOM. We source it, pull quotes, route approvals, pay the supplier, handle freight and customs, track it to your dock, and keep your stock count updated. Take your supply chain for granted. Built by a team that's seen it at LAT Aerospace and WareIQ (YC S20). logistics procurement artificial-intelligence",
+        "source_url": "https://www.ycombinator.com/companies/location/india"
+      },
+      {
+        "id": "E3",
+        "field": "business_model",
+        "quote": "Waybill \u2014 Procurement on autopilot Skip to content Requested \u2192 Sourced \u2192 Approved \u2192 In transit \u2192 Cleared \u2192 On shelf Manifesto Book a call Manifesto Book a call Backed by Y Combinator \u00b7 S26 Procurement on autopilot. Say what you need. Approve the payment. Waybill does everything in between: sourcing, negotiation, freight, customs, delivery, inventory. Built for teams that build hardware . Say what you need. Approve the payment. Waybill does everything in between. Built for teams that build hardware . Book a call 00 / 09 \u00b7 scroll to watch one order, start to finish 00 / 09 \u00b7 scroll to watch one",
+        "source_url": "https://www.waybill.to/"
+      },
+      {
+        "id": "E4",
+        "field": "team",
+        "quote": "WareIQ (YC S20), he built the autonomous inventory system behind 400+ Indian D2C brands - forecasting demand and making buying decisions across thousands of volatile SKUs without blowing up working capital. So between us: I've spent my career buying hardware the hard way, and Tushar's spent his teaching machines to manage inventory. Waybill is both jobs in one system. The problem Hardware engineers spend a big chunk of their week buying parts. They can't hand it off to operations folks, because only the engineer who specified the part knows which alternates are acceptable. And finding parts",
+        "source_url": "https://www.ycombinator.com/companies/waybill"
+      },
+      {
+        "id": "E5",
+        "field": "product",
+        "quote": "files it, parts are received into inventory automatically, and the invoice is automatically matched against the PO and import documents. The next time someone asks for that part, the agent says it's already on the shelf. And when a customer moves from R&D to production, the same system scales with them. Demand comes off the BOM and build schedule - reorder points, second sources, volume pricing - and we already hold every order, price, and lead time they've ever had. Most procurement software ends at an approved PO. We end at a physical part on a shelf, customs-cleared and invoice-matched.",
+        "source_url": "https://www.ycombinator.com/companies/waybill"
+      },
+      {
+        "id": "E6",
+        "field": "location",
+        "quote": "Waybill S2026 \u2022 Active \u2022 3 employees \u2022 Gurugram, Haryana, India Hardware teams burn weeks on procurement. An engineer needs a part. Someone ema",
+        "source_url": "https://www.ycombinator.com/companies/location/india"
+      },
+      {
+        "id": "E7",
+        "field": "founded",
+        "quote": "Founded: 2026",
+        "source_url": "https://www.ycombinator.com/companies/waybill"
+      },
+      {
+        "id": "E8",
+        "field": "team_size",
+        "quote": "Team Size: 3",
+        "source_url": "https://www.ycombinator.com/companies/waybill"
+      },
+      {
+        "id": "E9",
+        "field": "team",
+        "quote": "Goyal Founder Founder at Waybill (S26). Previously built AI and software at WareIQ (S20). Computer Science, Plaksha University. Tushar Goyal Founder Founder at Waybill (S26). Previously built AI and software at WareIQ (S20). Computer Science, Plaksha University. Company Launches Waybill - Procurement autopilot for hardware teams. See original launch post Hi YC \ud83d\udc4b we're Rishi and Tushar, and we're building Waybill ( https://waybill.to ). TL;DR: Waybill runs procurement for hardware and deep-tech companies, end to end. An engineer tells us what part they need. Our agents and humans source it",
+        "source_url": "https://www.ycombinator.com/companies/waybill"
+      },
+      {
+        "id": "E10",
+        "field": "product",
+        "quote": "\"sourcing.\" In practice, it meant finding jet engines, flight controllers, high-density batteries, and satellite radios for a very ambitious aerospace program, then moving machinery and merchandise worth millions across borders, and finding and operating real estate you can actually fly aircraft from. I also handled government liaisoning, which is a polite way of saying I convinced the world's harshest bureaucracy to approve things it didn't have a form for, like taking off and landing an aircraft in under 50 meters. Tushar has been working the other end of this problem his whole career. At",
+        "source_url": "https://www.ycombinator.com/companies/waybill"
+      },
+      {
+        "id": "E11",
+        "field": "team",
+        "quote": "seen it at LAT Aerospace and WareIQ (YC S20). Active Founders Rishi Laddha Founder/CEO Founder at Waybill. Previously managed operations, supply chain, and government relations at LAT Aerospace (founded by Deepinder Goyal of Zomato). Built and scaled AI trade assistants at INDmoney. BTech in CS & AI from Plaksha University. Rishi Laddha Founder/CEO Founder at Waybill. Previously managed operations, supply chain, and government relations at LAT Aerospace (founded by Deepinder Goyal of Zomato). Built and scaled AI trade assistants at INDmoney. BTech in CS & AI from Plaksha University. Tushar",
+        "source_url": "https://www.ycombinator.com/companies/waybill"
+      },
+      {
+        "id": "E12",
+        "field": "product",
+        "quote": "anywhere in the world, get quotes, handle payment, shipping, customs, last mile, log it into inventory and match the invoices. One system of record from request to stock. We don\u2019t stop at the \u2018order placed\u2019. We make sure it reaches your shelf. A few crazy things Waybill was asked to source & order - A lifetime supply of an obsolete RF component Cessna aircraft. Yes, real airplanes Industrial Robots Launch video: https://youtu.be/JPxhZFZ5xco Backstory I (Rishi) ran operations at LAT Aerospace (Deepinder Goyal\u2019s aerospace startup) as part of their founding team. On paper, that meant",
+        "source_url": "https://www.ycombinator.com/companies/waybill"
+      }
+    ],
+    "founder_requests": [
+      {
+        "id": "E1",
+        "field": "founder_ask",
+        "quote": "Intros to procurement leads at hardware enterprises.",
+        "source_url": "https://www.ycombinator.com/companies/waybill"
+      }
+    ],
+    "operating_metrics": {
+      "months": [],
+      "calculations": []
+    },
+    "financial_workpaper": {
+      "financials": [],
+      "calculations": []
+    }
+  },
+  "draft": {
+    "title": "Waybill: Test procurement automation for hardware teams",
+    "purpose": "Decide whether Waybill's procurement automation can reduce hardware teams' time spent on sourcing and logistics.",
+    "sections": [
+      {
+        "heading": "Reason to investigate",
+        "content": "Waybill claims to automate procurement for hardware teams, handling sourcing, freight, customs, and inventory. The source does not establish customer count, time saved, or cost savings."
+      },
+      {
+        "heading": "Objection and decisive test",
+        "content": "Hardware teams may not adopt procurement automation if it fails to reduce time spent on sourcing and logistics. Match time spent on procurement tasks before and after Waybill's implementation, then deduct cost savings and customer retention."
+      }
+    ],
+    "missing_inputs": [
+      {
+        "record": "Customer count, time spent on procurement tasks before and after Waybill's implementation, and cost savings per customer",
+        "why": "These records distinguish time saved and cost reduction from customer adoption and retention."
+      }
+    ],
+    "decision_question": "Does Waybill's procurement automation reduce time spent on sourcing and logistics for hardware teams?",
+    "next_action": "Prepare a customer-time-savings analysis and request the corresponding customer count, time spent, and cost savings records.",
+    "completion_test": "The analysis reconciles customer time spent on procurement tasks before and after Waybill's implementation to savings and retention, and explains missing records, unpaid balances, and adverse contribution."
+  }
+}

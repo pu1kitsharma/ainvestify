@@ -1,0 +1,38 @@
+[
+  {
+    "case": "hotel_costs",
+    "expected_material_issue": false,
+    "review": {
+      "issues": [],
+      "model": "phi4-mini",
+      "at": "2026-09-13T23:58:12.766691+00:00",
+      "kind": "automated_critique",
+      "independent_verification": false
+    },
+    "expected_behavior": true
+  },
+  {
+    "case": "prerevenue_biotech",
+    "expected_material_issue": true,
+    "review": {
+      "issues": [],
+      "model": "phi4-mini",
+      "at": "2026-09-13T23:58:14.333545+00:00",
+      "kind": "automated_critique",
+      "independent_verification": false
+    },
+    "expected_behavior": false
+  },
+  {
+    "case": "funding_is_not_growth",
+    "expected_material_issue": true,
+    "review": {
+      "issues": [],
+      "model": "phi4-mini",
+      "at": "2026-09-13T23:58:15.202199+00:00",
+      "kind": "automated_critique",
+      "independent_verification": false
+    },
+    "expected_behavior": false
+  }
+]

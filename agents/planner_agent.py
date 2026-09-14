@@ -503,8 +503,22 @@ def confirm_teaser_safe_to_send(store: Store, deal: Deal, memo_id: str, reviewer
     `MemoVersion.approved_by`, and only on an explicit `confirmed=True`.
     Pure: no input()/print()."""
     memo = store.get_memo_version(deal.tenant_id, memo_id)
-    if memo is None:
+    if memo is None or memo.deal_id != deal.id or memo.document_type != "teaser":
         raise ValueError(f"No memo {memo_id!r} found for deal {deal.id!r}.")
+    if confirmed:
+        lead = store.get_lead_by_promoted_deal_id(deal.tenant_id, deal.id)
+        if lead and store.get_workspace(deal.tenant_id, lead_id=lead.id):
+            from agents.operating_workflow import reconcile_workspace
+
+            workspace = reconcile_workspace(store, lead, persist=False)
+            release = next(item for item in workspace.work_items if item.id == "release")
+            if release.status != "completed":
+                raise CompilationBlockedError(
+                    "Company operating-workflow release checks are incomplete: " + release.reason
+                )
+            memo.approval_basis_hash = workspace.basis_hash
+    else:
+        memo.approval_basis_hash = None
     memo.approved_by = reviewer if confirmed else None
     store.save_memo_version(memo)
     return memo

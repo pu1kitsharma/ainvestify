@@ -1,0 +1,219 @@
+{
+  "input_file": "evals/investment_preparation/reasoning-regression-input.json",
+  "case": "Waybill",
+  "live_data_updated": false,
+  "calls": [
+    {
+      "policy_version": 1,
+      "task": "review:investment_case",
+      "model": "qwen3:8b",
+      "thinking": true,
+      "complexity_score": 1.0,
+      "reason": "quality review",
+      "attempt": 0,
+      "quality_weight": 0.8,
+      "latency_weight": 0.2,
+      "max_tokens": 8192,
+      "context_tokens": 16384,
+      "temperature": 0.0,
+      "elapsed_seconds": 84.79,
+      "prompt_tokens": 2537,
+      "generated_tokens": 1015,
+      "done_reason": "stop"
+    },
+    {
+      "policy_version": 1,
+      "task": "investment_case",
+      "model": "qwen3:8b",
+      "thinking": true,
+      "complexity_score": 0.986,
+      "reason": "analytical task",
+      "attempt": 0,
+      "quality_weight": 0.8,
+      "latency_weight": 0.2,
+      "max_tokens": 8192,
+      "context_tokens": 16384,
+      "temperature": 0.0,
+      "elapsed_seconds": 73.45,
+      "prompt_tokens": 2936,
+      "generated_tokens": 1068,
+      "done_reason": "stop"
+    },
+    {
+      "policy_version": 1,
+      "task": "review:investment_case",
+      "model": "qwen3:8b",
+      "thinking": true,
+      "complexity_score": 1.0,
+      "reason": "quality review",
+      "attempt": 0,
+      "quality_weight": 0.8,
+      "latency_weight": 0.2,
+      "max_tokens": 8192,
+      "context_tokens": 16384,
+      "temperature": 0.0,
+      "elapsed_seconds": 111.92,
+      "prompt_tokens": 2616,
+      "generated_tokens": 1022,
+      "done_reason": "stop"
+    }
+  ],
+  "original_review": {
+    "version": 3,
+    "checks": {
+      "quantitative_logic": {
+        "verdict": "revise",
+        "draft_field": "sections.1.content",
+        "reason": "The test incorrectly deducts customer retention from time, which violates the instruction to never deduct retention or currency from time."
+      },
+      "grounding": {
+        "verdict": "revise",
+        "draft_field": "missing_inputs.0.why",
+        "reason": "The missing inputs section lacks a conversion basis for cost savings, which is required for separate monetary savings calculations."
+      },
+      "usefulness": {
+        "verdict": "pass",
+        "draft_field": "decision_question",
+        "reason": "The question directly addresses the task's core: whether procurement automation reduces time spent on sourcing and logistics for hardware teams."
+      },
+      "stage_fit": {
+        "verdict": "pass",
+        "draft_field": "next_action",
+        "reason": "The next action requests specific customer-time-savings records, aligning with the investment case's need for measurable outcomes."
+      },
+      "completion": {
+        "verdict": "revise",
+        "draft_field": "completion_test",
+        "reason": "The completion test includes financial measures like unpaid balances and adverse contribution, which are unrelated to the stated time-based test."
+      }
+    },
+    "issues": [
+      {
+        "category": "quantitative_logic",
+        "excerpt": "Hardware teams may not adopt procurement automation if it fails to reduce time spent on sourcing and logistics. Match time spent on procurement tasks before and after Waybill's implementation, then deduct cost savings and customer retention.",
+        "correction": "The test incorrectly deducts customer retention from time, which violates the instruction to never deduct retention or currency from time."
+      },
+      {
+        "category": "grounding",
+        "excerpt": "These records distinguish time saved and cost reduction from customer adoption and retention.",
+        "correction": "The missing inputs section lacks a conversion basis for cost savings, which is required for separate monetary savings calculations."
+      },
+      {
+        "category": "completion",
+        "excerpt": "The analysis reconciles customer time spent on procurement tasks before and after Waybill's implementation to savings and retention, and explains missing records, unpaid balances, and adverse contribution.",
+        "correction": "The completion test includes financial measures like unpaid balances and adverse contribution, which are unrelated to the stated time-based test."
+      }
+    ],
+    "model": "qwen3:8b",
+    "at": "2026-09-14T01:00:07.883584+00:00",
+    "kind": "automated_critique",
+    "independent_verification": false,
+    "routing": {
+      "policy_version": 1,
+      "task": "review:investment_case",
+      "model": "qwen3:8b",
+      "thinking": true,
+      "complexity_score": 1.0,
+      "reason": "quality review",
+      "attempt": 0,
+      "quality_weight": 0.8,
+      "latency_weight": 0.2,
+      "max_tokens": 8192,
+      "context_tokens": 16384,
+      "temperature": 0.0,
+      "elapsed_seconds": 84.79,
+      "prompt_tokens": 2537,
+      "generated_tokens": 1015,
+      "done_reason": "stop"
+    }
+  },
+  "revised_draft": {
+    "title": "Waybill: Test procurement automation time savings",
+    "purpose": "Decide whether Waybill's time savings on hardware procurement justify investment.",
+    "sections": [
+      {
+        "heading": "Reason to investigate",
+        "content": "Waybill automates procurement for hardware teams, reducing weeks of manual tasks. The founder seeks intros to procurement leads, implying demand. Time savings from sourcing, logistics, and tracking are explicitly claimed but lack direct cost conversion metrics."
+      },
+      {
+        "heading": "Objection and decisive test",
+        "content": "Hardware teams may not adopt automation if time savings don't offset complexity. Match pre- and post-Waybill time spent on procurement tasks. Deduct only direct labor costs, not retention, to isolate time-based value."
+      },
+      {
+        "heading": "Missing inputs",
+        "content": "Conversion basis for cost savings (e.g., hourly labor rates), pre-implementation time logs, and post-implementation time tracking. Without these, monetary savings cannot be separated from time savings."
+      }
+    ],
+    "missing_inputs": [
+      {
+        "record": "Pre- and post-Waybill time logs for procurement tasks",
+        "why": "Required to quantify time savings and convert to cost savings using labor rates."
+      },
+      {
+        "record": "Direct labor cost rates for procurement tasks",
+        "why": "Needed to calculate monetary savings from time reduction, per quantitative logic requirements."
+      }
+    ],
+    "decision_question": "Does Waybill's time savings on procurement tasks justify investment, without deducting retention or currency from time?",
+    "next_action": "Request pre- and post-implementation time logs for procurement tasks and direct labor cost rates.",
+    "completion_test": "Reconcile time savings to cost savings using labor rates, without financial measures like unpaid balances or adverse contribution.",
+    "evidence_ids": [
+      "E2",
+      "E12"
+    ]
+  },
+  "revised_review": {
+    "version": 3,
+    "checks": {
+      "quantitative_logic": {
+        "verdict": "pass",
+        "draft_field": "sections.2.content",
+        "reason": "Missing inputs explicitly list required data for cost conversion, aligning with quantitative logic requirements."
+      },
+      "grounding": {
+        "verdict": "pass",
+        "draft_field": "sections.0.content",
+        "reason": "Draft correctly identifies time savings claims without direct cost metrics, grounding analysis in available evidence."
+      },
+      "usefulness": {
+        "verdict": "pass",
+        "draft_field": "decision_question",
+        "reason": "Question directly addresses investment justification based on time savings, avoiding unrelated financial measures."
+      },
+      "stage_fit": {
+        "verdict": "pass",
+        "draft_field": "next_action",
+        "reason": "Next action requests concrete data to quantify time savings, matching early-stage investment evaluation needs."
+      },
+      "completion": {
+        "verdict": "pass",
+        "draft_field": "completion_test",
+        "reason": "Test specifies time-to-cost conversion without financial measures, aligning with stated analysis scope."
+      }
+    },
+    "issues": [],
+    "model": "qwen3:8b",
+    "at": "2026-09-14T01:03:13.276021+00:00",
+    "kind": "automated_critique",
+    "independent_verification": false,
+    "routing": {
+      "policy_version": 1,
+      "task": "review:investment_case",
+      "model": "qwen3:8b",
+      "thinking": true,
+      "complexity_score": 1.0,
+      "reason": "quality review",
+      "attempt": 0,
+      "quality_weight": 0.8,
+      "latency_weight": 0.2,
+      "max_tokens": 8192,
+      "context_tokens": 16384,
+      "temperature": 0.0,
+      "elapsed_seconds": 111.92,
+      "prompt_tokens": 2616,
+      "generated_tokens": 1022,
+      "done_reason": "stop"
+    }
+  },
+  "elapsed_seconds": 270.2
+}

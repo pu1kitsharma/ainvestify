@@ -46,6 +46,20 @@ def _get_deal_or_404(store: Store, tenant_id: str, deal_id: str) -> Deal:
     return deal
 
 
+def _current_release_status(store: Store, tenant_id: str, deal_id: str, versions: list[MemoVersion]):
+    """Show effective approval, preserving the original review in storage."""
+    lead = store.get_lead_by_promoted_deal_id(tenant_id, deal_id)
+    if not lead or not store.get_workspace(tenant_id, lead_id=lead.id):
+        return versions
+    from agents.operating_workflow import reconcile_workspace
+
+    workspace = reconcile_workspace(store, lead, persist=False)
+    ready = next(item for item in workspace.work_items if item.id == "release").status == "completed"
+    return [memo.model_copy(update={"approved_by": None})
+            if memo.document_type == "teaser" and memo.approved_by and
+            (not ready or memo.approval_basis_hash != workspace.basis_hash) else memo for memo in versions]
+
+
 @router.post("/{deal_id}/compile/cim", response_model=MemoVersion)
 def compile_cim_endpoint(
     deal_id: str,
@@ -86,6 +100,8 @@ def confirm_teaser_endpoint(
     deal = store.get_deal(tenant_id, deal_id)
     try:
         return confirm_teaser_safe_to_send(store, deal, memo_id, reviewer, confirmed=body.confirmed)
+    except CompilationBlockedError as e:
+        raise HTTPException(status_code=409, detail=str(e))
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
 
@@ -128,7 +144,7 @@ def list_documents(
     versions = store.get_memo_versions(tenant_id, deal_id)
     if document_type is not None:
         versions = [v for v in versions if v.document_type == document_type]
-    return versions
+    return _current_release_status(store, tenant_id, deal_id, versions)
 
 
 @router.get("/{deal_id}/documents/latest", response_model=MemoVersion)
@@ -142,4 +158,4 @@ def get_latest_document(
     memo = store.get_latest_memo_version(tenant_id, deal_id, document_type)
     if memo is None:
         raise HTTPException(status_code=404, detail=f"No {document_type!r} document for this deal yet")
-    return memo
+    return _current_release_status(store, tenant_id, deal_id, [memo])[0]

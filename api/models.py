@@ -5,7 +5,7 @@ Pydantic models store.py actually writes to disk.
 """
 from typing import Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, field_validator
 
 from agents.review_checkpoint import ReviewDecisionOutcome
 from schemas import Deal, ExtractionResult
@@ -46,6 +46,24 @@ class FieldDecisionResponse(BaseModel):
 class SourceLeadsRequest(BaseModel):
     sector_keyword: str
     location_filter: Optional[str] = None
+
+
+class WebSourceRequest(BaseModel):
+    thesis: str = Field(min_length=3, max_length=2000)
+    geography: Optional[str] = Field(default=None, max_length=120)
+    seed_urls: list[str] = Field(default_factory=list, max_length=5)
+    max_pages: int = Field(default=24, ge=1, le=30)
+    max_companies: int = Field(default=5, ge=1, le=10)
+    prepare_workflow: bool = True
+
+    @field_validator("seed_urls")
+    @classmethod
+    def public_url_syntax(cls, urls):
+        from agents.web_sources import normalize_url, SourceError
+        try:
+            return list(dict.fromkeys(normalize_url(url) for url in urls))
+        except SourceError as exc:
+            raise ValueError(str(exc)) from exc
 
 
 class LeadDecisionRequest(BaseModel):

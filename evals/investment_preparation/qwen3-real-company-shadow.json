@@ -1,0 +1,641 @@
+{
+  "company": "Waybill",
+  "model": "qwen3:8b",
+  "case_version": 5,
+  "mode": "isolated_shadow_database",
+  "live_data_updated": false,
+  "acceptance": "failed",
+  "run_completion": "stopped_after_substantive_failure_in_first_product",
+  "observations": [
+    "Eligibility and initial engagement framing correctly reached early_business and proceed against a sourced introduction request.",
+    "Investment memo proposed deducting cost savings and retention from elapsed time: an incoherent comparison across different quantities.",
+    "Completion test imported unpaid balances and contribution without connecting them to the time-savings question.",
+    "Automated critic raised some false objections and missed the incoherent calculation. A valid review record is not assurance of correct reasoning.",
+    "Remaining work products were not accepted or fully evaluated. Candidate is not promoted to the default preparation model."
+  ],
+  "pack": {
+    "version": 5,
+    "basis_hash": "e09cabeb99f0ae167f6e96671d6bac03c8dc1bf14fb6aac3f43281ded28621c6",
+    "products": {
+      "investment_case": {
+        "title": "Waybill: Test procurement automation for hardware teams",
+        "purpose": "Decide whether Waybill's procurement automation can reduce hardware teams' time spent on sourcing and logistics.",
+        "sections": [
+          {
+            "heading": "Reason to investigate",
+            "content": "Waybill claims to automate procurement for hardware teams, handling sourcing, freight, customs, and inventory. The source does not establish customer count, time saved, or cost savings."
+          },
+          {
+            "heading": "Objection and decisive test",
+            "content": "Hardware teams may not adopt procurement automation if it fails to reduce time spent on sourcing and logistics. Match time spent on procurement tasks before and after Waybill's implementation, then deduct cost savings and customer retention."
+          }
+        ],
+        "missing_inputs": [
+          {
+            "record": "Customer count, time spent on procurement tasks before and after Waybill's implementation, and cost savings per customer",
+            "why": "These records distinguish time saved and cost reduction from customer adoption and retention."
+          }
+        ],
+        "decision_question": "Does Waybill's procurement automation reduce time spent on sourcing and logistics for hardware teams?",
+        "next_action": "Prepare a customer-time-savings analysis and request the corresponding customer count, time spent, and cost savings records.",
+        "completion_test": "The analysis reconciles customer time spent on procurement tasks before and after Waybill's implementation to savings and retention, and explains missing records, unpaid balances, and adverse contribution.",
+        "evidence_ids": [
+          "evidence_d36ecb5e4c9a",
+          "evidence_05f7c4d985d0",
+          "evidence_c834edf3d239",
+          "evidence_8cd71dedd442",
+          "evidence_e2fa26bb24a9"
+        ],
+        "quality_review": {
+          "version": 2,
+          "checks": {
+            "grounding": {
+              "verdict": "revise",
+              "draft_field": "sections.0.content",
+              "reason": "The draft claims Waybill handles sourcing, freight, customs, and inventory but lacks specific evidence of these functions, such as customer examples or operational metrics."
+            },
+            "usefulness": {
+              "verdict": "pass",
+              "draft_field": "decision_question",
+              "reason": "The question is clear and directly addresses the core claim of the investment case, focusing on measurable outcomes for hardware teams."
+            },
+            "stage_fit": {
+              "verdict": "revise",
+              "draft_field": "next_action",
+              "reason": "The next action requests customer-time-savings analysis but does not specify how the analysis will be conducted or what data sources will be used."
+            },
+            "completion": {
+              "verdict": "pass",
+              "draft_field": "completion_test",
+              "reason": "The completion test specifies the reconciliation of time spent on procurement tasks and explains the need for missing records, unpaid balances, and adverse findings."
+            }
+          },
+          "issues": [
+            {
+              "category": "grounding",
+              "excerpt": "Waybill claims to automate procurement for hardware teams, handling sourcing, freight, customs, and inventory. The source does not establish customer count, time saved, or cost savings.",
+              "correction": "The draft claims Waybill handles sourcing, freight, customs, and inventory but lacks specific evidence of these functions, such as customer examples or operational metrics."
+            },
+            {
+              "category": "stage_fit",
+              "excerpt": "Prepare a customer-time-savings analysis and request the corresponding customer count, time spent, and cost savings records.",
+              "correction": "The next action requests customer-time-savings analysis but does not specify how the analysis will be conducted or what data sources will be used."
+            }
+          ],
+          "model": "qwen3:8b",
+          "at": "2026-09-14T00:50:40.736749+00:00",
+          "kind": "automated_critique",
+          "independent_verification": false
+        },
+        "review_state": "needs_review",
+        "model": "qwen3:8b",
+        "created_at": "2026-09-14T00:50:40.774953+00:00",
+        "practice": {
+          "version": "2026-09-14.1",
+          "method_ids": [
+            "underwriting"
+          ],
+          "sha256": "2a2f481e32aebcd77590a4191aa4a4416e89b27c3daf928916282ab135aa860f",
+          "teaching_example_ids": [
+            "case_cold_chain"
+          ],
+          "sources": [
+            {
+              "id": "ms",
+              "title": "Morgan Stanley: The Anatomy of a Deal",
+              "url": "https://advisor.morganstanley.com/liberty-wealth-management-group/documents/field/l/li/liberty-wealth-management-group/The_Anatomy_of_a_Deal_factsheet.pdf",
+              "checked_on": "2026-09-14",
+              "scope": "Sell-side preparation; not an accelerator programme"
+            },
+            {
+              "id": "sequoia",
+              "title": "Sequoia: Writing a Business Plan",
+              "url": "https://sequoiacap.com/article/writing-a-business-plan",
+              "checked_on": "2026-09-14",
+              "scope": "Investment narrative questions; not evidence about any company"
+            }
+          ],
+          "adaptation": "retrieved_practice_not_weight_training"
+        }
+      }
+    },
+    "status": "partial",
+    "eligibility": {
+      "maturity": "early_business",
+      "evidence_ids": [
+        "evidence_e849f6bd7a70"
+      ],
+      "model": "qwen3:8b",
+      "created_at": "2026-09-14T00:29:22.253984+00:00",
+      "practice": {
+        "version": "2026-09-14.1",
+        "method_ids": [],
+        "sha256": "ffe5b79ca4c3fb3ab9f72d1188cc75b16b9803b2ef6f75040bb3fc483d2d73f6",
+        "teaching_example_ids": [],
+        "sources": [],
+        "adaptation": "retrieved_practice_not_weight_training"
+      }
+    },
+    "fit": {
+      "decision": "proceed",
+      "rationale": "The early-stage company has asked for help reaching procurement leads at hardware enterprises. A sourced prospect brief and a proposed outreach strategy would address that request. Initial preparation is useful without claiming the company is ready for investment or that we can guarantee introductions.",
+      "next_action": "Prepare a researched procurement-lead prospect brief and draft a founder proposal to confirm outreach scope.",
+      "evidence_ids": [
+        "evidence_d36ecb5e4c9a",
+        "evidence_e849f6bd7a70"
+      ],
+      "maturity": "early_business",
+      "maturity_source_id": "evidence_e849f6bd7a70",
+      "support_request_id": "evidence_d36ecb5e4c9a",
+      "company_type": "Intros to procurement leads at hardware enterprises.",
+      "business_source_id": "evidence_d36ecb5e4c9a",
+      "model": "qwen3:8b",
+      "created_at": "2026-09-14T00:31:09.881914+00:00",
+      "practice": {
+        "version": "2026-09-14.1",
+        "method_ids": [
+          "mandate"
+        ],
+        "sha256": "d2aa7e5f8fb98706fb8fb72ac7fe3757078731bdb5a6b76c0a55fbb4bd78d9df",
+        "teaching_example_ids": [
+          "initial_preparation_not_investment"
+        ],
+        "sources": [
+          {
+            "id": "ms",
+            "title": "Morgan Stanley: The Anatomy of a Deal",
+            "url": "https://advisor.morganstanley.com/liberty-wealth-management-group/documents/field/l/li/liberty-wealth-management-group/The_Anatomy_of_a_Deal_factsheet.pdf",
+            "checked_on": "2026-09-14",
+            "scope": "Sell-side preparation; not an accelerator programme"
+          },
+          {
+            "id": "hl",
+            "title": "Houlihan Lokey: Capital Solutions",
+            "url": "https://hl.com/services/corporate-finance/capital-solutions/",
+            "checked_on": "2026-09-14",
+            "scope": "Financing advisory; no inference of our investor access"
+          },
+          {
+            "id": "yc",
+            "title": "Y Combinator: A Guide to Seed Fundraising",
+            "url": "https://www.ycombinator.com/blog/how-to-raise-a-seed-round",
+            "checked_on": "2026-09-14",
+            "scope": "Seed fundraising guidance; not universal financing terms"
+          }
+        ],
+        "adaptation": "retrieved_practice_not_weight_training"
+      }
+    },
+    "quality_attempts": [
+      {
+        "stage": "investment_case",
+        "review": {
+          "version": 2,
+          "checks": {
+            "grounding": {
+              "verdict": "revise",
+              "draft_field": "sections.0.content",
+              "reason": "The draft claims that the company 'claims to automate the entire procurement loop, from request to stock' but does not provide any factual evidence or source to support this assertion. The draft also states that 'the source does not establish customer acquisition, pricing, payment collection, or the number of active customers,' which is a factual assertion that must be checked against the company evidence. The company evidence does not provide any data on customer acquisition, pricing, payment collection, or active customers. Therefore, the draft's assertion that the source does not establish these facts is incorrect. The draft should be revised to reflect that the source does not provide this information."
+            },
+            "usefulness": {
+              "verdict": "pass",
+              "draft_field": "sections.1.content",
+              "reason": "The draft correctly identifies the strongest objection to the company's value proposition as the lack of customer acquisition, pricing, payment collection, and repeat revenue data. The draft also correctly identifies the need to confirm whether the company has engaged with procurement leads or has a pipeline. The draft's content is useful and relevant to the task."
+            },
+            "stage_fit": {
+              "verdict": "revise",
+              "draft_field": "next_action",
+              "reason": "The draft's next action is to 'Prepare a researched procurement-lead prospect brief and draft a founder proposal to confirm outreach scope.' This is a generic action that does not specify a named result or a completion test. The completion test must specify what is compared or resolved, including adverse findings. The draft should be revised to specify a named result and a completion test."
+            },
+            "completion": {
+              "verdict": "revise",
+              "draft_field": "completion_test",
+              "reason": "The draft's completion test is 'The prospect brief and founder proposal confirm the scope of outreach and the feasibility of the founder's request for intros to procurement leads.' This is a generic completion test that does not specify what is compared or resolved, including adverse findings. The draft should be revised to specify a named result and a completion test."
+            }
+          },
+          "issues": [
+            {
+              "category": "grounding",
+              "excerpt": "Waybill describes itself as a procurement automation platform for hardware teams, handling sourcing, negotiation, freight, customs, delivery, and inventory. The company claims to automate the entire procurement loop, from request to stock. However, the source does not establish customer acquisition, pricing, payment collection, or the number of active customers. The founder's request for intros to procurement leads at hardware enterprises is explicit, but the source does not confirm whether the company has already engaged with such leads or has a pipeline.",
+              "correction": "The draft claims that the company 'claims to automate the entire procurement loop, from request to stock' but does not provide any factual evidence or source to support this assertion. The draft also states that 'the source does not establish customer acquisition, pricing, payment collection, or the number of active customers,' which is a factual assertion that must be checked against the company evidence. The company evidence does not provide any data on customer acquisition, pricing, payment collection, or active customers. Therefore, the draft's assertion that the source does not establish these facts is incorrect. The draft should be revised to reflect that the source does not provide this information."
+            },
+            {
+              "category": "stage_fit",
+              "excerpt": "Prepare a researched procurement-lead prospect brief and draft a founder proposal to confirm outreach scope.",
+              "correction": "The draft's next action is to 'Prepare a researched procurement-lead prospect brief and draft a founder proposal to confirm outreach scope.' This is a generic action that does not specify a named result or a completion test. The completion test must specify what is compared or resolved, including adverse findings. The draft should be revised to specify a named result and a completion test."
+            },
+            {
+              "category": "completion",
+              "excerpt": "The prospect brief and founder proposal confirm the scope of outreach and the feasibility of the founder's request for intros to procurement leads.",
+              "correction": "The draft's completion test is 'The prospect brief and founder proposal confirm the scope of outreach and the feasibility of the founder's request for intros to procurement leads.' This is a generic completion test that does not specify what is compared or resolved, including adverse findings. The draft should be revised to specify a named result and a completion test."
+            }
+          ],
+          "model": "qwen3:8b",
+          "at": "2026-09-14T00:34:17.357412+00:00",
+          "kind": "automated_critique",
+          "independent_verification": false
+        },
+        "draft": {
+          "title": "Waybill: Test procurement automation value and founder access",
+          "purpose": "Decide whether Waybill's procurement automation can generate repeat revenue and whether the founder's request for intros to procurement leads is actionable.",
+          "sections": [
+            {
+              "heading": "Reason to investigate",
+              "content": "Waybill describes itself as a procurement automation platform for hardware teams, handling sourcing, negotiation, freight, customs, delivery, and inventory. The company claims to automate the entire procurement loop, from request to stock. However, the source does not establish customer acquisition, pricing, payment collection, or the number of active customers. The founder's request for intros to procurement leads at hardware enterprises is explicit, but the source does not confirm whether the company has already engaged with such leads or has a pipeline."
+            },
+            {
+              "heading": "Objection and decisive test",
+              "content": "The strongest objection is that the company's value proposition is not yet validated by customer acquisition or revenue. The founder's request for intros is a clear ask, but the source does not confirm whether the company has already engaged with procurement leads or has a pipeline. To test the value proposition, we need to verify whether the company has acquired customers, what pricing model it uses, and whether it has a repeat revenue stream. To test the founder's request, we need to confirm whether the company has already engaged with procurement leads or has a pipeline."
+            }
+          ],
+          "missing_inputs": [
+            {
+              "record": "Customer acquisition records, pricing model, payment collection, and repeat revenue data",
+              "why": "These records distinguish billed utilization from collected revenue and show the cost of serving it."
+            },
+            {
+              "record": "Prospect engagement records, including outreach attempts and pipeline data",
+              "why": "These records confirm whether the company has already engaged with procurement leads or has a pipeline."
+            }
+          ],
+          "decision_question": "Does Waybill's procurement automation generate repeat revenue and can the founder's request for intros to procurement leads be fulfilled?",
+          "next_action": "Prepare a researched procurement-lead prospect brief and draft a founder proposal to confirm outreach scope.",
+          "completion_test": "The prospect brief and founder proposal confirm the scope of outreach and the feasibility of the founder's request for intros to procurement leads.",
+          "evidence_ids": [
+            "E1",
+            "E2",
+            "E3",
+            "E4",
+            "E5"
+          ]
+        }
+      },
+      {
+        "stage": "investment_case",
+        "review": {
+          "version": 2,
+          "checks": {
+            "grounding": {
+              "verdict": "revise",
+              "draft_field": "sections.0.content",
+              "reason": "The section states that 'the source does not establish customer acquisition, pricing, payment collection, or the number of active customers.' However, the source (E2) explicitly mentions 'Built for teams that build hardware' and 'Book a call' which implies customer engagement. The section should clarify that while the source does not provide explicit customer acquisition or pricing data, it does indicate the target market and potential customer base. The section should also mention the need for more specific data on customer acquisition, pricing, and payment collection."
+            },
+            "usefulness": {
+              "verdict": "pass",
+              "draft_field": "decision_question",
+              "reason": "The question 'Does Waybill's procurement automation generate customer value and sustain cash flow?' is clear, specific, and directly related to the investment case. It focuses on the core value proposition and financial sustainability of the company."
+            },
+            "stage_fit": {
+              "verdict": "pass",
+              "draft_field": "next_action",
+              "reason": "The next action 'Prepare a customer acquisition and payment collection analysis and request the corresponding records.' is specific, actionable, and directly addresses the missing inputs required to evaluate the investment case."
+            },
+            "completion": {
+              "verdict": "pass",
+              "draft_field": "completion_test",
+              "reason": "The completion test 'The analysis reconciles customer acquisition, pricing, payment collection, and active customer counts to the company's claims and explains missing records, unpaid balances, and adverse contribution.' is specific, measurable, and directly addresses the evaluation criteria for the investment case."
+            }
+          },
+          "issues": [
+            {
+              "category": "grounding",
+              "excerpt": "Waybill claims to automate the entire procurement loop for hardware enterprises, from request to stock. The company describes sourcing, negotiation, freight, customs, delivery, and inventory management. However, the source does not establish customer acquisition, pricing, payment collection, or the number of active customers. The business model depends on repeat demand and delivery cost control, which are not yet proven.",
+              "correction": "The section states that 'the source does not establish customer acquisition, pricing, payment collection, or the number of active customers.' However, the source (E2) explicitly mentions 'Built for teams that build hardware' and 'Book a call' which implies customer engagement. The section should clarify that while the source does not provide explicit customer acquisition or pricing data, it does indicate the target market and potential customer base. The section should also mention the need for more specific data on customer acquisition, pricing, and payment collection."
+            }
+          ],
+          "model": "qwen3:8b",
+          "at": "2026-09-14T00:36:23.632933+00:00",
+          "kind": "automated_critique",
+          "independent_verification": false
+        },
+        "draft": {
+          "title": "Waybill: Test procurement automation and customer value",
+          "purpose": "Decide whether Waybill's procurement automation can generate customer value and sustain cash flow.",
+          "sections": [
+            {
+              "heading": "Reason to investigate",
+              "content": "Waybill claims to automate the entire procurement loop for hardware enterprises, from request to stock. The company describes sourcing, negotiation, freight, customs, delivery, and inventory management. However, the source does not establish customer acquisition, pricing, payment collection, or the number of active customers. The business model depends on repeat demand and delivery cost control, which are not yet proven."
+            },
+            {
+              "heading": "Objection and decisive test",
+              "content": "The company's value proposition hinges on reducing procurement time and cost for hardware engineers. However, the source does not establish whether the automation reduces time or cost, or whether customers are willing to pay for it. Match customer acquisition, pricing, payment collection, and active customer counts to the company's claims. Report loss-making periods as well as profitable ones."
+            }
+          ],
+          "missing_inputs": [
+            {
+              "record": "Customer acquisition records, pricing data, payment collection records, and active customer counts",
+              "why": "These records distinguish billed utilization from collected revenue and show the cost of serving it."
+            }
+          ],
+          "decision_question": "Does Waybill's procurement automation generate customer value and sustain cash flow?",
+          "next_action": "Prepare a customer acquisition and payment collection analysis and request the corresponding records.",
+          "completion_test": "The analysis reconciles customer acquisition, pricing, payment collection, and active customer counts to the company's claims and explains missing records, unpaid balances, and adverse contribution.",
+          "evidence_ids": [
+            "E1",
+            "E2",
+            "E3",
+            "E4",
+            "E5"
+          ]
+        }
+      },
+      {
+        "stage": "investment_case",
+        "review": {
+          "version": 2,
+          "checks": {
+            "grounding": {
+              "verdict": "revise",
+              "draft_field": "title",
+              "reason": "The title misrepresents the company's offering by implying a test rather than a validated procurement automation solution."
+            },
+            "usefulness": {
+              "verdict": "pass",
+              "draft_field": "purpose",
+              "reason": "The purpose clearly defines the evaluation focus on revenue generation and founder access feasibility."
+            },
+            "stage_fit": {
+              "verdict": "revise",
+              "draft_field": "sections.0.content",
+              "reason": "The section lacks specific metrics or examples of client traction, which are needed to assess the procurement automation's value proposition."
+            },
+            "completion": {
+              "verdict": "pass",
+              "draft_field": "completion_test",
+              "reason": "The completion test specifies a named result and a clear comparison of revenue and delivery costs with missing records and unpaid balances."
+            }
+          },
+          "issues": [
+            {
+              "category": "grounding",
+              "excerpt": "Waybill: Test procurement automation value and founder access",
+              "correction": "The title misrepresents the company's offering by implying a test rather than a validated procurement automation solution."
+            },
+            {
+              "category": "stage_fit",
+              "excerpt": "Waybill automates procurement for hardware teams, handling sourcing, freight, customs, and inventory. The founder seeks intros to procurement leads, but no data shows current client traction, pricing, or payment collection.",
+              "correction": "The section lacks specific metrics or examples of client traction, which are needed to assess the procurement automation's value proposition."
+            }
+          ],
+          "model": "qwen3:8b",
+          "at": "2026-09-14T00:46:48.967897+00:00",
+          "kind": "automated_critique",
+          "independent_verification": false
+        },
+        "draft": {
+          "title": "Waybill: Test procurement automation value and founder access",
+          "purpose": "Decide whether Waybill's procurement automation can generate revenue and whether the founder's request for intros is actionable.",
+          "sections": [
+            {
+              "heading": "Reason to investigate",
+              "content": "Waybill automates procurement for hardware teams, handling sourcing, freight, customs, and inventory. The founder seeks intros to procurement leads, but no data shows current client traction, pricing, or payment collection."
+            },
+            {
+              "heading": "Objection and decisive test",
+              "content": "Procurement automation requires repeat demand and scalable delivery. Match client acquisition to revenue, invoice collection, and delivery costs. Report loss-making periods as well as profitable ones."
+            }
+          ],
+          "missing_inputs": [
+            {
+              "record": "Client acquisition records, revenue invoices, collections, and delivery cost ledger for the same periods and services",
+              "why": "These records distinguish billed utilization from collected revenue and show the cost of serving it."
+            }
+          ],
+          "decision_question": "Does paid procurement automation support positive delivery contribution?",
+          "next_action": "Prepare a procurement-automation revenue reconciliation worksheet and request the corresponding client acquisition, invoice, and cost records.",
+          "completion_test": "The worksheet reconciles comparable procurement periods to revenue and delivery costs and explains missing records, unpaid balances, and adverse contribution.",
+          "evidence_ids": [
+            "E1",
+            "E2",
+            "E3",
+            "E4",
+            "E5"
+          ]
+        }
+      },
+      {
+        "stage": "investment_case",
+        "review": {
+          "version": 2,
+          "checks": {
+            "grounding": {
+              "verdict": "revise",
+              "draft_field": "sections.0.content",
+              "reason": "The draft claims Waybill handles sourcing, freight, customs, and inventory but lacks specific evidence of these functions, such as customer examples or operational metrics."
+            },
+            "usefulness": {
+              "verdict": "pass",
+              "draft_field": "decision_question",
+              "reason": "The question is clear and directly addresses the core claim of the investment case, focusing on measurable outcomes for hardware teams."
+            },
+            "stage_fit": {
+              "verdict": "revise",
+              "draft_field": "next_action",
+              "reason": "The next action requests customer-time-savings analysis but does not specify how the analysis will be conducted or what data sources will be used."
+            },
+            "completion": {
+              "verdict": "pass",
+              "draft_field": "completion_test",
+              "reason": "The completion test specifies the reconciliation of time spent on procurement tasks and explains the need for missing records, unpaid balances, and adverse findings."
+            }
+          },
+          "issues": [
+            {
+              "category": "grounding",
+              "excerpt": "Waybill claims to automate procurement for hardware teams, handling sourcing, freight, customs, and inventory. The source does not establish customer count, time saved, or cost savings.",
+              "correction": "The draft claims Waybill handles sourcing, freight, customs, and inventory but lacks specific evidence of these functions, such as customer examples or operational metrics."
+            },
+            {
+              "category": "stage_fit",
+              "excerpt": "Prepare a customer-time-savings analysis and request the corresponding customer count, time spent, and cost savings records.",
+              "correction": "The next action requests customer-time-savings analysis but does not specify how the analysis will be conducted or what data sources will be used."
+            }
+          ],
+          "model": "qwen3:8b",
+          "at": "2026-09-14T00:50:40.736749+00:00",
+          "kind": "automated_critique",
+          "independent_verification": false
+        },
+        "draft": {
+          "title": "Waybill: Test procurement automation for hardware teams",
+          "purpose": "Decide whether Waybill's procurement automation can reduce hardware teams' time spent on sourcing and logistics.",
+          "sections": [
+            {
+              "heading": "Reason to investigate",
+              "content": "Waybill claims to automate procurement for hardware teams, handling sourcing, freight, customs, and inventory. The source does not establish customer count, time saved, or cost savings."
+            },
+            {
+              "heading": "Objection and decisive test",
+              "content": "Hardware teams may not adopt procurement automation if it fails to reduce time spent on sourcing and logistics. Match time spent on procurement tasks before and after Waybill's implementation, then deduct cost savings and customer retention."
+            }
+          ],
+          "missing_inputs": [
+            {
+              "record": "Customer count, time spent on procurement tasks before and after Waybill's implementation, and cost savings per customer",
+              "why": "These records distinguish time saved and cost reduction from customer adoption and retention."
+            }
+          ],
+          "decision_question": "Does Waybill's procurement automation reduce time spent on sourcing and logistics for hardware teams?",
+          "next_action": "Prepare a customer-time-savings analysis and request the corresponding customer count, time spent, and cost savings records.",
+          "completion_test": "The analysis reconciles customer time spent on procurement tasks before and after Waybill's implementation to savings and retention, and explains missing records, unpaid balances, and adverse contribution.",
+          "evidence_ids": [
+            "evidence_d36ecb5e4c9a",
+            "evidence_05f7c4d985d0",
+            "evidence_c834edf3d239",
+            "evidence_8cd71dedd442",
+            "evidence_e2fa26bb24a9"
+          ],
+          "quality_review": {
+            "version": 2,
+            "checks": {
+              "grounding": {
+                "verdict": "revise",
+                "draft_field": "sections.0.content",
+                "reason": "The draft claims Waybill handles sourcing, freight, customs, and inventory but lacks specific evidence of these functions, such as customer examples or operational metrics."
+              },
+              "usefulness": {
+                "verdict": "pass",
+                "draft_field": "decision_question",
+                "reason": "The question is clear and directly addresses the core claim of the investment case, focusing on measurable outcomes for hardware teams."
+              },
+              "stage_fit": {
+                "verdict": "revise",
+                "draft_field": "next_action",
+                "reason": "The next action requests customer-time-savings analysis but does not specify how the analysis will be conducted or what data sources will be used."
+              },
+              "completion": {
+                "verdict": "pass",
+                "draft_field": "completion_test",
+                "reason": "The completion test specifies the reconciliation of time spent on procurement tasks and explains the need for missing records, unpaid balances, and adverse findings."
+              }
+            },
+            "issues": [
+              {
+                "category": "grounding",
+                "excerpt": "Waybill claims to automate procurement for hardware teams, handling sourcing, freight, customs, and inventory. The source does not establish customer count, time saved, or cost savings.",
+                "correction": "The draft claims Waybill handles sourcing, freight, customs, and inventory but lacks specific evidence of these functions, such as customer examples or operational metrics."
+              },
+              {
+                "category": "stage_fit",
+                "excerpt": "Prepare a customer-time-savings analysis and request the corresponding customer count, time spent, and cost savings records.",
+                "correction": "The next action requests customer-time-savings analysis but does not specify how the analysis will be conducted or what data sources will be used."
+              }
+            ],
+            "model": "qwen3:8b",
+            "at": "2026-09-14T00:50:40.736749+00:00",
+            "kind": "automated_critique",
+            "independent_verification": false
+          },
+          "review_state": "needs_review",
+          "model": "qwen3:8b",
+          "created_at": "2026-09-14T00:50:40.774953+00:00",
+          "practice": {
+            "version": "2026-09-14.1",
+            "method_ids": [
+              "underwriting"
+            ],
+            "sha256": "2a2f481e32aebcd77590a4191aa4a4416e89b27c3daf928916282ab135aa860f",
+            "teaching_example_ids": [
+              "case_cold_chain"
+            ],
+            "sources": [
+              {
+                "id": "ms",
+                "title": "Morgan Stanley: The Anatomy of a Deal",
+                "url": "https://advisor.morganstanley.com/liberty-wealth-management-group/documents/field/l/li/liberty-wealth-management-group/The_Anatomy_of_a_Deal_factsheet.pdf",
+                "checked_on": "2026-09-14",
+                "scope": "Sell-side preparation; not an accelerator programme"
+              },
+              {
+                "id": "sequoia",
+                "title": "Sequoia: Writing a Business Plan",
+                "url": "https://sequoiacap.com/article/writing-a-business-plan",
+                "checked_on": "2026-09-14",
+                "scope": "Investment narrative questions; not evidence about any company"
+              }
+            ],
+            "adaptation": "retrieved_practice_not_weight_training"
+          }
+        }
+      },
+      {
+        "stage": "commercial_test",
+        "review": {
+          "version": 2,
+          "checks": {
+            "grounding": {
+              "verdict": "revise",
+              "draft_field": "purpose",
+              "reason": "The purpose mentions 'validate the founder's request for intros' but does not specify how the test will measure success or define the criteria for validation."
+            },
+            "usefulness": {
+              "verdict": "pass",
+              "draft_field": "sections.0.heading",
+              "reason": "The questions directly address the founder's request and align with the task of identifying target companies and outreach channels."
+            },
+            "stage_fit": {
+              "verdict": "pass",
+              "draft_field": "next_action",
+              "reason": "The next action is specific and actionable, requiring the founder to confirm the outreach list and strategy, which is appropriate for the commercial test stage."
+            },
+            "completion": {
+              "verdict": "revise",
+              "draft_field": "completion_test",
+              "reason": "The completion test lacks a clear comparison or resolution; it should specify what is being measured and what constitutes a successful outcome."
+            }
+          },
+          "issues": [
+            {
+              "category": "grounding",
+              "excerpt": "Validate the founder's request for intros to hardware procurement leads by identifying target companies, decision-makers and outreach channels.",
+              "correction": "The purpose mentions 'validate the founder's request for intros' but does not specify how the test will measure success or define the criteria for validation."
+            },
+            {
+              "category": "completion",
+              "excerpt": "The protocol defines a measurable outreach scope, recording fields and an adverse-result decision before any claim of successful testing.",
+              "correction": "The completion test lacks a clear comparison or resolution; it should specify what is being measured and what constitutes a successful outcome."
+            }
+          ],
+          "model": "qwen3:8b",
+          "at": "2026-09-14T00:53:03.733742+00:00",
+          "kind": "automated_critique",
+          "independent_verification": false
+        },
+        "draft": {
+          "title": "Waybill: Procurement lead outreach test",
+          "purpose": "Validate the founder's request for intros to hardware procurement leads by identifying target companies, decision-makers and outreach channels.",
+          "sections": [
+            {
+              "heading": "Questions for the founder",
+              "content": "Which hardware enterprises have you engaged with? What are their procurement processes and pain points? What channels do they use for sourcing? What is the typical approval workflow for procurement decisions?"
+            },
+            {
+              "heading": "Outreach procedure and recording sheet",
+              "content": "Propose a list of 10-15 hardware enterprises with procurement needs. Record contact details, decision-makers, approval workflows, and current sourcing channels. Track outreach attempts, responses and follow-up actions."
+            },
+            {
+              "heading": "Decision after the test",
+              "content": "Compare the number of successful contacts with the founder's outreach goals. If fewer than 50% of contacts respond, refine the list or adjust the outreach strategy. Document the response rate and engagement quality."
+            }
+          ],
+          "missing_inputs": [
+            {
+              "record": "Hardware enterprise procurement contact list and decision-maker roles",
+              "why": "They define the outreach scope and help validate the founder's ability to connect with procurement leads."
+            }
+          ],
+          "decision_question": "Can the founder secure meaningful engagement with hardware procurement leads?",
+          "next_action": "Draft the procurement-lead outreach worksheet and ask the founder to confirm the proposed list, contact details and outreach strategy.",
+          "completion_test": "The protocol defines a measurable outreach scope, recording fields and an adverse-result decision before any claim of successful testing.",
+          "evidence_ids": [
+            "E1",
+            "E2",
+            "E3",
+            "E4",
+            "E5"
+          ]
+        }
+      }
+    ]
+  }
+}

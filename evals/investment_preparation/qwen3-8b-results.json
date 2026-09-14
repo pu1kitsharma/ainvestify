@@ -1,0 +1,166 @@
+{
+  "scope": "Synthetic regression probes, not expert quality scores or proof of autonomous fundraising.",
+  "practice": {
+    "version": "2026-09-14.1",
+    "method_ids": [
+      "mandate",
+      "underwriting"
+    ],
+    "sha256": "7ecefad5d444e740f15ae7b0f31291212c162549003ef63f21c3100131612fa9",
+    "teaching_example_ids": [
+      "research_maintenance"
+    ],
+    "sources": [
+      {
+        "id": "ms",
+        "title": "Morgan Stanley: The Anatomy of a Deal",
+        "url": "https://advisor.morganstanley.com/liberty-wealth-management-group/documents/field/l/li/liberty-wealth-management-group/The_Anatomy_of_a_Deal_factsheet.pdf",
+        "checked_on": "2026-09-14",
+        "scope": "Sell-side preparation; not an accelerator programme"
+      },
+      {
+        "id": "hl",
+        "title": "Houlihan Lokey: Capital Solutions",
+        "url": "https://hl.com/services/corporate-finance/capital-solutions/",
+        "checked_on": "2026-09-14",
+        "scope": "Financing advisory; no inference of our investor access"
+      },
+      {
+        "id": "yc",
+        "title": "Y Combinator: A Guide to Seed Fundraising",
+        "url": "https://www.ycombinator.com/blog/how-to-raise-a-seed-round",
+        "checked_on": "2026-09-14",
+        "scope": "Seed fundraising guidance; not universal financing terms"
+      },
+      {
+        "id": "sequoia",
+        "title": "Sequoia: Writing a Business Plan",
+        "url": "https://sequoiacap.com/article/writing-a-business-plan",
+        "checked_on": "2026-09-14",
+        "scope": "Investment narrative questions; not evidence about any company"
+      }
+    ],
+    "adaptation": "retrieved_practice_not_weight_training"
+  },
+  "results": [
+    {
+      "case": "hotel_costs",
+      "stage": "research",
+      "mode": "practice",
+      "model": "qwen3:8b",
+      "output": {
+        "business": "Harbor Rooms provides serviced accommodation for traveling nurses, with agencies booking multi-week stays. The company handles cleaning and repairs.",
+        "reason_to_meet": "The recurring need for housing and maintenance could support a stable revenue stream if operational costs are controlled.",
+        "main_risk": "The cost of cleaning, repairs and staffing could exceed the fees paid by agencies, especially if demand for nursing housing fluctuates.",
+        "first_question": "Can you share the monthly cost breakdown for cleaning, repairs and staffing, alongside billed fees from agencies for the past six months?",
+        "evidence_ids": [
+          "C9"
+        ]
+      },
+      "failures": [],
+      "seconds": 26.28
+    },
+    {
+      "case": "prior_employer",
+      "stage": "research",
+      "mode": "practice",
+      "model": "qwen3:8b",
+      "output": {
+        "business": "Vector Routing provides route-planning software for delivery fleets, helping companies optimize delivery routes to reduce fuel costs and improve on-time performance.",
+        "reason_to_meet": "The software could generate recurring revenue through subscription models if it consistently improves delivery efficiency and reduces operational costs for its users.",
+        "main_risk": "The cost of developing and maintaining the software, including data processing and algorithm updates, could exceed the subscription fees, especially if the company struggles to scale and retain customers.",
+        "first_question": "Can you share the monthly cash-flow statement for the past six months, including subscription revenue, development costs and customer acquisition expenses?",
+        "evidence_ids": [
+          "C9",
+          "C10"
+        ]
+      },
+      "failures": [],
+      "seconds": 17.57
+    },
+    {
+      "case": "prerevenue_biotech",
+      "stage": "readiness",
+      "mode": "practice",
+      "model": "qwen3:8b",
+      "output": {
+        "priorities": [
+          {
+            "title": "Design the batch-reproducibility evidence record",
+            "why_now": "Reproducibility across batches is critical for validating the consistency and reliability of the tissue scaffold, which is essential for moving from laboratory development to clinical trials or commercial production.",
+            "required_input": "Batch production logs, material sourcing records, and quality control metrics from previous laboratory trials.",
+            "investor_question": "Can the tissue scaffold be consistently reproduced across batches without compromising quality?",
+            "action": "Draft a batch-reproducibility protocol comparing scaffold properties across multiple batches, including mechanical strength, biocompatibility, and structural uniformity, using standardized testing methods.",
+            "output": "Batch-reproducibility protocol and results-recording worksheet.",
+            "done_when": "The protocol specifies the comparison, conditions, and failure recording needed to decide whether additional process refinement or a pilot production run is justified."
+          },
+          {
+            "title": "Design the clinical-trial readiness assessment",
+            "why_now": "Clinical trials are a necessary step before commercialization, and they require a clear understanding of regulatory requirements, ethical considerations, and the ability to demonstrate safety and efficacy.",
+            "required_input": "Regulatory guidelines for medical devices in the target jurisdiction, ethical review board (IRB) requirements, and a preliminary risk assessment of the tissue scaffold.",
+            "investor_question": "Is the company prepared to initiate clinical trials, and what are the regulatory and ethical considerations?",
+            "action": "Draft a clinical-trial readiness assessment document outlining the regulatory framework, ethical review process, and risk mitigation strategies for the tissue scaffold.",
+            "output": "Clinical-trial readiness assessment document.",
+            "done_when": "The document outlines the regulatory, ethical, and risk-related considerations needed to determine whether the company is ready to initiate clinical trials."
+          }
+        ],
+        "evidence_ids": [
+          "C9"
+        ]
+      },
+      "failures": [],
+      "seconds": 55.05
+    },
+    {
+      "case": "founder_request",
+      "stage": "pitch",
+      "mode": "practice",
+      "model": "qwen3:8b",
+      "output": {
+        "subject": "A cement plant shortlist for waste-heat recovery pilots",
+        "observation": "I saw that KilnLoop is developing waste-heat recovery equipment and is seeking independent cement plants for pilot discussions.",
+        "proposed_help": "We could prepare a sourced shortlist of independent cement plants with geographic focus, operational size, and potential fit for waste-heat recovery. We could also draft a concise introduction for each plant to support your outreach.",
+        "meeting_ask": "Would you be open to a call about which regions or plant characteristics to prioritize in your pilot search?",
+        "evidence_ids": [
+          "C9"
+        ]
+      },
+      "failures": [],
+      "seconds": 46.16
+    },
+    {
+      "case": "commission_not_gmv",
+      "stage": "research",
+      "mode": "practice",
+      "model": "qwen3:8b",
+      "output": {
+        "business": "RuralLink connects farms with mills to facilitate grain purchases, earning a transaction commission. Payments from suppliers go through its settlement account.",
+        "reason_to_meet": "RuralLink's commission model could generate predictable revenue if it consistently facilitates transactions between farms and mills.",
+        "main_risk": "The company could fail to earn money if the transaction commission is insufficient to cover settlement account management costs and transaction processing fees.",
+        "first_question": "Can you share the settlement account transaction ledger for the past six months, including commission fees and associated costs?",
+        "evidence_ids": [
+          "C9"
+        ]
+      },
+      "failures": [],
+      "seconds": 57.28
+    },
+    {
+      "case": "unverified_growth",
+      "stage": "research",
+      "mode": "practice",
+      "model": "qwen3:8b",
+      "output": {
+        "business": "SafePay offers invoice reconciliation tools designed to help businesses automate and streamline their accounts payable processes.",
+        "reason_to_meet": "Invoice reconciliation is a recurring need for businesses, and automation could reduce manual effort and errors, creating a scalable service model.",
+        "main_risk": "The company may not have a clear path to monetization if the cost of developing and maintaining the reconciliation tools exceeds the subscription fees, or if customers do not consistently renew their contracts.",
+        "first_question": "Can you share the signed contracts or renewal records for any customers, along with the pricing structure and any service-level agreements?",
+        "evidence_ids": [
+          "C9"
+        ]
+      },
+      "failures": [],
+      "seconds": 60.46
+    }
+  ]
+}

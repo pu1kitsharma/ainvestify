@@ -13,7 +13,7 @@ from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, computed_field
 
 
 def new_id(prefix: str) -> str:
@@ -141,6 +141,92 @@ class DiscoverySignal(BaseModel):
     discovered_at: str = Field(default_factory=utcnow)
 
 
+class CompanyEvidence(BaseModel):
+    id: str = Field(default_factory=lambda: new_id("evidence"))
+    field: str
+    value: str
+    quote: str
+    source_url: str
+    retrieved_at: str = Field(default_factory=utcnow)
+    origin: str = "public_page_claim"
+    dataset_id: Optional[str] = None
+    row_key: Optional[str] = None
+    observed_at: Optional[str] = None
+
+
+class SelectionAssessment(BaseModel):
+    recommendation: str = "investigate"
+    rationale: str = "Insufficient evidence for selection."
+    strengths: list[str] = Field(default_factory=list)
+    concerns: list[str] = Field(default_factory=list)
+    missing_information: list[str] = Field(default_factory=list)
+    incubation_actions: list[str] = Field(default_factory=list)
+    evidence_ids: list[str] = Field(default_factory=list)
+    model: str
+    assessed_at: str = Field(default_factory=utcnow)
+    status: str = "model_proposed"
+
+
+class CompanyProfile(BaseModel):
+    id: str = Field(default_factory=lambda: new_id("company"))
+    tenant_id: str
+    name: str
+    website: str
+    discovery_source_url: Optional[str] = None
+    criteria_review: list[dict[str, Any]] = Field(default_factory=list)
+    growth_analysis: dict[str, Any] = Field(default_factory=dict)
+    identity_status: str = "source_supported_unverified"
+    evidence: list[CompanyEvidence] = Field(default_factory=list)
+    assessment: Optional[SelectionAssessment] = None
+    updated_at: str = Field(default_factory=utcnow)
+
+    @property
+    def identity_key(self) -> str:
+        # Unresolved directory entries remain separate by source and name;
+        # never pretend the directory's domain is the company's website.
+        return self.website or f"unresolved:{self.evidence[0].source_url}#{self.name.casefold()}"
+
+
+class WebSourceOutcome(BaseModel):
+    url: str
+    status: str
+    detail: str
+    kind: str = "research"
+    records_read: Optional[int] = None
+    matches: Optional[int] = None
+    retrieved_at: str = Field(default_factory=utcnow)
+
+
+class WebSourcingRun(BaseModel):
+    id: str = Field(default_factory=lambda: new_id("source_run"))
+    tenant_id: str
+    thesis: str
+    geography: Optional[str] = None
+    seed_urls: list[str] = Field(default_factory=list)
+    search_queries: list[str] = Field(default_factory=list)
+    research_plan: dict[str, Any] = Field(default_factory=dict)
+    reasoning_log: list[dict[str, Any]] = Field(default_factory=list)
+    discovered_urls: list[str] = Field(default_factory=list)
+    warnings: list[str] = Field(default_factory=list)
+    phase: str = "starting"
+    status: str = "running"
+    sources: list[WebSourceOutcome] = Field(default_factory=list)
+    company_ids: list[str] = Field(default_factory=list)
+    lead_ids: list[str] = Field(default_factory=list)
+    company_profiles: list[CompanyProfile] = Field(default_factory=list)
+    model: str
+    worker_id: Optional[str] = None
+    started_at: str = Field(default_factory=utcnow)
+    completed_at: Optional[str] = None
+    error: Optional[str] = None
+
+    @computed_field
+    @property
+    def source_coverage(self) -> list[dict[str, Any]]:
+        from agents.source_coverage import summarize_coverage
+        return summarize_coverage(self)
+
+
 class SourcedLead(BaseModel):
     """§6.1/§5.8. Output of the Deal Sourcing Agent -- distinct from Deal:
     a lead is a candidate nobody has submitted documents for yet. It only
@@ -153,6 +239,8 @@ class SourcedLead(BaseModel):
     discovery_signals: list[DiscoverySignal] = Field(default_factory=list)
     status: LeadStatus = LeadStatus.NEW
     promoted_deal_id: Optional[str] = None
+    company_id: Optional[str] = None
+    company_profile: Optional[CompanyProfile] = None
 
 
 class ResearchFinding(BaseModel):
@@ -193,6 +281,8 @@ class MemoVersion(BaseModel):
     version_number: int
     generated_at: str = Field(default_factory=utcnow)
     approved_by: Optional[str] = None
+    # Source-linked teaser approvals expire when the operating evidence changes.
+    approval_basis_hash: Optional[str] = None
     content_uri: str
     # Real IB/VC practice uses three distinct documents, not one generic
     # memo (architecture doc §5.7 addendum): "teaser" (anonymized, 1-2pg,

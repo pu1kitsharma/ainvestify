@@ -1,0 +1,205 @@
+{
+  "version": "2026-09-14.1",
+  "sources": [
+    {
+      "id": "ms",
+      "title": "Morgan Stanley: The Anatomy of a Deal",
+      "url": "https://advisor.morganstanley.com/liberty-wealth-management-group/documents/field/l/li/liberty-wealth-management-group/The_Anatomy_of_a_Deal_factsheet.pdf",
+      "checked_on": "2026-09-14",
+      "scope": "Sell-side preparation; not an accelerator programme"
+    },
+    {
+      "id": "hl",
+      "title": "Houlihan Lokey: Capital Solutions",
+      "url": "https://hl.com/services/corporate-finance/capital-solutions/",
+      "checked_on": "2026-09-14",
+      "scope": "Financing advisory; no inference of our investor access"
+    },
+    {
+      "id": "yc",
+      "title": "Y Combinator: A Guide to Seed Fundraising",
+      "url": "https://www.ycombinator.com/blog/how-to-raise-a-seed-round",
+      "checked_on": "2026-09-14",
+      "scope": "Seed fundraising guidance; not universal financing terms"
+    },
+    {
+      "id": "sequoia",
+      "title": "Sequoia: Writing a Business Plan",
+      "url": "https://sequoiacap.com/article/writing-a-business-plan",
+      "checked_on": "2026-09-14",
+      "scope": "Investment narrative questions; not evidence about any company"
+    },
+    {
+      "id": "techstars",
+      "title": "Techstars: Building Your Investor Pipeline",
+      "url": "https://toolkit.techstars.com/build-your-investor-pipeline",
+      "checked_on": "2026-09-14",
+      "scope": "Preparation, investor targeting and process tracking"
+    },
+    {
+      "id": "sine",
+      "title": "SINE IIT Bombay: NIDHI PRAYAS",
+      "url": "https://www.sineiitb.org/programs/nidhi-prayas/",
+      "checked_on": "2026-09-14",
+      "scope": "Prototype and proof-of-concept incubation; programme eligibility must be checked separately"
+    },
+    {
+      "id": "ecell",
+      "title": "E-Cell IIT Bombay: Startup Bootcamp",
+      "url": "https://www.ecell.in/enbclub/bootcamp/",
+      "checked_on": "2026-09-14",
+      "scope": "Historical programme illustrating idea development and mentoring; not current enrollment terms"
+    },
+    {
+      "id": "nvca",
+      "title": "NVCA: Model Legal Documents",
+      "url": "https://nvca.org/model-legal-documents/",
+      "checked_on": "2026-09-14",
+      "scope": "US venture financing starting forms; not India legal templates"
+    },
+    {
+      "id": "sebi",
+      "title": "SEBI: Merchant Bankers Regulations, amended December 5, 2025",
+      "url": "https://www.sebi.gov.in/legal/regulations/dec-2025/securities-and-exchange-board-of-india-merchant-bankers-regulations-1992-last-amended-on-december-5-2025-_98640.html",
+      "checked_on": "2026-09-14",
+      "scope": "India regulatory reference; applicability requires the actual transaction and registered capacity"
+    }
+  ],
+  "methods": [
+    {
+      "id": "sourcing_thesis",
+      "stages": [
+        "sourcing_plan",
+        "sourcing_screen"
+      ],
+      "sources": [
+        "sequoia",
+        "techstars"
+      ],
+      "method": "Translate the mandate into testable company criteria before ranking. Sector, company stage, operating geography and growth need distinct support. Discover through multiple independent source families and corroborate candidate identity on company-specific pages. Portfolio membership identifies candidates, not investment merit. A financing event is not operating growth; compare the same business metric across dated periods. These evidence rules are our implementation synthesis.",
+      "deliverable": "A criterion-by-criterion research brief with cited support, contradiction or unknown, and the next search needed to resolve each material gap."
+    },
+    {
+      "id": "mandate",
+      "stages": [
+        "company suitability",
+        "research",
+        "diligence"
+      ],
+      "sources": [
+        "ms",
+        "hl",
+        "yc"
+      ],
+      "method": "Identify whose decision is being served: an accelerator selecting founders, an investor underwriting capital, or a company appointing a fundraising/sale adviser. Record the target entity, objective and exclusions. A mature company can fit capital advisory while failing a startup-incubation mandate. Do not invent an appointment or change the user's mandate to rescue a poor match.",
+      "deliverable": "A pursue/clarify/pass argument tied to the actual mandate, with the decisive unknown and next action."
+    },
+    {
+      "id": "underwriting",
+      "stages": [
+        "research",
+        "diligence",
+        "investment_case"
+      ],
+      "sources": [
+        "sequoia",
+        "ms"
+      ],
+      "method": "Connect customer pain, alternatives, purchase decision, pricing and delivery obligations to an investable hypothesis. Attribute commercial claims. Separate founder experience from company performance. Seek the evidence that could disprove the thesis, including repeat demand, customer concentration, delivery cost and cash timing. Distinguish missing evidence from adverse evidence.",
+      "deliverable": "A decision memo: observed business, strongest reason to spend effort, strongest objection, decisive test and exact record request."
+    },
+    {
+      "id": "founder_pitch",
+      "stages": [
+        "pitch"
+      ],
+      "sources": [
+        "ecell",
+        "sine"
+      ],
+      "method": "Offer the founder a useful research or preparation deliverable addressing their stated objective. Show what the team would produce and why it matters. Do not sell the founder their own product or claim existing introductions. Invite a discussion of that work; sending and consent are separate from drafting.",
+      "deliverable": "A short founder email containing a source-grounded observation, concrete offer of work and one meeting request."
+    },
+    {
+      "id": "venture_validation",
+      "stages": [
+        "commercial_test",
+        "incubation",
+        "readiness"
+      ],
+      "sources": [
+        "sine",
+        "ecell"
+      ],
+      "method": "Match the next experiment to venture maturity. A laboratory prototype may need reproducible technical testing, IP ownership and customer problem interviews before a paid pilot. A trading operation may need repeat-order and cash-cycle validation. A hotel may need booking, occupancy, rate and servicing-cost analysis. Do not force subscription metrics or paid pilots on every business. These analytical examples are our synthesis, not programme requirements.",
+      "deliverable": "An executable experiment brief: hypothesis, participant or record scope, procedure, comparison, adverse result and resulting decision. Targets are proposed assumptions requiring a basis, never achieved results."
+    },
+    {
+      "id": "commercial_test",
+      "stages": [
+        "commercial_test",
+        "incubation",
+        "readiness"
+      ],
+      "sources": [
+        "sequoia"
+      ],
+      "method": "Identify the user, budget owner, trigger to buy, existing alternative and proposed route to reach buyers. Write the interview questions or outreach copy, not advice to write them. Explain what observation changes the next decision. Customer time savings do not establish the vendor's margin. Include delivery effort and failed or cancelled transactions where relevant.",
+      "deliverable": "A company-specific test document with the actual questions, data columns and stop/change/continue logic."
+    },
+    {
+      "id": "raise_design",
+      "stages": [
+        "funding_outline",
+        "fundraising",
+        "documents"
+      ],
+      "sources": [
+        "yc",
+        "hl"
+      ],
+      "method": "Tie financing to an explicit milestone and costed use of proceeds. Separate product development from inventory/receivables funding and owner liquidity. Use dated cash, burn, obligations and cap-table inputs; absence leaves sizing unresolved. Assess capital options against those needs without inventing terms or assuming a raise is underway. Seed preparation should be proportional to maturity.",
+      "deliverable": "A funding rationale and milestone budget outline showing what can be supported now and what inputs prevent sizing the round."
+    },
+    {
+      "id": "investor_narrative",
+      "stages": [
+        "funding_outline",
+        "documents"
+      ],
+      "sources": [
+        "sequoia",
+        "yc"
+      ],
+      "method": "Explain the business plainly: customer problem, current alternatives, solution, why now, addressable customer, differentiation, revenue model, team, observed progress and capital purpose. Do not manufacture market sizing or traction to fill headings. Make unanswered investor objections visible.",
+      "deliverable": "Actual narrative prose reusable in a founder deck or memo, with source-supported statements and explicit assumptions."
+    },
+    {
+      "id": "investor_process",
+      "stages": [
+        "fundraising"
+      ],
+      "sources": [
+        "techstars"
+      ],
+      "method": "For each investor verify sector, stage, geography, ticket range, current activity and relevant conflicts from dated sources. Unknown mandate fields remain unresolved. Track intro, meeting, diligence, conditional interest, commitment, legal completion and received funds separately. Draft recipient-specific reasoning only for sourced investors. Never turn a soft commitment or signed term sheet into cash received.",
+      "deliverable": "A sourced investor comparison, next-action queue, meeting brief and objection response tied to actual correspondence."
+    },
+    {
+      "id": "transaction_readiness",
+      "stages": [
+        "funding_outline",
+        "documents",
+        "fundraising",
+        "readiness"
+      ],
+      "sources": [
+        "techstars",
+        "nvca",
+        "sebi"
+      ],
+      "method": "Link each narrative claim and financial input to its source and version. Identify outstanding ownership, cap-table, IP, financial and transaction documents by the decision they affect. Legal form choice depends on jurisdiction and transaction. US templates do not establish Indian compliance. Generated documents and automated reviews are drafts, not verified compliance, signed agreements or completed fundraising.",
+      "deliverable": "A versioned data-room index and issue/request list; draft responses from available evidence, with missing or conflicting records visible."
+    }
+  ]
+}

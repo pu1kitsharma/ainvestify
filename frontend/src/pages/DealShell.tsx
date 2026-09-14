@@ -5,8 +5,8 @@ import Stepper from "../components/Stepper";
 import StatusBadge from "../components/StatusBadge";
 
 const TABS = [
-  { to: "review", label: "Review" },
-  { to: "research", label: "Research" },
+  { to: "review", label: "Document figures" },
+  { to: "research", label: "Source checks" },
   { to: "documents", label: "Documents" },
   { to: "investors", label: "Investors" },
   { to: "audit-log", label: "Audit Log" },
@@ -23,7 +23,7 @@ export default function DealShell() {
   return (
     <div className="flex flex-col gap-4">
       <Link to="/" className="text-sm text-indigo-600 hover:underline">
-        ← Back to dashboard
+        ← Back to companies
       </Link>
 
       <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
@@ -34,15 +34,13 @@ export default function DealShell() {
           </div>
           <StatusBadge status={deal.data.status} />
         </div>
-        <div className="mt-3">
-          <Stepper status={deal.data.status} />
-        </div>
+        <details className="mt-3 text-xs text-slate-500"><summary className="cursor-pointer">Document preparation status</summary><Stepper status={deal.data.status} /></details>
       </div>
 
-      <DirectiveBar dealId={dealId} />
+      <details className="text-xs text-slate-500"><summary className="cursor-pointer">Advanced document actions</summary><div className="mt-3"><DirectiveBar dealId={dealId} /></div></details>
 
       <div>
-        <nav className="flex gap-1 border-b border-slate-200">
+        <nav className="flex gap-1 overflow-x-auto border-b border-slate-200">
           {TABS.map((tab) => (
             <NavLink
               key={tab.to}

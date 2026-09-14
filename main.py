@@ -28,9 +28,10 @@ from typing import Optional
 import ollama
 from pydantic import BaseModel
 
-from agents.planner_agent import handle_directive, promote_lead_to_deal, source_leads, start_deal
+from agents.planner_agent import handle_directive, promote_lead_to_deal, start_deal
 from agents.review_checkpoint import review_leads
-from schemas import LeadStatus
+from schemas import LeadStatus, WebSourcingRun
+from agents.company_sourcing import source_companies
 from store import Store
 
 ROUTER_MODEL = "llama3.2:3b"
@@ -64,12 +65,9 @@ _ENGLISH_STOPWORDS = {
 }
 
 SOURCING_SCOPE_NOTE = (
-    "\n[Note] This surfaces candidate companies with a citable, recent discovery "
-    "signal (new GitHub activity, HN launches) matching the theme you described -- "
-    "not a comprehensive market map, and not fundraising execution. Promoting a "
-    "lead below starts the same cited, human-reviewed deal pipeline used to build "
-    "the case for helping that company raise from institutional investors; it does "
-    "not itself contact investors or run the raise -- that stays a human-led process."
+    "\n[Note] Public web research produces cited candidate profiles and proposed "
+    "incubation steps. Coverage can be incomplete; assessments need validation. "
+    "Promoting a lead starts the existing deal preparation workflow."
 )
 
 
@@ -153,7 +151,15 @@ def run_sourcing(
 ) -> None:
     scope = f"'{sector_keyword}'" + (f" in '{location_filter}'" if location_filter else " (global)")
     print(f"\n[Router] Searching for candidate companies matching {scope}...")
-    leads = source_leads(store, tenant_id, sector_keyword, location_filter=location_filter)
+    run = source_companies(store, WebSourcingRun(
+        tenant_id=tenant_id, thesis=sector_keyword, geography=location_filter, model="local"), prepare_workflow=True)
+    print(f"[Router] Research {run.status}: {len(run.discovered_urls)} discovered pages.")
+    for warning in run.warnings:
+        print(f"[Coverage] {warning}")
+    if run.error:
+        print(f"[Research] {run.error}")
+    leads = [store.get_lead(tenant_id, lead_id) for lead_id in run.lead_ids]
+    leads = [lead for lead in leads if lead is not None]
     if not leads:
         print("[Router] No candidate leads found for this theme right now.")
         print(SOURCING_SCOPE_NOTE)
@@ -221,8 +227,7 @@ def main() -> None:
     store = Store()
     try:
         if decision.action == "source_leads":
-            keyword = decision.sector_keyword or prompt
-            run_sourcing(store, tenant_id, reviewer, keyword, decision.location_filter)
+            run_sourcing(store, tenant_id, reviewer, prompt, decision.location_filter)
         elif decision.action == "screen_deal":
             run_screen_deal(store, tenant_id, reviewer)
         else:

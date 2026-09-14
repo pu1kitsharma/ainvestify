@@ -1,0 +1,11 @@
+{
+  "input_file": "evals/investment_preparation/reasoning-regression-input.json",
+  "case": "Waybill",
+  "live_data_updated": false,
+  "calls": [],
+  "original_review": {
+    "issues": []
+  },
+  "status": "stopped",
+  "reason": "Stopped after approximately five minutes without a completed first answer. Temperature zero conflicts with Qwen reasoning guidance; no proof of an internal loop is claimed. Retesting with recommended sampling."
+}

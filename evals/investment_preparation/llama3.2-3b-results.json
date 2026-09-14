@@ -1,0 +1,265 @@
+{
+  "scope": "Synthetic regression probes, not expert quality scores or proof of autonomous fundraising.",
+  "practice": {
+    "version": "2026-09-14.1",
+    "method_ids": [
+      "mandate",
+      "underwriting"
+    ],
+    "sha256": "7ecefad5d444e740f15ae7b0f31291212c162549003ef63f21c3100131612fa9",
+    "teaching_example_ids": [
+      "research_maintenance"
+    ],
+    "sources": [
+      {
+        "id": "ms",
+        "title": "Morgan Stanley: The Anatomy of a Deal",
+        "url": "https://advisor.morganstanley.com/liberty-wealth-management-group/documents/field/l/li/liberty-wealth-management-group/The_Anatomy_of_a_Deal_factsheet.pdf",
+        "checked_on": "2026-09-14",
+        "scope": "Sell-side preparation; not an accelerator programme"
+      },
+      {
+        "id": "hl",
+        "title": "Houlihan Lokey: Capital Solutions",
+        "url": "https://hl.com/services/corporate-finance/capital-solutions/",
+        "checked_on": "2026-09-14",
+        "scope": "Financing advisory; no inference of our investor access"
+      },
+      {
+        "id": "yc",
+        "title": "Y Combinator: A Guide to Seed Fundraising",
+        "url": "https://www.ycombinator.com/blog/how-to-raise-a-seed-round",
+        "checked_on": "2026-09-14",
+        "scope": "Seed fundraising guidance; not universal financing terms"
+      },
+      {
+        "id": "sequoia",
+        "title": "Sequoia: Writing a Business Plan",
+        "url": "https://sequoiacap.com/article/writing-a-business-plan",
+        "checked_on": "2026-09-14",
+        "scope": "Investment narrative questions; not evidence about any company"
+      }
+    ],
+    "adaptation": "retrieved_practice_not_weight_training"
+  },
+  "results": [
+    {
+      "case": "hotel_costs",
+      "stage": "research",
+      "mode": "baseline",
+      "model": "llama3.2:3b",
+      "failures": [
+        "1 validation error for EvaluationOutput\nbusiness\n  String should have at least 30 characters [type=string_too_short, input_value='Harbor Rooms', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_short"
+      ],
+      "raw_response": "{\n  \"business\": \"Harbor Rooms\",\n  \"reason_to_meet\": \"The company offers serviced rooms for traveling nurses, with agencies booking stays of several weeks. This presents an opportunity to explore the demand for such services and the potential for revenue growth.\",\n  \"main_risk\": \"The main risk is that delivery/service costs may exceed fees, leading to financial losses for the company.\",\n  \"first_question\": \"Can you share the monthly revenue ledger for the past six months?\",\n  \"evidence_ids\": [\"C9\"]\n}",
+      "seconds": 13.42
+    },
+    {
+      "case": "hotel_costs",
+      "stage": "research",
+      "mode": "practice",
+      "model": "llama3.2:3b",
+      "output": {
+        "business": "Harbor Rooms offers serviced rooms for traveling nurses, with agencies booking stays of several weeks.",
+        "reason_to_meet": "Agencies may continue to book rooms, generating recurring revenue if the maintenance and cleaning services leave a margin.",
+        "main_risk": "Delays in repairs or room cleaning could lead to lost bookings and revenue, as agencies may choose alternative accommodations.",
+        "first_question": "Can you share the average monthly revenue ledger for the past six months, including any cancellations or no-shows?",
+        "evidence_ids": [
+          "C9"
+        ]
+      },
+      "failures": [],
+      "seconds": 25.11
+    },
+    {
+      "case": "prior_employer",
+      "stage": "research",
+      "mode": "baseline",
+      "model": "llama3.2:3b",
+      "output": {
+        "business": "Vector Routing offers route-planning software for delivery fleets.",
+        "reason_to_meet": "The company aims to capture a share of the growing demand for efficient logistics solutions in the delivery industry.",
+        "main_risk": "Delivery/service costs exceeding fees, as the company relies on a subscription-based model with a monthly fee for each route optimized.",
+        "first_question": "Can you share the average monthly cost per route, as well as the average revenue generated per route, for the past six months?",
+        "evidence_ids": [
+          "C9",
+          "C10"
+        ]
+      },
+      "failures": [
+        "Ask for a specific operating record that tests the economic risk, not an anecdote, claimed benefit or success scenario"
+      ],
+      "raw_response": "{\n  \"business\": \"Vector Routing offers route-planning software for delivery fleets.\",\n  \"reason_to_meet\": \"The company aims to capture a share of the growing demand for efficient logistics solutions in the delivery industry.\",\n  \"main_risk\": \"Delivery/service costs exceeding fees, as the company relies on a subscription-based model with a monthly fee for each route optimized.\",\n  \"first_question\": \"Can you share the average monthly cost per route, as well as the average revenue generated per route, for the past six months?\",\n  \"evidence_ids\": [\"C9\", \"C10\"]\n}",
+      "seconds": 21.08
+    },
+    {
+      "case": "prior_employer",
+      "stage": "research",
+      "mode": "practice",
+      "model": "llama3.2:3b",
+      "output": {
+        "business": "Vector Routing offers route-planning software for delivery fleets.",
+        "reason_to_meet": "Delivery fleets could benefit from optimized routes to reduce fuel consumption and increase delivery efficiency, potentially leading to cost savings and increased customer satisfaction.",
+        "main_risk": "Delivery fleet operators may not adopt the software if the cost savings are not significant enough to justify the implementation and maintenance costs, or if the software does not integrate well with their existing systems.",
+        "first_question": "Can you share the contract with a major delivery fleet operator, including the terms and conditions of the software implementation and any revenue guarantees?",
+        "evidence_ids": [
+          "C9",
+          "C10"
+        ]
+      },
+      "failures": [],
+      "seconds": 23.33
+    },
+    {
+      "case": "prerevenue_biotech",
+      "stage": "readiness",
+      "mode": "baseline",
+      "model": "llama3.2:3b",
+      "output": {
+        "priorities": [
+          {
+            "title": "Assess Reproducibility",
+            "why_now": "Lack of reproducibility across batches may impact product consistency and reliability.",
+            "required_input": "Access to batch records and testing data.",
+            "investor_question": "How can CellBridge ensure consistency in its laboratory tissue scaffolds?",
+            "action": "Analyze batch records and testing data to identify areas for improvement.",
+            "output": "A report on batch variability and recommendations for improvement.",
+            "done_when": "Batch records and testing data are available."
+          }
+        ],
+        "evidence_ids": [
+          "C9"
+        ]
+      },
+      "failures": [
+        "Having records available is an input, not completed analysis. State what the output must calculate, compare or demonstrate, including adverse results"
+      ],
+      "raw_response": "{ \"priorities\": [ { \"title\": \"Assess Reproducibility\", \"why_now\": \"Lack of reproducibility across batches may impact product consistency and reliability.\", \"required_input\": \"Access to batch records and testing data.\", \"investor_question\": \"How can CellBridge ensure consistency in its laboratory tissue scaffolds?\", \"action\": \"Analyze batch records and testing data to identify areas for improvement.\", \"output\": \"A report on batch variability and recommendations for improvement.\", \"done_when\": \"Batch records and testing data are available.\" } ], \"evidence_ids\": [ \"C9\" ] }",
+      "seconds": 22.91
+    },
+    {
+      "case": "prerevenue_biotech",
+      "stage": "readiness",
+      "mode": "practice",
+      "model": "llama3.2:3b",
+      "output": {
+        "priorities": [
+          {
+            "title": "Assess reproducibility across batches",
+            "why_now": "Reproducibility is crucial for a product before clinical trials or sales.",
+            "required_input": "Batch records, manufacturing process documentation and quality control procedures.",
+            "investor_question": "Can the scaffold be consistently produced across different batches?",
+            "action": "Analyze batch records and manufacturing process documentation to identify variations and implement quality control procedures.",
+            "output": "Reproducibility assessment report.",
+            "done_when": "The report highlights variations and recommended changes to ensure consistency."
+          }
+        ],
+        "evidence_ids": [
+          "C9"
+        ]
+      },
+      "failures": [
+        "missing concept: fail/adverse/variab/negative/inconsisten"
+      ],
+      "seconds": 24.73
+    },
+    {
+      "case": "founder_request",
+      "stage": "pitch",
+      "mode": "baseline",
+      "model": "llama3.2:3b",
+      "output": {
+        "subject": "Assisting KilnLoop with Cement Plant Identification",
+        "observation": "KilnLoop develops waste-heat recovery equipment.",
+        "proposed_help": "We can help identify independent cement plants for pilot discussions.",
+        "meeting_ask": "Would you like to discuss how we can assist with this task?",
+        "evidence_ids": [
+          "C9"
+        ]
+      },
+      "failures": [
+        "missing concept: shortlist/research/prospect/map"
+      ],
+      "seconds": 19.29
+    },
+    {
+      "case": "founder_request",
+      "stage": "pitch",
+      "mode": "practice",
+      "model": "llama3.2:3b",
+      "output": {
+        "subject": "A pilot discussion research brief for KilnLoop",
+        "observation": "I saw that you are looking for independent cement plants for pilot discussions on waste-heat recovery equipment.",
+        "proposed_help": "We could prepare a sourced cement plant shortlist with plant fit and unanswered qualification questions. We could also draft an introduction tailored to each plant for you to review.",
+        "meeting_ask": "Would you be open to a call about which markets and plant requirements to prioritize?",
+        "evidence_ids": [
+          "C9"
+        ]
+      },
+      "failures": [],
+      "seconds": 23.64
+    },
+    {
+      "case": "commission_not_gmv",
+      "stage": "research",
+      "mode": "baseline",
+      "model": "llama3.2:3b",
+      "failures": [
+        "1 validation error for EvaluationOutput\nbusiness\n  String should have at least 30 characters [type=string_too_short, input_value='RuralLink', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_short"
+      ],
+      "raw_response": "{\n  \"business\": \"RuralLink\",\n  \"reason_to_meet\": \"RuralLink's commission-based model could generate significant revenue by connecting mills and farms, but the company's success depends on the stability of the grain market and the reliability of its payment processing system.\",\n  \"main_risk\": \"Delivery/service costs exceeding fees\",\n  \"first_question\": \"Can you share the monthly payment ledger for the past six months, showing the total transaction commissions earned and the corresponding settlement account payments to suppliers?\",\n  \"evidence_ids\": [\"C9\"]\n}",
+      "seconds": 21.6
+    },
+    {
+      "case": "commission_not_gmv",
+      "stage": "research",
+      "mode": "practice",
+      "model": "llama3.2:3b",
+      "output": {
+        "business": "RuralLink arranges grain purchases between mills and farms, charging a transaction commission.",
+        "reason_to_meet": "Commission-based revenue could be stable if the grain market remains consistent, with a potential for repeat contracts with mills and farms.",
+        "main_risk": "Cash paid before collection could exceed the commission if suppliers take time to settle accounts, impacting RuralLink's cash flow.",
+        "first_question": "Can you share the monthly cash-flow statement for the past six months, showing the settlement account balances and any outstanding payments?",
+        "evidence_ids": [
+          "C9"
+        ]
+      },
+      "failures": [],
+      "seconds": 24.55
+    },
+    {
+      "case": "unverified_growth",
+      "stage": "research",
+      "mode": "baseline",
+      "model": "llama3.2:3b",
+      "output": {
+        "business": "SafePay provides invoice reconciliation tools, helping businesses manage and resolve discrepancies in their invoices.",
+        "reason_to_meet": "SafePay aims to capture a share of the growing market for invoice reconciliation services, which is driven by the increasing complexity of global trade and the need for more efficient payment processes.",
+        "main_risk": "The main risk is that delivery/service costs exceed fees, as SafePay may struggle to maintain a pricing model that balances the need to generate revenue with the costs of providing its service.",
+        "first_question": "Can you share the contract with the company's largest customer, which pays a monthly fee for the use of SafePay's reconciliation tools?",
+        "evidence_ids": [
+          "C9"
+        ]
+      },
+      "failures": [],
+      "seconds": 24.74
+    },
+    {
+      "case": "unverified_growth",
+      "stage": "research",
+      "mode": "practice",
+      "model": "llama3.2:3b",
+      "output": {
+        "business": "SafePay provides invoice reconciliation tools.",
+        "reason_to_meet": "Invoice reconciliation services could support subscription-based revenue if clients value the service and pay consistently.",
+        "main_risk": "Cash paid before collection could lead to cash flow issues if clients default on payments.",
+        "first_question": "Can you share the signed contracts with payment terms and any client payment history (e.g., payment success rates, average payment amount)?",
+        "evidence_ids": [
+          "C9"
+        ]
+      },
+      "failures": [],
+      "seconds": 22.57
+    }
+  ]
+}

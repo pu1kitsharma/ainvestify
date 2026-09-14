@@ -1,0 +1,5 @@
+{
+  "input": "reasoning-engagement-results.json:revised_draft",
+  "rejected": true,
+  "reason": "sections.1.content: Attribute the claimed benefit or state it as a hypothesis; this is not an observed result: End-to-end procurement automation reduces manual effort, accelerates time-to-shelf, and ensures inventory accuracy."
+}
