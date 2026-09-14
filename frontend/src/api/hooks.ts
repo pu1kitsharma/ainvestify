@@ -18,6 +18,7 @@ import type {
   SourcedLead,
   SourceDocument,
   LeadStatus,
+  WebSourcingRun,
 } from "./types";
 
 // --- Dashboard / deals ------------------------------------------------
@@ -56,11 +57,39 @@ export function useClassifyPrompt() {
 
 // --- Leads ---------------------------------------------------------------
 
-export function useLeads(status?: LeadStatus) {
-  const qs = status ? `?status=${encodeURIComponent(status)}` : "";
+export function useLeads(status?: LeadStatus, webRunOnly?: boolean) {
+  const params = new URLSearchParams();
+  if (status) params.set("status", status);
+  if (webRunOnly) params.set("web_run_only", "true");
+  const qs = params.toString();
   return useQuery({
-    queryKey: ["leads", status ?? "all"],
-    queryFn: () => api.get<SourcedLead[]>(`/api/leads${qs}`),
+    queryKey: ["leads", status ?? "all", webRunOnly ?? false],
+    queryFn: () => api.get<SourcedLead[]>(`/api/leads${qs ? `?${qs}` : ""}`),
+  });
+}
+
+export function useWebRuns() {
+  return useQuery({
+    queryKey: ["webRuns"],
+    queryFn: () => api.get<WebSourcingRun[]>("/api/leads/web-runs"),
+    refetchInterval: (q) => q.state.data?.some((r) => ["running", "cancel_requested"].includes(r.status)) ? 2500 : false,
+  });
+}
+
+export function useStartWebRun() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (body: { thesis: string; geography?: string; seed_urls?: string[]; prepare_workflow?: boolean }) =>
+      api.post<WebSourcingRun>("/api/leads/web-runs", body),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["webRuns"] }),
+  });
+}
+
+export function useCancelWebRun() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => api.post<WebSourcingRun>(`/api/leads/web-runs/${id}/cancel`),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["webRuns"] }),
   });
 }
 
@@ -108,6 +137,8 @@ function invalidateDeal(qc: ReturnType<typeof useQueryClient>, dealId: string) {
   qc.invalidateQueries({ queryKey: ["deal", dealId] });
   qc.invalidateQueries({ queryKey: ["deals"] });
   qc.invalidateQueries({ queryKey: ["auditLog", dealId] });
+  qc.invalidateQueries({ queryKey: ["sourceDocuments", dealId] });
+  qc.invalidateQueries({ queryKey: ["operations"] });
 }
 
 export function useSignMandate(dealId: string) {

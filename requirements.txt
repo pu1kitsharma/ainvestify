@@ -3,6 +3,8 @@ pydantic>=2.9
 pdfplumber
 openpyxl
 requests
+beautifulsoup4>=4.12
+urllib3>=2
 numpy
 faiss-cpu
 matplotlib

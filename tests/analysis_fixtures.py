@@ -1,0 +1,31 @@
+"""Offline local-model fixture for analytical workflow integration tests."""
+def analytical_fixture(schema, citation):
+    values = {
+        'business_interpretation': 'The company sells an operating service whose repeat demand and delivery margin need testing.',
+        'buyer_value_hypothesis': 'A buyer with recurring operational work may pay to reduce elapsed completion time.',
+        'economic_failure_mechanism': 'Manual exception handling could consume the service fee and cause negative contribution after delivery costs.',
+        'decisive_test': 'Reconcile a paid pilot invoice against delivery costs and timestamped completion records.',
+        'record_needed': 'Pilot invoices and timestamped delivery cost records',
+        'customer_segment': 'Teams with recurring operational purchases',
+        'user_and_budget_owner': 'The operations user and finance budget owner',
+        'purchase_trigger': 'An upcoming operational deadline requiring a purchase',
+        'route_to_buyer': 'Approach new prospects through relevant industry associations after authorization.',
+        'offer_sentence': 'Run one paid workflow pilot with a fixed delivery scope and agreed completion date.',
+        'pilot_scope': 'Test one paid workflow for two weeks against the buyer previous comparable workflow.',
+        'primary_metric': 'cycle_time',
+        'metric_formula': 'Elapsed time equals completion timestamp minus request timestamp.',
+        'stop_or_continue_rule': 'Continue only if the buyer pays and measured contribution after delivery cost is positive.',
+        'delivery_cost_check': 'Reconcile payment received minus supplier and manual delivery costs.',
+        'customer_problem': 'The source describes a recurring operating workflow with delays and manual coordination.',
+        'product_description': 'The company describes a service handling the workflow for its buyers; outcomes remain unverified.',
+        'commercial_hypothesis': 'Repeat buyers could create recurring service revenue if delivery cost remains below fees.',
+        'economic_risk': 'Manual delivery effort may consume the margin from each transaction.',
+        'use_of_funds_question': 'How much capital is needed to cover the next measured operating milestone?',
+        'mandate_fit_hypothesis': 'Early-stage investors interested in the observed operating sector may fit the business.',
+        'mandate_exclusion_reason': 'A mandate requiring verified recurring revenue cannot be matched without that record.',
+        'strongest_investor_objection': 'Paid demand and positive delivery contribution have not been substantiated.',
+        'proof_milestone': 'Complete a paid pilot with timestamped outcomes and a positive delivery contribution.',
+        'financing_use_hypothesis': 'Capital could finance delivery improvements if paid pilot evidence supports repeat demand.',
+        'evidence_ids': [citation],
+    }
+    return schema.model_validate({k:values[k] for k in schema.model_fields})

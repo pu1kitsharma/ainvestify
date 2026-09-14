@@ -1,0 +1,243 @@
+{
+  "scope": "Synthetic regression probes, not expert quality scores or proof of autonomous fundraising.",
+  "practice": {
+    "version": "2026-09-14.1",
+    "method_ids": [
+      "mandate",
+      "underwriting"
+    ],
+    "sha256": "8982c2845a545ec0cf4b06eecfaa1e575d3a87f28cc2d9750485075dd5b75be6",
+    "sources": [
+      {
+        "id": "ms",
+        "title": "Morgan Stanley: The Anatomy of a Deal",
+        "url": "https://advisor.morganstanley.com/liberty-wealth-management-group/documents/field/l/li/liberty-wealth-management-group/The_Anatomy_of_a_Deal_factsheet.pdf",
+        "checked_on": "2026-09-14",
+        "scope": "Sell-side preparation; not an accelerator programme"
+      },
+      {
+        "id": "hl",
+        "title": "Houlihan Lokey: Capital Solutions",
+        "url": "https://hl.com/services/corporate-finance/capital-solutions/",
+        "checked_on": "2026-09-14",
+        "scope": "Financing advisory; no inference of our investor access"
+      },
+      {
+        "id": "yc",
+        "title": "Y Combinator: A Guide to Seed Fundraising",
+        "url": "https://www.ycombinator.com/blog/how-to-raise-a-seed-round",
+        "checked_on": "2026-09-14",
+        "scope": "Seed fundraising guidance; not universal financing terms"
+      },
+      {
+        "id": "sequoia",
+        "title": "Sequoia: Writing a Business Plan",
+        "url": "https://sequoiacap.com/article/writing-a-business-plan",
+        "checked_on": "2026-09-14",
+        "scope": "Investment narrative questions; not evidence about any company"
+      }
+    ],
+    "adaptation": "retrieved_practice_not_weight_training"
+  },
+  "results": [
+    {
+      "case": "hotel_costs",
+      "stage": "research",
+      "mode": "baseline",
+      "model": "phi4-mini",
+      "failures": [
+        "1 validation error for EvaluationOutput\nreason_to_meet\n  String should have at most 300 characters [type=string_too_long, input_value='The company provides a u...p into a larger market.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long"
+      ],
+      "seconds": 15.71
+    },
+    {
+      "case": "hotel_costs",
+      "stage": "research",
+      "mode": "practice",
+      "model": "phi4-mini",
+      "output": {
+        "business": "Harbor Rooms provides serviced rooms for traveling nurses, including cleaning and repairs.",
+        "reason_to_meet": "The recurring need for serviced rooms by agencies could indicate a steady demand for the company's offerings.",
+        "main_risk": "High operational costs for cleaning and repairs might not be fully covered by the fees charged to agencies, risking the company's profitability.",
+        "first_question": "Can you share the cost breakdown for room cleaning and repairs over the past year?",
+        "evidence_ids": [
+          "C9"
+        ]
+      },
+      "failures": [],
+      "seconds": 9.7
+    },
+    {
+      "case": "prior_employer",
+      "stage": "research",
+      "mode": "baseline",
+      "model": "phi4-mini",
+      "failures": [
+        "1 validation error for EvaluationOutput\nreason_to_meet\n  String should have at most 300 characters [type=string_too_long, input_value=\"The founders of Vector R...re for delivery fleets.\", input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long"
+      ],
+      "seconds": 9.81
+    },
+    {
+      "case": "prior_employer",
+      "stage": "research",
+      "mode": "practice",
+      "model": "phi4-mini",
+      "output": {
+        "business": "The company provides route-planning software for delivery fleets.",
+        "reason_to_meet": "The software could significantly improve delivery efficiency for logistics companies, potentially leading to substantial cost savings and increased profits.",
+        "main_risk": "The main risk is that the software may not be adopted widely due to high switching costs, resistance to change, or lack of perceived value by potential customers.",
+        "first_question": "Can you share a cost-benefit analysis for a typical logistics company using Vector Routing, including implementation costs and projected savings over time?",
+        "evidence_ids": [
+          "C9",
+          "C10"
+        ]
+      },
+      "failures": [
+        "Ask for a specific operating record that tests the economic risk, not an anecdote, claimed benefit or success scenario"
+      ],
+      "seconds": 7.83
+    },
+    {
+      "case": "prerevenue_biotech",
+      "stage": "readiness",
+      "mode": "baseline",
+      "model": "phi4-mini",
+      "failures": [
+        "2 validation errors for EvaluationOutput\npriorities.0.required_input\n  String should have at most 300 characters [type=string_too_long, input_value='Conduct a series of test...the production process.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long\npriorities.2.required_input\n  String should have at most 300 characters [type=string_too_long, input_value='Develop a sales and mark...nd regulatory agencies.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long"
+      ],
+      "seconds": 38.92
+    },
+    {
+      "case": "prerevenue_biotech",
+      "stage": "readiness",
+      "mode": "practice",
+      "model": "phi4-mini",
+      "output": {
+        "priorities": [
+          {
+            "title": "Assess reproducibility across batches",
+            "why_now": "Reproducibility is essential for clinical trials and product sales, which are not yet underway.",
+            "required_input": "Batch records, production protocols, and quality control data.",
+            "investor_question": "Can the tissue scaffold be consistently produced with the same quality across different batches?",
+            "action": "Design a study to compare multiple batches of the scaffold for structural integrity, composition, and performance metrics.",
+            "output": "Study design and batch comparison results.",
+            "done_when": "The study shows consistent quality across batches or identifies variability that needs to be addressed."
+          },
+          {
+            "title": "Develop a clinical trial protocol",
+            "why_now": "Clinical trials are necessary to evaluate the scaffold's safety and efficacy in a clinical setting.",
+            "required_input": "Clinical trial guidelines, patient inclusion/exclusion criteria, endpoints, and regulatory requirements.",
+            "investor_question": "Is the scaffold ready for clinical evaluation to progress to human trials?",
+            "action": "Draft a clinical trial protocol outlining the study design, patient population, interventions, and outcome measures.",
+            "output": "Clinical trial protocol.",
+            "done_when": "The protocol is approved by an institutional review board (IRB) or ethics committee."
+          },
+          {
+            "title": "Create a go-to-market strategy",
+            "why_now": "A strategy is needed to transition from laboratory development to product sales and clinical trials.",
+            "required_input": "Market analysis, target customer profiles, sales channels, and go-to-market timeline.",
+            "investor_question": "How will CellBridge plan to commercialize the tissue scaffold and bring it to market?",
+            "action": "Outline a go-to-market strategy that includes market entry, sales, and distribution plans.",
+            "output": "Go-to-market strategy document.",
+            "done_when": "The strategy includes a clear path to market entry and revenue generation."
+          }
+        ],
+        "evidence_ids": [
+          "C9"
+        ]
+      },
+      "failures": [],
+      "seconds": 28.88
+    },
+    {
+      "case": "founder_request",
+      "stage": "pitch",
+      "mode": "baseline",
+      "model": "phi4-mini",
+      "output": {
+        "subject": "KilnLoop's Waste-Heat Recovery Pilot Opportunities",
+        "observation": "KilnLoop specializes in developing waste-heat recovery equipment, which is a crucial component in enhancing energy efficiency for cement plants.",
+        "proposed_help": "Our research tools can help you identify independent cement plants that could benefit from waste-heat recovery solutions, facilitating pilot discussions.",
+        "meeting_ask": "Could we schedule a brief call to discuss how our tools can support your pilot discussions for waste-heat recovery in the cement industry?",
+        "evidence_ids": [
+          "C9"
+        ]
+      },
+      "failures": [],
+      "seconds": 8.46
+    },
+    {
+      "case": "founder_request",
+      "stage": "pitch",
+      "mode": "practice",
+      "model": "phi4-mini",
+      "output": {
+        "subject": "Pilot Discussion Preparation for KilnLoop's Waste-Heat Recovery Equipment",
+        "observation": "I noticed that KilnLoop is seeking assistance to identify independent cement plants for pilot discussions on waste-heat recovery equipment.",
+        "proposed_help": "We can compile a list of potential independent cement plants that could benefit from waste-heat recovery solutions and provide a tailored briefing document outlining the key points for your pilot discussions.",
+        "meeting_ask": "Would you be open to discussing the specific criteria for selecting these plants and any additional information you might need for the briefing document?",
+        "evidence_ids": [
+          "C9"
+        ]
+      },
+      "failures": [
+        "missing concept: shortlist/research/prospect/map"
+      ],
+      "seconds": 10.34
+    },
+    {
+      "case": "commission_not_gmv",
+      "stage": "research",
+      "mode": "baseline",
+      "model": "phi4-mini",
+      "failures": [
+        "2 validation errors for EvaluationOutput\nreason_to_meet\n  String should have at most 300 characters [type=string_too_long, input_value='RuralLink offers a platf...opportunity for growth.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long\nmain_risk\n  String should have at most 300 characters [type=string_too_long, input_value=\"The main risk is that th... ability to earn money.\", input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long"
+      ],
+      "seconds": 12.89
+    },
+    {
+      "case": "commission_not_gmv",
+      "stage": "research",
+      "mode": "practice",
+      "model": "phi4-mini",
+      "output": {
+        "business": "RuralLink facilitates grain transactions between mills and farms, earning a commission on each transaction.",
+        "reason_to_meet": "The agricultural sector's need for efficient grain logistics could drive consistent demand for RuralLink's services.",
+        "main_risk": "The company's revenue is dependent on the volume of transactions; a downturn in the agricultural industry or reduced grain production could significantly impact its income.",
+        "first_question": "Can you share the cash-flow statement for the last fiscal year and the breakdown of transaction commissions versus operational costs?",
+        "evidence_ids": [
+          "C9"
+        ]
+      },
+      "failures": [],
+      "seconds": 9.53
+    },
+    {
+      "case": "unverified_growth",
+      "stage": "research",
+      "mode": "baseline",
+      "model": "phi4-mini",
+      "failures": [
+        "1 validation error for EvaluationOutput\nfirst_question\n  String should have at most 180 characters [type=string_too_long, input_value='Can you share the monthl...delivering the service?', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long"
+      ],
+      "seconds": 11.1
+    },
+    {
+      "case": "unverified_growth",
+      "stage": "research",
+      "mode": "practice",
+      "model": "phi4-mini",
+      "output": {
+        "business": "The company offers invoice reconciliation tools.",
+        "reason_to_meet": "The potential for recurring revenue from subscription-based services could indicate a sustainable business model if the product effectively addresses a common pain point for businesses.",
+        "main_risk": "The lack of disclosed revenue or customer time series makes it difficult to assess the company's financial performance and the effectiveness of its product in the market.",
+        "first_question": "Can you share the company's revenue ledger for the past six months?",
+        "evidence_ids": [
+          "C9"
+        ]
+      },
+      "failures": [],
+      "seconds": 10.07
+    }
+  ]
+}

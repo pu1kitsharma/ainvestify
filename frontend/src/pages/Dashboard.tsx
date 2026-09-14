@@ -1,98 +1,19 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useDeals, useLeads } from "../api/hooks";
-import PromptBar from "../components/PromptBar";
-import StatusBadge from "../components/StatusBadge";
-import type { DealStatus } from "../api/types";
-
-const STATUS_FILTERS: { label: string; value: DealStatus | undefined }[] = [
-  { label: "All", value: undefined },
-  { label: "New", value: "new" },
-  { label: "In progress", value: "extracted" },
-  { label: "Reviewed", value: "reviewed" },
-  { label: "Compiled", value: "compiled" },
-];
-
-export default function Dashboard() {
-  const [statusFilter, setStatusFilter] = useState<DealStatus | undefined>(undefined);
-  const deals = useDeals(statusFilter);
-  const newLeads = useLeads("new");
-
-  return (
-    <div className="flex flex-col gap-6">
-      <PromptBar />
-
-      {!!newLeads.data?.length && (
-        <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
-          <Link to="/leads" className="font-medium underline underline-offset-2">
-            {newLeads.data.length} sourced lead{newLeads.data.length === 1 ? "" : "s"} awaiting review
-          </Link>
-        </div>
-      )}
-
-      <div>
-        <div className="mb-3 flex items-center justify-between">
-          <h1 className="text-lg font-semibold text-slate-900">Deals</h1>
-          <div className="flex gap-1">
-            {STATUS_FILTERS.map((f) => (
-              <button
-                key={f.label}
-                onClick={() => setStatusFilter(f.value)}
-                className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
-                  statusFilter === f.value
-                    ? "bg-indigo-600 text-white"
-                    : "bg-white text-slate-600 hover:bg-slate-100"
-                }`}
-              >
-                {f.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {deals.isLoading && <p className="text-sm text-slate-500">Loading…</p>}
-        {deals.isError && <p className="text-sm text-rose-600">{deals.error.message}</p>}
-
-        {deals.data && deals.data.length === 0 && (
-          <p className="rounded-lg border border-dashed border-slate-300 p-6 text-center text-sm text-slate-500">
-            No deals yet. Source some leads, or ask the prompt bar above to screen a specific deal.
-          </p>
-        )}
-
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {deals.data?.map((summary) => (
-            <Link
-              key={summary.deal.id}
-              to={`/deals/${summary.deal.id}`}
-              className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
-            >
-              <div className="mb-2 flex items-start justify-between gap-2">
-                <h2 className="font-medium text-slate-900">{summary.deal.name}</h2>
-                <StatusBadge status={summary.deal.status} />
-              </div>
-              {summary.deal.stage && <p className="text-xs text-slate-500">{summary.deal.stage}</p>}
-              <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-slate-500">
-                <div className="flex justify-between">
-                  <dt>Documents</dt>
-                  <dd className="font-medium text-slate-700">{summary.document_count}</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt>Findings</dt>
-                  <dd className="font-medium text-slate-700">{summary.research_finding_count}</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt>Documents built</dt>
-                  <dd className="font-medium text-slate-700">{summary.memo_version_count}</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt>Investors</dt>
-                  <dd className="font-medium text-slate-700">{summary.investor_count}</dd>
-                </div>
-              </dl>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+import {Link} from 'react-router-dom';
+import {useQuery} from '@tanstack/react-query';
+import {useDeals,useLeads} from '../api/hooks';
+import {api} from '../api/client';
+import type {InvestmentCaseData} from '../components/InvestmentCase';
+type Work={id:string;lead_id:string;basis_hash:string;investment_case?:InvestmentCaseData;automation?:{status:string;phase:string}};
+export default function Dashboard(){
+ const leads=useLeads();const deals=useDeals();
+ const work=useQuery({queryKey:['operations'],queryFn:()=>api.get<Work[]>('/api/operations/workspaces'),refetchInterval:q=>q.state.data?.some(w=>['queued','running'].includes(w.automation?.status||''))?2000:false});
+ const companies=leads.data?.filter(l=>l.company_profile && ['reviewed','promoted_to_deal'].includes(l.status))||[];
+ const linked=new Set(leads.data?.map(l=>l.promoted_deal_id).filter(Boolean));
+ const standalone=deals.data?.filter(d=>!linked.has(d.deal.id))||[];
+ if(leads.isLoading||work.isLoading)return <p>Loading company work…</p>;
+ if(leads.error||work.error)return <p role="alert">{(leads.error||work.error)?.message}</p>;
+ return <div className="space-y-7"><header className="flex flex-wrap items-start justify-between gap-4"><div><h1 className="text-3xl font-semibold tracking-tight">Move companies toward a fundraise</h1><p className="mt-3 text-slate-500">Decide where to spend effort. Prepare the work. Resolve what holds the company back.</p></div><Link className="rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold text-white" to="/leads">Find companies →</Link></header>
+ <section className="rounded-2xl border border-slate-200 bg-white p-6"><h2 className="text-lg font-semibold">Company work</h2>{!companies.length && <p className="mt-4 text-sm text-slate-500">Shortlist companies in Discover. AI preparation starts from their sourced evidence.</p>}<div className="mt-3 divide-y divide-slate-100">{companies.map(l=>{const w=work.data?.find(w=>w.lead_id===l.id);const c=w?.investment_case?.version===8 && w?.investment_case?.basis_hash===w?.basis_hash?w?.investment_case:undefined;const running=['queued','running'].includes(w?.automation?.status||'');const missing=Object.values(c?.products||{}).flatMap(p=>p.missing_inputs);const label=running?w?.automation?.phase:c?.status==='needs_review'?'Drafts need further checking':c?.fit?.decision==='do_not_pursue'?'Engagement mismatch':c?.fit?.decision==='clarify'?'Fit needs clarification':missing.length?'Company inputs needed':c?.status==='complete'?'Preparation drafts available':'Investment case not prepared';return <article className="flex flex-wrap items-start justify-between gap-5 py-6" key={l.id}><div className="min-w-0 flex-1"><Link className="text-lg font-semibold hover:text-indigo-600" to={`/operations?lead=${l.id}`}>{l.company_name}</Link><p className="mt-2 text-sm font-medium text-indigo-700">{label}</p><p className="mt-2 max-w-3xl line-clamp-3 text-sm leading-6 text-slate-600">{c?.fit?.rationale||l.company_profile?.evidence.find(e=>e.field==='offering')?.value||'Company evidence needs research.'}</p>{missing[0] && <p className="mt-3 text-sm text-amber-800">Needed next: {missing[0].record}</p>}</div><Link className="rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-semibold text-indigo-600" to={`/operations?lead=${l.id}&tab=readiness`}>{c?.fit?'Open decision & work →':'Prepare investment case →'}</Link></article>})}</div></section>
+ <details className="rounded-xl border border-slate-200 bg-white p-5"><summary className="cursor-pointer text-sm font-medium text-slate-500">Standalone document records ({standalone.length})</summary><p className="mt-3 text-sm text-slate-500">Documents created outside the company workflow. Compilation status is a document-processing state.</p>{deals.error && <p role="alert">{deals.error.message}</p>}<ul className="mt-4 space-y-3">{standalone.map(d=><li key={d.deal.id}><Link className="text-sm text-indigo-600" to={`/deals/${d.deal.id}/documents`}>{d.deal.name} →</Link></li>)}</ul></details>
+ </div>
 }

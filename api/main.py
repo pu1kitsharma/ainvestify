@@ -12,7 +12,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from api.routers import compilation, dashboard, deals, investors, leads, prompt, research, review
+from api.routers import compilation, dashboard, deals, investors, leads, operations, prompt, research, review
 
 # agents/analytics_agent.py writes chart PNGs to memo_output/{deal_id}/charts/
 # and stores that relative path as ChartArtifact.storage_uri (and inside a
@@ -56,6 +56,7 @@ app.include_router(review.router)
 app.include_router(research.router)
 app.include_router(investors.router)
 app.include_router(leads.router)
+app.include_router(operations.router)
 app.include_router(prompt.router)
 app.include_router(compilation.router)
 

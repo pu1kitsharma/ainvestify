@@ -1,0 +1,301 @@
+{
+  "provenance": "Original synthetic examples authored for this repository. No client documents or copied practitioner prose. Not reviewed by a banker; seed teaching data, not a production fine-tuning dataset.",
+  "examples": [
+    {
+      "id": "research_maintenance",
+      "stage": "research",
+      "split": "train",
+      "input": {
+        "company_name": "Synthetic example: machinery maintenance service",
+        "evidence": [
+          {
+            "id": "C1",
+            "passage": "We maintain packaging machinery for food processors. Our founder previously managed a large maintenance department."
+          }
+        ]
+      },
+      "response": {
+        "business": "The company describes a maintenance service for food processors' packaging equipment.",
+        "reason_to_meet": "Recurring maintenance needs could support repeat contracts if servicing costs leave a margin.",
+        "main_risk": "Travel, replacement parts and unplanned callouts could consume the maintenance fee; the founder's prior role does not establish this company's economics.",
+        "first_question": "Can you share completed work orders with billed fees, parts costs and technician hours?",
+        "evidence_ids": [
+          "C1"
+        ]
+      }
+    },
+    {
+      "id": "research_lab",
+      "stage": "research",
+      "split": "validation",
+      "input": {
+        "company_name": "Synthetic example: crop treatment laboratory",
+        "evidence": [
+          {
+            "id": "C1",
+            "passage": "We are developing a crop treatment in laboratory trials. We do not yet sell a product."
+          }
+        ]
+      },
+      "response": {
+        "business": "The team describes a crop treatment still in laboratory development, with no product sales yet.",
+        "reason_to_meet": "The treatment could merit incubation if reproducible trial results address a specific grower problem.",
+        "main_risk": "The cost of reaching reproducible efficacy and manufacturability could exceed the capital available before sales become possible.",
+        "first_question": "Can you share the trial report with controls, repeat runs and material costs?",
+        "evidence_ids": [
+          "C1"
+        ]
+      }
+    },
+    {
+      "id": "research_transactions",
+      "stage": "research",
+      "split": "train",
+      "input": {
+        "company_name": "Synthetic example: parts exchange",
+        "evidence": [
+          {
+            "id": "C1",
+            "passage": "We match spare-part buyers with distributors and collect a commission on orders."
+          }
+        ]
+      },
+      "response": {
+        "business": "The company describes matching spare-part buyers with distributors and earning order commissions.",
+        "reason_to_meet": "Repeat parts purchases could support a useful exchange if commissions cover the work needed to complete orders.",
+        "main_risk": "Exception handling, refunds and payment costs could consume commission revenue; the value of parts traded is not the company's revenue.",
+        "first_question": "Can you share the order ledger separating order value, commission, refunds and fulfillment costs?",
+        "evidence_ids": [
+          "C1"
+        ]
+      }
+    },
+    {
+      "id": "pitch_exporter",
+      "stage": "pitch",
+      "split": "train",
+      "input": {
+        "company_name": "Synthetic example: ceramic exporter",
+        "evidence": [
+          {
+            "id": "C1",
+            "passage": "We export ceramic tableware and are looking for help identifying overseas restaurant distributors."
+          }
+        ]
+      },
+      "response": {
+        "subject": "A distributor research brief for your ceramic exports",
+        "observation": "I saw that you are looking for restaurant distributors for your ceramic tableware.",
+        "proposed_help": "We could prepare a sourced distributor shortlist with product fit and unanswered qualification questions. We could also draft an introduction tailored to each distributor for you to review.",
+        "meeting_ask": "Would you be open to a call about which markets and distributor requirements to prioritize?",
+        "evidence_ids": [
+          "C1"
+        ]
+      }
+    },
+    {
+      "id": "pitch_energy",
+      "stage": "pitch",
+      "split": "validation",
+      "input": {
+        "company_name": "Synthetic example: heat storage developer",
+        "evidence": [
+          {
+            "id": "C1",
+            "passage": "We develop thermal storage for factories and need help explaining our pilot results to investors."
+          }
+        ]
+      },
+      "response": {
+        "subject": "Turning your heat-storage pilot results into an investor brief",
+        "observation": "You mentioned wanting help explaining your factory heat-storage pilot results to investors.",
+        "proposed_help": "We could turn the pilot reports into a cited investor brief comparing performance, installation costs and unresolved risks. We would identify which claims the records support and which need more testing.",
+        "meeting_ask": "Could we discuss the pilot reports and the investment questions you want the brief to answer?",
+        "evidence_ids": [
+          "C1"
+        ]
+      }
+    },
+    {
+      "id": "readiness_prototype",
+      "stage": "readiness",
+      "split": "train",
+      "input": {
+        "company_name": "Synthetic example: water sensor prototype",
+        "evidence": [
+          {
+            "id": "C1",
+            "passage": "We have a laboratory water sensor prototype; field reliability has not been tested."
+          }
+        ]
+      },
+      "response": {
+        "priorities": [
+          {
+            "title": "Design the field-reliability evidence record",
+            "why_now": "Laboratory performance does not establish reliability in the intended field environment.",
+            "required_input": "Laboratory calibration reports and the intended field operating conditions.",
+            "investor_question": "Can the sensor maintain useful accuracy outside laboratory conditions?",
+            "action": "Draft a field-test protocol comparing sensor readings with a reference method, recording drift, failed readings and maintenance effort.",
+            "output": "Field-test protocol and results-recording worksheet.",
+            "done_when": "The protocol specifies the comparison, conditions and failure recording needed to decide whether redesign or a field pilot is justified."
+          }
+        ],
+        "evidence_ids": [
+          "C1"
+        ]
+      }
+    },
+    {
+      "id": "case_cold_chain",
+      "stage": "investment_case",
+      "split": "train",
+      "input": {
+        "company": "Synthetic example: cold-chain operator",
+        "sources": [
+          {
+            "id": "E1",
+            "quote": "We store produce in refrigerated warehouses and charge customers for occupied storage space. We arrange transport through contractors."
+          }
+        ]
+      },
+      "response": {
+        "title": "Cold-chain storage: test utilization and cash collection",
+        "purpose": "Decide whether recurring storage demand can cover refrigeration and handling costs.",
+        "decision_question": "Does paid storage utilization support positive delivery contribution?",
+        "sections": [
+          {
+            "heading": "Reason to investigate",
+            "content": "The company describes charging for occupied refrigerated storage and arranging contracted transport. Recurring produce storage could support repeat business, but the source does not establish occupancy, prices or payment collection."
+          },
+          {
+            "heading": "Objection and decisive test",
+            "content": "Refrigeration and handling costs continue when occupied capacity falls. Match occupied storage days to invoices and collections, then deduct electricity, handling, transport obligations and spoilage claims. Report loss-making periods as well as profitable ones."
+          }
+        ],
+        "missing_inputs": [
+          {
+            "record": "Monthly occupied capacity, storage invoices, collections and direct site-cost ledger for the same warehouses and periods",
+            "why": "These records distinguish billed utilization from collected revenue and show the cost of serving it."
+          }
+        ],
+        "next_action": "Prepare a warehouse-month reconciliation worksheet and request the corresponding occupancy, invoice and cost records.",
+        "completion_test": "The worksheet reconciles comparable storage periods to revenue and delivery costs and explains missing records, unpaid balances and adverse contribution.",
+        "evidence_ids": [
+          "E1"
+        ]
+      }
+    },
+    {
+      "id": "test_reusable_crates",
+      "stage": "commercial_test",
+      "split": "train",
+      "input": {
+        "company": "Synthetic example: reusable produce crates",
+        "sources": [
+          {
+            "id": "E1",
+            "quote": "We rent reusable crates to wholesalers and collect the empties for reuse."
+          }
+        ]
+      },
+      "response": {
+        "title": "Reusable-crate pilot: test returns and collection cost",
+        "purpose": "Prepare a bounded test of whether crate rental can cover losses, cleaning and return transport.",
+        "decision_question": "Can rental receipts cover the complete crate-return cycle?",
+        "sections": [
+          {
+            "heading": "Questions for the wholesale buyer",
+            "content": "Who approves crate rental and pays for lost crates? Which produce route would you test? What packaging do you use today, and what do packaging disposal, damaged goods and empty-container storage cost? Ask for the corresponding route records rather than claimed savings."
+          },
+          {
+            "heading": "Pilot procedure and recording sheet",
+            "content": "Propose one agreed wholesale route and compare it with its existing packaging process. Record issued crates, returned crates, damage, rental billed, payment collected, cleaning effort and collection charges for the same cycle. A proposed pilot is not evidence that a customer has agreed to it."
+          },
+          {
+            "heading": "Decision after the test",
+            "content": "Compare rental receipts with the full return-cycle delivery costs and investigate missing crates and unpaid invoices. If costs exceed receipts, change price, collection design or scope before scaling. Buyer willingness to repeat must be recorded separately from operational savings."
+          }
+        ],
+        "missing_inputs": [
+          {
+            "record": "Current route packaging invoices and proposed crate-rental, loss and collection terms",
+            "why": "They define a comparable baseline and who bears losses and transport costs."
+          }
+        ],
+        "next_action": "Draft the route pilot worksheet and ask the founder to confirm the proposed buyer, baseline and loss-allocation terms.",
+        "completion_test": "The protocol defines a comparable route, measurement fields and an adverse-result decision before any claim of successful testing.",
+        "evidence_ids": [
+          "E1"
+        ]
+      }
+    },
+    {
+      "id": "funding_machine_retrofit",
+      "stage": "funding_outline",
+      "split": "train",
+      "input": {
+        "company": "Synthetic example: machine retrofit developer",
+        "sources": [
+          {
+            "id": "E1",
+            "quote": "We develop energy-efficiency retrofits for factory machines. Our prototype has been tested in our workshop; we want to evaluate it at a customer site."
+          }
+        ]
+      },
+      "response": {
+        "title": "Retrofit financing narrative and pilot budget questions",
+        "purpose": "Explain the next proof milestone and the records needed before sizing external capital.",
+        "decision_question": "What capital would fund a credible customer-site demonstration?",
+        "sections": [
+          {
+            "heading": "Business and next proof point",
+            "content": "The company describes an energy-efficiency retrofit tested in its own workshop. Its proposed next milestone is a customer-site evaluation. A financing argument would need to connect measured energy effects with installation, reliability and customer economics; none is established by the current source."
+          },
+          {
+            "heading": "Use of proceeds and open objections",
+            "content": "A proposed budget should distinguish prototype revisions, installation, measurement equipment and evaluation labor from ongoing overhead. Ask who will host and pay for the test, who owns resulting IP, and what failure would trigger redesign. The raise amount, valuation and financing terms cannot yet be sized from the supplied evidence."
+          }
+        ],
+        "missing_inputs": [
+          {
+            "record": "Workshop test report, proposed site-test scope and itemized supplier and labor estimates",
+            "why": "They connect the next proof milestone to a costed work package."
+          },
+          {
+            "record": "Dated available cash, existing obligations and ownership register",
+            "why": "They show the funding gap and ownership context before proposing financing terms."
+          }
+        ],
+        "next_action": "Prepare a milestone budget worksheet listing site-test costs, existing resources and unresolved estimates.",
+        "completion_test": "Every budget line has a dated source or an explicit missing estimate, and the narrative separates workshop observations from proposed site performance.",
+        "evidence_ids": [
+          "E1"
+        ]
+      }
+    },
+    {
+      "id": "initial_preparation_not_investment",
+      "stage": "company suitability",
+      "split": "train",
+      "input": {
+        "company": "Synthetic example: factory heat controls",
+        "observed_maturity": "early_business",
+        "sources": [
+          {
+            "id": "E1",
+            "quote": "We develop heat controls for factories and are seeking introductions to plant operators for pilot discussions."
+          }
+        ]
+      },
+      "response": {
+        "decision": "proceed",
+        "rationale": "The early-stage company has asked for help reaching plant operators. A sourced prospect brief and a proposed pilot discussion outline would address that request. Initial preparation is useful without claiming the company is ready for investment or that we can guarantee introductions.",
+        "next_action": "Prepare a researched plant-operator prospect brief and draft a founder proposal to confirm pilot scope.",
+        "evidence_ids": [
+          "E1"
+        ]
+      }
+    }
+  ]
+}

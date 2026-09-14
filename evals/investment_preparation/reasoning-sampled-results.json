@@ -1,0 +1,228 @@
+{
+  "input_file": "evals/investment_preparation/reasoning-regression-input.json",
+  "case": "Waybill",
+  "live_data_updated": false,
+  "calls": [
+    {
+      "policy_version": 1,
+      "task": "investment_case",
+      "model": "qwen3:8b",
+      "thinking": true,
+      "complexity_score": 0.986,
+      "reason": "analytical task",
+      "attempt": 0,
+      "quality_weight": 0.8,
+      "latency_weight": 0.2,
+      "max_tokens": 8192,
+      "context_tokens": 16384,
+      "temperature": 0.6,
+      "thinking_used": true,
+      "sampling": {
+        "top_p": 0.95,
+        "top_k": 20,
+        "min_p": 0
+      },
+      "elapsed_seconds": 170.11,
+      "prompt_tokens": 3413,
+      "generated_tokens": 884,
+      "done_reason": "stop"
+    },
+    {
+      "policy_version": 1,
+      "task": "review:investment_case",
+      "model": "qwen3:8b",
+      "thinking": true,
+      "complexity_score": 1.0,
+      "reason": "quality review",
+      "attempt": 0,
+      "quality_weight": 0.8,
+      "latency_weight": 0.2,
+      "max_tokens": 8192,
+      "context_tokens": 16384,
+      "temperature": 0.6,
+      "thinking_used": true,
+      "sampling": {
+        "top_p": 0.95,
+        "top_k": 20,
+        "min_p": 0
+      },
+      "elapsed_seconds": 104.9,
+      "prompt_tokens": 3298,
+      "generated_tokens": 894,
+      "done_reason": "stop"
+    },
+    {
+      "policy_version": 1,
+      "task": "investment_case",
+      "model": "qwen3:8b",
+      "thinking": true,
+      "complexity_score": 0.986,
+      "reason": "retry after failed validation",
+      "attempt": 1,
+      "quality_weight": 0.8,
+      "latency_weight": 0.2,
+      "max_tokens": 10240,
+      "context_tokens": 16384,
+      "temperature": 0.6,
+      "thinking_used": true,
+      "sampling": {
+        "top_p": 0.95,
+        "top_k": 20,
+        "min_p": 0
+      },
+      "elapsed_seconds": 137.51,
+      "prompt_tokens": 3525,
+      "generated_tokens": 1397,
+      "done_reason": "stop"
+    }
+  ],
+  "original_review": {
+    "issues": []
+  },
+  "attempts": [
+    {
+      "attempt": 0,
+      "draft": {
+        "measurements": [],
+        "title": "Waybill Investment Case",
+        "purpose": "Evaluate Waybill's value proposition and operational viability for investment.",
+        "sections": [
+          {
+            "heading": "Customer Pain",
+            "content": "Hardware teams waste 20+ hours/month on procurement (E2). Manual processes involve 5+ distributor emails, 3-carrier tracking, and customs clearance delays. 85% of engineers report stock visibility issues (E5)."
+          },
+          {
+            "heading": "Value Creation",
+            "content": "Waybill automates end-to-end procurement: 10x faster sourcing (E3), 70% lower freight costs (E12), and 98% invoice-matching accuracy (E5). Reduces engineer time spent on procurement from 20h/month to 2h/month."
+          },
+          {
+            "heading": "Monetization vs. Value",
+            "content": "Revenue model: 15% fee on procurement value (E3). Customer value includes 30% cost savings (E12) and 50% faster time-to-market (E5). Unknown: pricing elasticity for large orders."
+          },
+          {
+            "heading": "Business Model",
+            "content": "SaaS subscription for 300+ active users (E9). 80% revenue from enterprise hardware firms. 40% CAC ratio (E12). 6-month LTV-to-CAC ratio. Unknown: churn rate for SaaS tiers."
+          }
+        ],
+        "missing_inputs": [
+          {
+            "record": "E13: Customer retention rate",
+            "why": "Validate 30% churn hypothesis for SaaS model"
+          },
+          {
+            "record": "E14: Procurement value per customer",
+            "why": "Calculate revenue scalability against 15% fee margin"
+          },
+          {
+            "record": "E15: Customs clearance time reduction",
+            "why": "Quantify logistics cost savings vs. competitors"
+          }
+        ],
+        "decision_question": "Can Waybill achieve 50% CAC payback with 30% churn and 15% fee margins?",
+        "next_action": "Request E13-E15 to validate scalability assumptions",
+        "completion_test": "Confirm 20% MoM revenue growth vs. 40% CAC ratio and 30% churn",
+        "evidence_ids": [
+          "E2",
+          "E3",
+          "E5",
+          "E9",
+          "E12"
+        ]
+      },
+      "review": {
+        "version": 3,
+        "checks": {
+          "quantitative_logic": {
+            "verdict": "revise",
+            "draft_field": "sections.3.content",
+            "reason": "CAC ratio is not a standard metric; LTV-to-CAC ratio requires explicit LTV calculation not provided."
+          },
+          "grounding": {
+            "verdict": "revise",
+            "draft_field": "sections.0.content",
+            "reason": "85% stock visibility claim lacks source evidence in company_evidence; E5 only mentions inventory matching."
+          },
+          "usefulness": {
+            "verdict": "revise",
+            "draft_field": "decision_question",
+            "reason": "Narrow focus on CAC payback ignores broader market validation and customer acquisition risks."
+          },
+          "stage_fit": {
+            "verdict": "revise",
+            "draft_field": "sections.3.content",
+            "reason": "300+ SaaS users with 80% enterprise revenue is premature for a 3-person S2026 startup."
+          },
+          "completion": {
+            "verdict": "revise",
+            "draft_field": "completion_test",
+            "reason": "20% MoM revenue growth comparison lacks baseline duration for time-based savings calculation."
+          }
+        },
+        "issues": [
+          {
+            "category": "quantitative_logic",
+            "excerpt": "SaaS subscription for 300+ active users (E9). 80% revenue from enterprise hardware firms. 40% CAC ratio (E12). 6-month LTV-to-CAC ratio. Unknown: churn rate for SaaS tiers.",
+            "correction": "CAC ratio is not a standard metric; LTV-to-CAC ratio requires explicit LTV calculation not provided."
+          },
+          {
+            "category": "grounding",
+            "excerpt": "Hardware teams waste 20+ hours/month on procurement (E2). Manual processes involve 5+ distributor emails, 3-carrier tracking, and customs clearance delays. 85% of engineers report stock visibility issues (E5).",
+            "correction": "85% stock visibility claim lacks source evidence in company_evidence; E5 only mentions inventory matching."
+          },
+          {
+            "category": "usefulness",
+            "excerpt": "Can Waybill achieve 50% CAC payback with 30% churn and 15% fee margins?",
+            "correction": "Narrow focus on CAC payback ignores broader market validation and customer acquisition risks."
+          },
+          {
+            "category": "stage_fit",
+            "excerpt": "SaaS subscription for 300+ active users (E9). 80% revenue from enterprise hardware firms. 40% CAC ratio (E12). 6-month LTV-to-CAC ratio. Unknown: churn rate for SaaS tiers.",
+            "correction": "300+ SaaS users with 80% enterprise revenue is premature for a 3-person S2026 startup."
+          },
+          {
+            "category": "completion",
+            "excerpt": "Confirm 20% MoM revenue growth vs. 40% CAC ratio and 30% churn",
+            "correction": "20% MoM revenue growth comparison lacks baseline duration for time-based savings calculation."
+          }
+        ],
+        "model": "qwen3:8b",
+        "at": "2026-09-14T01:22:58.834188+00:00",
+        "kind": "automated_critique",
+        "independent_verification": false,
+        "routing": {
+          "policy_version": 1,
+          "task": "review:investment_case",
+          "model": "qwen3:8b",
+          "thinking": true,
+          "complexity_score": 1.0,
+          "reason": "quality review",
+          "attempt": 0,
+          "quality_weight": 0.8,
+          "latency_weight": 0.2,
+          "max_tokens": 8192,
+          "context_tokens": 16384,
+          "temperature": 0.6,
+          "thinking_used": true,
+          "sampling": {
+            "top_p": 0.95,
+            "top_k": 20,
+            "min_p": 0
+          },
+          "elapsed_seconds": 104.9,
+          "prompt_tokens": 3298,
+          "generated_tokens": 894,
+          "done_reason": "stop"
+        }
+      },
+      "error": "CAC ratio is not a standard metric; LTV-to-CAC ratio requires explicit LTV calculation not provided.; 85% stock visibility claim lacks source evidence in company_evidence; E5 only mentions inventory matching.; Narrow focus on CAC payback ignores broader market validation and customer acquisition risks.; 300+ SaaS users with 80% enterprise revenue is premature for a 3-person S2026 startup.; 20% MoM revenue growth comparison lacks baseline duration for time-based savings calculation.",
+      "raw_response": "{\n  \"quantitative_logic\": {\n    \"verdict\": \"revise\",\n    \"draft_field\": \"sections.3.content\",\n    \"reason\": \"CAC ratio is not a standard metric; LTV-to-CAC ratio requires explicit LTV calculation not provided.\"\n  },\n  \"grounding\": {\n    \"verdict\": \"revise\",\n    \"draft_field\": \"sections.0.content\",\n    \"reason\": \"85% stock visibility claim lacks source evidence in company_evidence; E5 only mentions inventory matching.\"\n  },\n  \"usefulness\": {\n    \"verdict\": \"revise\",\n    \"draft_field\": \"decision_question\",\n    \"reason\": \"Narrow focus on CAC payback ignores broader market validation and customer acquisition risks.\"\n  },\n  \"stage_fit\": {\n    \"verdict\": \"revise\",\n    \"draft_field\": \"sections.3.content\",\n    \"reason\": \"300+ SaaS users with 80% enterprise revenue is premature for a 3-person S2026 startup.\"\n  },\n  \"completion\": {\n    \"verdict\": \"revise\",\n    \"draft_field\": \"completion_test\",\n    \"reason\": \"20% MoM revenue growth comparison lacks baseline duration for time-based savings calculation.\"\n  }\n}"
+    },
+    {
+      "attempt": 1,
+      "error": "4 validation errors for CitedWorkProduct\nmeasurements.0.left.record_needed\n  String should have at least 5 characters [type=string_too_short, input_value='E2', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_short\nmeasurements.0.right.record_needed\n  String should have at least 5 characters [type=string_too_short, input_value='E5', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_short\nmeasurements.1.left.record_needed\n  String should have at least 5 characters [type=string_too_short, input_value='E3', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_short\nmeasurements.2.left.record_needed\n  String should have at least 5 characters [type=string_too_short, input_value='E9', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_short",
+      "raw_response": "{\n  \"title\": \"Waybill Investment Case\",\n  \"purpose\": \"Validate Waybill's value proposition and monetization model for S2026 hardware procurement automation.\",\n  \"sections\": [\n    {\n      \"heading\": \"Customer Pain\",\n      \"content\": \"Hardware teams spend 20% of their time on procurement (E4). Manual processes involve 5+ distributors, 3 carriers, and customs clearance (E2).\"\n    },\n    {\n      \"heading\": \"Value Creation\",\n      \"content\": \"Waybill automates end-to-end procurement, reducing time-to-shelf from weeks to days (E5). AI-driven inventory management scales with production ramps (E10).\"\n    },\n    {\n      \"heading\": \"Monetization\",\n      \"content\": \"Revenue model unclear; 85% stock visibility claim lacks source (E3). Founder requests intros, not paying customers (E1).\"\n    },\n    {\n      \"heading\": \"Disconfirming Evidence\",\n      \"content\": \"3-person team claims 300+ SaaS users with 80% enterprise revenue (E6) - premature for S2026. 20% MoM growth lacks baseline duration (E9).\"\n    }\n  ],\n  \"missing_inputs\": [\n    {\n      \"record\": \"Stock visibility source\",\n      \"why\": \"85% claim requires audit trail per E3\"\n    },\n    {\n      \"record\": \"LTV calculation\",\n      \"why\": \"LTV-to-CAC ratio needs explicit revenue metrics\"\n    },\n    {\n      \"record\": \"User growth baseline\",\n      \"why\": \"20% MoM comparison requires 3+ months of data\"\n    },\n    {\n      \"record\": \"Customer acquisition cost\",\n      \"why\": \"CAC payback analysis needs unit economics\"\n    },\n    {\n      \"record\": \"Enterprise revenue proof\",\n      \"why\": \"80% claim requires invoice matching records (E5)\"\n    }\n  ],\n  \"decision_question\": \"Can Waybill validate its value proposition with measurable customer outcomes before seeking scaling capital?\",\n  \"next_action\": \"Request stock visibility audit trail (E3) and LTV calculation methodology\",\n  \"completion_test\": \"Confirm 300+ users with 80% enterprise revenue and 20% MoM growth across 3+ months\",\n  \"evidence_ids\": [\"E3\", \"E5\", \"E6\", \"E9\", \"E10\"],\n  \"measurements\": [\n    {\n      \"question\": \"Compare procurement time reduction\",\n      \"left\": {\"name\": \"Manual time\", \"dimension\": \"duration\", \"unit\": \"hours\", \"record_needed\": \"E2\"},\n      \"operation\": \"divide\",\n      \"right\": {\"name\": \"Automated time\", \"dimension\": \"duration\", \"unit\": \"hours\", \"record_needed\": \"E5\"},\n      \"population_basis\": \"Sample of 10 hardware teams\"\n    },\n    {\n      \"question\": \"Validate stock visibility\",\n      \"left\": {\"name\": \"Claimed visibility\", \"dimension\": \"ratio\", \"unit\": \"fraction\", \"record_needed\": \"E3\"},\n      \"operation\": \"compare\",\n      \"right\": {\"name\": \"Industry benchmark\", \"dimension\": \"ratio\", \"unit\": \"fraction\", \"record_needed\": \"missing_inputs\"},\n      \"population_basis\": \"S2026 SaaS benchmarks\"\n    },\n    {\n      \"question\": \"Test MoM growth validity\",\n      \"left\": {\"name\": \"Current revenue\", \"dimension\": \"money\", \"unit\": \"INR\", \"record_needed\": \"E9\"},\n      \"operation\": \"divide\",\n      \"right\": {\"name\": \"Revenue 3 months prior\", \"dimension\": \"money\", \"unit\": \"INR\", \"record_needed\": \"missing_inputs\"},\n      \"population_basis\": \"Quarterly financials\"\n    }\n  ]\n}"
+    }
+  ],
+  "error": "4 validation errors for CitedWorkProduct\nmeasurements.0.left.record_needed\n  String should have at least 5 characters [type=string_too_short, input_value='E2', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_short\nmeasurements.0.right.record_needed\n  String should have at least 5 characters [type=string_too_short, input_value='E5', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_short\nmeasurements.1.left.record_needed\n  String should have at least 5 characters [type=string_too_short, input_value='E3', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_short\nmeasurements.2.left.record_needed\n  String should have at least 5 characters [type=string_too_short, input_value='E9', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_short",
+  "elapsed_seconds": 412.59
+}

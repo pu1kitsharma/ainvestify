@@ -1,0 +1,205 @@
+{
+  "live_data_updated": false,
+  "review": {
+    "version": 4,
+    "checks": {
+      "field_checks": {
+        "title": {
+          "verdict": "revise",
+          "reason": "The title claims 'Investment Screening Memo' while the task is an outreach strategy, creating a mismatch."
+        },
+        "purpose": {
+          "verdict": "pass",
+          "reason": "The purpose correctly identifies resolving engagement ambiguity and assessing advisory suitability."
+        },
+        "sections.0.content": {
+          "verdict": "revise",
+          "reason": "Stating the company 'operates in India' with 3 employees contradicts evidence E2's specific location claim."
+        },
+        "sections.1.content": {
+          "verdict": "pass",
+          "reason": "The hypotheses accurately reflect the value proposition described in the provided company evidence."
+        },
+        "sections.2.content": {
+          "verdict": "revise",
+          "reason": "Claiming specific metrics are 'not provided' ignores evidence E7 which states a founding date of 2026."
+        },
+        "sections.3.content": {
+          "verdict": "pass",
+          "reason": "The decision memo correctly identifies the founder's request for intros as a need for assistance, not demand."
+        },
+        "missing_inputs.0.record": {
+          "verdict": "revise",
+          "reason": "Customer Acquisition Cost is irrelevant to validating whether hardware enterprises will buy Waybill."
+        },
+        "missing_inputs.0.why": {
+          "verdict": "revise",
+          "reason": "Justifying CAC against deal size does not address the core question of procurement lead interest."
+        },
+        "missing_inputs.1.record": {
+          "verdict": "pass",
+          "reason": "Average Order Value is a necessary metric to determine the scalability of the autopilot model."
+        },
+        "missing_inputs.1.why": {
+          "verdict": "revise",
+          "reason": "Determining revenue per transaction does not directly validate repeat demand from hardware enterprises."
+        },
+        "missing_inputs.2.record": {
+          "verdict": "pass",
+          "reason": "Customer Retention Rate is essential to assess if hardware clients stick around after initial cycles."
+        },
+        "missing_inputs.2.why": {
+          "verdict": "revise",
+          "reason": "Assessing churn does not directly answer the founder's request for procurement lead introductions."
+        },
+        "decision_question": {
+          "verdict": "revise",
+          "reason": "The question must focus on whether hardware enterprises will engage with Waybill's outreach."
+        },
+        "next_action": {
+          "verdict": "pass",
+          "reason": "Drafting a proposal and requesting metrics aligns with the task of preparing an outreach strategy."
+        },
+        "completion_test": {
+          "verdict": "revise",
+          "reason": "A founder response confirming scope does not satisfy the completion test for secured introductions."
+        }
+      },
+      "quantitative_logic": {
+        "verdict": "revise",
+        "draft_field": "sections.0.content",
+        "reason": "The draft lacks explicit conversion bases for any proposed monetary savings or time calculations."
+      },
+      "grounding": {
+        "verdict": "revise",
+        "draft_field": "sections.0.content",
+        "reason": "Section 0 incorrectly states the company operates in India without citing specific evidence support."
+      },
+      "usefulness": {
+        "verdict": "revise",
+        "draft_field": "decision_question",
+        "reason": "The draft fails to address the core request for intros by focusing on financial metrics instead."
+      },
+      "stage_fit": {
+        "verdict": "pass",
+        "draft_field": "next_action",
+        "reason": "The early business maturity aligns with the limited advisory scope proposed in the decision memo."
+      },
+      "completion": {
+        "verdict": "revise",
+        "draft_field": "completion_test",
+        "reason": "The completion test requires a named result like secured introductions, not just a founder response."
+      }
+    },
+    "reviewed_fields": [
+      "title",
+      "purpose",
+      "sections.0.content",
+      "sections.1.content",
+      "sections.2.content",
+      "sections.3.content",
+      "missing_inputs.0.record",
+      "missing_inputs.0.why",
+      "missing_inputs.1.record",
+      "missing_inputs.1.why",
+      "missing_inputs.2.record",
+      "missing_inputs.2.why",
+      "decision_question",
+      "next_action",
+      "completion_test"
+    ],
+    "issues": [
+      {
+        "category": "quantitative_logic",
+        "excerpt": "Waybill (S2026) operates in India with 3 employees. Founders Rishi Laddha and Tushar Goyal leverage prior experience at LAT Aerospace and WareIQ. They claim to run procurement 'from request to stock,' handling sourcing, payments, customs, and inventory matching. The company states it sources items for hardware teams, including jet engines and obsolete RF components.",
+        "correction": "The draft lacks explicit conversion bases for any proposed monetary savings or time calculations."
+      },
+      {
+        "category": "grounding",
+        "excerpt": "Waybill (S2026) operates in India with 3 employees. Founders Rishi Laddha and Tushar Goyal leverage prior experience at LAT Aerospace and WareIQ. They claim to run procurement 'from request to stock,' handling sourcing, payments, customs, and inventory matching. The company states it sources items for hardware teams, including jet engines and obsolete RF components.",
+        "correction": "Section 0 incorrectly states the company operates in India without citing specific evidence support."
+      },
+      {
+        "category": "usefulness",
+        "excerpt": "Can Waybill demonstrate repeat demand from hardware enterprises before scaling outreach efforts?",
+        "correction": "The draft fails to address the core request for intros by focusing on financial metrics instead."
+      },
+      {
+        "category": "completion",
+        "excerpt": "Founder response includes specific numbers on revenue, churn, or acquisition costs.",
+        "correction": "The completion test requires a named result like secured introductions, not just a founder response."
+      },
+      {
+        "category": "field_grounding",
+        "excerpt": "Waybill: Procurement Autopilot - Investment Screening Memo",
+        "correction": "title: The title claims 'Investment Screening Memo' while the task is an outreach strategy, creating a mismatch."
+      },
+      {
+        "category": "field_grounding",
+        "excerpt": "Waybill (S2026) operates in India with 3 employees. Founders Rishi Laddha and Tushar Goyal leverage prior experience at LAT Aerospace and WareIQ. They claim to run procurement 'from request to stock,' handling sourcing, payments, customs, and inventory matching. The company states it sources items for hardware teams, including jet engines and obsolete RF components.",
+        "correction": "sections.0.content: Stating the company 'operates in India' with 3 employees contradicts evidence E2's specific location claim."
+      },
+      {
+        "category": "field_grounding",
+        "excerpt": "The charging model is unknown. Total revenue and customer retention rates are missing. Geographic scope extends beyond Gurugram but lacks definition. Specific metrics on orders fulfilled or gross merchandise value processed are not provided in evidence.",
+        "correction": "sections.2.content: Claiming specific metrics are 'not provided' ignores evidence E7 which states a founding date of 2026."
+      },
+      {
+        "category": "field_grounding",
+        "excerpt": "Customer Acquisition Cost",
+        "correction": "missing_inputs.0.record: Customer Acquisition Cost is irrelevant to validating whether hardware enterprises will buy Waybill."
+      },
+      {
+        "category": "field_grounding",
+        "excerpt": "To validate if founder's outreach cost is justified against potential deal size.",
+        "correction": "missing_inputs.0.why: Justifying CAC against deal size does not address the core question of procurement lead interest."
+      },
+      {
+        "category": "field_grounding",
+        "excerpt": "To determine revenue per transaction and scalability of the 'autopilot' model.",
+        "correction": "missing_inputs.1.why: Determining revenue per transaction does not directly validate repeat demand from hardware enterprises."
+      },
+      {
+        "category": "field_grounding",
+        "excerpt": "To assess if hardware clients stick around or churn after initial procurement cycles.",
+        "correction": "missing_inputs.2.why: Assessing churn does not directly answer the founder's request for procurement lead introductions."
+      },
+      {
+        "category": "field_grounding",
+        "excerpt": "Can Waybill demonstrate repeat demand from hardware enterprises before scaling outreach efforts?",
+        "correction": "decision_question: The question must focus on whether hardware enterprises will engage with Waybill's outreach."
+      },
+      {
+        "category": "field_grounding",
+        "excerpt": "Founder response includes specific numbers on revenue, churn, or acquisition costs.",
+        "correction": "completion_test: A founder response confirming scope does not satisfy the completion test for secured introductions."
+      }
+    ],
+    "model": "qwen3.5:4b",
+    "at": "2026-09-14T02:56:58.549274+00:00",
+    "kind": "automated_critique",
+    "independent_verification": false,
+    "routing": {}
+  },
+  "routing": {
+    "model": "qwen3.5:4b",
+    "thinking": false,
+    "max_tokens": 3000,
+    "thinking_used": false,
+    "context_tokens": 16384,
+    "temperature": 0.7,
+    "sampling": {
+      "top_p": 0.8,
+      "top_k": 20,
+      "min_p": 0,
+      "presence_penalty": 1.5,
+      "repeat_penalty": 1.0
+    },
+    "elapsed_seconds": 32.22,
+    "queue_seconds": 0.0,
+    "prompt_tokens": 3142,
+    "generated_tokens": 908,
+    "done_reason": "stop"
+  },
+  "elapsed_seconds": 32.23
+}

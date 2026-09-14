@@ -8,6 +8,7 @@ import Investors from "./pages/deal/Investors";
 import Research from "./pages/deal/Research";
 import Review from "./pages/deal/Review";
 import Leads from "./pages/Leads";
+import Operations from "./pages/Operations";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/leads" element={<Leads />} />
+        <Route path="/operations" element={<Operations />} />
         <Route path="/deals/:dealId" element={<DealShell />}>
           <Route index element={<Navigate to="review" replace />} />
           <Route path="review" element={<Review />} />

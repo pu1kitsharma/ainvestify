@@ -36,6 +36,8 @@ from schemas import (
     MemoVersion,
     ResearchFinding,
     SourcedLead,
+    CompanyProfile,
+    WebSourcingRun,
 )
 
 DEFAULT_DB_PATH = Path(__file__).parent / "deal_automation.db"
@@ -69,11 +71,28 @@ CREATE TABLE IF NOT EXISTS investor_contacts (
 CREATE TABLE IF NOT EXISTS sourced_leads (
     id TEXT PRIMARY KEY, tenant_id TEXT NOT NULL, data TEXT NOT NULL
 );
+CREATE TABLE IF NOT EXISTS company_profiles (
+    tenant_id TEXT NOT NULL, id TEXT NOT NULL, website TEXT NOT NULL, data TEXT NOT NULL,
+    PRIMARY KEY (tenant_id, id), UNIQUE (tenant_id, website)
+);
+CREATE TABLE IF NOT EXISTS dataset_snapshots (
+    tenant_id TEXT NOT NULL, source_id TEXT NOT NULL, query TEXT NOT NULL, data TEXT NOT NULL,
+    PRIMARY KEY (tenant_id, source_id, query)
+);
+CREATE TABLE IF NOT EXISTS operating_workspaces (
+    tenant_id TEXT NOT NULL, id TEXT NOT NULL, lead_id TEXT NOT NULL, revision INTEGER NOT NULL, data TEXT NOT NULL,
+    PRIMARY KEY (tenant_id, id), UNIQUE (tenant_id, lead_id)
+);
+CREATE TABLE IF NOT EXISTS web_sourcing_runs (
+    tenant_id TEXT NOT NULL, id TEXT NOT NULL, data TEXT NOT NULL,
+    PRIMARY KEY (tenant_id, id)
+);
 """
 
 
 class Store:
     def __init__(self, db_path: Union[str, Path] = DEFAULT_DB_PATH):
+        self.db_path = db_path
         # timeout=30: how long a connection waits for another connection's
         # write lock to clear before raising "database is locked" -- without
         # this, concurrent API requests (each opening their own Store, per
@@ -111,6 +130,43 @@ class Store:
 
     def __exit__(self, *exc) -> None:
         self.close()
+
+    def save_company(self, company: CompanyProfile) -> None:
+        self.conn.execute(
+            "INSERT INTO company_profiles (tenant_id, id, website, data) VALUES (?, ?, ?, ?) "
+            "ON CONFLICT(tenant_id, id) DO UPDATE SET website=excluded.website, data=excluded.data",
+            (company.tenant_id, company.id, company.identity_key, company.model_dump_json()),
+        )
+        self.conn.commit()
+
+    def get_company_by_website(self, tenant_id: str, website: str) -> Optional[CompanyProfile]:
+        row = self.conn.execute(
+            "SELECT data FROM company_profiles WHERE tenant_id=? AND website=?", (tenant_id, website)
+        ).fetchone()
+        return CompanyProfile.model_validate_json(row[0]) if row else None
+
+    def save_web_run(self, run: WebSourcingRun) -> None:
+        self.conn.execute(
+            "INSERT INTO web_sourcing_runs (tenant_id, id, data) VALUES (?, ?, ?) "
+            "ON CONFLICT(tenant_id, id) DO UPDATE SET data=CASE "
+            "WHEN json_extract(web_sourcing_runs.data, '$.status')='cancel_requested' "
+            "AND json_extract(excluded.data, '$.status')='running' "
+            "THEN json_set(excluded.data, '$.status', 'cancel_requested') ELSE excluded.data END",
+            (run.tenant_id, run.id, run.model_dump_json(exclude={"source_coverage"})),
+        )
+        self.conn.commit()
+
+    def list_web_runs(self, tenant_id: str) -> list[WebSourcingRun]:
+        rows = self.conn.execute(
+            "SELECT data FROM web_sourcing_runs WHERE tenant_id=? ORDER BY rowid DESC LIMIT 20", (tenant_id,)
+        ).fetchall()
+        return [WebSourcingRun.model_validate_json(row[0]) for row in rows]
+
+    def get_web_run(self, tenant_id: str, run_id: str) -> Optional[WebSourcingRun]:
+        row = self.conn.execute(
+            "SELECT data FROM web_sourcing_runs WHERE tenant_id=? AND id=?", (tenant_id, run_id)
+        ).fetchone()
+        return WebSourcingRun.model_validate_json(row[0]) if row else None
 
     # --- Deal ---------------------------------------------------------
 
@@ -352,13 +408,31 @@ class Store:
         ).fetchone()
         return SourcedLead.model_validate_json(row[0]) if row else None
 
-    def list_leads(self, tenant_id: str, status: Optional[str] = None) -> list[SourcedLead]:
+    def list_leads(
+        self, tenant_id: str, status: Optional[str] = None, web_run_only: bool = False
+    ) -> list[SourcedLead]:
         rows = self.conn.execute(
             "SELECT data FROM sourced_leads WHERE tenant_id = ? ORDER BY id", (tenant_id,)
         ).fetchall()
         leads = [SourcedLead.model_validate_json(r[0]) for r in rows]
         if status is not None:
             leads = [l for l in leads if l.status.value == status]
+        if web_run_only:
+            # Found live: the older keyword-based discover_leads()/
+            # discover_ib_targets() sourcing calls (still valid agent
+            # capabilities, just no longer what the current Discover page
+            # drives) leave leads with no web-sourcing-run association at
+            # all. Repeated ad-hoc test searches during development left
+            # ~200 such leads with no way to review them from the current
+            # UI (it only ever shows one run's results, or the shortlist) --
+            # inflating "awaiting review" counts with leads nobody has a
+            # path to act on. Scope to leads a WebSourcingRun actually
+            # produced, since that's what the current review workflow can
+            # reach.
+            run_lead_ids: set[str] = set()
+            for run in self.list_web_runs(tenant_id):
+                run_lead_ids.update(run.lead_ids)
+            leads = [l for l in leads if l.id in run_lead_ids]
         return leads
 
     def get_lead_by_promoted_deal_id(self, tenant_id: str, deal_id: str) -> Optional[SourcedLead]:
@@ -431,3 +505,47 @@ class Store:
                 )
             )
         return summaries
+
+
+    def save_dataset_snapshot(self, snapshot):
+        self.conn.execute("INSERT INTO dataset_snapshots VALUES (?, ?, ?, ?) ON CONFLICT(tenant_id, source_id, query) DO UPDATE SET data=excluded.data",
+                          (snapshot.tenant_id, snapshot.source_id, snapshot.query, snapshot.model_dump_json()))
+        self.conn.commit()
+
+    def get_dataset_snapshot(self, tenant_id, source_id, query):
+        from workflow_schemas import DatasetSnapshot
+        row = self.conn.execute("SELECT data FROM dataset_snapshots WHERE tenant_id=? AND source_id=? AND query=?",
+                                (tenant_id, source_id, query)).fetchone()
+        return DatasetSnapshot.model_validate_json(row[0]) if row else None
+
+    def list_dataset_snapshots(self, tenant_id):
+        from workflow_schemas import DatasetSnapshot
+        return [DatasetSnapshot.model_validate_json(r[0]) for r in self.conn.execute(
+            "SELECT data FROM dataset_snapshots WHERE tenant_id=?", (tenant_id,)).fetchall()]
+
+    def get_workspace(self, tenant_id, workspace_id=None, lead_id=None):
+        from workflow_schemas import OperatingWorkspace
+        column, value = ("id", workspace_id) if workspace_id else ("lead_id", lead_id)
+        row = self.conn.execute(f"SELECT data FROM operating_workspaces WHERE tenant_id=? AND {column}=?",
+                                (tenant_id, value)).fetchone()
+        return OperatingWorkspace.model_validate_json(row[0]) if row else None
+
+    def list_workspaces(self, tenant_id):
+        from workflow_schemas import OperatingWorkspace
+        return [OperatingWorkspace.model_validate_json(r[0]) for r in self.conn.execute(
+            "SELECT data FROM operating_workspaces WHERE tenant_id=? ORDER BY id", (tenant_id,)).fetchall()]
+
+    def save_workspace(self, workspace, expected_revision=None):
+        next_revision = workspace.revision + 1
+        data = workspace.model_copy(update={"revision": next_revision}).model_dump_json()
+        if expected_revision is None:
+            self.conn.execute("INSERT INTO operating_workspaces VALUES (?, ?, ?, ?, ?)",
+                              (workspace.tenant_id, workspace.id, workspace.lead_id, next_revision, data))
+        else:
+            cursor = self.conn.execute("UPDATE operating_workspaces SET data=?, revision=? WHERE tenant_id=? AND id=? AND revision=?",
+                                      (data, next_revision, workspace.tenant_id, workspace.id, expected_revision))
+            if cursor.rowcount != 1:
+                self.conn.rollback()
+                raise ValueError("Workspace changed; reload before applying this action.")
+        self.conn.commit()
+        workspace.revision = next_revision

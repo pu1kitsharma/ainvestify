@@ -1,0 +1,32 @@
+{
+  "input": "reasoning-engagement-results.json:revised_draft",
+  "live_data_updated": false,
+  "error": "5 validation errors for BoundQualityReview\nquantitative_logic.draft_field\n  Field required [type=missing, input_value={'verdict': 'pass', 'reas...proposed in the draft.'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/missing\ngrounding.draft_field\n  Field required [type=missing, input_value={'verdict': 'pass', 'reas...ut unsupported claims.'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/missing\nusefulness.draft_field\n  Field required [type=missing, input_value={'verdict': 'pass', 'reas...ion value proposition.'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/missing\nstage_fit.draft_field\n  Field required [type=missing, input_value={'verdict': 'pass', 'reas... outreach preparation.\"}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/missing\ncompletion.draft_field\n  Field required [type=missing, input_value={'verdict': 'pass', 'reas...d completion criteria.'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/missing",
+  "elapsed_seconds": 205.98,
+  "routing": {
+    "policy_version": 2,
+    "resource_profile": "under_24gb",
+    "task": "review:investment_case",
+    "model": "qwen3:8b",
+    "thinking": true,
+    "complexity_score": 1.0,
+    "reason": "quality review",
+    "attempt": 0,
+    "quality_weight": 0.8,
+    "latency_weight": 0.2,
+    "max_tokens": 4096,
+    "context_tokens": 12288,
+    "temperature": 0.6,
+    "thinking_used": true,
+    "sampling": {
+      "top_p": 0.95,
+      "top_k": 20,
+      "min_p": 0
+    },
+    "elapsed_seconds": 205.97,
+    "queue_seconds": 0.0,
+    "prompt_tokens": 3977,
+    "generated_tokens": 1561,
+    "done_reason": "stop"
+  }
+}

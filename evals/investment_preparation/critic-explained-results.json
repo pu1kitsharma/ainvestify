@@ -1,0 +1,118 @@
+[
+  {
+    "case": "hotel_costs",
+    "expected_material_issue": false,
+    "review": {
+      "version": 2,
+      "checks": {
+        "grounding": {
+          "verdict": "pass",
+          "draft_field": "business",
+          "reason": "The draft field accurately reflects the company's offerings as described in the supplied evidence. Harbor Rooms provides serviced rooms for traveling nurses, including cleaning and repairs, which is consistent with the passage provided."
+        },
+        "usefulness": {
+          "verdict": "pass",
+          "draft_field": "reason_to_meet",
+          "reason": "The draft field suggests a reason why the company might meet its objectives, which is the recurring need for serviced rooms by agencies. This indicates a steady demand for the company's offerings, aligning with the evidence that agencies book stays of several weeks."
+        },
+        "stage_fit": {
+          "verdict": "pass",
+          "draft_field": "main_risk",
+          "reason": "The draft field identifies a potential main risk, which is the high operational costs for cleaning and repairs. This risk is not explicitly mentioned in the evidence but is a logical inference that could affect the company's profitability, as it might not be fully covered by the fees charged to agencies."
+        },
+        "completion": {
+          "verdict": "pass",
+          "draft_field": "first_question",
+          "reason": "The draft field proposes a concrete action that could lead to a named result, which is obtaining the cost breakdown for room cleaning and repairs over the past year. This is a specific question that can be answered with concrete data, fulfilling the completion criterion."
+        }
+      },
+      "issues": [],
+      "model": "phi4-mini",
+      "at": "2026-09-14T00:02:11.172019+00:00",
+      "kind": "automated_critique",
+      "independent_verification": false
+    },
+    "expected_behavior": true
+  },
+  {
+    "case": "prerevenue_biotech",
+    "expected_material_issue": true,
+    "review": {
+      "version": 2,
+      "checks": {
+        "grounding": {
+          "verdict": "pass",
+          "draft_field": "priorities.0.title",
+          "reason": "The draft field 'priorities.0.title' simply states 'Assess reproducibility across batches', which is a clear and direct action item. It does not contain any factual inaccuracies or material defects based on the provided company evidence. The company evidence mentions that 'Reproducibility has not been assessed across batches' and that there are 'no clinical trials or product sales yet', which aligns with the need to assess reproducibility as stated in the draft field. Therefore, the draft field satisfies the criterion for a clear and direct action item without any factual errors."
+        },
+        "usefulness": {
+          "verdict": "pass",
+          "draft_field": "priorities.0.why_now",
+          "reason": "The draft field 'priorities.0.why_now' provides a rationale for why reproducibility needs to be assessed, stating 'Reproducibility is essential for clinical trials and product sales, which are not yet underway.' This explanation is consistent with the company evidence provided, which indicates that there are no clinical trials or product sales yet. The reason given in the draft field is a logical explanation for why the action item in 'priorities.0.title' is important, and it does not contain any factual inaccuracies or material defects."
+        },
+        "stage_fit": {
+          "verdict": "pass",
+          "draft_field": "priorities.0.required_input",
+          "reason": "The draft field 'priorities.0.required_input' lists 'Batch records, production protocols, and quality control data' as the required inputs for assessing reproducibility. These inputs are relevant and necessary for the action item stated in 'priorities.0.title' and are consistent with the company evidence provided. The company evidence does not contradict the need for these inputs, and thus the draft field satisfies the criterion for specifying the required inputs for the action item."
+        },
+        "completion": {
+          "verdict": "pass",
+          "draft_field": "priorities.0.done_when",
+          "reason": "The draft field 'priorities.0.done_when' specifies that the study is considered done when it shows 'consistent quality across batches or identifies variability that needs to be addressed.' This is a clear completion criterion that aligns with the goals of assessing reproducibility. It does not contain any factual inaccuracies or material defects based on the provided company evidence. The company evidence indicates that reproducibility has not been assessed, and the completion criterion in the draft field provides a logical outcome for the action item in 'priorities.0.title'. Therefore, the draft field satisfies the criterion for specifying the completion of the action item."
+        }
+      },
+      "issues": [],
+      "model": "phi4-mini",
+      "at": "2026-09-14T00:02:48.243330+00:00",
+      "kind": "automated_critique",
+      "independent_verification": false
+    },
+    "expected_behavior": false
+  },
+  {
+    "case": "funding_is_not_growth",
+    "expected_material_issue": true,
+    "review": {
+      "version": 2,
+      "checks": {
+        "grounding": {
+          "verdict": "revise",
+          "draft_field": "business",
+          "reason": "The supplied evidence does not confirm that the company has secured investment or grown revenue rapidly. The evidence only states that SafePay raised a seed round and was accepted into an accelerator, but there is no mention of revenue growth."
+        },
+        "usefulness": {
+          "verdict": "pass",
+          "draft_field": "reason_to_meet",
+          "reason": "The draft field 'reason_to_meet' is not directly supported by the supplied evidence. The evidence does not explicitly state that the funding is the reason for meeting a particular goal or milestone."
+        },
+        "stage_fit": {
+          "verdict": "pass",
+          "draft_field": "main_risk",
+          "reason": "The draft field 'main_risk' is not addressed by the supplied evidence. There is no mention of delivery costs or any other risks in the provided evidence."
+        },
+        "completion": {
+          "verdict": "revise",
+          "draft_field": "first_question",
+          "reason": "The draft field 'first_question' is not directly supported by the supplied evidence. The evidence does not provide any information about a revenue ledger or the ability to share it."
+        }
+      },
+      "issues": [
+        {
+          "category": "grounding",
+          "excerpt": "The company has secured investment and grown revenue rapidly.",
+          "correction": "The supplied evidence does not confirm that the company has secured investment or grown revenue rapidly. The evidence only states that SafePay raised a seed round and was accepted into an accelerator, but there is no mention of revenue growth."
+        },
+        {
+          "category": "completion",
+          "excerpt": "Can you share the revenue ledger?",
+          "correction": "The draft field 'first_question' is not directly supported by the supplied evidence. The evidence does not provide any information about a revenue ledger or the ability to share it."
+        }
+      ],
+      "model": "phi4-mini",
+      "at": "2026-09-14T00:03:11.504753+00:00",
+      "kind": "automated_critique",
+      "independent_verification": false
+    },
+    "expected_behavior": true
+  }
+]

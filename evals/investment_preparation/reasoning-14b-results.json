@@ -1,0 +1,120 @@
+{
+  "input_file": "evals/investment_preparation/reasoning-regression-input.json",
+  "case": "Waybill",
+  "live_data_updated": false,
+  "calls": [
+    {
+      "policy_version": 1,
+      "task": "investment_case",
+      "model": "qwen3:14b",
+      "thinking": true,
+      "complexity_score": 0.986,
+      "reason": "retry after failed validation",
+      "attempt": 1,
+      "quality_weight": 0.8,
+      "latency_weight": 0.2,
+      "max_tokens": 8192,
+      "context_tokens": 12288,
+      "temperature": 0.6,
+      "thinking_used": true,
+      "sampling": {
+        "top_p": 0.95,
+        "top_k": 20,
+        "min_p": 0
+      },
+      "elapsed_seconds": 190.21,
+      "prompt_tokens": 3746,
+      "generated_tokens": 894,
+      "done_reason": "stop"
+    },
+    {
+      "policy_version": 1,
+      "task": "investment_case",
+      "model": "qwen3:14b",
+      "thinking": true,
+      "complexity_score": 0.986,
+      "reason": "retry after failed validation",
+      "attempt": 1,
+      "quality_weight": 0.8,
+      "latency_weight": 0.2,
+      "max_tokens": 8192,
+      "context_tokens": 12288,
+      "temperature": 0.6,
+      "thinking_used": true,
+      "sampling": {
+        "top_p": 0.95,
+        "top_k": 20,
+        "min_p": 0
+      },
+      "elapsed_seconds": 190.21,
+      "prompt_tokens": 3746,
+      "generated_tokens": 894,
+      "done_reason": "stop"
+    }
+  ],
+  "original_review": {
+    "issues": []
+  },
+  "attempts": [
+    {
+      "attempt": 0,
+      "error": "1 validation error for CitedWorkProduct\nevidence_ids\n  List should have at most 5 items after validation, not 6 [type=too_long, input_value=['E1', 'E2', 'E3', 'E5', 'E8', 'E11'], input_type=list]\n    For further information visit https://errors.pydantic.dev/2.13/v/too_long",
+      "raw_response": "{\n  \"title\": \"Preliminary Investment Case: Waybill\",\n  \"purpose\": \"Evaluate Waybill's value proposition, monetization potential, and founder request alignment with investment readiness.\",\n  \"sections\": [\n    {\n      \"heading\": \"Customer Problem & Value\",\n      \"content\": \"Hardware teams spend weeks on procurement: sourcing parts, chasing quotes, managing logistics, and tracking inventory. Waybill automates end-to-end procurement, reducing manual effort and errors. It handles sourcing, negotiation, freight, customs, delivery, and inventory updates. This creates value by saving time, reducing costs, and ensuring parts reach shelves.\"\n    },\n    {\n      \"heading\": \"Monetization & Founder Request\",\n      \"content\": \"Monetization model is unspecified. Founder requests intros to procurement leads at hardware enterprises (E1), indicating outreach needs, not direct revenue signals. Customer value is tied to operational efficiency, but pricing and delivery obligations remain unquantified.\"\n    },\n    {\n      \"heading\": \"Strongest Evidence\",\n      \"content\": \"Founder experience in supply chain (LAT Aerospace, WareIQ) and product capabilities (end-to-end automation) support traction. E5 highlights inventory automation and PO matching, suggesting operational depth. E11 notes handling complex procurements (e.g., Cessna aircraft).\"\n    },\n    {\n      \"heading\": \"Disconfirming Evidence\",\n      \"content\": \"No financial metrics (revenue, unit economics) or customer retention data. Small team size (E8: 3 employees) and lack of explicit pricing models raise questions about scalability. Founder ask for intros (E1) does not confirm market demand or willingness to pay.\"\n    }\n  ],\n  \"missing_inputs\": [\n    {\n      \"record\": \"Customer acquisition cost (CAC) and lifetime value (LTV) metrics\",\n      \"why\": \"To assess monetization viability and unit economics.\"\n    },\n    {\n      \"record\": \"Revenue or transaction volume data\",\n      \"why\": \"To quantify current monetization and growth potential.\"\n    },\n    {\n      \"record\": \"Customer retention rates or repeat purchase data\",\n      \"why\": \"To validate product-market fit and long-term value.\"\n    }\n  ],\n  \"decision_question\": \"Does Waybill's operational automation solve a scalable problem with clear monetization pathways?\",\n  \"next_action\": \"Request access to Waybill's customer acquisition cost, revenue, and retention metrics.\",\n  \"completion_test\": \"Verify existence of revenue data, unit economics, and explicit pricing models.\",\n  \"evidence_ids\": [\"E1\", \"E2\", \"E3\", \"E5\", \"E8\", \"E11\"],\n  \"numeric_claims\": [\n    {\n      \"statement\": \"3 employees\",\n      \"source_id\": \"E8\",\n      \"quote\": \"Team Size: 3\"\n    },\n    {\n      \"statement\": \"Founded: 2026\",\n      \"source_id\": \"E7\",\n      \"quote\": \"Founded: 2026\"\n    }\n  ],\n  \"measurements\": [\n    {\n      \"question\": \"Time saved per procurement cycle\",\n      \"left\": {\n        \"name\": \"Time spent manually\",\n        \"dimension\": \"duration\",\n        \"unit\": \"hours\",\n        \"record_needed\": \"Customer-reported pre-Waybill procurement time\"\n      },\n      \"operation\": \"subtract\",\n      \"right\": {\n        \"name\": \"Time spent with Waybill\",\n        \"dimension\": \"duration\",\n        \"unit\": \"hours\",\n        \"record_needed\": \"Customer-reported post-Waybill procurement time\"\n      },\n      \"population_basis\": \"Hardware teams using Waybill vs. traditional methods, measured over 3 months.\"\n    },\n    {\n      \"question\": \"Customer retention rate\",\n      \"left\": {\n        \"name\": \"Active customers\",\n        \"dimension\": \"count\",\n        \"unit\": \"customers\",\n        \"record_needed\": \"Monthly active customer count\"\n      },\n      \"operation\": \"divide\",\n      \"right\": {\n        \"name\": \"Total customers\",\n        \"dimension\": \"count\",\n        \"unit\": \"customers\",\n        \"record_needed\": \"Total customer base\"\n      },\n      \"population_basis\": \"All customers over 6 months, with churn analysis.\"\n    },\n    {\n      \"question\": \"Cost per transaction\",\n      \"left\": {\n        \"name\": \"Total procurement cost\",\n        \"dimension\": \"money\",\n        \"unit\": \"INR\",\n        \"record_needed\": \"Total procurement expenses\"\n      },\n      \"operation\": \"divide\",\n      \"right\": {\n        \"name\": \"Number of transactions\",\n        \"dimension\": \"count\",\n        \"unit\": \"transactions\",\n        \"record_needed\": \"Procurement transaction volume\"\n      },\n      \"population_basis\": \"All transactions processed by Waybill in the last quarter.\"\n    }\n  ]\n}"
+    },
+    {
+      "attempt": 1,
+      "draft": {
+        "numeric_claims": [],
+        "measurements": [],
+        "title": "Waybill: Procurement Automation for Hardware Teams",
+        "purpose": "Evaluate investment readiness by analyzing customer pain, value proposition, and evidence gaps.",
+        "sections": [
+          {
+            "heading": "Customer Problem",
+            "content": "Hardware engineers spend weeks on procurement: sourcing parts, chasing quotes, managing logistics, and tracking inventory. Current systems stop at PO approval, leaving physical delivery and inventory management unresolved."
+          },
+          {
+            "heading": "Value Proposition",
+            "content": "Waybill automates end-to-end procurement: sourcing, negotiation, freight, customs, delivery, and inventory management. It scales with teams from R&D to production, using AI to manage inventory across volatile SKUs."
+          }
+        ],
+        "missing_inputs": [
+          {
+            "record": "Customer retention rates post-implementation",
+            "why": "To validate repeat demand and long-term value capture."
+          },
+          {
+            "record": "Average time saved per procurement cycle",
+            "why": "To quantify operational efficiency gains for hardware teams."
+          },
+          {
+            "record": "Unit economics (cost per transaction vs. revenue per transaction)",
+            "why": "To assess monetization viability and scalability."
+          },
+          {
+            "record": "Number of active hardware enterprise clients",
+            "why": "To evaluate customer concentration risks and market penetration."
+          },
+          {
+            "record": "Delivery cost per shipment",
+            "why": "To understand margin pressures and logistics scalability."
+          }
+        ],
+        "decision_question": "Does Waybill\u2019s end-to-end procurement automation create defensible value for hardware teams, with scalable monetization and repeat demand?",
+        "next_action": "Request Waybill\u2019s customer retention metrics and delivery cost records from their Y Combinator profile.",
+        "completion_test": "Confirm at least 3 active enterprise clients with measurable time savings and repeat usage, alongside unit economics showing positive margins.",
+        "evidence_ids": [
+          "E1",
+          "E2",
+          "E3",
+          "E5",
+          "E11"
+        ]
+      },
+      "error": "Unattributed numeric assertions in the document: 3. Provide exact source-bound numeric_claims or remove unsupported figures. Proposed tests belong in measurements; never invent company metrics.",
+      "raw_response": "{\n  \"title\": \"Waybill: Procurement Automation for Hardware Teams\",\n  \"purpose\": \"Evaluate investment readiness by analyzing customer pain, value proposition, and evidence gaps.\",\n  \"sections\": [\n    {\n      \"heading\": \"Customer Problem\",\n      \"content\": \"Hardware engineers spend weeks on procurement: sourcing parts, chasing quotes, managing logistics, and tracking inventory. Current systems stop at PO approval, leaving physical delivery and inventory management unresolved.\"\n    },\n    {\n      \"heading\": \"Value Proposition\",\n      \"content\": \"Waybill automates end-to-end procurement: sourcing, negotiation, freight, customs, delivery, and inventory management. It scales with teams from R&D to production, using AI to manage inventory across volatile SKUs.\"\n    }\n  ],\n  \"missing_inputs\": [\n    {\n      \"record\": \"Customer retention rates post-implementation\",\n      \"why\": \"To validate repeat demand and long-term value capture.\"\n    },\n    {\n      \"record\": \"Average time saved per procurement cycle\",\n      \"why\": \"To quantify operational efficiency gains for hardware teams.\"\n    },\n    {\n      \"record\": \"Unit economics (cost per transaction vs. revenue per transaction)\",\n      \"why\": \"To assess monetization viability and scalability.\"\n    },\n    {\n      \"record\": \"Number of active hardware enterprise clients\",\n      \"why\": \"To evaluate customer concentration risks and market penetration.\"\n    },\n    {\n      \"record\": \"Delivery cost per shipment\",\n      \"why\": \"To understand margin pressures and logistics scalability.\"\n    }\n  ],\n  \"decision_question\": \"Does Waybill\u2019s end-to-end procurement automation create defensible value for hardware teams, with scalable monetization and repeat demand?\",\n  \"next_action\": \"Request Waybill\u2019s customer retention metrics and delivery cost records from their Y Combinator profile.\",\n  \"completion_test\": \"Confirm at least 3 active enterprise clients with measurable time savings and repeat usage, alongside unit economics showing positive margins.\",\n  \"evidence_ids\": [\"E1\", \"E2\", \"E3\", \"E5\", \"E11\"]\n}"
+    }
+  ],
+  "error": "Unattributed numeric assertions in the document: 3. Provide exact source-bound numeric_claims or remove unsupported figures. Proposed tests belong in measurements; never invent company metrics.",
+  "elapsed_seconds": 409.14
+}

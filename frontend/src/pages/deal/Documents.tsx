@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import {
+  useLeads,
+  useReview,
   useCompileCim,
   useCompileProforma,
   useConfirmTeaser,
@@ -19,15 +21,18 @@ import type {
 } from "../../api/types";
 
 const TABS: { key: DocumentType; label: string }[] = [
-  { key: "cim", label: "CIM" },
-  { key: "teaser", label: "Teaser" },
-  { key: "proforma", label: "Pro-forma" },
+  { key: "cim", label: "Investment memorandum" },
+  { key: "teaser", label: "Anonymous introduction" },
+  { key: "proforma", label: "Financial scenarios" },
 ];
 
 export default function Documents() {
   const { dealId } = useOutletContext<{ dealId: string }>();
   const [activeTab, setActiveTab] = useState<DocumentType>("cim");
   const documents = useDocuments(dealId);
+  const review = useReview(dealId);
+  const leads = useLeads();
+  const company = leads.data?.find(l=>l.promoted_deal_id === dealId);
   const [citationBlockId, setCitationBlockId] = useState<string | null>(null);
 
   if (documents.isLoading) return <p className="text-sm text-slate-500">Loading…</p>;
@@ -41,7 +46,8 @@ export default function Documents() {
 
   return (
     <div className="flex flex-col gap-4">
-      <nav className="flex gap-1">
+      <header className="rounded-xl border border-slate-200 bg-white p-6"><h1 className="text-xl font-semibold">Investor materials</h1><p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600">These documents communicate the investment case to prospective investors. Prepare the business argument and supporting evidence before compiling a formal document.</p>{company && <Link className="mt-4 inline-block text-sm font-semibold text-indigo-600" to={`/operations?lead=${company.id}&tab=readiness`}>Open company decision & prepared work →</Link>}</header>
+      <nav className="flex flex-wrap gap-1">
         {TABS.map((tab) => (
           <button
             key={tab.key}
@@ -55,9 +61,11 @@ export default function Documents() {
         ))}
       </nav>
 
+      {!latestOf(activeTab) && !review.data?.ready_for_compilation ? <section className="rounded-xl border border-slate-200 bg-white p-6"><h2 className="font-semibold">{activeTab==='cim'?'Build the investment argument first':activeTab==='teaser'?'Establish a supported introduction first':'Establish the financial baseline first'}</h2><p className="mt-3 text-sm leading-6 text-slate-600">{activeTab==='cim'?'The memorandum should explain the company, market, traction, economics, risks and funding purpose. The AI preparation workspace drafts the argument and identifies missing records.':activeTab==='teaser'?'The introduction summarizes the opportunity without identifying the company. Its claims and financial highlights need supported source records.':'Scenarios need dated financial inputs and explicit assumptions. Compiling an empty model cannot establish runway, financing needs or a valuation.'}</p><div className="mt-5 flex flex-wrap gap-4">{company && <Link className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white" to={`/operations?lead=${company.id}&tab=readiness`}>Prepare the investment case</Link>}<Link className="text-sm font-semibold text-indigo-600" to={`/deals/${dealId}/review`}>Add or check supporting figures →</Link></div>{review.error && <p role="alert" className="mt-3 text-sm text-rose-700">{review.error.message}</p>}</section> : <>
       {activeTab === "cim" && <CimView dealId={dealId} memo={latestOf("cim")} onCite={setCitationBlockId} />}
       {activeTab === "teaser" && <TeaserView dealId={dealId} memo={latestOf("teaser")} />}
       {activeTab === "proforma" && <ProformaView dealId={dealId} memo={latestOf("proforma")} />}
+      </>}
 
       <CitationDrawer dealId={dealId} blockId={citationBlockId} onClose={() => setCitationBlockId(null)} />
     </div>

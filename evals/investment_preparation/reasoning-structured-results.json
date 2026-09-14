@@ -1,0 +1,31 @@
+{
+  "input_file": "evals/investment_preparation/reasoning-regression-input.json",
+  "case": "Waybill",
+  "live_data_updated": false,
+  "calls": [
+    {},
+    {
+      "policy_version": 1,
+      "task": "investment_case",
+      "model": "qwen3:8b",
+      "thinking": true,
+      "complexity_score": 0.986,
+      "reason": "analytical task",
+      "attempt": 0,
+      "quality_weight": 0.8,
+      "latency_weight": 0.2,
+      "max_tokens": 8192,
+      "context_tokens": 16384,
+      "temperature": 0.0,
+      "elapsed_seconds": 118.26,
+      "prompt_tokens": 2509,
+      "generated_tokens": 897,
+      "done_reason": "stop"
+    }
+  ],
+  "original_review": {
+    "issues": []
+  },
+  "error": "Name the actual record, its scope and what it would resolve. A category such as operating_metrics is not a usable company request.",
+  "elapsed_seconds": 118.27
+}

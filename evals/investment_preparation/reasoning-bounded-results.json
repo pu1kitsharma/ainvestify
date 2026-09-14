@@ -1,0 +1,160 @@
+{
+  "input_file": "evals/investment_preparation/reasoning-regression-input.json",
+  "case": "Waybill",
+  "live_data_updated": false,
+  "calls": [
+    {
+      "policy_version": 1,
+      "task": "investment_case",
+      "model": "qwen3:8b",
+      "thinking": true,
+      "complexity_score": 0.986,
+      "reason": "analytical task",
+      "attempt": 0,
+      "quality_weight": 0.8,
+      "latency_weight": 0.2,
+      "max_tokens": 8192,
+      "context_tokens": 16384,
+      "temperature": 0.0,
+      "elapsed_seconds": 120.44,
+      "prompt_tokens": 2509,
+      "generated_tokens": 897,
+      "done_reason": "stop"
+    },
+    {
+      "policy_version": 1,
+      "task": "investment_case",
+      "model": "qwen3:8b",
+      "thinking": true,
+      "complexity_score": 0.986,
+      "reason": "retry after failed validation",
+      "attempt": 1,
+      "quality_weight": 0.8,
+      "latency_weight": 0.2,
+      "max_tokens": 10240,
+      "context_tokens": 16384,
+      "temperature": 0.0,
+      "elapsed_seconds": 122.28,
+      "prompt_tokens": 2539,
+      "generated_tokens": 965,
+      "done_reason": "stop"
+    },
+    {
+      "policy_version": 1,
+      "task": "investment_case",
+      "model": "qwen3:8b",
+      "thinking": true,
+      "complexity_score": 0.986,
+      "reason": "retry after failed validation",
+      "attempt": 1,
+      "quality_weight": 0.8,
+      "latency_weight": 0.2,
+      "max_tokens": 10240,
+      "context_tokens": 16384,
+      "temperature": 0.0,
+      "elapsed_seconds": 122.28,
+      "prompt_tokens": 2539,
+      "generated_tokens": 965,
+      "done_reason": "stop"
+    }
+  ],
+  "original_review": {
+    "issues": []
+  },
+  "attempts": [
+    {
+      "attempt": 0,
+      "draft": {
+        "measurements": [],
+        "title": "Waybill Investment Case",
+        "purpose": "Evaluate investability of Waybill's procurement automation for hardware teams.",
+        "sections": [
+          {
+            "heading": "Customer Problem",
+            "content": "Hardware engineers spend weeks on procurement: emailing distributors, chasing quotes, managing shipments, and tracking inventory. Manual processes create delays, errors, and visibility gaps. Waybill automates this end-to-end, reducing time spent on procurement tasks."
+          },
+          {
+            "heading": "Value Creation",
+            "content": "Waybill saves 20+ hours/month per user (E2) by automating sourcing, approvals, freight, customs, and inventory tracking. It reduces stockouts and ensures parts are available when needed, aligning with WareIQ's inventory management expertise (E4)."
+          },
+          {
+            "heading": "Monetization vs. Value",
+            "content": "Monetization model is unknown (E3). Customer value is time saved and operational efficiency. Revenue metrics are missing; financial_workpaper is empty. Subscription or transaction-based models are speculative."
+          },
+          {
+            "heading": "Founder Requests",
+            "content": "Founder asks for intros to procurement leads (E1), which is a request for assistance, not buyer demand. Indicates limited traction or network leverage."
+          }
+        ],
+        "missing_inputs": [
+          {
+            "record": "financial_workpaper",
+            "why": "Required to assess revenue, CAC, and LTV. Missing data prevents valuation and scalability analysis."
+          },
+          {
+            "record": "operating_metrics",
+            "why": "Months and calculations fields are empty. No data on customer acquisition, retention, or unit economics."
+          }
+        ],
+        "decision_question": "Is Waybill's value proposition validated by measurable outcomes, or is it reliant on founder experience without quantified traction?",
+        "next_action": "Request financial statements, customer retention rates, and pricing model details to resolve monetization ambiguity and assess scalability.",
+        "completion_test": "Verify if Waybill can demonstrate time saved per user, customer acquisition cost, and revenue per account with concrete metrics from E2/E4/E5.",
+        "evidence_ids": [
+          "E2",
+          "E4",
+          "E5"
+        ]
+      },
+      "error": "Name the actual record, its scope and what it would resolve. A category such as operating_metrics is not a usable company request.",
+      "raw_response": "{\n  \"title\": \"Waybill Investment Case\",\n  \"purpose\": \"Evaluate investability of Waybill's procurement automation for hardware teams.\",\n  \"sections\": [\n    {\n      \"heading\": \"Customer Problem\",\n      \"content\": \"Hardware engineers spend weeks on procurement: emailing distributors, chasing quotes, managing shipments, and tracking inventory. Manual processes create delays, errors, and visibility gaps. Waybill automates this end-to-end, reducing time spent on procurement tasks.\"\n    },\n    {\n      \"heading\": \"Value Creation\",\n      \"content\": \"Waybill saves 20+ hours/month per user (E2) by automating sourcing, approvals, freight, customs, and inventory tracking. It reduces stockouts and ensures parts are available when needed, aligning with WareIQ's inventory management expertise (E4).\"\n    },\n    {\n      \"heading\": \"Monetization vs. Value\",\n      \"content\": \"Monetization model is unknown (E3). Customer value is time saved and operational efficiency. Revenue metrics are missing; financial_workpaper is empty. Subscription or transaction-based models are speculative.\"\n    },\n    {\n      \"heading\": \"Founder Requests\",\n      \"content\": \"Founder asks for intros to procurement leads (E1), which is a request for assistance, not buyer demand. Indicates limited traction or network leverage.\"\n    }\n  ],\n  \"missing_inputs\": [\n    {\n      \"record\": \"financial_workpaper\",\n      \"why\": \"Required to assess revenue, CAC, and LTV. Missing data prevents valuation and scalability analysis.\"\n    },\n    {\n      \"record\": \"operating_metrics\",\n      \"why\": \"Months and calculations fields are empty. No data on customer acquisition, retention, or unit economics.\"\n    }\n  ],\n  \"decision_question\": \"Is Waybill's value proposition validated by measurable outcomes, or is it reliant on founder experience without quantified traction?\",\n  \"next_action\": \"Request financial statements, customer retention rates, and pricing model details to resolve monetization ambiguity and assess scalability.\",\n  \"completion_test\": \"Verify if Waybill can demonstrate time saved per user, customer acquisition cost, and revenue per account with concrete metrics from E2/E4/E5.\",\n  \"evidence_ids\": [\"E2\", \"E4\", \"E5\"]\n}"
+    },
+    {
+      "attempt": 1,
+      "draft": {
+        "measurements": [],
+        "title": "Waybill Investment Case",
+        "purpose": "Evaluate Waybill's viability as a procurement automation solution for hardware teams.",
+        "sections": [
+          {
+            "heading": "Customer Problem",
+            "content": "Hardware engineers spend weeks on procurement: emailing distributors, chasing quotes, managing shipments, and tracking inventory. Manual processes cause delays, errors, and visibility gaps. Waybill automates this loop, reducing time spent on procurement tasks."
+          },
+          {
+            "heading": "Value Creation",
+            "content": "Waybill eliminates manual procurement steps by handling sourcing, approvals, freight, customs, and inventory tracking. It reduces time spent on procurement tasks, minimizes errors, and ensures parts reach shelves without manual intervention."
+          },
+          {
+            "heading": "Monetization vs. Value",
+            "content": "Monetization model is unknown. Founder requests intros, not direct payments. Value is measured in time saved (weeks) and reduced operational friction, not yet tied to pricing or revenue metrics."
+          },
+          {
+            "heading": "Strongest Evidence",
+            "content": "Time saved: Engineers avoid weeks of manual procurement. Disconfirming evidence: Customer concentration risk (e.g., reliance on 400+ D2C brands from WareIQ history) and delivery cost transparency gaps."
+          }
+        ],
+        "missing_inputs": [
+          {
+            "record": "financial_workpaper",
+            "why": "Required to assess revenue model, pricing, and unit economics. Missing data prevents evaluation of scalability or profitability."
+          },
+          {
+            "record": "operating_metrics",
+            "why": "Needed to quantify time saved, cost reduction, and customer retention. Without metrics, it's unclear if the solution scales beyond founder claims."
+          }
+        ],
+        "decision_question": "Can Waybill demonstrate financial traction or customer retention metrics to validate its value proposition beyond founder claims?",
+        "next_action": "Request financial statements and operating metrics to assess scalability and monetization viability.",
+        "completion_test": "Verify if Waybill can quantify time saved, cost reduction, and customer retention with measurable units (e.g., hours saved per order, percentage of parts on shelf).",
+        "evidence_ids": [
+          "E2",
+          "E5",
+          "E12"
+        ]
+      },
+      "error": "Name the actual record, its scope and what it would resolve. A category such as operating_metrics is not a usable company request.",
+      "raw_response": "{\n  \"title\": \"Waybill Investment Case\",\n  \"purpose\": \"Evaluate Waybill's viability as a procurement automation solution for hardware teams.\",\n  \"sections\": [\n    {\n      \"heading\": \"Customer Problem\",\n      \"content\": \"Hardware engineers spend weeks on procurement: emailing distributors, chasing quotes, managing shipments, and tracking inventory. Manual processes cause delays, errors, and visibility gaps. Waybill automates this loop, reducing time spent on procurement tasks.\"\n    },\n    {\n      \"heading\": \"Value Creation\",\n      \"content\": \"Waybill eliminates manual procurement steps by handling sourcing, approvals, freight, customs, and inventory tracking. It reduces time spent on procurement tasks, minimizes errors, and ensures parts reach shelves without manual intervention.\"\n    },\n    {\n      \"heading\": \"Monetization vs. Value\",\n      \"content\": \"Monetization model is unknown. Founder requests intros, not direct payments. Value is measured in time saved (weeks) and reduced operational friction, not yet tied to pricing or revenue metrics.\"\n    },\n    {\n      \"heading\": \"Strongest Evidence\",\n      \"content\": \"Time saved: Engineers avoid weeks of manual procurement. Disconfirming evidence: Customer concentration risk (e.g., reliance on 400+ D2C brands from WareIQ history) and delivery cost transparency gaps.\"\n    }\n  ],\n  \"missing_inputs\": [\n    {\n      \"record\": \"financial_workpaper\",\n      \"why\": \"Required to assess revenue model, pricing, and unit economics. Missing data prevents evaluation of scalability or profitability.\"\n    },\n    {\n      \"record\": \"operating_metrics\",\n      \"why\": \"Needed to quantify time saved, cost reduction, and customer retention. Without metrics, it's unclear if the solution scales beyond founder claims.\"\n    }\n  ],\n  \"decision_question\": \"Can Waybill demonstrate financial traction or customer retention metrics to validate its value proposition beyond founder claims?\",\n  \"next_action\": \"Request financial statements and operating metrics to assess scalability and monetization viability.\",\n  \"completion_test\": \"Verify if Waybill can quantify time saved, cost reduction, and customer retention with measurable units (e.g., hours saved per order, percentage of parts on shelf).\",\n  \"evidence_ids\": [\"E2\", \"E5\", \"E12\"]\n}"
+    }
+  ],
+  "error": "Name the actual record, its scope and what it would resolve. A category such as operating_metrics is not a usable company request.",
+  "elapsed_seconds": 242.74
+}

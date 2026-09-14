@@ -1,21 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useClassifyPrompt, useCreateDeal } from "../api/hooks";
+import { useClassifyPrompt, useCreateDeal, useStartWebRun } from "../api/hooks";
 import type { RouterDecision } from "../api/types";
 
-/**
- * The top-level "prompt the system" bar (plan §5 Dashboard route): free
- * text goes through main.py's classify_prompt equivalent via the API,
- * never executes anything on its own -- classification is shown as an
- * inline card the user acts on deliberately, the same non-blocking-modal
- * confirm pattern the plan calls for at the deal level.
- */
+/** Classify the brief; sourcing starts immediately using the full user criteria. */
 export default function PromptBar() {
   const [prompt, setPrompt] = useState("");
   const [decision, setDecision] = useState<RouterDecision | null>(null);
   const [dealName, setDealName] = useState("");
   const classify = useClassifyPrompt();
   const createDeal = useCreateDeal();
+  const startResearch = useStartWebRun();
   const navigate = useNavigate();
 
   function handleSubmit(e: React.FormEvent) {
@@ -25,6 +20,10 @@ export default function PromptBar() {
       onSuccess: (result) => {
         setDecision(result);
         setDealName("");
+        if (result.action === "source_leads") {
+          startResearch.mutate({ thesis: prompt.trim(), geography: result.location_filter || undefined },
+            { onSuccess: () => navigate("/leads") });
+        }
       },
     });
   }
@@ -48,34 +47,22 @@ export default function PromptBar() {
         />
         <button
           type="submit"
-          disabled={classify.isPending || !prompt.trim()}
+          disabled={classify.isPending || startResearch.isPending || !prompt.trim()}
           className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-500 disabled:opacity-50"
         >
-          {classify.isPending ? "Thinking…" : "Go"}
+          {classify.isPending ? "Thinking…" : startResearch.isPending ? "Starting research…" : "Go"}
         </button>
       </form>
 
       {classify.isError && (
         <p className="mt-2 text-sm text-rose-600">{classify.error.message}</p>
       )}
+      {startResearch.isError && <p className="mt-2 text-sm text-rose-600">{startResearch.error.message}</p>}
 
       {decision && (
         <div className="mt-3 rounded-md border border-indigo-100 bg-indigo-50/60 p-3 text-sm">
           <p className="text-slate-700">{decision.reasoning}</p>
-          {decision.action === "source_leads" && decision.sector_keyword && (
-            <button
-              onClick={() =>
-                navigate(
-                  `/leads?keyword=${encodeURIComponent(decision.sector_keyword ?? "")}` +
-                    (decision.location_filter ? `&location=${encodeURIComponent(decision.location_filter)}` : ""),
-                )
-              }
-              className="mt-2 rounded-md bg-indigo-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-indigo-500"
-            >
-              Search for &ldquo;{decision.sector_keyword}&rdquo;
-              {decision.location_filter ? ` in ${decision.location_filter}` : ""}
-            </button>
-          )}
+          {decision.action === "source_leads" && startResearch.isPending && <p className="mt-2 text-xs text-slate-600">Discovering sources for your full brief…</p>}
           {decision.action === "screen_deal" && (
             <div className="mt-2 flex gap-2">
               <input

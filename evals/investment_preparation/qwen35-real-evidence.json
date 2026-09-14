@@ -1,0 +1,211 @@
+{
+  "input_file": "evals/investment_preparation/reasoning-engagement-input.json",
+  "case": "Waybill",
+  "live_data_updated": false,
+  "calls": [
+    {
+      "policy_version": 2,
+      "resource_profile": "under_24gb",
+      "task": "investment_case",
+      "model": "qwen3.5:4b",
+      "thinking": true,
+      "complexity_score": 1.0,
+      "reason": "high input complexity and quality preference",
+      "attempt": 0,
+      "quality_weight": 0.8,
+      "latency_weight": 0.2,
+      "max_tokens": 6144,
+      "context_tokens": 16384,
+      "temperature": 1.0,
+      "thinking_used": true,
+      "sampling": {
+        "top_p": 0.95,
+        "top_k": 20,
+        "min_p": 0,
+        "presence_penalty": 1.5,
+        "repeat_penalty": 1.0
+      },
+      "elapsed_seconds": 385.89,
+      "queue_seconds": 0.0,
+      "prompt_tokens": 3818,
+      "generated_tokens": 4731,
+      "done_reason": "stop"
+    },
+    {
+      "policy_version": 2,
+      "resource_profile": "under_24gb",
+      "task": "investment_case",
+      "model": "qwen3.5:4b",
+      "thinking": true,
+      "complexity_score": 1.0,
+      "reason": "retry after failed validation",
+      "attempt": 1,
+      "quality_weight": 0.8,
+      "latency_weight": 0.2,
+      "max_tokens": 8192,
+      "context_tokens": 16384,
+      "temperature": 1.0,
+      "thinking_used": true,
+      "sampling": {
+        "top_p": 0.95,
+        "top_k": 20,
+        "min_p": 0,
+        "presence_penalty": 1.5,
+        "repeat_penalty": 1.0
+      },
+      "elapsed_seconds": 273.2,
+      "queue_seconds": 0.0,
+      "prompt_tokens": 3901,
+      "generated_tokens": 5134,
+      "done_reason": "stop"
+    }
+  ],
+  "original_review": {
+    "issues": []
+  },
+  "attempts": [
+    {
+      "attempt": 0,
+      "draft": {
+        "numeric_claims": [
+          {
+            "statement": "Team Size: 3",
+            "source_id": "E8",
+            "quote": "Team Size: 3"
+          },
+          {
+            "statement": "Founded: 2026",
+            "source_id": "E7",
+            "quote": "Founded: 2026"
+          }
+        ],
+        "measurements": [
+          {
+            "question": "Compare delivery efficiency against order value complexity.",
+            "left": {
+              "name": "Average Order Delivery Time",
+              "dimension": "duration",
+              "unit": "days",
+              "record_needed": "Logistics API data for recent pilots."
+            },
+            "operation": "subtract",
+            "right": {
+              "name": "Industry Benchmark Lead Time",
+              "dimension": "duration",
+              "unit": "days",
+              "record_needed": "Competitor benchmark analysis."
+            },
+            "population_basis": "Cohort of hardware startups using Waybill autopilot."
+          }
+        ],
+        "title": "Waybill Procurement Automation Investment Assessment",
+        "purpose": "Evaluate hardware procurement platform viability and address founder intro request strategy.",
+        "sections": [
+          {
+            "heading": "Observed Business & Value",
+            "content": "Waybill connects engineers to procurement leads via AI sourcing (E3). It manages end-to-end flow from BOM to shelf inventory (E5). Team size is 3 employees based in Gurugram (E6, E8). Founded in 2026."
+          },
+          {
+            "heading": "Problem & Alternatives",
+            "content": "Hardware teams burn weeks on quotes and tracking (E2). Engineers need specific alternates they can't hand off (E4). Competitors stop at approved POs (E5). Value is automated delivery matching. Monetization is unknown."
+          },
+          {
+            "heading": "Decision & Unknowns",
+            "content": "Founder seeks intros, not yet revenue confirmation (E1). Team experience includes LAT Aerospace but lacks commercial traction data. Need retention evidence before proceeding. Missing inputs include procurement volume records."
+          }
+        ],
+        "missing_inputs": [
+          {
+            "record": "Procurement Volume & Retention Data",
+            "why": "Determine repeat demand vs trial adoption."
+          },
+          {
+            "record": "Charges/Pricing Structure Records",
+            "why": "Establish monetization hypothesis before scaling outreach."
+          }
+        ],
+        "decision_question": "Should we prioritize validating customer acquisition cost via introductions versus seeking revenue-based traction?",
+        "next_action": "Prepare a sourced prospect brief and draft founder proposal to confirm outreach scope.",
+        "completion_test": "Output must compare procurement volume vs delivery time metrics without fabricated numbers.",
+        "evidence_ids": [
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "E8"
+        ]
+      },
+      "error": "Remove unused numeric_claims entry 'Team Size: 3'; it is absent from the document. Remove unused numeric_claims entry 'Founded: 2026'; it is absent from the document. Unattributed numeric assertions in sections.0.content: 2026, 3. Remove unsupported figures or bind actual facts to quotes; proposed test parameters belong in measurements.",
+      "raw_response": "{\n\"title\": \"Waybill Procurement Automation Investment Assessment\",\n\"purpose\": \"Evaluate hardware procurement platform viability and address founder intro request strategy.\",\n\"sections\": [\n  {\n    \"heading\": \"Observed Business & Value\",\n    \"content\": \"Waybill connects engineers to procurement leads via AI sourcing (E3). It manages end-to-end flow from BOM to shelf inventory (E5). Team size is 3 employees based in Gurugram (E6, E8). Founded in 2026.\"\n  },\n  {\n    \"heading\": \"Problem & Alternatives\",\n    \"content\": \"Hardware teams burn weeks on quotes and tracking (E2). Engineers need specific alternates they can't hand off (E4). Competitors stop at approved POs (E5). Value is automated delivery matching. Monetization is unknown.\"\n  },\n  {\n    \"heading\": \"Decision & Unknowns\",\n    \"content\": \"Founder seeks intros, not yet revenue confirmation (E1). Team experience includes LAT Aerospace but lacks commercial traction data. Need retention evidence before proceeding. Missing inputs include procurement volume records.\"\n  }\n],\n\"missing_inputs\": [\n  {\n    \"record\": \"Procurement Volume & Retention Data\",\n    \"why\": \"Determine repeat demand vs trial adoption.\"\n  },\n  {\n    \"record\": \"Charges/Pricing Structure Records\",\n    \"why\": \"Establish monetization hypothesis before scaling outreach.\"\n  }\n],\n\"decision_question\": \"Should we prioritize validating customer acquisition cost via introductions versus seeking revenue-based traction?\",\n\"next_action\": \"Prepare a sourced prospect brief and draft founder proposal to confirm outreach scope.\",\n\"completion_test\": \"Output must compare procurement volume vs delivery time metrics without fabricated numbers.\",\n\"evidence_ids\": [\"E1\", \"E2\", \"E3\", \"E4\", \"E5\", \"E6\", \"E7\", \"E8\"],\n\"numeric_claims\": [\n  {\n    \"statement\": \"Team Size: 3\",\n    \"source_id\": \"E8\",\n    \"quote\": \"Team Size: 3\"\n  },\n  {\n    \"statement\": \"Founded: 2026\",\n    \"source_id\": \"E7\",\n    \"quote\": \"Founded: 2026\"\n  }\n],\n\"measurements\": [\n  {\n    \"question\": \"Compare delivery efficiency against order value complexity.\",\n    \"left\": {\n      \"name\": \"Average Order Delivery Time\",\n      \"dimension\": \"duration\",\n      \"unit\": \"days\",\n      \"record_needed\": \"Logistics API data for recent pilots.\"\n    },\n    \"operation\": \"subtract\",\n    \"right\": {\n      \"name\": \"Industry Benchmark Lead Time\",\n      \"dimension\": \"duration\",\n      \"unit\": \"days\",\n      \"record_needed\": \"Competitor benchmark analysis.\"\n    },\n    \"population_basis\": \"Cohort of hardware startups using Waybill autopilot.\"\n  }\n]\n}"
+    },
+    {
+      "attempt": 1,
+      "draft": {
+        "numeric_claims": [],
+        "measurements": [
+          {
+            "question": "Test acquisition efficiency against industry benchmarks",
+            "left": {
+              "name": "Time_Saved_Per_Order",
+              "dimension": "duration",
+              "unit": "hours",
+              "record_needed": "Customer feedback logs"
+            },
+            "operation": "subtract",
+            "right": {
+              "name": "Baseline_Procurement_Time",
+              "dimension": "duration",
+              "unit": "hours",
+              "record_needed": "Industry standard reports"
+            },
+            "population_basis": "Hardware procurement requests from active customers"
+          }
+        ],
+        "title": "Waybill Preliminary Investment Case",
+        "purpose": "Assess acquisition hypothesis and suitability for advisory engagement based on founder request.",
+        "sections": [
+          {
+            "heading": "Observed Business",
+            "content": "Hardware teams face fragmented procurement workflows involving multiple distributors, approvals, and tracking challenges. Waybill automates this loop from sourcing to inventory (E2, E3). Founders leverage backgrounds in aerospace and AI supply chain systems (E4, E10) but currently operate with limited staff."
+          },
+          {
+            "heading": "Value Proposition & Hypothesis",
+            "content": "The hypothesis posits Waybill reduces engineering time by handling end-to-end procurement logistics and customs. Value is defined as speed and risk mitigation for hardware teams rather than upfront pricing. Monetization remains undefined in public records."
+          },
+          {
+            "heading": "Unknowns & Objections",
+            "content": "Evidence regarding customer acquisition cost, revenue models, and churn rates is absent. Requesting intros to procurement leads indicates a need for initial trust-building rather than sales data (E1). Scalability remains unproven at this stage."
+          }
+        ],
+        "missing_inputs": [
+          {
+            "record": "Pilot contract terms",
+            "why": "To validate pricing model and delivery obligations."
+          },
+          {
+            "record": "Customer churn data",
+            "why": "To measure retention impact of the procurement solution."
+          },
+          {
+            "record": "Revenue statement",
+            "why": "To calculate unit economics and cash timing."
+          }
+        ],
+        "decision_question": "Is the procurement automation model scalable beyond current team capacity?",
+        "next_action": "Prepare a sourced prospect brief targeting hardware enterprise procurement leaders.",
+        "completion_test": "Verify if outreach generates committed trial contracts or explicit revenue metrics from target clients.",
+        "evidence_ids": [
+          "E1",
+          "E2",
+          "E3",
+          "E4"
+        ]
+      }
+    }
+  ],
+  "status": "stopped_after_failed_draft",
+  "acceptance": "Rejected: role confusion and unsound measurement proposal in first draft; slow second attempt stopped. No live data changed."
+}
