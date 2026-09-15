@@ -20,7 +20,7 @@ def validate_outcome_claims(product, payload):
     errors=[]
     for field,text in fields.items():
         for sentence in re.split(r'(?<=[.!?])\s+',text):
-            benefit=re.search(r'\b(ensures?|guarantees?|eliminates?|reduces?|improves?|accelerates?|boosts?|increases?|saves?)\b',sentence,re.I)
+            benefit=re.search(r'\b(ensures?|ensuring|guarantees?|guaranteeing|eliminates?|eliminating|reduces?|reducing|improves?|improving|accelerates?|accelerating|boosts?|boosting|increases?|increasing|saves?|saving)\b',sentence,re.I)
             qualified=re.search(r'\b(claims?|reports?|reported|says?|describes?|aims?|could|may|might|would|hypothes[ie]s|propos\w*|test\w*|whether|unverified|not verified|not established)\b',sentence,re.I)
             if benefit and not qualified:
                 errors.append(f'{field}: Attribute the claimed benefit or state it as a hypothesis; this is not an observed result: {sentence[:250]}')

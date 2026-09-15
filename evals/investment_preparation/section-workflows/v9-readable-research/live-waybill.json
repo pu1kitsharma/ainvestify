@@ -1,0 +1,1909 @@
+{
+  "elapsed_seconds": 51.001,
+  "workspace": {
+    "id": "workspace_41fd0152cbe3",
+    "tenant_id": "default_tenant",
+    "lead_id": "lead_77e309f71b18",
+    "company_id": "company_fcc2a1fda957",
+    "company_name": "Waybill",
+    "geography": "India",
+    "thesis": "tech startups",
+    "revision": 273,
+    "basis_hash": "942d8ff754cd1dbc39acf5ffd624a69f07412fd152bb801450387883ffba081b",
+    "evaluated_at": "2026-09-15T00:43:57.013850+00:00",
+    "controls": [
+      {
+        "id": "source_rights",
+        "title": "Dataset access and permitted use",
+        "status": "needs_review",
+        "reason": "Dataset or public-web reuse rights need review before release.",
+        "evidence_ids": [],
+        "authority_urls": [],
+        "blocks": [
+          "release",
+          "fundraising"
+        ],
+        "policy_version": "india-pilot-2026-09-13"
+      },
+      {
+        "id": "freshness",
+        "title": "Evidence freshness",
+        "status": "satisfied",
+        "reason": "Retrieval age within the 90-day pilot policy; observation dates still require review.",
+        "evidence_ids": [],
+        "authority_urls": [],
+        "blocks": [],
+        "policy_version": "india-pilot-2026-09-13"
+      },
+      {
+        "id": "deployment",
+        "title": "External execution",
+        "status": "needs_review",
+        "reason": "Local pilot: authenticated roles, authorized sharing and external integrations are not enabled.",
+        "evidence_ids": [],
+        "authority_urls": [],
+        "blocks": [
+          "send",
+          "sign",
+          "transfer"
+        ],
+        "policy_version": "india-pilot-2026-09-13"
+      },
+      {
+        "id": "identity_review",
+        "title": "Company identity and beneficial-ownership diligence",
+        "status": "needs_evidence",
+        "reason": "A dataset identifier or DPIIT recognition is not proof of current MCA standing, ownership, operating activity or investment suitability.",
+        "evidence_ids": [],
+        "authority_urls": [
+          "https://www.indiacode.nic.in/handle/123456789/2114?locale=en"
+        ],
+        "blocks": [
+          "incubation",
+          "release"
+        ],
+        "policy_version": "india-pilot-2026-09-13"
+      },
+      {
+        "id": "engagement_authority",
+        "title": "Engagement mandate and authority to act",
+        "status": "needs_evidence",
+        "reason": "Accountable review and supporting company document evidence are missing.",
+        "evidence_ids": [],
+        "authority_urls": [],
+        "blocks": [
+          "incubation",
+          "release",
+          "fundraising"
+        ],
+        "policy_version": "india-pilot-2026-09-13"
+      },
+      {
+        "id": "regulatory_scope",
+        "title": "Jurisdiction, intermediary role and offering-route review",
+        "status": "needs_evidence",
+        "reason": "Determine issuer/company jurisdiction, advisory versus fund-manager role, instrument, investor residency and applicable registrations; no blanket VC/IB exemption is assumed.",
+        "evidence_ids": [],
+        "authority_urls": [
+          "https://www.sebi.gov.in/legal/master-circulars/jul-2026/master-circular-for-merchant-bankers_102815.html",
+          "https://www.indiacode.nic.in/handle/123456789/2114?locale=en"
+        ],
+        "blocks": [
+          "release",
+          "fundraising",
+          "closing"
+        ],
+        "policy_version": "india-pilot-2026-09-13"
+      },
+      {
+        "id": "privacy_basis",
+        "title": "Purpose, personal-data basis, retention and sharing review",
+        "status": "needs_evidence",
+        "reason": "Record lawful purpose, necessary data, retention and permitted recipients. DPDP commencement is phased; this is a readiness control, not a statement that every provision is in force.",
+        "evidence_ids": [],
+        "authority_urls": [
+          "https://www.meity.gov.in/static/uploads/2025/11/c56ceae6c383460ca69577428d36828b.pdf"
+        ],
+        "blocks": [
+          "release",
+          "fundraising"
+        ],
+        "policy_version": "india-pilot-2026-09-13"
+      },
+      {
+        "id": "commercial_validation",
+        "title": "Customer and market validation",
+        "status": "needs_evidence",
+        "reason": "Accountable review and supporting company document evidence are missing.",
+        "evidence_ids": [],
+        "authority_urls": [],
+        "blocks": [
+          "readiness"
+        ],
+        "policy_version": "india-pilot-2026-09-13"
+      },
+      {
+        "id": "financial_review",
+        "title": "Reconciled financials and approved assumptions",
+        "status": "needs_evidence",
+        "reason": "Accountable review and supporting company document evidence are missing.",
+        "evidence_ids": [],
+        "authority_urls": [],
+        "blocks": [
+          "readiness",
+          "release"
+        ],
+        "policy_version": "india-pilot-2026-09-13"
+      },
+      {
+        "id": "incubation_outcomes",
+        "title": "Measured incubation outcomes",
+        "status": "needs_evidence",
+        "reason": "Accountable review and supporting company document evidence are missing.",
+        "evidence_ids": [],
+        "authority_urls": [],
+        "blocks": [
+          "readiness"
+        ],
+        "policy_version": "india-pilot-2026-09-13"
+      },
+      {
+        "id": "investor_qualification",
+        "title": "Evidence of investor fit and pipeline activity",
+        "status": "needs_evidence",
+        "reason": "Accountable review and supporting company document evidence are missing.",
+        "evidence_ids": [],
+        "authority_urls": [],
+        "blocks": [
+          "fundraising"
+        ],
+        "policy_version": "india-pilot-2026-09-13"
+      },
+      {
+        "id": "release_approval",
+        "title": "Approval of the current materials",
+        "status": "needs_evidence",
+        "reason": "Accountable review and supporting company document evidence are missing.",
+        "evidence_ids": [],
+        "authority_urls": [],
+        "blocks": [
+          "release",
+          "fundraising"
+        ],
+        "policy_version": "india-pilot-2026-09-13"
+      },
+      {
+        "id": "signed_documents",
+        "title": "Executed documents and closing conditions",
+        "status": "needs_evidence",
+        "reason": "Accountable review and supporting company document evidence are missing.",
+        "evidence_ids": [],
+        "authority_urls": [
+          "https://www.indiacode.nic.in/handle/123456789/2114?locale=en"
+        ],
+        "blocks": [
+          "closing"
+        ],
+        "policy_version": "india-pilot-2026-09-13"
+      },
+      {
+        "id": "funds_received",
+        "title": "Evidence of funds received",
+        "status": "needs_evidence",
+        "reason": "Accountable review and supporting company document evidence are missing.",
+        "evidence_ids": [],
+        "authority_urls": [],
+        "blocks": [
+          "closing"
+        ],
+        "policy_version": "india-pilot-2026-09-13"
+      }
+    ],
+    "work_items": [
+      {
+        "id": "source",
+        "stage": "sourcing",
+        "title": "Assemble company dossier",
+        "status": "completed",
+        "reason": "Public/dataset claims assembled; verification status remains visible.",
+        "dependency_ids": [],
+        "evidence_ids": [
+          "evidence_580f20272cf1",
+          "evidence_05f7c4d985d0",
+          "evidence_0f232d2aa1d2",
+          "evidence_1c2fca422a66",
+          "evidence_832fc2da23cf",
+          "evidence_24e0ba3a2d47",
+          "evidence_dc416b0f8ba8",
+          "evidence_640cb8c9ae39",
+          "evidence_e2db21c82fe9",
+          "evidence_2149d825714f",
+          "evidence_e305406674b6",
+          "evidence_c834edf3d239",
+          "evidence_cc671476bd49",
+          "evidence_1ff7b6b4e153",
+          "evidence_c0c78040e8c0",
+          "evidence_3ad1b3817252",
+          "evidence_92a92408e4ee",
+          "evidence_68db5208a317",
+          "evidence_43fbe05d1f2f",
+          "evidence_b0cef44ae57c",
+          "evidence_d3bcfb2de131",
+          "evidence_38c9fbaf59bf",
+          "evidence_452661bdb493",
+          "evidence_197ff2d14803",
+          "evidence_d631229c2c8a",
+          "evidence_d4925c925d70",
+          "evidence_8cd71dedd442",
+          "evidence_0b9e26a72f94",
+          "evidence_e91236ebeb58",
+          "evidence_f7fe7233db29",
+          "evidence_a816f3c4f425",
+          "evidence_e2fa26bb24a9",
+          "evidence_d36ecb5e4c9a",
+          "evidence_e849f6bd7a70",
+          "evidence_f88485735e11",
+          "evidence_a7fbd697ea86",
+          "evidence_5c88899aa7be",
+          "evidence_7e126ba81e7e",
+          "evidence_1b065084f577",
+          "evidence_cbe27b3df400",
+          "evidence_6eb04ed71b8b"
+        ]
+      },
+      {
+        "id": "diligence",
+        "stage": "diligence",
+        "title": "Prepare diligence questions and evidence gaps",
+        "status": "ready",
+        "reason": "Generate from cited facts.",
+        "dependency_ids": [
+          "source"
+        ],
+        "evidence_ids": []
+      },
+      {
+        "id": "incubation",
+        "stage": "incubation",
+        "title": "Execute incubation milestones",
+        "status": "blocked",
+        "reason": "Company identity and beneficial-ownership diligence; Engagement mandate and authority to act",
+        "dependency_ids": [
+          "diligence"
+        ],
+        "evidence_ids": []
+      },
+      {
+        "id": "readiness",
+        "stage": "incubation",
+        "title": "Assess market and investment readiness",
+        "status": "blocked",
+        "reason": "Customer and market validation; Reconciled financials and approved assumptions; Measured incubation outcomes",
+        "dependency_ids": [
+          "incubation"
+        ],
+        "evidence_ids": []
+      },
+      {
+        "id": "release",
+        "stage": "documents",
+        "title": "Validate materials for release",
+        "status": "blocked",
+        "reason": "Dataset access and permitted use; Company identity and beneficial-ownership diligence; Engagement mandate and authority to act; Jurisdiction, intermediary role and offering-route review; Purpose, personal-data basis, retention and sharing review; Reconciled financials and approved assumptions; Approval of the current materials",
+        "dependency_ids": [
+          "readiness"
+        ],
+        "evidence_ids": []
+      },
+      {
+        "id": "fundraising",
+        "stage": "fundraising",
+        "title": "Investor qualification and fundraising preparation",
+        "status": "blocked",
+        "reason": "Dataset access and permitted use; Engagement mandate and authority to act; Jurisdiction, intermediary role and offering-route review; Purpose, personal-data basis, retention and sharing review; Evidence of investor fit and pipeline activity; Approval of the current materials",
+        "dependency_ids": [
+          "release"
+        ],
+        "evidence_ids": []
+      },
+      {
+        "id": "closing",
+        "stage": "fundraising",
+        "title": "Confirm closing evidence",
+        "status": "blocked",
+        "reason": "Jurisdiction, intermediary role and offering-route review; Executed documents and closing conditions; Evidence of funds received",
+        "dependency_ids": [
+          "fundraising"
+        ],
+        "evidence_ids": []
+      }
+    ],
+    "drafts": [
+      {
+        "stage": "diligence",
+        "title": "Business case: procurement outcomes and delivery economics",
+        "actions": [
+          "Reconcile a sample of completed orders from customer request through delivery and settlement."
+        ],
+        "tasks": [
+          {
+            "action": "Reconcile a sample of completed orders from customer request through delivery and settlement.",
+            "deliverable": "Order-level findings: repeat demand, delivery reliability, contribution and cash exposure.",
+            "required_inputs": [
+              "Anonymized order and invoice records with payment dates, delivery timestamps, refunds and staff time"
+            ],
+            "success_measure": "Each sampled order reconciles to invoices and delivery records; report unresolved amounts and exceptions rather than treating them as zero."
+          }
+        ],
+        "evidence_ids": [
+          "evidence_05f7c4d985d0",
+          "evidence_c834edf3d239",
+          "evidence_92a92408e4ee",
+          "evidence_68db5208a317"
+        ],
+        "unknowns": [
+          "Anonymized order and invoice records with payment dates, delivery timestamps, refunds and staff time"
+        ],
+        "sections": [
+          {
+            "heading": "What the evidence supports",
+            "content": "Waybill describes sourcing parts, comparing quotes, routing approval and payment, managing freight/customs, and updating inventory. The buyer problem is coordinating a purchase across suppliers and intermediaries. This suggests evaluating it as a procurement and fulfillment service with automation, rather than assuming pure software economics. These are company descriptions, not verified delivery outcomes.",
+            "evidence_ids": [
+              "evidence_05f7c4d985d0",
+              "evidence_c834edf3d239"
+            ]
+          },
+          {
+            "heading": "What could make this an expensive service business",
+            "content": "The important risk is that supplier exceptions, customs delays, fallback sourcing and human coordination consume the fee. A large order value can hide a small or negative service contribution. Reconcile recognized revenue and direct delivery costs under a consistent gross/net treatment; separately measure cash paid to suppliers before cash collected from customers. The site describes a fallback source, but does not establish its reliability or cost in real orders.",
+            "evidence_ids": [
+              "evidence_92a92408e4ee",
+              "evidence_68db5208a317"
+            ]
+          },
+          {
+            "heading": "The decisive evidence gap",
+            "content": "No comparable dated revenue or paying-customer figures were found in the collected sources. Website demonstrations of faster procurement are not company growth. Ask for anonymized completed-order records: request date, promised/actual delivery, customer invoice, supplier/freight/duty costs, refunds, staff time and payment dates. Repeat paid orders and contribution per order would change the incubation decision more than another product description.",
+            "evidence_ids": [
+              "evidence_05f7c4d985d0",
+              "evidence_92a92408e4ee"
+            ]
+          }
+        ],
+        "decision": "Worth a bounded commercial test with hardware teams facing urgent component purchases. The evidence supports the product proposition; it does not yet establish repeat paid demand or profitable fulfillment."
+      },
+      {
+        "stage": "incubation",
+        "title": "GTM: a paid critical-component procurement pilot",
+        "actions": [
+          "Agree and run a bounded paid procurement pilot with one qualified hardware buyer."
+        ],
+        "tasks": [
+          {
+            "action": "Agree and run a bounded paid procurement pilot with one qualified hardware buyer.",
+            "deliverable": "A pilot scorecard with paid demand, delivery outcomes, repeat-order intent and order contribution.",
+            "required_inputs": [
+              "A consenting buyer, comparable baseline orders, approved scope/pricing and delivery-cost records"
+            ],
+            "success_measure": "Proceed only with payment, repeat-order demand, agreed delivery performance and positive contribution; investigate or stop when these conditions fail."
+          }
+        ],
+        "evidence_ids": [
+          "evidence_05f7c4d985d0",
+          "evidence_c834edf3d239",
+          "evidence_92a92408e4ee",
+          "evidence_68db5208a317"
+        ],
+        "unknowns": [
+          "A consenting buyer, comparable baseline orders, approved scope/pricing and delivery-cost records"
+        ],
+        "sections": [
+          {
+            "heading": "Buyer, trigger and initial wedge \u00b7 hypothesis",
+            "content": "Proposed user: the engineer specifying the component. Proposed buyer: the procurement or operations lead; finance approves the order. Target teams with a current bill of materials, a firm delivery date and repeated coordination work. A prototype or production deadline is a stronger trigger than general interest in AI. Begin with a narrow component purchase that has a measurable existing process.",
+            "evidence_ids": [
+              "evidence_05f7c4d985d0",
+              "evidence_c834edf3d239"
+            ]
+          },
+          {
+            "heading": "Acquisition and offer \u00b7 proposed",
+            "content": "Build a prospect list from public hardware accelerator portfolios and manufacturing associations, then qualify teams with an immediate component requirement. These are proposed channels, not established partnerships. Draft offer: \u201cGive us one component requirement, quantity and need-by date. We will propose a landed-cost quote, sourcing fallback and delivery plan for a paid pilot.\u201d Agree scope, fees, exceptions and responsibility before the order. No outreach has been sent.",
+            "evidence_ids": [
+              "evidence_c834edf3d239",
+              "evidence_92a92408e4ee",
+              "evidence_68db5208a317"
+            ]
+          },
+          {
+            "heading": "Bounded pilot and decision rule \u00b7 proposed",
+            "content": "Proposed first test: one consenting buyer and a small set of orders over 30 days; scope and pricing must be agreed. Measure on-time delivered commitments divided by all commitments due, and request-to-delivery time against comparable previous orders. Record every failed order. Calculate contribution after direct fulfillment and human effort, keeping supplier pass-through treatment consistent. Continue only if the buyer pays, requests another order, delivery performance meets the agreed baseline and contribution is positive. A small pilot tests feasibility; it does not establish market-wide demand.",
+            "evidence_ids": [
+              "evidence_05f7c4d985d0",
+              "evidence_92a92408e4ee"
+            ]
+          }
+        ],
+        "decision": "Start with small hardware teams buying time-critical components. Sell a bounded procurement outcome to the operations or procurement lead, with finance approving the spend. This is a proposed segment to test."
+      },
+      {
+        "stage": "documents",
+        "title": "Investor narrative \u00b7 internal starting draft",
+        "actions": [
+          "Complete the narrative with reconciled commercial records and an explicit financing plan."
+        ],
+        "tasks": [
+          {
+            "action": "Complete the narrative with reconciled commercial records and an explicit financing plan.",
+            "deliverable": "A cited investor narrative with an operating evidence table and unresolved figures clearly marked.",
+            "required_inputs": [
+              "Company financials, order cohorts, authorized customer evidence, current cash/burn and proposed raise parameters"
+            ],
+            "success_measure": "Material claims and figures are substantiated and reviewed before investor release."
+          }
+        ],
+        "evidence_ids": [
+          "evidence_05f7c4d985d0",
+          "evidence_c834edf3d239",
+          "evidence_92a92408e4ee",
+          "evidence_68db5208a317"
+        ],
+        "unknowns": [
+          "Company financials, order cohorts, authorized customer evidence, current cash/burn and proposed raise parameters"
+        ],
+        "sections": [
+          {
+            "heading": "Company and customer problem \u00b7 source claims",
+            "content": "Hardware teams can coordinate procurement across distributors, approvals, payments, freight and customs. Waybill describes a service that takes a part specification or bill of materials and manages that sequence through delivery and inventory updates. Its proposed value is fewer coordination steps and more predictable component availability. Public product descriptions support this positioning, but not measured savings or customer adoption.",
+            "evidence_ids": [
+              "evidence_05f7c4d985d0",
+              "evidence_c834edf3d239"
+            ]
+          },
+          {
+            "heading": "Commercial thesis and risk \u00b7 hypothesis",
+            "content": "The commercial hypothesis is that teams with repeated urgent component needs will pay for reliable procurement and return for subsequent orders. The thesis strengthens if automation reduces the human effort required per completed order while delivery reliability holds. It weakens if supplier exceptions and service work grow as fast as order volume, or if customers value the service but will not pay enough to cover delivery costs.",
+            "evidence_ids": [
+              "evidence_05f7c4d985d0",
+              "evidence_92a92408e4ee",
+              "evidence_68db5208a317"
+            ]
+          },
+          {
+            "heading": "Traction and financing placeholders",
+            "content": "Collected sources do not establish annual revenue growth, active paying customers, repeat-order rate, contribution margin, cash conversion or current runway. These fields remain unknown. The next version needs an order-level operating table, customer references where authorized, financial records and a use-of-funds schedule. Separate product development needs from any working-capital requirement. This identified narrative is an internal draft, not an approved anonymized teaser or investor release.",
+            "evidence_ids": [
+              "evidence_05f7c4d985d0",
+              "evidence_92a92408e4ee"
+            ]
+          }
+        ],
+        "decision": "The product and proposed commercial thesis can be described. Traction, market size, revenue quality, raise amount and valuation cannot yet be substantiated from the collected evidence."
+      },
+      {
+        "stage": "fundraising",
+        "title": "Fundraising readiness: prove repeatable order economics",
+        "actions": [
+          "Prepare a financing evidence brief connecting an order cohort, operating milestone and monthly cash requirement."
+        ],
+        "tasks": [
+          {
+            "action": "Prepare a financing evidence brief connecting an order cohort, operating milestone and monthly cash requirement.",
+            "deliverable": "A readiness brief and conditional mandate shortlist criteria supported by operating records.",
+            "required_inputs": [
+              "Paid-order cohorts, fulfillment costs, customer/supplier payment dates, cash/burn and desired financing parameters"
+            ],
+            "success_measure": "The operating evidence answers the scalability objection and the capital requirement reconciles to a measurable milestone."
+          }
+        ],
+        "evidence_ids": [
+          "evidence_05f7c4d985d0",
+          "evidence_92a92408e4ee",
+          "evidence_68db5208a317",
+          "evidence_c834edf3d239"
+        ],
+        "unknowns": [
+          "Paid-order cohorts, fulfillment costs, customer/supplier payment dates, cash/burn and desired financing parameters"
+        ],
+        "sections": [
+          {
+            "heading": "Likely investor objection and proof milestone \u00b7 analysis",
+            "content": "The likely objection is whether this is a scalable automated service or a coordination-heavy business whose costs rise with each order. The useful milestone is a paid order cohort showing repeat purchases, on-time delivery, recorded staff effort and contribution after fulfillment costs. Supplier and authenticity checks matter, but repeating the website\u2019s sourcing promise is not proof that those checks work.",
+            "evidence_ids": [
+              "evidence_05f7c4d985d0",
+              "evidence_92a92408e4ee",
+              "evidence_68db5208a317"
+            ]
+          },
+          {
+            "heading": "Investor mandate fit \u00b7 hypothesis",
+            "content": "Potential mandate types include early-stage investors in supply-chain technology, industrial workflows and automation-enabled business services. Evaluate actual mandates, geographic scope, stage, check size and portfolio conflicts before naming matches. Funds requiring demonstrated recurring software revenue may need evidence that service fees, repeat usage and margins fit their mandate. No named investor or investment eligibility has been verified.",
+            "evidence_ids": [
+              "evidence_05f7c4d985d0",
+              "evidence_c834edf3d239"
+            ]
+          },
+          {
+            "heading": "Capital need and sequence \u00b7 proposed",
+            "content": "First establish the operating baseline and cash timing. Then distinguish spending on product automation, supplier/fulfillment capabilities and customer acquisition from cash required to bridge customer and supplier payments. Prepare a monthly use-of-funds and cash schedule tied to a measurable operating milestone. Raise size, instrument, runway and valuation remain unknown; they should not be inferred from the product\u2019s ambition or accelerator membership.",
+            "evidence_ids": [
+              "evidence_05f7c4d985d0",
+              "evidence_92a92408e4ee"
+            ]
+          }
+        ],
+        "decision": "Prioritize repeat paid demand and contribution per order before positioning this as scalable procurement infrastructure. A pre-revenue raise may still be possible, but the public evidence cannot establish the right stage, amount or valuation."
+      }
+    ],
+    "draft_basis_hash": "8b686f8d17584da26d9bd73c3a9df1e270a67c4fa7ddb88f3b423419ea3021b8",
+    "draft_stage_basis": {
+      "diligence": "8b686f8d17584da26d9bd73c3a9df1e270a67c4fa7ddb88f3b423419ea3021b8",
+      "incubation": "8b686f8d17584da26d9bd73c3a9df1e270a67c4fa7ddb88f3b423419ea3021b8",
+      "documents": "8b686f8d17584da26d9bd73c3a9df1e270a67c4fa7ddb88f3b423419ea3021b8",
+      "fundraising": "8b686f8d17584da26d9bd73c3a9df1e270a67c4fa7ddb88f3b423419ea3021b8"
+    },
+    "draft_status": "stale",
+    "draft_schema_version": 4,
+    "model": "Codex \u00b7 editorial analysis review",
+    "research": {
+      "policy_version": 3,
+      "completed_at": "2026-09-13T21:37:54.382011+00:00",
+      "basis_hash": "e09cabeb99f0ae167f6e96671d6bac03c8dc1bf14fb6aac3f43281ded28621c6",
+      "pages": [
+        {
+          "url": "https://www.ycombinator.com/companies/waybill",
+          "status": "ok",
+          "detail": "0 new exact-quote business facts; public claims are not audited results."
+        },
+        {
+          "url": "https://www.waybill.to/",
+          "status": "ok",
+          "detail": "0 new exact-quote business facts; public claims are not audited results."
+        }
+      ],
+      "scope": "Observed company website, commercial subpages and identity-linked public company profiles.",
+      "new_facts": 0,
+      "limitations": "Public marketing claims and customer outcomes do not verify company revenue, retention or rapid growth.",
+      "preparation_sources": {
+        "version": 3,
+        "basis_hash": "942d8ff754cd1dbc39acf5ffd624a69f07412fd152bb801450387883ffba081b",
+        "at": "2026-09-15T00:30:24.968618+00:00",
+        "pages": [
+          {
+            "url": "https://www.waybill.to/",
+            "status": "ok",
+            "blocks_collected": 6,
+            "blocks_available": 6,
+            "oversized_blocks_omitted": 0,
+            "context": "whole_html_blocks_with_adjacent_context"
+          }
+        ]
+      }
+    },
+    "analysis_review": {
+      "reviewed_at": "2026-09-13T19:49:28.782594+00:00",
+      "reviewer": "Codex",
+      "basis_hash": "8b686f8d17584da26d9bd73c3a9df1e270a67c4fa7ddb88f3b423419ea3021b8",
+      "note": "Reviewed and rewritten during this coding session after local-model output showed unsupported claims and weak recommendations. This is an editorial analysis review, not financial verification, legal approval or proof that unattended local generation has equivalent quality."
+    },
+    "preparation": {
+      "financials": [
+        {
+          "key": "arr",
+          "title": "Current ARR",
+          "status": "missing",
+          "value": null,
+          "unit": null,
+          "document_id": null,
+          "source_block_id": null,
+          "source_page": null
+        },
+        {
+          "key": "arr_prior_year",
+          "title": "Prior-year ARR",
+          "status": "missing",
+          "value": null,
+          "unit": null,
+          "document_id": null,
+          "source_block_id": null,
+          "source_page": null
+        },
+        {
+          "key": "cash_on_hand",
+          "title": "Cash on hand",
+          "status": "missing",
+          "value": null,
+          "unit": null,
+          "document_id": null,
+          "source_block_id": null,
+          "source_page": null
+        },
+        {
+          "key": "burn_monthly",
+          "title": "Monthly net burn",
+          "status": "missing",
+          "value": null,
+          "unit": null,
+          "document_id": null,
+          "source_block_id": null,
+          "source_page": null
+        }
+      ],
+      "calculations": [],
+      "requests": [
+        {
+          "id": "mandate",
+          "workstream": "Engagement",
+          "owner": "Founder / transaction lead",
+          "deliverable": "Transaction objectives and engagement scope",
+          "request": "Confirm primary capital versus founder liquidity, proposed financing route, timing, issuer jurisdiction, advisor role and authority to act.",
+          "acceptance": "An agreed objective and engagement record; a company website is insufficient.",
+          "status": "missing"
+        },
+        {
+          "id": "financials",
+          "workstream": "Financial diligence",
+          "owner": "Finance",
+          "deliverable": "Financial baseline and cash forecast",
+          "request": "Provide period-labelled P&L, balance sheet, cash-flow records and current cash/burn. Include reconciliations and gross/net revenue treatment; ARR applies only to recurring revenue.",
+          "acceptance": "Reconcile source accounts to management metrics, identify adjustments, and distinguish historical figures from assumptions.",
+          "status": "missing"
+        },
+        {
+          "id": "commercial",
+          "workstream": "Commercial diligence / incubation",
+          "owner": "Founder / commercial lead",
+          "deliverable": "Customer cohort and unit-economics workpaper",
+          "request": "Provide dated customer/order cohorts, invoices, cancellations, repeat purchases, acquisition spend and direct delivery costs. A product demo or website testimonial cannot replace operating records.",
+          "acceptance": "A reproducible cohort definition, retention/repeat-demand calculation and contribution bridge; identify concentration and adverse evidence.",
+          "status": "missing"
+        },
+        {
+          "id": "capitalization",
+          "workstream": "Capital structure",
+          "owner": "Founder / finance / counsel",
+          "deliverable": "Ownership and financing instruments schedule",
+          "request": "Provide the current fully diluted cap table, options, outstanding convertibles, debt, security interests and material investor rights.",
+          "acceptance": "Reconcile ownership and instruments to executed records before modeling dilution or negotiating a financing.",
+          "status": "missing"
+        },
+        {
+          "id": "materials",
+          "workstream": "Materials and positioning",
+          "owner": "Transaction lead",
+          "deliverable": "Investor deck, financial model and indexed data room",
+          "request": "Tie product/customer narrative and market positioning to evidence; build a milestone-based use of funds and downside cash scenario. Flag valuation assumptions and unsupported claims.",
+          "acceptance": "Consistent figures across documents, source links, explicit assumptions and current release approval.",
+          "status": "missing"
+        },
+        {
+          "id": "process",
+          "workstream": "Fundraising execution",
+          "owner": "Transaction lead",
+          "deliverable": "Qualified investor pipeline and diligence tracker",
+          "request": "Establish investor mandate, geography, stage, check size and conflicts; track authorized contact, NDA, meeting, questions, indications and terms with dated evidence.",
+          "acceptance": "Named mandate evidence and actual process events. A generated investor-type paragraph is not an investor match or commitment.",
+          "status": "missing"
+        },
+        {
+          "id": "closing",
+          "workstream": "Closing",
+          "owner": "Transaction lead / counsel / finance",
+          "deliverable": "Closing conditions and funds reconciliation",
+          "request": "Track negotiated terms, approvals, definitive documents, conditions, signatures, settlement and post-close obligations.",
+          "acceptance": "Executed records and reconciled funds receipt; generated documents never establish a close.",
+          "status": "missing"
+        }
+      ],
+      "next_deliverable": "Transaction objectives and engagement scope",
+      "source_document_count": 0,
+      "references": [
+        {
+          "title": "Morgan Stanley: The Anatomy of a Deal",
+          "url": "https://advisor.morganstanley.com/the-archer-lang-group/documents/field/a/ar/archer-lang-group/The_Anatomy_of_a_Deal.pdf"
+        },
+        {
+          "title": "YC: A Guide to Seed Fundraising",
+          "url": "https://www.ycombinator.com/library/4A-a-guide-to-seed-fundraising"
+        }
+      ]
+    },
+    "investment_case": {},
+    "analyst_pack": {
+      "version": 9,
+      "implementation_hash": "f83bbbf43a780c74c7a67f20b9ee3e470229fba72c741d408389020b6df3638a",
+      "basis_hash": "942d8ff754cd1dbc39acf5ffd624a69f07412fd152bb801450387883ffba081b",
+      "company": "Waybill",
+      "record": {
+        "facts": [
+          {
+            "id": "S1",
+            "quote": "Requested \u2192 Sourced \u2192 Approved \u2192 In transit \u2192 Cleared \u2192 On shelf\n\nManifesto Book a call\n\nManifesto Book a call\n\nBacked by Y Combinator \u00b7 S26\n\nProcurement on autopilot.\n\nSay what you need. Approve the payment. Waybill does everything in between: sourcing, negotiation, freight, customs, delivery, inventory. Built for teams that build hardware . Say what you need. Approve the payment. Waybill does everything in between. Built for teams that build hardware .\n\nBook a call\n\n00 / 09 \u00b7 scroll to watch one order, start to finish 00 / 09 \u00b7 scroll to watch one order\n\nWatch the film \u00b7 2:36\n\nOne order, start to finish\n\nToday\n\nThis is what buying one part looks like.\n\nRE: revised pricelist \u2014 valid till Friday\n\nNew rates attached. The old quote is void.\n\nsupplier \u00b7 attachment \u00b7 unread\n\nsupplier portal \u00b7 password expired reset (again) log in\n\nops \u00b7 direct message\n\nhey, can you resend the PO? can't find the latest\n\n31 Forwarder call \u00b7 moved again third reschedule this week\n\ncall the broker back\n\nbefore 5\n\nRE: RE: RE: Quote request \u2014 still pending\n\nCan only do a bigger MOQ. Regards, S.\n\nsupplier \u00b7 tue \u00b7 a long thread\n\ncustoms portal \u2014 session expired supplier portals freight quotes.xlsx\n\n#hardware \u00b7 this morning\n\nany update on the parts? line down Thursday\n\nnew\n\nX vendor_compare_FINAL_FINAL.xlsx edited again last night\n\nMissed call \u00b7 customs broker\n\nsecond attempt\n\nFwd: Fwd: payment terms \u2014 approval?\n\nFinance needs the PO trail before Thursday\u2026\n\nfinance \u00b7 mon\n\n15\u201320 suppliers messaged\n\n10 reply\n\n4 days of back-and-forth\n\n7 reject you on MOQ\n\n3 redundant orders, hoping one ships\n\n5\u20136 hands per box\n\nInformation dilutes at every handoff.\n\nThe same buy, through Waybill.\n\n01 \u00b7 The ask\n\nTell Waybill what you need and by when.\n\nDescribe what you need in whatever form you have it: an exact part number, a plain-English description, a full BOM file, or a sync straight from your PLM. Add the quantity and the date it has to be on your dock. That is the entire request. A part number, a description, a whole BOM, or a sync from your PLM. Add the quantity and the date it has to land. That is the entire request.\n\n01 \u00b7 The ask\n\nThat's the first thing you did.\n\nThe moment you hit send, Waybill goes to work. You don't fill forms, open tickets, or brief anyone on context. Sourcing starts before you close the tab. The moment you hit send, Waybill goes to work. No forms, no tickets, no briefing anyone. Sourcing starts before you close the tab.\n\nwaybill \u00b7 order desk Draft Sent\n\nYour team \u00b7 new request\n\nfrom your PLM paste a BOM just type it\n\nHere's the part, the quantity, and the date it has to land.\n\nBOM.csv\n\nReceived. Sourcing starts now.\n\nwaybill \u00b7 just now\n\nHere's the part, the quantity, and the date it has to land. BOM.csv\n\n02 \u00b7 Sourcing\n\nEvery licensed source, found and worked.",
+            "source_url": "https://www.waybill.to/",
+            "retrieved_at": "2026-09-15T00:30:24.963060+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "context_format": "whole_html_blocks_v3",
+            "source_id": "evidence_a7fbd697ea86",
+            "category": "source_passage",
+            "subject": "unclear",
+            "status": "source_reported",
+            "classification": "complete_supplied_context_not_model_extracted"
+          },
+          {
+            "id": "S2",
+            "quote": "BOM watch always on\n\nLine 01 \u00b7 price moving down renegotiating\n\nLine 02 \u00b7 end-of-life risk alternates found\n\nLine 03 \u00b7 stock running thin restock suggested\n\nEvery other line \u00b7 steady watching\n\nchecked around the clock \u00b7 acted on before it bites\n\nYour next build quoted ahead\n\ntoday parts must land build starts\n\nquoting runs ahead of the schedule, with room to spare\n\nCritical parts quoted\n\nFallbacks held live\n\nLong-lead lines ordered early\n\nRequester 01 Requester 02 Requester 03\n\nOne order \u00b7 one checkout\n\nevery requester's items \u00b7 deduplicated \u00b7 grouped by supplier\n\nManager approves once \u2713\n\nFinance pays once. \u2713\n\n09 \u00b7 The receipt\n\nOne order, closed.\n\nThat's the whole story. You described what you needed and approved one payment: two actions, start to finish. Waybill did the twelve things on the right, absorbed a supplier failure along the way, and delivered on the date you named. The full record, every document and every decision, is filed to the order and signed. You described what you needed and approved one payment. Two actions. Waybill did the rest, absorbed a supplier failure, and delivered on the date you named.\n\nOrder receipt closed\n\nOn time\n\nNeed-by \u00b7 held\n\nTwo\n\nThings you did\n\nOne\n\nPayment you made\n\nZero\n\nChases \u00b7 portals \u00b7 spreadsheets\n\nWhat Waybill handled\n\n\u2713 Mapped every licensed source\n\n\u2713 Worked every quote, negotiated down\n\n\u2713 Held a fallback, live\n\n\u2713 Took one payment, settled the chain\n\n\u2713 Collected the order into our custody\n\n\u2713 Absorbed a source slip, date held\n\n\u2713 Booked and watched the freight\n\n\u2713 Caught a classification mismatch, fixed it\n\n\u2713 Filed the entry, paid the duty\n\n\u2713 Called ahead, delivered to your dock\n\n\u2713 Matched invoice, payment and import record\n\n\u2713 Put the parts on your shelf\n\nFiled in Orders signed by Waybill\n\nWherever you work\n\nLives where you do.\n\nYour team never has to open a procurement portal. Ask from Slack, Gmail, WhatsApp or Outlook, and the order starts right in the thread. Save a revision in SolidWorks, NX, Altium or KiCad, and the BOM diff is already being quoted. It's the same Waybill underneath; your team just reaches it from wherever they already work. Your team never opens a procurement portal. Ask from Slack or Gmail and the order starts in the thread. Save a revision in CAD and the BOM diff is already being quoted.\n\nComms tools ask \u00b7 approve \u00b7 track\n\nSlack\n\nGmail\n\nWhatsApp\n\nOutlook\n\n#hardware \u00b7 via Slack\n\n@waybill 40 \u00d7 7075 brackets, need by the 24th\n\nwaybill \u00b7 on it \u2014 sourcing started\n\nDesign tools BOM in \u00b7 quotes back\n\nSolidWorks\n\nNX\n\nAltium\n\nEagle\n\nKiCad\n\nsave a rev \u00b7 the BOM diff is already being quoted\n\nTake your supply chain for granted.\n\nBook a call Watch the film\n\nManifesto hello@waybill.to Privacy Waybill, Inc. \u00b7 YC S26\n\n01 / 09\n\n0%\n\nkeep scrolling\n\n0%\n\nwaybill",
+            "source_url": "https://www.waybill.to/",
+            "retrieved_at": "2026-09-15T00:30:24.963198+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "context_format": "whole_html_blocks_v3",
+            "source_id": "evidence_6eb04ed71b8b",
+            "category": "source_passage",
+            "subject": "unclear",
+            "status": "source_reported",
+            "classification": "complete_supplied_context_not_model_extracted"
+          },
+          {
+            "id": "S3",
+            "quote": "Every licensed source, found and worked.\n\nWaybill maps every source licensed to sell your part, anywhere in the world: authorized distributors, franchised lines, and brokers we have vetted in person. Then it sends RFQs to all of them at once. What takes a team four days of email happens here in minutes. Waybill maps every source licensed to sell your part, anywhere in the world, then RFQs all of them at once. Four days of email, done in minutes.\n\n02 \u00b7 Sourcing\n\nQuotes, compared the way you would.\n\nAs replies land, Waybill builds one comparison across every quote: true landed cost with freight and duties included, lead time against your date, minimum order quantity, and proof the parts are genuine. Then it negotiates the leading quotes down on your behalf, before you've seen anything. One comparison across every quote: true landed cost, lead time against your date, order minimums, and proof the parts are genuine. Then it negotiates.\n\n02 \u00b7 Sourcing\n\nOne answer. One fallback.\n\nYou don't read nine quotes. You get one recommendation: the source that meets your date at the best landed cost. The runner-up stays quoted and live in reserve, at no cost to you. Remember that reserve. It matters in a minute. You don't read nine quotes. You get one recommendation, with the runner-up held live in reserve at no cost. Remember that reserve.\n\nwaybill \u00b7 sourcing Mapping licensed sources RFQs out \u00b7 replies coming in\n\nevery licensed source within your constraints worked at once\n\nSupplier 01 authorized RFQ sent\n\nSupplier 02 authorized RFQ sent\n\nSupplier 03 franchised RFQ sent\n\nSupplier 04 vetted broker RFQ sent\n\nSupplier 05 authorized RFQ sent\n\nSupplier 06 franchised RFQ sent\n\nSupplier 07 vetted broker RFQ sent\n\n\u2026and every other qualified source mapped \u00b7 worked\n\nQuotes \u00b7 compared Negotiating the lead quote Negotiated down\n\nSupplier Landed cost Lead time Authenticity\n\nSupplier 01 authorized\n\nSupplier 02 authorized\n\nSupplier 03 franchised\n\nSupplier 04 vetted broker\n\nSupplier 05 authorized\n\nSupplier 06 franchised\n\nSupplier 07 vetted broker\n\nSupplier 08 vetted broker\n\nSupplier 09 franchised\n\nevery quote, one table \u00b7 nothing to chase\n\nRecommended\n\nThe primary source\n\nauthorized meets your date best landed cost\n\nOne payment \u00b7 parts, freight, duties, delivery ready\n\nThe fallback source\n\nheld in reserve \u00b7 live\n\n03 \u00b7 Approve\n\nYou approve. That's the second thing you did.\n\nIt's also the last. The price you approve is the whole price: parts, freight, duties, clearance, and delivery in one line. Waybill takes that single payment and settles everyone in the chain itself: the source, the carrier, the broker, customs. You never touch another invoice on this order. It's also the last. One price covers parts, freight, duties, clearance and delivery. Waybill settles everyone in the chain itself. You never touch another invoice.\n\nPAID\n\nOne payment\n\nEverything, in one line.\n\nparts freight duties clearance delivery\n\nApprove payment Paid \u00b7 settled by Waybill\n\nWaybill settles\n\nthe source \u2713 the carrier \u2713 the broker \u2713 customs \u2713\n\n04 \u00b7 Shipping\n\nThen we ship it. Ourselves.",
+            "source_url": "https://www.waybill.to/",
+            "retrieved_at": "2026-09-15T00:30:24.963107+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "context_format": "whole_html_blocks_v3",
+            "source_id": "evidence_5c88899aa7be",
+            "category": "source_passage",
+            "subject": "unclear",
+            "status": "source_reported",
+            "classification": "complete_supplied_context_not_model_extracted"
+          },
+          {
+            "id": "S4",
+            "quote": "Then we ship it. Ourselves.\n\nMost suppliers can't ship internationally, and most freight is a relay of strangers. So Waybill runs fulfilment itself. Our crew collects from the source's floor, consolidates and labels the order for export, drafts the paperwork, and books freight that meets your date. From the supplier's door to yours, one chain of custody, with no handoff you have to manage. Most suppliers can't ship abroad, and most freight is a relay of strangers. So Waybill runs fulfilment itself: one chain of custody, the source's floor to your dock.\n\n04 \u00b7 Shipping\n\nA source slips. Your date doesn't.\n\nIf the primary source, for whatever reason, can't fulfil your order, the fallback you saw in sourcing activates: still quoted, still live, inside the payment you already approved. Collection reroutes, custody stays unbroken, and your date holds. You learn it happened from a note, not a fire. The fallback you saw in sourcing activates, inside the payment you already approved. Custody holds, your date holds. You learn it from a note, not a fire.\n\nOne chain of custody your date \u00b7 locked\n\nCollection \u00b7 scheduled at the source\n\npickup slot held \u00b7 our crew\n\nWaybill custody\n\nfrom the source's floor onward, our chain\n\nConsolidation\n\npacked, labelled, export ready\n\nExport clearance\n\npapers drafted \u00b7 broker briefed\n\nFreight\n\nbooked \u00b7 space held on your date\n\nno handoffs you have to manage\n\nFreight \u00b7 options held quoted with the parts\n\nAir express quickest \u00b7 dearest\n\ndays\n\nAir freight booked \u00b7 meets your date\n\nunder a week\n\nSea consolidation slowest \u00b7 cheapest\n\nweeks\n\nWorks with\n\n+ more\n\nThe primary source\n\nMissed dispatch\n\nAllocation falls through, hours before pickup. This is where a schedule usually dies.\n\nNeed-by \u00b7 holds\n\nThe fallback source\n\nheld in reserve Activated \u00b7 shipping tonight\n\nQuoted since day one. Collection reroutes, custody unbroken, inside the payment you already approved.\n\n05 \u00b7 In transit\n\nTracked without asking.\n\nYou never ask \"where is it?\" again. Waybill watches the order end to end with live data from the carrier and from flight feeds: collected, consolidated, departed, in the air, landed. Anyone on your team can see the status at any moment. And by the time the wheels touch down, the customs entry is already drafted. You never ask \"where is it?\" again. Waybill watches the order end to end on carrier and flight data, and drafts the customs entry before the wheels touch down.\n\nShipment\n\nYour order \u00b7 in Waybill custody\n\norigin \u2192 your dock\n\nIn transit\n\nCollected\n\nfrom the fallback source \u00b7 custody begins\n\nHanded to carrier\n\nconsolidated \u00b7 export cleared\n\nDeparted origin\n\ncarrier feed \u00b7 confirmed\n\nIn air\n\nposition live \u00b7 on schedule\n\nArrived \u00b7 your gateway\n\nunloaded \u00b7 handed to clearance\n\nCustoms next\n\nentry already drafted \u00b7 filing on arrival\n\nwaybill \u00b7 flight watch live\n\nFEED\n\n\u2014\n\nPOS\n\n\u2014\n\nRTE\n\n\u2014\n\nETA\n\n\u2014\n\norigin \u2192 your dock source \u00b7 carrier and flight feeds\n\n06 \u00b7 Customs\n\nCleared before it lands.",
+            "source_url": "https://www.waybill.to/",
+            "retrieved_at": "2026-09-15T00:30:24.963131+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "context_format": "whole_html_blocks_v3",
+            "source_id": "evidence_7e126ba81e7e",
+            "category": "source_passage",
+            "subject": "unclear",
+            "status": "source_reported",
+            "classification": "complete_supplied_context_not_model_extracted"
+          },
+          {
+            "id": "S5",
+            "quote": "ill S2026 \u2022 Active \u2022 3 employees \u2022 Gurugram, Haryana, India Hardware teams burn weeks on procurement. An engineer needs a part. Someone emails five distributors, chases quotes, gets an approval, wires the money, tracks a shipment across three carriers, clears customs, and then nobody knows where the box is or what's actually on the shelf. Waybill runs that entire loop. Send us a part, a spec, or a BOM. We source it, pull quotes, route approvals, pay the supplier, handle freight and customs, track it to your dock, and keep your stock count updated. Take your supply chain for granted. Built by a team that's seen it at LAT Aerospace and WareIQ (YC S20). logistics procurement artificial-intelligence",
+            "source_url": "https://www.ycombinator.com/companies/location/india",
+            "retrieved_at": "2026-09-13T18:48:01.713887+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "context_format": null,
+            "source_id": "evidence_05f7c4d985d0",
+            "category": "offering",
+            "subject": "unclear",
+            "status": "source_reported",
+            "classification": "complete_supplied_context_not_model_extracted"
+          },
+          {
+            "id": "S6",
+            "quote": "Waybill: Agentic procurement & inventory for deep tech teams. | Y Combinator Open menu About What Happens at YC? Apply YC Interview Guide FAQ People YC Blog Companies Startup Directory Founder Directory Launch YC Library Partners Resources Startup School Newsletter Requests for Startups For Investors Verify Founders Hacker News Bookface SAFE Find a Co-Founder Events Startup Jobs Log in Apply Home \u203a Companies \u203a Waybill Waybill Agentic procurement & inventory for deep tech teams. Summer 2026 Active Artificial Intelligence Logistics Procurement Company Jobs 0 https://www.waybill.to/ Agentic",
+            "source_url": "https://www.ycombinator.com/companies/waybill",
+            "retrieved_at": "2026-09-13T21:28:46.937762+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "context_format": null,
+            "source_id": "evidence_d3bcfb2de131",
+            "category": "business_model",
+            "subject": "unclear",
+            "status": "source_reported",
+            "classification": "complete_supplied_context_not_model_extracted"
+          },
+          {
+            "id": "S7",
+            "quote": "procurement & inventory for deep tech teams. Hardware teams burn weeks on procurement. An engineer needs a part. Someone emails five distributors, chases quotes, gets an approval, wires the money, tracks a shipment across three carriers, clears customs, and then nobody knows where the box is or what's actually on the shelf. Waybill runs that entire loop. Send us a part, a spec, or a BOM. We source it, pull quotes, route approvals, pay the supplier, handle freight and customs, track it to your dock, and keep your stock count updated. Take your supply chain for granted. Built by a team that's",
+            "source_url": "https://www.ycombinator.com/companies/waybill",
+            "retrieved_at": "2026-09-13T21:28:46.937884+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "context_format": null,
+            "source_id": "evidence_38c9fbaf59bf",
+            "category": "product",
+            "subject": "unclear",
+            "status": "source_reported",
+            "classification": "complete_supplied_context_not_model_extracted"
+          }
+        ],
+        "prepared_at": "2026-09-15T00:30:24.970375+00:00",
+        "batches": {},
+        "extraction": "complete_context_no_generation",
+        "coverage": "partial",
+        "unknowns": [],
+        "source_selection": {
+          "scope": "bounded_supplied_records",
+          "omitted_for_context": 8,
+          "max_context_characters": 14000
+        }
+      },
+      "sections": {},
+      "attempts": [
+        {
+          "task": "shared_analysis",
+          "attempt": 0,
+          "at": "2026-09-15T00:43:06.067102+00:00",
+          "implementation_hash": "f83bbbf43a780c74c7a67f20b9ee3e470229fba72c741d408389020b6df3638a",
+          "answer": {
+            "economics_test": {
+              "service": "Agentic procurement & inventory for deep tech teams",
+              "fact_ids": [
+                "S2",
+                "S3"
+              ]
+            },
+            "customer_test": {
+              "service": "Agentic procurement & inventory for deep tech teams",
+              "fact_ids": [
+                "S2",
+                "S3"
+              ],
+              "method": "activation",
+              "event": "completed order"
+            },
+            "business": {
+              "excerpt_id": "Ebdbb06e50bb3"
+            },
+            "economics": {
+              "fact_ids": [
+                "S2",
+                "S3"
+              ],
+              "summary": "Customers pay a single consolidated fee that covers parts, freight, duties, clearance, and delivery. Waybill absorbs variable costs like supplier failures and negotiates down quotes before settlement. The model charges for the entire supply chain loop rather than individual line items."
+            },
+            "risk": {
+              "focus": "delivery_costs",
+              "fact_ids": [
+                "S3",
+                "S4"
+              ]
+            }
+          },
+          "elapsed_seconds": 31.374,
+          "invoked": true,
+          "model": "qwen3.5:9b",
+          "routing": {
+            "task": "shared_analysis",
+            "profile": "shared_analysis_v1",
+            "model": "qwen3.5:9b",
+            "thinking": false,
+            "max_tokens": 1200,
+            "thinking_used": false,
+            "reasoning_budget": null,
+            "answer_continuation": false,
+            "continuation_transport": null,
+            "context_tokens": 8192,
+            "temperature": 0,
+            "sampling": {
+              "top_p": 0.8,
+              "top_k": 20,
+              "min_p": 0,
+              "presence_penalty": 0,
+              "repeat_penalty": 1.0
+            },
+            "elapsed_seconds": 31.37,
+            "queue_seconds": 0.0,
+            "prompt_tokens": 6230,
+            "generated_tokens": 273,
+            "done_reason": "stop"
+          },
+          "raw_response": "{\n  \"economics_test\": {\n    \"service\": \"Agentic procurement & inventory for deep tech teams\",\n    \"fact_ids\": [\n      \"S2\",\n      \"S3\"\n    ]\n  },\n  \"customer_test\": {\n    \"service\": \"Agentic procurement & inventory for deep tech teams\",\n    \"fact_ids\": [\n      \"S2\",\n      \"S3\"\n    ],\n    \"event\": \"completed order\",\n    \"method\": \"activation\"\n  },\n  \"business\": {\n    \"excerpt_id\": \"Ebdbb06e50bb3\"\n  },\n  \"economics\": {\n    \"fact_ids\": [\n      \"S2\",\n      \"S3\"\n    ],\n    \"summary\": \"Customers pay a single consolidated fee that covers parts, freight, duties, clearance, and delivery. Waybill absorbs variable costs like supplier failures and negotiates down quotes before settlement. The model charges for the entire supply chain loop rather than individual line items.\"\n  },\n  \"risk\": {\n    \"focus\": \"delivery_costs\",\n    \"fact_ids\": [\n      \"S3\",\n      \"S4\"\n    ]\n  }\n}"
+        },
+        {
+          "task": "shared_analysis",
+          "attempt": 1,
+          "at": "2026-09-15T00:43:37.457489+00:00",
+          "implementation_hash": "f83bbbf43a780c74c7a67f20b9ee3e470229fba72c741d408389020b6df3638a",
+          "answer": {
+            "economics": {
+              "fact_ids": [
+                "S3",
+                "S2"
+              ],
+              "summary": "Customers pay a single consolidated fee that covers parts, freight, duties, clearance, and delivery. Waybill absorbs variable costs like supplier failures and negotiates down quotes before settlement. The model charges for the entire supply chain loop rather than individual line items."
+            }
+          },
+          "elapsed_seconds": 17.5,
+          "invoked": true,
+          "model": "qwen3.5:9b",
+          "routing": {
+            "task": "shared_analysis",
+            "profile": "shared_analysis_v1",
+            "model": "qwen3.5:9b",
+            "thinking": false,
+            "max_tokens": 1200,
+            "thinking_used": false,
+            "reasoning_budget": null,
+            "answer_continuation": false,
+            "continuation_transport": null,
+            "context_tokens": 8192,
+            "temperature": 0,
+            "sampling": {
+              "top_p": 0.8,
+              "top_k": 20,
+              "min_p": 0,
+              "presence_penalty": 0,
+              "repeat_penalty": 1.0
+            },
+            "elapsed_seconds": 17.5,
+            "queue_seconds": 0.0,
+            "prompt_tokens": 5509,
+            "generated_tokens": 92,
+            "done_reason": "stop"
+          },
+          "raw_response": "{\n  \"economics\": {\n    \"fact_ids\": [\n      \"S3\",\n      \"S2\"\n    ],\n    \"summary\": \"Customers pay a single consolidated fee that covers parts, freight, duties, clearance, and delivery. Waybill absorbs variable costs like supplier failures and negotiates down quotes before settlement. The model charges for the entire supply chain loop rather than individual line items.\"\n  }\n}"
+        }
+      ],
+      "status": "partial",
+      "started_at": "2026-09-15T00:43:06.063541+00:00",
+      "generation_config": {
+        "mode": "shared_analysis_v1",
+        "model": "qwen3.5:9b",
+        "thinking": false,
+        "review_model": "qwen3.5:9b",
+        "analysis_contract": "contribution_and_initial_activation_v1",
+        "analysis_reasoning_budget": 0,
+        "default_review_reasoning_budget": 0,
+        "continuation_protocol": "qwen35_raw_v1",
+        "review_thinking": null,
+        "contract": "5fd82a3ef6cec371febf24c5117701d09f355a5dcbe9ff045959d3fbb7c07152"
+      },
+      "shared_input_hash": "4b92896707c4537d05c883d423331dc18fa25587584ca7ae03603bc8520378f0",
+      "shared": {},
+      "documents": {
+        "research": {
+          "title": "Research memo",
+          "status": "partial"
+        },
+        "founder": {
+          "title": "Founder proposal",
+          "status": "partial"
+        },
+        "diligence": {
+          "title": "Diligence request",
+          "status": "partial"
+        },
+        "readiness": {
+          "title": "Investment-readiness plan",
+          "status": "partial"
+        }
+      },
+      "updated_at": "2026-09-15T00:43:54.975815+00:00",
+      "stop_reason": "Preparation validation needs correction: economics: Attribute the revenue explanation to the supplied sources; pricing claims are not independently verified results.",
+      "last_run_budget": {
+        "max_seconds": 120.0,
+        "max_calls": 6,
+        "max_requests": 10,
+        "calls": 2,
+        "requests": 2,
+        "elapsed_seconds": 48.92
+      }
+    },
+    "analyst_pack_history": [
+      {
+        "version": 9,
+        "implementation_hash": "8e7f95e0a819b2e3802809e7df51053d84833531ec8ea7fc9f6ee0bf361f48c5",
+        "basis_hash": "942d8ff754cd1dbc39acf5ffd624a69f07412fd152bb801450387883ffba081b",
+        "company": "Waybill",
+        "record": {
+          "facts": [
+            {
+              "id": "S1",
+              "quote": "Requested \u2192 Sourced \u2192 Approved \u2192 In transit \u2192 Cleared \u2192 On shelf\n\nManifesto Book a call\n\nManifesto Book a call\n\nBacked by Y Combinator \u00b7 S26\n\nProcurement on autopilot.\n\nSay what you need. Approve the payment. Waybill does everything in between: sourcing, negotiation, freight, customs, delivery, inventory. Built for teams that build hardware . Say what you need. Approve the payment. Waybill does everything in between. Built for teams that build hardware .\n\nBook a call\n\n00 / 09 \u00b7 scroll to watch one order, start to finish 00 / 09 \u00b7 scroll to watch one order\n\nWatch the film \u00b7 2:36\n\nOne order, start to finish\n\nToday\n\nThis is what buying one part looks like.\n\nRE: revised pricelist \u2014 valid till Friday\n\nNew rates attached. The old quote is void.\n\nsupplier \u00b7 attachment \u00b7 unread\n\nsupplier portal \u00b7 password expired reset (again) log in\n\nops \u00b7 direct message\n\nhey, can you resend the PO? can't find the latest\n\n31 Forwarder call \u00b7 moved again third reschedule this week\n\ncall the broker back\n\nbefore 5\n\nRE: RE: RE: Quote request \u2014 still pending\n\nCan only do a bigger MOQ. Regards, S.\n\nsupplier \u00b7 tue \u00b7 a long thread\n\ncustoms portal \u2014 session expired supplier portals freight quotes.xlsx\n\n#hardware \u00b7 this morning\n\nany update on the parts? line down Thursday\n\nnew\n\nX vendor_compare_FINAL_FINAL.xlsx edited again last night\n\nMissed call \u00b7 customs broker\n\nsecond attempt\n\nFwd: Fwd: payment terms \u2014 approval?\n\nFinance needs the PO trail before Thursday\u2026\n\nfinance \u00b7 mon\n\n15\u201320 suppliers messaged\n\n10 reply\n\n4 days of back-and-forth\n\n7 reject you on MOQ\n\n3 redundant orders, hoping one ships\n\n5\u20136 hands per box\n\nInformation dilutes at every handoff.\n\nThe same buy, through Waybill.\n\n01 \u00b7 The ask\n\nTell Waybill what you need and by when.\n\nDescribe what you need in whatever form you have it: an exact part number, a plain-English description, a full BOM file, or a sync straight from your PLM. Add the quantity and the date it has to be on your dock. That is the entire request. A part number, a description, a whole BOM, or a sync from your PLM. Add the quantity and the date it has to land. That is the entire request.\n\n01 \u00b7 The ask\n\nThat's the first thing you did.\n\nThe moment you hit send, Waybill goes to work. You don't fill forms, open tickets, or brief anyone on context. Sourcing starts before you close the tab. The moment you hit send, Waybill goes to work. No forms, no tickets, no briefing anyone. Sourcing starts before you close the tab.\n\nwaybill \u00b7 order desk Draft Sent\n\nYour team \u00b7 new request\n\nfrom your PLM paste a BOM just type it\n\nHere's the part, the quantity, and the date it has to land.\n\nBOM.csv\n\nReceived. Sourcing starts now.\n\nwaybill \u00b7 just now\n\nHere's the part, the quantity, and the date it has to land. BOM.csv\n\n02 \u00b7 Sourcing\n\nEvery licensed source, found and worked.",
+              "source_url": "https://www.waybill.to/",
+              "retrieved_at": "2026-09-15T00:30:24.963060+00:00",
+              "observed_at": null,
+              "origin": "preparation_public_page",
+              "context_format": "whole_html_blocks_v3",
+              "source_id": "evidence_a7fbd697ea86",
+              "category": "source_passage",
+              "subject": "unclear",
+              "status": "source_reported",
+              "classification": "complete_supplied_context_not_model_extracted"
+            },
+            {
+              "id": "S2",
+              "quote": "BOM watch always on\n\nLine 01 \u00b7 price moving down renegotiating\n\nLine 02 \u00b7 end-of-life risk alternates found\n\nLine 03 \u00b7 stock running thin restock suggested\n\nEvery other line \u00b7 steady watching\n\nchecked around the clock \u00b7 acted on before it bites\n\nYour next build quoted ahead\n\ntoday parts must land build starts\n\nquoting runs ahead of the schedule, with room to spare\n\nCritical parts quoted\n\nFallbacks held live\n\nLong-lead lines ordered early\n\nRequester 01 Requester 02 Requester 03\n\nOne order \u00b7 one checkout\n\nevery requester's items \u00b7 deduplicated \u00b7 grouped by supplier\n\nManager approves once \u2713\n\nFinance pays once. \u2713\n\n09 \u00b7 The receipt\n\nOne order, closed.\n\nThat's the whole story. You described what you needed and approved one payment: two actions, start to finish. Waybill did the twelve things on the right, absorbed a supplier failure along the way, and delivered on the date you named. The full record, every document and every decision, is filed to the order and signed. You described what you needed and approved one payment. Two actions. Waybill did the rest, absorbed a supplier failure, and delivered on the date you named.\n\nOrder receipt closed\n\nOn time\n\nNeed-by \u00b7 held\n\nTwo\n\nThings you did\n\nOne\n\nPayment you made\n\nZero\n\nChases \u00b7 portals \u00b7 spreadsheets\n\nWhat Waybill handled\n\n\u2713 Mapped every licensed source\n\n\u2713 Worked every quote, negotiated down\n\n\u2713 Held a fallback, live\n\n\u2713 Took one payment, settled the chain\n\n\u2713 Collected the order into our custody\n\n\u2713 Absorbed a source slip, date held\n\n\u2713 Booked and watched the freight\n\n\u2713 Caught a classification mismatch, fixed it\n\n\u2713 Filed the entry, paid the duty\n\n\u2713 Called ahead, delivered to your dock\n\n\u2713 Matched invoice, payment and import record\n\n\u2713 Put the parts on your shelf\n\nFiled in Orders signed by Waybill\n\nWherever you work\n\nLives where you do.\n\nYour team never has to open a procurement portal. Ask from Slack, Gmail, WhatsApp or Outlook, and the order starts right in the thread. Save a revision in SolidWorks, NX, Altium or KiCad, and the BOM diff is already being quoted. It's the same Waybill underneath; your team just reaches it from wherever they already work. Your team never opens a procurement portal. Ask from Slack or Gmail and the order starts in the thread. Save a revision in CAD and the BOM diff is already being quoted.\n\nComms tools ask \u00b7 approve \u00b7 track\n\nSlack\n\nGmail\n\nWhatsApp\n\nOutlook\n\n#hardware \u00b7 via Slack\n\n@waybill 40 \u00d7 7075 brackets, need by the 24th\n\nwaybill \u00b7 on it \u2014 sourcing started\n\nDesign tools BOM in \u00b7 quotes back\n\nSolidWorks\n\nNX\n\nAltium\n\nEagle\n\nKiCad\n\nsave a rev \u00b7 the BOM diff is already being quoted\n\nTake your supply chain for granted.\n\nBook a call Watch the film\n\nManifesto hello@waybill.to Privacy Waybill, Inc. \u00b7 YC S26\n\n01 / 09\n\n0%\n\nkeep scrolling\n\n0%\n\nwaybill",
+              "source_url": "https://www.waybill.to/",
+              "retrieved_at": "2026-09-15T00:30:24.963198+00:00",
+              "observed_at": null,
+              "origin": "preparation_public_page",
+              "context_format": "whole_html_blocks_v3",
+              "source_id": "evidence_6eb04ed71b8b",
+              "category": "source_passage",
+              "subject": "unclear",
+              "status": "source_reported",
+              "classification": "complete_supplied_context_not_model_extracted"
+            },
+            {
+              "id": "S3",
+              "quote": "Every licensed source, found and worked.\n\nWaybill maps every source licensed to sell your part, anywhere in the world: authorized distributors, franchised lines, and brokers we have vetted in person. Then it sends RFQs to all of them at once. What takes a team four days of email happens here in minutes. Waybill maps every source licensed to sell your part, anywhere in the world, then RFQs all of them at once. Four days of email, done in minutes.\n\n02 \u00b7 Sourcing\n\nQuotes, compared the way you would.\n\nAs replies land, Waybill builds one comparison across every quote: true landed cost with freight and duties included, lead time against your date, minimum order quantity, and proof the parts are genuine. Then it negotiates the leading quotes down on your behalf, before you've seen anything. One comparison across every quote: true landed cost, lead time against your date, order minimums, and proof the parts are genuine. Then it negotiates.\n\n02 \u00b7 Sourcing\n\nOne answer. One fallback.\n\nYou don't read nine quotes. You get one recommendation: the source that meets your date at the best landed cost. The runner-up stays quoted and live in reserve, at no cost to you. Remember that reserve. It matters in a minute. You don't read nine quotes. You get one recommendation, with the runner-up held live in reserve at no cost. Remember that reserve.\n\nwaybill \u00b7 sourcing Mapping licensed sources RFQs out \u00b7 replies coming in\n\nevery licensed source within your constraints worked at once\n\nSupplier 01 authorized RFQ sent\n\nSupplier 02 authorized RFQ sent\n\nSupplier 03 franchised RFQ sent\n\nSupplier 04 vetted broker RFQ sent\n\nSupplier 05 authorized RFQ sent\n\nSupplier 06 franchised RFQ sent\n\nSupplier 07 vetted broker RFQ sent\n\n\u2026and every other qualified source mapped \u00b7 worked\n\nQuotes \u00b7 compared Negotiating the lead quote Negotiated down\n\nSupplier Landed cost Lead time Authenticity\n\nSupplier 01 authorized\n\nSupplier 02 authorized\n\nSupplier 03 franchised\n\nSupplier 04 vetted broker\n\nSupplier 05 authorized\n\nSupplier 06 franchised\n\nSupplier 07 vetted broker\n\nSupplier 08 vetted broker\n\nSupplier 09 franchised\n\nevery quote, one table \u00b7 nothing to chase\n\nRecommended\n\nThe primary source\n\nauthorized meets your date best landed cost\n\nOne payment \u00b7 parts, freight, duties, delivery ready\n\nThe fallback source\n\nheld in reserve \u00b7 live\n\n03 \u00b7 Approve\n\nYou approve. That's the second thing you did.\n\nIt's also the last. The price you approve is the whole price: parts, freight, duties, clearance, and delivery in one line. Waybill takes that single payment and settles everyone in the chain itself: the source, the carrier, the broker, customs. You never touch another invoice on this order. It's also the last. One price covers parts, freight, duties, clearance and delivery. Waybill settles everyone in the chain itself. You never touch another invoice.\n\nPAID\n\nOne payment\n\nEverything, in one line.\n\nparts freight duties clearance delivery\n\nApprove payment Paid \u00b7 settled by Waybill\n\nWaybill settles\n\nthe source \u2713 the carrier \u2713 the broker \u2713 customs \u2713\n\n04 \u00b7 Shipping\n\nThen we ship it. Ourselves.",
+              "source_url": "https://www.waybill.to/",
+              "retrieved_at": "2026-09-15T00:30:24.963107+00:00",
+              "observed_at": null,
+              "origin": "preparation_public_page",
+              "context_format": "whole_html_blocks_v3",
+              "source_id": "evidence_5c88899aa7be",
+              "category": "source_passage",
+              "subject": "unclear",
+              "status": "source_reported",
+              "classification": "complete_supplied_context_not_model_extracted"
+            },
+            {
+              "id": "S4",
+              "quote": "Then we ship it. Ourselves.\n\nMost suppliers can't ship internationally, and most freight is a relay of strangers. So Waybill runs fulfilment itself. Our crew collects from the source's floor, consolidates and labels the order for export, drafts the paperwork, and books freight that meets your date. From the supplier's door to yours, one chain of custody, with no handoff you have to manage. Most suppliers can't ship abroad, and most freight is a relay of strangers. So Waybill runs fulfilment itself: one chain of custody, the source's floor to your dock.\n\n04 \u00b7 Shipping\n\nA source slips. Your date doesn't.\n\nIf the primary source, for whatever reason, can't fulfil your order, the fallback you saw in sourcing activates: still quoted, still live, inside the payment you already approved. Collection reroutes, custody stays unbroken, and your date holds. You learn it happened from a note, not a fire. The fallback you saw in sourcing activates, inside the payment you already approved. Custody holds, your date holds. You learn it from a note, not a fire.\n\nOne chain of custody your date \u00b7 locked\n\nCollection \u00b7 scheduled at the source\n\npickup slot held \u00b7 our crew\n\nWaybill custody\n\nfrom the source's floor onward, our chain\n\nConsolidation\n\npacked, labelled, export ready\n\nExport clearance\n\npapers drafted \u00b7 broker briefed\n\nFreight\n\nbooked \u00b7 space held on your date\n\nno handoffs you have to manage\n\nFreight \u00b7 options held quoted with the parts\n\nAir express quickest \u00b7 dearest\n\ndays\n\nAir freight booked \u00b7 meets your date\n\nunder a week\n\nSea consolidation slowest \u00b7 cheapest\n\nweeks\n\nWorks with\n\n+ more\n\nThe primary source\n\nMissed dispatch\n\nAllocation falls through, hours before pickup. This is where a schedule usually dies.\n\nNeed-by \u00b7 holds\n\nThe fallback source\n\nheld in reserve Activated \u00b7 shipping tonight\n\nQuoted since day one. Collection reroutes, custody unbroken, inside the payment you already approved.\n\n05 \u00b7 In transit\n\nTracked without asking.\n\nYou never ask \"where is it?\" again. Waybill watches the order end to end with live data from the carrier and from flight feeds: collected, consolidated, departed, in the air, landed. Anyone on your team can see the status at any moment. And by the time the wheels touch down, the customs entry is already drafted. You never ask \"where is it?\" again. Waybill watches the order end to end on carrier and flight data, and drafts the customs entry before the wheels touch down.\n\nShipment\n\nYour order \u00b7 in Waybill custody\n\norigin \u2192 your dock\n\nIn transit\n\nCollected\n\nfrom the fallback source \u00b7 custody begins\n\nHanded to carrier\n\nconsolidated \u00b7 export cleared\n\nDeparted origin\n\ncarrier feed \u00b7 confirmed\n\nIn air\n\nposition live \u00b7 on schedule\n\nArrived \u00b7 your gateway\n\nunloaded \u00b7 handed to clearance\n\nCustoms next\n\nentry already drafted \u00b7 filing on arrival\n\nwaybill \u00b7 flight watch live\n\nFEED\n\n\u2014\n\nPOS\n\n\u2014\n\nRTE\n\n\u2014\n\nETA\n\n\u2014\n\norigin \u2192 your dock source \u00b7 carrier and flight feeds\n\n06 \u00b7 Customs\n\nCleared before it lands.",
+              "source_url": "https://www.waybill.to/",
+              "retrieved_at": "2026-09-15T00:30:24.963131+00:00",
+              "observed_at": null,
+              "origin": "preparation_public_page",
+              "context_format": "whole_html_blocks_v3",
+              "source_id": "evidence_7e126ba81e7e",
+              "category": "source_passage",
+              "subject": "unclear",
+              "status": "source_reported",
+              "classification": "complete_supplied_context_not_model_extracted"
+            },
+            {
+              "id": "S5",
+              "quote": "ill S2026 \u2022 Active \u2022 3 employees \u2022 Gurugram, Haryana, India Hardware teams burn weeks on procurement. An engineer needs a part. Someone emails five distributors, chases quotes, gets an approval, wires the money, tracks a shipment across three carriers, clears customs, and then nobody knows where the box is or what's actually on the shelf. Waybill runs that entire loop. Send us a part, a spec, or a BOM. We source it, pull quotes, route approvals, pay the supplier, handle freight and customs, track it to your dock, and keep your stock count updated. Take your supply chain for granted. Built by a team that's seen it at LAT Aerospace and WareIQ (YC S20). logistics procurement artificial-intelligence",
+              "source_url": "https://www.ycombinator.com/companies/location/india",
+              "retrieved_at": "2026-09-13T18:48:01.713887+00:00",
+              "observed_at": null,
+              "origin": "public_page_claim",
+              "context_format": null,
+              "source_id": "evidence_05f7c4d985d0",
+              "category": "offering",
+              "subject": "unclear",
+              "status": "source_reported",
+              "classification": "complete_supplied_context_not_model_extracted"
+            },
+            {
+              "id": "S6",
+              "quote": "Waybill: Agentic procurement & inventory for deep tech teams. | Y Combinator Open menu About What Happens at YC? Apply YC Interview Guide FAQ People YC Blog Companies Startup Directory Founder Directory Launch YC Library Partners Resources Startup School Newsletter Requests for Startups For Investors Verify Founders Hacker News Bookface SAFE Find a Co-Founder Events Startup Jobs Log in Apply Home \u203a Companies \u203a Waybill Waybill Agentic procurement & inventory for deep tech teams. Summer 2026 Active Artificial Intelligence Logistics Procurement Company Jobs 0 https://www.waybill.to/ Agentic",
+              "source_url": "https://www.ycombinator.com/companies/waybill",
+              "retrieved_at": "2026-09-13T21:28:46.937762+00:00",
+              "observed_at": null,
+              "origin": "public_page_claim",
+              "context_format": null,
+              "source_id": "evidence_d3bcfb2de131",
+              "category": "business_model",
+              "subject": "unclear",
+              "status": "source_reported",
+              "classification": "complete_supplied_context_not_model_extracted"
+            },
+            {
+              "id": "S7",
+              "quote": "procurement & inventory for deep tech teams. Hardware teams burn weeks on procurement. An engineer needs a part. Someone emails five distributors, chases quotes, gets an approval, wires the money, tracks a shipment across three carriers, clears customs, and then nobody knows where the box is or what's actually on the shelf. Waybill runs that entire loop. Send us a part, a spec, or a BOM. We source it, pull quotes, route approvals, pay the supplier, handle freight and customs, track it to your dock, and keep your stock count updated. Take your supply chain for granted. Built by a team that's",
+              "source_url": "https://www.ycombinator.com/companies/waybill",
+              "retrieved_at": "2026-09-13T21:28:46.937884+00:00",
+              "observed_at": null,
+              "origin": "public_page_claim",
+              "context_format": null,
+              "source_id": "evidence_38c9fbaf59bf",
+              "category": "product",
+              "subject": "unclear",
+              "status": "source_reported",
+              "classification": "complete_supplied_context_not_model_extracted"
+            }
+          ],
+          "prepared_at": "2026-09-15T00:30:24.970375+00:00",
+          "batches": {},
+          "extraction": "complete_context_no_generation",
+          "coverage": "partial",
+          "unknowns": [],
+          "source_selection": {
+            "scope": "bounded_supplied_records",
+            "omitted_for_context": 8,
+            "max_context_characters": 14000
+          }
+        },
+        "sections": {},
+        "attempts": [
+          {
+            "task": "shared_analysis",
+            "attempt": 0,
+            "at": "2026-09-15T00:30:24.978099+00:00",
+            "implementation_hash": "8e7f95e0a819b2e3802809e7df51053d84833531ec8ea7fc9f6ee0bf361f48c5",
+            "answer": {
+              "economics_test": {
+                "service": "Agentic procurement & inventory for deep tech teams",
+                "fact_ids": [
+                  "S6",
+                  "S7"
+                ]
+              },
+              "customer_test": {
+                "service": "Agentic procurement & inventory for deep tech teams",
+                "fact_ids": [
+                  "S1",
+                  "S2"
+                ],
+                "method": "activation",
+                "event": "completed order"
+              },
+              "business": {
+                "fact_ids": [
+                  "S6",
+                  "S7"
+                ],
+                "excerpt_id": "Ebdbb06e50bb3"
+              },
+              "economics": {
+                "fact_ids": [
+                  "S3",
+                  "S4"
+                ]
+              },
+              "risk": {
+                "focus": "delivery_costs",
+                "fact_ids": [
+                  "S4",
+                  "S5"
+                ]
+              }
+            },
+            "elapsed_seconds": 26.549,
+            "invoked": true,
+            "model": "qwen3.5:9b",
+            "routing": {
+              "task": "shared_analysis",
+              "profile": "shared_analysis_v1",
+              "model": "qwen3.5:9b",
+              "thinking": false,
+              "max_tokens": 1200,
+              "thinking_used": false,
+              "reasoning_budget": null,
+              "answer_continuation": false,
+              "continuation_transport": null,
+              "context_tokens": 8192,
+              "temperature": 0,
+              "sampling": {
+                "top_p": 0.8,
+                "top_k": 20,
+                "min_p": 0,
+                "presence_penalty": 0,
+                "repeat_penalty": 1.0
+              },
+              "elapsed_seconds": 26.54,
+              "queue_seconds": 0.0,
+              "prompt_tokens": 6171,
+              "generated_tokens": 239,
+              "done_reason": "stop"
+            },
+            "raw_response": "{\n  \"economics_test\": {\n    \"service\": \"Agentic procurement & inventory for deep tech teams\",\n    \"fact_ids\": [\n      \"S6\",\n      \"S7\"\n    ]\n  },\n  \"customer_test\": {\n    \"service\": \"Agentic procurement & inventory for deep tech teams\",\n    \"fact_ids\": [\n      \"S1\",\n      \"S2\"\n    ],\n    \"event\": \"completed order\",\n    \"method\": \"activation\"\n  },\n  \"business\": {\n    \"fact_ids\": [\n      \"S6\",\n      \"S7\"\n    ],\n    \"excerpt_id\": \"Ebdbb06e50bb3\"\n  },\n  \"economics\": {\n    \"fact_ids\": [\n      \"S3\",\n      \"S4\"\n    ]\n  },\n  \"risk\": {\n    \"focus\": \"delivery_costs\",\n    \"fact_ids\": [\n      \"S4\",\n      \"S5\"\n    ]\n  }\n}"
+          },
+          {
+            "task": "shared_analysis",
+            "attempt": 1,
+            "at": "2026-09-15T00:30:51.538784+00:00",
+            "implementation_hash": "8e7f95e0a819b2e3802809e7df51053d84833531ec8ea7fc9f6ee0bf361f48c5",
+            "answer": {
+              "business": {
+                "fact_ids": [
+                  "S6",
+                  "S7"
+                ],
+                "excerpt_id": "Ebdbb06e50bb3"
+              }
+            },
+            "elapsed_seconds": 15.211,
+            "invoked": true,
+            "model": "qwen3.5:9b",
+            "routing": {
+              "task": "shared_analysis",
+              "profile": "shared_analysis_v1",
+              "model": "qwen3.5:9b",
+              "thinking": false,
+              "max_tokens": 1200,
+              "thinking_used": false,
+              "reasoning_budget": null,
+              "answer_continuation": false,
+              "continuation_transport": null,
+              "context_tokens": 8192,
+              "temperature": 0,
+              "sampling": {
+                "top_p": 0.8,
+                "top_k": 20,
+                "min_p": 0,
+                "presence_penalty": 0,
+                "repeat_penalty": 1.0
+              },
+              "elapsed_seconds": 15.2,
+              "queue_seconds": 0.0,
+              "prompt_tokens": 5438,
+              "generated_tokens": 27,
+              "done_reason": "stop"
+            },
+            "raw_response": "{\"business\":{\"fact_ids\":[\"S6\",\"S7\"],\"excerpt_id\":\"Ebdbb06e50bb3\"}}"
+          }
+        ],
+        "status": "partial",
+        "started_at": "2026-09-15T00:30:24.970599+00:00",
+        "generation_config": {
+          "mode": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "review_model": "qwen3.5:9b",
+          "analysis_contract": "contribution_and_initial_activation_v1",
+          "analysis_reasoning_budget": 0,
+          "default_review_reasoning_budget": 0,
+          "continuation_protocol": "qwen35_raw_v1",
+          "review_thinking": null,
+          "contract": "c664e3aa9754c634cd5e779477fae455f661a3ba1e9f7af191e66a32432ab8d1"
+        },
+        "shared_input_hash": "7aa824d26ee5dcdb3b194d505c3050ebf0496ca6b1184bbe220d0bdb0a789b6e",
+        "shared": {},
+        "documents": {
+          "research": {
+            "title": "Research memo",
+            "status": "partial"
+          },
+          "founder": {
+            "title": "Founder proposal",
+            "status": "partial"
+          },
+          "diligence": {
+            "title": "Diligence request",
+            "status": "partial"
+          },
+          "readiness": {
+            "title": "Investment-readiness plan",
+            "status": "partial"
+          }
+        },
+        "updated_at": "2026-09-15T00:31:06.761730+00:00",
+        "stop_reason": "Preparation validation needs correction: business: Cite the selected excerpt parent fact_id.",
+        "last_run_budget": {
+          "max_seconds": 120.0,
+          "max_calls": 6,
+          "max_requests": 10,
+          "calls": 2,
+          "requests": 2,
+          "elapsed_seconds": 46.296
+        }
+      }
+    ],
+    "investment_case_history": [],
+    "company_brief": {
+      "version": 5,
+      "basis_hash": "e09cabeb99f0ae167f6e96671d6bac03c8dc1bf14fb6aac3f43281ded28621c6",
+      "model": "phi4-mini",
+      "research": {
+        "business": "Waybill is an agentic procurement and inventory management platform for hardware and deep-tech teams.",
+        "reason_to_meet": "The business opportunity lies in simplifying the procurement process for hardware teams, which currently takes weeks and involves multiple steps and parties. Waybill automates this process, potentially saving time and reducing errors.",
+        "main_risk": "The main risk is that delivery/service costs could exceed the fees paid by customers, especially if the costs of sourcing, negotiation, freight, customs, and delivery are higher than anticipated.",
+        "first_question": "Can you provide an example of a successful procurement process managed by Waybill that resulted in cost savings for a customer?",
+        "evidence_ids": [
+          "evidence_d36ecb5e4c9a",
+          "evidence_452661bdb493",
+          "evidence_8cd71dedd442",
+          "evidence_05f7c4d985d0"
+        ]
+      },
+      "updated_at": "2026-09-13T21:39:52.553566+00:00",
+      "pitch": {
+        "subject": "A prospect shortlist for Waybill",
+        "observation": "Your public update asks for introductions to procurement leads at hardware enterprises.",
+        "proposed_help": "We could build a researched shortlist of relevant organizations and decision-maker roles, explain why each fits your target, and draft personalized outreach for your review. We would first agree the target profile with you; introductions and meetings are not guaranteed.",
+        "evidence_ids": [
+          "evidence_d36ecb5e4c9a"
+        ]
+      },
+      "readiness": {
+        "priorities": [
+          {
+            "title": "Establish paid customer demand",
+            "investor_question": "How many customers are using Waybill for procurement?",
+            "action": "Analyze Waybill's booking/order/payment records to determine actual customer count",
+            "output": "A record of the number of customers using Waybill for procurement",
+            "done_when": "Show paid purchases and repeat business for a dated customer group, including cancellations and refunds. If no sales exist, record that gap and propose a paid test."
+          },
+          {
+            "title": "Check what each sale earns",
+            "investor_question": "After direct delivery costs, how much does the company keep from each sale?",
+            "action": "Compare Waybill's fees collected from customers with its direct fulfillment and staff costs, including payment timing",
+            "output": "A table of customer receipts, recognized revenue, direct delivery costs and payment dates.",
+            "done_when": "Show contribution per completed sale, unpaid balances and any negative results. Contribution excludes overhead; it is not total company profit."
+          },
+          {
+            "title": "Build the investor story",
+            "investor_question": "What is the demand and economic potential for Waybill?",
+            "action": "Compile a summary of Waybill's demand, economics, and next milestone based on sourced evidence",
+            "output": "A sourced summary of Waybill's demand, economics, and next milestone",
+            "done_when": "Link each business claim to its source. Show what is proven, what is still unknown and the next milestone that funding would support."
+          }
+        ],
+        "evidence_ids": [
+          "evidence_d36ecb5e4c9a",
+          "evidence_452661bdb493",
+          "evidence_8cd71dedd442",
+          "evidence_05f7c4d985d0"
+        ]
+      }
+    },
+    "company_brief_attempts": [],
+    "company_brief_history": [],
+    "metric_imports": [],
+    "metric_updates": [],
+    "metrics": {
+      "months": [],
+      "calculations": [],
+      "unresolved_calculations": [],
+      "latest_month": null,
+      "missing": [
+        "Recognized revenue",
+        "Direct variable delivery costs",
+        "Cash at month end",
+        "Net operating cash burn",
+        "Paying customers",
+        "Completed orders",
+        "Gross merchandise value"
+      ],
+      "note": "Company-reported figures, not independently verified. Blank means unknown, not zero."
+    },
+    "automation": {
+      "id": "automation_410af4c1dc32",
+      "status": "failed",
+      "phase": "Generation needs attention",
+      "model": "qwen3.5:9b",
+      "worker_id": "955325f41635411d963187455769b22a",
+      "started_at": "2026-09-15T00:43:06.035103+00:00",
+      "completed_at": "2026-09-15T00:43:54.977262+00:00",
+      "error": "Preparation validation needs correction: economics: Attribute the revenue explanation to the supplied sources; pricing claims are not independently verified results."
+    },
+    "attestations": [],
+    "events": [
+      {
+        "at": "2026-09-13T17:33:46.564630+00:00",
+        "action": "evidence_changed",
+        "detail": "Drafts and prior attestations require re-evaluation."
+      },
+      {
+        "at": "2026-09-13T18:00:12.253667+00:00",
+        "action": "evidence_changed",
+        "detail": "Drafts and prior attestations require re-evaluation."
+      },
+      {
+        "at": "2026-09-13T18:01:49.554483+00:00",
+        "action": "evidence_changed",
+        "detail": "Drafts and prior attestations require re-evaluation."
+      },
+      {
+        "at": "2026-09-13T18:04:58.038412+00:00",
+        "action": "automation_started",
+        "detail": "AI work requested: diligence, incubation, documents and fundraising plans."
+      },
+      {
+        "at": "2026-09-13T18:05:41.337385+00:00",
+        "action": "draft_pack_prepared",
+        "detail": "Four internal drafts; release and execution gates unchanged."
+      },
+      {
+        "at": "2026-09-13T18:05:41.339993+00:00",
+        "action": "automation_completed",
+        "detail": "phi4-mini: Four cited plans prepared."
+      },
+      {
+        "at": "2026-09-13T18:09:30.628074+00:00",
+        "action": "evidence_changed",
+        "detail": "Drafts and prior attestations require re-evaluation."
+      },
+      {
+        "at": "2026-09-13T18:09:30.634920+00:00",
+        "action": "automation_started",
+        "detail": "AI work requested: diligence, incubation, documents and fundraising plans."
+      },
+      {
+        "at": "2026-09-13T18:12:08.161281+00:00",
+        "action": "automation_failed",
+        "detail": "phi4-mini: Generation needs attention."
+      },
+      {
+        "at": "2026-09-13T18:13:36.019077+00:00",
+        "action": "automation_started",
+        "detail": "AI work requested: diligence, incubation, documents and fundraising plans."
+      },
+      {
+        "at": "2026-09-13T18:15:50.198844+00:00",
+        "action": "automation_failed",
+        "detail": "phi4-mini: Generation needs attention."
+      },
+      {
+        "at": "2026-09-13T18:16:29.424360+00:00",
+        "action": "automation_started",
+        "detail": "AI work requested: diligence, incubation, documents and fundraising plans."
+      },
+      {
+        "at": "2026-09-13T18:18:09.845308+00:00",
+        "action": "draft_pack_prepared",
+        "detail": "Four internal drafts; release and execution gates unchanged."
+      },
+      {
+        "at": "2026-09-13T18:18:09.852348+00:00",
+        "action": "automation_completed",
+        "detail": "phi4-mini: Four cited plans prepared."
+      },
+      {
+        "at": "2026-09-13T18:50:08.375356+00:00",
+        "action": "evidence_changed",
+        "detail": "Drafts and prior attestations require re-evaluation."
+      },
+      {
+        "at": "2026-09-13T18:53:41.329724+00:00",
+        "action": "automation_started",
+        "detail": "AI work queued: missing diligence, incubation, documents and fundraising plans."
+      },
+      {
+        "at": "2026-09-13T18:58:43.420082+00:00",
+        "action": "plan_prepared",
+        "detail": "Diligence plan saved with cited tasks."
+      },
+      {
+        "at": "2026-09-13T18:59:04.171594+00:00",
+        "action": "plan_prepared",
+        "detail": "Incubation plan saved with cited tasks."
+      },
+      {
+        "at": "2026-09-13T18:59:22.170874+00:00",
+        "action": "plan_prepared",
+        "detail": "Documents plan saved with cited tasks."
+      },
+      {
+        "at": "2026-09-13T18:59:42.213314+00:00",
+        "action": "plan_prepared",
+        "detail": "Fundraising plan saved with cited tasks."
+      },
+      {
+        "at": "2026-09-13T18:59:42.214013+00:00",
+        "action": "draft_pack_prepared",
+        "detail": "Four internal drafts; release and execution gates unchanged."
+      },
+      {
+        "at": "2026-09-13T18:59:42.215456+00:00",
+        "action": "automation_completed",
+        "detail": "phi4-mini: Four cited plans prepared."
+      },
+      {
+        "at": "2026-09-13T19:01:14.142555+00:00",
+        "action": "automation_started",
+        "detail": "AI work queued: missing diligence, incubation, documents and fundraising plans."
+      },
+      {
+        "at": "2026-09-13T19:09:12.555452+00:00",
+        "action": "plan_prepared",
+        "detail": "Diligence plan saved with cited tasks."
+      },
+      {
+        "at": "2026-09-13T19:09:32.462451+00:00",
+        "action": "plan_prepared",
+        "detail": "Incubation plan saved with cited tasks."
+      },
+      {
+        "at": "2026-09-13T19:09:50.248802+00:00",
+        "action": "plan_prepared",
+        "detail": "Documents plan saved with cited tasks."
+      },
+      {
+        "at": "2026-09-13T19:10:07.180689+00:00",
+        "action": "plan_prepared",
+        "detail": "Fundraising plan saved with cited tasks."
+      },
+      {
+        "at": "2026-09-13T19:10:07.181223+00:00",
+        "action": "draft_pack_prepared",
+        "detail": "Four internal drafts; release and execution gates unchanged."
+      },
+      {
+        "at": "2026-09-13T19:10:07.183015+00:00",
+        "action": "automation_completed",
+        "detail": "phi4-mini: Four cited plans prepared."
+      },
+      {
+        "at": "2026-09-13T19:28:16.909461+00:00",
+        "action": "evidence_changed",
+        "detail": "Drafts and prior attestations require re-evaluation."
+      },
+      {
+        "at": "2026-09-13T19:28:16.909902+00:00",
+        "action": "company_researched",
+        "detail": "Read 1 company pages before analysis; 2 new cited facts."
+      },
+      {
+        "at": "2026-09-13T19:28:39.963045+00:00",
+        "action": "plan_prepared",
+        "detail": "Diligence plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:29:04.867478+00:00",
+        "action": "plan_prepared",
+        "detail": "Incubation plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:29:38.584665+00:00",
+        "action": "plan_prepared",
+        "detail": "Documents plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:30:18.409018+00:00",
+        "action": "plan_prepared",
+        "detail": "Fundraising plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:30:18.417085+00:00",
+        "action": "draft_pack_prepared",
+        "detail": "Four internal drafts; release and execution gates unchanged."
+      },
+      {
+        "at": "2026-09-13T19:31:27.289926+00:00",
+        "action": "evidence_changed",
+        "detail": "Drafts and prior attestations require re-evaluation."
+      },
+      {
+        "at": "2026-09-13T19:31:27.290799+00:00",
+        "action": "company_researched",
+        "detail": "Read 1 company pages before analysis; 7 new cited facts."
+      },
+      {
+        "at": "2026-09-13T19:31:49.325494+00:00",
+        "action": "plan_prepared",
+        "detail": "Diligence plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:32:16.331450+00:00",
+        "action": "plan_prepared",
+        "detail": "Incubation plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:32:51.443195+00:00",
+        "action": "plan_prepared",
+        "detail": "Documents plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:33:25.555807+00:00",
+        "action": "plan_prepared",
+        "detail": "Fundraising plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:33:25.560141+00:00",
+        "action": "draft_pack_prepared",
+        "detail": "Four internal drafts; release and execution gates unchanged."
+      },
+      {
+        "at": "2026-09-13T19:36:58.962038+00:00",
+        "action": "plan_prepared",
+        "detail": "Diligence plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:37:07.932013+00:00",
+        "action": "plan_prepared",
+        "detail": "Incubation plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:37:20.948599+00:00",
+        "action": "plan_prepared",
+        "detail": "Documents plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:37:31.042427+00:00",
+        "action": "plan_prepared",
+        "detail": "Fundraising plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:37:31.045649+00:00",
+        "action": "draft_pack_prepared",
+        "detail": "Four internal drafts; release and execution gates unchanged."
+      },
+      {
+        "at": "2026-09-13T19:40:57.856816+00:00",
+        "action": "plan_prepared",
+        "detail": "Diligence plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:41:17.703976+00:00",
+        "action": "plan_prepared",
+        "detail": "Incubation plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:41:27.308523+00:00",
+        "action": "plan_prepared",
+        "detail": "Documents plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:41:39.234356+00:00",
+        "action": "plan_prepared",
+        "detail": "Fundraising plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:41:39.234942+00:00",
+        "action": "draft_pack_prepared",
+        "detail": "Four internal drafts; release and execution gates unchanged."
+      },
+      {
+        "at": "2026-09-13T19:43:08.172081+00:00",
+        "action": "plan_prepared",
+        "detail": "Diligence plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:45:04.076181+00:00",
+        "action": "plan_prepared",
+        "detail": "Incubation plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:45:25.068468+00:00",
+        "action": "plan_prepared",
+        "detail": "Fundraising plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:45:25.068840+00:00",
+        "action": "draft_pack_prepared",
+        "detail": "Four internal drafts; release and execution gates unchanged."
+      },
+      {
+        "at": "2026-09-13T19:46:40.571628+00:00",
+        "action": "plan_prepared",
+        "detail": "Diligence plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:46:56.291609+00:00",
+        "action": "plan_prepared",
+        "detail": "Incubation plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:47:03.449013+00:00",
+        "action": "plan_prepared",
+        "detail": "Documents plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:47:11.582652+00:00",
+        "action": "plan_prepared",
+        "detail": "Fundraising plan saved with a decision, cited analysis and next task."
+      },
+      {
+        "at": "2026-09-13T19:47:11.583191+00:00",
+        "action": "draft_pack_prepared",
+        "detail": "Four internal drafts; release and execution gates unchanged."
+      },
+      {
+        "at": "2026-09-13T19:49:28.782289+00:00",
+        "action": "evidence_changed",
+        "detail": "Drafts and prior attestations require re-evaluation."
+      },
+      {
+        "at": "2026-09-13T19:49:28.782597+00:00",
+        "action": "analysis_reviewed",
+        "detail": "Reviewed and rewritten during this coding session after local-model output showed unsupported claims and weak recommendations. This is an editorial analysis review, not financial verification, legal approval or proof that unattended local generation has equivalent quality."
+      },
+      {
+        "at": "2026-09-13T21:02:56.159899+00:00",
+        "action": "automation_started",
+        "detail": "AI work queued: missing diligence, incubation, documents and fundraising plans."
+      },
+      {
+        "at": "2026-09-13T21:03:34.523718+00:00",
+        "action": "evidence_changed",
+        "detail": "Drafts and prior attestations require re-evaluation."
+      },
+      {
+        "at": "2026-09-13T21:03:34.524607+00:00",
+        "action": "company_researched",
+        "detail": "Read 1 company pages before analysis; 2 new cited facts."
+      },
+      {
+        "at": "2026-09-13T21:04:00.910916+00:00",
+        "action": "company_deliverable_prepared",
+        "detail": "Research draft saved."
+      },
+      {
+        "at": "2026-09-13T21:04:28.828689+00:00",
+        "action": "company_deliverable_prepared",
+        "detail": "Pitch draft saved."
+      },
+      {
+        "at": "2026-09-13T21:05:11.485733+00:00",
+        "action": "company_deliverable_prepared",
+        "detail": "Readiness draft saved."
+      },
+      {
+        "at": "2026-09-13T21:05:11.488138+00:00",
+        "action": "automation_completed",
+        "detail": "phi4-mini: Company brief, founder pitch and readiness priorities saved."
+      },
+      {
+        "at": "2026-09-13T21:06:41.562015+00:00",
+        "action": "automation_started",
+        "detail": "AI work queued: missing diligence, incubation, documents and fundraising plans."
+      },
+      {
+        "at": "2026-09-13T21:07:07.579036+00:00",
+        "action": "company_deliverable_prepared",
+        "detail": "Research draft saved."
+      },
+      {
+        "at": "2026-09-13T21:07:36.304608+00:00",
+        "action": "company_deliverable_prepared",
+        "detail": "Pitch draft saved."
+      },
+      {
+        "at": "2026-09-13T21:08:25.194281+00:00",
+        "action": "company_deliverable_prepared",
+        "detail": "Readiness draft saved."
+      },
+      {
+        "at": "2026-09-13T21:08:25.199408+00:00",
+        "action": "automation_completed",
+        "detail": "phi4-mini: Company brief, founder pitch and readiness priorities saved."
+      },
+      {
+        "at": "2026-09-13T21:09:53.710765+00:00",
+        "action": "automation_started",
+        "detail": "AI work queued: missing diligence, incubation, documents and fundraising plans."
+      },
+      {
+        "at": "2026-09-13T21:10:27.675882+00:00",
+        "action": "company_deliverable_prepared",
+        "detail": "Research draft saved."
+      },
+      {
+        "at": "2026-09-13T21:10:40.018899+00:00",
+        "action": "company_deliverable_prepared",
+        "detail": "Pitch draft saved."
+      },
+      {
+        "at": "2026-09-13T21:11:41.985166+00:00",
+        "action": "company_deliverable_prepared",
+        "detail": "Readiness draft saved."
+      },
+      {
+        "at": "2026-09-13T21:11:41.993400+00:00",
+        "action": "automation_completed",
+        "detail": "phi4-mini: Company brief, founder pitch and readiness priorities saved."
+      },
+      {
+        "at": "2026-09-13T21:14:46.159193+00:00",
+        "action": "automation_started",
+        "detail": "AI work queued: missing diligence, incubation, documents and fundraising plans."
+      },
+      {
+        "at": "2026-09-13T21:14:46.192047+00:00",
+        "action": "automation_completed",
+        "detail": "phi4-mini: Company brief, founder pitch and readiness priorities saved."
+      },
+      {
+        "at": "2026-09-13T21:28:24.972374+00:00",
+        "action": "automation_started",
+        "detail": "AI work queued: missing diligence, incubation, documents and fundraising plans."
+      },
+      {
+        "at": "2026-09-13T21:29:14.148711+00:00",
+        "action": "evidence_changed",
+        "detail": "Drafts and prior attestations require re-evaluation."
+      },
+      {
+        "at": "2026-09-13T21:29:14.149908+00:00",
+        "action": "company_researched",
+        "detail": "Read 2 company pages before analysis; 11 new cited facts."
+      },
+      {
+        "at": "2026-09-13T21:29:37.359854+00:00",
+        "action": "company_deliverable_prepared",
+        "detail": "Research draft saved."
+      },
+      {
+        "at": "2026-09-13T21:30:25.730858+00:00",
+        "action": "automation_failed",
+        "detail": "phi4-mini: Generation needs attention."
+      },
+      {
+        "at": "2026-09-13T21:33:24.864092+00:00",
+        "action": "automation_started",
+        "detail": "AI work queued: missing diligence, incubation, documents and fundraising plans."
+      },
+      {
+        "at": "2026-09-13T21:33:52.756888+00:00",
+        "action": "evidence_changed",
+        "detail": "Drafts and prior attestations require re-evaluation."
+      },
+      {
+        "at": "2026-09-13T21:33:52.758355+00:00",
+        "action": "company_researched",
+        "detail": "Read 2 company pages before analysis; 4 new cited facts."
+      },
+      {
+        "at": "2026-09-13T21:34:37.708837+00:00",
+        "action": "company_deliverable_prepared",
+        "detail": "Research draft saved."
+      },
+      {
+        "at": "2026-09-13T21:35:00.059433+00:00",
+        "action": "company_deliverable_prepared",
+        "detail": "Pitch draft saved."
+      },
+      {
+        "at": "2026-09-13T21:35:41.183864+00:00",
+        "action": "company_deliverable_prepared",
+        "detail": "Readiness draft saved."
+      },
+      {
+        "at": "2026-09-13T21:35:41.185905+00:00",
+        "action": "automation_completed",
+        "detail": "phi4-mini: Company brief, founder pitch and readiness priorities saved."
+      },
+      {
+        "at": "2026-09-13T21:37:27.819941+00:00",
+        "action": "automation_started",
+        "detail": "AI work queued: missing diligence, incubation, documents and fundraising plans."
+      },
+      {
+        "at": "2026-09-13T21:37:54.380983+00:00",
+        "action": "evidence_changed",
+        "detail": "Drafts and prior attestations require re-evaluation."
+      },
+      {
+        "at": "2026-09-13T21:37:54.382056+00:00",
+        "action": "company_researched",
+        "detail": "Read 2 company pages before analysis; 0 new cited facts."
+      },
+      {
+        "at": "2026-09-13T21:38:38.791048+00:00",
+        "action": "company_deliverable_prepared",
+        "detail": "Research draft saved."
+      },
+      {
+        "at": "2026-09-13T21:38:38.799176+00:00",
+        "action": "company_deliverable_prepared",
+        "detail": "Pitch draft saved."
+      },
+      {
+        "at": "2026-09-13T21:39:52.553682+00:00",
+        "action": "company_deliverable_prepared",
+        "detail": "Readiness draft saved."
+      },
+      {
+        "at": "2026-09-13T21:39:52.555606+00:00",
+        "action": "automation_completed",
+        "detail": "phi4-mini: Company brief, founder pitch and readiness priorities saved."
+      },
+      {
+        "at": "2026-09-15T00:30:20.441452+00:00",
+        "action": "automation_started",
+        "detail": "Company operating plans queued."
+      },
+      {
+        "at": "2026-09-15T00:30:24.968049+00:00",
+        "action": "evidence_changed",
+        "detail": "Drafts and prior attestations require re-evaluation."
+      },
+      {
+        "at": "2026-09-15T00:31:06.762812+00:00",
+        "action": "automation_failed",
+        "detail": "qwen3.5:9b: Generation needs attention."
+      },
+      {
+        "at": "2026-09-15T00:43:06.035118+00:00",
+        "action": "automation_started",
+        "detail": "Company operating plans queued."
+      },
+      {
+        "at": "2026-09-15T00:43:54.977271+00:00",
+        "action": "automation_failed",
+        "detail": "qwen3.5:9b: Generation needs attention."
+      }
+    ],
+    "capabilities": {
+      "internal_research": true,
+      "draft_preparation": true,
+      "external_sending": false,
+      "signing": false,
+      "moving_money": false
+    }
+  }
+}

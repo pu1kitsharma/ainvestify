@@ -1,0 +1,14 @@
+{
+  "saved_workspace_GET_milliseconds": [
+    117.711,
+    29.751,
+    25.993
+  ],
+  "new_model_calls": 0,
+  "same_job_and_current_section_content": true,
+  "original_v7_section_content_preserved": true,
+  "final_revision": 1204,
+  "active_jobs": [],
+  "cache_POSTs_this_verification": 4,
+  "note": "Four cache POSTs returned the same completed job and changed metadata only. Verification scripts initially used the wrong old-snapshot key and compared historical statuses instead of content; no POST timings are reported. Historical v7 review statuses differ from the original snapshot, but every section content value matches. Read-only saved-work GET timings are reported."
+}

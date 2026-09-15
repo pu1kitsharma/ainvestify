@@ -1,0 +1,1181 @@
+{
+  "case_id": "paasa_reference_test",
+  "input_hash": "bcd68f0b2e796336c56f3dd80bed5af2ad8b30783420503180a97336f7ec563b",
+  "model": "qwen3.5:9b",
+  "settings": {
+    "profile": "section_router",
+    "review_model": "qwen3.5:9b",
+    "review_thinking": false,
+    "reasoning_budget": 1024,
+    "thinking": false,
+    "tokens": 1800,
+    "context": 8192
+  },
+  "input_kind": "curated_source_checked_paraphrases",
+  "region": "India",
+  "sector": "consumer investing / financial technology",
+  "live_data_updated": false,
+  "limits": {
+    "max_corrections_per_stage": 1,
+    "max_calls": 24,
+    "max_seconds": 1200
+  },
+  "reference_sha256": "c4bf1f31324154efdd712f4ea3dba067f4c9ca9c31cfaa51fc142bd97354c8da",
+  "pack": {
+    "version": 7,
+    "implementation_hash": "7b3f94949c88ebde0a56f0e9b847e822d2add87223c098330d7fddabfb2d9f18",
+    "basis_hash": "123a1402c55434016b7df62c9924d85f11a04267296dafcaf154caf4ef79cb1e",
+    "company": "Paasa",
+    "record": {
+      "batches": {
+        "0": {
+          "status": "complete",
+          "facts": [
+            {
+              "id": "fact_df4bf894dcb6",
+              "category": "offering",
+              "subject": "target",
+              "quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory.",
+              "source_id": "reference_source_1",
+              "source_url": "https://www.ycombinator.com/companies/paasa",
+              "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+              "observed_at": null,
+              "origin": "source_checked_paraphrase",
+              "status": "source_reported",
+              "classification": "model_selected_not_independently_verified",
+              "source_passage_id": "P1",
+              "source_span_start": 0
+            },
+            {
+              "id": "fact_37dc50146fe3",
+              "category": "pricing",
+              "subject": "target",
+              "quote": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade.",
+              "source_id": "reference_source_2",
+              "source_url": "https://paasa.com/pricing",
+              "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+              "observed_at": null,
+              "origin": "source_checked_paraphrase",
+              "status": "source_reported",
+              "classification": "model_selected_not_independently_verified",
+              "source_passage_id": "P2",
+              "source_span_start": 0
+            },
+            {
+              "id": "fact_34b5296111eb",
+              "category": "pricing",
+              "subject": "target",
+              "quote": "Its percentage charge is based on assets under management, stated annually and collected monthly. Brokerage fees apply separately.",
+              "source_id": "reference_source_3",
+              "source_url": "https://paasa.com/pricing",
+              "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+              "observed_at": null,
+              "origin": "source_checked_paraphrase",
+              "status": "source_reported",
+              "classification": "model_selected_not_independently_verified",
+              "source_passage_id": "P3",
+              "source_span_start": 79
+            },
+            {
+              "id": "fact_bdf216e191cf",
+              "category": "company_structure",
+              "subject": "partner",
+              "quote": "It names licensed partners as the banking and brokerage service providers.",
+              "source_id": "reference_source_4",
+              "source_url": "https://paasa.com/",
+              "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+              "observed_at": null,
+              "origin": "source_checked_paraphrase",
+              "status": "source_reported",
+              "classification": "model_selected_not_independently_verified",
+              "source_passage_id": "P4",
+              "source_span_start": 90
+            }
+          ],
+          "rejected": []
+        },
+        "4": {
+          "status": "complete",
+          "facts": [
+            {
+              "id": "fact_b3856ba4a5cb",
+              "category": "company_structure",
+              "subject": "unclear",
+              "quote": "The site identifies Interactive Brokers as custodian and says customer cash and holdings are held in the customer's own name.",
+              "source_id": "reference_source_5",
+              "source_url": "https://paasa.com/",
+              "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+              "observed_at": null,
+              "origin": "source_checked_paraphrase",
+              "status": "source_reported",
+              "classification": "model_selected_not_independently_verified",
+              "source_passage_id": "P5",
+              "source_span_start": 0
+            },
+            {
+              "id": "fact_431bbce423d1",
+              "category": "company_structure",
+              "subject": "unclear",
+              "quote": "It lists Paasa, Inc., Paasa IFSC Private Limited and Bruhm Labs Private Limited, but this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements.",
+              "source_id": "reference_source_5",
+              "source_url": "https://paasa.com/",
+              "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+              "observed_at": null,
+              "origin": "source_checked_paraphrase",
+              "status": "source_reported",
+              "classification": "model_selected_not_independently_verified",
+              "source_passage_id": "P5",
+              "source_span_start": 126
+            }
+          ],
+          "rejected": []
+        }
+      },
+      "facts": [
+        {
+          "id": "fact_df4bf894dcb6",
+          "category": "offering",
+          "subject": "target",
+          "quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory.",
+          "source_id": "reference_source_1",
+          "source_url": "https://www.ycombinator.com/companies/paasa",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "status": "source_reported",
+          "classification": "model_selected_not_independently_verified",
+          "source_passage_id": "P1",
+          "source_span_start": 0
+        },
+        {
+          "id": "fact_37dc50146fe3",
+          "category": "pricing",
+          "subject": "target",
+          "quote": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade.",
+          "source_id": "reference_source_2",
+          "source_url": "https://paasa.com/pricing",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "status": "source_reported",
+          "classification": "model_selected_not_independently_verified",
+          "source_passage_id": "P2",
+          "source_span_start": 0
+        },
+        {
+          "id": "fact_34b5296111eb",
+          "category": "pricing",
+          "subject": "target",
+          "quote": "Its percentage charge is based on assets under management, stated annually and collected monthly. Brokerage fees apply separately.",
+          "source_id": "reference_source_3",
+          "source_url": "https://paasa.com/pricing",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "status": "source_reported",
+          "classification": "model_selected_not_independently_verified",
+          "source_passage_id": "P3",
+          "source_span_start": 79
+        },
+        {
+          "id": "fact_bdf216e191cf",
+          "category": "company_structure",
+          "subject": "partner",
+          "quote": "It names licensed partners as the banking and brokerage service providers.",
+          "source_id": "reference_source_4",
+          "source_url": "https://paasa.com/",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "status": "source_reported",
+          "classification": "model_selected_not_independently_verified",
+          "source_passage_id": "P4",
+          "source_span_start": 90
+        },
+        {
+          "id": "fact_b3856ba4a5cb",
+          "category": "company_structure",
+          "subject": "unclear",
+          "quote": "The site identifies Interactive Brokers as custodian and says customer cash and holdings are held in the customer's own name.",
+          "source_id": "reference_source_5",
+          "source_url": "https://paasa.com/",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "status": "source_reported",
+          "classification": "model_selected_not_independently_verified",
+          "source_passage_id": "P5",
+          "source_span_start": 0
+        },
+        {
+          "id": "fact_431bbce423d1",
+          "category": "company_structure",
+          "subject": "unclear",
+          "quote": "It lists Paasa, Inc., Paasa IFSC Private Limited and Bruhm Labs Private Limited, but this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements.",
+          "source_id": "reference_source_5",
+          "source_url": "https://paasa.com/",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "status": "source_reported",
+          "classification": "model_selected_not_independently_verified",
+          "source_passage_id": "P5",
+          "source_span_start": 126
+        }
+      ],
+      "extraction": "exact_source_claims",
+      "unknowns": [
+        "customers",
+        "traction"
+      ],
+      "coverage": "selected_sources_processed",
+      "source_selection": {
+        "max_sources": 24,
+        "max_per_url": 8,
+        "navigation_filtered": true
+      },
+      "source_limit_reached": false
+    },
+    "sections": {
+      "research.business": {
+        "document": "research",
+        "title": "Business and customer",
+        "status": "complete",
+        "content": {
+          "text": "According to Paasa's website, the company offers a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Paasa distinguishes itself from its licensed banking and brokerage partners, noting that Interactive Brokers acts as the custodian where customer cash and holdings are held in the client's own name. However, the available evidence does not confirm the specific corporate structure or ownership relationships between Paasa, Inc., Paasa IFSC Private Limited, and Bruhm Labs Private Limited.",
+          "fact_ids": [
+            "fact_df4bf894dcb6",
+            "fact_bdf216e191cf",
+            "fact_b3856ba4a5cb",
+            "fact_431bbce423d1"
+          ]
+        },
+        "input_hash": "c76c4c7aac0dc0e52684da97ad2c97eba9cc852542b1e32d5a482485a8038aa9",
+        "review_hash": "58cf64eae7e7d6798260a347236a7b7c9a8eff94630aa30b0b350a6e04a938cc",
+        "review": {
+          "objections": [],
+          "verdict": "pass"
+        },
+        "updated_at": "2026-09-14T19:53:32.040073+00:00",
+        "dependency": null
+      },
+      "research.economics": {
+        "document": "research",
+        "title": "Revenue mechanism",
+        "status": "complete",
+        "content": {
+          "revenue_mechanism": "Customers pay brokerage fees when they execute trades. Additionally, customers pay a percentage charge based on their assets under management, which is stated annually and collected monthly.",
+          "unknown_economics": "The specific amount of revenue Paasa retains after paying its licensed partners for banking, brokerage, and custodial services is unknown. Records showing the settlement statements between Paasa and these partner providers would be required to determine the actual net revenue earned from fees.",
+          "fact_ids": [
+            "fact_37dc50146fe3",
+            "fact_df4bf894dcb6",
+            "fact_34b5296111eb"
+          ]
+        },
+        "input_hash": "9731205737eb40985051e54ad2a77f6d8374e4c8a2a8dba0b3d2d1e459a1b9d7",
+        "review_hash": "58cf64eae7e7d6798260a347236a7b7c9a8eff94630aa30b0b350a6e04a938cc",
+        "review": {
+          "objections": [],
+          "verdict": "pass"
+        },
+        "updated_at": "2026-09-14T19:53:49.270085+00:00",
+        "dependency": null
+      },
+      "research.decision": {
+        "document": "research",
+        "title": "Opportunity and unresolved risks",
+        "status": "complete",
+        "content": {
+          "reason_to_engage": "Paasa earns revenue primarily from a percentage charge based on Assets Under Management (AUM) collected monthly for affluent Indian clients, alongside brokerage fees per trade. The AUM fee creates potential recurring revenue if customers retain assets over time.",
+          "unresolved_risk": "The specific percentage rate charged on AUM is not publicly disclosed in the provided sources, and the net revenue retained after paying partner costs (custodial, banking) is unknown. Without knowing the effective yield or margin per customer, profitability cannot be validated even if AUM grows.",
+          "next_decision": "Obtain records showing Paasa's actual AUM fee percentage rate and unit-level profit margins to calculate whether the recurring fee model generates positive cash flow above partner settlement costs.",
+          "fact_ids": [
+            "fact_df4bf894dcb6",
+            "fact_34b5296111eb",
+            "fact_37dc50146fe3"
+          ]
+        },
+        "input_hash": "a3eae4ce42d6c147f030752edec946b29d61e18949cdfb31eeae232f8d66f55d",
+        "review_hash": "58cf64eae7e7d6798260a347236a7b7c9a8eff94630aa30b0b350a6e04a938cc",
+        "review": {
+          "objections": [],
+          "verdict": "pass"
+        },
+        "updated_at": "2026-09-14T19:55:20.723659+00:00",
+        "dependency": null
+      },
+      "diligence.request_a": {
+        "document": "diligence",
+        "title": "First diligence request",
+        "status": "complete",
+        "content": {
+          "question": "What are the realized AUM-based revenue rates and average cost-to-income ratios across Paasa's active customer segments?",
+          "records_to_request": "Export an aggregate billing ledger for the last fiscal year showing, per customer segment: total assets under management (AUM) at period-end, monthly recurring AUM fees collected, total brokerage pass-throughs excluded, total operating expenses allocated to that segment, and resulting cost-to-income ratio. Align these records to the same reporting periods used in the public pricing pages.",
+          "decision": "These records will reveal whether Paasa's actual fee collection matches its published tariff and whether operational costs are sustainable per segment. A finding that fees collected are significantly below AUM or that operating expenses exceed fee income would warrant a negative recommendation.",
+          "fact_ids": [
+            "fact_37dc50146fe3",
+            "fact_bdf216e191cf",
+            "fact_34b5296111eb",
+            "fact_b3856ba4a5cb"
+          ]
+        },
+        "input_hash": "a84d79d53a7f50ea59acf72bfb7e50c3fd3435cecc78e4eed1c4f86d7a4916ff",
+        "review_hash": "58cf64eae7e7d6798260a347236a7b7c9a8eff94630aa30b0b350a6e04a938cc",
+        "review": {
+          "objections": [],
+          "verdict": "pass"
+        },
+        "updated_at": "2026-09-14T19:55:49.604860+00:00",
+        "dependency": null
+      },
+      "readiness.action_a": {
+        "document": "readiness",
+        "title": "First readiness action",
+        "status": "complete",
+        "content": {
+          "required_input": "Export an aggregate billing ledger for the last fiscal year showing, per customer segment: total assets under management (AUM) at period-end, monthly recurring AUM fees collected, total brokerage pass-throughs excluded, total operating expenses allocated to that segment.",
+          "action": "Calculate realized revenue rates by comparing published fee tariffs from public pages against actual billing ledger amounts. Compare total brokerage pass-throughs excluded in the ledger against expected trading volumes to verify fee pass-through accuracy.",
+          "output": "A reconciliation memo comparing Paasa's published fee schedule with actual collected fees, excluding pass-throughs, and a cost-to-income ratio per segment based on operating expenses versus net fee income.",
+          "decision": "Reject if AUM-based fees collected are significantly lower than stated tariffs or if operating expenses exceed total fee revenue in any active segment.",
+          "fact_ids": [
+            "fact_37dc50146fe3",
+            "fact_bdf216e191cf",
+            "fact_34b5296111eb",
+            "fact_b3856ba4a5cb"
+          ]
+        },
+        "input_hash": "8a29672a2bd9e60be98222f836160d21e7e9b4f46c1939f416072958a9abd3be",
+        "review_hash": "58cf64eae7e7d6798260a347236a7b7c9a8eff94630aa30b0b350a6e04a938cc",
+        "review": {
+          "objections": [],
+          "verdict": "pass"
+        },
+        "updated_at": "2026-09-14T19:57:31.382812+00:00",
+        "dependency": "diligence.request_a"
+      }
+    },
+    "attempts": [
+      {
+        "task": "record_extract",
+        "attempt": 0,
+        "at": "2026-09-14T19:51:36.799706+00:00",
+        "implementation_hash": "7b3f94949c88ebde0a56f0e9b847e822d2add87223c098330d7fddabfb2d9f18",
+        "answer": {
+          "facts": [
+            {
+              "passage_id": "P1",
+              "category": "offering",
+              "subject": "target",
+              "quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory."
+            },
+            {
+              "passage_id": "P2",
+              "category": "pricing",
+              "subject": "target",
+              "quote": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade."
+            },
+            {
+              "passage_id": "P3",
+              "category": "pricing",
+              "subject": "target",
+              "quote": "Its percentage charge is based on assets under management, stated annually and collected monthly. Brokerage fees apply separately."
+            },
+            {
+              "passage_id": "P4",
+              "category": "company_structure",
+              "subject": "partner",
+              "quote": "The site names Arc Spire Advisory Private Limited as the advisory service provider operating under the Paasa brand and reports its SEBI registration."
+            }
+          ]
+        },
+        "elapsed_seconds": 18.96,
+        "routing": {
+          "task": "record_extract",
+          "attempt": 0,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1800,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "context_tokens": 8192,
+          "temperature": 0.7,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 18.96,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 963,
+          "generated_tokens": 263,
+          "done_reason": "stop"
+        },
+        "model": "qwen3.5:9b"
+      },
+      {
+        "task": "record_extract",
+        "attempt": 1,
+        "at": "2026-09-14T19:51:55.765335+00:00",
+        "implementation_hash": "7b3f94949c88ebde0a56f0e9b847e822d2add87223c098330d7fddabfb2d9f18",
+        "answer": {
+          "facts": [
+            {
+              "passage_id": "P1",
+              "category": "offering",
+              "subject": "target",
+              "quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory."
+            },
+            {
+              "passage_id": "P2",
+              "category": "pricing",
+              "subject": "target",
+              "quote": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade."
+            },
+            {
+              "passage_id": "P3",
+              "category": "pricing",
+              "subject": "target",
+              "quote": "Its percentage charge is based on assets under management, stated annually and collected monthly. Brokerage fees apply separately."
+            },
+            {
+              "passage_id": "P4",
+              "category": "company_structure",
+              "subject": "partner",
+              "quote": "It names licensed partners as the banking and brokerage service providers."
+            }
+          ]
+        },
+        "elapsed_seconds": 13.41,
+        "routing": {
+          "task": "record_extract",
+          "attempt": 1,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1800,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "context_tokens": 8192,
+          "temperature": 0.7,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 13.4,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 1051,
+          "generated_tokens": 248,
+          "done_reason": "stop"
+        },
+        "model": "qwen3.5:9b"
+      },
+      {
+        "task": "record_extract",
+        "attempt": 0,
+        "at": "2026-09-14T19:52:09.181788+00:00",
+        "implementation_hash": "7b3f94949c88ebde0a56f0e9b847e822d2add87223c098330d7fddabfb2d9f18",
+        "answer": {
+          "facts": [
+            {
+              "passage_id": "P5",
+              "category": "company_structure",
+              "subject": "unclear",
+              "quote": "The site identifies Interactive Brokers as custodian and says customer cash and holdings are held in the customer's own name."
+            },
+            {
+              "passage_id": "P5",
+              "category": "company_structure",
+              "subject": "unclear",
+              "quote": "It lists Paasa, Inc., Paasa IFSC Private Limited and Bruhm Labs Private Limited, but this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements."
+            }
+          ]
+        },
+        "elapsed_seconds": 7.74,
+        "routing": {
+          "task": "record_extract",
+          "attempt": 0,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1800,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "context_tokens": 8192,
+          "temperature": 0.7,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 7.73,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 762,
+          "generated_tokens": 123,
+          "done_reason": "stop"
+        },
+        "model": "qwen3.5:9b"
+      },
+      {
+        "task": "analyst_agenda",
+        "attempt": 0,
+        "at": "2026-09-14T19:52:16.932157+00:00",
+        "implementation_hash": "7b3f94949c88ebde0a56f0e9b847e822d2add87223c098330d7fddabfb2d9f18",
+        "answer": {
+          "questions": [
+            {
+              "dimension": "unit_economics",
+              "question": "What are the realized AUM-based revenue rates and average cost-to-income ratios across Paasa's active customer segments?",
+              "fact_ids": [
+                "fact_37dc50146fe3",
+                "fact_df4bf894dcb6"
+              ]
+            },
+            {
+              "dimension": "customer_demand",
+              "question": "How does Paasa measure annual recurring revenue retention from its advisory fee model for Affluent Indian customers?",
+              "fact_ids": [
+                "fact_df4bf894dcb6"
+              ]
+            }
+          ]
+        },
+        "elapsed_seconds": 57.91,
+        "routing": {
+          "task": "analyst_agenda",
+          "attempt": 0,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": true,
+          "max_tokens": 4096,
+          "thinking_used": true,
+          "reasoning_budget": 1024,
+          "answer_continuation": true,
+          "context_tokens": 8192,
+          "temperature": 1.0,
+          "sampling": {
+            "top_p": 0.95,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 57.91,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 1107,
+          "generated_tokens": 1131,
+          "done_reason": "stop"
+        },
+        "model": "qwen3.5:9b"
+      },
+      {
+        "task": "analyst_section",
+        "attempt": 0,
+        "at": "2026-09-14T19:53:14.860563+00:00",
+        "implementation_hash": "7b3f94949c88ebde0a56f0e9b847e822d2add87223c098330d7fddabfb2d9f18",
+        "answer": {
+          "text": "According to Paasa's website, the company offers a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Paasa distinguishes itself from its licensed banking and brokerage partners, noting that Interactive Brokers acts as the custodian where customer cash and holdings are held in the client's own name. However, the available evidence does not confirm the specific corporate structure or ownership relationships between Paasa, Inc., Paasa IFSC Private Limited, and Bruhm Labs Private Limited.",
+          "fact_ids": [
+            "fact_df4bf894dcb6",
+            "fact_bdf216e191cf",
+            "fact_b3856ba4a5cb",
+            "fact_431bbce423d1"
+          ]
+        },
+        "elapsed_seconds": 12.31,
+        "routing": {
+          "task": "analyst_section",
+          "attempt": 0,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1800,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "context_tokens": 8192,
+          "temperature": 0.7,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 12.3,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 1138,
+          "generated_tokens": 180,
+          "done_reason": "stop"
+        },
+        "model": "qwen3.5:9b"
+      },
+      {
+        "task": "review:analyst_section",
+        "attempt": 0,
+        "at": "2026-09-14T19:53:27.184434+00:00",
+        "implementation_hash": "7b3f94949c88ebde0a56f0e9b847e822d2add87223c098330d7fddabfb2d9f18",
+        "answer": {
+          "verdict": "pass",
+          "objections": []
+        },
+        "elapsed_seconds": 4.85,
+        "routing": {
+          "task": "review:analyst_section",
+          "attempt": 0,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1800,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "context_tokens": 8192,
+          "temperature": 0.7,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 4.84,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 1594,
+          "generated_tokens": 11,
+          "done_reason": "stop"
+        },
+        "model": "qwen3.5:9b"
+      },
+      {
+        "task": "analyst_section",
+        "attempt": 0,
+        "at": "2026-09-14T19:53:32.046205+00:00",
+        "implementation_hash": "7b3f94949c88ebde0a56f0e9b847e822d2add87223c098330d7fddabfb2d9f18",
+        "answer": {
+          "revenue_mechanism": "Customers pay brokerage fees when they execute trades. Additionally, customers pay a percentage charge based on their assets under management, which is stated annually and collected monthly.",
+          "unknown_economics": "The specific amount of revenue Paasa retains after paying its licensed partners for banking, brokerage, and custodial services is unknown. Records showing the settlement statements between Paasa and these partner providers would be required to determine the actual net revenue earned from fees.",
+          "fact_ids": [
+            "fact_37dc50146fe3",
+            "fact_df4bf894dcb6",
+            "fact_34b5296111eb"
+          ]
+        },
+        "elapsed_seconds": 12.21,
+        "routing": {
+          "task": "analyst_section",
+          "attempt": 0,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1800,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "context_tokens": 8192,
+          "temperature": 0.7,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 12.21,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 1560,
+          "generated_tokens": 153,
+          "done_reason": "stop"
+        },
+        "model": "qwen3.5:9b"
+      },
+      {
+        "task": "review:analyst_section",
+        "attempt": 0,
+        "at": "2026-09-14T19:53:44.274815+00:00",
+        "implementation_hash": "7b3f94949c88ebde0a56f0e9b847e822d2add87223c098330d7fddabfb2d9f18",
+        "answer": {
+          "verdict": "pass",
+          "objections": []
+        },
+        "elapsed_seconds": 4.99,
+        "routing": {
+          "task": "review:analyst_section",
+          "attempt": 0,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1800,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "context_tokens": 8192,
+          "temperature": 0.7,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 4.98,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 1499,
+          "generated_tokens": 14,
+          "done_reason": "stop"
+        },
+        "model": "qwen3.5:9b"
+      },
+      {
+        "task": "analyst_section",
+        "attempt": 0,
+        "at": "2026-09-14T19:53:49.280690+00:00",
+        "implementation_hash": "7b3f94949c88ebde0a56f0e9b847e822d2add87223c098330d7fddabfb2d9f18",
+        "answer": {
+          "reason_to_engage": "Paasa earns revenue primarily from a percentage charge based on Assets Under Management (AUM) collected monthly for affluent Indian clients, alongside brokerage fees per trade. The AUM fee creates potential recurring revenue if customers retain assets over time.",
+          "unresolved_risk": "The specific percentage rate charged on AUM is not publicly disclosed in the provided sources, and the net revenue retained after paying partner costs (custodial, banking) is unknown. Without knowing the effective yield or margin per customer, profitability cannot be validated even if AUM grows.",
+          "next_decision": "Obtain records showing Paasa's actual AUM fee percentage rate and unit-level profit margins to calculate whether the recurring fee model generates positive cash flow above partner settlement costs.",
+          "fact_ids": [
+            "fact_df4bf894dcb6",
+            "fact_34b5296111eb",
+            "fact_37dc50146fe3"
+          ]
+        },
+        "elapsed_seconds": 83.8,
+        "routing": {
+          "task": "analyst_section",
+          "attempt": 0,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": true,
+          "max_tokens": 4096,
+          "thinking_used": true,
+          "reasoning_budget": 1024,
+          "answer_continuation": true,
+          "context_tokens": 8192,
+          "temperature": 1.0,
+          "sampling": {
+            "top_p": 0.95,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 83.8,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 1653,
+          "generated_tokens": 1224,
+          "done_reason": "stop"
+        },
+        "model": "qwen3.5:9b"
+      },
+      {
+        "task": "review:analyst_section",
+        "attempt": 0,
+        "at": "2026-09-14T19:55:13.103638+00:00",
+        "implementation_hash": "7b3f94949c88ebde0a56f0e9b847e822d2add87223c098330d7fddabfb2d9f18",
+        "answer": {
+          "verdict": "pass",
+          "objections": []
+        },
+        "elapsed_seconds": 7.61,
+        "routing": {
+          "task": "review:analyst_section",
+          "attempt": 0,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1800,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "context_tokens": 8192,
+          "temperature": 0.7,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 7.6,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 1883,
+          "generated_tokens": 11,
+          "done_reason": "stop"
+        },
+        "model": "qwen3.5:9b"
+      },
+      {
+        "task": "analyst_section",
+        "attempt": 0,
+        "at": "2026-09-14T19:55:20.731641+00:00",
+        "implementation_hash": "7b3f94949c88ebde0a56f0e9b847e822d2add87223c098330d7fddabfb2d9f18",
+        "answer": {
+          "question": "What are the realized AUM-based revenue rates and average cost-to-income ratios across Paasa's active customer segments?",
+          "records_to_request": "Export an aggregate billing ledger for the last fiscal year showing, per customer segment: total assets under management (AUM) at period-end, monthly recurring AUM fees collected, total brokerage pass-throughs excluded, total operating expenses allocated to that segment, and resulting cost-to-income ratio. Align these records to the same reporting periods used in the public pricing pages.",
+          "decision": "These records will reveal whether Paasa's actual fee collection matches its published tariff and whether operational costs are sustainable per segment. A finding that fees collected are significantly below AUM or that operating expenses exceed fee income would warrant a negative recommendation.",
+          "fact_ids": [
+            "fact_37dc50146fe3",
+            "fact_bdf216e191cf",
+            "fact_34b5296111eb",
+            "fact_b3856ba4a5cb"
+          ]
+        },
+        "elapsed_seconds": 21.89,
+        "routing": {
+          "task": "analyst_section",
+          "attempt": 0,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1800,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "context_tokens": 8192,
+          "temperature": 0.7,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 21.88,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 1765,
+          "generated_tokens": 239,
+          "done_reason": "stop"
+        },
+        "model": "qwen3.5:9b"
+      },
+      {
+        "task": "review:analyst_section",
+        "attempt": 0,
+        "at": "2026-09-14T19:55:42.632565+00:00",
+        "implementation_hash": "7b3f94949c88ebde0a56f0e9b847e822d2add87223c098330d7fddabfb2d9f18",
+        "answer": {
+          "verdict": "pass",
+          "objections": []
+        },
+        "elapsed_seconds": 6.96,
+        "routing": {
+          "task": "review:analyst_section",
+          "attempt": 0,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1800,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "context_tokens": 8192,
+          "temperature": 0.7,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 6.96,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 1862,
+          "generated_tokens": 11,
+          "done_reason": "stop"
+        },
+        "model": "qwen3.5:9b"
+      },
+      {
+        "task": "analyst_section",
+        "attempt": 0,
+        "at": "2026-09-14T19:55:49.613622+00:00",
+        "implementation_hash": "7b3f94949c88ebde0a56f0e9b847e822d2add87223c098330d7fddabfb2d9f18",
+        "answer": {
+          "required_input": "Export an aggregate billing ledger for the last fiscal year showing, per customer segment: total assets under management (AUM) at period-end, monthly recurring AUM fees collected, total brokerage pass-throughs excluded, total operating expenses allocated to that segment.",
+          "action": "Calculate realized revenue rates by comparing published fee tariffs from public pages against actual billing ledger amounts. Compare total brokerage pass-throughs excluded in the ledger against expected trading volumes to verify fee pass-through accuracy.",
+          "output": "A reconciliation memo comparing Paasa's published fee schedule with actual collected fees, excluding pass-throughs, and a cost-to-income ratio per segment based on operating expenses versus net fee income.",
+          "decision": "Reject if AUM-based fees collected are significantly lower than stated tariffs or if operating expenses exceed total fee revenue in any active segment.",
+          "fact_ids": [
+            "fact_37dc50146fe3",
+            "fact_bdf216e191cf",
+            "fact_34b5296111eb",
+            "fact_b3856ba4a5cb"
+          ]
+        },
+        "elapsed_seconds": 93.53,
+        "routing": {
+          "task": "analyst_section",
+          "attempt": 0,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": true,
+          "max_tokens": 4096,
+          "thinking_used": true,
+          "reasoning_budget": 1024,
+          "answer_continuation": true,
+          "context_tokens": 8192,
+          "temperature": 1.0,
+          "sampling": {
+            "top_p": 0.95,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 93.52,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 1848,
+          "generated_tokens": 1253,
+          "done_reason": "stop"
+        },
+        "model": "qwen3.5:9b"
+      },
+      {
+        "task": "review:analyst_section",
+        "attempt": 0,
+        "at": "2026-09-14T19:57:23.162502+00:00",
+        "implementation_hash": "7b3f94949c88ebde0a56f0e9b847e822d2add87223c098330d7fddabfb2d9f18",
+        "answer": {
+          "verdict": "pass",
+          "objections": []
+        },
+        "elapsed_seconds": 8.2,
+        "routing": {
+          "task": "review:analyst_section",
+          "attempt": 0,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1800,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "context_tokens": 8192,
+          "temperature": 0.7,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 8.2,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 1974,
+          "generated_tokens": 11,
+          "done_reason": "stop"
+        },
+        "model": "qwen3.5:9b"
+      },
+      {
+        "task": "analyst_section",
+        "attempt": 0,
+        "at": "2026-09-14T19:57:31.390834+00:00",
+        "implementation_hash": "7b3f94949c88ebde0a56f0e9b847e822d2add87223c098330d7fddabfb2d9f18",
+        "elapsed_seconds": 0.2,
+        "routing": {
+          "task": "analyst_section",
+          "attempt": 0,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "temperature": 0.7,
+          "max_tokens": 1800,
+          "context_tokens": 8192
+        },
+        "model": "qwen3.5:9b"
+      }
+    ],
+    "status": "partial",
+    "started_at": "2026-09-14T19:51:36.798792+00:00",
+    "generation_config": {
+      "mode": "section_router",
+      "model": "qwen3.5:9b",
+      "review_model": "qwen3.5:9b",
+      "thinking": false,
+      "repair_thinking": true,
+      "complex_section_thinking": true,
+      "review_thinking": false,
+      "reasoning_budget": 1024
+    },
+    "last_implementation_hash": "7b3f94949c88ebde0a56f0e9b847e822d2add87223c098330d7fddabfb2d9f18",
+    "documents": {
+      "research": {
+        "title": "Research memo",
+        "status": "complete"
+      },
+      "founder": {
+        "title": "Founder proposal",
+        "status": "partial"
+      },
+      "diligence": {
+        "title": "Diligence request",
+        "status": "partial"
+      },
+      "readiness": {
+        "title": "Investment-readiness plan",
+        "status": "partial"
+      }
+    },
+    "updated_at": "2026-09-14T19:57:31.592807+00:00",
+    "calculations": [],
+    "agenda": {
+      "status": "complete",
+      "input_hash": "5f923e5a43a4590af39573e01f405acd6a5aa6106a2ead205cc2132bc3f2c4e8",
+      "questions": [
+        {
+          "dimension": "unit_economics",
+          "question": "What are the realized AUM-based revenue rates and average cost-to-income ratios across Paasa's active customer segments?",
+          "fact_ids": [
+            "fact_37dc50146fe3",
+            "fact_df4bf894dcb6"
+          ]
+        },
+        {
+          "dimension": "customer_demand",
+          "question": "How does Paasa measure annual recurring revenue retention from its advisory fee model for Affluent Indian customers?",
+          "fact_ids": [
+            "fact_df4bf894dcb6"
+          ]
+        }
+      ]
+    }
+  },
+  "metrics": {
+    "completed_sections": 5,
+    "expected_sections": 9,
+    "completion_rate": 0.5555555555555556,
+    "completed_documents": [
+      "research"
+    ],
+    "model_calls": 15,
+    "correction_attempts": 1,
+    "inference_seconds": 354.57,
+    "independently_audited_factual_errors": null,
+    "actionable_sections": null
+  },
+  "elapsed_seconds": 354.81,
+  "actual_inference_calls": 15,
+  "denied_corrections": [],
+  "error": "Interrupted",
+  "external_correction": {
+    "kind": "development_audit_feedback",
+    "section": "diligence.request_a",
+    "field": "decision",
+    "feedback": {
+      "field": "decision",
+      "passage": "These records will reveal whether Paasa's actual fee collection matches its published tariff and whether operational costs are sustainable per segment. A finding that fees collected are significantly below AUM or that operating expenses exceed fee income would warrant a negative recommendation.",
+      "basis_id": "output_contract",
+      "supporting_quote": "A published fee is not billed revenue, and assets under management are not company revenue.",
+      "correction": "The phrase fees collected are significantly below AUM compares service charges with customer assets. Fees being below the asset base is expected and cannot alone support a negative recommendation. Define the decision using realized retained revenue and appropriately matched service costs, while preserving uncertainty. Correct only this financial reasoning; do not invent performance or a benchmark."
+    },
+    "original": {
+      "question": "What are the realized AUM-based revenue rates and average cost-to-income ratios across Paasa's active customer segments?",
+      "records_to_request": "Export an aggregate billing ledger for the last fiscal year showing, per customer segment: total assets under management (AUM) at period-end, monthly recurring AUM fees collected, total brokerage pass-throughs excluded, total operating expenses allocated to that segment, and resulting cost-to-income ratio. Align these records to the same reporting periods used in the public pricing pages.",
+      "decision": "These records will reveal whether Paasa's actual fee collection matches its published tariff and whether operational costs are sustainable per segment. A finding that fees collected are significantly below AUM or that operating expenses exceed fee income would warrant a negative recommendation.",
+      "fact_ids": [
+        "fact_37dc50146fe3",
+        "fact_bdf216e191cf",
+        "fact_34b5296111eb",
+        "fact_b3856ba4a5cb"
+      ]
+    },
+    "at": "2026-09-14T19:58:27.575456+00:00",
+    "status": "failed",
+    "reference_answer_supplied": false,
+    "error": "decision: Put source references in fact_ids, not in the prose or a record request.",
+    "raw_response": "{\"decision\": \"These records enable us to assess whether Paasa's realized retained revenue and matched service costs are sustainable for each segment; a negative finding would occur if operating expenses consistently exceed net fee income without external funding or if fee revenue is materially lower than expected. Supported by facts: fact_37dc50146fe3, fact_bdf216e191cf, fact_b3856ba4a5cb.\"}",
+    "elapsed_seconds": 61.57,
+    "routing": {
+      "task": "analyst_section",
+      "attempt": 1,
+      "profile": "section_router",
+      "model": "qwen3.5:9b",
+      "thinking": true,
+      "max_tokens": 4096,
+      "thinking_used": true,
+      "reasoning_budget": 1024,
+      "answer_continuation": true,
+      "context_tokens": 8192,
+      "temperature": 1.0,
+      "sampling": {
+        "top_p": 0.95,
+        "top_k": 20,
+        "min_p": 0,
+        "presence_penalty": 1.5,
+        "repeat_penalty": 1.0
+      },
+      "elapsed_seconds": 61.56,
+      "queue_seconds": 0.0,
+      "prompt_tokens": 1568,
+      "generated_tokens": 1120,
+      "done_reason": "stop"
+    },
+    "production_normalization_rechecked": true,
+    "content_audit": {
+      "fee_vs_assets_error_removed": true,
+      "whole_section_usable": false,
+      "notes": [
+        "The correction removes the direct fee-to-assets rejection rule.",
+        "It still leaves an unspecified expected-fee baseline and the original request for cost allocations and calculated ratios from a billing ledger.",
+        "Embedded fact identifiers are rejected by the unchanged production validator, including its citation normalizer.",
+        "This correction required specific development-audit feedback after automatic review passed the defective original."
+      ]
+    }
+  },
+  "stopped_reason": "Stopped after a material financial-method error passed automatic review. One targeted correction is evaluated separately; the original pipeline result is retained.",
+  "total_actual_inference_calls": 16,
+  "total_elapsed_seconds": 472.34,
+  "audit": {
+    "verdict": "fail",
+    "first_company_milestone_passed": false,
+    "model_promoted": false,
+    "reference_supplied_to_model": false,
+    "scope": "Development comparison against the separate reference; not independent practitioner certification. Stopped on material error rather than finishing work that could not pass.",
+    "material_failures": [
+      {
+        "section": "research.economics",
+        "issue": "Drops Access/Apex qualification and describes asset-based charges without identifying the applicable plan.",
+        "upstream_evidence": "The input names Apex and its no-markup qualification; extraction retained an unbound Its percentage charge fragment and omitted the qualification."
+      },
+      {
+        "section": "research.decision",
+        "issue": "Asserts AUM fees are the primary revenue source without a revenue breakdown and uses unavailable metrics as its risk; public disclosure absence cannot be inferred from a compact input packet."
+      },
+      {
+        "section": "diligence.request_a",
+        "issue": "Treats fees below customer AUM as an adverse investment finding; customer assets are not the appropriate revenue or cost comparator. Automatic review passed."
+      },
+      {
+        "section": "readiness.action_a",
+        "issue": "Compares fee amounts with tariff rates and pass-through charges with trading volume without specifying a dimensionally valid calculation; applies a blanket reject rule to any loss-making segment. Automatic review passed."
+      }
+    ],
+    "generated_sections": 5,
+    "expected_sections": 9,
+    "untested_sections": [
+      "diligence.request_b",
+      "readiness.action_b",
+      "founder.observation",
+      "founder.proposal"
+    ],
+    "decision": "Do not advance this profile to other companies or label it an autonomous MVP. The evidence shows failures in extraction, financial interpretation and review; it does not establish that every free/local model is incapable. Keep the reference as a held-out evaluation artifact. Further model comparisons or product-scope changes require a deliberate next decision, not another automatic retry."
+  },
+  "runtime": {
+    "ollama_version": "0.33.3",
+    "model_digest": "6488c96fa5faab64bb65cbd30d4289e20e6130ef535a93ef9a49f42eda893ea7",
+    "quantization": "Q4_K_M"
+  }
+}

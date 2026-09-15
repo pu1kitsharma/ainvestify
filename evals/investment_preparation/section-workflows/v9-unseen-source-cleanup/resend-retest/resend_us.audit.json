@@ -1,0 +1,37 @@
+{
+  "case_id": "resend_us",
+  "report_sha256": "140a888bd89bee8a22faf20ad549e226c1fac53a50bb9dd880b75335008db59f",
+  "reviewed": true,
+  "reviewer_kind": "coding_session_development_inspection_separate_from_model_review_not_practitioner",
+  "decision": "event_and_source_budget_fixes_verified_full_research_acceptance_still_unmet",
+  "elapsed_seconds": 71.01,
+  "model_calls": 4,
+  "correction_attempts": 1,
+  "findings": [
+    "Code rejected the repeated unsupported completed-order choice. One targeted correction selected recorded product use.",
+    "Pricing now contributes three complete captured contexts, including opening add-on terms and closing conditions.",
+    "The invitation contains the actual question without the instruction label.",
+    "Source selection still chose a pricing-footer/testimonial context for the business and founder opening. The quoted memo is not a concise substantive research summary.",
+    "Pro is source-reported, but the proposer should say Pro email service and define first production email usage with the company before execution."
+  ],
+  "section_assessment": {
+    "research.business": "needs_relevant_shorter_source_context",
+    "research.economics": "initial_method_usable_with_scope_and_presentation_edits",
+    "research.decision": "initial_method_usable_with_scope_and_presentation_edits",
+    "founder.observation": "needs_relevant_shorter_source_context",
+    "founder.proposal": "initial_method_usable_with_scope_and_presentation_edits",
+    "diligence.request_a": "initial_method_usable_with_scope_and_presentation_edits",
+    "diligence.request_b": "initial_method_usable_with_scope_and_presentation_edits",
+    "readiness.action_a": "initial_method_usable_with_scope_and_presentation_edits",
+    "readiness.action_b": "initial_method_usable_with_scope_and_presentation_edits"
+  },
+  "company_performance_independently_verified": false,
+  "investment_handling_accepted": false,
+  "unseen_result": false,
+  "limitations": [
+    "This is a development retest after seeing the original failure, not another unseen pass.",
+    "Necessary word-level support for an order event does not prove all customer event semantics.",
+    "Bounded HTML collection and source selection remain partial; captured plan/add-on references are not a verified full pricing schedule.",
+    "No private records, valuation, portfolio decisions, compliance review, external messages or transactions were executed."
+  ]
+}

@@ -234,12 +234,12 @@ def test_web_api_job_history_validation_and_tenant_scope(tmp_path, monkeypatch):
     app.dependency_overrides[deps.get_tenant_id] = lambda: "one"
     try:
         with TestClient(app) as client:
-            response = client.post("/api/leads/web-runs", json={"thesis": "Any sector", "seed_urls": ["https://farm.example/"]})
+            response = client.post("/api/leads/web-runs", json={"thesis": "Any sector", "seed_urls": ["https://farm.example/"], "prepare_workflow": False})
             assert response.status_code == 202
             run_id = response.json()["id"]
             assert client.get(f"/api/leads/web-runs/{run_id}").json()["status"] == "completed"
             workspaces = client.get("/api/operations/workspaces").json()
-            assert len(workspaces) == 1 and len(workspaces[0]["drafts"]) == 4
+            assert len(workspaces) == 1 and len(workspaces[0]["drafts"]) == 0
             assert next(t for t in workspaces[0]["work_items"] if t["id"] == "closing")["status"] == "blocked"
             assert len(client.get("/api/leads").json()) == 1
             assert client.post("/api/leads/web-runs", json={"thesis": "All", "seed_urls": ["file:///tmp/x"]}).status_code == 422
@@ -249,3 +249,16 @@ def test_web_api_job_history_validation_and_tenant_scope(tmp_path, monkeypatch):
     finally:
         app.dependency_overrides.clear()
         app.dependency_overrides.update(original)
+
+
+def test_navigation_is_not_company_evidence_but_its_destinations_remain():
+    page = parse_page('https://example.org/', '''<title>Example Company</title>
+      <nav><div><a href="/pricing">Plans</a><br><span>Log in</span></div></nav>
+      <div role="navigation"><div><a href="/about">Team</a></div><span>Menu end</span></div>
+      <main><h1>We build farm irrigation systems.</h1><p>Farmers pay for equipment and maintenance.</p><a href="/results">Measured field results</a></main>
+      <footer>Services are provided by Named Partner Limited.</footer>''')
+    assert 'Log in' not in page.text and 'Menu end' not in page.text and 'Plans' not in page.text
+    assert 'Example Company' not in page.text and page.title == 'Example Company'
+    assert 'Farmers pay for equipment' in page.text and 'Named Partner Limited' in page.text
+    assert page.links[0]['url'] == 'https://example.org/results'
+    assert any(link['url']=='https://example.org/pricing' and link['label']=='Plans' for link in page.links)

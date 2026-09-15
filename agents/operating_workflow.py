@@ -70,6 +70,19 @@ def reconcile_workspace(store, lead, geography=None, thesis=None, persist=True):
         workspace.events.append({"at": utcnow(), "action": "evidence_changed", "detail": "Drafts and prior attestations require re-evaluation."})
     workspace.basis_hash = basis
     workspace.evaluated_at = utcnow()
+    if profile.provenance.get('pipeline') == 'model_authored_v1':
+        # Fresh company work is exclusively in the model-authored pack. Do not
+        # manufacture the former business checklist or financial workpaper.
+        from agents.company_metrics import metrics_report
+        workspace.metrics = metrics_report(workspace.metric_updates)
+        workspace.work_items = []
+        workspace.preparation = {}
+        workspace.controls = [ControlCheck(id='deployment', title='External execution', status='needs_review',
+            reason='External sending, signing and money movement are disabled in this local application.',
+            blocks=['release','fundraising','closing'])]
+        if persist:
+            store.save_workspace(workspace, expected_revision=expected)
+        return workspace
     attestations = {a.kind: a for a in workspace.attestations if a.basis_hash == basis and set(a.evidence_ids).issubset(valid)}
     partial_current = workspace.draft_status == "partial" and any(b == basis for b in workspace.draft_stage_basis.values())
     if workspace.drafts and ((workspace.draft_basis_hash != basis and not partial_current) or workspace.draft_schema_version < CURRENT_DRAFT_VERSION):

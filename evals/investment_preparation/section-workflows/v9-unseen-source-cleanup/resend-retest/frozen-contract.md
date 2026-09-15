@@ -1,0 +1,3 @@
+# One development retest, not an unseen result
+
+The original Resend result failed despite model review pass. Retest once after: (1) round-robin complete page contexts that retain pricing opening/closing terms before homepage bulk, (2) a necessary source-support gate for completed-order events, and (3) literal instruction-label removal. No model/profile changes. Same homepage-only input, production collector, 120 seconds including collection, six logical calls/ten raw inference requests, one normal correction per stage. Apply the original content rubric. Preserve original outputs and their failed audit. The source-support gate is a necessary check, not a general proof of event suitability.

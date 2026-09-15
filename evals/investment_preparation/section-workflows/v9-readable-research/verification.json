@@ -1,0 +1,100 @@
+{
+  "backend_tests": 213,
+  "frontend_build": "passed",
+  "frontend_lint": "passed",
+  "isolated_browser_regression": "passed",
+  "live": [
+    {
+      "company": "waybill",
+      "workspace_id": "workspace_41fd0152cbe3",
+      "revision": 318,
+      "job_id": "automation_33d080715de3",
+      "complete_sections": 9,
+      "summary_characters": 528,
+      "source_facts_unchanged": true,
+      "original_raw_responses_retained": true,
+      "original_section_content_retained": true,
+      "current_render_identical": true,
+      "saved_get_ms": 29.639,
+      "saved_get_model_calls": 0,
+      "final_live_review_calls": 1
+    },
+    {
+      "company": "paasa",
+      "workspace_id": "workspace_c63410428a00",
+      "revision": 1306,
+      "job_id": "automation_bab9cbc6d88f",
+      "complete_sections": 9,
+      "summary_characters": 389,
+      "source_facts_unchanged": true,
+      "original_raw_responses_retained": true,
+      "original_section_content_retained": true,
+      "current_render_identical": true,
+      "saved_get_ms": 45.725,
+      "saved_get_model_calls": 0,
+      "final_live_review_calls": 1
+    }
+  ],
+  "runs": [
+    {
+      "path": "waybill-first-attempt.json",
+      "calls": 2,
+      "status": "partial",
+      "budget_seconds": 48.92
+    },
+    {
+      "path": "waybill-final.json",
+      "calls": 2,
+      "status": "partial",
+      "budget_seconds": 46.597
+    },
+    {
+      "path": "final/waybill.json",
+      "calls": 4,
+      "status": "complete",
+      "budget_seconds": 55.789
+    },
+    {
+      "path": "final/paasa.json",
+      "calls": 4,
+      "status": "complete",
+      "budget_seconds": 83.379
+    },
+    {
+      "path": "verified/paasa.json",
+      "calls": 4,
+      "status": "complete",
+      "budget_seconds": 58.184
+    },
+    {
+      "path": "accepted/paasa.json",
+      "calls": 2,
+      "status": "complete",
+      "budget_seconds": 25.022
+    },
+    {
+      "path": "fresh-current-paasa.json",
+      "calls": 5,
+      "status": "complete",
+      "budget_seconds": 88.061
+    },
+    {
+      "path": "live/paasa.json",
+      "calls": 1,
+      "status": "complete",
+      "budget_seconds": 1.003
+    },
+    {
+      "path": "live/waybill.json",
+      "calls": 1,
+      "status": "complete",
+      "budget_seconds": 12.883
+    }
+  ],
+  "total_local_model_calls": 25,
+  "active_jobs": 0,
+  "api_pid": 7895,
+  "api_auto_reload": false,
+  "paid_services": false,
+  "source_refresh": false
+}

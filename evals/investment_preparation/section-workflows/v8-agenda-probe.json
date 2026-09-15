@@ -1,0 +1,70 @@
+{
+  "kind": "single_agenda_probe_not_full_workflow",
+  "implementation_hash": "98ae513026325111fdc46ea5a31ef546a86079d8d07afd1774c62806f7258562",
+  "input_hash": "575fd76b644ba34f528125ae44f22333c50001bf7dd1d1618422a6116b4c2379",
+  "source": "Reused code-bound source record from v8-120s-paasa.json; reference answer excluded",
+  "changes": [
+    "Initial agenda no longer forces thinking when explicit thinking is false",
+    "Duplicate source contexts omitted from section input"
+  ],
+  "model_warm": true,
+  "max_seconds": 20,
+  "max_calls": 1,
+  "max_requests": 1,
+  "live_data_updated": false,
+  "answer": {
+    "questions": [
+      {
+        "dimension": "unit_economics",
+        "question": "What is the actual percentage of assets under management retained by the investment target from the Apex plan's stated annual charge, after deducting operational costs and external brokerage payments?",
+        "fact_ids": [
+          "fact_4ec558c9fcc1",
+          "fact_514c11e88803"
+        ]
+      },
+      {
+        "dimension": "customer_demand",
+        "question": "What is the measured retention rate and repeat usage frequency for customers utilizing the mobile service to address remittance friction and unfamiliar tax requirements?",
+        "fact_ids": [
+          "fact_b8801a4fedef"
+        ]
+      }
+    ]
+  },
+  "schema_and_agenda_checks": "pass",
+  "budget": {
+    "max_seconds": 20.0,
+    "max_calls": 1,
+    "max_requests": 1,
+    "calls": 1,
+    "requests": 1,
+    "elapsed_seconds": 11.517
+  },
+  "elapsed_seconds": 11.517,
+  "routing": {
+    "task": "analyst_agenda",
+    "attempt": 0,
+    "profile": "section_router",
+    "model": "qwen3.5:9b",
+    "thinking": false,
+    "max_tokens": 1800,
+    "thinking_used": false,
+    "reasoning_budget": null,
+    "answer_continuation": false,
+    "context_tokens": 8192,
+    "temperature": 0.7,
+    "sampling": {
+      "top_p": 0.8,
+      "top_k": 20,
+      "min_p": 0,
+      "presence_penalty": 1.5,
+      "repeat_penalty": 1.0
+    },
+    "elapsed_seconds": 11.51,
+    "queue_seconds": 0.0,
+    "prompt_tokens": 1279,
+    "generated_tokens": 182,
+    "done_reason": "stop"
+  },
+  "raw_response": "{\n  \"questions\": [\n    {\n      \"dimension\": \"unit_economics\",\n      \"question\": \"What is the actual percentage of assets under management retained by the investment target from the Apex plan's stated annual charge, after deducting operational costs and external brokerage payments?\",\n      \"fact_ids\": [\n        \"fact_4ec558c9fcc1\",\n        \"fact_514c11e88803\"\n      ]\n    },\n    {\n      \"dimension\": \"customer_demand\",\n      \"question\": \"What is the measured retention rate and repeat usage frequency for customers utilizing the mobile service to address remittance friction and unfamiliar tax requirements?\",\n      \"fact_ids\": [\n        \"fact_b8801a4fedef\"\n      ]\n    }\n  ]\n}"
+}

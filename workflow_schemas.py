@@ -103,7 +103,7 @@ class WorkspaceAttestation(BaseModel):
 
 class AutomationRun(BaseModel):
     id: str = Field(default_factory=lambda: new_id("automation"))
-    status: Literal["queued", "running", "completed", "failed", "interrupted"] = "queued"
+    status: Literal["queued", "running", "completed", "failed", "interrupted", "cancelled"] = "queued"
     phase: str = "Waiting for local worker"
     model: str
     worker_id: str
@@ -135,6 +135,8 @@ class OperatingWorkspace(BaseModel):
     analysis_review: dict = Field(default_factory=dict)
     preparation: dict = Field(default_factory=dict)
     investment_case: dict = Field(default_factory=dict)
+    analyst_pack: dict = Field(default_factory=dict)
+    analyst_pack_history: list[dict] = Field(default_factory=list)
     investment_case_history: list[dict] = Field(default_factory=list)
     company_brief: dict = Field(default_factory=dict)
     company_brief_attempts: list[dict] = Field(default_factory=list)

@@ -178,6 +178,7 @@ class CompanyProfile(BaseModel):
     identity_status: str = "source_supported_unverified"
     evidence: list[CompanyEvidence] = Field(default_factory=list)
     assessment: Optional[SelectionAssessment] = None
+    provenance: dict[str, Any] = Field(default_factory=dict)
     updated_at: str = Field(default_factory=utcnow)
 
     @property
@@ -205,6 +206,8 @@ class WebSourcingRun(BaseModel):
     seed_urls: list[str] = Field(default_factory=list)
     search_queries: list[str] = Field(default_factory=list)
     research_plan: dict[str, Any] = Field(default_factory=dict)
+    model_attempts: list[dict[str, Any]] = Field(default_factory=list)
+    generation_config: dict[str, Any] = Field(default_factory=dict)
     reasoning_log: list[dict[str, Any]] = Field(default_factory=list)
     discovered_urls: list[str] = Field(default_factory=list)
     warnings: list[str] = Field(default_factory=list)

@@ -31,6 +31,8 @@ function groupEvidence(facts: Evidence[]) {
   return [...groups.values()];
 }
 const phaseLabel: Record<string, string> = {
+  discovery_plan: "AI is planning the search", discovery_sources: "AI is selecting sources",
+  reading_sources: "Reading selected sources", discovery_extract: "AI is extracting company evidence", discovery_assess: "AI is assessing the company",
   interpreting_request: "AI is interpreting your requirements", screening_candidates: "AI is screening candidates against your criteria",
   starting: "Starting your search", querying_datasets: "Looking through company records", planning_search: "Preparing your search",
   searching_web: "Finding relevant sources", researching_companies: "Reading company evidence", enriching_companies: "Researching the candidates",
@@ -69,7 +71,7 @@ export default function Leads() {
   const selectRun = (id: string) => { setParams({ run: id }); setTab("results"); };
   const search = (thesis: string, geography: string) => {
     setTab("results");
-    start.mutate({ thesis, geography: geography || undefined, prepare_workflow: false }, { onSuccess: run => selectRun(run.id) });
+    start.mutate({ thesis, geography: geography || undefined, prepare_workflow: true }, { onSuccess: run => selectRun(run.id) });
   };
   const error = start.error ?? cancel.error ?? decision.error ?? runs.error ?? results.error ?? allLeads.error;
   return <div className="space-y-6">
@@ -157,8 +159,8 @@ function CompanyCard({ lead, pending, researching, onKeep, onDismiss }: { lead: 
       </details>
     </div>
     <div className="flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 bg-slate-50/60 px-5 py-3">
-      {saved ? <Link to={`/operations?lead=${lead.id}`} className="text-sm font-medium text-indigo-600">Open company workspace →</Link>
-        : <button disabled={pending} onClick={onKeep} className="rounded-lg bg-indigo-600 px-3 py-2 text-xs font-semibold text-white hover:bg-indigo-500 disabled:opacity-50">Shortlist company</button>}
+      <Link to={`/operations?lead=${lead.id}`} className="text-sm font-medium text-indigo-600">Open company workspace →</Link>
+      {!saved && <button disabled={pending} onClick={onKeep} className="rounded-lg bg-indigo-600 px-3 py-2 text-xs font-semibold text-white hover:bg-indigo-500 disabled:opacity-50">Shortlist company</button>}
       {!saved && <button disabled={pending} onClick={onDismiss} className="px-2 py-1 text-xs text-slate-500 hover:text-slate-800 disabled:opacity-50">Dismiss</button>}
     </div>
   </article>;

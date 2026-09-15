@@ -6,6 +6,7 @@ where supplied figures came from; saving an update does not verify it.
 from datetime import date
 from decimal import Decimal
 from typing import Optional
+import re
 from pydantic import BaseModel, Field, field_validator, model_validator
 
 KEYS = {'revenue':'Recognized revenue','direct_costs':'Direct variable delivery costs','cash':'Cash at month end',
@@ -44,18 +45,37 @@ def metrics_report(updates):
         latest[update['month']] = update
     rows = [latest[k] for k in sorted(latest)]
     calculations = []
+    unresolved = []
+    def context(row,key):
+        source=(row.get('field_sources') or {}).get(key) or (row.get('citations') or {}).get(key) or {}
+        return source.get('quote','')
+    def blocked(row,name,reason):
+        unresolved.append({'name':name,'reason':reason,'inputs':[row['id']]})
+    def affirmative(pattern,text):
+        return any(not re.search(r'\b(?:not|never|without)\s*$',text[:m.start()],re.I)
+                   for m in re.finditer(pattern,text,re.I))
     def value(row,key):
         return Decimal(str(row[key])) if row.get(key) is not None else None
     def add(name,number,unit,formula,inputs,explanation):
         calculations.append(dict(name=name,value=str(round(number,2)),unit=unit,formula=formula,inputs=inputs,explanation=explanation,status='calculated_from_company_reported_figures'))
     if rows:
         now = rows[-1]; rev=value(now,'revenue'); costs=value(now,'direct_costs')
-        if rev is not None and costs is not None:
+        revenue_context=context(now,'revenue')
+        cost_context=context(now,'direct_costs')
+        deducted=affirmative(r'\b(?:net (?:of|after)|after deducting|less)\s+(?:(?:the|all|direct|variable|delivery|service|operating|fulfilment|fulfillment)\s+)*costs?\b',revenue_context)
+        mixed=affirmative(r'\b(?:includes?|including|contains?)\s+(?:(?:the|all|fixed|office|company)\s+)*(?:overheads?|rent|taxes|interest|fixed costs)\b',cost_context)
+        if rev is not None and costs is not None and (deducted or mixed):
+            blocked(now,'Delivery contribution','The source says delivery costs are already deducted from revenue. Reconcile the revenue presentation before subtracting costs again.' if deducted else 'The supplied cost total includes overhead or financing/tax costs. Obtain attributable variable delivery costs before calculating contribution.')
+        elif rev is not None and costs is not None:
             add('Delivery contribution',rev-costs,now['currency'],'revenue - direct_costs',[now['id']], 'Recognized revenue less supplied direct variable costs. Excludes overhead and taxes; not total company profit.')
             if rev>0:
                 add('Delivery contribution margin',(rev-costs)/rev*100,'%', '(revenue - direct_costs) / revenue × 100',[now['id']], 'Only meaningful if the revenue and direct-cost treatment are consistent.')
         cash=value(now,'cash'); burn=value(now,'net_burn')
-        if cash is not None and burn is not None and burn>0:
+        cash_context=context(now,'cash')
+        restricted=affirmative(r'\b(?:includes?|including|contains?)\s+(?:\w+\s+){0,3}(?:restricted|client|customer)\s+(?:cash|funds|money|deposits)\b',cash_context)
+        if cash is not None and burn is not None and burn>0 and restricted:
+            blocked(now,'Cash coverage','The cash total includes restricted or customer funds. Establish available company cash before calculating cash coverage.')
+        elif cash is not None and burn is not None and burn>0:
             add('Cash coverage',cash/burn,'months','cash / net_burn',[now['id']], 'Assumes constant net operating burn. Exclude financing flows and restricted cash; this is not a forecast.')
         gmv=value(now,'gmv'); orders=value(now,'orders')
         if gmv is not None and orders is not None and orders>0:
@@ -66,6 +86,6 @@ def metrics_report(updates):
             prior=value(prev,'revenue')
             if month_number(now)-month_number(prev)==1 and now['currency']==prev['currency'] and rev is not None and prior is not None and prior>0:
                 add('Revenue change from prior month',(rev/prior-1)*100,'%', '(current revenue / prior revenue - 1) × 100',[prev['id'],now['id']], 'Consecutive full months, same currency and recognized-revenue definition. Not annual growth or proof of a durable trend.')
-    return dict(months=rows,calculations=calculations,latest_month=rows[-1]['month'] if rows else None,
+    return dict(months=rows,calculations=calculations,unresolved_calculations=unresolved,latest_month=rows[-1]['month'] if rows else None,
                 missing=[KEYS[k] for k in KEYS if not rows or rows[-1].get(k) is None],
                 note='Company-reported figures, not independently verified. Blank means unknown, not zero.')

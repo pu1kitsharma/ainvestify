@@ -1,0 +1,5 @@
+# Final binding regression and live acceptance
+
+Fresh SunCulture and Notpla preparation from the same collected development sources. Same initial contribution/activation contract, Qwen3.5:9b fast temperature0 profile,8192 context,120 seconds/6 calls/10 requests maximum per company. No prior outputs reused. The final source-binding fix attaches one complete source containing the exact normalized whole-word product label; it never invents support or changes the service. This removes the demonstrated model-number/citation false failure. All prior reports are preserved.
+
+The Paasa validation for this final implementation will run through the actual local API on its existing company sources after service checks. The old live workspace and lead are snapshotted locally before the job; the normal generation path archives old preparation. No messages or fundraising actions are sent. Final audit must inspect the complete output separately from model review; overall MVP/practitioner acceptance remains separate.

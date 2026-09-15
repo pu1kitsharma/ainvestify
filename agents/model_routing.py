@@ -12,7 +12,7 @@ import subprocess
 from functools import lru_cache
 from dataclasses import dataclass
 
-REASONING_TASKS = {'preparation', 'research', 'readiness', 'investment_case', 'commercial_test', 'funding_outline',
+REASONING_TASKS = {'analyst_section', 'analyst_agenda', 'preparation', 'research', 'readiness', 'investment_case', 'commercial_test', 'funding_outline',
                    'company suitability', 'diligence', 'incubation', 'documents', 'fundraising', 'metric_extraction'}
 
 
@@ -83,7 +83,7 @@ class RoutingPolicy:
         except (ValueError, TypeError):
             payload = {}
         payload = payload if isinstance(payload, dict) else {}
-        records = max((len(payload[k]) for k in ('sources', 'evidence', 'draft_fields')
+        records = max((len(payload[k]) for k in ('sources', 'evidence', 'evidence_record', 'basis', 'company_reported_records', 'draft_fields')
                        if isinstance(payload.get(k), (list, dict))), default=0)
         is_review = task.startswith('review:')
         required = task in REASONING_TASKS or is_review or attempt > 0
@@ -91,8 +91,12 @@ class RoutingPolicy:
         quality = self.quality_weight / (self.quality_weight + self.latency_weight)
         reason = 'quality review' if is_review else 'retry after failed validation' if attempt else 'analytical task' if required else 'input complexity and quality/latency preference'
         use_reasoning = required or complexity >= .8 - .45 * quality
+        if task == 'record_extract' and not attempt:
+            # Selecting bounded passage IDs does not require long-form reasoning.
+            use_reasoning = False
+            reason = 'bounded evidence classification'
         model = self.review_model if is_review else self.reasoning_model if use_reasoning else self.fast_model
-        if self.escalation_model and (attempt or not is_review and complexity >= .8 + .15 * (1-quality)):
+        if self.escalation_model and (attempt or task != 'record_extract' and not is_review and complexity >= .8 + .15 * (1-quality)):
             model = self.escalation_model
             if not attempt:
                 reason = 'high input complexity and quality preference'

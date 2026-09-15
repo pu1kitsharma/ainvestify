@@ -1,0 +1,795 @@
+{
+  "case_id": "oddbox_uk",
+  "input_hash": "87def39a4fc56dce4aab5a221f2a0fd9e9594931f69eed471fb489b89e14847a",
+  "model": "production_router",
+  "settings": {
+    "profile": "production_router",
+    "review_model": null,
+    "review_thinking": true,
+    "reasoning_budget": null,
+    "thinking": false,
+    "tokens": 2200,
+    "context": 8192
+  },
+  "input_kind": "observed_website_and_commercial_pages",
+  "region": "United Kingdom",
+  "sector": "produce subscription delivery",
+  "live_data_updated": false,
+  "limits": {
+    "max_corrections_per_stage": 1,
+    "max_calls": 6,
+    "max_seconds": 120
+  },
+  "source_collection": {
+    "version": 3,
+    "basis_hash": "64813793d01272a408f23feba5af7760d3cf8834fdf85dbd2a07b12c93231deb",
+    "at": "2026-09-14T23:27:02.603452+00:00",
+    "pages": [
+      {
+        "url": "https://www.oddbox.co.uk/",
+        "status": "ok",
+        "blocks_collected": 2,
+        "blocks_available": 2,
+        "oversized_blocks_omitted": 0,
+        "context": "whole_html_blocks_with_adjacent_context"
+      }
+    ]
+  },
+  "input_evidence": [
+    {
+      "id": "evidence_03a7302590f2",
+      "field": "source_passage",
+      "value": "Good food doing good\n\nFight waste with a delivery of deliciously odd fruit, veg & more\n\nTrustpilot\n\n67,000+ TONNES RESCUED SO FAR\n\nSUPPORT GROWERS IN THE UK AND BEYOND\n\nFIGHT WASTE WITH EVERY BOX\n\nGO PLASTIC-FREE WITH LOOSE REFILLABLES\n\nJOIN THE DELICIOUSLY ODD MOVEMENT\n\nBoxes in all shapes and sizes\n\nFruit & Veg Boxes\n\nUp to 9 types of veg & 4 types of fruit\n\nFrom \u00a311.99\n\nPick me\n\nVeg Boxes\n\nUp to 9 types of veg\n\nFrom \u00a312.99\n\nPick me\n\nThe Market\n\nPlastic-free refillables & good food\n\n\u00a320 minimum order\n\nPick me\n\nHow it works\n\nPick a box\n\nSmall, medium or large? Fruit, veg or both? The choice is yours \u2013 and you can switch, swap or stop at any time.\n\nMake swaps, pick extras\n\nPick your fruit and veg from our weekly rescue list. You can also choose juicy add-ons and shop for loose ingredients and good food at The Market.\n\nDig in\n\nWake up to fruit, veg & more\n\nTo keep our emissions low, we deliver overnight \u2013 just like the milkman. So your box will be there in time for breakfast.\n\nDig in\n\nWhat\u2019s the Market all about?\n\nMeet The Market from Oddbox \u2013 your one-stop shop for refillables, rescued products and more. All delivered alongside your fruit and veg.\n\nPlastic not-so-fantastic\n\nShop for loose refillables and jars plus products with easy-to-recycle or compostable packaging.\n\nSavings in every way\n\nSnap up a bargain with our rescued range \u2013 perfectly delicious products with up to 45% off the RRP.\n\nShop The Market\n\nDoing more good\n\nExplore a handpicked selection of brands doing good \u2013 from brilliant B Corps to organic producers.\n\nShop The Market\n\nThe faces behind the fruit & veg\n\nWe\u0000\u2019ve worked with over 110 growers so far \u2013 both in the UK and further afield. We\u2019re proud to be able to give them a flexible, reliable market for pear-fectly edible fruit and veg.\n\nLearn more\n\nSource From:\n\nNorthiam Farm\n\nBehind the box\n\nRead our recent rescue stories and brand spotlights from the people behind the box.\n\nOutstanding in Their Fields\n\nWorthing\n\nWhat comes to mind when you hear the word \u2018farming\u2019? Is it a woman in her 60s, driving a forklift truck? A woman in a laboratory, testing soil samples? Or a woman working from home, auditing food safety practices and managing irrigation licences?\n\nRescue Story: Brassicas\n\nBirmingham\n\nLove \u2018em or hate \u2018em, Christmas lunch wouldn\u2019t be the same without a Brussels Sprout (or ten). But even if you\u2019re not a fan, this year it\u2019s more important than ever to show our little green friends some love.\n\nRescue Story: Curvy Courgettes\n\nLondon\n\nGrowing courgettes is a labour-intensive process. Did you know, every courgette you eat has been harvested by hand?\n\nRead our growers' stories\n\nIn your words\u2026\n\nDon\u2019t take it from us \u2013 here\u2019s what our community thinks.\n\nTrustpilot\n\nOdd for every occasion\n\nOut-of-the-box recipe ideas to help you eat good, do good and waste less.\n\nSweet Potato & Chocolate Chip Loaf Cake\n\nA soft and moist loaf cake made with sweet potato, maple syrup and chocolate chips.\n\nSmokey Bean Tacos with Red Cabbage Slaw\n\nThese vibrant bean tacos are packed with smoky, spiced butter beans, crunchy red cabbage and lime slaw, creamy avocado and a kick of jalape\u00f1o.\n\nEasy Mango Crumble",
+      "quote": "Good food doing good\n\nFight waste with a delivery of deliciously odd fruit, veg & more\n\nTrustpilot\n\n67,000+ TONNES RESCUED SO FAR\n\nSUPPORT GROWERS IN THE UK AND BEYOND\n\nFIGHT WASTE WITH EVERY BOX\n\nGO PLASTIC-FREE WITH LOOSE REFILLABLES\n\nJOIN THE DELICIOUSLY ODD MOVEMENT\n\nBoxes in all shapes and sizes\n\nFruit & Veg Boxes\n\nUp to 9 types of veg & 4 types of fruit\n\nFrom \u00a311.99\n\nPick me\n\nVeg Boxes\n\nUp to 9 types of veg\n\nFrom \u00a312.99\n\nPick me\n\nThe Market\n\nPlastic-free refillables & good food\n\n\u00a320 minimum order\n\nPick me\n\nHow it works\n\nPick a box\n\nSmall, medium or large? Fruit, veg or both? The choice is yours \u2013 and you can switch, swap or stop at any time.\n\nMake swaps, pick extras\n\nPick your fruit and veg from our weekly rescue list. You can also choose juicy add-ons and shop for loose ingredients and good food at The Market.\n\nDig in\n\nWake up to fruit, veg & more\n\nTo keep our emissions low, we deliver overnight \u2013 just like the milkman. So your box will be there in time for breakfast.\n\nDig in\n\nWhat\u2019s the Market all about?\n\nMeet The Market from Oddbox \u2013 your one-stop shop for refillables, rescued products and more. All delivered alongside your fruit and veg.\n\nPlastic not-so-fantastic\n\nShop for loose refillables and jars plus products with easy-to-recycle or compostable packaging.\n\nSavings in every way\n\nSnap up a bargain with our rescued range \u2013 perfectly delicious products with up to 45% off the RRP.\n\nShop The Market\n\nDoing more good\n\nExplore a handpicked selection of brands doing good \u2013 from brilliant B Corps to organic producers.\n\nShop The Market\n\nThe faces behind the fruit & veg\n\nWe\u0000\u2019ve worked with over 110 growers so far \u2013 both in the UK and further afield. We\u2019re proud to be able to give them a flexible, reliable market for pear-fectly edible fruit and veg.\n\nLearn more\n\nSource From:\n\nNorthiam Farm\n\nBehind the box\n\nRead our recent rescue stories and brand spotlights from the people behind the box.\n\nOutstanding in Their Fields\n\nWorthing\n\nWhat comes to mind when you hear the word \u2018farming\u2019? Is it a woman in her 60s, driving a forklift truck? A woman in a laboratory, testing soil samples? Or a woman working from home, auditing food safety practices and managing irrigation licences?\n\nRescue Story: Brassicas\n\nBirmingham\n\nLove \u2018em or hate \u2018em, Christmas lunch wouldn\u2019t be the same without a Brussels Sprout (or ten). But even if you\u2019re not a fan, this year it\u2019s more important than ever to show our little green friends some love.\n\nRescue Story: Curvy Courgettes\n\nLondon\n\nGrowing courgettes is a labour-intensive process. Did you know, every courgette you eat has been harvested by hand?\n\nRead our growers' stories\n\nIn your words\u2026\n\nDon\u2019t take it from us \u2013 here\u2019s what our community thinks.\n\nTrustpilot\n\nOdd for every occasion\n\nOut-of-the-box recipe ideas to help you eat good, do good and waste less.\n\nSweet Potato & Chocolate Chip Loaf Cake\n\nA soft and moist loaf cake made with sweet potato, maple syrup and chocolate chips.\n\nSmokey Bean Tacos with Red Cabbage Slaw\n\nThese vibrant bean tacos are packed with smoky, spiced butter beans, crunchy red cabbage and lime slaw, creamy avocado and a kick of jalape\u00f1o.\n\nEasy Mango Crumble",
+      "source_url": "https://www.oddbox.co.uk/",
+      "retrieved_at": "2026-09-14T23:27:02.600594+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": "preparation_context_v3:a94e68710983182c",
+      "observed_at": null
+    },
+    {
+      "id": "evidence_5ac789574f57",
+      "field": "source_passage",
+      "value": "Easy Mango Crumble\n\nThis is a perfect pudding that you will love. And it couldn't be easier. Think juicy, golden mango topped with a crisp, buttery oat crumble, baked until golden and bubbling.\n\nSpiced Chickpea & Roasted Veg Flatbreads\n\nThese warm flatbreads are topped with creamy hummus, smoky roasted vegetables and crispy chickpeas. They make the perfect quick lunch or easy dinner for all.\n\nSee all our recipes\n\nA growing community.\n\nOver 67,000 tonnes of fruit and veg rescued so far \u2013 and counting.\n\nSince Oddbox started, we\u2019ve helped over 110 growers find a home for their unloved leeks and perfectly-imperfect pears, in the UK and further afield. (Don\u2019t worry \u2013 we have a no-air-miles policy.) We\u2019re also fighting waste in other ways through our Market, where we\u2019ve rescued over 26,000 items at risk of going to waste.\n\nJoin us\n\nFight waste\n\nAs much as 2.5 billion tonnes of food are wasted globally each year \u2013 a major contributor to the climate crisis. Something has to change.\n\nCelebrate taste\n\nCooking should be creative, splatty and joyful. With new recipes every week, we\u2019re celebrating the fresh and seasonal in all shapes and forms.\n\nMake food fair\n\nIn a topsy-turvy food system, we\u2019re doing things differently. No \u2018cosmetic\u2019 rules. No pointless packaging. And fair prices for growers \u2013 always.\n\nhelp\n\nLinks\n\nBlog\n\nCareers\n\nRefer a Friend\n\nOur Boxes\n\nFAQs\n\nFollow us\n\nNewsletter\n\nFacebook\n\nInstagram\n\nLinkedIn\n\nGet in touch\n\nHelp & Support\n\nTERMS & CONDITIONS | PRIVACY POLICY TERMS & CONDITIONS | SOCIAL MEDIA\n\n\u00a9 2026 Oddbox Delivery Ltd. Registered in England No. 9638976",
+      "quote": "Easy Mango Crumble\n\nThis is a perfect pudding that you will love. And it couldn't be easier. Think juicy, golden mango topped with a crisp, buttery oat crumble, baked until golden and bubbling.\n\nSpiced Chickpea & Roasted Veg Flatbreads\n\nThese warm flatbreads are topped with creamy hummus, smoky roasted vegetables and crispy chickpeas. They make the perfect quick lunch or easy dinner for all.\n\nSee all our recipes\n\nA growing community.\n\nOver 67,000 tonnes of fruit and veg rescued so far \u2013 and counting.\n\nSince Oddbox started, we\u2019ve helped over 110 growers find a home for their unloved leeks and perfectly-imperfect pears, in the UK and further afield. (Don\u2019t worry \u2013 we have a no-air-miles policy.) We\u2019re also fighting waste in other ways through our Market, where we\u2019ve rescued over 26,000 items at risk of going to waste.\n\nJoin us\n\nFight waste\n\nAs much as 2.5 billion tonnes of food are wasted globally each year \u2013 a major contributor to the climate crisis. Something has to change.\n\nCelebrate taste\n\nCooking should be creative, splatty and joyful. With new recipes every week, we\u2019re celebrating the fresh and seasonal in all shapes and forms.\n\nMake food fair\n\nIn a topsy-turvy food system, we\u2019re doing things differently. No \u2018cosmetic\u2019 rules. No pointless packaging. And fair prices for growers \u2013 always.\n\nhelp\n\nLinks\n\nBlog\n\nCareers\n\nRefer a Friend\n\nOur Boxes\n\nFAQs\n\nFollow us\n\nNewsletter\n\nFacebook\n\nInstagram\n\nLinkedIn\n\nGet in touch\n\nHelp & Support\n\nTERMS & CONDITIONS | PRIVACY POLICY TERMS & CONDITIONS | SOCIAL MEDIA\n\n\u00a9 2026 Oddbox Delivery Ltd. Registered in England No. 9638976",
+      "source_url": "https://www.oddbox.co.uk/",
+      "retrieved_at": "2026-09-14T23:27:02.600657+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": "preparation_context_v3:ba9ae1142f35f24b",
+      "observed_at": null
+    }
+  ],
+  "pack": {
+    "version": 9,
+    "implementation_hash": "fae8b87626e2dcfe6b3ef42ac001edaf849652db648b3e8636080fd150f75a84",
+    "basis_hash": "64813793d01272a408f23feba5af7760d3cf8834fdf85dbd2a07b12c93231deb",
+    "company": "Oddbox",
+    "record": {
+      "facts": [
+        {
+          "id": "S1",
+          "quote": "Good food doing good\n\nFight waste with a delivery of deliciously odd fruit, veg & more\n\nTrustpilot\n\n67,000+ TONNES RESCUED SO FAR\n\nSUPPORT GROWERS IN THE UK AND BEYOND\n\nFIGHT WASTE WITH EVERY BOX\n\nGO PLASTIC-FREE WITH LOOSE REFILLABLES\n\nJOIN THE DELICIOUSLY ODD MOVEMENT\n\nBoxes in all shapes and sizes\n\nFruit & Veg Boxes\n\nUp to 9 types of veg & 4 types of fruit\n\nFrom \u00a311.99\n\nPick me\n\nVeg Boxes\n\nUp to 9 types of veg\n\nFrom \u00a312.99\n\nPick me\n\nThe Market\n\nPlastic-free refillables & good food\n\n\u00a320 minimum order\n\nPick me\n\nHow it works\n\nPick a box\n\nSmall, medium or large? Fruit, veg or both? The choice is yours \u2013 and you can switch, swap or stop at any time.\n\nMake swaps, pick extras\n\nPick your fruit and veg from our weekly rescue list. You can also choose juicy add-ons and shop for loose ingredients and good food at The Market.\n\nDig in\n\nWake up to fruit, veg & more\n\nTo keep our emissions low, we deliver overnight \u2013 just like the milkman. So your box will be there in time for breakfast.\n\nDig in\n\nWhat\u2019s the Market all about?\n\nMeet The Market from Oddbox \u2013 your one-stop shop for refillables, rescued products and more. All delivered alongside your fruit and veg.\n\nPlastic not-so-fantastic\n\nShop for loose refillables and jars plus products with easy-to-recycle or compostable packaging.\n\nSavings in every way\n\nSnap up a bargain with our rescued range \u2013 perfectly delicious products with up to 45% off the RRP.\n\nShop The Market\n\nDoing more good\n\nExplore a handpicked selection of brands doing good \u2013 from brilliant B Corps to organic producers.\n\nShop The Market\n\nThe faces behind the fruit & veg\n\nWe\u0000\u2019ve worked with over 110 growers so far \u2013 both in the UK and further afield. We\u2019re proud to be able to give them a flexible, reliable market for pear-fectly edible fruit and veg.\n\nLearn more\n\nSource From:\n\nNorthiam Farm\n\nBehind the box\n\nRead our recent rescue stories and brand spotlights from the people behind the box.\n\nOutstanding in Their Fields\n\nWorthing\n\nWhat comes to mind when you hear the word \u2018farming\u2019? Is it a woman in her 60s, driving a forklift truck? A woman in a laboratory, testing soil samples? Or a woman working from home, auditing food safety practices and managing irrigation licences?\n\nRescue Story: Brassicas\n\nBirmingham\n\nLove \u2018em or hate \u2018em, Christmas lunch wouldn\u2019t be the same without a Brussels Sprout (or ten). But even if you\u2019re not a fan, this year it\u2019s more important than ever to show our little green friends some love.\n\nRescue Story: Curvy Courgettes\n\nLondon\n\nGrowing courgettes is a labour-intensive process. Did you know, every courgette you eat has been harvested by hand?\n\nRead our growers' stories\n\nIn your words\u2026\n\nDon\u2019t take it from us \u2013 here\u2019s what our community thinks.\n\nTrustpilot\n\nOdd for every occasion\n\nOut-of-the-box recipe ideas to help you eat good, do good and waste less.\n\nSweet Potato & Chocolate Chip Loaf Cake\n\nA soft and moist loaf cake made with sweet potato, maple syrup and chocolate chips.\n\nSmokey Bean Tacos with Red Cabbage Slaw\n\nThese vibrant bean tacos are packed with smoky, spiced butter beans, crunchy red cabbage and lime slaw, creamy avocado and a kick of jalape\u00f1o.\n\nEasy Mango Crumble",
+          "source_url": "https://www.oddbox.co.uk/",
+          "retrieved_at": "2026-09-14T23:27:02.600594+00:00",
+          "observed_at": null,
+          "origin": "preparation_public_page",
+          "context_format": "whole_html_blocks_v3",
+          "source_id": "evidence_03a7302590f2",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S2",
+          "quote": "Easy Mango Crumble\n\nThis is a perfect pudding that you will love. And it couldn't be easier. Think juicy, golden mango topped with a crisp, buttery oat crumble, baked until golden and bubbling.\n\nSpiced Chickpea & Roasted Veg Flatbreads\n\nThese warm flatbreads are topped with creamy hummus, smoky roasted vegetables and crispy chickpeas. They make the perfect quick lunch or easy dinner for all.\n\nSee all our recipes\n\nA growing community.\n\nOver 67,000 tonnes of fruit and veg rescued so far \u2013 and counting.\n\nSince Oddbox started, we\u2019ve helped over 110 growers find a home for their unloved leeks and perfectly-imperfect pears, in the UK and further afield. (Don\u2019t worry \u2013 we have a no-air-miles policy.) We\u2019re also fighting waste in other ways through our Market, where we\u2019ve rescued over 26,000 items at risk of going to waste.\n\nJoin us\n\nFight waste\n\nAs much as 2.5 billion tonnes of food are wasted globally each year \u2013 a major contributor to the climate crisis. Something has to change.\n\nCelebrate taste\n\nCooking should be creative, splatty and joyful. With new recipes every week, we\u2019re celebrating the fresh and seasonal in all shapes and forms.\n\nMake food fair\n\nIn a topsy-turvy food system, we\u2019re doing things differently. No \u2018cosmetic\u2019 rules. No pointless packaging. And fair prices for growers \u2013 always.\n\nhelp\n\nLinks\n\nBlog\n\nCareers\n\nRefer a Friend\n\nOur Boxes\n\nFAQs\n\nFollow us\n\nNewsletter\n\nFacebook\n\nInstagram\n\nLinkedIn\n\nGet in touch\n\nHelp & Support\n\nTERMS & CONDITIONS | PRIVACY POLICY TERMS & CONDITIONS | SOCIAL MEDIA\n\n\u00a9 2026 Oddbox Delivery Ltd. Registered in England No. 9638976",
+          "source_url": "https://www.oddbox.co.uk/",
+          "retrieved_at": "2026-09-14T23:27:02.600657+00:00",
+          "observed_at": null,
+          "origin": "preparation_public_page",
+          "context_format": "whole_html_blocks_v3",
+          "source_id": "evidence_5ac789574f57",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        }
+      ],
+      "prepared_at": "2026-09-14T23:27:02.604906+00:00",
+      "batches": {},
+      "extraction": "complete_context_no_generation",
+      "coverage": "selected_sources_processed",
+      "unknowns": [],
+      "source_selection": {
+        "scope": "bounded_supplied_records",
+        "omitted_for_context": 0,
+        "max_context_characters": 14000
+      }
+    },
+    "sections": {
+      "research.business": {
+        "document": "research",
+        "title": "Business and customer",
+        "status": "complete",
+        "input_hash": "6b864da812a9cfc7502f7e13bc4d44f7e48bc87236082c80c91c8d56877340eb",
+        "review_hash": "7cbeb6e8ed0cdd9063d2a2bb8d5d67ff899b67bdd93959e57d03b64794b877fb",
+        "dependency": null,
+        "content": {
+          "text": "The supplied sources state: \u201cGood food doing good\n\nFight waste with a delivery of deliciously odd fruit, veg & more\n\nTrustpilot\n\n67,000+ TONNES RESCUED SO FAR\n\nSUPPORT GROWERS IN THE UK AND BEYOND\n\nFIGHT WASTE WITH EVERY BOX\n\nGO PLASTIC-FREE WITH LOOSE REFILLABLES\n\nJOIN THE DELICIOUSLY ODD MOVEMENT\n\nBoxes in all shapes and sizes\n\nFruit & Veg Boxes\n\nUp to 9 types of veg & 4 types of fruit\n\nFrom \u00a311.99\n\nPick me\n\nVeg Boxes\n\nUp to 9 types of veg\n\nFrom \u00a312.99\n\nPick me\n\nThe Market\n\nPlastic-free refillables & good food\n\n\u00a320 minimum order\n\nPick me\n\nHow it works\n\nPick a box\n\nSmall, medium or large? Fruit, veg or both? The choice is yours \u2013 and you can switch, swap or stop at any time.\n\nMake swaps, pick extras\n\nPick your fruit and veg from our weekly rescue list. You can also choose juicy add-ons and shop for loose ingredients and good food at The Market.\n\nDig in\n\nWake up to fruit, veg & more\n\nTo keep our emissions low, we deliver overnight \u2013 just like the milkman. So your box will be there in time for breakfast.\n\nDig in\n\nWhat\u2019s the Market all about?\n\nMeet The Market from Oddbox \u2013 your one-stop shop for refillables, rescued products and more. All delivered alongside your fruit and veg.\n\nPlastic not-so-fantastic\n\nShop for loose refillables and jars plus products with easy-to-recycle or compostable packaging.\n\nSavings in every way\n\nSnap up a bargain with our rescued range \u2013 perfectly delicious products with up to 45% off the RRP.\n\nShop The Market\n\nDoing more good\n\nExplore a handpicked selection of brands doing good \u2013 from brilliant B Corps to organic producers.\n\nShop The Market\n\nThe faces behind the fruit & veg\n\nWe\u0000\u2019ve worked with over 110 growers so far \u2013 both in the UK and further afield. We\u2019re proud to be able to give them a flexible, reliable market for pear-fectly edible fruit and veg.\n\nLearn more\n\nSource From:\n\nNorthiam Farm\n\nBehind the box\n\nRead our recent rescue stories and brand spotlights from the people behind the box.\n\nOutstanding in Their Fields\n\nWorthing\n\nWhat comes to mind when you hear the word \u2018farming\u2019? Is it a woman in her 60s, driving a forklift truck? A woman in a laboratory, testing soil samples? Or a woman working from home, auditing food safety practices and managing irrigation licences?\n\nRescue Story: Brassicas\n\nBirmingham\n\nLove \u2018em or hate \u2018em, Christmas lunch wouldn\u2019t be the same without a Brussels Sprout (or ten). But even if you\u2019re not a fan, this year it\u2019s more important than ever to show our little green friends some love.\n\nRescue Story: Curvy Courgettes\n\nLondon\n\nGrowing courgettes is a labour-intensive process. Did you know, every courgette you eat has been harvested by hand?\n\nRead our growers' stories\n\nIn your words\u2026\n\nDon\u2019t take it from us \u2013 here\u2019s what our community thinks.\n\nTrustpilot\n\nOdd for every occasion\n\nOut-of-the-box recipe ideas to help you eat good, do good and waste less.\n\nSweet Potato & Chocolate Chip Loaf Cake\n\nA soft and moist loaf cake made with sweet potato, maple syrup and chocolate chips.\n\nSmokey Bean Tacos with Red Cabbage Slaw\n\nThese vibrant bean tacos are packed with smoky, spiced butter beans, crunchy red cabbage and lime slaw, creamy avocado and a kick of jalape\u00f1o.\n\nEasy Mango Crumble\u201d \u201cEasy Mango Crumble\n\nThis is a perfect pudding that you will love. And it couldn't be easier. Think juicy, golden mango topped with a crisp, buttery oat crumble, baked until golden and bubbling.\n\nSpiced Chickpea & Roasted Veg Flatbreads\n\nThese warm flatbreads are topped with creamy hummus, smoky roasted vegetables and crispy chickpeas. They make the perfect quick lunch or easy dinner for all.\n\nSee all our recipes\n\nA growing community.\n\nOver 67,000 tonnes of fruit and veg rescued so far \u2013 and counting.\n\nSince Oddbox started, we\u2019ve helped over 110 growers find a home for their unloved leeks and perfectly-imperfect pears, in the UK and further afield. (Don\u2019t worry \u2013 we have a no-air-miles policy.) We\u2019re also fighting waste in other ways through our Market, where we\u2019ve rescued over 26,000 items at risk of going to waste.\n\nJoin us\n\nFight waste\n\nAs much as 2.5 billion tonnes of food are wasted globally each year \u2013 a major contributor to the climate crisis. Something has to change.\n\nCelebrate taste\n\nCooking should be creative, splatty and joyful. With new recipes every week, we\u2019re celebrating the fresh and seasonal in all shapes and forms.\n\nMake food fair\n\nIn a topsy-turvy food system, we\u2019re doing things differently. No \u2018cosmetic\u2019 rules. No pointless packaging. And fair prices for growers \u2013 always.\n\nhelp\n\nLinks\n\nBlog\n\nCareers\n\nRefer a Friend\n\nOur Boxes\n\nFAQs\n\nFollow us\n\nNewsletter\n\nFacebook\n\nInstagram\n\nLinkedIn\n\nGet in touch\n\nHelp & Support\n\nTERMS & CONDITIONS | PRIVACY POLICY TERMS & CONDITIONS | SOCIAL MEDIA\n\n\u00a9 2026 Oddbox Delivery Ltd. Registered in England No. 9638976\u201d",
+          "fact_ids": [
+            "S1",
+            "S2"
+          ],
+          "source_quotes": true
+        },
+        "review": {
+          "verdict": "pass",
+          "kind": "combined_bound_review",
+          "objections": []
+        },
+        "updated_at": "2026-09-14T23:27:58.153854+00:00"
+      },
+      "research.economics": {
+        "document": "research",
+        "title": "Revenue mechanism",
+        "status": "complete",
+        "input_hash": "6b864da812a9cfc7502f7e13bc4d44f7e48bc87236082c80c91c8d56877340eb",
+        "review_hash": "7cbeb6e8ed0cdd9063d2a2bb8d5d67ff899b67bdd93959e57d03b64794b877fb",
+        "dependency": null,
+        "content": {
+          "revenue_mechanism": "The supplied sources state: \u201cGood food doing good\n\nFight waste with a delivery of deliciously odd fruit, veg & more\n\nTrustpilot\n\n67,000+ TONNES RESCUED SO FAR\n\nSUPPORT GROWERS IN THE UK AND BEYOND\n\nFIGHT WASTE WITH EVERY BOX\n\nGO PLASTIC-FREE WITH LOOSE REFILLABLES\n\nJOIN THE DELICIOUSLY ODD MOVEMENT\n\nBoxes in all shapes and sizes\n\nFruit & Veg Boxes\n\nUp to 9 types of veg & 4 types of fruit\n\nFrom \u00a311.99\n\nPick me\n\nVeg Boxes\n\nUp to 9 types of veg\n\nFrom \u00a312.99\n\nPick me\n\nThe Market\n\nPlastic-free refillables & good food\n\n\u00a320 minimum order\n\nPick me\n\nHow it works\n\nPick a box\n\nSmall, medium or large? Fruit, veg or both? The choice is yours \u2013 and you can switch, swap or stop at any time.\n\nMake swaps, pick extras\n\nPick your fruit and veg from our weekly rescue list. You can also choose juicy add-ons and shop for loose ingredients and good food at The Market.\n\nDig in\n\nWake up to fruit, veg & more\n\nTo keep our emissions low, we deliver overnight \u2013 just like the milkman. So your box will be there in time for breakfast.\n\nDig in\n\nWhat\u2019s the Market all about?\n\nMeet The Market from Oddbox \u2013 your one-stop shop for refillables, rescued products and more. All delivered alongside your fruit and veg.\n\nPlastic not-so-fantastic\n\nShop for loose refillables and jars plus products with easy-to-recycle or compostable packaging.\n\nSavings in every way\n\nSnap up a bargain with our rescued range \u2013 perfectly delicious products with up to 45% off the RRP.\n\nShop The Market\n\nDoing more good\n\nExplore a handpicked selection of brands doing good \u2013 from brilliant B Corps to organic producers.\n\nShop The Market\n\nThe faces behind the fruit & veg\n\nWe\u0000\u2019ve worked with over 110 growers so far \u2013 both in the UK and further afield. We\u2019re proud to be able to give them a flexible, reliable market for pear-fectly edible fruit and veg.\n\nLearn more\n\nSource From:\n\nNorthiam Farm\n\nBehind the box\n\nRead our recent rescue stories and brand spotlights from the people behind the box.\n\nOutstanding in Their Fields\n\nWorthing\n\nWhat comes to mind when you hear the word \u2018farming\u2019? Is it a woman in her 60s, driving a forklift truck? A woman in a laboratory, testing soil samples? Or a woman working from home, auditing food safety practices and managing irrigation licences?\n\nRescue Story: Brassicas\n\nBirmingham\n\nLove \u2018em or hate \u2018em, Christmas lunch wouldn\u2019t be the same without a Brussels Sprout (or ten). But even if you\u2019re not a fan, this year it\u2019s more important than ever to show our little green friends some love.\n\nRescue Story: Curvy Courgettes\n\nLondon\n\nGrowing courgettes is a labour-intensive process. Did you know, every courgette you eat has been harvested by hand?\n\nRead our growers' stories\n\nIn your words\u2026\n\nDon\u2019t take it from us \u2013 here\u2019s what our community thinks.\n\nTrustpilot\n\nOdd for every occasion\n\nOut-of-the-box recipe ideas to help you eat good, do good and waste less.\n\nSweet Potato & Chocolate Chip Loaf Cake\n\nA soft and moist loaf cake made with sweet potato, maple syrup and chocolate chips.\n\nSmokey Bean Tacos with Red Cabbage Slaw\n\nThese vibrant bean tacos are packed with smoky, spiced butter beans, crunchy red cabbage and lime slaw, creamy avocado and a kick of jalape\u00f1o.\n\nEasy Mango Crumble\u201d",
+          "unknown_economics": "What income does the investment entity retain from Fruit & Veg Boxes, and does it cover attributable variable service costs? Published statements do not establish realized income; reconcile the contracting entity, recognition and company-held cost records.",
+          "fact_ids": [
+            "S1"
+          ],
+          "source_quotes": true
+        },
+        "review": {
+          "verdict": "pass",
+          "kind": "combined_bound_review",
+          "objections": []
+        },
+        "updated_at": "2026-09-14T23:27:58.153863+00:00"
+      },
+      "research.decision": {
+        "document": "research",
+        "title": "Opportunity and unresolved risks",
+        "status": "complete",
+        "input_hash": "6b864da812a9cfc7502f7e13bc4d44f7e48bc87236082c80c91c8d56877340eb",
+        "review_hash": "7cbeb6e8ed0cdd9063d2a2bb8d5d67ff899b67bdd93959e57d03b64794b877fb",
+        "dependency": null,
+        "content": {
+          "reason_to_engage": "If retained income from Fruit & Veg Boxes covers attributable variable delivery costs and eligible Fruit & Veg Boxes customers record completed delivery, the evidence could support further diligence on a repeatable business. Both conditions require reconciled company records.",
+          "unresolved_risk": "The commercial case weakens if the variable cost of delivering Fruit & Veg Boxes consumes its retained income. The proposed reconciliation will distinguish partner charges and delivery costs before identifying pricing or cost work.",
+          "next_decision": "Resolve the linked contribution and customer-use questions before recommending an engagement or expansion; investigate adverse results and leave missing inputs unresolved.",
+          "fact_ids": [
+            "S1"
+          ]
+        },
+        "review": {
+          "verdict": "pass",
+          "kind": "combined_bound_review",
+          "objections": []
+        },
+        "updated_at": "2026-09-14T23:27:58.153864+00:00"
+      },
+      "founder.observation": {
+        "document": "founder",
+        "title": "Why we are approaching you",
+        "status": "complete",
+        "input_hash": "6b864da812a9cfc7502f7e13bc4d44f7e48bc87236082c80c91c8d56877340eb",
+        "review_hash": "7cbeb6e8ed0cdd9063d2a2bb8d5d67ff899b67bdd93959e57d03b64794b877fb",
+        "dependency": null,
+        "content": {
+          "reported_observation": "Your published materials state: \u201cGood food doing good\n\nFight waste with a delivery of deliciously odd fruit, veg & more\n\nTrustpilot\n\n67,000+ TONNES RESCUED SO FAR\n\nSUPPORT GROWERS IN THE UK AND BEYOND\n\nFIGHT WASTE WITH EVERY BOX\n\nGO PLASTIC-FREE WITH LOOSE REFILLABLES\n\nJOIN THE DELICIOUSLY ODD MOVEMENT\n\nBoxes in all shapes and sizes\n\nFruit & Veg Boxes\n\nUp to 9 types of veg & 4 types of fruit\n\nFrom \u00a311.99\n\nPick me\n\nVeg Boxes\n\nUp to 9 types of veg\n\nFrom \u00a312.99\n\nPick me\n\nThe Market\n\nPlastic-free refillables & good food\n\n\u00a320 minimum order\n\nPick me\n\nHow it works\n\nPick a box\n\nSmall, medium or large? Fruit, veg or both? The choice is yours \u2013 and you can switch, swap or stop at any time.\n\nMake swaps, pick extras\n\nPick your fruit and veg from our weekly rescue list. You can also choose juicy add-ons and shop for loose ingredients and good food at The Market.\n\nDig in\n\nWake up to fruit, veg & more\n\nTo keep our emissions low, we deliver overnight \u2013 just like the milkman. So your box will be there in time for breakfast.\n\nDig in\n\nWhat\u2019s the Market all about?\n\nMeet The Market from Oddbox \u2013 your one-stop shop for refillables, rescued products and more. All delivered alongside your fruit and veg.\n\nPlastic not-so-fantastic\n\nShop for loose refillables and jars plus products with easy-to-recycle or compostable packaging.\n\nSavings in every way\n\nSnap up a bargain with our rescued range \u2013 perfectly delicious products with up to 45% off the RRP.\n\nShop The Market\n\nDoing more good\n\nExplore a handpicked selection of brands doing good \u2013 from brilliant B Corps to organic producers.\n\nShop The Market\n\nThe faces behind the fruit & veg\n\nWe\u0000\u2019ve worked with over 110 growers so far \u2013 both in the UK and further afield. We\u2019re proud to be able to give them a flexible, reliable market for pear-fectly edible fruit and veg.\n\nLearn more\n\nSource From:\n\nNorthiam Farm\n\nBehind the box\n\nRead our recent rescue stories and brand spotlights from the people behind the box.\n\nOutstanding in Their Fields\n\nWorthing\n\nWhat comes to mind when you hear the word \u2018farming\u2019? Is it a woman in her 60s, driving a forklift truck? A woman in a laboratory, testing soil samples? Or a woman working from home, auditing food safety practices and managing irrigation licences?\n\nRescue Story: Brassicas\n\nBirmingham\n\nLove \u2018em or hate \u2018em, Christmas lunch wouldn\u2019t be the same without a Brussels Sprout (or ten). But even if you\u2019re not a fan, this year it\u2019s more important than ever to show our little green friends some love.\n\nRescue Story: Curvy Courgettes\n\nLondon\n\nGrowing courgettes is a labour-intensive process. Did you know, every courgette you eat has been harvested by hand?\n\nRead our growers' stories\n\nIn your words\u2026\n\nDon\u2019t take it from us \u2013 here\u2019s what our community thinks.\n\nTrustpilot\n\nOdd for every occasion\n\nOut-of-the-box recipe ideas to help you eat good, do good and waste less.\n\nSweet Potato & Chocolate Chip Loaf Cake\n\nA soft and moist loaf cake made with sweet potato, maple syrup and chocolate chips.\n\nSmokey Bean Tacos with Red Cabbage Slaw\n\nThese vibrant bean tacos are packed with smoky, spiced butter beans, crunchy red cabbage and lime slaw, creamy avocado and a kick of jalape\u00f1o.\n\nEasy Mango Crumble\u201d",
+          "question_to_explore": "What income does the investment entity retain from Fruit & Veg Boxes, and does it cover attributable variable service costs?",
+          "fact_ids": [
+            "S1"
+          ],
+          "opening_source_id": "S1",
+          "source_quotes": true
+        },
+        "review": {
+          "verdict": "pass",
+          "kind": "combined_bound_review",
+          "objections": []
+        },
+        "updated_at": "2026-09-14T23:27:58.153865+00:00"
+      },
+      "founder.proposal": {
+        "document": "founder",
+        "title": "The assistance we propose",
+        "status": "complete",
+        "input_hash": "6b864da812a9cfc7502f7e13bc4d44f7e48bc87236082c80c91c8d56877340eb",
+        "review_hash": "7cbeb6e8ed0cdd9063d2a2bb8d5d67ff899b67bdd93959e57d03b64794b877fb",
+        "dependency": "readiness.action_a",
+        "content": {
+          "proposed_work": "We propose a contribution reconciliation and customer analysis for Fruit & Veg Boxes. We request the accounting/service-cost records: entity chart, service/fee-sharing agreements, redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements, supplier invoices, direct service/support cost records, and staff-time allocations. The concrete deliverable is a source-linked contribution profit table and a source-linked cohort rate table. This supports the commercial decision to investigate loss-making services, choose pricing or delivery-cost work, and select the next activation or retention investigation before an expansion recommendation. We request redacted account-event and customer/cohort exports for Fruit & Veg Boxes, including stable customer keys, event types, timestamps, plan details, completion/cancellation status, registration dates, eligibility flags, and data cutoffs, with anonymized customer IDs and dates.",
+          "invitation": "Invite a conversation with one question: Are you available to discuss the data requirements and timeline for this analysis?",
+          "fact_ids": [
+            "S1",
+            "S2"
+          ]
+        },
+        "review": {
+          "verdict": "pass",
+          "kind": "combined_bound_review",
+          "objections": []
+        },
+        "updated_at": "2026-09-14T23:27:58.153866+00:00"
+      },
+      "diligence.request_a": {
+        "document": "diligence",
+        "title": "First diligence request",
+        "status": "complete",
+        "input_hash": "6b864da812a9cfc7502f7e13bc4d44f7e48bc87236082c80c91c8d56877340eb",
+        "review_hash": "7cbeb6e8ed0cdd9063d2a2bb8d5d67ff899b67bdd93959e57d03b64794b877fb",
+        "dependency": null,
+        "content": {
+          "question": "What income does the investment entity retain from Fruit & Veg Boxes, and does it cover attributable variable service costs?",
+          "analysis_plan": {
+            "question": "What income does the investment entity retain from Fruit & Veg Boxes, and does it cover attributable variable service costs?",
+            "left": {
+              "name": "Recognized service revenue after partner charges, if applicable",
+              "dimension": "money",
+              "unit": "reconciled reporting currency",
+              "record_needed": "Entity chart and service/fee-sharing agreements; redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements. Include entity, plan, account key, month, currency, refunds and taxes. Reconcile recognition and gross/net presentation; identify any partner charges already deducted and normalize them exactly once. Exclude customer principal, assets and pass-through taxes from revenue.",
+              "role": "recognized_revenue",
+              "entity": "Investment target, legal identity and contracting entities to confirm",
+              "service": "Fruit & Veg Boxes",
+              "population": "Eligible service accounts, separated by plan and operating month",
+              "window": "Latest six completed months",
+              "time_basis": "flow",
+              "exposure": "Complete operating month",
+              "revenue_treatment": "net",
+              "deducted_costs": [
+                "partner_charge"
+              ]
+            },
+            "operation": "subtract",
+            "right": {
+              "name": "Attributable variable service costs excluding partner charges already deducted",
+              "dimension": "money",
+              "unit": "reconciled reporting currency",
+              "record_needed": "Supplier invoices, direct service/support cost records and staff-time allocations for the same entity, plans, accounts and months. Include currency, expense category, allocation basis and one-off versus ongoing service cost. Exclude fixed corporate overhead and partner charges already deducted from the reconciled revenue input. Request missing records; do not estimate them from public tariffs.",
+              "role": "variable_service_cost",
+              "entity": "Investment target, legal identity and contracting entities to confirm",
+              "service": "Fruit & Veg Boxes",
+              "population": "Eligible service accounts, separated by plan and operating month",
+              "window": "Latest six completed months",
+              "time_basis": "flow",
+              "exposure": "Complete operating month",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "population_basis": "Eligible service accounts, separated by plan and operating month",
+            "kind": "measurement",
+            "purpose": "contribution",
+            "expected_output": "contribution_profit",
+            "population_relation": "same_population",
+            "partner_charge_treatment": "already_deducted_from_revenue",
+            "fee_yield_basis": null,
+            "missing_inputs": "request_records_and_defer_decision",
+            "inference_limit": "descriptive_only_no_causal_claim"
+          },
+          "fact_ids": [
+            "S1"
+          ],
+          "records_to_request": "Entity chart and service/fee-sharing agreements; redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements. Include entity, plan, account key, month, currency, refunds and taxes. Reconcile recognition and gross/net presentation; identify any partner charges already deducted and normalize them exactly once. Exclude customer principal, assets and pass-through taxes from revenue.; Supplier invoices, direct service/support cost records and staff-time allocations for the same entity, plans, accounts and months. Include currency, expense category, allocation basis and one-off versus ongoing service cost. Exclude fixed corporate overhead and partner charges already deducted from the reconciled revenue input. Request missing records; do not estimate them from public tariffs.",
+          "decision": "Decision unresolved until the requested records and definitions are checked. Use reconciled contribution to investigate loss-making services and choose pricing or delivery-cost work before an expansion recommendation. Observed losses alone do not establish future viability."
+        },
+        "review": {
+          "verdict": "pass",
+          "kind": "combined_bound_review",
+          "objections": []
+        },
+        "updated_at": "2026-09-14T23:27:58.153867+00:00"
+      },
+      "diligence.request_b": {
+        "document": "diligence",
+        "title": "Second diligence request",
+        "status": "complete",
+        "input_hash": "6b864da812a9cfc7502f7e13bc4d44f7e48bc87236082c80c91c8d56877340eb",
+        "review_hash": "7cbeb6e8ed0cdd9063d2a2bb8d5d67ff899b67bdd93959e57d03b64794b877fb",
+        "dependency": null,
+        "content": {
+          "question": "What proportion of eligible new Fruit & Veg Boxes customers record completed delivery within the requested observation window?",
+          "analysis_plan": {
+            "question": "What proportion of eligible new Fruit & Veg Boxes customers record completed delivery within the requested observation window?",
+            "left": {
+              "name": "Customers completing the specified activation event",
+              "dimension": "count",
+              "unit": "unique customers",
+              "record_needed": "Redacted account-event export with stable customer key, event type, event timestamp, plan and completion/cancellation status. Count each eligible customer once if completed delivery occurs after registration within follow-up. Link to the eligible cohort file; missing event coverage is unresolved, not a negative outcome.",
+              "role": "count",
+              "entity": "Investment target, legal identity and service operator to confirm",
+              "service": "Fruit & Veg Boxes",
+              "population": "Same eligible customer cohort, grouped by entry month and service plan",
+              "window": "Latest six completed months",
+              "time_basis": "observation_window",
+              "exposure": "First ninety days after cohort entry; exclude immature accounts",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "operation": "divide",
+            "right": {
+              "name": "Eligible newly registered customers with complete follow-up",
+              "dimension": "count",
+              "unit": "unique customers",
+              "record_needed": "Redacted customer/cohort export with stable customer key, registration/enrollment/first-event date, plan, eligibility flags and data cutoff. Cohort entry is registration; document eligibility exclusions before counting. Use the same cohort and customer keys as the event export; retain only fully observed customers.",
+              "role": "count",
+              "entity": "Investment target, legal identity and service operator to confirm",
+              "service": "Fruit & Veg Boxes",
+              "population": "Same eligible customer cohort, grouped by entry month and service plan",
+              "window": "Latest six completed months",
+              "time_basis": "observation_window",
+              "exposure": "First ninety days after cohort entry; exclude immature accounts",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "population_basis": "Same eligible customer cohort, grouped by entry month and service plan",
+            "kind": "measurement",
+            "purpose": "cohort_rate",
+            "expected_output": "cohort_rate",
+            "population_relation": "numerator_subset_of_denominator",
+            "partner_charge_treatment": "not_applicable",
+            "fee_yield_basis": null,
+            "missing_inputs": "request_records_and_defer_decision",
+            "inference_limit": "descriptive_only_no_causal_claim"
+          },
+          "fact_ids": [
+            "S1"
+          ],
+          "records_to_request": "Redacted account-event export with stable customer key, event type, event timestamp, plan and completion/cancellation status. Count each eligible customer once if completed delivery occurs after registration within follow-up. Link to the eligible cohort file; missing event coverage is unresolved, not a negative outcome.; Redacted customer/cohort export with stable customer key, registration/enrollment/first-event date, plan, eligibility flags and data cutoff. Cohort entry is registration; document eligibility exclusions before counting. Use the same cohort and customer keys as the event export; retain only fully observed customers.",
+          "decision": "Decision unresolved until the requested records and definitions are checked. Use measured customer participation to select the next activation or retention investigation; set an experiment threshold from an observed baseline."
+        },
+        "review": {
+          "verdict": "pass",
+          "kind": "combined_bound_review",
+          "objections": []
+        },
+        "updated_at": "2026-09-14T23:27:58.153868+00:00"
+      },
+      "readiness.action_a": {
+        "document": "readiness",
+        "title": "First readiness action",
+        "status": "complete",
+        "input_hash": "6b864da812a9cfc7502f7e13bc4d44f7e48bc87236082c80c91c8d56877340eb",
+        "review_hash": "7cbeb6e8ed0cdd9063d2a2bb8d5d67ff899b67bdd93959e57d03b64794b877fb",
+        "dependency": "diligence.request_a",
+        "content": {
+          "analysis_plan": {
+            "question": "What income does the investment entity retain from Fruit & Veg Boxes, and does it cover attributable variable service costs?",
+            "left": {
+              "name": "Recognized service revenue after partner charges, if applicable",
+              "dimension": "money",
+              "unit": "reconciled reporting currency",
+              "record_needed": "Entity chart and service/fee-sharing agreements; redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements. Include entity, plan, account key, month, currency, refunds and taxes. Reconcile recognition and gross/net presentation; identify any partner charges already deducted and normalize them exactly once. Exclude customer principal, assets and pass-through taxes from revenue.",
+              "role": "recognized_revenue",
+              "entity": "Investment target, legal identity and contracting entities to confirm",
+              "service": "Fruit & Veg Boxes",
+              "population": "Eligible service accounts, separated by plan and operating month",
+              "window": "Latest six completed months",
+              "time_basis": "flow",
+              "exposure": "Complete operating month",
+              "revenue_treatment": "net",
+              "deducted_costs": [
+                "partner_charge"
+              ]
+            },
+            "operation": "subtract",
+            "right": {
+              "name": "Attributable variable service costs excluding partner charges already deducted",
+              "dimension": "money",
+              "unit": "reconciled reporting currency",
+              "record_needed": "Supplier invoices, direct service/support cost records and staff-time allocations for the same entity, plans, accounts and months. Include currency, expense category, allocation basis and one-off versus ongoing service cost. Exclude fixed corporate overhead and partner charges already deducted from the reconciled revenue input. Request missing records; do not estimate them from public tariffs.",
+              "role": "variable_service_cost",
+              "entity": "Investment target, legal identity and contracting entities to confirm",
+              "service": "Fruit & Veg Boxes",
+              "population": "Eligible service accounts, separated by plan and operating month",
+              "window": "Latest six completed months",
+              "time_basis": "flow",
+              "exposure": "Complete operating month",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "population_basis": "Eligible service accounts, separated by plan and operating month",
+            "kind": "measurement",
+            "purpose": "contribution",
+            "expected_output": "contribution_profit",
+            "population_relation": "same_population",
+            "partner_charge_treatment": "already_deducted_from_revenue",
+            "fee_yield_basis": null,
+            "missing_inputs": "request_records_and_defer_decision",
+            "inference_limit": "descriptive_only_no_causal_claim"
+          },
+          "fact_ids": [
+            "S1"
+          ],
+          "required_input": "Entity chart and service/fee-sharing agreements; redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements. Include entity, plan, account key, month, currency, refunds and taxes. Reconcile recognition and gross/net presentation; identify any partner charges already deducted and normalize them exactly once. Exclude customer principal, assets and pass-through taxes from revenue.; Supplier invoices, direct service/support cost records and staff-time allocations for the same entity, plans, accounts and months. Include currency, expense category, allocation basis and one-off versus ongoing service cost. Exclude fixed corporate overhead and partner charges already deducted from the reconciled revenue input. Request missing records; do not estimate them from public tariffs.",
+          "action": "Recognized service revenue after partner charges, if applicable (reconciled reporting currency) \u2212 Attributable variable service costs excluding partner charges already deducted (reconciled reporting currency). Scope: Investment target, legal identity and contracting entities to confirm; Fruit & Veg Boxes; Eligible service accounts, separated by plan and operating month. Align records to Latest six completed months; exposure: Complete operating month. Check definitions and reconcile inputs before calculating; leave missing inputs and zero denominators unresolved.",
+          "output": "A source-linked contribution profit table (reconciled reporting currency) with input reconciliation, definitions and unresolved differences.",
+          "decision": "Decision unresolved until the requested records and definitions are checked. Use reconciled contribution to investigate loss-making services and choose pricing or delivery-cost work before an expansion recommendation. Observed losses alone do not establish future viability."
+        },
+        "review": {
+          "verdict": "pass",
+          "kind": "combined_bound_review",
+          "objections": []
+        },
+        "updated_at": "2026-09-14T23:27:58.153869+00:00"
+      },
+      "readiness.action_b": {
+        "document": "readiness",
+        "title": "Second readiness action",
+        "status": "complete",
+        "input_hash": "6b864da812a9cfc7502f7e13bc4d44f7e48bc87236082c80c91c8d56877340eb",
+        "review_hash": "7cbeb6e8ed0cdd9063d2a2bb8d5d67ff899b67bdd93959e57d03b64794b877fb",
+        "dependency": "diligence.request_b",
+        "content": {
+          "analysis_plan": {
+            "question": "What proportion of eligible new Fruit & Veg Boxes customers record completed delivery within the requested observation window?",
+            "left": {
+              "name": "Customers completing the specified activation event",
+              "dimension": "count",
+              "unit": "unique customers",
+              "record_needed": "Redacted account-event export with stable customer key, event type, event timestamp, plan and completion/cancellation status. Count each eligible customer once if completed delivery occurs after registration within follow-up. Link to the eligible cohort file; missing event coverage is unresolved, not a negative outcome.",
+              "role": "count",
+              "entity": "Investment target, legal identity and service operator to confirm",
+              "service": "Fruit & Veg Boxes",
+              "population": "Same eligible customer cohort, grouped by entry month and service plan",
+              "window": "Latest six completed months",
+              "time_basis": "observation_window",
+              "exposure": "First ninety days after cohort entry; exclude immature accounts",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "operation": "divide",
+            "right": {
+              "name": "Eligible newly registered customers with complete follow-up",
+              "dimension": "count",
+              "unit": "unique customers",
+              "record_needed": "Redacted customer/cohort export with stable customer key, registration/enrollment/first-event date, plan, eligibility flags and data cutoff. Cohort entry is registration; document eligibility exclusions before counting. Use the same cohort and customer keys as the event export; retain only fully observed customers.",
+              "role": "count",
+              "entity": "Investment target, legal identity and service operator to confirm",
+              "service": "Fruit & Veg Boxes",
+              "population": "Same eligible customer cohort, grouped by entry month and service plan",
+              "window": "Latest six completed months",
+              "time_basis": "observation_window",
+              "exposure": "First ninety days after cohort entry; exclude immature accounts",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "population_basis": "Same eligible customer cohort, grouped by entry month and service plan",
+            "kind": "measurement",
+            "purpose": "cohort_rate",
+            "expected_output": "cohort_rate",
+            "population_relation": "numerator_subset_of_denominator",
+            "partner_charge_treatment": "not_applicable",
+            "fee_yield_basis": null,
+            "missing_inputs": "request_records_and_defer_decision",
+            "inference_limit": "descriptive_only_no_causal_claim"
+          },
+          "fact_ids": [
+            "S1"
+          ],
+          "required_input": "Redacted account-event export with stable customer key, event type, event timestamp, plan and completion/cancellation status. Count each eligible customer once if completed delivery occurs after registration within follow-up. Link to the eligible cohort file; missing event coverage is unresolved, not a negative outcome.; Redacted customer/cohort export with stable customer key, registration/enrollment/first-event date, plan, eligibility flags and data cutoff. Cohort entry is registration; document eligibility exclusions before counting. Use the same cohort and customer keys as the event export; retain only fully observed customers.",
+          "action": "Customers completing the specified activation event (unique customers) \u00f7 Eligible newly registered customers with complete follow-up (unique customers). Scope: Investment target, legal identity and service operator to confirm; Fruit & Veg Boxes; Same eligible customer cohort, grouped by entry month and service plan. Align records to Latest six completed months; exposure: First ninety days after cohort entry; exclude immature accounts. Check definitions and reconcile inputs before calculating; leave missing inputs and zero denominators unresolved.",
+          "output": "A source-linked cohort rate table (fraction) with input reconciliation, definitions and unresolved differences.",
+          "decision": "Decision unresolved until the requested records and definitions are checked. Use measured customer participation to select the next activation or retention investigation; set an experiment threshold from an observed baseline."
+        },
+        "review": {
+          "verdict": "pass",
+          "kind": "combined_bound_review",
+          "objections": []
+        },
+        "updated_at": "2026-09-14T23:27:58.153870+00:00"
+      }
+    },
+    "attempts": [
+      {
+        "task": "shared_analysis",
+        "attempt": 0,
+        "at": "2026-09-14T23:27:02.614506+00:00",
+        "implementation_hash": "fae8b87626e2dcfe6b3ef42ac001edaf849652db648b3e8636080fd150f75a84",
+        "answer": {
+          "economics_test": {
+            "service": "Fruit & Veg Boxes",
+            "fact_ids": [
+              "S1"
+            ]
+          },
+          "customer_test": {
+            "service": "Fruit & Veg Boxes",
+            "fact_ids": [
+              "S1"
+            ],
+            "method": "activation",
+            "event": "completed delivery"
+          },
+          "business": {
+            "fact_ids": [
+              "S1",
+              "S2"
+            ]
+          },
+          "economics": {
+            "fact_ids": [
+              "S1"
+            ]
+          },
+          "risk": {
+            "focus": "delivery_costs",
+            "fact_ids": [
+              "S1"
+            ]
+          }
+        },
+        "elapsed_seconds": 14.878,
+        "invoked": true,
+        "model": "qwen3.5:9b",
+        "routing": {
+          "task": "shared_analysis",
+          "profile": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1200,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "continuation_transport": null,
+          "context_tokens": 8192,
+          "temperature": 0,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 0,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 14.87,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 2591,
+          "generated_tokens": 157,
+          "done_reason": "stop"
+        },
+        "raw_response": "{\n  \"economics_test\": {\n    \"service\": \"Fruit & Veg Boxes\",\n    \"fact_ids\": [\"S1\"]\n  },\n  \"customer_test\": {\n    \"service\": \"Fruit & Veg Boxes\",\n    \"fact_ids\": [\"S1\"],\n    \"event\": \"completed delivery\",\n    \"method\": \"activation\"\n  },\n  \"business\": {\n    \"fact_ids\": [\"S1\", \"S2\"]\n  },\n  \"economics\": {\n    \"fact_ids\": [\"S1\"]\n  },\n  \"risk\": {\n    \"focus\": \"delivery_costs\",\n    \"fact_ids\": [\"S1\"]\n  }\n}"
+      },
+      {
+        "task": "shared_founder",
+        "attempt": 0,
+        "at": "2026-09-14T23:27:17.512825+00:00",
+        "implementation_hash": "fae8b87626e2dcfe6b3ef42ac001edaf849652db648b3e8636080fd150f75a84",
+        "answer": {
+          "opening": {
+            "fact_ids": [
+              "S1"
+            ]
+          },
+          "offer": {
+            "text": "We propose a contribution reconciliation and customer analysis for Fruit & Veg Boxes. We request the accounting/service-cost records: entity chart, service/fee-sharing agreements, redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements, supplier invoices, direct service/support cost records, and staff-time allocations. The concrete deliverable is a source-linked contribution profit table and a source-linked cohort rate table. This supports the commercial decision to investigate loss-making services, choose pricing or delivery-cost work, and select the next activation or retention investigation before an expansion recommendation.",
+            "fact_ids": [
+              "S1",
+              "S2"
+            ]
+          },
+          "customer_records": "We request redacted account-event and customer/cohort exports for Fruit & Veg Boxes, including stable customer keys, event types, timestamps, plan details, completion/cancellation status, registration dates, eligibility flags, and data cutoffs, with anonymized customer IDs and dates.",
+          "invitation": "Invite a conversation with one question: Are you available to discuss the data requirements and timeline for this analysis?"
+        },
+        "elapsed_seconds": 23.607,
+        "invoked": true,
+        "model": "qwen3.5:9b",
+        "routing": {
+          "task": "shared_founder",
+          "profile": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 650,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "continuation_transport": null,
+          "context_tokens": 8192,
+          "temperature": 0,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 0,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 23.6,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 2887,
+          "generated_tokens": 266,
+          "done_reason": "stop"
+        },
+        "raw_response": "{\n  \"opening\": {\n    \"fact_ids\": [\n      \"S1\"\n    ]\n  },\n  \"offer\": {\n    \"text\": \"We propose a contribution reconciliation and customer analysis for Fruit & Veg Boxes. We request the accounting/service-cost records: entity chart, service/fee-sharing agreements, redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements, supplier invoices, direct service/support cost records, and staff-time allocations. The concrete deliverable is a source-linked contribution profit table and a source-linked cohort rate table. This supports the commercial decision to investigate loss-making services, choose pricing or delivery-cost work, and select the next activation or retention investigation before an expansion recommendation.\",\n    \"fact_ids\": [\n      \"S1\",\n      \"S2\"\n    ]\n  },\n  \"customer_records\": \"We request redacted account-event and customer/cohort exports for Fruit & Veg Boxes, including stable customer keys, event types, timestamps, plan details, completion/cancellation status, registration dates, eligibility flags, and data cutoffs, with anonymized customer IDs and dates.\",\n  \"invitation\": \"Invite a conversation with one question: Are you available to discuss the data requirements and timeline for this analysis?\"\n}"
+      },
+      {
+        "task": "shared_review",
+        "attempt": 0,
+        "at": "2026-09-14T23:27:41.144477+00:00",
+        "implementation_hash": "fae8b87626e2dcfe6b3ef42ac001edaf849652db648b3e8636080fd150f75a84",
+        "answer": {
+          "verdict": "pass",
+          "issues": []
+        },
+        "elapsed_seconds": 17.003,
+        "invoked": true,
+        "model": "qwen3.5:9b",
+        "routing": {
+          "task": "shared_review",
+          "profile": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 900,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "continuation_transport": null,
+          "context_tokens": 8192,
+          "temperature": 0,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 0,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 17.0,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 5355,
+          "generated_tokens": 10,
+          "done_reason": "stop"
+        },
+        "raw_response": "{\"verdict\":\"pass\",\"issues\":[]}"
+      }
+    ],
+    "status": "complete",
+    "started_at": "2026-09-14T23:27:02.605078+00:00",
+    "generation_config": {
+      "mode": "shared_analysis_v1",
+      "model": "phi4-mini",
+      "thinking": false,
+      "review_model": "phi4-mini",
+      "analysis_contract": "contribution_and_initial_activation_v1",
+      "analysis_reasoning_budget": 0,
+      "default_review_reasoning_budget": 0,
+      "continuation_protocol": "qwen35_raw_v1",
+      "review_thinking": null,
+      "contract": "386fdfd86f7627ef88709686d33a75291c8462b3ef0e283184a1477a9de11c23"
+    },
+    "shared_input_hash": "6b864da812a9cfc7502f7e13bc4d44f7e48bc87236082c80c91c8d56877340eb",
+    "shared": {
+      "analysis": {
+        "economics_test": {
+          "service": "Fruit & Veg Boxes",
+          "fact_ids": [
+            "S1"
+          ]
+        },
+        "customer_test": {
+          "service": "Fruit & Veg Boxes",
+          "fact_ids": [
+            "S1"
+          ],
+          "method": "activation",
+          "event": "completed delivery"
+        },
+        "business": {
+          "fact_ids": [
+            "S1",
+            "S2"
+          ]
+        },
+        "economics": {
+          "fact_ids": [
+            "S1"
+          ]
+        },
+        "risk": {
+          "focus": "delivery_costs",
+          "fact_ids": [
+            "S1"
+          ]
+        }
+      },
+      "founder": {
+        "opening": {
+          "fact_ids": [
+            "S1"
+          ]
+        },
+        "offer": {
+          "text": "We propose a contribution reconciliation and customer analysis for Fruit & Veg Boxes. We request the accounting/service-cost records: entity chart, service/fee-sharing agreements, redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements, supplier invoices, direct service/support cost records, and staff-time allocations. The concrete deliverable is a source-linked contribution profit table and a source-linked cohort rate table. This supports the commercial decision to investigate loss-making services, choose pricing or delivery-cost work, and select the next activation or retention investigation before an expansion recommendation.",
+          "fact_ids": [
+            "S1",
+            "S2"
+          ]
+        },
+        "customer_records": "We request redacted account-event and customer/cohort exports for Fruit & Veg Boxes, including stable customer keys, event types, timestamps, plan details, completion/cancellation status, registration dates, eligibility flags, and data cutoffs, with anonymized customer IDs and dates.",
+        "invitation": "Invite a conversation with one question: Are you available to discuss the data requirements and timeline for this analysis?"
+      },
+      "review": {
+        "verdict": "pass",
+        "kind": "combined_bound_review",
+        "objections": []
+      }
+    },
+    "documents": {
+      "research": {
+        "title": "Research memo",
+        "status": "complete"
+      },
+      "founder": {
+        "title": "Founder proposal",
+        "status": "complete"
+      },
+      "diligence": {
+        "title": "Diligence request",
+        "status": "complete"
+      },
+      "readiness": {
+        "title": "Investment-readiness plan",
+        "status": "complete"
+      }
+    },
+    "updated_at": "2026-09-14T23:27:58.155886+00:00",
+    "agenda": {
+      "status": "complete",
+      "questions": [
+        {
+          "dimension": "unit_economics",
+          "question": "What income does the investment entity retain from Fruit & Veg Boxes, and does it cover attributable variable service costs?",
+          "fact_ids": [
+            "S1"
+          ]
+        },
+        {
+          "dimension": "customer_demand",
+          "question": "What proportion of eligible new Fruit & Veg Boxes customers record completed delivery within the requested observation window?",
+          "fact_ids": [
+            "S1"
+          ]
+        }
+      ]
+    },
+    "last_run_budget": {
+      "max_seconds": 119.738594,
+      "max_calls": 6,
+      "max_requests": 10,
+      "calls": 3,
+      "requests": 3,
+      "elapsed_seconds": 58.193
+    }
+  },
+  "metrics": {
+    "completed_sections": 9,
+    "expected_sections": 9,
+    "completion_rate": 1.0,
+    "completed_documents": [
+      "research",
+      "founder",
+      "diligence",
+      "readiness"
+    ],
+    "model_calls": 3,
+    "correction_attempts": 0,
+    "inference_seconds": 55.49,
+    "independently_audited_factual_errors": null,
+    "actionable_sections": null
+  },
+  "elapsed_seconds": 58.21,
+  "actual_inference_calls": 3,
+  "denied_corrections": [],
+  "budget": {
+    "max_seconds": 119.738594,
+    "max_calls": 6,
+    "max_requests": 10,
+    "calls": 3,
+    "requests": 3,
+    "elapsed_seconds": 58.2
+  }
+}

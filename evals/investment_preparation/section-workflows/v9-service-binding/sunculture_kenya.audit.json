@@ -1,0 +1,30 @@
+{
+  "case_id": "sunculture_kenya",
+  "reviewed": true,
+  "reviewer_kind": "coding_session_content_audit_separate_from_model_review",
+  "report_sha256": "b8eb62bbe28fe8996f8541e2fcbaf5c4ccea7a6c0423026a4a2636da6fa4749b",
+  "factual_errors": 0,
+  "factual_error_scope": "Unsupported transformations or invented model-authored company claims relative to captured sources, not independent verification of published claims.",
+  "actionable_sections": 9,
+  "completed_sections": 9,
+  "decision": "accepted_for_internal_initial_preparation",
+  "elapsed_seconds": 43.11,
+  "model_calls": 3,
+  "correction_attempts": 0,
+  "notes": {
+    "business": "Quoted solar-pump offering and smallholder-farmer context remain source-reported.",
+    "economics": "Published installment/cash terms remain attached to their complete product records; realized income is unknown.",
+    "customer": "First completed delivery is a relevant fulfillment/activation event for a durable pump; no repeat-purchase requirement remains.",
+    "proposal": "Names the product, accounting and variable-cost inputs, redacted event/cohort exports, contribution/customer tables and a conditional operating decision."
+  },
+  "methods": "Both requests and paired actions use canonical matching definitions, entity confirmation, revenue/cost treatment, input records and missing-data behavior. Customer counts share eligibility and ninety-day exposure; no causal claim or observed financial result is produced.",
+  "minor_edits": [
+    "Shorten source-context presentation and remove navigation from the reader-facing memo without dropping qualifications.",
+    "Use natural articles in event phrasing and agree precise eligibility/event definitions with the founders."
+  ],
+  "limitations": [
+    "Known development example; not held-out or practitioner acceptance.",
+    "Only an initial contribution and activation work plan, not arbitrary sector diligence or an investment recommendation.",
+    "Company performance and source claims remain unverified; records are requested, not analyzed."
+  ]
+}

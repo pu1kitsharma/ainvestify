@@ -1,0 +1,9 @@
+# Initial preparation acceptance — contribution and activation
+
+Three fresh isolated full workflows: SunCulture and Notpla use the saved collected source excerpts; Paasa uses its original five source-checked paraphrases. No reference answer or prior output is supplied to inference. Qwen3.5:9b, context8192, fast temperature0, no presence penalty. Each company is capped at120 seconds,6 logical calls and10 requests, one correction per task.
+
+The initial pack has two questions: retained recognized income after attributable variable costs, and the first meaningful observable customer action. The AI selects services and the action (funding/order/booking/delivery/installation/use/visit/enrollment). Code fixes the activation method, avoiding the prior wrong requirement that durable pumps be bought repeatedly. Repeat-use and retention helpers remain available for explicit future work but are not default initial-pack choices.
+
+Research facts and founder opening are exact attributed source excerpts; core source qualifications and merged citations are retained. The AI writes the offer, required customer-record request and invitation. Quantities, formulas, scopes, underlying-record requirements and conditional decisions are registered methods. Review checks choices against relevant sources and the proposal against the intended work contract.
+
+Require all nine usable sections and a relevant first-action question, faithful source/entity/fee distinctions, executable different accounting/customer requests, valid economics and denominators, no invented financial/customer outcomes, and an unsent concrete proposal. Inspect final outputs separately from model self-review. Preserve all earlier failures, including v9-qualified-output SunCulture's ill-suited repeat-delivery question despite full completion. Known development cases, not unseen/practitioner/MVP acceptance or perfect accuracy.

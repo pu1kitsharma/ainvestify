@@ -1,0 +1,30 @@
+[
+  {
+    "company": "waybill",
+    "revision": 318,
+    "three_stages_available": true,
+    "no_failure_banner": true,
+    "summary_characters": 528,
+    "economics_card_height": 362,
+    "full_sources_expandable": true,
+    "export_status": 200,
+    "mobile_no_overflow": true,
+    "browser_errors": [],
+    "generation_requests": 0,
+    "check_seconds": 0.6536802499999999
+  },
+  {
+    "company": "paasa",
+    "revision": 1306,
+    "three_stages_available": true,
+    "no_failure_banner": true,
+    "summary_characters": 389,
+    "economics_card_height": 334,
+    "full_sources_expandable": true,
+    "export_status": 200,
+    "mobile_no_overflow": true,
+    "browser_errors": [],
+    "generation_requests": 0,
+    "check_seconds": 0.6294625
+  }
+]

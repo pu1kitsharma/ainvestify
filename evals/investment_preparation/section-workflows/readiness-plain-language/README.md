@@ -1,0 +1,13 @@
+# Readiness in plain language — 15 September 2026
+
+The user could not understand Waybill's readiness page. The previous view displayed long registered-method strings twice, including accounting terminology, formulas, units and cohort definitions. Successful generation and review did not make this presentation useful.
+
+The page now starts with two questions: what money the company actually keeps, and whether new customers complete the selected first action. Each check explains which records to request, what to do with them and which decision the result supports. The original detailed request, calculation plan and source passages remain under **Full calculation method and sources**. The original exports are explicitly labelled as detailed documents. Users can copy a plain records request or download the simple checklist without another model call.
+
+`frontend/src/components/readinessText.ts` provides reading aids only for the recognized contribution and initial-activation plan structures. It preserves the six-month requested period, same service/entity/currency, no double deduction, exclusion of fixed overhead, unique customer counts, complete ninety-day follow-up, missing-data uncertainty and limits on repeat-use/causal conclusions. The customer action is bound to the saved method's exact event criterion; enrollment is not rewritten as ordering. Different, incomplete or mismatched methods retain their original view rather than receiving a guessed explanation. This is a presentation of proposed work, not an assertion that the checks have been performed or passed.
+
+Validation: frontend build/lint and the isolated browser journey passed. The browser regression uses `waybill-before.json` as a real saved-plan fixture, verifies the readable guide and its download, preserves access to original formulas and tests fallback for an unknown method. A separate read-only live browser check covered Waybill and Paasa, source expansion, copy requests, downloaded text and mobile overflow. See `browser-check.json`, the screenshots and downloaded checklists. The Waybill screenshot was visually inspected.
+
+All **31 SQLite workspace rows are byte-identical** to the before hashes, including saved models, formulas, reviews and history. **Zero new model calls**, no source refresh, no database migration and no API restart. The stable API and existing prepared work remain unchanged. `verification.json` records this check. This does not provide a new investment-quality or actual company-record analysis result.
+
+Preserve `waybill-before.json`: the existing `scripts/check_operations_ui.cjs` now reads it directly. No separate browser-test harness or backend workflow was introduced.

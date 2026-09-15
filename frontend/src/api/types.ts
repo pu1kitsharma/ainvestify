@@ -161,7 +161,7 @@ export interface WebSourcingRun {
   completed_at: string | null;
   error: string | null;
   source_coverage?: SourceCoverage[];
-  research_plan?: { interpretation: string; status: string; model: string; criteria: { dimension: string; requirement: string; evidence_needed: string }[] };
+  research_plan?: { interpretation: string; coverage_aim?: string; status: string; model: string; criteria: { dimension: string; requirement: string; evidence_needed: string }[] };
   reasoning_log?: { step: string; company?: string; decision?: string; detail: string; model: string }[];
 }
 

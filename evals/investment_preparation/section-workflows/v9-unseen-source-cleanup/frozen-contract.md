@@ -1,0 +1,11 @@
+# Unseen-company check — frozen before inference
+
+15 September 2026. User authorized source/document cleanup and three unseen-company checks. These names had no matches in existing evals or tests before selection. They are unseen development cases for this application, not a random statistical sample or unknown to the coding assistant/model.
+
+Inputs: company name, region/sector labels and official homepage only. No curated company excerpts, reference answers or expected model wording are passed to generation. The production public-page collector retrieves the homepage and one observed same-domain commercial page. This evaluates preparation from a known homepage, not automatic company discovery.
+
+Use the installed default local model, same three-call workflow, no model sweep. Each case has a shared wall-clock cap of 120 seconds including source collection and inference, at most six logical calls/ten HTTP inference requests, one normal targeted correction per stage. Sequential cases avoid competing for the local model. No existing output is reused. Original attempts must remain unchanged. Inspect content independently of the model verdict; this development inspection is not a practitioner audit.
+
+Acceptance per case: nine usable initial-preparation sections; company/service and payer distinctions faithful to the captured sources; qualifications preserved; no fabricated performance, causal proof, registrations or completed work; contribution requests match the service and economics; activation counts eligible customer entities with a suitable observable event; proposal requests executable records and makes no mandate/funding promises; sources traceable and reasonably readable; completion within 120 seconds. Missing material sources or an inappropriate method is a content failure even if the model says pass. Cosmetic improvements are distinguished from required analytical changes.
+
+Record collection status, original input excerpts, all attempts, timing, final content and a separate hash-bound audit. Do not change prompts or inputs between these three first runs. Any later repair loses unseen status and must be labelled development retest. Do not claim a numeric accuracy rate or full investment-handling readiness from three cases.

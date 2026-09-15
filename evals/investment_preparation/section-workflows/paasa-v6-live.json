@@ -1,0 +1,4026 @@
+{
+  "version": 6,
+  "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+  "basis_hash": "0ed5a78474261cfbced4f1e4befb6972e3dba838a335b3980eff0a1b727a36b6",
+  "company": "Paasa",
+  "record": {
+    "batches": {
+      "0": {
+        "status": "complete",
+        "facts": [
+          {
+            "id": "fact_38c2f05c1ce9",
+            "category": "operations",
+            "subject": "target",
+            "quote": "Get started in 3 simple steps STEP 1 Complete KYC PAN & Aadhaar are required, 100% digital",
+            "source_id": "evidence_e517e55d2500",
+            "source_url": "https://paasa.com/",
+            "retrieved_at": "2026-09-14T10:33:32.712966+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P1",
+            "source_span_start": 171
+          },
+          {
+            "id": "fact_fb58ab9e317d",
+            "category": "operations",
+            "subject": "target",
+            "quote": "Remit funds Under the RBI's Liberalized Remittance Scheme Transfer funds in and out worldwide, as long as the bank account is in your name",
+            "source_id": "evidence_e517e55d2500",
+            "source_url": "https://paasa.com/",
+            "retrieved_at": "2026-09-14T10:33:32.712966+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P1",
+            "source_span_start": 269
+          },
+          {
+            "id": "fact_d589a06b75d6",
+            "category": "operations",
+            "subject": "target",
+            "quote": "Start investing Pick a strategy or invest directly Open account White glove onboarding available",
+            "source_id": "evidence_e517e55d2500",
+            "source_url": "https://paasa.com/",
+            "retrieved_at": "2026-09-14T10:33:32.712966+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P1",
+            "source_span_start": 415
+          },
+          {
+            "id": "fact_2a0d0acc841f",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "Tax on Foreign Stocks and ETFs | How are Joint Global Brokerage Accounts Taxed?",
+            "source_id": "evidence_b3b9729dd1b7",
+            "source_url": "https://paasa.com/",
+            "retrieved_at": "2026-09-14T10:33:32.713000+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P2",
+            "source_span_start": 0
+          },
+          {
+            "id": "fact_e94c0a72269c",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "How Foreign Dividend Income is Taxed for Indian Investors",
+            "source_id": "evidence_b3b9729dd1b7",
+            "source_url": "https://paasa.com/",
+            "retrieved_at": "2026-09-14T10:33:32.713000+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P2",
+            "source_span_start": 82
+          },
+          {
+            "id": "fact_7d526f595a77",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "Tax on Repatriation of Foreign Income to India",
+            "source_id": "evidence_b3b9729dd1b7",
+            "source_url": "https://paasa.com/",
+            "retrieved_at": "2026-09-14T10:33:32.713000+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P2",
+            "source_span_start": 142
+          },
+          {
+            "id": "fact_9c7ca290502d",
+            "category": "company_structure",
+            "subject": "partner",
+            "quote": "Interactive Brokers LLC is a registered Broker-Dealer, Futures Commission Merchant and Forex Dealer Member, regulated by the U.S. Securities and Exchange Commission (SEC), the Commodity Futures Trading Commission (CFTC) and the National Futures Association (NFA), and is a member of the Financial Industry Regulatory Authority (FINRA) and several other self-regulatory organizations.",
+            "source_id": "evidence_b5b538b9beb2",
+            "source_url": "https://paasa.com/",
+            "retrieved_at": "2026-09-14T10:33:32.713032+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P4",
+            "source_span_start": 29
+          },
+          {
+            "id": "fact_2ffa0f838100",
+            "category": "company_structure",
+            "subject": "partner",
+            "quote": "Interactive Brokers does not endorse or recommend any introducing brokers, third-party financial advisors or hedge funds, including Paasa.",
+            "source_id": "evidence_b5b538b9beb2",
+            "source_url": "https://paasa.com/",
+            "retrieved_at": "2026-09-14T10:33:32.713032+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P4",
+            "source_span_start": 413
+          }
+        ]
+      },
+      "4": {
+        "status": "complete",
+        "facts": [
+          {
+            "id": "fact_e568d2bbf17c",
+            "category": "pricing",
+            "subject": "target",
+            "quote": "Access Plan Trade stocks & ETFs across global exchanges and currencies. No recurring fee. No restriction on account size. $0 /month Pay brokerage on trades",
+            "source_id": "evidence_83c8b5e2c994",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256004+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P7",
+            "source_span_start": 251
+          },
+          {
+            "id": "fact_352b69449ff4",
+            "category": "pricing",
+            "subject": "target",
+            "quote": "Apex Plan Everything in Access plan + Managed strategies (advisory) + FEMA and tax support. $50k - $100k AUM 1.0% + GST $100k - $500k AUM 0.7% + GST $500k - $1M AUM 0.5% + GST $1M+",
+            "source_id": "evidence_83c8b5e2c994",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256004+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P7",
+            "source_span_start": 419
+          },
+          {
+            "id": "fact_4b706eef1886",
+            "category": "pricing",
+            "subject": "target",
+            "quote": "The percentage fee shown is charged annually and deducted in monthly installments. Minimum investment $50k for Apex. Fees are deducted automatically from your Paasa wallet each month.",
+            "source_id": "evidence_2d357e901424",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256045+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P8",
+            "source_span_start": 17
+          },
+          {
+            "id": "fact_e6272905f30e",
+            "category": "pricing",
+            "subject": "target",
+            "quote": "Brokerage fees per trade GST is included in the brokerage. Brokerage fees are applicable on all trades. Brokerage markups",
+            "source_id": "evidence_2d357e901424",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256045+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P8",
+            "source_span_start": 476
+          },
+          {
+            "id": "fact_1e062bdb5b10",
+            "category": "company_structure",
+            "subject": "target",
+            "quote": "LLC. Custodian \u00a9 2026 Paasa. All rights reserved.",
+            "source_id": "evidence_eb35fb088a04",
+            "source_url": "https://paasa.com/",
+            "retrieved_at": "2026-09-14T10:33:32.713057+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P6",
+            "source_span_start": 0
+          }
+        ]
+      },
+      "8": {
+        "status": "complete",
+        "facts": [
+          {
+            "id": "fact_953d0325abdc",
+            "category": "pricing",
+            "subject": "market",
+            "quote": "UK Exchange GBP USD EUR Charge 0.05% of trade value Min per trade \u00a31.00 Max per trade -",
+            "source_id": "evidence_1fe33ed4f0f2",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256059+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P9",
+            "source_span_start": 215
+          },
+          {
+            "id": "fact_76a34bc246f8",
+            "category": "pricing",
+            "subject": "market",
+            "quote": "US Exchanges USD Charge 0.10% of trade value Min per trade $0.50 Max per trade $40.00",
+            "source_id": "evidence_1fe33ed4f0f2",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256059+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P9",
+            "source_span_start": 327
+          },
+          {
+            "id": "fact_47cb6621b12d",
+            "category": "pricing",
+            "subject": "market",
+            "quote": "Swiss Exchange CHF USD EUR GBP Charge 0.05% of trade value Min per trade \u20a31.50 Max per trade \u20a349.00",
+            "source_id": "evidence_b2e7863b047a",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256072+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P10",
+            "source_span_start": 21
+          },
+          {
+            "id": "fact_e9a4022f38d1",
+            "category": "pricing",
+            "subject": "market",
+            "quote": "Hong Kong Exchange HKD USD Charge 0.05% of trade value Min per trade HK$18.00 Max per trade -",
+            "source_id": "evidence_b2e7863b047a",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256072+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P10",
+            "source_span_start": 145
+          },
+          {
+            "id": "fact_10cb90d0cf6e",
+            "category": "pricing",
+            "subject": "market",
+            "quote": "Canadian Exchange CAD USD Charge CA$0.008 per share Min per trade CA$1.00 Max per trade 0.5% trade value",
+            "source_id": "evidence_13a038574217",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256083+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P11",
+            "source_span_start": 13
+          },
+          {
+            "id": "fact_a29eb86f12e2",
+            "category": "pricing",
+            "subject": "market",
+            "quote": "Japanese Exchange JPY Charge 0.05% of trade value Min per trade \u00a580.00 Max per trade -",
+            "source_id": "evidence_13a038574217",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256083+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P11",
+            "source_span_start": 142
+          },
+          {
+            "id": "fact_4290c64c266e",
+            "category": "pricing",
+            "subject": "market",
+            "quote": "Singapore Exchange SGD USD GBP HKD EUR Charge 0.08% of trade value Min per trade S$2.50 Max per trade -",
+            "source_id": "evidence_13a038574217",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256083+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P11",
+            "source_span_start": 253
+          },
+          {
+            "id": "fact_6712b79582f3",
+            "category": "pricing",
+            "subject": "market",
+            "quote": "Value tiers are applied based on monthly cumulative trade volume summed across all stock, warrants and ETF shares.",
+            "source_id": "evidence_e0ddfb5088fd",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256094+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P12",
+            "source_span_start": 60
+          },
+          {
+            "id": "fact_7b4ed8453ec6",
+            "category": "pricing",
+            "subject": "market",
+            "quote": "IBKR's Tiered (i.e., commission plus external venue fees/rebates) commission models are not intended to be a direct pass-through of exchange and third-party fees and rebates.",
+            "source_id": "evidence_e0ddfb5088fd",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256094+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P12",
+            "source_span_start": 337
+          },
+          {
+            "id": "fact_9396a59387bf",
+            "category": "pricing",
+            "subject": "market",
+            "quote": "US Penny Stocks Price less than $5 USD Charge $0.0035/share or 0.1% of trade value * Min per trade $0.50 Max per trade 1% of trade value",
+            "source_id": "evidence_1fe33ed4f0f2",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256059+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P9",
+            "source_span_start": 437
+          }
+        ]
+      },
+      "12": {
+        "status": "complete",
+        "facts": [
+          {
+            "id": "fact_503c360ad7d2",
+            "category": "pricing",
+            "subject": "target",
+            "quote": "Commission rates may also vary by program or arrangement. Restrictions apply. The published rates are for direct clients of Paasa only.",
+            "source_id": "evidence_dd0eedf540e7",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256115+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P14",
+            "source_span_start": 98
+          },
+          {
+            "id": "fact_106dd118482d",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Access Apex Trading Advanced Order Types: Market, Limit, Stop, Trailing stop Set Recurring Investments Market data, fundamentals and technicals Create watchlists",
+            "source_id": "evidence_dd0eedf540e7",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256115+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P14",
+            "source_span_start": 248
+          },
+          {
+            "id": "fact_c39d3e69f06a",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Advisory Managed Strategies - Portfolio monitoring & analytics - Ongoing tax loss harvesting and rebalancing - Dedicated relationship manager - Compliance End of year tax documents Ongoing",
+            "source_id": "evidence_dd0eedf540e7",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256115+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P14",
+            "source_span_start": 410
+          },
+          {
+            "id": "fact_94668f760bd8",
+            "category": "customers",
+            "subject": "target",
+            "quote": "Invest in US from India | Invest in Ireland from India | Invest in Switzerland from India | Invest in China from India | Invest in Japan from India | Invest in Singapore from India | Invest in UK from India | Invest in Poland from India | Invest in Germany from India",
+            "source_id": "evidence_49fff4e5c20f",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256125+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P15",
+            "source_span_start": 22
+          },
+          {
+            "id": "fact_e52079fbfac4",
+            "category": "customers",
+            "subject": "target",
+            "quote": "Tax How Global Stocks and ETFs Are Taxed for Indian Investors | Capital Gains Tax on Foreign Stocks and ETFs | How are Joint Global Brokerage Accounts Taxed?",
+            "source_id": "evidence_49fff4e5c20f",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256125+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P15",
+            "source_span_start": 290
+          },
+          {
+            "id": "fact_ca188b09879d",
+            "category": "customers",
+            "subject": "target",
+            "quote": "and NRIs | How to Adjust TCS Against Advance Tax Liability LRS What is LRS? | LRS for Investments | LRS for Education | LRS for Healthcare | LRS for Travel | LRS for Maintenance | LRS for buying Property Overseas | LRS for Gifts & Donations",
+            "source_id": "evidence_9da27d73b11e",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256136+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P16",
+            "source_span_start": 0
+          },
+          {
+            "id": "fact_d22f56009c80",
+            "category": "customers",
+            "subject": "target",
+            "quote": "Double Taxation Avoidance Agreements What is DTAA? | DTAA between India & USA | DTAA between India & Singapore | DTAA between India & Switzerland | DTAA between India & UK | DTAA between India & Ireland | DTAA between India & Japan | DTAA between India & Poland | DTAA between India & China | DTAA between India and Germany",
+            "source_id": "evidence_9da27d73b11e",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256136+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P16",
+            "source_span_start": 241
+          },
+          {
+            "id": "fact_263178347592",
+            "category": "pricing",
+            "subject": "target",
+            "quote": "the costs paid by IBKR to the relevant exchange, regulator, clearinghouse or third party. For example, IBKR may receive volume discounts that are not passed on to clients.",
+            "source_id": "evidence_9539b231f5f3",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256105+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P13",
+            "source_span_start": 0
+          },
+          {
+            "id": "fact_4873b83f9031",
+            "category": "pricing",
+            "subject": "target",
+            "quote": "Likewise, rebates passed on to clients by IBKR may be less than the rebates IBKR receives from the relevant market.",
+            "source_id": "evidence_9539b231f5f3",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256105+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P13",
+            "source_span_start": 172
+          },
+          {
+            "id": "fact_d5f1f076b18e",
+            "category": "pricing",
+            "subject": "target",
+            "quote": "Paasa may change these rates at any time in its sole discretion.",
+            "source_id": "evidence_dd0eedf540e7",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256115+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P14",
+            "source_span_start": 33
+          }
+        ]
+      },
+      "16": {
+        "status": "complete",
+        "facts": [
+          {
+            "id": "fact_6bf6dcb18fe2",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Paasa helps wealthy Indians invest in global equities - without middlemen, hidden fees, or paperwork.",
+            "source_id": "evidence_93cbc14a629a",
+            "source_url": "https://www.ycombinator.com/companies/location/india",
+            "retrieved_at": "2026-09-13T18:53:50.403649+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P20",
+            "source_span_start": 60
+          },
+          {
+            "id": "fact_1a0d8e3ab4f5",
+            "category": "customers",
+            "subject": "target",
+            "quote": "While high-net-worths in India often have international expenses from children's education to healthcare, most still save in INR, a currency that depreciates ~2\u20135% per year against the USD.",
+            "source_id": "evidence_93cbc14a629a",
+            "source_url": "https://www.ycombinator.com/companies/location/india",
+            "retrieved_at": "2026-09-13T18:53:50.403649+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P20",
+            "source_span_start": 162
+          },
+          {
+            "id": "fact_8ec1929423b6",
+            "category": "operations",
+            "subject": "target",
+            "quote": "Paasa offers a mobile app that enables Indians to trade worldwide, invest via advisory, and automate every cross-border tax filing.",
+            "source_id": "evidence_93cbc14a629a",
+            "source_url": "https://www.ycombinator.com/companies/location/india",
+            "retrieved_at": "2026-09-13T18:53:50.403649+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P20",
+            "source_span_start": 531
+          },
+          {
+            "id": "fact_f59271f67590",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "Broken outward remittance process - Fear of making mistakes in tax or compliance - Paper-heavy onboarding processes of international brokers - Lack of trustworthy guidance",
+            "source_id": "evidence_93cbc14a629a",
+            "source_url": "https://www.ycombinator.com/companies/location/india",
+            "retrieved_at": "2026-09-13T18:53:50.403649+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P20",
+            "source_span_start": 359
+          },
+          {
+            "id": "fact_5bde2cf67e64",
+            "category": "company_structure",
+            "subject": "partner",
+            "quote": "Custodian \u00a9 2026 Paasa. All rights reserved.",
+            "source_id": "evidence_282f734d0f7e",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256167+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P19",
+            "source_span_start": 368
+          },
+          {
+            "id": "fact_d82212b59a0e",
+            "category": "company_structure",
+            "subject": "partner",
+            "quote": "Interactive Brokers does not endorse or recommend any introducing brokers, third-party financial advisors or hedge funds, including Paasa.",
+            "source_id": "evidence_b32955792303",
+            "source_url": "https://paasa.com/pricing",
+            "retrieved_at": "2026-09-14T10:33:33.256157+00:00",
+            "observed_at": null,
+            "origin": "preparation_public_page",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P18",
+            "source_span_start": 182
+          }
+        ]
+      },
+      "20": {
+        "status": "complete",
+        "facts": [
+          {
+            "id": "fact_1e4d4a2ba531",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Paasa helps wealthy",
+            "source_id": "evidence_f1375c8551df",
+            "source_url": "https://www.ycombinator.com/companies/paasa",
+            "retrieved_at": "2026-09-13T23:28:07.087716+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P21",
+            "source_span_start": 578
+          },
+          {
+            "id": "fact_455d75bf20a9",
+            "category": "customers",
+            "subject": "target",
+            "quote": "Indians invest in global equities - without middlemen, hidden fees, or paperwork.",
+            "source_id": "evidence_ca0422856034",
+            "source_url": "https://www.ycombinator.com/companies/paasa",
+            "retrieved_at": "2026-09-13T23:28:07.087860+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P22",
+            "source_span_start": 0
+          },
+          {
+            "id": "fact_6f6fd4d39683",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "most still save in INR, a currency that depreciates ~2\u20135% per year against the USD.",
+            "source_id": "evidence_ca0422856034",
+            "source_url": "https://www.ycombinator.com/companies/paasa",
+            "retrieved_at": "2026-09-13T23:28:07.087860+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P22",
+            "source_span_start": 188
+          },
+          {
+            "id": "fact_ca1818f3f056",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Paasa gives high-net-worth individuals (HNIs) in emerging markets the same globally diversified portfolios as HNIs in America.",
+            "source_id": "evidence_fc584da7c196",
+            "source_url": "https://www.ycombinator.com/companies/paasa",
+            "retrieved_at": "2026-09-13T23:28:07.087944+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P23",
+            "source_span_start": 308
+          },
+          {
+            "id": "fact_0608c28f72c7",
+            "category": "founder_history",
+            "subject": "founder",
+            "quote": "Nitish Sahni Founder/CEO Invest in global markets from India.",
+            "source_id": "evidence_fc584da7c196",
+            "source_url": "https://www.ycombinator.com/companies/paasa",
+            "retrieved_at": "2026-09-13T23:28:07.087944+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P23",
+            "source_span_start": 0
+          },
+          {
+            "id": "fact_77f08bcf6773",
+            "category": "founder_history",
+            "subject": "founder",
+            "quote": "Sparsh Sharma Founder Chief product officer at Paasa",
+            "source_id": "evidence_fc584da7c196",
+            "source_url": "https://www.ycombinator.com/companies/paasa",
+            "retrieved_at": "2026-09-13T23:28:07.087944+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P23",
+            "source_span_start": 124
+          },
+          {
+            "id": "fact_a5e55b35e820",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "Lack of guidance on foreign investments Remittance regulations that change every year",
+            "source_id": "evidence_89fe16c6e4bc",
+            "source_url": "https://www.ycombinator.com/companies/paasa",
+            "retrieved_at": "2026-09-13T23:28:07.088034+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P24",
+            "source_span_start": 27
+          },
+          {
+            "id": "fact_47a3d4d4b277",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "Cross-border tax filing that their CFAs struggle with",
+            "source_id": "evidence_89fe16c6e4bc",
+            "source_url": "https://www.ycombinator.com/companies/paasa",
+            "retrieved_at": "2026-09-13T23:28:07.088034+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P24",
+            "source_span_start": 113
+          },
+          {
+            "id": "fact_450657fc58d3",
+            "category": "founder_history",
+            "subject": "founder",
+            "quote": "Team Sparsh and I ( Nitish ) grew up in India and have known each other for 5 years.",
+            "source_id": "evidence_89fe16c6e4bc",
+            "source_url": "https://www.ycombinator.com/companies/paasa",
+            "retrieved_at": "2026-09-13T23:28:07.088034+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P24",
+            "source_span_start": 443
+          },
+          {
+            "id": "fact_d736a8cb3765",
+            "category": "founder_history",
+            "subject": "founder",
+            "quote": "we previously worked at SoFi",
+            "source_id": "evidence_89fe16c6e4bc",
+            "source_url": "https://www.ycombinator.com/companies/paasa",
+            "retrieved_at": "2026-09-13T23:28:07.088034+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P24",
+            "source_span_start": 557
+          }
+        ]
+      },
+      "24": {
+        "status": "complete",
+        "facts": [
+          {
+            "id": "fact_688a792c1b51",
+            "category": "founder_history",
+            "subject": "founder",
+            "quote": "Sparsh led design on Student Loan Refinance, and I led engineering projects on Data Governance.",
+            "source_id": "evidence_d400e6aaccda",
+            "source_url": "https://www.ycombinator.com/companies/paasa",
+            "retrieved_at": "2026-09-13T23:28:07.088083+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P25",
+            "source_span_start": 0
+          },
+          {
+            "id": "fact_424a71adc95c",
+            "category": "founder_request",
+            "subject": "founder",
+            "quote": "Ask If you\u2019re in India and want to invest globally, reach out ! We\u2019re founders@paasa.co",
+            "source_id": "evidence_d400e6aaccda",
+            "source_url": "https://www.ycombinator.com/companies/paasa",
+            "retrieved_at": "2026-09-13T23:28:07.088083+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P25",
+            "source_span_start": 96
+          },
+          {
+            "id": "fact_f907904ae23f",
+            "category": "operations",
+            "subject": "target",
+            "quote": "Jobs at Paasa View all jobs Founding Engineer Gurugram, HR, IN $25K - $50K 0.10% - 1.00% 3+ years Apply Now",
+            "source_id": "evidence_d400e6aaccda",
+            "source_url": "https://www.ycombinator.com/companies/paasa",
+            "retrieved_at": "2026-09-13T23:28:07.088083+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P25",
+            "source_span_start": 184
+          },
+          {
+            "id": "fact_6ac5a95df9ad",
+            "category": "operations",
+            "subject": "target",
+            "quote": "Customer Support Gurugram, HR, IN / Gurugram, Haryana, IN \u20b9500K - \u20b9800K INR 3+ years Apply Now",
+            "source_id": "evidence_d400e6aaccda",
+            "source_url": "https://www.ycombinator.com/companies/paasa",
+            "retrieved_at": "2026-09-13T23:28:07.088083+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P25",
+            "source_span_start": 294
+          },
+          {
+            "id": "fact_0ee2356bc265",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Invest in US Stocks, ETFs, UCITS & Global Markets from India",
+            "source_id": "evidence_4a37c0e32b80",
+            "source_url": "https://paasa.com/",
+            "retrieved_at": "2026-09-13T23:28:28.286578+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P26",
+            "source_span_start": 8
+          },
+          {
+            "id": "fact_b65859f40b82",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "Global Investing for the Global Indian Start investing",
+            "source_id": "evidence_4a37c0e32b80",
+            "source_url": "https://paasa.com/",
+            "retrieved_at": "2026-09-13T23:28:28.286578+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P26",
+            "source_span_start": 312
+          },
+          {
+            "id": "fact_4988d0b49aec",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Trade from a universe of 15,000+ tickers across the world from the palm of your hand",
+            "source_id": "evidence_ba9712beb09c",
+            "source_url": "https://paasa.com/",
+            "retrieved_at": "2026-09-13T23:28:28.286659+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P27",
+            "source_span_start": 0
+          },
+          {
+            "id": "fact_9b75c100083a",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Invest in an expert strategy that maximizes returns for your level of risk, with ongoing rebalancing",
+            "source_id": "evidence_ba9712beb09c",
+            "source_url": "https://paasa.com/",
+            "retrieved_at": "2026-09-13T23:28:28.286659+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P27",
+            "source_span_start": 175
+          },
+          {
+            "id": "fact_57316ae7d1ae",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Earn interest up to 3.13% on uninvested USD cash above $10,000",
+            "source_id": "evidence_2c708efee32c",
+            "source_url": "https://paasa.com/",
+            "retrieved_at": "2026-09-13T23:28:28.287456+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P28",
+            "source_span_start": 194
+          },
+          {
+            "id": "fact_bdd5eea100f6",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "India-ready tax reports, generated for you Schedule FA, Schedule FSI, capital gains, and all required ITR reports automatically sent to you at year end.",
+            "source_id": "evidence_2c708efee32c",
+            "source_url": "https://paasa.com/",
+            "retrieved_at": "2026-09-13T23:28:28.287456+00:00",
+            "observed_at": null,
+            "origin": "public_page_claim",
+            "status": "source_reported",
+            "classification": "model_selected_not_independently_verified",
+            "source_passage_id": "P28",
+            "source_span_start": 378
+          }
+        ]
+      },
+      "28": {
+        "status": "failed",
+        "error": "Each quote must be one exact contiguous span in its supplied passage. Do not paraphrase or combine fragments."
+      },
+      "32": {
+        "status": "failed",
+        "error": "Each quote must be one exact contiguous span in its supplied passage. Do not paraphrase or combine fragments."
+      },
+      "36": {
+        "status": "complete",
+        "facts": []
+      }
+    },
+    "facts": [
+      {
+        "id": "fact_38c2f05c1ce9",
+        "category": "operations",
+        "subject": "target",
+        "quote": "Get started in 3 simple steps STEP 1 Complete KYC PAN & Aadhaar are required, 100% digital",
+        "source_id": "evidence_e517e55d2500",
+        "source_url": "https://paasa.com/",
+        "retrieved_at": "2026-09-14T10:33:32.712966+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P1",
+        "source_span_start": 171
+      },
+      {
+        "id": "fact_fb58ab9e317d",
+        "category": "operations",
+        "subject": "target",
+        "quote": "Remit funds Under the RBI's Liberalized Remittance Scheme Transfer funds in and out worldwide, as long as the bank account is in your name",
+        "source_id": "evidence_e517e55d2500",
+        "source_url": "https://paasa.com/",
+        "retrieved_at": "2026-09-14T10:33:32.712966+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P1",
+        "source_span_start": 269
+      },
+      {
+        "id": "fact_d589a06b75d6",
+        "category": "operations",
+        "subject": "target",
+        "quote": "Start investing Pick a strategy or invest directly Open account White glove onboarding available",
+        "source_id": "evidence_e517e55d2500",
+        "source_url": "https://paasa.com/",
+        "retrieved_at": "2026-09-14T10:33:32.712966+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P1",
+        "source_span_start": 415
+      },
+      {
+        "id": "fact_2a0d0acc841f",
+        "category": "marketing",
+        "subject": "target",
+        "quote": "Tax on Foreign Stocks and ETFs | How are Joint Global Brokerage Accounts Taxed?",
+        "source_id": "evidence_b3b9729dd1b7",
+        "source_url": "https://paasa.com/",
+        "retrieved_at": "2026-09-14T10:33:32.713000+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P2",
+        "source_span_start": 0
+      },
+      {
+        "id": "fact_e94c0a72269c",
+        "category": "marketing",
+        "subject": "target",
+        "quote": "How Foreign Dividend Income is Taxed for Indian Investors",
+        "source_id": "evidence_b3b9729dd1b7",
+        "source_url": "https://paasa.com/",
+        "retrieved_at": "2026-09-14T10:33:32.713000+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P2",
+        "source_span_start": 82
+      },
+      {
+        "id": "fact_7d526f595a77",
+        "category": "marketing",
+        "subject": "target",
+        "quote": "Tax on Repatriation of Foreign Income to India",
+        "source_id": "evidence_b3b9729dd1b7",
+        "source_url": "https://paasa.com/",
+        "retrieved_at": "2026-09-14T10:33:32.713000+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P2",
+        "source_span_start": 142
+      },
+      {
+        "id": "fact_9c7ca290502d",
+        "category": "company_structure",
+        "subject": "partner",
+        "quote": "Interactive Brokers LLC is a registered Broker-Dealer, Futures Commission Merchant and Forex Dealer Member, regulated by the U.S. Securities and Exchange Commission (SEC), the Commodity Futures Trading Commission (CFTC) and the National Futures Association (NFA), and is a member of the Financial Industry Regulatory Authority (FINRA) and several other self-regulatory organizations.",
+        "source_id": "evidence_b5b538b9beb2",
+        "source_url": "https://paasa.com/",
+        "retrieved_at": "2026-09-14T10:33:32.713032+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P4",
+        "source_span_start": 29
+      },
+      {
+        "id": "fact_2ffa0f838100",
+        "category": "company_structure",
+        "subject": "partner",
+        "quote": "Interactive Brokers does not endorse or recommend any introducing brokers, third-party financial advisors or hedge funds, including Paasa.",
+        "source_id": "evidence_b5b538b9beb2",
+        "source_url": "https://paasa.com/",
+        "retrieved_at": "2026-09-14T10:33:32.713032+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P4",
+        "source_span_start": 413
+      },
+      {
+        "id": "fact_e568d2bbf17c",
+        "category": "pricing",
+        "subject": "target",
+        "quote": "Access Plan Trade stocks & ETFs across global exchanges and currencies. No recurring fee. No restriction on account size. $0 /month Pay brokerage on trades",
+        "source_id": "evidence_83c8b5e2c994",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256004+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P7",
+        "source_span_start": 251
+      },
+      {
+        "id": "fact_352b69449ff4",
+        "category": "pricing",
+        "subject": "target",
+        "quote": "Apex Plan Everything in Access plan + Managed strategies (advisory) + FEMA and tax support. $50k - $100k AUM 1.0% + GST $100k - $500k AUM 0.7% + GST $500k - $1M AUM 0.5% + GST $1M+",
+        "source_id": "evidence_83c8b5e2c994",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256004+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P7",
+        "source_span_start": 419
+      },
+      {
+        "id": "fact_4b706eef1886",
+        "category": "pricing",
+        "subject": "target",
+        "quote": "The percentage fee shown is charged annually and deducted in monthly installments. Minimum investment $50k for Apex. Fees are deducted automatically from your Paasa wallet each month.",
+        "source_id": "evidence_2d357e901424",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256045+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P8",
+        "source_span_start": 17
+      },
+      {
+        "id": "fact_e6272905f30e",
+        "category": "pricing",
+        "subject": "target",
+        "quote": "Brokerage fees per trade GST is included in the brokerage. Brokerage fees are applicable on all trades. Brokerage markups",
+        "source_id": "evidence_2d357e901424",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256045+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P8",
+        "source_span_start": 476
+      },
+      {
+        "id": "fact_1e062bdb5b10",
+        "category": "company_structure",
+        "subject": "target",
+        "quote": "LLC. Custodian \u00a9 2026 Paasa. All rights reserved.",
+        "source_id": "evidence_eb35fb088a04",
+        "source_url": "https://paasa.com/",
+        "retrieved_at": "2026-09-14T10:33:32.713057+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P6",
+        "source_span_start": 0
+      },
+      {
+        "id": "fact_953d0325abdc",
+        "category": "pricing",
+        "subject": "market",
+        "quote": "UK Exchange GBP USD EUR Charge 0.05% of trade value Min per trade \u00a31.00 Max per trade -",
+        "source_id": "evidence_1fe33ed4f0f2",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256059+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P9",
+        "source_span_start": 215
+      },
+      {
+        "id": "fact_76a34bc246f8",
+        "category": "pricing",
+        "subject": "market",
+        "quote": "US Exchanges USD Charge 0.10% of trade value Min per trade $0.50 Max per trade $40.00",
+        "source_id": "evidence_1fe33ed4f0f2",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256059+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P9",
+        "source_span_start": 327
+      },
+      {
+        "id": "fact_47cb6621b12d",
+        "category": "pricing",
+        "subject": "market",
+        "quote": "Swiss Exchange CHF USD EUR GBP Charge 0.05% of trade value Min per trade \u20a31.50 Max per trade \u20a349.00",
+        "source_id": "evidence_b2e7863b047a",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256072+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P10",
+        "source_span_start": 21
+      },
+      {
+        "id": "fact_e9a4022f38d1",
+        "category": "pricing",
+        "subject": "market",
+        "quote": "Hong Kong Exchange HKD USD Charge 0.05% of trade value Min per trade HK$18.00 Max per trade -",
+        "source_id": "evidence_b2e7863b047a",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256072+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P10",
+        "source_span_start": 145
+      },
+      {
+        "id": "fact_10cb90d0cf6e",
+        "category": "pricing",
+        "subject": "market",
+        "quote": "Canadian Exchange CAD USD Charge CA$0.008 per share Min per trade CA$1.00 Max per trade 0.5% trade value",
+        "source_id": "evidence_13a038574217",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256083+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P11",
+        "source_span_start": 13
+      },
+      {
+        "id": "fact_a29eb86f12e2",
+        "category": "pricing",
+        "subject": "market",
+        "quote": "Japanese Exchange JPY Charge 0.05% of trade value Min per trade \u00a580.00 Max per trade -",
+        "source_id": "evidence_13a038574217",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256083+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P11",
+        "source_span_start": 142
+      },
+      {
+        "id": "fact_4290c64c266e",
+        "category": "pricing",
+        "subject": "market",
+        "quote": "Singapore Exchange SGD USD GBP HKD EUR Charge 0.08% of trade value Min per trade S$2.50 Max per trade -",
+        "source_id": "evidence_13a038574217",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256083+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P11",
+        "source_span_start": 253
+      },
+      {
+        "id": "fact_6712b79582f3",
+        "category": "pricing",
+        "subject": "market",
+        "quote": "Value tiers are applied based on monthly cumulative trade volume summed across all stock, warrants and ETF shares.",
+        "source_id": "evidence_e0ddfb5088fd",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256094+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P12",
+        "source_span_start": 60
+      },
+      {
+        "id": "fact_7b4ed8453ec6",
+        "category": "pricing",
+        "subject": "market",
+        "quote": "IBKR's Tiered (i.e., commission plus external venue fees/rebates) commission models are not intended to be a direct pass-through of exchange and third-party fees and rebates.",
+        "source_id": "evidence_e0ddfb5088fd",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256094+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P12",
+        "source_span_start": 337
+      },
+      {
+        "id": "fact_9396a59387bf",
+        "category": "pricing",
+        "subject": "market",
+        "quote": "US Penny Stocks Price less than $5 USD Charge $0.0035/share or 0.1% of trade value * Min per trade $0.50 Max per trade 1% of trade value",
+        "source_id": "evidence_1fe33ed4f0f2",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256059+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P9",
+        "source_span_start": 437
+      },
+      {
+        "id": "fact_503c360ad7d2",
+        "category": "pricing",
+        "subject": "target",
+        "quote": "Commission rates may also vary by program or arrangement. Restrictions apply. The published rates are for direct clients of Paasa only.",
+        "source_id": "evidence_dd0eedf540e7",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256115+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P14",
+        "source_span_start": 98
+      },
+      {
+        "id": "fact_106dd118482d",
+        "category": "offering",
+        "subject": "target",
+        "quote": "Access Apex Trading Advanced Order Types: Market, Limit, Stop, Trailing stop Set Recurring Investments Market data, fundamentals and technicals Create watchlists",
+        "source_id": "evidence_dd0eedf540e7",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256115+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P14",
+        "source_span_start": 248
+      },
+      {
+        "id": "fact_c39d3e69f06a",
+        "category": "offering",
+        "subject": "target",
+        "quote": "Advisory Managed Strategies - Portfolio monitoring & analytics - Ongoing tax loss harvesting and rebalancing - Dedicated relationship manager - Compliance End of year tax documents Ongoing",
+        "source_id": "evidence_dd0eedf540e7",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256115+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P14",
+        "source_span_start": 410
+      },
+      {
+        "id": "fact_94668f760bd8",
+        "category": "customers",
+        "subject": "target",
+        "quote": "Invest in US from India | Invest in Ireland from India | Invest in Switzerland from India | Invest in China from India | Invest in Japan from India | Invest in Singapore from India | Invest in UK from India | Invest in Poland from India | Invest in Germany from India",
+        "source_id": "evidence_49fff4e5c20f",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256125+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P15",
+        "source_span_start": 22
+      },
+      {
+        "id": "fact_e52079fbfac4",
+        "category": "customers",
+        "subject": "target",
+        "quote": "Tax How Global Stocks and ETFs Are Taxed for Indian Investors | Capital Gains Tax on Foreign Stocks and ETFs | How are Joint Global Brokerage Accounts Taxed?",
+        "source_id": "evidence_49fff4e5c20f",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256125+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P15",
+        "source_span_start": 290
+      },
+      {
+        "id": "fact_ca188b09879d",
+        "category": "customers",
+        "subject": "target",
+        "quote": "and NRIs | How to Adjust TCS Against Advance Tax Liability LRS What is LRS? | LRS for Investments | LRS for Education | LRS for Healthcare | LRS for Travel | LRS for Maintenance | LRS for buying Property Overseas | LRS for Gifts & Donations",
+        "source_id": "evidence_9da27d73b11e",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256136+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P16",
+        "source_span_start": 0
+      },
+      {
+        "id": "fact_d22f56009c80",
+        "category": "customers",
+        "subject": "target",
+        "quote": "Double Taxation Avoidance Agreements What is DTAA? | DTAA between India & USA | DTAA between India & Singapore | DTAA between India & Switzerland | DTAA between India & UK | DTAA between India & Ireland | DTAA between India & Japan | DTAA between India & Poland | DTAA between India & China | DTAA between India and Germany",
+        "source_id": "evidence_9da27d73b11e",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256136+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P16",
+        "source_span_start": 241
+      },
+      {
+        "id": "fact_263178347592",
+        "category": "pricing",
+        "subject": "target",
+        "quote": "the costs paid by IBKR to the relevant exchange, regulator, clearinghouse or third party. For example, IBKR may receive volume discounts that are not passed on to clients.",
+        "source_id": "evidence_9539b231f5f3",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256105+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P13",
+        "source_span_start": 0
+      },
+      {
+        "id": "fact_4873b83f9031",
+        "category": "pricing",
+        "subject": "target",
+        "quote": "Likewise, rebates passed on to clients by IBKR may be less than the rebates IBKR receives from the relevant market.",
+        "source_id": "evidence_9539b231f5f3",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256105+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P13",
+        "source_span_start": 172
+      },
+      {
+        "id": "fact_d5f1f076b18e",
+        "category": "pricing",
+        "subject": "target",
+        "quote": "Paasa may change these rates at any time in its sole discretion.",
+        "source_id": "evidence_dd0eedf540e7",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256115+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P14",
+        "source_span_start": 33
+      },
+      {
+        "id": "fact_6bf6dcb18fe2",
+        "category": "offering",
+        "subject": "target",
+        "quote": "Paasa helps wealthy Indians invest in global equities - without middlemen, hidden fees, or paperwork.",
+        "source_id": "evidence_93cbc14a629a",
+        "source_url": "https://www.ycombinator.com/companies/location/india",
+        "retrieved_at": "2026-09-13T18:53:50.403649+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P20",
+        "source_span_start": 60
+      },
+      {
+        "id": "fact_1a0d8e3ab4f5",
+        "category": "customers",
+        "subject": "target",
+        "quote": "While high-net-worths in India often have international expenses from children's education to healthcare, most still save in INR, a currency that depreciates ~2\u20135% per year against the USD.",
+        "source_id": "evidence_93cbc14a629a",
+        "source_url": "https://www.ycombinator.com/companies/location/india",
+        "retrieved_at": "2026-09-13T18:53:50.403649+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P20",
+        "source_span_start": 162
+      },
+      {
+        "id": "fact_8ec1929423b6",
+        "category": "operations",
+        "subject": "target",
+        "quote": "Paasa offers a mobile app that enables Indians to trade worldwide, invest via advisory, and automate every cross-border tax filing.",
+        "source_id": "evidence_93cbc14a629a",
+        "source_url": "https://www.ycombinator.com/companies/location/india",
+        "retrieved_at": "2026-09-13T18:53:50.403649+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P20",
+        "source_span_start": 531
+      },
+      {
+        "id": "fact_f59271f67590",
+        "category": "marketing",
+        "subject": "target",
+        "quote": "Broken outward remittance process - Fear of making mistakes in tax or compliance - Paper-heavy onboarding processes of international brokers - Lack of trustworthy guidance",
+        "source_id": "evidence_93cbc14a629a",
+        "source_url": "https://www.ycombinator.com/companies/location/india",
+        "retrieved_at": "2026-09-13T18:53:50.403649+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P20",
+        "source_span_start": 359
+      },
+      {
+        "id": "fact_5bde2cf67e64",
+        "category": "company_structure",
+        "subject": "partner",
+        "quote": "Custodian \u00a9 2026 Paasa. All rights reserved.",
+        "source_id": "evidence_282f734d0f7e",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256167+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P19",
+        "source_span_start": 368
+      },
+      {
+        "id": "fact_d82212b59a0e",
+        "category": "company_structure",
+        "subject": "partner",
+        "quote": "Interactive Brokers does not endorse or recommend any introducing brokers, third-party financial advisors or hedge funds, including Paasa.",
+        "source_id": "evidence_b32955792303",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T10:33:33.256157+00:00",
+        "observed_at": null,
+        "origin": "preparation_public_page",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P18",
+        "source_span_start": 182
+      },
+      {
+        "id": "fact_1e4d4a2ba531",
+        "category": "offering",
+        "subject": "target",
+        "quote": "Paasa helps wealthy",
+        "source_id": "evidence_f1375c8551df",
+        "source_url": "https://www.ycombinator.com/companies/paasa",
+        "retrieved_at": "2026-09-13T23:28:07.087716+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P21",
+        "source_span_start": 578
+      },
+      {
+        "id": "fact_455d75bf20a9",
+        "category": "customers",
+        "subject": "target",
+        "quote": "Indians invest in global equities - without middlemen, hidden fees, or paperwork.",
+        "source_id": "evidence_ca0422856034",
+        "source_url": "https://www.ycombinator.com/companies/paasa",
+        "retrieved_at": "2026-09-13T23:28:07.087860+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P22",
+        "source_span_start": 0
+      },
+      {
+        "id": "fact_6f6fd4d39683",
+        "category": "marketing",
+        "subject": "target",
+        "quote": "most still save in INR, a currency that depreciates ~2\u20135% per year against the USD.",
+        "source_id": "evidence_ca0422856034",
+        "source_url": "https://www.ycombinator.com/companies/paasa",
+        "retrieved_at": "2026-09-13T23:28:07.087860+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P22",
+        "source_span_start": 188
+      },
+      {
+        "id": "fact_ca1818f3f056",
+        "category": "offering",
+        "subject": "target",
+        "quote": "Paasa gives high-net-worth individuals (HNIs) in emerging markets the same globally diversified portfolios as HNIs in America.",
+        "source_id": "evidence_fc584da7c196",
+        "source_url": "https://www.ycombinator.com/companies/paasa",
+        "retrieved_at": "2026-09-13T23:28:07.087944+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P23",
+        "source_span_start": 308
+      },
+      {
+        "id": "fact_0608c28f72c7",
+        "category": "founder_history",
+        "subject": "founder",
+        "quote": "Nitish Sahni Founder/CEO Invest in global markets from India.",
+        "source_id": "evidence_fc584da7c196",
+        "source_url": "https://www.ycombinator.com/companies/paasa",
+        "retrieved_at": "2026-09-13T23:28:07.087944+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P23",
+        "source_span_start": 0
+      },
+      {
+        "id": "fact_77f08bcf6773",
+        "category": "founder_history",
+        "subject": "founder",
+        "quote": "Sparsh Sharma Founder Chief product officer at Paasa",
+        "source_id": "evidence_fc584da7c196",
+        "source_url": "https://www.ycombinator.com/companies/paasa",
+        "retrieved_at": "2026-09-13T23:28:07.087944+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P23",
+        "source_span_start": 124
+      },
+      {
+        "id": "fact_a5e55b35e820",
+        "category": "marketing",
+        "subject": "target",
+        "quote": "Lack of guidance on foreign investments Remittance regulations that change every year",
+        "source_id": "evidence_89fe16c6e4bc",
+        "source_url": "https://www.ycombinator.com/companies/paasa",
+        "retrieved_at": "2026-09-13T23:28:07.088034+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P24",
+        "source_span_start": 27
+      },
+      {
+        "id": "fact_47a3d4d4b277",
+        "category": "marketing",
+        "subject": "target",
+        "quote": "Cross-border tax filing that their CFAs struggle with",
+        "source_id": "evidence_89fe16c6e4bc",
+        "source_url": "https://www.ycombinator.com/companies/paasa",
+        "retrieved_at": "2026-09-13T23:28:07.088034+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P24",
+        "source_span_start": 113
+      },
+      {
+        "id": "fact_450657fc58d3",
+        "category": "founder_history",
+        "subject": "founder",
+        "quote": "Team Sparsh and I ( Nitish ) grew up in India and have known each other for 5 years.",
+        "source_id": "evidence_89fe16c6e4bc",
+        "source_url": "https://www.ycombinator.com/companies/paasa",
+        "retrieved_at": "2026-09-13T23:28:07.088034+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P24",
+        "source_span_start": 443
+      },
+      {
+        "id": "fact_d736a8cb3765",
+        "category": "founder_history",
+        "subject": "founder",
+        "quote": "we previously worked at SoFi",
+        "source_id": "evidence_89fe16c6e4bc",
+        "source_url": "https://www.ycombinator.com/companies/paasa",
+        "retrieved_at": "2026-09-13T23:28:07.088034+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P24",
+        "source_span_start": 557
+      },
+      {
+        "id": "fact_688a792c1b51",
+        "category": "founder_history",
+        "subject": "founder",
+        "quote": "Sparsh led design on Student Loan Refinance, and I led engineering projects on Data Governance.",
+        "source_id": "evidence_d400e6aaccda",
+        "source_url": "https://www.ycombinator.com/companies/paasa",
+        "retrieved_at": "2026-09-13T23:28:07.088083+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P25",
+        "source_span_start": 0
+      },
+      {
+        "id": "fact_424a71adc95c",
+        "category": "founder_request",
+        "subject": "founder",
+        "quote": "Ask If you\u2019re in India and want to invest globally, reach out ! We\u2019re founders@paasa.co",
+        "source_id": "evidence_d400e6aaccda",
+        "source_url": "https://www.ycombinator.com/companies/paasa",
+        "retrieved_at": "2026-09-13T23:28:07.088083+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P25",
+        "source_span_start": 96
+      },
+      {
+        "id": "fact_f907904ae23f",
+        "category": "operations",
+        "subject": "target",
+        "quote": "Jobs at Paasa View all jobs Founding Engineer Gurugram, HR, IN $25K - $50K 0.10% - 1.00% 3+ years Apply Now",
+        "source_id": "evidence_d400e6aaccda",
+        "source_url": "https://www.ycombinator.com/companies/paasa",
+        "retrieved_at": "2026-09-13T23:28:07.088083+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P25",
+        "source_span_start": 184
+      },
+      {
+        "id": "fact_6ac5a95df9ad",
+        "category": "operations",
+        "subject": "target",
+        "quote": "Customer Support Gurugram, HR, IN / Gurugram, Haryana, IN \u20b9500K - \u20b9800K INR 3+ years Apply Now",
+        "source_id": "evidence_d400e6aaccda",
+        "source_url": "https://www.ycombinator.com/companies/paasa",
+        "retrieved_at": "2026-09-13T23:28:07.088083+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P25",
+        "source_span_start": 294
+      },
+      {
+        "id": "fact_0ee2356bc265",
+        "category": "offering",
+        "subject": "target",
+        "quote": "Invest in US Stocks, ETFs, UCITS & Global Markets from India",
+        "source_id": "evidence_4a37c0e32b80",
+        "source_url": "https://paasa.com/",
+        "retrieved_at": "2026-09-13T23:28:28.286578+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P26",
+        "source_span_start": 8
+      },
+      {
+        "id": "fact_b65859f40b82",
+        "category": "marketing",
+        "subject": "target",
+        "quote": "Global Investing for the Global Indian Start investing",
+        "source_id": "evidence_4a37c0e32b80",
+        "source_url": "https://paasa.com/",
+        "retrieved_at": "2026-09-13T23:28:28.286578+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P26",
+        "source_span_start": 312
+      },
+      {
+        "id": "fact_4988d0b49aec",
+        "category": "offering",
+        "subject": "target",
+        "quote": "Trade from a universe of 15,000+ tickers across the world from the palm of your hand",
+        "source_id": "evidence_ba9712beb09c",
+        "source_url": "https://paasa.com/",
+        "retrieved_at": "2026-09-13T23:28:28.286659+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P27",
+        "source_span_start": 0
+      },
+      {
+        "id": "fact_9b75c100083a",
+        "category": "offering",
+        "subject": "target",
+        "quote": "Invest in an expert strategy that maximizes returns for your level of risk, with ongoing rebalancing",
+        "source_id": "evidence_ba9712beb09c",
+        "source_url": "https://paasa.com/",
+        "retrieved_at": "2026-09-13T23:28:28.286659+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P27",
+        "source_span_start": 175
+      },
+      {
+        "id": "fact_57316ae7d1ae",
+        "category": "offering",
+        "subject": "target",
+        "quote": "Earn interest up to 3.13% on uninvested USD cash above $10,000",
+        "source_id": "evidence_2c708efee32c",
+        "source_url": "https://paasa.com/",
+        "retrieved_at": "2026-09-13T23:28:28.287456+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P28",
+        "source_span_start": 194
+      },
+      {
+        "id": "fact_bdd5eea100f6",
+        "category": "marketing",
+        "subject": "target",
+        "quote": "India-ready tax reports, generated for you Schedule FA, Schedule FSI, capital gains, and all required ITR reports automatically sent to you at year end.",
+        "source_id": "evidence_2c708efee32c",
+        "source_url": "https://paasa.com/",
+        "retrieved_at": "2026-09-13T23:28:28.287456+00:00",
+        "observed_at": null,
+        "origin": "public_page_claim",
+        "status": "source_reported",
+        "classification": "model_selected_not_independently_verified",
+        "source_passage_id": "P28",
+        "source_span_start": 378
+      }
+    ],
+    "extraction": "exact_source_claims",
+    "unknowns": [
+      "traction"
+    ],
+    "coverage": "partial",
+    "source_limit_reached": true
+  },
+  "sections": {
+    "research.business": {
+      "document": "research",
+      "title": "Business and customer",
+      "status": "complete",
+      "content": {
+        "text": "Paasa helps wealthy Indians invest in global equities without middlemen, hidden fees, or paperwork, according to the company website. The service is aimed at Indian investors seeking to invest in international markets such as the US, Ireland, Switzerland, China, Japan, Singapore, the UK, Poland, and Germany. The customer problem addressed includes challenges like broken outward remittance processes, fear of making mistakes in tax or compliance, and paper-heavy onboarding processes of international brokers.",
+        "fact_ids": [
+          "fact_6bf6dcb18fe2",
+          "fact_94668f760bd8",
+          "fact_d22f56009c80",
+          "fact_f59271f67590"
+        ]
+      },
+      "input_hash": "a7287e87df3ca0ec10a90714ec22815788e1e128ad9df6c37097f8b5d778cc1d",
+      "review_hash": "c29f9ace69a2fff07dd5e56f0f3c62273ac7bcee2629ebc85fa66a591c5d2838",
+      "review": {
+        "objections": [],
+        "verdict": "pass"
+      },
+      "updated_at": "2026-09-14T16:38:15.535189+00:00",
+      "dependency": null
+    },
+    "research.economics": {
+      "document": "research",
+      "title": "Revenue mechanism",
+      "status": "needs_revision",
+      "error": "revenue_mechanism: Put source references in fact_ids, not in the prose or a record request.",
+      "content": {
+        "revenue_mechanism": "Customers pay brokerage fees on trades and advisory fees based on assets under management (AUM). These fees are outlined in the pricing schedule. Source: fact_e568d2bbf17c, fact_352b69449ff4, fact_4b706eef1886, fact_e6272905f30e",
+        "unknown_economics": "The actual revenue earned by the company from brokerage fees and advisory fees is unknown. This information would be found in the company's financial statements or billing records. Source: fact_e568d2bbf17c, fact_352b69449ff4, fact_4b706eef1886, fact_e6272905f30e",
+        "fact_ids": [
+          "fact_e568d2bbf17c",
+          "fact_352b69449ff4",
+          "fact_4b706eef1886",
+          "fact_e6272905f30e"
+        ]
+      },
+      "review": {
+        "kind": "code_validation",
+        "objections": [
+          {
+            "field": "revenue_mechanism",
+            "passage": "Customers pay brokerage fees on trades and advisory fees based on assets under management (AUM). These fees are outlined in the pricing schedule. Source: fact_e568d2bbf17c, fact_352b69449ff4, fact_4b706eef1886, fact_e6272905f30e",
+            "basis_id": "output_contract",
+            "supporting_quote": "Explain who pays and the charging basis in plain language. Refer to the published schedule without reproducing individual rates, exchange fees, tax treatment or tier thresholds; exact source passages remain attached. Separate target revenue from customer assets, transaction volume, returns and partner fees. State precisely what is unknown; do not assume a subscription or revenue share.",
+            "correction": "revenue_mechanism: Put source references in fact_ids, not in the prose or a record request."
+          }
+        ]
+      },
+      "input_hash": "2bf650e5ef6ebb15717484b6471863fe829819d710431fd0906e345fbf0c5a78",
+      "review_hash": "c29f9ace69a2fff07dd5e56f0f3c62273ac7bcee2629ebc85fa66a591c5d2838"
+    },
+    "research.decision": {
+      "document": "research",
+      "title": "Opportunity and unresolved risks",
+      "status": "complete",
+      "content": {
+        "reason_to_engage": "Paasa could generate repeatable revenue through the Apex Plan's AUM-based fee structure, as described in the pricing definitions. For this to work, clients must maintain eligible AUM levels, and Paasa must deliver ongoing advisory services that align with the fee tiers outlined in the Apex Plan. The evidence suggests that if clients retain their assets within specified ranges and continue using advisory services, the tiered fee model could produce recurring revenue.",
+        "unresolved_risk": "The model depends on clients maintaining minimum AUM thresholds and continuing to use advisory services. However, the evidence does not confirm client retention rates or AUM stability over time. Without data on how consistently clients meet AUM requirements or remain engaged with advisory services, the sustainability of recurring revenue remains uncertain. This uncertainty could weaken the investment hypothesis if client behavior diverges from assumptions.",
+        "next_decision": "The next piece of evidence will determine whether Paasa has demonstrated client retention or AUM growth that supports the recurring revenue model. If there is no evidence of sustained client engagement or AUM growth, the investment hypothesis could be weakened.",
+        "fact_ids": [
+          "fact_352b69449ff4",
+          "fact_4b706eef1886",
+          "fact_e52079fbfac4",
+          "fact_6bf6dcb18fe2",
+          "fact_c39d3e69f06a"
+        ]
+      },
+      "input_hash": "7fd64d1f829cc24540c284cbce0cab73966072fd1453714fbf4a8166433f9b53",
+      "review_hash": "c29f9ace69a2fff07dd5e56f0f3c62273ac7bcee2629ebc85fa66a591c5d2838",
+      "review": {
+        "objections": [],
+        "verdict": "pass"
+      },
+      "updated_at": "2026-09-14T17:18:39.652250+00:00",
+      "dependency": null
+    },
+    "founder.observation": {
+      "document": "founder",
+      "title": "Why we are approaching you",
+      "status": "complete",
+      "content": {
+        "reported_observation": "Your website highlights that Paasa enables wealthy Indians to invest in global equities without middlemen, hidden fees, or paperwork.",
+        "question_to_explore": "How do you ensure that the tax compliance and legal requirements for investing globally from India are seamlessly managed for your customers?",
+        "fact_ids": [
+          "fact_6bf6dcb18fe2",
+          "fact_e52079fbfac4",
+          "fact_d22f56009c80",
+          "fact_ca188b09879d",
+          "fact_352b69449ff4"
+        ]
+      },
+      "input_hash": "67a98ad79ec30c9415961b0414e27c7b7c9aa61d6a8e0220850fdd9094726005",
+      "review_hash": "c29f9ace69a2fff07dd5e56f0f3c62273ac7bcee2629ebc85fa66a591c5d2838",
+      "review": {
+        "objections": [],
+        "verdict": "pass"
+      },
+      "updated_at": "2026-09-14T17:19:13.794031+00:00",
+      "dependency": null
+    },
+    "founder.proposal": {
+      "document": "founder",
+      "title": "The assistance we propose",
+      "status": "complete",
+      "content": {
+        "proposed_work": "We propose preparing a detailed investor readiness document that outlines Paasa\u2019s current positioning, including the specific customer segments it targets (e.g., Indian investors looking to invest globally), the service tiers (e.g., Access Plan and Apex Plan), and the fee structures tied to each tier (e.g., $0/month for the Access Plan and AUM-based fees for the Apex Plan). This document would be based on an analysis of company-held records such as customer acquisition strategies, AUM growth trajectories, and fee agreements with partners. The deliverable would help Paasa clarify its value proposition and align expectations with potential investors. This work would require access to internal data on customer acquisition, AUM, and fee structures, as well as any documentation on the company\u2019s expansion plans and regulatory compliance.",
+        "invitation": "Would you be open to discussing how we could prepare an investor readiness document based on Paasa\u2019s internal records and current positioning?",
+        "fact_ids": [
+          "fact_e568d2bbf17c",
+          "fact_352b69449ff4",
+          "fact_4b706eef1886",
+          "fact_94668f760bd8",
+          "fact_6bf6dcb18fe2"
+        ]
+      },
+      "input_hash": "0b11bd307f2377364785d4ce94378ffba09c75c7ce0fb0550e0291bc5ef3121d",
+      "review_hash": "c29f9ace69a2fff07dd5e56f0f3c62273ac7bcee2629ebc85fa66a591c5d2838",
+      "review": {
+        "objections": [],
+        "verdict": "pass"
+      },
+      "updated_at": "2026-09-14T17:20:02.197293+00:00",
+      "dependency": null
+    },
+    "diligence.request_a": {
+      "document": "diligence",
+      "title": "First diligence request",
+      "status": "complete",
+      "content": {
+        "question": "What is the actual revenue generated by Paasa from advisory services and brokerage fees during the most recently completed reporting period?",
+        "records_to_request": "Dated invoices, signed terms, billing ledgers, and actual cost records related to advisory services and brokerage fees for the most recently completed reporting period. These records should include details of revenue collected, expenses incurred, and any settlements with partners such as Interactive Brokers.",
+        "decision": "The requested records will allow verification of Paasa's actual revenue from advisory services and brokerage fees, which is essential for understanding the company's financial performance and profitability during the most recently completed reporting period.",
+        "fact_ids": [
+          "fact_352b69449ff4",
+          "fact_e52079fbfac4",
+          "fact_6bf6dcb18fe2",
+          "fact_4b706eef1886",
+          "fact_e6272905f30e"
+        ]
+      },
+      "input_hash": "b9f5852351d848f19d77f191b6db1bc8f872a2f5dd7da055487cf46b46d08184",
+      "review_hash": "c29f9ace69a2fff07dd5e56f0f3c62273ac7bcee2629ebc85fa66a591c5d2838",
+      "review": {
+        "objections": [],
+        "verdict": "pass"
+      },
+      "updated_at": "2026-09-14T17:20:51.137708+00:00",
+      "dependency": null
+    },
+    "diligence.request_b": {
+      "document": "diligence",
+      "title": "Second diligence request",
+      "status": "complete",
+      "content": {
+        "question": "What is the actual cost incurred by Paasa for providing advisory services and tax support during the most recently completed reporting period?",
+        "records_to_request": "Dated invoices, signed terms, billing ledgers, and actual cost records related to advisory services and tax support for the most recently completed reporting period. These records should include details of expenses incurred, such as personnel costs, third-party service fees, and any settlements with partners or vendors.",
+        "decision": "The requested records will allow verification of Paasa's actual costs for providing advisory services and tax support, which is essential for understanding the company's financial performance and profitability during the most recently completed reporting period.",
+        "fact_ids": [
+          "fact_352b69449ff4",
+          "fact_c39d3e69f06a",
+          "fact_4b706eef1886",
+          "fact_e52079fbfac4",
+          "fact_6bf6dcb18fe2"
+        ]
+      },
+      "input_hash": "23a42228a44663618602ea0cbd4f8dbefe72832cecfa14b943c764e2f6157077",
+      "review_hash": "c29f9ace69a2fff07dd5e56f0f3c62273ac7bcee2629ebc85fa66a591c5d2838",
+      "review": {
+        "objections": [],
+        "verdict": "pass"
+      },
+      "updated_at": "2026-09-14T17:21:55.385227+00:00",
+      "dependency": null
+    },
+    "readiness.action_a": {
+      "document": "readiness",
+      "title": "First readiness action",
+      "status": "complete",
+      "content": {
+        "required_input": "Dated invoices, signed terms, billing ledgers, and actual cost records related to advisory services and brokerage fees for the most recently completed reporting period.",
+        "action": "Analyze the provided records to verify Paasa's actual revenue from advisory services and brokerage fees, including details of revenue collected, expenses incurred, and any settlements with partners such as Interactive Brokers.",
+        "output": "A reconciliation of Paasa's reported revenue from advisory services and brokerage fees against the actual financial records, including verification of expenses and settlements with partners.",
+        "decision": "Based on the reconciliation, determine whether Paasa's actual revenue aligns with its reported figures and assess the company's financial performance and profitability during the most recently completed reporting period.",
+        "fact_ids": [
+          "fact_352b69449ff4",
+          "fact_e52079fbfac4",
+          "fact_6bf6dcb18fe2",
+          "fact_4b706eef1886",
+          "fact_e6272905f30e"
+        ]
+      },
+      "input_hash": "125c871178ef227466f1e82feae4a4bb20dfd2e798659215d972722b0d15b401",
+      "review_hash": "c29f9ace69a2fff07dd5e56f0f3c62273ac7bcee2629ebc85fa66a591c5d2838",
+      "review": {
+        "objections": [],
+        "verdict": "pass"
+      },
+      "updated_at": "2026-09-14T17:22:59.201614+00:00",
+      "dependency": "diligence.request_a"
+    },
+    "readiness.action_b": {
+      "document": "readiness",
+      "title": "Second readiness action",
+      "status": "complete",
+      "content": {
+        "required_input": "Dated invoices, signed terms, billing ledgers, and actual cost records related to advisory services and tax support for the most recently completed reporting period.",
+        "action": "Analyze the provided records to verify Paasa's actual costs for providing advisory services and tax support.",
+        "output": "A reconciliation of actual costs incurred by Paasa for advisory services and tax support during the most recently completed reporting period.",
+        "decision": "The analysis will confirm the validity of Paasa's financial performance and profitability by verifying the actual costs associated with advisory services and tax support.",
+        "fact_ids": [
+          "fact_352b69449ff4",
+          "fact_c39d3e69f06a",
+          "fact_4b706eef1886",
+          "fact_e52079fbfac4",
+          "fact_6bf6dcb18fe2"
+        ]
+      },
+      "input_hash": "40081df41bf354904647886db41b55e6c8f85d0a84bb7afae0bc9ef567b9ee83",
+      "review_hash": "c29f9ace69a2fff07dd5e56f0f3c62273ac7bcee2629ebc85fa66a591c5d2838",
+      "review": {
+        "objections": [],
+        "verdict": "pass"
+      },
+      "updated_at": "2026-09-14T17:23:59.788602+00:00",
+      "dependency": "diligence.request_b"
+    }
+  },
+  "attempts": [
+    {
+      "task": "record_extract",
+      "attempt": 0,
+      "at": "2026-09-14T15:54:42.432676+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "facts": [
+          {
+            "passage_id": "P1",
+            "category": "operations",
+            "subject": "target",
+            "quote": "Get started in 3 simple steps STEP 1 Complete KYC PAN & Aadhaar are required, 100% digital"
+          },
+          {
+            "passage_id": "P1",
+            "category": "operations",
+            "subject": "target",
+            "quote": "Remit funds Under the RBI's Liberalized Remittance Scheme Transfer funds in and out worldwide, as long as the bank account is in your name"
+          },
+          {
+            "passage_id": "P1",
+            "category": "operations",
+            "subject": "target",
+            "quote": "Start investing Pick a strategy or invest directly Open account White glove onboarding available"
+          },
+          {
+            "passage_id": "P2",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "Tax on Foreign Stocks and ETFs | How are Joint Global Brokerage Accounts Taxed?"
+          },
+          {
+            "passage_id": "P2",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "How Foreign Dividend Income is Taxed for Indian Investors"
+          },
+          {
+            "passage_id": "P3",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "Tax on Repatriation of Foreign Income to India"
+          },
+          {
+            "passage_id": "P4",
+            "category": "company_structure",
+            "subject": "partner",
+            "quote": "Interactive Brokers LLC is a registered Broker-Dealer, Futures Commission Merchant and Forex Dealer Member, regulated by the U.S. Securities and Exchange Commission (SEC), the Commodity Futures Trading Commission (CFTC) and the National Futures Association (NFA), and is a member of the Financial Industry Regulatory Authority (FINRA) and several other self-regulatory organizations."
+          },
+          {
+            "passage_id": "P4",
+            "category": "company_structure",
+            "subject": "partner",
+            "quote": "Interactive Brokers does not endorse or recommend any introducing brokers, third-party financial advisors or hedge funds, including Paasa."
+          }
+        ]
+      },
+      "elapsed_seconds": 91.33,
+      "routing": {
+        "task": "record_extract",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 91.31,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 1230,
+        "generated_tokens": 422,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "record_extract",
+      "attempt": 0,
+      "at": "2026-09-14T15:56:13.956410+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "facts": [
+          {
+            "passage_id": "P7",
+            "category": "pricing",
+            "subject": "target",
+            "quote": "Access Plan Trade stocks & ETFs across global exchanges and currencies. No recurring fee. No restriction on account size. $0 /month Pay brokerage on trades"
+          },
+          {
+            "passage_id": "P7",
+            "category": "pricing",
+            "subject": "target",
+            "quote": "Apex Plan Everything in Access plan + Managed strategies (advisory) + FEMA and tax support. $50k - $100k AUM 1.0% + GST $100k - $500k AUM 0.7% + GST $500k - $1M AUM 0.5% + GST $1M+"
+          },
+          {
+            "passage_id": "P8",
+            "category": "pricing",
+            "subject": "target",
+            "quote": "The percentage fee shown is charged annually and deducted in monthly installments. Minimum investment $50k for Apex. Fees are deducted automatically from your Paasa wallet each month."
+          },
+          {
+            "passage_id": "P8",
+            "category": "pricing",
+            "subject": "target",
+            "quote": "Brokerage fees apply separately. GST is applicable only to Indian residents."
+          },
+          {
+            "passage_id": "P7",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Access Plan Trade stocks and ETFs across US, UK, Swiss and Hong Kong exchanges. No recurring fee. No restriction on account size."
+          },
+          {
+            "passage_id": "P6",
+            "category": "company_structure",
+            "subject": "target",
+            "quote": "LLC. Custodian \u00a9 2026 Paasa. All rights reserved."
+          },
+          {
+            "passage_id": "P7",
+            "category": "operations",
+            "subject": "target",
+            "quote": "Brokerage fees per trade GST is included in the brokerage. Brokerage fees are applicable on all trades."
+          },
+          {
+            "passage_id": "P5",
+            "category": "irrelevant",
+            "subject": "unclear",
+            "quote": "None of the information contained herein constitutes a recommendation, offer, or solicitation of an offer by Interactive Brokers to buy, sell or hold any security, financial product or instrument or to engage in any specific investment strategy."
+          },
+          {
+            "passage_id": "P5",
+            "category": "irrelevant",
+            "subject": "unclear",
+            "quote": "Interactive Brokers makes no representation, and assumes no liability to the accuracy or completeness of the information provided on this website."
+          },
+          {
+            "passage_id": "P5",
+            "category": "irrelevant",
+            "subject": "unclear",
+            "quote": "For more information regarding Interactive Brokers, please visit www.interactivebrokers.com . The Interactive Brokers logo is a registered trademark of Interactive Brokers"
+          }
+        ]
+      },
+      "elapsed_seconds": 121.42,
+      "routing": {
+        "task": "record_extract",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 121.38,
+        "queue_seconds": 0.02,
+        "prompt_tokens": 1137,
+        "generated_tokens": 678,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "record_extract",
+      "attempt": 1,
+      "at": "2026-09-14T15:58:15.428175+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "facts": [
+          {
+            "passage_id": "P7",
+            "category": "pricing",
+            "subject": "target",
+            "quote": "Access Plan Trade stocks & ETFs across global exchanges and currencies. No recurring fee. No restriction on account size. $0 /month Pay brokerage on trades"
+          },
+          {
+            "passage_id": "P7",
+            "category": "pricing",
+            "subject": "target",
+            "quote": "Apex Plan Everything in Access plan + Managed strategies (advisory) + FEMA and tax support. $50k - $100k AUM 1.0% + GST $100k - $500k AUM 0.7% + GST $500k - $1M AUM 0.5% + GST $1M+"
+          },
+          {
+            "passage_id": "P8",
+            "category": "pricing",
+            "subject": "target",
+            "quote": "The percentage fee shown is charged annually and deducted in monthly installments. Minimum investment $50k for Apex. Fees are deducted automatically from your Paasa wallet each month."
+          },
+          {
+            "passage_id": "P8",
+            "category": "pricing",
+            "subject": "target",
+            "quote": "Brokerage fees per trade GST is included in the brokerage. Brokerage fees are applicable on all trades. Brokerage markups"
+          },
+          {
+            "passage_id": "P6",
+            "category": "company_structure",
+            "subject": "target",
+            "quote": "LLC. Custodian \u00a9 2026 Paasa. All rights reserved."
+          },
+          {
+            "passage_id": "P5",
+            "category": "irrelevant",
+            "subject": "unclear",
+            "quote": "clearing services to customers. None of the information contained herein constitutes a recommendation, offer, or solicitation of an offer by Interactive Brokers to buy, sell or hold any security, financial product or instrument or to engage in any specific investment strategy."
+          }
+        ]
+      },
+      "elapsed_seconds": 54.68,
+      "routing": {
+        "task": "record_extract",
+        "attempt": 1,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 54.65,
+        "queue_seconds": 0.01,
+        "prompt_tokens": 1164,
+        "generated_tokens": 405,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "record_extract",
+      "attempt": 0,
+      "at": "2026-09-14T15:59:12.255102+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "facts": [
+          {
+            "passage_id": "P9",
+            "category": "pricing",
+            "subject": "market",
+            "quote": "UK Exchange GBP USD EUR Charge 0.05% of trade value Min per trade \u00a31.00 Max per trade -"
+          },
+          {
+            "passage_id": "P9",
+            "category": "pricing",
+            "subject": "market",
+            "quote": "US Exchanges USD Charge 0.10% of trade value Min per trade $0.50 Max per trade $40.00"
+          },
+          {
+            "passage_id": "P10",
+            "category": "pricing",
+            "subject": "market",
+            "quote": "Swiss Exchange CHF USD EUR GBP Charge 0.05% of trade value Min per trade \u20a31.50 Max per trade \u20a349.00"
+          },
+          {
+            "passage_id": "P10",
+            "category": "pricing",
+            "subject": "market",
+            "quote": "Hong Kong Exchange HKD USD Charge 0.05% of trade value Min per trade HK$18.00 Max per trade -"
+          },
+          {
+            "passage_id": "P11",
+            "category": "pricing",
+            "subject": "market",
+            "quote": "Canadian Exchange CAD USD Charge CA$0.008 per share Min per trade CA$1.00 Max per trade 0.5% trade value"
+          },
+          {
+            "passage_id": "P11",
+            "category": "pricing",
+            "subject": "market",
+            "quote": "Japanese Exchange JPY Charge 0.05% of trade value Min per trade \u00a580.00 Max per trade -"
+          },
+          {
+            "passage_id": "P11",
+            "category": "pricing",
+            "subject": "market",
+            "quote": "Singapore Exchange SGD USD GBP HKD EUR Charge 0.08% of trade value Min per trade S$2.50 Max per trade -"
+          },
+          {
+            "passage_id": "P12",
+            "category": "pricing",
+            "subject": "market",
+            "quote": "Value tiers are applied based on monthly cumulative trade volume summed across all stock, warrants and ETF shares."
+          },
+          {
+            "passage_id": "P12",
+            "category": "pricing",
+            "subject": "market",
+            "quote": "IBKR's Tiered (i.e., commission plus external venue fees/rebates) commission models are not intended to be a direct pass-through of exchange and third-party fees and rebates."
+          },
+          {
+            "passage_id": "P9",
+            "category": "pricing",
+            "subject": "market",
+            "quote": "US Penny Stocks Price less than $5 USD Charge $0.0035/share or 0.1% of trade value * Min per trade $0.50 Max per trade 1% of trade value"
+          }
+        ]
+      },
+      "elapsed_seconds": 102.04,
+      "routing": {
+        "task": "record_extract",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 102.02,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 1445,
+        "generated_tokens": 693,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "record_extract",
+      "attempt": 0,
+      "at": "2026-09-14T16:02:59.804141+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "facts": [
+          {
+            "passage_id": "P14",
+            "category": "pricing",
+            "subject": "target",
+            "quote": "Commission rates may also vary by program or arrangement. Restrictions apply. The published rates are for direct clients of Paasa only."
+          },
+          {
+            "passage_id": "P14",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Access Apex Trading Advanced Order Types: Market, Limit, Stop, Trailing stop Set Recurring Investments Market data, fundamentals and technicals Create watchlists"
+          },
+          {
+            "passage_id": "P14",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Advisory Managed Strategies - Portfolio monitoring & analytics - Ongoing tax loss harvesting and rebalancing - Dedicated relationship manager - Compliance End of year tax documents Ongoing"
+          },
+          {
+            "passage_id": "P15",
+            "category": "customers",
+            "subject": "target",
+            "quote": "Invest in US from India | Invest in Ireland from India | Invest in Switzerland from India | Invest in China from India | Invest in Japan from India | Invest in Singapore from India | Invest in UK from India | Invest in Poland from India | Invest in Germany from India"
+          },
+          {
+            "passage_id": "P15",
+            "category": "customers",
+            "subject": "target",
+            "quote": "Tax How Global Stocks and ETFs Are Taxed for Indian Investors | Capital Gains Tax on Foreign Stocks and ETFs | How are Joint Global Brokerage Accounts Taxed?"
+          },
+          {
+            "passage_id": "P16",
+            "category": "customers",
+            "subject": "target",
+            "quote": "and NRIs | How to Adjust TCS Against Advance Tax Liability LRS What is LRS? | LRS for Investments | LRS for Education | LRS for Healthcare | LRS for Travel | LRS for Maintenance | LRS for buying Property Overseas | LRS for Gifts & Donations"
+          },
+          {
+            "passage_id": "P16",
+            "category": "customers",
+            "subject": "target",
+            "quote": "Double Taxation Avoidance Agreements What is DTAA? | DTAA between India & USA | DTAA between India & Singapore | DTAA between India & Switzerland | DTAA between India & UK | DTAA between India & Ireland | DTAA between India & Japan | DTAA between India & Poland | DTAA between India & China | DTAA between India and Germany"
+          },
+          {
+            "passage_id": "P13",
+            "category": "pricing",
+            "subject": "target",
+            "quote": "the costs paid by IBKR to the relevant exchange, regulator, clearinghouse or third party. For example, IBKR may receive volume discounts that are not passed on to clients."
+          },
+          {
+            "passage_id": "P13",
+            "category": "pricing",
+            "subject": "target",
+            "quote": "Likewise, rebates passed on to clients by IBKR may be less than the rebates IBKR receives from the relevant market."
+          },
+          {
+            "passage_id": "P14",
+            "category": "pricing",
+            "subject": "target",
+            "quote": "Paasa may change these rates at any time in its sole discretion."
+          }
+        ]
+      },
+      "elapsed_seconds": 52.47,
+      "routing": {
+        "task": "record_extract",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 52.46,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 1222,
+        "generated_tokens": 666,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "record_extract",
+      "attempt": 0,
+      "at": "2026-09-14T16:03:52.408433+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "facts": [
+          {
+            "passage_id": "P20",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Paasa helps wealthy Indians invest in global equities - without middlemen, hidden fees, or paperwork."
+          },
+          {
+            "passage_id": "P20",
+            "category": "customers",
+            "subject": "target",
+            "quote": "While high-net-worths in India often have international expenses from children's education to healthcare, most still save in INR, a currency that depreciates ~2\u20135% per year against the USD."
+          },
+          {
+            "passage_id": "P20",
+            "category": "operations",
+            "subject": "target",
+            "quote": "Paasa offers a mobile app that enables Indians to trade worldwide, invest via advisory, and automate every cross-border tax filing."
+          },
+          {
+            "passage_id": "P20",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "Broken outward remittance process - Fear of making mistakes in tax or compliance - Paper-heavy onboarding processes of international brokers - Lack of trustworthy guidance"
+          },
+          {
+            "passage_id": "P19",
+            "category": "company_structure",
+            "subject": "partner",
+            "quote": "Custodian \u00a9 2026 Paasa. All rights reserved."
+          },
+          {
+            "passage_id": "P18",
+            "category": "company_structure",
+            "subject": "partner",
+            "quote": "Interactive Brokers does not endorse or recommend any introducing brokers, third-party financial advisors or hedge funds, including Paasa."
+          }
+        ]
+      },
+      "elapsed_seconds": 39.65,
+      "routing": {
+        "task": "record_extract",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 39.65,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 1219,
+        "generated_tokens": 374,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "record_extract",
+      "attempt": 0,
+      "at": "2026-09-14T16:04:34.358093+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "facts": [
+          {
+            "passage_id": "P21",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Paasa helps wealthy"
+          },
+          {
+            "passage_id": "P22",
+            "category": "customers",
+            "subject": "target",
+            "quote": "Indians invest in global equities - without middlemen, hidden fees, or paperwork."
+          },
+          {
+            "passage_id": "P22",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "most still save in INR, a currency that depreciates ~2\u20135% per year against the USD."
+          },
+          {
+            "passage_id": "P23",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Paasa gives high-net-worth individuals (HNIs) in emerging markets the same globally diversified portfolios as HNIs in America."
+          },
+          {
+            "passage_id": "P23",
+            "category": "founder_history",
+            "subject": "founder",
+            "quote": "Nitish Sahni Founder/CEO Invest in global markets from India."
+          },
+          {
+            "passage_id": "P23",
+            "category": "founder_history",
+            "subject": "founder",
+            "quote": "Sparsh Sharma Founder Chief product officer at Paasa"
+          },
+          {
+            "passage_id": "P24",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "Lack of guidance on foreign investments Remittance regulations that change every year"
+          },
+          {
+            "passage_id": "P24",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "Cross-border tax filing that their CFAs struggle with"
+          },
+          {
+            "passage_id": "P24",
+            "category": "founder_history",
+            "subject": "founder",
+            "quote": "Team Sparsh and I ( Nitish ) grew up in India and have known each other for 5 years."
+          },
+          {
+            "passage_id": "P24",
+            "category": "founder_history",
+            "subject": "founder",
+            "quote": "we previously worked at SoFi"
+          }
+        ]
+      },
+      "elapsed_seconds": 73.74,
+      "routing": {
+        "task": "record_extract",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 73.73,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 1266,
+        "generated_tokens": 519,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "record_extract",
+      "attempt": 0,
+      "at": "2026-09-14T16:05:48.244729+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "error": "1 validation error for ClaimRecord\nfacts.3.quote\n  String should have at least 15 characters [type=string_too_short, input_value='Backed by', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_short",
+      "elapsed_seconds": 96.87,
+      "routing": {
+        "task": "record_extract",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 96.85,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 1315,
+        "generated_tokens": 542,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "record_extract",
+      "attempt": 1,
+      "at": "2026-09-14T16:17:25.013294+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "facts": [
+          {
+            "passage_id": "P25",
+            "category": "founder_history",
+            "subject": "founder",
+            "quote": "Sparsh led design on Student Loan Refinance, and I led engineering projects on Data Governance."
+          },
+          {
+            "passage_id": "P25",
+            "category": "founder_request",
+            "subject": "founder",
+            "quote": "Ask If you\u2019re in India and want to invest globally, reach out ! We\u2019re founders@paasa.co"
+          },
+          {
+            "passage_id": "P25",
+            "category": "operations",
+            "subject": "target",
+            "quote": "Jobs at Paasa View all jobs Founding Engineer Gurugram, HR, IN $25K - $50K 0.10% - 1.00% 3+ years Apply Now"
+          },
+          {
+            "passage_id": "P25",
+            "category": "operations",
+            "subject": "target",
+            "quote": "Customer Support Gurugram, HR, IN / Gurugram, Haryana, IN \u20b9500K - \u20b9800K INR 3+ years Apply Now"
+          },
+          {
+            "passage_id": "P26",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Invest in US Stocks, ETFs, UCITS & Global Markets from India"
+          },
+          {
+            "passage_id": "P26",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "Global Investing for the Global Indian Start investing"
+          },
+          {
+            "passage_id": "P27",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Trade from a universe of 15,000+ tickers across the world from the palm of your hand"
+          },
+          {
+            "passage_id": "P27",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Invest in an expert strategy that maximizes returns for your level of risk, with ongoing rebalancing"
+          },
+          {
+            "passage_id": "P28",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Earn interest up to 3.13% on uninvested USD cash above $10,000"
+          },
+          {
+            "passage_id": "P28",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "India-ready tax reports, generated for you Schedule FA, Schedule FSI, capital gains, and all required ITR reports automatically sent to you at year end."
+          }
+        ]
+      },
+      "elapsed_seconds": 95.76,
+      "routing": {
+        "task": "record_extract",
+        "attempt": 1,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 95.75,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 1385,
+        "generated_tokens": 552,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "record_extract",
+      "attempt": 0,
+      "at": "2026-09-14T16:24:02.357091+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "facts": [
+          {
+            "passage_id": "P29",
+            "category": "offering",
+            "subject": "target",
+            "quote": "UCITS ETFs: Low-cost, Diversified, Europe-domiciled, and US estate tax\u2013safe."
+          },
+          {
+            "passage_id": "P29",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "Very useful platform for me in order to access US stock markets from India, and Nitish and his team make the onboarding process pretty seamless."
+          },
+          {
+            "passage_id": "P30",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "The real win is the rigor behind it; I needed clarity. Paasa delivered - FEMA guidance I could act on, onboarding that just worked, and portfolios that felt built for diversification of RSUs, not retrofitted."
+          },
+          {
+            "passage_id": "P31",
+            "category": "operations",
+            "subject": "target",
+            "quote": "End-to-end security Data encrypted across the board; two-factor authentication mandatory."
+          },
+          {
+            "passage_id": "P31",
+            "category": "company_structure",
+            "subject": "target",
+            "quote": "SEBI registered RIA Advisory services are lent by a Registered Investment Advisor, meaning we are legally bound to advise in your best interest."
+          },
+          {
+            "passage_id": "P32",
+            "category": "customers",
+            "subject": "target",
+            "quote": "Paasa is available to users in India, USA, UK, Middle East, Singapore, Thailand, and select other regions."
+          },
+          {
+            "passage_id": "P32",
+            "category": "operations",
+            "subject": "target",
+            "quote": "Indian residents PAN and Aadhaar (digital copies) NRIs Government-issued ID and foreign address proof."
+          },
+          {
+            "passage_id": "P31",
+            "category": "traction",
+            "subject": "target",
+            "quote": "SIPC insured Securities are covered up to $500,000 by SIPC."
+          },
+          {
+            "passage_id": "P30",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "Great interface and easy to use. Gives access to global portfolios better than any app."
+          },
+          {
+            "passage_id": "P29",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Reinvest concentrated RSUs into globally diversified, estate-tax-protected portfolios."
+          }
+        ]
+      },
+      "elapsed_seconds": 112.31,
+      "routing": {
+        "task": "record_extract",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 112.3,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 1303,
+        "generated_tokens": 593,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "record_extract",
+      "attempt": 1,
+      "at": "2026-09-14T16:26:06.795134+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "facts": [
+          {
+            "passage_id": "P29",
+            "category": "offering",
+            "subject": "target",
+            "quote": "UCITS ETFs: Low-cost, Diversified, Europe-domiciled, and US estate tax\u2013safe."
+          },
+          {
+            "passage_id": "P29",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "Very useful platform for me in order to access US stock markets from India, and Nitish and his team make the onboarding process pretty seamless."
+          },
+          {
+            "passage_id": "P30",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "The real win is the rigor behind it; I needed clarity. Paasa delivered - FEMA guidance I could act on, onboarding that just worked, and portfolios that felt built for diversification of RSUs, not retrofitted."
+          },
+          {
+            "passage_id": "P31",
+            "category": "operations",
+            "subject": "target",
+            "quote": "End-to-end security Data encrypted across the board; two-factor authentication mandatory."
+          },
+          {
+            "passage_id": "P31",
+            "category": "company_structure",
+            "subject": "target",
+            "quote": "SEBI registered RIA Advisory services are lent by a Registered Investment Advisor, meaning we are legally bound to advise in your best interest."
+          },
+          {
+            "passage_id": "P32",
+            "category": "customers",
+            "subject": "target",
+            "quote": "Paasa is available to users in India, USA, UK, Middle East, Singapore, Thailand, and select other regions."
+          },
+          {
+            "passage_id": "P32",
+            "category": "operations",
+            "subject": "target",
+            "quote": "Indian residents PAN and Aadhaar (digital copies) NRIs Government-issued ID and foreign address proof."
+          },
+          {
+            "passage_id": "P29",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Reinvest concentrated RSUs into globally diversified, estate-tax-protected portfolios."
+          },
+          {
+            "passage_id": "P31",
+            "category": "traction",
+            "subject": "target",
+            "quote": "The seamless fund withdrawals and dedicated advisory support make global investing accessible, affordable and trustworthy."
+          },
+          {
+            "passage_id": "P30",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "Great interface and easy to use. Gives access to global portfolios better than any app."
+          }
+        ]
+      },
+      "elapsed_seconds": 105.79,
+      "routing": {
+        "task": "record_extract",
+        "attempt": 1,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 105.77,
+        "queue_seconds": 0.01,
+        "prompt_tokens": 1330,
+        "generated_tokens": 590,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "record_extract",
+      "attempt": 0,
+      "at": "2026-09-14T16:27:52.698014+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "facts": [
+          {
+            "passage_id": "P33",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "Helping Indian investors navigate global markets with greater ease, clarity, and confidence."
+          },
+          {
+            "passage_id": "P33",
+            "category": "founder_history",
+            "subject": "founder",
+            "quote": "article Paasa CEO Nitish Sahni on emerging global investment trends Nitish Sahni shares perspectives on emerging asset classes like copper, uranium, and rare earths."
+          },
+          {
+            "passage_id": "P34",
+            "category": "company_structure",
+            "subject": "partner",
+            "quote": "Advisory services are provided by Arc Spire Advisory Private Limited, a SEBI Registered Non-Individual Investment Advisor INA000021058."
+          },
+          {
+            "passage_id": "P34",
+            "category": "company_structure",
+            "subject": "partner",
+            "quote": "All banking and brokerage services are provided by our licensed partners."
+          },
+          {
+            "passage_id": "P35",
+            "category": "company_structure",
+            "subject": "partner",
+            "quote": "Arc Spire Advisory Private Limited offers its services under the brand Paasa."
+          },
+          {
+            "passage_id": "P36",
+            "category": "operations",
+            "subject": "target",
+            "quote": "requirements before picking a strategy or designing a portfolio that suits your needs."
+          },
+          {
+            "passage_id": "P36",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Tools & Calculators U.S. Estate Tax Liability Calculator | Global Brokerage Calculator | IBKR tax reports | UCITS ETF Screener"
+          },
+          {
+            "passage_id": "P36",
+            "category": "offering",
+            "subject": "target",
+            "quote": "What are UCITS ETFs? | UCITS ETFs vs US ETFs for RSUs"
+          },
+          {
+            "passage_id": "P34",
+            "category": "operations",
+            "subject": "target",
+            "quote": "Log in Get started Trade Strategies UCITS Diversify RSUs Tax Partners Tools Pricing Blog Atlas Stories Help center"
+          },
+          {
+            "passage_id": "P34",
+            "category": "pricing",
+            "subject": "target",
+            "quote": "Pricing Plans Brokerage fees"
+          }
+        ]
+      },
+      "elapsed_seconds": 118.56,
+      "routing": {
+        "task": "record_extract",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 118.54,
+        "queue_seconds": 0.01,
+        "prompt_tokens": 1303,
+        "generated_tokens": 560,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "record_extract",
+      "attempt": 1,
+      "at": "2026-09-14T16:29:51.322666+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "facts": [
+          {
+            "passage_id": "P33",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "Helping Indian investors navigate global markets with greater ease, clarity, and confidence."
+          },
+          {
+            "passage_id": "P33",
+            "category": "marketing",
+            "subject": "target",
+            "quote": "Paasa is making overseas investing simpler for Indian investors."
+          },
+          {
+            "passage_id": "P34",
+            "category": "company_structure",
+            "subject": "partner",
+            "quote": "All banking and brokerage services are provided by our licensed partners."
+          },
+          {
+            "passage_id": "P35",
+            "category": "company_structure",
+            "subject": "partner",
+            "quote": "Advisory services are provided by Arc Spire Advisory Private Limited, a SEBI Registered Non-Individual Investment Advisor INA000021058."
+          },
+          {
+            "passage_id": "P35",
+            "category": "operations",
+            "subject": "target",
+            "quote": "Investment in securities market are subject to market risks. Read all the related documents carefully before investing."
+          },
+          {
+            "passage_id": "P36",
+            "category": "offering",
+            "subject": "target",
+            "quote": "Tools & Calculators U.S. Estate Tax Liability Calculator | Global Brokerage Calculator | IBKR tax reports | UCITS ETF Screener."
+          },
+          {
+            "passage_id": "P36",
+            "category": "offering",
+            "subject": "target",
+            "quote": "What are UCITS ETFs? | UCITS ETFs vs US ETFs for RSUs."
+          },
+          {
+            "passage_id": "P34",
+            "category": "company_structure",
+            "subject": "partner",
+            "quote": "Paasa is a financial technology company, not a bank or brokerage."
+          },
+          {
+            "passage_id": "P35",
+            "category": "company_structure",
+            "subject": "partner",
+            "quote": "Registration granted by SEBI, membership of BSE and certification from NISM."
+          },
+          {
+            "passage_id": "P36",
+            "category": "operations",
+            "subject": "target",
+            "quote": "Scan to download Tools & Calculators."
+          }
+        ]
+      },
+      "elapsed_seconds": 114.37,
+      "routing": {
+        "task": "record_extract",
+        "attempt": 1,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 114.35,
+        "queue_seconds": 0.01,
+        "prompt_tokens": 1330,
+        "generated_tokens": 535,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "record_extract",
+      "attempt": 0,
+      "at": "2026-09-14T16:31:45.751028+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "facts": []
+      },
+      "elapsed_seconds": 8.94,
+      "routing": {
+        "task": "record_extract",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 8.94,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 1246,
+        "generated_tokens": 6,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "analyst_section",
+      "attempt": 0,
+      "at": "2026-09-14T16:31:54.807585+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "text": "Paasa helps wealthy Indians invest in global equities without middlemen, hidden fees, or paperwork, according to the company website. The service is aimed at Indian investors seeking to invest in international markets such as the US, Ireland, Switzerland, China, Japan, Singapore, the UK, Poland, and Germany. The customer problem addressed includes challenges like broken outward remittance processes, fear of making mistakes in tax or compliance, and paper-heavy onboarding processes of international brokers.",
+        "fact_ids": [
+          "fact_6bf6dcb18fe2",
+          "fact_94668f760bd8",
+          "fact_d22f56009c80",
+          "fact_f59271f67590"
+        ]
+      },
+      "elapsed_seconds": 61.05,
+      "routing": {
+        "task": "analyst_section",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 61.05,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 2671,
+        "generated_tokens": 172,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "review:analyst_section",
+      "attempt": 0,
+      "at": "2026-09-14T16:37:56.042364+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "verdict": "pass",
+        "objections": []
+      },
+      "elapsed_seconds": 19.45,
+      "routing": {
+        "task": "review:analyst_section",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 19.44,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 1662,
+        "generated_tokens": 17,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "analyst_section",
+      "attempt": 0,
+      "at": "2026-09-14T16:38:15.557716+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "revenue_mechanism": "Customers pay brokerage fees on trades and advisory fees based on assets under management (AUM). These fees are outlined in the pricing schedule. Source: fact_e568d2bbf17c, fact_352b69449ff4, fact_4b706eef1886, fact_e6272905f30e",
+        "unknown_economics": "The actual revenue earned by the company from brokerage fees and advisory fees is unknown. This information would be found in the company's financial statements or billing records. Source: fact_e568d2bbf17c, fact_352b69449ff4, fact_4b706eef1886, fact_e6272905f30e",
+        "fact_ids": [
+          "fact_e568d2bbf17c",
+          "fact_352b69449ff4",
+          "fact_4b706eef1886",
+          "fact_e6272905f30e"
+        ]
+      },
+      "elapsed_seconds": 62.7,
+      "routing": {
+        "task": "analyst_section",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 62.69,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 2333,
+        "generated_tokens": 255,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "analyst_section",
+      "attempt": 1,
+      "at": "2026-09-14T16:44:18.397230+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "revenue_mechanism": "Customers pay brokerage fees on trades and advisory fees based on assets under management (AUM). These fees are outlined in the pricing schedule. fact_ids: fact_e568d2bbf17c, fact_352b69449ff4, fact_4b706eef1886, fact_e6272905f30e"
+      },
+      "elapsed_seconds": 110.64,
+      "routing": {
+        "task": "analyst_section",
+        "attempt": 1,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": true,
+        "max_tokens": 4096,
+        "thinking_used": true,
+        "reasoning_budget": 1024,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.6,
+        "sampling": {
+          "top_p": 0.95,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 110.63,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 1552,
+        "generated_tokens": 567,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "analyst_section",
+      "attempt": 0,
+      "at": "2026-09-14T16:51:09.258006+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "reason_to_engage": "Paasa could generate repeatable revenue by offering tiered advisory services based on assets under management (AUM), as indicated by the Apex Plan pricing structure. For this to work, customers must consistently maintain eligible AUM levels, and Paasa must effectively retain clients over time. The company's ability to provide ongoing tax and investment management services could drive recurring revenue if clients continue to use these services.",
+        "unresolved_risk": "The risk lies in the dependency on client retention and the maintenance of minimum AUM thresholds. If clients reduce their AUM below the required levels or discontinue advisory services, Paasa could lose revenue. Additionally, the absence of public data on client retention rates or average AUM growth introduces uncertainty about the sustainability of this revenue model.",
+        "next_decision": "The next piece of evidence will determine whether Paasa has demonstrated client retention or AUM growth that supports the recurring revenue model. If there is no evidence of sustained client engagement or AUM growth, the investment hypothesis could be weakened.",
+        "fact_ids": [
+          "fact_352b69449ff4",
+          "fact_4b706eef1886",
+          "fact_e52079fbfac4",
+          "fact_6bf6dcb18fe2",
+          "fact_c39d3e69f06a"
+        ]
+      },
+      "elapsed_seconds": 78.17,
+      "routing": {
+        "task": "analyst_section",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 78.16,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 2601,
+        "generated_tokens": 299,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "review:analyst_section",
+      "attempt": 0,
+      "at": "2026-09-14T17:12:31.238945+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "verdict": "revise",
+        "objections": [
+          {
+            "passage_id": "D6",
+            "basis_id": "pricing_definitions",
+            "correction": "The absence of public data on client retention rates or average AUM growth is a diligence gap, not a business risk. This statement incorrectly frames the lack of public metrics as a risk rather than uncertainty. The correction is to rephrase it as uncertainty rather than a risk."
+          },
+          {
+            "passage_id": "D3",
+            "basis_id": "fact_c39d3e69f06a",
+            "correction": "The statement implies that the provision of ongoing tax and investment management services will drive recurring revenue, but this is not explicitly supported by the evidence. The correction is to make this conditional on the actual identified revenue mechanism, as outlined in the pricing structure."
+          },
+          {
+            "passage_id": "D1",
+            "basis_id": "fact_352b69449ff4",
+            "correction": "The statement assumes that the tiered advisory services based on AUM will generate repeatable revenue, but this is not explicitly supported by the evidence. The correction is to make this conditional on the actual identified revenue mechanism, as outlined in the pricing structure."
+          }
+        ]
+      },
+      "elapsed_seconds": 68.02,
+      "routing": {
+        "task": "review:analyst_section",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 68.01,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 1948,
+        "generated_tokens": 282,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "analyst_section",
+      "attempt": 1,
+      "at": "2026-09-14T17:17:09.397721+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "reason_to_engage": "Paasa could generate repeatable revenue through the Apex Plan's AUM-based fee structure, as described in the pricing definitions. For this to work, clients must maintain eligible AUM levels, and Paasa must deliver ongoing advisory services that align with the fee tiers outlined in the Apex Plan. The evidence suggests that if clients retain their assets within specified ranges and continue using advisory services, the tiered fee model could produce recurring revenue.",
+        "unresolved_risk": "The model depends on clients maintaining minimum AUM thresholds and continuing to use advisory services. However, the evidence does not confirm client retention rates or AUM stability over time. Without data on how consistently clients meet AUM requirements or remain engaged with advisory services, the sustainability of recurring revenue remains uncertain. This uncertainty could weaken the investment hypothesis if client behavior diverges from assumptions."
+      },
+      "elapsed_seconds": 78.01,
+      "routing": {
+        "task": "analyst_section",
+        "attempt": 1,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": true,
+        "max_tokens": 4096,
+        "thinking_used": true,
+        "reasoning_budget": 1024,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.6,
+        "sampling": {
+          "top_p": 0.95,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 78.0,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 2124,
+        "generated_tokens": 481,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "review:analyst_section",
+      "attempt": 0,
+      "at": "2026-09-14T17:18:27.611420+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "verdict": "pass",
+        "objections": []
+      },
+      "elapsed_seconds": 12.01,
+      "routing": {
+        "task": "review:analyst_section",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 12.01,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 1988,
+        "generated_tokens": 17,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "analyst_section",
+      "attempt": 0,
+      "at": "2026-09-14T17:18:39.707440+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "reported_observation": "Your website highlights that Paasa enables wealthy Indians to invest in global equities without middlemen, hidden fees, or paperwork.",
+        "question_to_explore": "How do you ensure that the tax compliance and legal requirements for investing globally from India are seamlessly managed for your customers?",
+        "fact_ids": [
+          "fact_6bf6dcb18fe2",
+          "fact_e52079fbfac4",
+          "fact_d22f56009c80",
+          "fact_ca188b09879d",
+          "fact_352b69449ff4"
+        ]
+      },
+      "elapsed_seconds": 24.6,
+      "routing": {
+        "task": "analyst_section",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 24.6,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 2586,
+        "generated_tokens": 135,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "review:analyst_section",
+      "attempt": 0,
+      "at": "2026-09-14T17:19:04.358385+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "verdict": "pass",
+        "objections": []
+      },
+      "elapsed_seconds": 9.43,
+      "routing": {
+        "task": "review:analyst_section",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 9.42,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 1793,
+        "generated_tokens": 17,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "analyst_section",
+      "attempt": 0,
+      "at": "2026-09-14T17:19:13.825912+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "proposed_work": "We propose preparing a detailed investor readiness document that outlines Paasa\u2019s current positioning, including the specific customer segments it targets (e.g., Indian investors looking to invest globally), the service tiers (e.g., Access Plan and Apex Plan), and the fee structures tied to each tier (e.g., $0/month for the Access Plan and AUM-based fees for the Apex Plan). This document would be based on an analysis of company-held records such as customer acquisition strategies, AUM growth trajectories, and fee agreements with partners. The deliverable would help Paasa clarify its value proposition and align expectations with potential investors. This work would require access to internal data on customer acquisition, AUM, and fee structures, as well as any documentation on the company\u2019s expansion plans and regulatory compliance.",
+        "invitation": "Would you be open to discussing how we could prepare an investor readiness document based on Paasa\u2019s internal records and current positioning?",
+        "fact_ids": [
+          "fact_e568d2bbf17c",
+          "fact_352b69449ff4",
+          "fact_4b706eef1886",
+          "fact_94668f760bd8",
+          "fact_6bf6dcb18fe2"
+        ]
+      },
+      "elapsed_seconds": 35.02,
+      "routing": {
+        "task": "analyst_section",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 35.01,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 2622,
+        "generated_tokens": 269,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "review:analyst_section",
+      "attempt": 0,
+      "at": "2026-09-14T17:19:48.958464+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "verdict": "pass",
+        "objections": []
+      },
+      "elapsed_seconds": 13.22,
+      "routing": {
+        "task": "review:analyst_section",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 13.21,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 2061,
+        "generated_tokens": 17,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "analyst_section",
+      "attempt": 0,
+      "at": "2026-09-14T17:20:02.218447+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "question": "What is the actual revenue generated by Paasa from advisory services and brokerage fees during the most recently completed reporting period?",
+        "records_to_request": "Dated invoices, signed terms, billing ledgers, and actual cost records related to advisory services and brokerage fees for the most recently completed reporting period. These records should include details of revenue collected, expenses incurred, and any settlements with partners such as Interactive Brokers.",
+        "decision": "The requested records will allow verification of Paasa's actual revenue from advisory services and brokerage fees, which is essential for understanding the company's financial performance and profitability during the most recently completed reporting period.",
+        "fact_ids": [
+          "fact_352b69449ff4",
+          "fact_e52079fbfac4",
+          "fact_6bf6dcb18fe2",
+          "fact_4b706eef1886",
+          "fact_e6272905f30e"
+        ]
+      },
+      "elapsed_seconds": 33.94,
+      "routing": {
+        "task": "analyst_section",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 33.93,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 3088,
+        "generated_tokens": 204,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "review:analyst_section",
+      "attempt": 0,
+      "at": "2026-09-14T17:20:36.233377+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "verdict": "pass",
+        "objections": []
+      },
+      "elapsed_seconds": 14.86,
+      "routing": {
+        "task": "review:analyst_section",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 14.85,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 1869,
+        "generated_tokens": 17,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "analyst_section",
+      "attempt": 0,
+      "at": "2026-09-14T17:20:51.187590+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "question": "What is the actual cost incurred by Paasa for providing advisory services and tax support during the most recently completed reporting period?",
+        "records_to_request": "Dated invoices, signed terms, billing ledgers, and actual cost records related to advisory services and tax support for the most recently completed reporting period. These records should include details of expenses incurred, such as personnel costs, third-party service fees, and any settlements with partners or vendors.",
+        "decision": "The requested records will allow verification of Paasa's actual costs for providing advisory services and tax support, which is essential for understanding the company's financial performance and profitability during the most recently completed reporting period.",
+        "fact_ids": [
+          "fact_352b69449ff4",
+          "fact_c39d3e69f06a",
+          "fact_4b706eef1886",
+          "fact_e52079fbfac4",
+          "fact_6bf6dcb18fe2"
+        ]
+      },
+      "elapsed_seconds": 48.22,
+      "routing": {
+        "task": "analyst_section",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 48.21,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 3263,
+        "generated_tokens": 210,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "review:analyst_section",
+      "attempt": 0,
+      "at": "2026-09-14T17:21:39.476456+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "verdict": "pass",
+        "objections": []
+      },
+      "elapsed_seconds": 15.87,
+      "routing": {
+        "task": "review:analyst_section",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 15.86,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 2038,
+        "generated_tokens": 17,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "analyst_section",
+      "attempt": 0,
+      "at": "2026-09-14T17:21:55.413867+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "required_input": "Dated invoices, signed terms, billing ledgers, and actual cost records related to advisory services and brokerage fees for the most recently completed reporting period.",
+        "action": "Analyze the provided records to verify Paasa's actual revenue from advisory services and brokerage fees, including details of revenue collected, expenses incurred, and any settlements with partners such as Interactive Brokers.",
+        "output": "A reconciliation of Paasa's reported revenue from advisory services and brokerage fees against the actual financial records, including verification of expenses and settlements with partners.",
+        "decision": "Based on the reconciliation, determine whether Paasa's actual revenue aligns with its reported figures and assess the company's financial performance and profitability during the most recently completed reporting period.",
+        "fact_ids": [
+          "fact_352b69449ff4",
+          "fact_e52079fbfac4",
+          "fact_6bf6dcb18fe2",
+          "fact_4b706eef1886",
+          "fact_e6272905f30e"
+        ]
+      },
+      "elapsed_seconds": 48.22,
+      "routing": {
+        "task": "analyst_section",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 48.2,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 3276,
+        "generated_tokens": 225,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "review:analyst_section",
+      "attempt": 0,
+      "at": "2026-09-14T17:22:43.672245+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "verdict": "pass",
+        "objections": []
+      },
+      "elapsed_seconds": 15.47,
+      "routing": {
+        "task": "review:analyst_section",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 15.46,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 1996,
+        "generated_tokens": 17,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "analyst_section",
+      "attempt": 0,
+      "at": "2026-09-14T17:22:59.236597+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "required_input": "Dated invoices, signed terms, billing ledgers, and actual cost records related to advisory services and tax support for the most recently completed reporting period.",
+        "action": "Analyze the provided records to verify Paasa's actual costs for providing advisory services and tax support.",
+        "output": "A reconciliation of actual costs incurred by Paasa for advisory services and tax support during the most recently completed reporting period.",
+        "decision": "The analysis will confirm the validity of Paasa's financial performance and profitability by verifying the actual costs associated with advisory services and tax support.",
+        "fact_ids": [
+          "fact_352b69449ff4",
+          "fact_c39d3e69f06a",
+          "fact_4b706eef1886",
+          "fact_e52079fbfac4",
+          "fact_6bf6dcb18fe2"
+        ]
+      },
+      "elapsed_seconds": 45.56,
+      "routing": {
+        "task": "analyst_section",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 45.55,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 3280,
+        "generated_tokens": 192,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    },
+    {
+      "task": "review:analyst_section",
+      "attempt": 0,
+      "at": "2026-09-14T17:23:44.834581+00:00",
+      "implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+      "answer": {
+        "verdict": "pass",
+        "objections": []
+      },
+      "elapsed_seconds": 14.92,
+      "routing": {
+        "task": "review:analyst_section",
+        "attempt": 0,
+        "profile": "section_router",
+        "model": "qwen3:14b",
+        "thinking": false,
+        "max_tokens": 1800,
+        "thinking_used": false,
+        "reasoning_budget": null,
+        "answer_continuation": false,
+        "context_tokens": 8192,
+        "temperature": 0.7,
+        "sampling": {
+          "top_p": 0.8,
+          "top_k": 20,
+          "min_p": 0
+        },
+        "elapsed_seconds": 14.91,
+        "queue_seconds": 0.0,
+        "prompt_tokens": 1974,
+        "generated_tokens": 17,
+        "done_reason": "stop"
+      },
+      "model": "qwen3:14b"
+    }
+  ],
+  "status": "partial",
+  "started_at": "2026-09-14T15:54:42.424502+00:00",
+  "generation_config": {
+    "mode": "section_router",
+    "model": "qwen3:14b",
+    "review_model": "qwen3:14b",
+    "thinking": false,
+    "repair_thinking": true,
+    "review_thinking": false,
+    "reasoning_budget": 1024
+  },
+  "last_implementation_hash": "4ce81c353a4a8dd1a9bbbb98591b914c87ece05d7a8034152fee7798634b5838",
+  "documents": {
+    "research": {
+      "title": "Research memo",
+      "status": "partial"
+    },
+    "founder": {
+      "title": "Founder proposal",
+      "status": "complete"
+    },
+    "diligence": {
+      "title": "Diligence request",
+      "status": "complete"
+    },
+    "readiness": {
+      "title": "Investment-readiness plan",
+      "status": "complete"
+    }
+  },
+  "updated_at": "2026-09-14T17:23:59.831592+00:00",
+  "calculations": []
+}

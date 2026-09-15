@@ -1,0 +1,7 @@
+# Frozen v9 source and method selection evaluation
+
+Fresh isolated-store generation of all nine sections from the original five complete Paasa source records. No previous candidates or authored reference in model input. Local Qwen3.5:9b, context 8192; fast evidence/method selection and founder writing; combined review with 512-token reasoning budget and raw completion continuation. Entire workflow <=120 seconds, <=6 logical calls, <=10 HTTP requests; at most one correction per task. Exact source excerpts and registered contribution/customer methods are code-rendered; service/event/source/risk choices and founder prose are AI-generated.
+
+Required: all nine sections, source qualifications and entity distinctions retained, coherent financial meanings and matching records, appropriate observable customer event, concrete outside-adviser founder offer, no invented results/causal conclusions. Audit final rendered content separately from model review. This is a development case, not held-out or practitioner acceptance. Historical failures and live SQLite data remain untouched.
+
+Interface revision: retain explicit source topic metadata and include core offering/pricing sources in their descriptions; show actual rendered excerpts to review; reviewer must explain each specific material defect; founder opening has explicit source attribution. Same local model and total budget. No previous candidate is reused.

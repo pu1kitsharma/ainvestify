@@ -1,0 +1,11 @@
+{
+  "report_sha256": "6753b429f72da546d4ad8d2a6f014a42b91b032b75eeffe94e6912855af833dd",
+  "decision": "guard_rejected_missing_costs_repair_failed_no_draft_published",
+  "elapsed_seconds": 61.81,
+  "model_calls": 3,
+  "findings": [
+    "The cost-input check rejected the inadequate proposal.",
+    "The targeted offer repair received the full opening source as unrelated context and copied pricing text until the token cap.",
+    "No sections were published. The next fix removes opening sources from offer-only repairs, retaining the intended work contract and citation IDs."
+  ]
+}

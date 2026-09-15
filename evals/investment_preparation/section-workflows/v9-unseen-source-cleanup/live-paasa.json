@@ -1,0 +1,1484 @@
+{
+  "case_id": "paasa_live_v9_source_cleanup",
+  "company": "Paasa",
+  "input_kind": "actual_API_with_company_source_collection",
+  "live_data_updated": true,
+  "elapsed_seconds": 61.825,
+  "job_id": "automation_2cf6f6b14c28",
+  "automation": {
+    "id": "automation_2cf6f6b14c28",
+    "status": "completed",
+    "phase": "Research memo, founder proposal, diligence request and readiness plan saved",
+    "model": "qwen3.5:9b",
+    "worker_id": "bd9309bb190f4136a34b83bf99573c64",
+    "started_at": "2026-09-14T23:34:28.715836+00:00",
+    "completed_at": "2026-09-14T23:35:29.390581+00:00",
+    "error": null
+  },
+  "workspace_id": "workspace_c63410428a00",
+  "revision": 1146,
+  "input_evidence": [
+    {
+      "id": "evidence_c6513a5afbc7",
+      "field": "name",
+      "value": "Paasa",
+      "quote": "Paasa S2024 \u2022 Active \u2022 9 employees \u2022 Gurugram, Haryana, India Paasa helps wealthy Ind",
+      "source_url": "https://www.ycombinator.com/companies/location/india",
+      "retrieved_at": "2026-09-13T18:53:50.403628+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_93cbc14a629a",
+      "field": "offering",
+      "value": "Paasa helps wealthy Indians invest in global equities - without middlemen, hidden fees, or paperwork. While high-net-worths in India often have international expenses from children's education to healthcare, most still save in INR, a currency that depreciates ~2\u20135% per year against the USD. Why? - Broken outward remittance process - Fear of making mistakes in tax or compliance - Paper-heavy onboarding processes of international brokers - Lack of trustworthy guidance Paasa offers a mobile app that enables Indians to trade worldwide, invest via advisory, and automate every cross-border tax filing.",
+      "quote": "asa S2024 \u2022 Active \u2022 9 employees \u2022 Gurugram, Haryana, India Paasa helps wealthy Indians invest in global equities - without middlemen, hidden fees, or paperwork. While high-net-worths in India often have international expenses from children's education to healthcare, most still save in INR, a currency that depreciates ~2\u20135% per year against the USD. Why? - Broken outward remittance process - Fear of making mistakes in tax or compliance - Paper-heavy onboarding processes of international brokers - Lack of trustworthy guidance Paasa offers a mobile app that enables Indians to trade worldwide, invest via advisory, and automate every cross-border tax filing. consumer fintech investing emerging-markets",
+      "source_url": "https://www.ycombinator.com/companies/location/india",
+      "retrieved_at": "2026-09-13T18:53:50.403649+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_13a801f83669",
+      "field": "location",
+      "value": "Gurugram, Haryana, India",
+      "quote": "Paasa S2024 \u2022 Active \u2022 9 employees \u2022 Gurugram, Haryana, India Paasa helps wealthy Indians invest in global equities - without middlemen, hidd",
+      "source_url": "https://www.ycombinator.com/companies/location/india",
+      "retrieved_at": "2026-09-13T18:53:50.403656+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_5d61de9bf1d4",
+      "field": "reported_status",
+      "value": "Active",
+      "quote": "Paasa S2024 \u2022 Active \u2022 9 employees \u2022 Gurugram, Haryana, India Paasa helps wealthy Indians invest in ",
+      "source_url": "https://www.ycombinator.com/companies/location/india",
+      "retrieved_at": "2026-09-13T18:53:50.403663+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_4372b8915cc8",
+      "field": "accelerator_batch",
+      "value": "S2024",
+      "quote": "Paasa S2024 \u2022 Active \u2022 9 employees \u2022 Gurugram, Haryana, India Paasa helps wealthy Indians i",
+      "source_url": "https://www.ycombinator.com/companies/location/india",
+      "retrieved_at": "2026-09-13T18:53:50.403668+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_4e915b84d884",
+      "field": "sector",
+      "value": "consumer, fintech, investing, emerging-markets",
+      "quote": "Paasa S2024 \u2022 Active \u2022 9 employees \u2022 Gurugram, Haryana, India Paasa helps wealthy Indians invest in global equities - without middlemen, hidden fees, or paperwork. While high-net-worths in India often have international expenses from children's education to healthcare, most still save in INR, a currency that depreciates ~2\u20135% per year against the USD. Why? - Broken outward remittance process - Fear of making mistakes in tax or compliance - Paper-heavy onboarding processes of international brokers - Lack of trustworthy guidance Paasa offers a mobile app that enables Indians to trade worldwide, invest via advisory, and automate every cross-border tax filing. consumer fintech investing emerging-markets",
+      "source_url": "https://www.ycombinator.com/companies/location/india",
+      "retrieved_at": "2026-09-13T18:53:50.403674+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_c61fc6a61128",
+      "field": "directory_profile",
+      "value": "https://www.ycombinator.com/companies/paasa",
+      "quote": "Paasa links to https://www.ycombinator.com/companies/paasa",
+      "source_url": "https://www.ycombinator.com/companies/location/india",
+      "retrieved_at": "2026-09-13T18:53:50.403679+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_f7f7e72a5121",
+      "field": "name",
+      "value": "Paasa",
+      "quote": "Paasa: Invest in Global Equities from India | Y Combinator Open menu About What Happens at YC? Apply YC Interview Guide FAQ People YC Blog Companies Startup Directory Founder Directory Launch YC Library Partners Resources Startup School Newsletter Requests for Startups For Investors Verify Founders Hacker News Bookface SAFE Find a Co-Founder Events Startup Jobs Log in Apply Home \u203a Companies \u203a Paasa Paasa Invest in Global Equities from India Summer 2024 Active Fintech Consumer Investing Emerging Markets Company Jobs 2 https://paasa.com Invest in Global Equities from India Paasa helps wealthy",
+      "source_url": "https://www.ycombinator.com/companies/paasa",
+      "retrieved_at": "2026-09-13T18:55:00.563671+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_f1375c8551df",
+      "field": "business_model",
+      "value": "Paasa: Invest in Global Equities from India | Y Combinator Open menu About What Happens at YC? Apply YC Interview Guide FAQ People YC Blog Companies Startup Directory Founder Directory Launch YC Library Partners Resources Startup School Newsletter Requests for Startups For Investors Verify Founders Hacker News Bookface SAFE Find a Co-Founder Events Startup Jobs Log in Apply Home \u203a Companies \u203a Paasa Paasa Invest in Global Equities from India Summer 2024 Active Fintech Consumer Investing Emerging Markets Company Jobs 2 https://paasa.com Invest in Global Equities from India Paasa helps wealthy",
+      "quote": "Paasa: Invest in Global Equities from India | Y Combinator Open menu About What Happens at YC? Apply YC Interview Guide FAQ People YC Blog Companies Startup Directory Founder Directory Launch YC Library Partners Resources Startup School Newsletter Requests for Startups For Investors Verify Founders Hacker News Bookface SAFE Find a Co-Founder Events Startup Jobs Log in Apply Home \u203a Companies \u203a Paasa Paasa Invest in Global Equities from India Summer 2024 Active Fintech Consumer Investing Emerging Markets Company Jobs 2 https://paasa.com Invest in Global Equities from India Paasa helps wealthy",
+      "source_url": "https://www.ycombinator.com/companies/paasa",
+      "retrieved_at": "2026-09-13T23:28:07.087716+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_ca0422856034",
+      "field": "team",
+      "value": "Indians invest in global equities - without middlemen, hidden fees, or paperwork. While high-net-worths in India often have international expenses from children's education to healthcare, most still save in INR, a currency that depreciates ~2\u20135% per year against the USD. Why? - Broken outward remittance process - Fear of making mistakes in tax or compliance - Paper-heavy onboarding processes of international brokers - Lack of trustworthy guidance Paasa offers a mobile app that enables Indians to trade worldwide, invest via advisory, and automate every cross-border tax filing. Active Founders",
+      "quote": "Indians invest in global equities - without middlemen, hidden fees, or paperwork. While high-net-worths in India often have international expenses from children's education to healthcare, most still save in INR, a currency that depreciates ~2\u20135% per year against the USD. Why? - Broken outward remittance process - Fear of making mistakes in tax or compliance - Paper-heavy onboarding processes of international brokers - Lack of trustworthy guidance Paasa offers a mobile app that enables Indians to trade worldwide, invest via advisory, and automate every cross-border tax filing. Active Founders",
+      "source_url": "https://www.ycombinator.com/companies/paasa",
+      "retrieved_at": "2026-09-13T23:28:07.087860+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_fc584da7c196",
+      "field": "team",
+      "value": "Nitish Sahni Founder/CEO Invest in global markets from India. Nitish Sahni Founder/CEO Invest in global markets from India. Sparsh Sharma Founder Chief product officer at Paasa Sparsh Sharma Founder Chief product officer at Paasa Company Launches Paasa - Build wealth across borders See original launch post Paasa gives high-net-worth individuals (HNIs) in emerging markets the same globally diversified portfolios as HNIs in America. What\u2019s the problem? \u2018Pre-HNIs\u2019 and HNIs in countries like India want to diversify their wealth internationally. A few cross-border brokerage apps exist, but most",
+      "quote": "Nitish Sahni Founder/CEO Invest in global markets from India. Nitish Sahni Founder/CEO Invest in global markets from India. Sparsh Sharma Founder Chief product officer at Paasa Sparsh Sharma Founder Chief product officer at Paasa Company Launches Paasa - Build wealth across borders See original launch post Paasa gives high-net-worth individuals (HNIs) in emerging markets the same globally diversified portfolios as HNIs in America. What\u2019s the problem? \u2018Pre-HNIs\u2019 and HNIs in countries like India want to diversify their wealth internationally. A few cross-border brokerage apps exist, but most",
+      "source_url": "https://www.ycombinator.com/companies/paasa",
+      "retrieved_at": "2026-09-13T23:28:07.087944+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_89fe16c6e4bc",
+      "field": "team",
+      "value": "customers hesitate due to: Lack of guidance on foreign investments Remittance regulations that change every year Cross-border tax filing that their CFAs struggle with Slow outflows from local banks These barriers keep global investing out of reach, reserved for the top 0.001% who can afford wealth managers and family offices. We\u2019re changing that. Our vision is to bring all the opportunities of the 0.001% to the pre-HNI without any hassle. Team Sparsh and I ( Nitish ) grew up in India and have known each other for 5 years. Both personal finance nerds, we previously worked at SoFi, where",
+      "quote": "customers hesitate due to: Lack of guidance on foreign investments Remittance regulations that change every year Cross-border tax filing that their CFAs struggle with Slow outflows from local banks These barriers keep global investing out of reach, reserved for the top 0.001% who can afford wealth managers and family offices. We\u2019re changing that. Our vision is to bring all the opportunities of the 0.001% to the pre-HNI without any hassle. Team Sparsh and I ( Nitish ) grew up in India and have known each other for 5 years. Both personal finance nerds, we previously worked at SoFi, where",
+      "source_url": "https://www.ycombinator.com/companies/paasa",
+      "retrieved_at": "2026-09-13T23:28:07.088034+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_d400e6aaccda",
+      "field": "customer",
+      "value": "Sparsh led design on Student Loan Refinance, and I led engineering projects on Data Governance. Ask If you\u2019re in India and want to invest globally, reach out ! We\u2019re founders@paasa.co Jobs at Paasa View all jobs Founding Engineer Gurugram, HR, IN $25K - $50K 0.10% - 1.00% 3+ years Apply Now \u203a Customer Support Gurugram, HR, IN / Gurugram, Haryana, IN \u20b9500K - \u20b9800K INR 3+ years Apply Now \u203a Paasa Founded: 2024 Batch: Summer 2024 Team Size: 9 Status: Active Location: Gurugram, India Footer Y Combinator Make something people want. Programs YC Program Startup School Work at a Startup Co-Founder",
+      "quote": "Sparsh led design on Student Loan Refinance, and I led engineering projects on Data Governance. Ask If you\u2019re in India and want to invest globally, reach out ! We\u2019re founders@paasa.co Jobs at Paasa View all jobs Founding Engineer Gurugram, HR, IN $25K - $50K 0.10% - 1.00% 3+ years Apply Now \u203a Customer Support Gurugram, HR, IN / Gurugram, Haryana, IN \u20b9500K - \u20b9800K INR 3+ years Apply Now \u203a Paasa Founded: 2024 Batch: Summer 2024 Team Size: 9 Status: Active Location: Gurugram, India Footer Y Combinator Make something people want. Programs YC Program Startup School Work at a Startup Co-Founder",
+      "source_url": "https://www.ycombinator.com/companies/paasa",
+      "retrieved_at": "2026-09-13T23:28:07.088083+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_79dc7e7df526",
+      "field": "founded",
+      "value": "2024",
+      "quote": "Founded: 2024",
+      "source_url": "https://www.ycombinator.com/companies/paasa",
+      "retrieved_at": "2026-09-13T23:28:07.088290+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_3997f945fe11",
+      "field": "team_size",
+      "value": "9",
+      "quote": "Team Size: 9",
+      "source_url": "https://www.ycombinator.com/companies/paasa",
+      "retrieved_at": "2026-09-13T23:28:07.088450+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_4a37c0e32b80",
+      "field": "product",
+      "value": "Paasa - Invest in US Stocks, ETFs, UCITS & Global Markets from India Products Use Cases Tools Pricing Resources Log in Get started Trade Strategies UCITS Diversify RSUs Tax Partners Tools Pricing Blog Atlas Stories Help center Media Log in Get started Backed by Invest in US Stocks, ETFs, UCITS & Global Markets Global Investing for the Global Indian Start investing SIPC Insured SEBI RIA ISO 27001:2022 Access the world's markets Invest across major global exchanges and currencies Custodian Search for stocks & ETFs Hypothetical figures for illustrative purposes only Product Direct Investing",
+      "quote": "Paasa - Invest in US Stocks, ETFs, UCITS & Global Markets from India Products Use Cases Tools Pricing Resources Log in Get started Trade Strategies UCITS Diversify RSUs Tax Partners Tools Pricing Blog Atlas Stories Help center Media Log in Get started Backed by Invest in US Stocks, ETFs, UCITS & Global Markets Global Investing for the Global Indian Start investing SIPC Insured SEBI RIA ISO 27001:2022 Access the world's markets Invest across major global exchanges and currencies Custodian Search for stocks & ETFs Hypothetical figures for illustrative purposes only Product Direct Investing",
+      "source_url": "https://paasa.com/",
+      "retrieved_at": "2026-09-13T23:28:28.286578+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_ba9712beb09c",
+      "field": "product",
+      "value": "Trade from a universe of 15,000+ tickers across the world from the palm of your hand Learn more Hypothetical figures for illustrative purposes only Product Managed Strategies Invest in an expert strategy that maximizes returns for your level of risk, with ongoing rebalancing Learn more Platform Trade anywhere, anytime Seamlessly switch between desktop and mobile. Full control, wherever you are. Log in on desktop Platform Trade anywhere, anytime Seamlessly switch between desktop and mobile. Full control, wherever you are. Log in on desktop Multi-currency Hold, convert, and invest across 9",
+      "quote": "Trade from a universe of 15,000+ tickers across the world from the palm of your hand Learn more Hypothetical figures for illustrative purposes only Product Managed Strategies Invest in an expert strategy that maximizes returns for your level of risk, with ongoing rebalancing Learn more Platform Trade anywhere, anytime Seamlessly switch between desktop and mobile. Full control, wherever you are. Log in on desktop Platform Trade anywhere, anytime Seamlessly switch between desktop and mobile. Full control, wherever you are. Log in on desktop Multi-currency Hold, convert, and invest across 9",
+      "source_url": "https://paasa.com/",
+      "retrieved_at": "2026-09-13T23:28:28.286659+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_2c708efee32c",
+      "field": "pricing",
+      "value": "currencies Spot currencies are foreign exchange (FX) trades where one currency exchanged for another at the current market price with minimal markups. Special features Built for diversification Earn interest up to 3.13% on uninvested USD cash above $10,000 Special FX rates for deposits Access highly competitive foreign exchange rates for your deposits with our partner banks. India-ready tax reports, generated for you Schedule FA, Schedule FSI, capital gains, and all required ITR reports automatically sent to you at year end. Learn more UCITS ETFs Shield your wealth from US estate tax UCITS",
+      "quote": "currencies Spot currencies are foreign exchange (FX) trades where one currency exchanged for another at the current market price with minimal markups. Special features Built for diversification Earn interest up to 3.13% on uninvested USD cash above $10,000 Special FX rates for deposits Access highly competitive foreign exchange rates for your deposits with our partner banks. India-ready tax reports, generated for you Schedule FA, Schedule FSI, capital gains, and all required ITR reports automatically sent to you at year end. Learn more UCITS ETFs Shield your wealth from US estate tax UCITS",
+      "source_url": "https://paasa.com/",
+      "retrieved_at": "2026-09-13T23:28:28.287456+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_0978c07e00de",
+      "field": "customer",
+      "value": "ETFs give the same market access as U.S. ETFs, but protect you from U.S. estate tax on foreign nationals (taxed progressively up to 40% on assets above $60k). What are UCITS ETFs? Low-cost, Diversified, Europe-domiciled, and US estate tax\u2013safe. How to shield RSU's from US estate tax? Reinvest concentrated RSUs into globally diversified, estate-tax-protected portfolios Testimonials Our customers work at \u201c Very useful platform for me in order to access US stock markets from India, and Nitish and his team make the onboarding process pretty seamless. Their offering of customised stock baskets",
+      "quote": "ETFs give the same market access as U.S. ETFs, but protect you from U.S. estate tax on foreign nationals (taxed progressively up to 40% on assets above $60k). What are UCITS ETFs? Low-cost, Diversified, Europe-domiciled, and US estate tax\u2013safe. How to shield RSU's from US estate tax? Reinvest concentrated RSUs into globally diversified, estate-tax-protected portfolios Testimonials Our customers work at \u201c Very useful platform for me in order to access US stock markets from India, and Nitish and his team make the onboarding process pretty seamless. Their offering of customised stock baskets",
+      "source_url": "https://paasa.com/",
+      "retrieved_at": "2026-09-13T23:28:28.287523+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_eb6af0bb51fb",
+      "field": "customer",
+      "value": "for the US market is pretty unique - I'm a happy user and wish they grow from strength to strength! \u201d Anomitra Saha Principal Engineer, Captainfresh (Bangalore) \u201c Craft matters. Paasa's experience is clean, but the real win is the rigor behind it; I needed clarity. Paasa delivered - FEMA guidance I could act on, onboarding that just worked, and portfolios that felt built for diversification of RSUs, not retrofitted. Disclosure: I'm an angel investor in Paasa. \u201d Deepak Menon Vice President, Microsoft (Hyderabad) \u201c Great interface and easy to use. Gives access to global portfolios better than",
+      "quote": "for the US market is pretty unique - I'm a happy user and wish they grow from strength to strength! \u201d Anomitra Saha Principal Engineer, Captainfresh (Bangalore) \u201c Craft matters. Paasa's experience is clean, but the real win is the rigor behind it; I needed clarity. Paasa delivered - FEMA guidance I could act on, onboarding that just worked, and portfolios that felt built for diversification of RSUs, not retrofitted. Disclosure: I'm an angel investor in Paasa. \u201d Deepak Menon Vice President, Microsoft (Hyderabad) \u201c Great interface and easy to use. Gives access to global portfolios better than",
+      "source_url": "https://paasa.com/",
+      "retrieved_at": "2026-09-13T23:28:28.287581+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_001a24ab7c6d",
+      "field": "customer",
+      "value": "any app. You can curate your own portfolios or choose from the vast number of portfolios they've made. \u201d Maadhav Veer Singh CIO, BTB Family Office (Gurgaon) \u201c The seamless fund withdrawals and dedicated advisory support make global investing accessible, affordable and trustworthy. \u201d Navdeep Manaktala Co-Founder, Snowbit (Gurgaon) Enterprise security Safety is our cornerstone SIPC insured Securities are covered up to $500,000 by SIPC. Learn more at sipc.org. SEBI registered RIA Advisory services are lent by a Registered Investment Advisor, meaning we are legally bound to advise in your best",
+      "quote": "any app. You can curate your own portfolios or choose from the vast number of portfolios they've made. \u201d Maadhav Veer Singh CIO, BTB Family Office (Gurgaon) \u201c The seamless fund withdrawals and dedicated advisory support make global investing accessible, affordable and trustworthy. \u201d Navdeep Manaktala Co-Founder, Snowbit (Gurgaon) Enterprise security Safety is our cornerstone SIPC insured Securities are covered up to $500,000 by SIPC. Learn more at sipc.org. SEBI registered RIA Advisory services are lent by a Registered Investment Advisor, meaning we are legally bound to advise in your best",
+      "source_url": "https://paasa.com/",
+      "retrieved_at": "2026-09-13T23:28:28.287638+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_6379dccf77ce",
+      "field": "customer",
+      "value": "interest. End-to-end security Data encrypted across the board; two-factor authentication mandatory. You always own your assets Held with Interactive Brokers in your name. You retain control even in the unlikely event Paasa ceases operations. Our customers Who is Paasa for? Paasa is available to users in India, USA, UK, Middle East, Singapore, Thailand, and select other regions. We only provide India specific tax documentation. Onboarding for European residents is not supported at this time. Indian residents PAN and Aadhaar (digital copies) NRIs Government-issued ID and foreign address proof",
+      "quote": "interest. End-to-end security Data encrypted across the board; two-factor authentication mandatory. You always own your assets Held with Interactive Brokers in your name. You retain control even in the unlikely event Paasa ceases operations. Our customers Who is Paasa for? Paasa is available to users in India, USA, UK, Middle East, Singapore, Thailand, and select other regions. We only provide India specific tax documentation. Onboarding for European residents is not supported at this time. Indian residents PAN and Aadhaar (digital copies) NRIs Government-issued ID and foreign address proof",
+      "source_url": "https://paasa.com/",
+      "retrieved_at": "2026-09-13T23:28:28.287693+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_176295f834d2",
+      "field": "team",
+      "value": "booking capital gains. Transfer guides & instructions for all brokers available in the app. Whatsapp us at +91-9871076013 for personal assistance Media Paasa is making overseas investing simpler for Indian investors Helping Indian investors navigate global markets with greater ease, clarity, and confidence. article Paasa CEO Nitish Sahni on emerging global investment trends Nitish Sahni shares perspectives on emerging asset classes like copper, uranium, and rare earths. article Nitish Sahni in conversation with Neil Borate on RSU diversification A deep dive into RSU diversification",
+      "quote": "booking capital gains. Transfer guides & instructions for all brokers available in the app. Whatsapp us at +91-9871076013 for personal assistance Media Paasa is making overseas investing simpler for Indian investors Helping Indian investors navigate global markets with greater ease, clarity, and confidence. article Paasa CEO Nitish Sahni on emerging global investment trends Nitish Sahni shares perspectives on emerging asset classes like copper, uranium, and rare earths. article Nitish Sahni in conversation with Neil Borate on RSU diversification A deep dive into RSU diversification",
+      "source_url": "https://paasa.com/",
+      "retrieved_at": "2026-09-13T23:28:28.287778+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_4f52383440a0",
+      "field": "business_model",
+      "value": "Products Use Cases Tools Pricing Resources Log in Get started Trade Strategies UCITS Diversify RSUs Tax Partners Tools Pricing Blog Atlas Stories Help center Media Log in Get started Contact support@paasa.com WhatsApp Book a call Help center Products Trade Strategies Diversify RSUs UCITS Tax Partners Pricing Plans Brokerage fees Socials Blog Altas LinkedIn Instagram Y Combinator Legal Privacy policy Terms of service Investor charter Grievance redressal Complaint status Accessibility redressal Paasa is a financial technology company, not a bank or brokerage. All banking and brokerage services",
+      "quote": "Products Use Cases Tools Pricing Resources Log in Get started Trade Strategies UCITS Diversify RSUs Tax Partners Tools Pricing Blog Atlas Stories Help center Media Log in Get started Contact support@paasa.com WhatsApp Book a call Help center Products Trade Strategies Diversify RSUs UCITS Tax Partners Pricing Plans Brokerage fees Socials Blog Altas LinkedIn Instagram Y Combinator Legal Privacy policy Terms of service Investor charter Grievance redressal Complaint status Accessibility redressal Paasa is a financial technology company, not a bank or brokerage. All banking and brokerage services",
+      "source_url": "https://paasa.com/blog/what-are-ucits-etfs",
+      "retrieved_at": "2026-09-13T23:29:13.699921+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_d3f56231038c",
+      "field": "product",
+      "value": "are provided by our licensed partners. Advisory services are provided by Arc Spire Advisory Private Limited, a SEBI Registered Non-Individual Investment Advisor INA000021058 | RIA address: 506 Baani City Centre, Near Hilton, Sector 63 Gurugram, HR 122102, India | Business hours: 10:00 AM to 6:00 PM IST, Monday to Friday | Arc Spire Advisory Private Limited offers its services under the brand Paasa Investment in securities market are subject to market risks. Read all the related documents carefully before investing. Registration granted by SEBI, membership of BSE and certification from NISM",
+      "quote": "are provided by our licensed partners. Advisory services are provided by Arc Spire Advisory Private Limited, a SEBI Registered Non-Individual Investment Advisor INA000021058 | RIA address: 506 Baani City Centre, Near Hilton, Sector 63 Gurugram, HR 122102, India | Business hours: 10:00 AM to 6:00 PM IST, Monday to Friday | Arc Spire Advisory Private Limited offers its services under the brand Paasa Investment in securities market are subject to market risks. Read all the related documents carefully before investing. Registration granted by SEBI, membership of BSE and certification from NISM",
+      "source_url": "https://paasa.com/blog/what-are-ucits-etfs",
+      "retrieved_at": "2026-09-13T23:29:13.700596+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_4840be6ace25",
+      "field": "product",
+      "value": "requirements before picking a strategy or designing a portfolio that suits your needs. Paasa, Inc. 2261 Market Street STE 86865 San Francisco, CA, USA, 94114 Paasa IFSC Private Limited Shilp Incubation, SI-G-125, Unit A, 11T3 & 11T5, Blk 11, Gift City, Gandhi Nagar, Gandhi Nagar- 382050, Gujarat Bruhm Labs Private Limited AIHP Skyline, Plot 97A, Sector 32, Gurugram, Haryana 122001, India Scan to download Tools & Calculators U.S. Estate Tax Liability Calculator | Global Brokerage Calculator | IBKR tax reports | UCITS ETF Screener UCITS What are UCITS ETFs? | UCITS ETFs vs US ETFs for RSUs |",
+      "quote": "requirements before picking a strategy or designing a portfolio that suits your needs. Paasa, Inc. 2261 Market Street STE 86865 San Francisco, CA, USA, 94114 Paasa IFSC Private Limited Shilp Incubation, SI-G-125, Unit A, 11T3 & 11T5, Blk 11, Gift City, Gandhi Nagar, Gandhi Nagar- 382050, Gujarat Bruhm Labs Private Limited AIHP Skyline, Plot 97A, Sector 32, Gurugram, Haryana 122001, India Scan to download Tools & Calculators U.S. Estate Tax Liability Calculator | Global Brokerage Calculator | IBKR tax reports | UCITS ETF Screener UCITS What are UCITS ETFs? | UCITS ETFs vs US ETFs for RSUs |",
+      "source_url": "https://paasa.com/blog/what-are-ucits-etfs",
+      "retrieved_at": "2026-09-13T23:29:13.700651+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_8974221b6046",
+      "field": "product",
+      "value": "Accumulating vs Distributing UCITS ETFs Commodities Top Gold ETFs | Top Silver ETFs | Top Platinum ETFs | Top Palladium ETFs | Top Zinc ETFs | Top Aluminium ETFs | Top Copper ETFs Global Investing Invest in US from India | Invest in Ireland from India | Invest in Switzerland from India | Invest in China from India | Invest in Japan from India | Invest in Singapore from India | Invest in UK from India | Invest in Poland from India | Invest in Germany from India Tax How Global Stocks and ETFs Are Taxed for Indian Investors | Capital Gains Tax on Foreign Stocks and ETFs | How are Joint Global",
+      "quote": "Accumulating vs Distributing UCITS ETFs Commodities Top Gold ETFs | Top Silver ETFs | Top Platinum ETFs | Top Palladium ETFs | Top Zinc ETFs | Top Aluminium ETFs | Top Copper ETFs Global Investing Invest in US from India | Invest in Ireland from India | Invest in Switzerland from India | Invest in China from India | Invest in Japan from India | Invest in Singapore from India | Invest in UK from India | Invest in Poland from India | Invest in Germany from India Tax How Global Stocks and ETFs Are Taxed for Indian Investors | Capital Gains Tax on Foreign Stocks and ETFs | How are Joint Global",
+      "source_url": "https://paasa.com/blog/what-are-ucits-etfs",
+      "retrieved_at": "2026-09-13T23:29:13.700734+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_38b6758f0de1",
+      "field": "customer",
+      "value": "Brokerage Accounts Taxed? | How Foreign Dividend Income is Taxed for Indian Investors | Tax on Repatriation of Foreign Income to India | How the US Estate Tax Works for Indians and NRIs | How to Adjust TCS Against Advance Tax Liability LRS What is LRS? | LRS for Investments | LRS for Education | LRS for Healthcare | LRS for Travel | LRS for Maintenance | LRS for buying Property Overseas | LRS for Gifts & Donations Double Taxation Avoidance Agreements What is DTAA? | DTAA between India & USA | DTAA between India & Singapore | DTAA between India & Switzerland | DTAA between India & UK | DTAA",
+      "quote": "Brokerage Accounts Taxed? | How Foreign Dividend Income is Taxed for Indian Investors | Tax on Repatriation of Foreign Income to India | How the US Estate Tax Works for Indians and NRIs | How to Adjust TCS Against Advance Tax Liability LRS What is LRS? | LRS for Investments | LRS for Education | LRS for Healthcare | LRS for Travel | LRS for Maintenance | LRS for buying Property Overseas | LRS for Gifts & Donations Double Taxation Avoidance Agreements What is DTAA? | DTAA between India & USA | DTAA between India & Singapore | DTAA between India & Switzerland | DTAA between India & UK | DTAA",
+      "source_url": "https://paasa.com/blog/what-are-ucits-etfs",
+      "retrieved_at": "2026-09-13T23:29:13.700774+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_58198547a65d",
+      "field": "product",
+      "value": "between India & Ireland | DTAA between India & Japan | DTAA between India & Poland | DTAA between India & China | DTAA between India and Germany Returning Indians Returning from US | Returning from UAE | Returning from Singapore | Returning from UK | Returning from Canada | Returning from Germany | Returning from Australia RNOR What is RNOR | How RNORs Can Save Capital Gains Tax | Tax on US Capital Gains & Dividend Income for RNORs | Tax on Foreign Rental Income Taxable for RNORs | Foreign Asset Disclosure Requirements for RNORs | Tax on RSU Vesting Events for RNORs Interactive Brokers LLC",
+      "quote": "between India & Ireland | DTAA between India & Japan | DTAA between India & Poland | DTAA between India & China | DTAA between India and Germany Returning Indians Returning from US | Returning from UAE | Returning from Singapore | Returning from UK | Returning from Canada | Returning from Germany | Returning from Australia RNOR What is RNOR | How RNORs Can Save Capital Gains Tax | Tax on US Capital Gains & Dividend Income for RNORs | Tax on Foreign Rental Income Taxable for RNORs | Foreign Asset Disclosure Requirements for RNORs | Tax on RSU Vesting Events for RNORs Interactive Brokers LLC",
+      "source_url": "https://paasa.com/blog/what-are-ucits-etfs",
+      "retrieved_at": "2026-09-13T23:29:13.700813+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_612569ef0c80",
+      "field": "product",
+      "value": "is a registered Broker-Dealer, Futures Commission Merchant and Forex Dealer Member, regulated by the U.S. Securities and Exchange Commission (SEC), the Commodity Futures Trading Commission (CFTC) and the National Futures Association (NFA), and is a member of the Financial Industry Regulatory Authority (FINRA) and several other self-regulatory organizations. Interactive Brokers does not endorse or recommend any introducing brokers, third-party financial advisors or hedge funds, including Paasa. Interactive Brokers provides execution and clearing services to customers. None of the information",
+      "quote": "is a registered Broker-Dealer, Futures Commission Merchant and Forex Dealer Member, regulated by the U.S. Securities and Exchange Commission (SEC), the Commodity Futures Trading Commission (CFTC) and the National Futures Association (NFA), and is a member of the Financial Industry Regulatory Authority (FINRA) and several other self-regulatory organizations. Interactive Brokers does not endorse or recommend any introducing brokers, third-party financial advisors or hedge funds, including Paasa. Interactive Brokers provides execution and clearing services to customers. None of the information",
+      "source_url": "https://paasa.com/blog/what-are-ucits-etfs",
+      "retrieved_at": "2026-09-13T23:29:13.700915+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_70563270ac28",
+      "field": "business_model",
+      "value": "Products Use Cases Tools Pricing Resources Log in Get started Trade Strategies UCITS Diversify RSUs Tax Partners Tools Pricing Blog Atlas Stories Help center Media Log in Get started Contact support@paasa.com WhatsApp Book a call Help center Products Trade Strategies Diversify RSUs UCITS Tax Partners Pricing Plans Brokerage fees Socials Blog Altas LinkedIn Instagram Y Combinator Legal Privacy policy Terms of service Investor charter Grievance redressal Complaint status Accessibility redressal Paasa is a financial technology company, not a bank or brokerage. All banking and brokerage services",
+      "quote": "Products Use Cases Tools Pricing Resources Log in Get started Trade Strategies UCITS Diversify RSUs Tax Partners Tools Pricing Blog Atlas Stories Help center Media Log in Get started Contact support@paasa.com WhatsApp Book a call Help center Products Trade Strategies Diversify RSUs UCITS Tax Partners Pricing Plans Brokerage fees Socials Blog Altas LinkedIn Instagram Y Combinator Legal Privacy policy Terms of service Investor charter Grievance redressal Complaint status Accessibility redressal Paasa is a financial technology company, not a bank or brokerage. All banking and brokerage services",
+      "source_url": "https://paasa.com/blog/ucits-accumulating-vs-distributing",
+      "retrieved_at": "2026-09-13T23:29:44.123505+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_37b2ff810bf4",
+      "field": "product",
+      "value": "are provided by our licensed partners. Advisory services are provided by Arc Spire Advisory Private Limited, a SEBI Registered Non-Individual Investment Advisor INA000021058 | RIA address: 506 Baani City Centre, Near Hilton, Sector 63 Gurugram, HR 122102, India | Business hours: 10:00 AM to 6:00 PM IST, Monday to Friday | Arc Spire Advisory Private Limited offers its services under the brand Paasa Investment in securities market are subject to market risks. Read all the related documents carefully before investing. Registration granted by SEBI, membership of BSE and certification from NISM",
+      "quote": "are provided by our licensed partners. Advisory services are provided by Arc Spire Advisory Private Limited, a SEBI Registered Non-Individual Investment Advisor INA000021058 | RIA address: 506 Baani City Centre, Near Hilton, Sector 63 Gurugram, HR 122102, India | Business hours: 10:00 AM to 6:00 PM IST, Monday to Friday | Arc Spire Advisory Private Limited offers its services under the brand Paasa Investment in securities market are subject to market risks. Read all the related documents carefully before investing. Registration granted by SEBI, membership of BSE and certification from NISM",
+      "source_url": "https://paasa.com/blog/ucits-accumulating-vs-distributing",
+      "retrieved_at": "2026-09-13T23:29:44.123659+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_3ffb5e0487bd",
+      "field": "customer",
+      "value": "in no way guarantee performance of the intermediary or provide any assurance of returns to investors. SEBI local address: NBCC Complex, Office Tower-1, 8th Floor, Plate B, East Kidwai Nagar, New Delhi - 110023 Smart ODR Link -> Disclaimer: The information provided on this website is for general informational purposes only. It is not intended to be and should not be construed as financial advice. Investing is subject to market risks. Please do your research carefully before investing your wealth. Past performance is not indicative of future returns. Please consider your specific investment",
+      "quote": "in no way guarantee performance of the intermediary or provide any assurance of returns to investors. SEBI local address: NBCC Complex, Office Tower-1, 8th Floor, Plate B, East Kidwai Nagar, New Delhi - 110023 Smart ODR Link -> Disclaimer: The information provided on this website is for general informational purposes only. It is not intended to be and should not be construed as financial advice. Investing is subject to market risks. Please do your research carefully before investing your wealth. Past performance is not indicative of future returns. Please consider your specific investment",
+      "source_url": "https://paasa.com/blog/ucits-accumulating-vs-distributing",
+      "retrieved_at": "2026-09-13T23:29:44.123705+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_af2b8ea237d0",
+      "field": "product",
+      "value": "requirements before picking a strategy or designing a portfolio that suits your needs. Paasa, Inc. 2261 Market Street STE 86865 San Francisco, CA, USA, 94114 Paasa IFSC Private Limited Shilp Incubation, SI-G-125, Unit A, 11T3 & 11T5, Blk 11, Gift City, Gandhi Nagar, Gandhi Nagar- 382050, Gujarat Bruhm Labs Private Limited AIHP Skyline, Plot 97A, Sector 32, Gurugram, Haryana 122001, India Scan to download Tools & Calculators U.S. Estate Tax Liability Calculator | Global Brokerage Calculator | IBKR tax reports | UCITS ETF Screener UCITS What are UCITS ETFs? | UCITS ETFs vs US ETFs for RSUs |",
+      "quote": "requirements before picking a strategy or designing a portfolio that suits your needs. Paasa, Inc. 2261 Market Street STE 86865 San Francisco, CA, USA, 94114 Paasa IFSC Private Limited Shilp Incubation, SI-G-125, Unit A, 11T3 & 11T5, Blk 11, Gift City, Gandhi Nagar, Gandhi Nagar- 382050, Gujarat Bruhm Labs Private Limited AIHP Skyline, Plot 97A, Sector 32, Gurugram, Haryana 122001, India Scan to download Tools & Calculators U.S. Estate Tax Liability Calculator | Global Brokerage Calculator | IBKR tax reports | UCITS ETF Screener UCITS What are UCITS ETFs? | UCITS ETFs vs US ETFs for RSUs |",
+      "source_url": "https://paasa.com/blog/ucits-accumulating-vs-distributing",
+      "retrieved_at": "2026-09-13T23:29:44.123752+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_ba05279e3b82",
+      "field": "product",
+      "value": "Accumulating vs Distributing UCITS ETFs Commodities Top Gold ETFs | Top Silver ETFs | Top Platinum ETFs | Top Palladium ETFs | Top Zinc ETFs | Top Aluminium ETFs | Top Copper ETFs Global Investing Invest in US from India | Invest in Ireland from India | Invest in Switzerland from India | Invest in China from India | Invest in Japan from India | Invest in Singapore from India | Invest in UK from India | Invest in Poland from India | Invest in Germany from India Tax How Global Stocks and ETFs Are Taxed for Indian Investors | Capital Gains Tax on Foreign Stocks and ETFs | How are Joint Global",
+      "quote": "Accumulating vs Distributing UCITS ETFs Commodities Top Gold ETFs | Top Silver ETFs | Top Platinum ETFs | Top Palladium ETFs | Top Zinc ETFs | Top Aluminium ETFs | Top Copper ETFs Global Investing Invest in US from India | Invest in Ireland from India | Invest in Switzerland from India | Invest in China from India | Invest in Japan from India | Invest in Singapore from India | Invest in UK from India | Invest in Poland from India | Invest in Germany from India Tax How Global Stocks and ETFs Are Taxed for Indian Investors | Capital Gains Tax on Foreign Stocks and ETFs | How are Joint Global",
+      "source_url": "https://paasa.com/blog/ucits-accumulating-vs-distributing",
+      "retrieved_at": "2026-09-13T23:29:44.123847+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_d420aeb67240",
+      "field": "product",
+      "value": "Brokerage Accounts Taxed? | How Foreign Dividend Income is Taxed for Indian Investors | Tax on Repatriation of Foreign Income to India | How the US Estate Tax Works for Indians and NRIs | How to Adjust TCS Against Advance Tax Liability LRS What is LRS? | LRS for Investments | LRS for Education | LRS for Healthcare | LRS for Travel | LRS for Maintenance | LRS for buying Property Overseas | LRS for Gifts & Donations Double Taxation Avoidance Agreements What is DTAA? | DTAA between India & USA | DTAA between India & Singapore | DTAA between India & Switzerland | DTAA between India & UK | DTAA",
+      "quote": "Brokerage Accounts Taxed? | How Foreign Dividend Income is Taxed for Indian Investors | Tax on Repatriation of Foreign Income to India | How the US Estate Tax Works for Indians and NRIs | How to Adjust TCS Against Advance Tax Liability LRS What is LRS? | LRS for Investments | LRS for Education | LRS for Healthcare | LRS for Travel | LRS for Maintenance | LRS for buying Property Overseas | LRS for Gifts & Donations Double Taxation Avoidance Agreements What is DTAA? | DTAA between India & USA | DTAA between India & Singapore | DTAA between India & Switzerland | DTAA between India & UK | DTAA",
+      "source_url": "https://paasa.com/blog/ucits-accumulating-vs-distributing",
+      "retrieved_at": "2026-09-13T23:29:44.123970+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_86aca545f746",
+      "field": "customer",
+      "value": "between India & Ireland | DTAA between India & Japan | DTAA between India & Poland | DTAA between India & China | DTAA between India and Germany Returning Indians Returning from US | Returning from UAE | Returning from Singapore | Returning from UK | Returning from Canada | Returning from Germany | Returning from Australia RNOR What is RNOR | How RNORs Can Save Capital Gains Tax | Tax on US Capital Gains & Dividend Income for RNORs | Tax on Foreign Rental Income Taxable for RNORs | Foreign Asset Disclosure Requirements for RNORs | Tax on RSU Vesting Events for RNORs Interactive Brokers LLC",
+      "quote": "between India & Ireland | DTAA between India & Japan | DTAA between India & Poland | DTAA between India & China | DTAA between India and Germany Returning Indians Returning from US | Returning from UAE | Returning from Singapore | Returning from UK | Returning from Canada | Returning from Germany | Returning from Australia RNOR What is RNOR | How RNORs Can Save Capital Gains Tax | Tax on US Capital Gains & Dividend Income for RNORs | Tax on Foreign Rental Income Taxable for RNORs | Foreign Asset Disclosure Requirements for RNORs | Tax on RSU Vesting Events for RNORs Interactive Brokers LLC",
+      "source_url": "https://paasa.com/blog/ucits-accumulating-vs-distributing",
+      "retrieved_at": "2026-09-13T23:29:44.124014+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_83c8b5e2c994",
+      "field": "source_passage",
+      "value": "Pricing - India's Lowest Global Trading Commissions | Paasa Products Use Cases Tools Pricing Resources Log in Get started Trade Strategies UCITS Diversify RSUs Tax Partners Tools Pricing Blog Atlas Stories Help center Media Log in Get started Pricing Access Plan Trade stocks & ETFs across global exchanges and currencies. No recurring fee. No restriction on account size. $0 /month Pay brokerage on trades Get started Apex Plan Everything in Access plan + Managed strategies (advisory) + FEMA and tax support. $50k - $100k AUM 1.0% + GST $100k - $500k AUM 0.7% + GST $500k - $1M AUM 0.5% + GST $1M+",
+      "quote": "Pricing - India's Lowest Global Trading Commissions | Paasa Products Use Cases Tools Pricing Resources Log in Get started Trade Strategies UCITS Diversify RSUs Tax Partners Tools Pricing Blog Atlas Stories Help center Media Log in Get started Pricing Access Plan Trade stocks & ETFs across global exchanges and currencies. No recurring fee. No restriction on account size. $0 /month Pay brokerage on trades Get started Apex Plan Everything in Access plan + Managed strategies (advisory) + FEMA and tax support. $50k - $100k AUM 1.0% + GST $100k - $500k AUM 0.7% + GST $500k - $1M AUM 0.5% + GST $1M+",
+      "source_url": "https://paasa.com/pricing",
+      "retrieved_at": "2026-09-14T10:33:33.256004+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_2d357e901424",
+      "field": "source_passage",
+      "value": "AUM Get in touch The percentage fee shown is charged annually and deducted in monthly installments. Minimum investment $50k for Apex. Fees are deducted automatically from your Paasa wallet each month. Brokerage fees apply separately. GST is applicable only to Indian residents. Get started ACCESS PLAN APEX PLAN Trade stocks and ETFs across US, UK, Swiss and Hong Kong exchanges. No recurring fee. No restriction on account size. $0 /month Pay brokerage on trades Get started Brokerage fees per trade GST is included in the brokerage. Brokerage fees are applicable on all trades. Brokerage markups",
+      "quote": "AUM Get in touch The percentage fee shown is charged annually and deducted in monthly installments. Minimum investment $50k for Apex. Fees are deducted automatically from your Paasa wallet each month. Brokerage fees apply separately. GST is applicable only to Indian residents. Get started ACCESS PLAN APEX PLAN Trade stocks and ETFs across US, UK, Swiss and Hong Kong exchanges. No recurring fee. No restriction on account size. $0 /month Pay brokerage on trades Get started Brokerage fees per trade GST is included in the brokerage. Brokerage fees are applicable on all trades. Brokerage markups",
+      "source_url": "https://paasa.com/pricing",
+      "retrieved_at": "2026-09-14T10:33:33.256045+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_1fe33ed4f0f2",
+      "field": "source_passage",
+      "value": "are not applied to Apex customers. Switch plans to view plan-specific charges. Fees shown below do not include third party, clearing and regulatory fees. View IBKR's non-brokerage related fees Access plan Apex plan UK Exchange GBP USD EUR Charge 0.05% of trade value Min per trade \u00a31.00 Max per trade - View third party fees \u203a US Exchanges USD Charge 0.10% of trade value Min per trade $0.50 Max per trade $40.00 View third party fees \u203a US Penny Stocks Price less than $5 USD Charge $0.0035/share or 0.1% of trade value * Min per trade $0.50 Max per trade 1% of trade value View third party fees \u203a",
+      "quote": "are not applied to Apex customers. Switch plans to view plan-specific charges. Fees shown below do not include third party, clearing and regulatory fees. View IBKR's non-brokerage related fees Access plan Apex plan UK Exchange GBP USD EUR Charge 0.05% of trade value Min per trade \u00a31.00 Max per trade - View third party fees \u203a US Exchanges USD Charge 0.10% of trade value Min per trade $0.50 Max per trade $40.00 View third party fees \u203a US Penny Stocks Price less than $5 USD Charge $0.0035/share or 0.1% of trade value * Min per trade $0.50 Max per trade 1% of trade value View third party fees \u203a",
+      "source_url": "https://paasa.com/pricing",
+      "retrieved_at": "2026-09-14T10:33:33.256059+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_b2e7863b047a",
+      "field": "source_passage",
+      "value": "*whichever is higher Swiss Exchange CHF USD EUR GBP Charge 0.05% of trade value Min per trade \u20a31.50 Max per trade \u20a349.00 View third party fees \u203a Hong Kong Exchange HKD USD Charge 0.05% of trade value Min per trade HK$18.00 Max per trade - View third party fees \u203a German Exchange EUR Charge 0.05% of trade value Min per trade \u20ac1.25 Max per trade \u20ac29.00 View third party fees \u203a French Exchange EUR Charge 0.05% of trade value Min per trade \u20ac1.25 Max per trade \u20ac29.00 View third party fees \u203a Netherlands Exchange EUR USD Charge 0.05% of trade value Min per trade \u20ac1.25 Max per trade \u20ac29.00 View third",
+      "quote": "*whichever is higher Swiss Exchange CHF USD EUR GBP Charge 0.05% of trade value Min per trade \u20a31.50 Max per trade \u20a349.00 View third party fees \u203a Hong Kong Exchange HKD USD Charge 0.05% of trade value Min per trade HK$18.00 Max per trade - View third party fees \u203a German Exchange EUR Charge 0.05% of trade value Min per trade \u20ac1.25 Max per trade \u20ac29.00 View third party fees \u203a French Exchange EUR Charge 0.05% of trade value Min per trade \u20ac1.25 Max per trade \u20ac29.00 View third party fees \u203a Netherlands Exchange EUR USD Charge 0.05% of trade value Min per trade \u20ac1.25 Max per trade \u20ac29.00 View third",
+      "source_url": "https://paasa.com/pricing",
+      "retrieved_at": "2026-09-14T10:33:33.256072+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_13a038574217",
+      "field": "source_passage",
+      "value": "party fees \u203a Canadian Exchange CAD USD Charge CA$0.008 per share Min per trade CA$1.00 Max per trade 0.5% trade value View third party fees \u203a Japanese Exchange JPY Charge 0.05% of trade value Min per trade \u00a580.00 Max per trade - View third party fees \u203a Singapore Exchange SGD USD GBP HKD EUR Charge 0.08% of trade value Min per trade S$2.50 Max per trade - View third party fees \u203a Brokerage fees apply to all order types. Appropriate third party fees will also apply. Est. fees shown at the time of order execution is calculated by IBKR. Final charge on your statement may differ due to exchange",
+      "quote": "party fees \u203a Canadian Exchange CAD USD Charge CA$0.008 per share Min per trade CA$1.00 Max per trade 0.5% trade value View third party fees \u203a Japanese Exchange JPY Charge 0.05% of trade value Min per trade \u00a580.00 Max per trade - View third party fees \u203a Singapore Exchange SGD USD GBP HKD EUR Charge 0.08% of trade value Min per trade S$2.50 Max per trade - View third party fees \u203a Brokerage fees apply to all order types. Appropriate third party fees will also apply. Est. fees shown at the time of order execution is calculated by IBKR. Final charge on your statement may differ due to exchange",
+      "source_url": "https://paasa.com/pricing",
+      "retrieved_at": "2026-09-14T10:33:33.256083+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_e0ddfb5088fd",
+      "field": "source_passage",
+      "value": "fees and regulatory fees that aren't immediately available. Value tiers are applied based on monthly cumulative trade volume summed across all stock, warrants and ETF shares. This is calculated once daily, not at the time of the trade. As such, execution reductions will start the next trading day after the threshold has been exceeded. IBKR's Tiered (i.e., commission plus external venue fees/rebates) commission models are not intended to be a direct pass-through of exchange and third-party fees and rebates. Costs passed on to clients in IBKR's Tiered commission schedule may be greater than",
+      "quote": "fees and regulatory fees that aren't immediately available. Value tiers are applied based on monthly cumulative trade volume summed across all stock, warrants and ETF shares. This is calculated once daily, not at the time of the trade. As such, execution reductions will start the next trading day after the threshold has been exceeded. IBKR's Tiered (i.e., commission plus external venue fees/rebates) commission models are not intended to be a direct pass-through of exchange and third-party fees and rebates. Costs passed on to clients in IBKR's Tiered commission schedule may be greater than",
+      "source_url": "https://paasa.com/pricing",
+      "retrieved_at": "2026-09-14T10:33:33.256094+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_9539b231f5f3",
+      "field": "source_passage",
+      "value": "the costs paid by IBKR to the relevant exchange, regulator, clearinghouse or third party. For example, IBKR may receive volume discounts that are not passed on to clients. Likewise, rebates passed on to clients by IBKR may be less than the rebates IBKR receives from the relevant market. For example, IBKR may receive enhanced rebate payments for exceeding volume thresholds on particular markets, but typically will not pass these enhancements directly to clients. In certain circumstances, IBKR may receive discounts with respect to third party fees, including exchange and/or clearing fees, that",
+      "quote": "the costs paid by IBKR to the relevant exchange, regulator, clearinghouse or third party. For example, IBKR may receive volume discounts that are not passed on to clients. Likewise, rebates passed on to clients by IBKR may be less than the rebates IBKR receives from the relevant market. For example, IBKR may receive enhanced rebate payments for exceeding volume thresholds on particular markets, but typically will not pass these enhancements directly to clients. In certain circumstances, IBKR may receive discounts with respect to third party fees, including exchange and/or clearing fees, that",
+      "source_url": "https://paasa.com/pricing",
+      "retrieved_at": "2026-09-14T10:33:33.256105+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_dd0eedf540e7",
+      "field": "source_passage",
+      "value": "may not pass-through to clients. Paasa may change these rates at any time in its sole discretion. Commission rates may also vary by program or arrangement. Restrictions apply. The published rates are for direct clients of Paasa only. Compare plans Access Apex Trading Advanced Order Types: Market, Limit, Stop, Trailing stop Set Recurring Investments Market data, fundamentals and technicals Create watchlists Advisory Managed Strategies - Portfolio monitoring & analytics - Ongoing tax loss harvesting and rebalancing - Dedicated relationship manager - Compliance End of year tax documents Ongoing",
+      "quote": "may not pass-through to clients. Paasa may change these rates at any time in its sole discretion. Commission rates may also vary by program or arrangement. Restrictions apply. The published rates are for direct clients of Paasa only. Compare plans Access Apex Trading Advanced Order Types: Market, Limit, Stop, Trailing stop Set Recurring Investments Market data, fundamentals and technicals Create watchlists Advisory Managed Strategies - Portfolio monitoring & analytics - Ongoing tax loss harvesting and rebalancing - Dedicated relationship manager - Compliance End of year tax documents Ongoing",
+      "source_url": "https://paasa.com/pricing",
+      "retrieved_at": "2026-09-14T10:33:33.256115+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_49fff4e5c20f",
+      "field": "source_passage",
+      "value": "ETFs Global Investing Invest in US from India | Invest in Ireland from India | Invest in Switzerland from India | Invest in China from India | Invest in Japan from India | Invest in Singapore from India | Invest in UK from India | Invest in Poland from India | Invest in Germany from India Tax How Global Stocks and ETFs Are Taxed for Indian Investors | Capital Gains Tax on Foreign Stocks and ETFs | How are Joint Global Brokerage Accounts Taxed? | How Foreign Dividend Income is Taxed for Indian Investors | Tax on Repatriation of Foreign Income to India | How the US Estate Tax Works for Indians",
+      "quote": "ETFs Global Investing Invest in US from India | Invest in Ireland from India | Invest in Switzerland from India | Invest in China from India | Invest in Japan from India | Invest in Singapore from India | Invest in UK from India | Invest in Poland from India | Invest in Germany from India Tax How Global Stocks and ETFs Are Taxed for Indian Investors | Capital Gains Tax on Foreign Stocks and ETFs | How are Joint Global Brokerage Accounts Taxed? | How Foreign Dividend Income is Taxed for Indian Investors | Tax on Repatriation of Foreign Income to India | How the US Estate Tax Works for Indians",
+      "source_url": "https://paasa.com/pricing",
+      "retrieved_at": "2026-09-14T10:33:33.256125+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_9da27d73b11e",
+      "field": "source_passage",
+      "value": "and NRIs | How to Adjust TCS Against Advance Tax Liability LRS What is LRS? | LRS for Investments | LRS for Education | LRS for Healthcare | LRS for Travel | LRS for Maintenance | LRS for buying Property Overseas | LRS for Gifts & Donations Double Taxation Avoidance Agreements What is DTAA? | DTAA between India & USA | DTAA between India & Singapore | DTAA between India & Switzerland | DTAA between India & UK | DTAA between India & Ireland | DTAA between India & Japan | DTAA between India & Poland | DTAA between India & China | DTAA between India and Germany Returning Indians Returning from",
+      "quote": "and NRIs | How to Adjust TCS Against Advance Tax Liability LRS What is LRS? | LRS for Investments | LRS for Education | LRS for Healthcare | LRS for Travel | LRS for Maintenance | LRS for buying Property Overseas | LRS for Gifts & Donations Double Taxation Avoidance Agreements What is DTAA? | DTAA between India & USA | DTAA between India & Singapore | DTAA between India & Switzerland | DTAA between India & UK | DTAA between India & Ireland | DTAA between India & Japan | DTAA between India & Poland | DTAA between India & China | DTAA between India and Germany Returning Indians Returning from",
+      "source_url": "https://paasa.com/pricing",
+      "retrieved_at": "2026-09-14T10:33:33.256136+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_6b76571e4468",
+      "field": "source_passage",
+      "value": "US | Returning from UAE | Returning from Singapore | Returning from UK | Returning from Canada | Returning from Germany | Returning from Australia RNOR What is RNOR | How RNORs Can Save Capital Gains Tax | Tax on US Capital Gains & Dividend Income for RNORs | Tax on Foreign Rental Income Taxable for RNORs | Foreign Asset Disclosure Requirements for RNORs | Tax on RSU Vesting Events for RNORs Interactive Brokers LLC is a registered Broker-Dealer, Futures Commission Merchant and Forex Dealer Member, regulated by the U.S. Securities and Exchange Commission (SEC), the Commodity Futures Trading",
+      "quote": "US | Returning from UAE | Returning from Singapore | Returning from UK | Returning from Canada | Returning from Germany | Returning from Australia RNOR What is RNOR | How RNORs Can Save Capital Gains Tax | Tax on US Capital Gains & Dividend Income for RNORs | Tax on Foreign Rental Income Taxable for RNORs | Foreign Asset Disclosure Requirements for RNORs | Tax on RSU Vesting Events for RNORs Interactive Brokers LLC is a registered Broker-Dealer, Futures Commission Merchant and Forex Dealer Member, regulated by the U.S. Securities and Exchange Commission (SEC), the Commodity Futures Trading",
+      "source_url": "https://paasa.com/pricing",
+      "retrieved_at": "2026-09-14T10:33:33.256146+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_b32955792303",
+      "field": "source_passage",
+      "value": "Commission (CFTC) and the National Futures Association (NFA), and is a member of the Financial Industry Regulatory Authority (FINRA) and several other self-regulatory organizations. Interactive Brokers does not endorse or recommend any introducing brokers, third-party financial advisors or hedge funds, including Paasa. Interactive Brokers provides execution and clearing services to customers. None of the information contained herein constitutes a recommendation, offer, or solicitation of an offer by Interactive Brokers to buy, sell or hold any security, financial product or instrument or to",
+      "quote": "Commission (CFTC) and the National Futures Association (NFA), and is a member of the Financial Industry Regulatory Authority (FINRA) and several other self-regulatory organizations. Interactive Brokers does not endorse or recommend any introducing brokers, third-party financial advisors or hedge funds, including Paasa. Interactive Brokers provides execution and clearing services to customers. None of the information contained herein constitutes a recommendation, offer, or solicitation of an offer by Interactive Brokers to buy, sell or hold any security, financial product or instrument or to",
+      "source_url": "https://paasa.com/pricing",
+      "retrieved_at": "2026-09-14T10:33:33.256157+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_282f734d0f7e",
+      "field": "source_passage",
+      "value": "engage in any specific investment strategy. Interactive Brokers makes no representation, and assumes no liability to the accuracy or completeness of the information provided on this website. For more information regarding Interactive Brokers, please visit www.interactivebrokers.com . The Interactive Brokers logo is a registered trademark of Interactive Brokers LLC. Custodian \u00a9 2026 Paasa. All rights reserved.",
+      "quote": "engage in any specific investment strategy. Interactive Brokers makes no representation, and assumes no liability to the accuracy or completeness of the information provided on this website. For more information regarding Interactive Brokers, please visit www.interactivebrokers.com . The Interactive Brokers logo is a registered trademark of Interactive Brokers LLC. Custodian \u00a9 2026 Paasa. All rights reserved.",
+      "source_url": "https://paasa.com/pricing",
+      "retrieved_at": "2026-09-14T10:33:33.256167+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_04a3c2fca948",
+      "field": "source_passage",
+      "value": "Backed by\n\nInvest in US Stocks, ETFs,\n\nUCITS & Global Markets\n\nGlobal Investing for the Global Indian\n\nStart investing\n\nSIPC Insured\n\nSEBI RIA\n\nISO 27001:2022\n\nAccess the world's markets\n\nInvest across major global exchanges and currencies\n\nCustodian\n\nSearch for stocks & ETFs\n\nHypothetical figures for illustrative purposes only\n\nProduct\n\nDirect Investing\n\nTrade from a universe of 15,000+ tickers across the world from the palm of your hand\n\nHypothetical figures for illustrative purposes only\n\nProduct\n\nManaged Strategies\n\nInvest in an expert strategy that maximizes returns for your level of risk, with ongoing rebalancing\n\nPlatform\n\nTrade anywhere, anytime\n\nSeamlessly switch between desktop and mobile. Full control, wherever you are.\n\nLog in on desktop\n\nPlatform\n\nTrade anywhere, anytime\n\nSeamlessly switch between desktop and mobile. Full control, wherever you are.\n\nLog in on desktop\n\nMulti-currency\n\nHold, convert, and invest across 9 currencies\n\nSpot currencies are foreign exchange (FX) trades where one currency exchanged for another at the current market price with minimal markups.\n\nSpecial features\n\nBuilt for diversification\n\nEarn interest up to\n\n3.13%\n\non uninvested USD cash above $10,000\n\nSpecial FX rates for deposits\n\nAccess highly competitive foreign exchange rates for your deposits with our partner banks.\n\nIndia-ready tax reports, generated for you\n\nSchedule FA, Schedule FSI, capital gains, and all required ITR reports automatically sent to you at year end.\n\nUCITS ETFs\n\nShield your wealth from US estate tax\n\nUCITS ETFs give the same market access as U.S. ETFs, but protect you from U.S. estate tax on foreign nationals (taxed progressively up to 40% on assets above $60k).\n\nWhat are UCITS ETFs?\n\nLow-cost, Diversified, Europe-domiciled, and US estate tax\u2013safe.\n\nHow to shield RSU's from US estate tax?\n\nReinvest concentrated RSUs into globally diversified, estate-tax-protected portfolios\n\nTestimonials\n\nOur customers work at\n\n\u201c Very useful platform for me in order to access US stock markets from India, and Nitish and his team make the onboarding process pretty seamless. Their offering of customised stock baskets for the US market is pretty unique - I'm a happy user and wish they grow from strength to strength! \u201d\n\nAnomitra Saha\n\nPrincipal Engineer, Captainfresh (Bangalore)\n\n\u201c Craft matters. Paasa's experience is clean, but the real win is the rigor behind it; I needed clarity. Paasa delivered - FEMA guidance I could act on, onboarding that just worked, and portfolios that felt built for diversification of RSUs, not retrofitted. Disclosure: I'm an angel investor in Paasa. \u201d\n\nDeepak Menon\n\nVice President, Microsoft (Hyderabad)\n\n\u201c Great interface and easy to use. Gives access to global portfolios better than any app. You can curate your own portfolios or choose from the vast number of portfolios they've made. \u201d\n\nMaadhav Veer Singh\n\nCIO, BTB Family Office (Gurgaon)\n\n\u201c The seamless fund withdrawals and dedicated advisory support make global investing accessible, affordable and trustworthy. \u201d\n\nNavdeep Manaktala\n\nCo-Founder, Snowbit (Gurgaon)\n\nEnterprise security\n\nSafety is our cornerstone\n\nSIPC insured",
+      "quote": "Backed by\n\nInvest in US Stocks, ETFs,\n\nUCITS & Global Markets\n\nGlobal Investing for the Global Indian\n\nStart investing\n\nSIPC Insured\n\nSEBI RIA\n\nISO 27001:2022\n\nAccess the world's markets\n\nInvest across major global exchanges and currencies\n\nCustodian\n\nSearch for stocks & ETFs\n\nHypothetical figures for illustrative purposes only\n\nProduct\n\nDirect Investing\n\nTrade from a universe of 15,000+ tickers across the world from the palm of your hand\n\nHypothetical figures for illustrative purposes only\n\nProduct\n\nManaged Strategies\n\nInvest in an expert strategy that maximizes returns for your level of risk, with ongoing rebalancing\n\nPlatform\n\nTrade anywhere, anytime\n\nSeamlessly switch between desktop and mobile. Full control, wherever you are.\n\nLog in on desktop\n\nPlatform\n\nTrade anywhere, anytime\n\nSeamlessly switch between desktop and mobile. Full control, wherever you are.\n\nLog in on desktop\n\nMulti-currency\n\nHold, convert, and invest across 9 currencies\n\nSpot currencies are foreign exchange (FX) trades where one currency exchanged for another at the current market price with minimal markups.\n\nSpecial features\n\nBuilt for diversification\n\nEarn interest up to\n\n3.13%\n\non uninvested USD cash above $10,000\n\nSpecial FX rates for deposits\n\nAccess highly competitive foreign exchange rates for your deposits with our partner banks.\n\nIndia-ready tax reports, generated for you\n\nSchedule FA, Schedule FSI, capital gains, and all required ITR reports automatically sent to you at year end.\n\nUCITS ETFs\n\nShield your wealth from US estate tax\n\nUCITS ETFs give the same market access as U.S. ETFs, but protect you from U.S. estate tax on foreign nationals (taxed progressively up to 40% on assets above $60k).\n\nWhat are UCITS ETFs?\n\nLow-cost, Diversified, Europe-domiciled, and US estate tax\u2013safe.\n\nHow to shield RSU's from US estate tax?\n\nReinvest concentrated RSUs into globally diversified, estate-tax-protected portfolios\n\nTestimonials\n\nOur customers work at\n\n\u201c Very useful platform for me in order to access US stock markets from India, and Nitish and his team make the onboarding process pretty seamless. Their offering of customised stock baskets for the US market is pretty unique - I'm a happy user and wish they grow from strength to strength! \u201d\n\nAnomitra Saha\n\nPrincipal Engineer, Captainfresh (Bangalore)\n\n\u201c Craft matters. Paasa's experience is clean, but the real win is the rigor behind it; I needed clarity. Paasa delivered - FEMA guidance I could act on, onboarding that just worked, and portfolios that felt built for diversification of RSUs, not retrofitted. Disclosure: I'm an angel investor in Paasa. \u201d\n\nDeepak Menon\n\nVice President, Microsoft (Hyderabad)\n\n\u201c Great interface and easy to use. Gives access to global portfolios better than any app. You can curate your own portfolios or choose from the vast number of portfolios they've made. \u201d\n\nMaadhav Veer Singh\n\nCIO, BTB Family Office (Gurgaon)\n\n\u201c The seamless fund withdrawals and dedicated advisory support make global investing accessible, affordable and trustworthy. \u201d\n\nNavdeep Manaktala\n\nCo-Founder, Snowbit (Gurgaon)\n\nEnterprise security\n\nSafety is our cornerstone\n\nSIPC insured",
+      "source_url": "https://paasa.com/",
+      "retrieved_at": "2026-09-14T23:34:30.190004+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": "preparation_context_v3:f36de29a71158abf",
+      "observed_at": null
+    },
+    {
+      "id": "evidence_1b3beb470374",
+      "field": "source_passage",
+      "value": "SIPC insured\n\nSecurities are covered up to $500,000 by SIPC. Learn more at sipc.org.\n\nSEBI registered RIA\n\nAdvisory services are lent by a Registered Investment Advisor, meaning we are legally bound to advise in your best interest.\n\nEnd-to-end security\n\nData encrypted across the board; two-factor authentication mandatory.\n\nYou always own your assets\n\nHeld with Interactive Brokers in your name. You retain control even in the unlikely event Paasa ceases operations.\n\nOur customers\n\nWho is\n\nPaasa for?\n\nPaasa is available to users in India, USA, UK, Middle East, Singapore, Thailand, and select other regions. We only provide India specific tax documentation.\n\nOnboarding for European residents is not supported at this time.\n\nIndian residents\n\nPAN and Aadhaar (digital copies)\n\nNRIs\n\nGovernment-issued ID and foreign address proof (digital copies)\n\nReturning NRIs\n\nPAN and Indian address proof (digital copies)\n\nForeign nationals\n\nGovernment-issued ID and foreign address proof (digital copies)\n\nOnboarding\n\nGet started in 3 simple steps\n\nSTEP 1\n\nComplete KYC\n\nPAN & Aadhaar are required, 100% digital\n\nSTEP 2\n\nRemit funds\n\nUnder the RBI's Liberalized Remittance Scheme\n\nTransfer funds in and out worldwide, as long as the bank account is in your name\n\nSTEP 3\n\nStart investing\n\nPick a strategy or invest directly\n\nOpen account\n\nWhite glove onboarding available\n\nConsolidate holdings\n\nTransfer existing\n\ninvestments to Paasa\n\nMove your holdings without booking capital gains. Transfer guides & instructions for all brokers available in the app.\n\nWhatsapp us at +91-9871076013 for personal assistance\n\nMedia\n\nPaasa is making overseas investing simpler for Indian investors\n\nHelping Indian investors navigate global markets with greater ease, clarity, and confidence.\n\narticle\n\nPaasa CEO Nitish Sahni on emerging global investment trends\n\nNitish Sahni shares perspectives on emerging asset classes like copper, uranium, and rare earths.\n\narticle\n\nNitish Sahni in conversation with Neil Borate on RSU diversification\n\nA deep dive into RSU diversification strategies and global investment allocation.\n\nvideo\n\nPaasa on direct vs platform-based global investing\n\nUnderstanding how to choose between direct overseas brokers and investing platforms.\n\narticle\n\nInvesting directly in global stocks: costs, rules, and what to know\n\nA guide to the real costs of buying global stocks directly \u2014 brokerage fees, nominee rules, the transfer process, and estate tax.\n\narticle\n\nWhy techies should diversify their RSUs before it's too late\n\nWith tech employees holding up to 80% of their net worth in a single stock, advisers say not selling is a real danger.\n\narticle\n\nFAQs\n\nHow is Paasa different? \u203a\n\nWe\u2019re a digital-first wealth platform designed for global investing across US, Swiss, UK and Hong Kong exchanges.\n\nWhere DIY brokerages stop at access, we go further - offering expert-built strategies, automated rebalancing, and tax optimization.\n\nCan I withdraw anytime? \u203a\n\nYes. Your assets are withdrawable 24\u00d77.\n\nCan I withdraw to a bank account outside India? \u203a\n\nYes. You can withdraw your funds in any currency to any bank account in your name.\n\nCan I buy UCITS/Irish domiciled ETFs on Paasa? \u203a",
+      "quote": "SIPC insured\n\nSecurities are covered up to $500,000 by SIPC. Learn more at sipc.org.\n\nSEBI registered RIA\n\nAdvisory services are lent by a Registered Investment Advisor, meaning we are legally bound to advise in your best interest.\n\nEnd-to-end security\n\nData encrypted across the board; two-factor authentication mandatory.\n\nYou always own your assets\n\nHeld with Interactive Brokers in your name. You retain control even in the unlikely event Paasa ceases operations.\n\nOur customers\n\nWho is\n\nPaasa for?\n\nPaasa is available to users in India, USA, UK, Middle East, Singapore, Thailand, and select other regions. We only provide India specific tax documentation.\n\nOnboarding for European residents is not supported at this time.\n\nIndian residents\n\nPAN and Aadhaar (digital copies)\n\nNRIs\n\nGovernment-issued ID and foreign address proof (digital copies)\n\nReturning NRIs\n\nPAN and Indian address proof (digital copies)\n\nForeign nationals\n\nGovernment-issued ID and foreign address proof (digital copies)\n\nOnboarding\n\nGet started in 3 simple steps\n\nSTEP 1\n\nComplete KYC\n\nPAN & Aadhaar are required, 100% digital\n\nSTEP 2\n\nRemit funds\n\nUnder the RBI's Liberalized Remittance Scheme\n\nTransfer funds in and out worldwide, as long as the bank account is in your name\n\nSTEP 3\n\nStart investing\n\nPick a strategy or invest directly\n\nOpen account\n\nWhite glove onboarding available\n\nConsolidate holdings\n\nTransfer existing\n\ninvestments to Paasa\n\nMove your holdings without booking capital gains. Transfer guides & instructions for all brokers available in the app.\n\nWhatsapp us at +91-9871076013 for personal assistance\n\nMedia\n\nPaasa is making overseas investing simpler for Indian investors\n\nHelping Indian investors navigate global markets with greater ease, clarity, and confidence.\n\narticle\n\nPaasa CEO Nitish Sahni on emerging global investment trends\n\nNitish Sahni shares perspectives on emerging asset classes like copper, uranium, and rare earths.\n\narticle\n\nNitish Sahni in conversation with Neil Borate on RSU diversification\n\nA deep dive into RSU diversification strategies and global investment allocation.\n\nvideo\n\nPaasa on direct vs platform-based global investing\n\nUnderstanding how to choose between direct overseas brokers and investing platforms.\n\narticle\n\nInvesting directly in global stocks: costs, rules, and what to know\n\nA guide to the real costs of buying global stocks directly \u2014 brokerage fees, nominee rules, the transfer process, and estate tax.\n\narticle\n\nWhy techies should diversify their RSUs before it's too late\n\nWith tech employees holding up to 80% of their net worth in a single stock, advisers say not selling is a real danger.\n\narticle\n\nFAQs\n\nHow is Paasa different? \u203a\n\nWe\u2019re a digital-first wealth platform designed for global investing across US, Swiss, UK and Hong Kong exchanges.\n\nWhere DIY brokerages stop at access, we go further - offering expert-built strategies, automated rebalancing, and tax optimization.\n\nCan I withdraw anytime? \u203a\n\nYes. Your assets are withdrawable 24\u00d77.\n\nCan I withdraw to a bank account outside India? \u203a\n\nYes. You can withdraw your funds in any currency to any bank account in your name.\n\nCan I buy UCITS/Irish domiciled ETFs on Paasa? \u203a",
+      "source_url": "https://paasa.com/",
+      "retrieved_at": "2026-09-14T23:34:30.190052+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": "preparation_context_v3:2c4aee22e76ab04e",
+      "observed_at": null
+    },
+    {
+      "id": "evidence_2f94fc8171ef",
+      "field": "source_passage",
+      "value": "Can I buy UCITS/Irish domiciled ETFs on Paasa? \u203a\n\nYes. Paasa provides access to UCITS ETFs listed in Europe, including those domiciled in Ireland. You can purchase them in whole units or fractions, making it easy to invest any amount you choose.\n\nCan NRIs use Paasa? \u203a\n\nYes. NRIs, along with resident Indians, can invest globally with Paasa. If funds are transferred from an NRE/NRO account in India, a $1 million annual limit applies. If funds are transferred from a bank in the country of residence, there's no limit unless that country imposes capital controls.\n\nWho are the securities held with? \u203a\n\nAll your cash and holdings are held with IBKR under your name and PAN.\n\nWhat happens if Paasa ceases operations? \u203a\n\nIf Paasa ceases operations, your assets will still be safely held and accessible through IBKR\n\nHow is the account SIPC ensured? \u203a\n\nYour assets are SIPC insured upto $500,000 total, including $250,000 for cash (held for the purpose of trading/securities) through IBKR. This is standard for all U.S. brokers.\n\nHow do taxes work? \u203a\n\nShort term capital gains are taxed at your marginal income tax rate. Long term capital gains (>2 years) are taxed at 12.5%. Dividends are taxed at your marginal income tax rate.\n\nTools & calculators\n\nGlobal Brokerage Calculator\n\nCompare brokerage fees across global exchanges\n\nU.S. Estate Tax Liability Calculator\n\nCalculate your estate tax liability on U.S. assets\n\nIBKR tax reports\n\nGenerate your Indian tax reports from your Interactive Broker activity statements.\n\nUCITS ETF Screener\n\nDiscover and compare over 2,500 UCITS-compliant investment instruments\n\nLearn\n\nResources\n\nUCITS ETFs vs US ETFs for RSUs\n\nUCITS vs U.S. ETFs for RSUs: Understand the estate-tax difference and how to diversify safely\n\nRead \u2192\n\nLRS for Global Investments: Stocks, ETFs, Real Estate & More\n\nSee how LRS allows Indian investors to invest in stocks, funds, bonds, and real estate abroad with compliance clarity\n\nRead \u2192\n\nHow to Send Money Abroad for Education under LRS (2025)\n\nHow Indian parents can fund overseas education in 2025 using LRS. Step-by-step on remittance limits, TCS rules, purpose codes, and required documents\n\nRead \u2192\n\nContact\n\nsupport@paasa.com\n\nWhatsApp\n\nBook a call\n\nHelp center\n\nProducts\n\nTrade\n\nStrategies\n\nDiversify RSUs\n\nUCITS\n\nTax\n\nPartners\n\nPricing\n\nPlans\n\nBrokerage fees\n\nSocials\n\nBlog\n\nAltas\n\nLinkedIn\n\nInstagram\n\nY Combinator\n\nLegal\n\nPrivacy policy\n\nTerms of service\n\nInvestor charter\n\nGrievance redressal\n\nComplaint status\n\nAccessibility redressal\n\nPaasa is a financial technology company, not a bank or brokerage. All banking and brokerage services are provided by our licensed partners.\n\nAdvisory services are provided by Arc Spire Advisory Private Limited, a SEBI Registered Non-Individual Investment Advisor INA000021058 | RIA address: 506 Baani City Centre, Near Hilton, Sector 63 Gurugram, HR 122102, India | Business hours: 10:00 AM to 6:00 PM IST, Monday to Friday | Arc Spire Advisory Private Limited offers its services under the brand Paasa",
+      "quote": "Can I buy UCITS/Irish domiciled ETFs on Paasa? \u203a\n\nYes. Paasa provides access to UCITS ETFs listed in Europe, including those domiciled in Ireland. You can purchase them in whole units or fractions, making it easy to invest any amount you choose.\n\nCan NRIs use Paasa? \u203a\n\nYes. NRIs, along with resident Indians, can invest globally with Paasa. If funds are transferred from an NRE/NRO account in India, a $1 million annual limit applies. If funds are transferred from a bank in the country of residence, there's no limit unless that country imposes capital controls.\n\nWho are the securities held with? \u203a\n\nAll your cash and holdings are held with IBKR under your name and PAN.\n\nWhat happens if Paasa ceases operations? \u203a\n\nIf Paasa ceases operations, your assets will still be safely held and accessible through IBKR\n\nHow is the account SIPC ensured? \u203a\n\nYour assets are SIPC insured upto $500,000 total, including $250,000 for cash (held for the purpose of trading/securities) through IBKR. This is standard for all U.S. brokers.\n\nHow do taxes work? \u203a\n\nShort term capital gains are taxed at your marginal income tax rate. Long term capital gains (>2 years) are taxed at 12.5%. Dividends are taxed at your marginal income tax rate.\n\nTools & calculators\n\nGlobal Brokerage Calculator\n\nCompare brokerage fees across global exchanges\n\nU.S. Estate Tax Liability Calculator\n\nCalculate your estate tax liability on U.S. assets\n\nIBKR tax reports\n\nGenerate your Indian tax reports from your Interactive Broker activity statements.\n\nUCITS ETF Screener\n\nDiscover and compare over 2,500 UCITS-compliant investment instruments\n\nLearn\n\nResources\n\nUCITS ETFs vs US ETFs for RSUs\n\nUCITS vs U.S. ETFs for RSUs: Understand the estate-tax difference and how to diversify safely\n\nRead \u2192\n\nLRS for Global Investments: Stocks, ETFs, Real Estate & More\n\nSee how LRS allows Indian investors to invest in stocks, funds, bonds, and real estate abroad with compliance clarity\n\nRead \u2192\n\nHow to Send Money Abroad for Education under LRS (2025)\n\nHow Indian parents can fund overseas education in 2025 using LRS. Step-by-step on remittance limits, TCS rules, purpose codes, and required documents\n\nRead \u2192\n\nContact\n\nsupport@paasa.com\n\nWhatsApp\n\nBook a call\n\nHelp center\n\nProducts\n\nTrade\n\nStrategies\n\nDiversify RSUs\n\nUCITS\n\nTax\n\nPartners\n\nPricing\n\nPlans\n\nBrokerage fees\n\nSocials\n\nBlog\n\nAltas\n\nLinkedIn\n\nInstagram\n\nY Combinator\n\nLegal\n\nPrivacy policy\n\nTerms of service\n\nInvestor charter\n\nGrievance redressal\n\nComplaint status\n\nAccessibility redressal\n\nPaasa is a financial technology company, not a bank or brokerage. All banking and brokerage services are provided by our licensed partners.\n\nAdvisory services are provided by Arc Spire Advisory Private Limited, a SEBI Registered Non-Individual Investment Advisor INA000021058 | RIA address: 506 Baani City Centre, Near Hilton, Sector 63 Gurugram, HR 122102, India | Business hours: 10:00 AM to 6:00 PM IST, Monday to Friday | Arc Spire Advisory Private Limited offers its services under the brand Paasa",
+      "source_url": "https://paasa.com/",
+      "retrieved_at": "2026-09-14T23:34:30.190067+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": "preparation_context_v3:ec994bac6323fbe6",
+      "observed_at": null
+    },
+    {
+      "id": "evidence_0a3197dc7570",
+      "field": "source_passage",
+      "value": "Advisory services are provided by Arc Spire Advisory Private Limited, a SEBI Registered Non-Individual Investment Advisor INA000021058 | RIA address: 506 Baani City Centre, Near Hilton, Sector 63 Gurugram, HR 122102, India | Business hours: 10:00 AM to 6:00 PM IST, Monday to Friday | Arc Spire Advisory Private Limited offers its services under the brand Paasa\n\nInvestment in securities market are subject to market risks. Read all the related documents carefully before investing. Registration granted by SEBI, membership of BSE and certification from NISM in no way guarantee performance of the intermediary or provide any assurance of returns to investors.\n\nSEBI local address: NBCC Complex, Office Tower-1, 8th Floor, Plate B, East Kidwai Nagar, New Delhi - 110023\n\nSmart ODR Link ->\n\nDisclaimer: The information provided on this website is for general informational purposes only. It is not intended to be and should not be construed as financial advice. Investing is subject to market risks. Please do your research carefully before investing your wealth. Past performance is not indicative of future returns. Please consider your specific investment requirements before picking a strategy or designing a portfolio that suits your needs.\n\nPaasa, Inc.\n\n2261 Market Street STE 86865 San Francisco, CA, USA, 94114\n\nPaasa IFSC Private Limited\n\nShilp Incubation, SI-G-125, Unit A, 11T3 & 11T5, Blk 11, Gift City, Gandhi Nagar, Gandhi Nagar- 382050, Gujarat\n\nBruhm Labs Private Limited\n\nAIHP Skyline, Plot 97A, Sector 32, Gurugram, Haryana 122001, India\n\nScan to download\n\nTools & Calculators\n\nU.S. Estate Tax Liability Calculator | Global Brokerage Calculator | IBKR tax reports | UCITS ETF Screener\n\nUCITS\n\nWhat are UCITS ETFs? | UCITS ETFs vs US ETFs for RSUs | Accumulating vs Distributing UCITS ETFs\n\nCommodities\n\nTop Gold ETFs | Top Silver ETFs | Top Platinum ETFs | Top Palladium ETFs | Top Zinc ETFs | Top Aluminium ETFs | Top Copper ETFs\n\nGlobal Investing\n\nInvest in US from India | Invest in Ireland from India | Invest in Switzerland from India | Invest in China from India | Invest in Japan from India | Invest in Singapore from India | Invest in UK from India | Invest in Poland from India | Invest in Germany from India\n\nTax\n\nHow Global Stocks and ETFs Are Taxed for Indian Investors | Capital Gains Tax on Foreign Stocks and ETFs | How are Joint Global Brokerage Accounts Taxed? | How Foreign Dividend Income is Taxed for Indian Investors | Tax on Repatriation of Foreign Income to India | How the US Estate Tax Works for Indians and NRIs | How to Adjust TCS Against Advance Tax Liability\n\nLRS\n\nWhat is LRS? | LRS for Investments | LRS for Education | LRS for Healthcare | LRS for Travel | LRS for Maintenance | LRS for buying Property Overseas | LRS for Gifts & Donations\n\nDouble Taxation Avoidance Agreements\n\nWhat is DTAA? | DTAA between India & USA | DTAA between India & Singapore | DTAA between India & Switzerland | DTAA between India & UK | DTAA between India & Ireland | DTAA between India & Japan | DTAA between India & Poland | DTAA between India & China | DTAA between India and Germany\n\nReturning Indians",
+      "quote": "Advisory services are provided by Arc Spire Advisory Private Limited, a SEBI Registered Non-Individual Investment Advisor INA000021058 | RIA address: 506 Baani City Centre, Near Hilton, Sector 63 Gurugram, HR 122102, India | Business hours: 10:00 AM to 6:00 PM IST, Monday to Friday | Arc Spire Advisory Private Limited offers its services under the brand Paasa\n\nInvestment in securities market are subject to market risks. Read all the related documents carefully before investing. Registration granted by SEBI, membership of BSE and certification from NISM in no way guarantee performance of the intermediary or provide any assurance of returns to investors.\n\nSEBI local address: NBCC Complex, Office Tower-1, 8th Floor, Plate B, East Kidwai Nagar, New Delhi - 110023\n\nSmart ODR Link ->\n\nDisclaimer: The information provided on this website is for general informational purposes only. It is not intended to be and should not be construed as financial advice. Investing is subject to market risks. Please do your research carefully before investing your wealth. Past performance is not indicative of future returns. Please consider your specific investment requirements before picking a strategy or designing a portfolio that suits your needs.\n\nPaasa, Inc.\n\n2261 Market Street STE 86865 San Francisco, CA, USA, 94114\n\nPaasa IFSC Private Limited\n\nShilp Incubation, SI-G-125, Unit A, 11T3 & 11T5, Blk 11, Gift City, Gandhi Nagar, Gandhi Nagar- 382050, Gujarat\n\nBruhm Labs Private Limited\n\nAIHP Skyline, Plot 97A, Sector 32, Gurugram, Haryana 122001, India\n\nScan to download\n\nTools & Calculators\n\nU.S. Estate Tax Liability Calculator | Global Brokerage Calculator | IBKR tax reports | UCITS ETF Screener\n\nUCITS\n\nWhat are UCITS ETFs? | UCITS ETFs vs US ETFs for RSUs | Accumulating vs Distributing UCITS ETFs\n\nCommodities\n\nTop Gold ETFs | Top Silver ETFs | Top Platinum ETFs | Top Palladium ETFs | Top Zinc ETFs | Top Aluminium ETFs | Top Copper ETFs\n\nGlobal Investing\n\nInvest in US from India | Invest in Ireland from India | Invest in Switzerland from India | Invest in China from India | Invest in Japan from India | Invest in Singapore from India | Invest in UK from India | Invest in Poland from India | Invest in Germany from India\n\nTax\n\nHow Global Stocks and ETFs Are Taxed for Indian Investors | Capital Gains Tax on Foreign Stocks and ETFs | How are Joint Global Brokerage Accounts Taxed? | How Foreign Dividend Income is Taxed for Indian Investors | Tax on Repatriation of Foreign Income to India | How the US Estate Tax Works for Indians and NRIs | How to Adjust TCS Against Advance Tax Liability\n\nLRS\n\nWhat is LRS? | LRS for Investments | LRS for Education | LRS for Healthcare | LRS for Travel | LRS for Maintenance | LRS for buying Property Overseas | LRS for Gifts & Donations\n\nDouble Taxation Avoidance Agreements\n\nWhat is DTAA? | DTAA between India & USA | DTAA between India & Singapore | DTAA between India & Switzerland | DTAA between India & UK | DTAA between India & Ireland | DTAA between India & Japan | DTAA between India & Poland | DTAA between India & China | DTAA between India and Germany\n\nReturning Indians",
+      "source_url": "https://paasa.com/",
+      "retrieved_at": "2026-09-14T23:34:30.190078+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": "preparation_context_v3:2d734a6ccf7b787a",
+      "observed_at": null
+    },
+    {
+      "id": "evidence_ed1db77db00c",
+      "field": "source_passage",
+      "value": "Returning Indians\n\nReturning from US | Returning from UAE | Returning from Singapore | Returning from UK | Returning from Canada | Returning from Germany | Returning from Australia\n\nRNOR\n\nWhat is RNOR | How RNORs Can Save Capital Gains Tax | Tax on US Capital Gains & Dividend Income for RNORs | Tax on Foreign Rental Income Taxable for RNORs | Foreign Asset Disclosure Requirements for RNORs | Tax on RSU Vesting Events for RNORs\n\nInteractive Brokers LLC is a registered Broker-Dealer, Futures Commission Merchant and Forex Dealer Member, regulated by the U.S. Securities and Exchange Commission (SEC), the Commodity Futures Trading Commission (CFTC) and the National Futures Association (NFA), and is a member of the Financial Industry Regulatory Authority (FINRA) and several other self-regulatory organizations. Interactive Brokers does not endorse or recommend any introducing brokers, third-party financial advisors or hedge funds, including Paasa. Interactive Brokers provides execution and clearing services to customers. None of the information contained herein constitutes a recommendation, offer, or solicitation of an offer by Interactive Brokers to buy, sell or hold any security, financial product or instrument or to engage in any specific investment strategy. Interactive Brokers makes no representation, and assumes no liability to the accuracy or completeness of the information provided on this website.\n\nFor more information regarding Interactive Brokers, please visit www.interactivebrokers.com .\n\nThe Interactive Brokers logo is a registered trademark of Interactive Brokers LLC.\n\nCustodian\n\n\u00a9 2026 Paasa. All rights reserved.",
+      "quote": "Returning Indians\n\nReturning from US | Returning from UAE | Returning from Singapore | Returning from UK | Returning from Canada | Returning from Germany | Returning from Australia\n\nRNOR\n\nWhat is RNOR | How RNORs Can Save Capital Gains Tax | Tax on US Capital Gains & Dividend Income for RNORs | Tax on Foreign Rental Income Taxable for RNORs | Foreign Asset Disclosure Requirements for RNORs | Tax on RSU Vesting Events for RNORs\n\nInteractive Brokers LLC is a registered Broker-Dealer, Futures Commission Merchant and Forex Dealer Member, regulated by the U.S. Securities and Exchange Commission (SEC), the Commodity Futures Trading Commission (CFTC) and the National Futures Association (NFA), and is a member of the Financial Industry Regulatory Authority (FINRA) and several other self-regulatory organizations. Interactive Brokers does not endorse or recommend any introducing brokers, third-party financial advisors or hedge funds, including Paasa. Interactive Brokers provides execution and clearing services to customers. None of the information contained herein constitutes a recommendation, offer, or solicitation of an offer by Interactive Brokers to buy, sell or hold any security, financial product or instrument or to engage in any specific investment strategy. Interactive Brokers makes no representation, and assumes no liability to the accuracy or completeness of the information provided on this website.\n\nFor more information regarding Interactive Brokers, please visit www.interactivebrokers.com .\n\nThe Interactive Brokers logo is a registered trademark of Interactive Brokers LLC.\n\nCustodian\n\n\u00a9 2026 Paasa. All rights reserved.",
+      "source_url": "https://paasa.com/",
+      "retrieved_at": "2026-09-14T23:34:30.190089+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": "preparation_context_v3:063cdd85c423d638",
+      "observed_at": null
+    },
+    {
+      "id": "evidence_4816e7c0f424",
+      "field": "source_passage",
+      "value": "Global Brokerage Calculator\n\nCalculate your brokerage across global exchanges. Does not include third party, clearing and regulatory fees. View tiers and third party fees for each exchange here .\n\nLoading calculator...\n\nResources\n\nPaasa Vs Vested\n\nDiscover how they differ in global reach, tax reporting, remittance support, and who each is built for\n\nPaasa Vs Indmoney\n\nThis blog compares both platforms across markets, features, FEMA compliance, tax reporting, and investor fit\n\nGet started\n\nTalk to our team\n\nWhether you invest through U.S. stocks, ETFs, RSUs, or global multi-market portfolios, our team can help you build a safer and fully compliant international allocation.\n\nIndia (+91) US / Canada (+1) United Kingdom (+44) Germany (+49) France (+33) Italy (+39) Spain (+34) Netherlands (+31) Switzerland (+41) Sweden (+46) Austria (+43) Belgium (+32) Denmark (+45) Finland (+358) Greece (+30) Hungary (+36) Ireland (+353) Norway (+47) Portugal (+351) Poland (+48) Slovakia (+421) Slovenia (+386) Czech Republic (+420) United Arab Emirates (+971) Kuwait (+965) Oman (+968) Qatar (+974) Bahrain (+973) Saudi Arabia (+966) Jordan (+962) Lebanon (+961) Syria (+963) Iraq (+964) Palestine (+970) Israel (+972) Egypt (+20) Sudan (+249) Libya (+218) Algeria (+213) Morocco (+212) Tunisia (+216) Singapore (+65) Australia (+61) Japan (+81) China (+86) Russia (+7) Brazil (+55) South Korea (+82) New Zealand (+64) Mexico (+52) Nigeria (+234) Indonesia (+62) Turkey (+90) Bangladesh (+880) Pakistan (+92) South Africa (+27)\n\nAnnual investment $1k - $50k $50k to $100k $100k to $250k $100k - $500k $250k to $500k $500k - $1M $1M+\n\nBook a meeting\n\nFAQs\n\nWhat are brokerage fees? \u203a\n\nBrokerage fees are charges that brokers levy for executing trades on your behalf. These can include brokerage fees, account maintenance charges, and other transaction costs.\n\nHow are brokerage fees calculated? \u203a\n\nBrokerage fees are typically calculated as a percentage of the trade value or as a flat fee per transaction. The exact calculation method varies by broker.\n\nCan I reduce brokerage fees? \u203a\n\nYes, you can reduce brokerage fees by choosing brokers with lower brokerage rates, negotiating fees for high-volume trading, or opting for flat-fee structures.\n\nU.S. Estate Tax Liability Calculator\n\nCalculate your estate tax liability on U.S. assets\n\nIBKR tax reports\n\nGenerate your Indian tax reports from your Interactive Broker activity statements.\n\nUCITS ETF Screener\n\nDiscover and compare over 2,500 UCITS-compliant investment instruments\n\nContact\n\nsupport@paasa.com\n\nWhatsApp\n\nBook a call\n\nHelp center\n\nProducts\n\nTrade\n\nStrategies\n\nDiversify RSUs\n\nUCITS\n\nTax\n\nPartners\n\nPricing\n\nPlans\n\nBrokerage fees\n\nSocials\n\nBlog\n\nAltas\n\nLinkedIn\n\nInstagram\n\nY Combinator\n\nLegal\n\nPrivacy policy\n\nTerms of service\n\nInvestor charter\n\nGrievance redressal\n\nComplaint status\n\nAccessibility redressal\n\nPaasa is a financial technology company, not a bank or brokerage. All banking and brokerage services are provided by our licensed partners.",
+      "quote": "Global Brokerage Calculator\n\nCalculate your brokerage across global exchanges. Does not include third party, clearing and regulatory fees. View tiers and third party fees for each exchange here .\n\nLoading calculator...\n\nResources\n\nPaasa Vs Vested\n\nDiscover how they differ in global reach, tax reporting, remittance support, and who each is built for\n\nPaasa Vs Indmoney\n\nThis blog compares both platforms across markets, features, FEMA compliance, tax reporting, and investor fit\n\nGet started\n\nTalk to our team\n\nWhether you invest through U.S. stocks, ETFs, RSUs, or global multi-market portfolios, our team can help you build a safer and fully compliant international allocation.\n\nIndia (+91) US / Canada (+1) United Kingdom (+44) Germany (+49) France (+33) Italy (+39) Spain (+34) Netherlands (+31) Switzerland (+41) Sweden (+46) Austria (+43) Belgium (+32) Denmark (+45) Finland (+358) Greece (+30) Hungary (+36) Ireland (+353) Norway (+47) Portugal (+351) Poland (+48) Slovakia (+421) Slovenia (+386) Czech Republic (+420) United Arab Emirates (+971) Kuwait (+965) Oman (+968) Qatar (+974) Bahrain (+973) Saudi Arabia (+966) Jordan (+962) Lebanon (+961) Syria (+963) Iraq (+964) Palestine (+970) Israel (+972) Egypt (+20) Sudan (+249) Libya (+218) Algeria (+213) Morocco (+212) Tunisia (+216) Singapore (+65) Australia (+61) Japan (+81) China (+86) Russia (+7) Brazil (+55) South Korea (+82) New Zealand (+64) Mexico (+52) Nigeria (+234) Indonesia (+62) Turkey (+90) Bangladesh (+880) Pakistan (+92) South Africa (+27)\n\nAnnual investment $1k - $50k $50k to $100k $100k to $250k $100k - $500k $250k to $500k $500k - $1M $1M+\n\nBook a meeting\n\nFAQs\n\nWhat are brokerage fees? \u203a\n\nBrokerage fees are charges that brokers levy for executing trades on your behalf. These can include brokerage fees, account maintenance charges, and other transaction costs.\n\nHow are brokerage fees calculated? \u203a\n\nBrokerage fees are typically calculated as a percentage of the trade value or as a flat fee per transaction. The exact calculation method varies by broker.\n\nCan I reduce brokerage fees? \u203a\n\nYes, you can reduce brokerage fees by choosing brokers with lower brokerage rates, negotiating fees for high-volume trading, or opting for flat-fee structures.\n\nU.S. Estate Tax Liability Calculator\n\nCalculate your estate tax liability on U.S. assets\n\nIBKR tax reports\n\nGenerate your Indian tax reports from your Interactive Broker activity statements.\n\nUCITS ETF Screener\n\nDiscover and compare over 2,500 UCITS-compliant investment instruments\n\nContact\n\nsupport@paasa.com\n\nWhatsApp\n\nBook a call\n\nHelp center\n\nProducts\n\nTrade\n\nStrategies\n\nDiversify RSUs\n\nUCITS\n\nTax\n\nPartners\n\nPricing\n\nPlans\n\nBrokerage fees\n\nSocials\n\nBlog\n\nAltas\n\nLinkedIn\n\nInstagram\n\nY Combinator\n\nLegal\n\nPrivacy policy\n\nTerms of service\n\nInvestor charter\n\nGrievance redressal\n\nComplaint status\n\nAccessibility redressal\n\nPaasa is a financial technology company, not a bank or brokerage. All banking and brokerage services are provided by our licensed partners.",
+      "source_url": "https://paasa.com/tools/global-investments-brokerage-comissions-calculator",
+      "retrieved_at": "2026-09-14T23:34:31.209433+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": "preparation_context_v3:86514286e5ef78b6",
+      "observed_at": null
+    },
+    {
+      "id": "evidence_12325772df99",
+      "field": "source_passage",
+      "value": "Paasa is a financial technology company, not a bank or brokerage. All banking and brokerage services are provided by our licensed partners.\n\nAdvisory services are provided by Arc Spire Advisory Private Limited, a SEBI Registered Non-Individual Investment Advisor INA000021058 | RIA address: 506 Baani City Centre, Near Hilton, Sector 63 Gurugram, HR 122102, India | Business hours: 10:00 AM to 6:00 PM IST, Monday to Friday | Arc Spire Advisory Private Limited offers its services under the brand Paasa\n\nInvestment in securities market are subject to market risks. Read all the related documents carefully before investing. Registration granted by SEBI, membership of BSE and certification from NISM in no way guarantee performance of the intermediary or provide any assurance of returns to investors.\n\nSEBI local address: NBCC Complex, Office Tower-1, 8th Floor, Plate B, East Kidwai Nagar, New Delhi - 110023\n\nSmart ODR Link ->\n\nDisclaimer: The information provided on this website is for general informational purposes only. It is not intended to be and should not be construed as financial advice. Investing is subject to market risks. Please do your research carefully before investing your wealth. Past performance is not indicative of future returns. Please consider your specific investment requirements before picking a strategy or designing a portfolio that suits your needs.\n\nPaasa, Inc.\n\n2261 Market Street STE 86865 San Francisco, CA, USA, 94114\n\nPaasa IFSC Private Limited\n\nShilp Incubation, SI-G-125, Unit A, 11T3 & 11T5, Blk 11, Gift City, Gandhi Nagar, Gandhi Nagar- 382050, Gujarat\n\nBruhm Labs Private Limited\n\nAIHP Skyline, Plot 97A, Sector 32, Gurugram, Haryana 122001, India\n\nScan to download\n\nTools & Calculators\n\nU.S. Estate Tax Liability Calculator | Global Brokerage Calculator | IBKR tax reports | UCITS ETF Screener\n\nUCITS\n\nWhat are UCITS ETFs? | UCITS ETFs vs US ETFs for RSUs | Accumulating vs Distributing UCITS ETFs\n\nCommodities\n\nTop Gold ETFs | Top Silver ETFs | Top Platinum ETFs | Top Palladium ETFs | Top Zinc ETFs | Top Aluminium ETFs | Top Copper ETFs\n\nGlobal Investing\n\nInvest in US from India | Invest in Ireland from India | Invest in Switzerland from India | Invest in China from India | Invest in Japan from India | Invest in Singapore from India | Invest in UK from India | Invest in Poland from India | Invest in Germany from India\n\nTax\n\nHow Global Stocks and ETFs Are Taxed for Indian Investors | Capital Gains Tax on Foreign Stocks and ETFs | How are Joint Global Brokerage Accounts Taxed? | How Foreign Dividend Income is Taxed for Indian Investors | Tax on Repatriation of Foreign Income to India | How the US Estate Tax Works for Indians and NRIs | How to Adjust TCS Against Advance Tax Liability\n\nLRS\n\nWhat is LRS? | LRS for Investments | LRS for Education | LRS for Healthcare | LRS for Travel | LRS for Maintenance | LRS for buying Property Overseas | LRS for Gifts & Donations\n\nDouble Taxation Avoidance Agreements",
+      "quote": "Paasa is a financial technology company, not a bank or brokerage. All banking and brokerage services are provided by our licensed partners.\n\nAdvisory services are provided by Arc Spire Advisory Private Limited, a SEBI Registered Non-Individual Investment Advisor INA000021058 | RIA address: 506 Baani City Centre, Near Hilton, Sector 63 Gurugram, HR 122102, India | Business hours: 10:00 AM to 6:00 PM IST, Monday to Friday | Arc Spire Advisory Private Limited offers its services under the brand Paasa\n\nInvestment in securities market are subject to market risks. Read all the related documents carefully before investing. Registration granted by SEBI, membership of BSE and certification from NISM in no way guarantee performance of the intermediary or provide any assurance of returns to investors.\n\nSEBI local address: NBCC Complex, Office Tower-1, 8th Floor, Plate B, East Kidwai Nagar, New Delhi - 110023\n\nSmart ODR Link ->\n\nDisclaimer: The information provided on this website is for general informational purposes only. It is not intended to be and should not be construed as financial advice. Investing is subject to market risks. Please do your research carefully before investing your wealth. Past performance is not indicative of future returns. Please consider your specific investment requirements before picking a strategy or designing a portfolio that suits your needs.\n\nPaasa, Inc.\n\n2261 Market Street STE 86865 San Francisco, CA, USA, 94114\n\nPaasa IFSC Private Limited\n\nShilp Incubation, SI-G-125, Unit A, 11T3 & 11T5, Blk 11, Gift City, Gandhi Nagar, Gandhi Nagar- 382050, Gujarat\n\nBruhm Labs Private Limited\n\nAIHP Skyline, Plot 97A, Sector 32, Gurugram, Haryana 122001, India\n\nScan to download\n\nTools & Calculators\n\nU.S. Estate Tax Liability Calculator | Global Brokerage Calculator | IBKR tax reports | UCITS ETF Screener\n\nUCITS\n\nWhat are UCITS ETFs? | UCITS ETFs vs US ETFs for RSUs | Accumulating vs Distributing UCITS ETFs\n\nCommodities\n\nTop Gold ETFs | Top Silver ETFs | Top Platinum ETFs | Top Palladium ETFs | Top Zinc ETFs | Top Aluminium ETFs | Top Copper ETFs\n\nGlobal Investing\n\nInvest in US from India | Invest in Ireland from India | Invest in Switzerland from India | Invest in China from India | Invest in Japan from India | Invest in Singapore from India | Invest in UK from India | Invest in Poland from India | Invest in Germany from India\n\nTax\n\nHow Global Stocks and ETFs Are Taxed for Indian Investors | Capital Gains Tax on Foreign Stocks and ETFs | How are Joint Global Brokerage Accounts Taxed? | How Foreign Dividend Income is Taxed for Indian Investors | Tax on Repatriation of Foreign Income to India | How the US Estate Tax Works for Indians and NRIs | How to Adjust TCS Against Advance Tax Liability\n\nLRS\n\nWhat is LRS? | LRS for Investments | LRS for Education | LRS for Healthcare | LRS for Travel | LRS for Maintenance | LRS for buying Property Overseas | LRS for Gifts & Donations\n\nDouble Taxation Avoidance Agreements",
+      "source_url": "https://paasa.com/tools/global-investments-brokerage-comissions-calculator",
+      "retrieved_at": "2026-09-14T23:34:31.209481+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": "preparation_context_v3:c0003721c49d5c7f",
+      "observed_at": null
+    },
+    {
+      "id": "evidence_6f57ba6441a5",
+      "field": "source_passage",
+      "value": "Double Taxation Avoidance Agreements\n\nWhat is DTAA? | DTAA between India & USA | DTAA between India & Singapore | DTAA between India & Switzerland | DTAA between India & UK | DTAA between India & Ireland | DTAA between India & Japan | DTAA between India & Poland | DTAA between India & China | DTAA between India and Germany\n\nReturning Indians\n\nReturning from US | Returning from UAE | Returning from Singapore | Returning from UK | Returning from Canada | Returning from Germany | Returning from Australia\n\nRNOR\n\nWhat is RNOR | How RNORs Can Save Capital Gains Tax | Tax on US Capital Gains & Dividend Income for RNORs | Tax on Foreign Rental Income Taxable for RNORs | Foreign Asset Disclosure Requirements for RNORs | Tax on RSU Vesting Events for RNORs\n\nInteractive Brokers LLC is a registered Broker-Dealer, Futures Commission Merchant and Forex Dealer Member, regulated by the U.S. Securities and Exchange Commission (SEC), the Commodity Futures Trading Commission (CFTC) and the National Futures Association (NFA), and is a member of the Financial Industry Regulatory Authority (FINRA) and several other self-regulatory organizations. Interactive Brokers does not endorse or recommend any introducing brokers, third-party financial advisors or hedge funds, including Paasa. Interactive Brokers provides execution and clearing services to customers. None of the information contained herein constitutes a recommendation, offer, or solicitation of an offer by Interactive Brokers to buy, sell or hold any security, financial product or instrument or to engage in any specific investment strategy. Interactive Brokers makes no representation, and assumes no liability to the accuracy or completeness of the information provided on this website.\n\nFor more information regarding Interactive Brokers, please visit www.interactivebrokers.com .\n\nThe Interactive Brokers logo is a registered trademark of Interactive Brokers LLC.\n\nCustodian\n\n\u00a9 2026 Paasa. All rights reserved.\n\nUnited States United Kingdom Switzerland Hong Kong Germany France Netherlands Canada Japan Singapore\n\nUSD\n\nTrade Type\n\nBuy Sell\n\nQuantity\n\nPrice per share\n\nUSD\n\nInvestment amount\n\nUSD\n\n15,000\n\nUnited States ( USD )\n\nPaasa Access Fees\n\nUSD 15.00\n\nRate 0.1% of trade value\n\nMin/Max per trade USD 0.5 / USD 40\n\nPaasa Apex Fees\n\nPaasa Apex charge:\n\nUSD 0.0035 per share\n\nMin per trade: USD 0.35\n\nMax per trade: 1.0% of trade value\n\n$0.35\n\nINDMoney Fees\n\nINDmoney Brokerage:\n\n0.25% of trade value, capped at $25\n\n*Only applicable for U.S. exchanges\n\n$25.00\n\nVested Basic Fees\n\nVested Basic Brokerage:\n\n0.25% of trade value, capped at $35\n\n*Only applicable for U.S. exchanges\n\n$35.00",
+      "quote": "Double Taxation Avoidance Agreements\n\nWhat is DTAA? | DTAA between India & USA | DTAA between India & Singapore | DTAA between India & Switzerland | DTAA between India & UK | DTAA between India & Ireland | DTAA between India & Japan | DTAA between India & Poland | DTAA between India & China | DTAA between India and Germany\n\nReturning Indians\n\nReturning from US | Returning from UAE | Returning from Singapore | Returning from UK | Returning from Canada | Returning from Germany | Returning from Australia\n\nRNOR\n\nWhat is RNOR | How RNORs Can Save Capital Gains Tax | Tax on US Capital Gains & Dividend Income for RNORs | Tax on Foreign Rental Income Taxable for RNORs | Foreign Asset Disclosure Requirements for RNORs | Tax on RSU Vesting Events for RNORs\n\nInteractive Brokers LLC is a registered Broker-Dealer, Futures Commission Merchant and Forex Dealer Member, regulated by the U.S. Securities and Exchange Commission (SEC), the Commodity Futures Trading Commission (CFTC) and the National Futures Association (NFA), and is a member of the Financial Industry Regulatory Authority (FINRA) and several other self-regulatory organizations. Interactive Brokers does not endorse or recommend any introducing brokers, third-party financial advisors or hedge funds, including Paasa. Interactive Brokers provides execution and clearing services to customers. None of the information contained herein constitutes a recommendation, offer, or solicitation of an offer by Interactive Brokers to buy, sell or hold any security, financial product or instrument or to engage in any specific investment strategy. Interactive Brokers makes no representation, and assumes no liability to the accuracy or completeness of the information provided on this website.\n\nFor more information regarding Interactive Brokers, please visit www.interactivebrokers.com .\n\nThe Interactive Brokers logo is a registered trademark of Interactive Brokers LLC.\n\nCustodian\n\n\u00a9 2026 Paasa. All rights reserved.\n\nUnited States United Kingdom Switzerland Hong Kong Germany France Netherlands Canada Japan Singapore\n\nUSD\n\nTrade Type\n\nBuy Sell\n\nQuantity\n\nPrice per share\n\nUSD\n\nInvestment amount\n\nUSD\n\n15,000\n\nUnited States ( USD )\n\nPaasa Access Fees\n\nUSD 15.00\n\nRate 0.1% of trade value\n\nMin/Max per trade USD 0.5 / USD 40\n\nPaasa Apex Fees\n\nPaasa Apex charge:\n\nUSD 0.0035 per share\n\nMin per trade: USD 0.35\n\nMax per trade: 1.0% of trade value\n\n$0.35\n\nINDMoney Fees\n\nINDmoney Brokerage:\n\n0.25% of trade value, capped at $25\n\n*Only applicable for U.S. exchanges\n\n$25.00\n\nVested Basic Fees\n\nVested Basic Brokerage:\n\n0.25% of trade value, capped at $35\n\n*Only applicable for U.S. exchanges\n\n$35.00",
+      "source_url": "https://paasa.com/tools/global-investments-brokerage-comissions-calculator",
+      "retrieved_at": "2026-09-14T23:34:31.209511+00:00",
+      "origin": "preparation_public_page",
+      "dataset_id": null,
+      "row_key": "preparation_context_v3:9c5e6e9b11bea261",
+      "observed_at": null
+    }
+  ],
+  "pack": {
+    "version": 9,
+    "implementation_hash": "264e6c8905fd553924d26f84c32d9794772f7e89d8acf5805cd852c26c7b337f",
+    "basis_hash": "7cb075602ef69abe02ba67ce381ff7d81a01dbc9f4d4f9370de67a631ead1570",
+    "company": "Paasa",
+    "record": {
+      "facts": [
+        {
+          "id": "S1",
+          "quote": "Backed by\n\nInvest in US Stocks, ETFs,\n\nUCITS & Global Markets\n\nGlobal Investing for the Global Indian\n\nStart investing\n\nSIPC Insured\n\nSEBI RIA\n\nISO 27001:2022\n\nAccess the world's markets\n\nInvest across major global exchanges and currencies\n\nCustodian\n\nSearch for stocks & ETFs\n\nHypothetical figures for illustrative purposes only\n\nProduct\n\nDirect Investing\n\nTrade from a universe of 15,000+ tickers across the world from the palm of your hand\n\nHypothetical figures for illustrative purposes only\n\nProduct\n\nManaged Strategies\n\nInvest in an expert strategy that maximizes returns for your level of risk, with ongoing rebalancing\n\nPlatform\n\nTrade anywhere, anytime\n\nSeamlessly switch between desktop and mobile. Full control, wherever you are.\n\nLog in on desktop\n\nPlatform\n\nTrade anywhere, anytime\n\nSeamlessly switch between desktop and mobile. Full control, wherever you are.\n\nLog in on desktop\n\nMulti-currency\n\nHold, convert, and invest across 9 currencies\n\nSpot currencies are foreign exchange (FX) trades where one currency exchanged for another at the current market price with minimal markups.\n\nSpecial features\n\nBuilt for diversification\n\nEarn interest up to\n\n3.13%\n\non uninvested USD cash above $10,000\n\nSpecial FX rates for deposits\n\nAccess highly competitive foreign exchange rates for your deposits with our partner banks.\n\nIndia-ready tax reports, generated for you\n\nSchedule FA, Schedule FSI, capital gains, and all required ITR reports automatically sent to you at year end.\n\nUCITS ETFs\n\nShield your wealth from US estate tax\n\nUCITS ETFs give the same market access as U.S. ETFs, but protect you from U.S. estate tax on foreign nationals (taxed progressively up to 40% on assets above $60k).\n\nWhat are UCITS ETFs?\n\nLow-cost, Diversified, Europe-domiciled, and US estate tax\u2013safe.\n\nHow to shield RSU's from US estate tax?\n\nReinvest concentrated RSUs into globally diversified, estate-tax-protected portfolios\n\nTestimonials\n\nOur customers work at\n\n\u201c Very useful platform for me in order to access US stock markets from India, and Nitish and his team make the onboarding process pretty seamless. Their offering of customised stock baskets for the US market is pretty unique - I'm a happy user and wish they grow from strength to strength! \u201d\n\nAnomitra Saha\n\nPrincipal Engineer, Captainfresh (Bangalore)\n\n\u201c Craft matters. Paasa's experience is clean, but the real win is the rigor behind it; I needed clarity. Paasa delivered - FEMA guidance I could act on, onboarding that just worked, and portfolios that felt built for diversification of RSUs, not retrofitted. Disclosure: I'm an angel investor in Paasa. \u201d\n\nDeepak Menon\n\nVice President, Microsoft (Hyderabad)\n\n\u201c Great interface and easy to use. Gives access to global portfolios better than any app. You can curate your own portfolios or choose from the vast number of portfolios they've made. \u201d\n\nMaadhav Veer Singh\n\nCIO, BTB Family Office (Gurgaon)\n\n\u201c The seamless fund withdrawals and dedicated advisory support make global investing accessible, affordable and trustworthy. \u201d\n\nNavdeep Manaktala\n\nCo-Founder, Snowbit (Gurgaon)\n\nEnterprise security\n\nSafety is our cornerstone\n\nSIPC insured",
+          "source_url": "https://paasa.com/",
+          "retrieved_at": "2026-09-14T23:34:30.190004+00:00",
+          "observed_at": null,
+          "origin": "preparation_public_page",
+          "context_format": "whole_html_blocks_v3",
+          "source_id": "evidence_04a3c2fca948",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S2",
+          "quote": "Global Brokerage Calculator\n\nCalculate your brokerage across global exchanges. Does not include third party, clearing and regulatory fees. View tiers and third party fees for each exchange here .\n\nLoading calculator...\n\nResources\n\nPaasa Vs Vested\n\nDiscover how they differ in global reach, tax reporting, remittance support, and who each is built for\n\nPaasa Vs Indmoney\n\nThis blog compares both platforms across markets, features, FEMA compliance, tax reporting, and investor fit\n\nGet started\n\nTalk to our team\n\nWhether you invest through U.S. stocks, ETFs, RSUs, or global multi-market portfolios, our team can help you build a safer and fully compliant international allocation.\n\nIndia (+91) US / Canada (+1) United Kingdom (+44) Germany (+49) France (+33) Italy (+39) Spain (+34) Netherlands (+31) Switzerland (+41) Sweden (+46) Austria (+43) Belgium (+32) Denmark (+45) Finland (+358) Greece (+30) Hungary (+36) Ireland (+353) Norway (+47) Portugal (+351) Poland (+48) Slovakia (+421) Slovenia (+386) Czech Republic (+420) United Arab Emirates (+971) Kuwait (+965) Oman (+968) Qatar (+974) Bahrain (+973) Saudi Arabia (+966) Jordan (+962) Lebanon (+961) Syria (+963) Iraq (+964) Palestine (+970) Israel (+972) Egypt (+20) Sudan (+249) Libya (+218) Algeria (+213) Morocco (+212) Tunisia (+216) Singapore (+65) Australia (+61) Japan (+81) China (+86) Russia (+7) Brazil (+55) South Korea (+82) New Zealand (+64) Mexico (+52) Nigeria (+234) Indonesia (+62) Turkey (+90) Bangladesh (+880) Pakistan (+92) South Africa (+27)\n\nAnnual investment $1k - $50k $50k to $100k $100k to $250k $100k - $500k $250k to $500k $500k - $1M $1M+\n\nBook a meeting\n\nFAQs\n\nWhat are brokerage fees? \u203a\n\nBrokerage fees are charges that brokers levy for executing trades on your behalf. These can include brokerage fees, account maintenance charges, and other transaction costs.\n\nHow are brokerage fees calculated? \u203a\n\nBrokerage fees are typically calculated as a percentage of the trade value or as a flat fee per transaction. The exact calculation method varies by broker.\n\nCan I reduce brokerage fees? \u203a\n\nYes, you can reduce brokerage fees by choosing brokers with lower brokerage rates, negotiating fees for high-volume trading, or opting for flat-fee structures.\n\nU.S. Estate Tax Liability Calculator\n\nCalculate your estate tax liability on U.S. assets\n\nIBKR tax reports\n\nGenerate your Indian tax reports from your Interactive Broker activity statements.\n\nUCITS ETF Screener\n\nDiscover and compare over 2,500 UCITS-compliant investment instruments\n\nContact\n\nsupport@paasa.com\n\nWhatsApp\n\nBook a call\n\nHelp center\n\nProducts\n\nTrade\n\nStrategies\n\nDiversify RSUs\n\nUCITS\n\nTax\n\nPartners\n\nPricing\n\nPlans\n\nBrokerage fees\n\nSocials\n\nBlog\n\nAltas\n\nLinkedIn\n\nInstagram\n\nY Combinator\n\nLegal\n\nPrivacy policy\n\nTerms of service\n\nInvestor charter\n\nGrievance redressal\n\nComplaint status\n\nAccessibility redressal\n\nPaasa is a financial technology company, not a bank or brokerage. All banking and brokerage services are provided by our licensed partners.",
+          "source_url": "https://paasa.com/tools/global-investments-brokerage-comissions-calculator",
+          "retrieved_at": "2026-09-14T23:34:31.209433+00:00",
+          "observed_at": null,
+          "origin": "preparation_public_page",
+          "context_format": "whole_html_blocks_v3",
+          "source_id": "evidence_4816e7c0f424",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S3",
+          "quote": "Returning Indians\n\nReturning from US | Returning from UAE | Returning from Singapore | Returning from UK | Returning from Canada | Returning from Germany | Returning from Australia\n\nRNOR\n\nWhat is RNOR | How RNORs Can Save Capital Gains Tax | Tax on US Capital Gains & Dividend Income for RNORs | Tax on Foreign Rental Income Taxable for RNORs | Foreign Asset Disclosure Requirements for RNORs | Tax on RSU Vesting Events for RNORs\n\nInteractive Brokers LLC is a registered Broker-Dealer, Futures Commission Merchant and Forex Dealer Member, regulated by the U.S. Securities and Exchange Commission (SEC), the Commodity Futures Trading Commission (CFTC) and the National Futures Association (NFA), and is a member of the Financial Industry Regulatory Authority (FINRA) and several other self-regulatory organizations. Interactive Brokers does not endorse or recommend any introducing brokers, third-party financial advisors or hedge funds, including Paasa. Interactive Brokers provides execution and clearing services to customers. None of the information contained herein constitutes a recommendation, offer, or solicitation of an offer by Interactive Brokers to buy, sell or hold any security, financial product or instrument or to engage in any specific investment strategy. Interactive Brokers makes no representation, and assumes no liability to the accuracy or completeness of the information provided on this website.\n\nFor more information regarding Interactive Brokers, please visit www.interactivebrokers.com .\n\nThe Interactive Brokers logo is a registered trademark of Interactive Brokers LLC.\n\nCustodian\n\n\u00a9 2026 Paasa. All rights reserved.",
+          "source_url": "https://paasa.com/",
+          "retrieved_at": "2026-09-14T23:34:30.190089+00:00",
+          "observed_at": null,
+          "origin": "preparation_public_page",
+          "context_format": "whole_html_blocks_v3",
+          "source_id": "evidence_ed1db77db00c",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S4",
+          "quote": "Double Taxation Avoidance Agreements\n\nWhat is DTAA? | DTAA between India & USA | DTAA between India & Singapore | DTAA between India & Switzerland | DTAA between India & UK | DTAA between India & Ireland | DTAA between India & Japan | DTAA between India & Poland | DTAA between India & China | DTAA between India and Germany\n\nReturning Indians\n\nReturning from US | Returning from UAE | Returning from Singapore | Returning from UK | Returning from Canada | Returning from Germany | Returning from Australia\n\nRNOR\n\nWhat is RNOR | How RNORs Can Save Capital Gains Tax | Tax on US Capital Gains & Dividend Income for RNORs | Tax on Foreign Rental Income Taxable for RNORs | Foreign Asset Disclosure Requirements for RNORs | Tax on RSU Vesting Events for RNORs\n\nInteractive Brokers LLC is a registered Broker-Dealer, Futures Commission Merchant and Forex Dealer Member, regulated by the U.S. Securities and Exchange Commission (SEC), the Commodity Futures Trading Commission (CFTC) and the National Futures Association (NFA), and is a member of the Financial Industry Regulatory Authority (FINRA) and several other self-regulatory organizations. Interactive Brokers does not endorse or recommend any introducing brokers, third-party financial advisors or hedge funds, including Paasa. Interactive Brokers provides execution and clearing services to customers. None of the information contained herein constitutes a recommendation, offer, or solicitation of an offer by Interactive Brokers to buy, sell or hold any security, financial product or instrument or to engage in any specific investment strategy. Interactive Brokers makes no representation, and assumes no liability to the accuracy or completeness of the information provided on this website.\n\nFor more information regarding Interactive Brokers, please visit www.interactivebrokers.com .\n\nThe Interactive Brokers logo is a registered trademark of Interactive Brokers LLC.\n\nCustodian\n\n\u00a9 2026 Paasa. All rights reserved.\n\nUnited States United Kingdom Switzerland Hong Kong Germany France Netherlands Canada Japan Singapore\n\nUSD\n\nTrade Type\n\nBuy Sell\n\nQuantity\n\nPrice per share\n\nUSD\n\nInvestment amount\n\nUSD\n\n15,000\n\nUnited States ( USD )\n\nPaasa Access Fees\n\nUSD 15.00\n\nRate 0.1% of trade value\n\nMin/Max per trade USD 0.5 / USD 40\n\nPaasa Apex Fees\n\nPaasa Apex charge:\n\nUSD 0.0035 per share\n\nMin per trade: USD 0.35\n\nMax per trade: 1.0% of trade value\n\n$0.35\n\nINDMoney Fees\n\nINDmoney Brokerage:\n\n0.25% of trade value, capped at $25\n\n*Only applicable for U.S. exchanges\n\n$25.00\n\nVested Basic Fees\n\nVested Basic Brokerage:\n\n0.25% of trade value, capped at $35\n\n*Only applicable for U.S. exchanges\n\n$35.00",
+          "source_url": "https://paasa.com/tools/global-investments-brokerage-comissions-calculator",
+          "retrieved_at": "2026-09-14T23:34:31.209511+00:00",
+          "observed_at": null,
+          "origin": "preparation_public_page",
+          "context_format": "whole_html_blocks_v3",
+          "source_id": "evidence_6f57ba6441a5",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S5",
+          "quote": "SIPC insured\n\nSecurities are covered up to $500,000 by SIPC. Learn more at sipc.org.\n\nSEBI registered RIA\n\nAdvisory services are lent by a Registered Investment Advisor, meaning we are legally bound to advise in your best interest.\n\nEnd-to-end security\n\nData encrypted across the board; two-factor authentication mandatory.\n\nYou always own your assets\n\nHeld with Interactive Brokers in your name. You retain control even in the unlikely event Paasa ceases operations.\n\nOur customers\n\nWho is\n\nPaasa for?\n\nPaasa is available to users in India, USA, UK, Middle East, Singapore, Thailand, and select other regions. We only provide India specific tax documentation.\n\nOnboarding for European residents is not supported at this time.\n\nIndian residents\n\nPAN and Aadhaar (digital copies)\n\nNRIs\n\nGovernment-issued ID and foreign address proof (digital copies)\n\nReturning NRIs\n\nPAN and Indian address proof (digital copies)\n\nForeign nationals\n\nGovernment-issued ID and foreign address proof (digital copies)\n\nOnboarding\n\nGet started in 3 simple steps\n\nSTEP 1\n\nComplete KYC\n\nPAN & Aadhaar are required, 100% digital\n\nSTEP 2\n\nRemit funds\n\nUnder the RBI's Liberalized Remittance Scheme\n\nTransfer funds in and out worldwide, as long as the bank account is in your name\n\nSTEP 3\n\nStart investing\n\nPick a strategy or invest directly\n\nOpen account\n\nWhite glove onboarding available\n\nConsolidate holdings\n\nTransfer existing\n\ninvestments to Paasa\n\nMove your holdings without booking capital gains. Transfer guides & instructions for all brokers available in the app.\n\nWhatsapp us at +91-9871076013 for personal assistance\n\nMedia\n\nPaasa is making overseas investing simpler for Indian investors\n\nHelping Indian investors navigate global markets with greater ease, clarity, and confidence.\n\narticle\n\nPaasa CEO Nitish Sahni on emerging global investment trends\n\nNitish Sahni shares perspectives on emerging asset classes like copper, uranium, and rare earths.\n\narticle\n\nNitish Sahni in conversation with Neil Borate on RSU diversification\n\nA deep dive into RSU diversification strategies and global investment allocation.\n\nvideo\n\nPaasa on direct vs platform-based global investing\n\nUnderstanding how to choose between direct overseas brokers and investing platforms.\n\narticle\n\nInvesting directly in global stocks: costs, rules, and what to know\n\nA guide to the real costs of buying global stocks directly \u2014 brokerage fees, nominee rules, the transfer process, and estate tax.\n\narticle\n\nWhy techies should diversify their RSUs before it's too late\n\nWith tech employees holding up to 80% of their net worth in a single stock, advisers say not selling is a real danger.\n\narticle\n\nFAQs\n\nHow is Paasa different? \u203a\n\nWe\u2019re a digital-first wealth platform designed for global investing across US, Swiss, UK and Hong Kong exchanges.\n\nWhere DIY brokerages stop at access, we go further - offering expert-built strategies, automated rebalancing, and tax optimization.\n\nCan I withdraw anytime? \u203a\n\nYes. Your assets are withdrawable 24\u00d77.\n\nCan I withdraw to a bank account outside India? \u203a\n\nYes. You can withdraw your funds in any currency to any bank account in your name.\n\nCan I buy UCITS/Irish domiciled ETFs on Paasa? \u203a",
+          "source_url": "https://paasa.com/",
+          "retrieved_at": "2026-09-14T23:34:30.190052+00:00",
+          "observed_at": null,
+          "origin": "preparation_public_page",
+          "context_format": "whole_html_blocks_v3",
+          "source_id": "evidence_1b3beb470374",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        }
+      ],
+      "prepared_at": "2026-09-14T22:54:03.794165+00:00",
+      "batches": {},
+      "extraction": "complete_context_no_generation",
+      "coverage": "partial",
+      "unknowns": [],
+      "source_selection": {
+        "scope": "bounded_supplied_records",
+        "omitted_for_context": 19,
+        "max_context_characters": 14000
+      }
+    },
+    "sections": {
+      "research.business": {
+        "document": "research",
+        "title": "Business and customer",
+        "status": "complete",
+        "input_hash": "3a3b28b0631e97d75d72c0dbc78e7fbb20e08f58961857faa77e4c68f42ee657",
+        "review_hash": "82d8a218d2e73d122baec29ddfa7b2fc0049ef7b6075fe334cca1ef8b8fd741d",
+        "dependency": null,
+        "content": {
+          "text": "The supplied sources state: \u201cBacked by\n\nInvest in US Stocks, ETFs,\n\nUCITS & Global Markets\n\nGlobal Investing for the Global Indian\n\nStart investing\n\nSIPC Insured\n\nSEBI RIA\n\nISO 27001:2022\n\nAccess the world's markets\n\nInvest across major global exchanges and currencies\n\nCustodian\n\nSearch for stocks & ETFs\n\nHypothetical figures for illustrative purposes only\n\nProduct\n\nDirect Investing\n\nTrade from a universe of 15,000+ tickers across the world from the palm of your hand\n\nHypothetical figures for illustrative purposes only\n\nProduct\n\nManaged Strategies\n\nInvest in an expert strategy that maximizes returns for your level of risk, with ongoing rebalancing\n\nPlatform\n\nTrade anywhere, anytime\n\nSeamlessly switch between desktop and mobile. Full control, wherever you are.\n\nLog in on desktop\n\nPlatform\n\nTrade anywhere, anytime\n\nSeamlessly switch between desktop and mobile. Full control, wherever you are.\n\nLog in on desktop\n\nMulti-currency\n\nHold, convert, and invest across 9 currencies\n\nSpot currencies are foreign exchange (FX) trades where one currency exchanged for another at the current market price with minimal markups.\n\nSpecial features\n\nBuilt for diversification\n\nEarn interest up to\n\n3.13%\n\non uninvested USD cash above $10,000\n\nSpecial FX rates for deposits\n\nAccess highly competitive foreign exchange rates for your deposits with our partner banks.\n\nIndia-ready tax reports, generated for you\n\nSchedule FA, Schedule FSI, capital gains, and all required ITR reports automatically sent to you at year end.\n\nUCITS ETFs\n\nShield your wealth from US estate tax\n\nUCITS ETFs give the same market access as U.S. ETFs, but protect you from U.S. estate tax on foreign nationals (taxed progressively up to 40% on assets above $60k).\n\nWhat are UCITS ETFs?\n\nLow-cost, Diversified, Europe-domiciled, and US estate tax\u2013safe.\n\nHow to shield RSU's from US estate tax?\n\nReinvest concentrated RSUs into globally diversified, estate-tax-protected portfolios\n\nTestimonials\n\nOur customers work at\n\n\u201c Very useful platform for me in order to access US stock markets from India, and Nitish and his team make the onboarding process pretty seamless. Their offering of customised stock baskets for the US market is pretty unique - I'm a happy user and wish they grow from strength to strength! \u201d\n\nAnomitra Saha\n\nPrincipal Engineer, Captainfresh (Bangalore)\n\n\u201c Craft matters. Paasa's experience is clean, but the real win is the rigor behind it; I needed clarity. Paasa delivered - FEMA guidance I could act on, onboarding that just worked, and portfolios that felt built for diversification of RSUs, not retrofitted. Disclosure: I'm an angel investor in Paasa. \u201d\n\nDeepak Menon\n\nVice President, Microsoft (Hyderabad)\n\n\u201c Great interface and easy to use. Gives access to global portfolios better than any app. You can curate your own portfolios or choose from the vast number of portfolios they've made. \u201d\n\nMaadhav Veer Singh\n\nCIO, BTB Family Office (Gurgaon)\n\n\u201c The seamless fund withdrawals and dedicated advisory support make global investing accessible, affordable and trustworthy. \u201d\n\nNavdeep Manaktala\n\nCo-Founder, Snowbit (Gurgaon)\n\nEnterprise security\n\nSafety is our cornerstone\n\nSIPC insured\u201d \u201cSIPC insured\n\nSecurities are covered up to $500,000 by SIPC. Learn more at sipc.org.\n\nSEBI registered RIA\n\nAdvisory services are lent by a Registered Investment Advisor, meaning we are legally bound to advise in your best interest.\n\nEnd-to-end security\n\nData encrypted across the board; two-factor authentication mandatory.\n\nYou always own your assets\n\nHeld with Interactive Brokers in your name. You retain control even in the unlikely event Paasa ceases operations.\n\nOur customers\n\nWho is\n\nPaasa for?\n\nPaasa is available to users in India, USA, UK, Middle East, Singapore, Thailand, and select other regions. We only provide India specific tax documentation.\n\nOnboarding for European residents is not supported at this time.\n\nIndian residents\n\nPAN and Aadhaar (digital copies)\n\nNRIs\n\nGovernment-issued ID and foreign address proof (digital copies)\n\nReturning NRIs\n\nPAN and Indian address proof (digital copies)\n\nForeign nationals\n\nGovernment-issued ID and foreign address proof (digital copies)\n\nOnboarding\n\nGet started in 3 simple steps\n\nSTEP 1\n\nComplete KYC\n\nPAN & Aadhaar are required, 100% digital\n\nSTEP 2\n\nRemit funds\n\nUnder the RBI's Liberalized Remittance Scheme\n\nTransfer funds in and out worldwide, as long as the bank account is in your name\n\nSTEP 3\n\nStart investing\n\nPick a strategy or invest directly\n\nOpen account\n\nWhite glove onboarding available\n\nConsolidate holdings\n\nTransfer existing\n\ninvestments to Paasa\n\nMove your holdings without booking capital gains. Transfer guides & instructions for all brokers available in the app.\n\nWhatsapp us at +91-9871076013 for personal assistance\n\nMedia\n\nPaasa is making overseas investing simpler for Indian investors\n\nHelping Indian investors navigate global markets with greater ease, clarity, and confidence.\n\narticle\n\nPaasa CEO Nitish Sahni on emerging global investment trends\n\nNitish Sahni shares perspectives on emerging asset classes like copper, uranium, and rare earths.\n\narticle\n\nNitish Sahni in conversation with Neil Borate on RSU diversification\n\nA deep dive into RSU diversification strategies and global investment allocation.\n\nvideo\n\nPaasa on direct vs platform-based global investing\n\nUnderstanding how to choose between direct overseas brokers and investing platforms.\n\narticle\n\nInvesting directly in global stocks: costs, rules, and what to know\n\nA guide to the real costs of buying global stocks directly \u2014 brokerage fees, nominee rules, the transfer process, and estate tax.\n\narticle\n\nWhy techies should diversify their RSUs before it's too late\n\nWith tech employees holding up to 80% of their net worth in a single stock, advisers say not selling is a real danger.\n\narticle\n\nFAQs\n\nHow is Paasa different? \u203a\n\nWe\u2019re a digital-first wealth platform designed for global investing across US, Swiss, UK and Hong Kong exchanges.\n\nWhere DIY brokerages stop at access, we go further - offering expert-built strategies, automated rebalancing, and tax optimization.\n\nCan I withdraw anytime? \u203a\n\nYes. Your assets are withdrawable 24\u00d77.\n\nCan I withdraw to a bank account outside India? \u203a\n\nYes. You can withdraw your funds in any currency to any bank account in your name.\n\nCan I buy UCITS/Irish domiciled ETFs on Paasa? \u203a\u201d",
+          "fact_ids": [
+            "S1",
+            "S5"
+          ],
+          "source_quotes": true
+        },
+        "review": {
+          "verdict": "pass",
+          "kind": "combined_bound_review",
+          "objections": []
+        },
+        "updated_at": "2026-09-14T23:35:29.363759+00:00"
+      },
+      "research.economics": {
+        "document": "research",
+        "title": "Revenue mechanism",
+        "status": "complete",
+        "input_hash": "3a3b28b0631e97d75d72c0dbc78e7fbb20e08f58961857faa77e4c68f42ee657",
+        "review_hash": "82d8a218d2e73d122baec29ddfa7b2fc0049ef7b6075fe334cca1ef8b8fd741d",
+        "dependency": null,
+        "content": {
+          "revenue_mechanism": "The supplied sources state: \u201cDouble Taxation Avoidance Agreements\n\nWhat is DTAA? | DTAA between India & USA | DTAA between India & Singapore | DTAA between India & Switzerland | DTAA between India & UK | DTAA between India & Ireland | DTAA between India & Japan | DTAA between India & Poland | DTAA between India & China | DTAA between India and Germany\n\nReturning Indians\n\nReturning from US | Returning from UAE | Returning from Singapore | Returning from UK | Returning from Canada | Returning from Germany | Returning from Australia\n\nRNOR\n\nWhat is RNOR | How RNORs Can Save Capital Gains Tax | Tax on US Capital Gains & Dividend Income for RNORs | Tax on Foreign Rental Income Taxable for RNORs | Foreign Asset Disclosure Requirements for RNORs | Tax on RSU Vesting Events for RNORs\n\nInteractive Brokers LLC is a registered Broker-Dealer, Futures Commission Merchant and Forex Dealer Member, regulated by the U.S. Securities and Exchange Commission (SEC), the Commodity Futures Trading Commission (CFTC) and the National Futures Association (NFA), and is a member of the Financial Industry Regulatory Authority (FINRA) and several other self-regulatory organizations. Interactive Brokers does not endorse or recommend any introducing brokers, third-party financial advisors or hedge funds, including Paasa. Interactive Brokers provides execution and clearing services to customers. None of the information contained herein constitutes a recommendation, offer, or solicitation of an offer by Interactive Brokers to buy, sell or hold any security, financial product or instrument or to engage in any specific investment strategy. Interactive Brokers makes no representation, and assumes no liability to the accuracy or completeness of the information provided on this website.\n\nFor more information regarding Interactive Brokers, please visit www.interactivebrokers.com .\n\nThe Interactive Brokers logo is a registered trademark of Interactive Brokers LLC.\n\nCustodian\n\n\u00a9 2026 Paasa. All rights reserved.\n\nUnited States United Kingdom Switzerland Hong Kong Germany France Netherlands Canada Japan Singapore\n\nUSD\n\nTrade Type\n\nBuy Sell\n\nQuantity\n\nPrice per share\n\nUSD\n\nInvestment amount\n\nUSD\n\n15,000\n\nUnited States ( USD )\n\nPaasa Access Fees\n\nUSD 15.00\n\nRate 0.1% of trade value\n\nMin/Max per trade USD 0.5 / USD 40\n\nPaasa Apex Fees\n\nPaasa Apex charge:\n\nUSD 0.0035 per share\n\nMin per trade: USD 0.35\n\nMax per trade: 1.0% of trade value\n\n$0.35\n\nINDMoney Fees\n\nINDmoney Brokerage:\n\n0.25% of trade value, capped at $25\n\n*Only applicable for U.S. exchanges\n\n$25.00\n\nVested Basic Fees\n\nVested Basic Brokerage:\n\n0.25% of trade value, capped at $35\n\n*Only applicable for U.S. exchanges\n\n$35.00\u201d \u201cBacked by\n\nInvest in US Stocks, ETFs,\n\nUCITS & Global Markets\n\nGlobal Investing for the Global Indian\n\nStart investing\n\nSIPC Insured\n\nSEBI RIA\n\nISO 27001:2022\n\nAccess the world's markets\n\nInvest across major global exchanges and currencies\n\nCustodian\n\nSearch for stocks & ETFs\n\nHypothetical figures for illustrative purposes only\n\nProduct\n\nDirect Investing\n\nTrade from a universe of 15,000+ tickers across the world from the palm of your hand\n\nHypothetical figures for illustrative purposes only\n\nProduct\n\nManaged Strategies\n\nInvest in an expert strategy that maximizes returns for your level of risk, with ongoing rebalancing\n\nPlatform\n\nTrade anywhere, anytime\n\nSeamlessly switch between desktop and mobile. Full control, wherever you are.\n\nLog in on desktop\n\nPlatform\n\nTrade anywhere, anytime\n\nSeamlessly switch between desktop and mobile. Full control, wherever you are.\n\nLog in on desktop\n\nMulti-currency\n\nHold, convert, and invest across 9 currencies\n\nSpot currencies are foreign exchange (FX) trades where one currency exchanged for another at the current market price with minimal markups.\n\nSpecial features\n\nBuilt for diversification\n\nEarn interest up to\n\n3.13%\n\non uninvested USD cash above $10,000\n\nSpecial FX rates for deposits\n\nAccess highly competitive foreign exchange rates for your deposits with our partner banks.\n\nIndia-ready tax reports, generated for you\n\nSchedule FA, Schedule FSI, capital gains, and all required ITR reports automatically sent to you at year end.\n\nUCITS ETFs\n\nShield your wealth from US estate tax\n\nUCITS ETFs give the same market access as U.S. ETFs, but protect you from U.S. estate tax on foreign nationals (taxed progressively up to 40% on assets above $60k).\n\nWhat are UCITS ETFs?\n\nLow-cost, Diversified, Europe-domiciled, and US estate tax\u2013safe.\n\nHow to shield RSU's from US estate tax?\n\nReinvest concentrated RSUs into globally diversified, estate-tax-protected portfolios\n\nTestimonials\n\nOur customers work at\n\n\u201c Very useful platform for me in order to access US stock markets from India, and Nitish and his team make the onboarding process pretty seamless. Their offering of customised stock baskets for the US market is pretty unique - I'm a happy user and wish they grow from strength to strength! \u201d\n\nAnomitra Saha\n\nPrincipal Engineer, Captainfresh (Bangalore)\n\n\u201c Craft matters. Paasa's experience is clean, but the real win is the rigor behind it; I needed clarity. Paasa delivered - FEMA guidance I could act on, onboarding that just worked, and portfolios that felt built for diversification of RSUs, not retrofitted. Disclosure: I'm an angel investor in Paasa. \u201d\n\nDeepak Menon\n\nVice President, Microsoft (Hyderabad)\n\n\u201c Great interface and easy to use. Gives access to global portfolios better than any app. You can curate your own portfolios or choose from the vast number of portfolios they've made. \u201d\n\nMaadhav Veer Singh\n\nCIO, BTB Family Office (Gurgaon)\n\n\u201c The seamless fund withdrawals and dedicated advisory support make global investing accessible, affordable and trustworthy. \u201d\n\nNavdeep Manaktala\n\nCo-Founder, Snowbit (Gurgaon)\n\nEnterprise security\n\nSafety is our cornerstone\n\nSIPC insured\u201d",
+          "unknown_economics": "What income does the investment entity retain from Direct Investing, and does it cover attributable variable service costs? Published statements do not establish realized income; reconcile the contracting entity, recognition and company-held cost records.",
+          "fact_ids": [
+            "S4",
+            "S1"
+          ],
+          "source_quotes": true
+        },
+        "review": {
+          "verdict": "pass",
+          "kind": "combined_bound_review",
+          "objections": []
+        },
+        "updated_at": "2026-09-14T23:35:29.363769+00:00"
+      },
+      "research.decision": {
+        "document": "research",
+        "title": "Opportunity and unresolved risks",
+        "status": "complete",
+        "input_hash": "3a3b28b0631e97d75d72c0dbc78e7fbb20e08f58961857faa77e4c68f42ee657",
+        "review_hash": "82d8a218d2e73d122baec29ddfa7b2fc0049ef7b6075fe334cca1ef8b8fd741d",
+        "dependency": null,
+        "content": {
+          "reason_to_engage": "If retained income from Direct Investing covers attributable variable delivery costs and eligible Direct Investing customers record completed order, the evidence could support further diligence on a repeatable business. Both conditions require reconciled company records.",
+          "unresolved_risk": "The commercial case weakens if the variable cost of delivering Direct Investing consumes its retained income. The proposed reconciliation will distinguish partner charges and delivery costs before identifying pricing or cost work.",
+          "next_decision": "Resolve the linked contribution and customer-use questions before recommending an engagement or expansion; investigate adverse results and leave missing inputs unresolved.",
+          "fact_ids": [
+            "S4",
+            "S1",
+            "S5"
+          ]
+        },
+        "review": {
+          "verdict": "pass",
+          "kind": "combined_bound_review",
+          "objections": []
+        },
+        "updated_at": "2026-09-14T23:35:29.363771+00:00"
+      },
+      "founder.observation": {
+        "document": "founder",
+        "title": "Why we are approaching you",
+        "status": "complete",
+        "input_hash": "3a3b28b0631e97d75d72c0dbc78e7fbb20e08f58961857faa77e4c68f42ee657",
+        "review_hash": "82d8a218d2e73d122baec29ddfa7b2fc0049ef7b6075fe334cca1ef8b8fd741d",
+        "dependency": null,
+        "content": {
+          "reported_observation": "Your published materials state: \u201cBacked by\n\nInvest in US Stocks, ETFs,\n\nUCITS & Global Markets\n\nGlobal Investing for the Global Indian\n\nStart investing\n\nSIPC Insured\n\nSEBI RIA\n\nISO 27001:2022\n\nAccess the world's markets\n\nInvest across major global exchanges and currencies\n\nCustodian\n\nSearch for stocks & ETFs\n\nHypothetical figures for illustrative purposes only\n\nProduct\n\nDirect Investing\n\nTrade from a universe of 15,000+ tickers across the world from the palm of your hand\n\nHypothetical figures for illustrative purposes only\n\nProduct\n\nManaged Strategies\n\nInvest in an expert strategy that maximizes returns for your level of risk, with ongoing rebalancing\n\nPlatform\n\nTrade anywhere, anytime\n\nSeamlessly switch between desktop and mobile. Full control, wherever you are.\n\nLog in on desktop\n\nPlatform\n\nTrade anywhere, anytime\n\nSeamlessly switch between desktop and mobile. Full control, wherever you are.\n\nLog in on desktop\n\nMulti-currency\n\nHold, convert, and invest across 9 currencies\n\nSpot currencies are foreign exchange (FX) trades where one currency exchanged for another at the current market price with minimal markups.\n\nSpecial features\n\nBuilt for diversification\n\nEarn interest up to\n\n3.13%\n\non uninvested USD cash above $10,000\n\nSpecial FX rates for deposits\n\nAccess highly competitive foreign exchange rates for your deposits with our partner banks.\n\nIndia-ready tax reports, generated for you\n\nSchedule FA, Schedule FSI, capital gains, and all required ITR reports automatically sent to you at year end.\n\nUCITS ETFs\n\nShield your wealth from US estate tax\n\nUCITS ETFs give the same market access as U.S. ETFs, but protect you from U.S. estate tax on foreign nationals (taxed progressively up to 40% on assets above $60k).\n\nWhat are UCITS ETFs?\n\nLow-cost, Diversified, Europe-domiciled, and US estate tax\u2013safe.\n\nHow to shield RSU's from US estate tax?\n\nReinvest concentrated RSUs into globally diversified, estate-tax-protected portfolios\n\nTestimonials\n\nOur customers work at\n\n\u201c Very useful platform for me in order to access US stock markets from India, and Nitish and his team make the onboarding process pretty seamless. Their offering of customised stock baskets for the US market is pretty unique - I'm a happy user and wish they grow from strength to strength! \u201d\n\nAnomitra Saha\n\nPrincipal Engineer, Captainfresh (Bangalore)\n\n\u201c Craft matters. Paasa's experience is clean, but the real win is the rigor behind it; I needed clarity. Paasa delivered - FEMA guidance I could act on, onboarding that just worked, and portfolios that felt built for diversification of RSUs, not retrofitted. Disclosure: I'm an angel investor in Paasa. \u201d\n\nDeepak Menon\n\nVice President, Microsoft (Hyderabad)\n\n\u201c Great interface and easy to use. Gives access to global portfolios better than any app. You can curate your own portfolios or choose from the vast number of portfolios they've made. \u201d\n\nMaadhav Veer Singh\n\nCIO, BTB Family Office (Gurgaon)\n\n\u201c The seamless fund withdrawals and dedicated advisory support make global investing accessible, affordable and trustworthy. \u201d\n\nNavdeep Manaktala\n\nCo-Founder, Snowbit (Gurgaon)\n\nEnterprise security\n\nSafety is our cornerstone\n\nSIPC insured\u201d",
+          "question_to_explore": "What income does the investment entity retain from Direct Investing, and does it cover attributable variable service costs?",
+          "fact_ids": [
+            "S1",
+            "S4"
+          ],
+          "opening_source_id": "S1",
+          "source_quotes": true
+        },
+        "review": {
+          "verdict": "pass",
+          "kind": "combined_bound_review",
+          "objections": []
+        },
+        "updated_at": "2026-09-14T23:35:29.363773+00:00"
+      },
+      "founder.proposal": {
+        "document": "founder",
+        "title": "The assistance we propose",
+        "status": "complete",
+        "input_hash": "3a3b28b0631e97d75d72c0dbc78e7fbb20e08f58961857faa77e4c68f42ee657",
+        "review_hash": "82d8a218d2e73d122baec29ddfa7b2fc0049ef7b6075fe334cca1ef8b8fd741d",
+        "dependency": "readiness.action_a",
+        "content": {
+          "proposed_work": "We propose a contribution reconciliation and customer analysis for your Direct Investing service. We request your accounting/service-cost records, specifically entity chart and service/fee-sharing agreements, redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements, supplier invoices, direct service/support cost records, and staff-time allocations. The concrete deliverable is a source-linked contribution profit table and a source-linked cohort rate table. This supports the commercial decision to investigate loss-making services, choose pricing or delivery-cost work, and select the next activation or retention investigation before an expansion recommendation. We request redacted account-event and customer/cohort exports for Direct Investing, including stable customer keys, event types, timestamps, plan details, and completion/cancellation status, along with registration dates, eligibility flags, and data cutoffs for the latest six completed months.",
+          "invitation": "Are you available to discuss the scope of these record requests?",
+          "fact_ids": [
+            "S1",
+            "S5",
+            "S4"
+          ]
+        },
+        "review": {
+          "verdict": "pass",
+          "kind": "combined_bound_review",
+          "objections": []
+        },
+        "updated_at": "2026-09-14T23:35:29.363775+00:00"
+      },
+      "diligence.request_a": {
+        "document": "diligence",
+        "title": "First diligence request",
+        "status": "complete",
+        "input_hash": "3a3b28b0631e97d75d72c0dbc78e7fbb20e08f58961857faa77e4c68f42ee657",
+        "review_hash": "82d8a218d2e73d122baec29ddfa7b2fc0049ef7b6075fe334cca1ef8b8fd741d",
+        "dependency": null,
+        "content": {
+          "question": "What income does the investment entity retain from Direct Investing, and does it cover attributable variable service costs?",
+          "analysis_plan": {
+            "question": "What income does the investment entity retain from Direct Investing, and does it cover attributable variable service costs?",
+            "left": {
+              "name": "Recognized service revenue after partner charges, if applicable",
+              "dimension": "money",
+              "unit": "reconciled reporting currency",
+              "record_needed": "Entity chart and service/fee-sharing agreements; redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements. Include entity, plan, account key, month, currency, refunds and taxes. Reconcile recognition and gross/net presentation; identify any partner charges already deducted and normalize them exactly once. Exclude customer principal, assets and pass-through taxes from revenue.",
+              "role": "recognized_revenue",
+              "entity": "Investment target, legal identity and contracting entities to confirm",
+              "service": "Direct Investing",
+              "population": "Eligible service accounts, separated by plan and operating month",
+              "window": "Latest six completed months",
+              "time_basis": "flow",
+              "exposure": "Complete operating month",
+              "revenue_treatment": "net",
+              "deducted_costs": [
+                "partner_charge"
+              ]
+            },
+            "operation": "subtract",
+            "right": {
+              "name": "Attributable variable service costs excluding partner charges already deducted",
+              "dimension": "money",
+              "unit": "reconciled reporting currency",
+              "record_needed": "Supplier invoices, direct service/support cost records and staff-time allocations for the same entity, plans, accounts and months. Include currency, expense category, allocation basis and one-off versus ongoing service cost. Exclude fixed corporate overhead and partner charges already deducted from the reconciled revenue input. Request missing records; do not estimate them from public tariffs.",
+              "role": "variable_service_cost",
+              "entity": "Investment target, legal identity and contracting entities to confirm",
+              "service": "Direct Investing",
+              "population": "Eligible service accounts, separated by plan and operating month",
+              "window": "Latest six completed months",
+              "time_basis": "flow",
+              "exposure": "Complete operating month",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "population_basis": "Eligible service accounts, separated by plan and operating month",
+            "kind": "measurement",
+            "purpose": "contribution",
+            "expected_output": "contribution_profit",
+            "population_relation": "same_population",
+            "partner_charge_treatment": "already_deducted_from_revenue",
+            "fee_yield_basis": null,
+            "missing_inputs": "request_records_and_defer_decision",
+            "inference_limit": "descriptive_only_no_causal_claim"
+          },
+          "fact_ids": [
+            "S4",
+            "S1"
+          ],
+          "records_to_request": "Entity chart and service/fee-sharing agreements; redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements. Include entity, plan, account key, month, currency, refunds and taxes. Reconcile recognition and gross/net presentation; identify any partner charges already deducted and normalize them exactly once. Exclude customer principal, assets and pass-through taxes from revenue.; Supplier invoices, direct service/support cost records and staff-time allocations for the same entity, plans, accounts and months. Include currency, expense category, allocation basis and one-off versus ongoing service cost. Exclude fixed corporate overhead and partner charges already deducted from the reconciled revenue input. Request missing records; do not estimate them from public tariffs.",
+          "decision": "Decision unresolved until the requested records and definitions are checked. Use reconciled contribution to investigate loss-making services and choose pricing or delivery-cost work before an expansion recommendation. Observed losses alone do not establish future viability."
+        },
+        "review": {
+          "verdict": "pass",
+          "kind": "combined_bound_review",
+          "objections": []
+        },
+        "updated_at": "2026-09-14T23:35:29.363777+00:00"
+      },
+      "diligence.request_b": {
+        "document": "diligence",
+        "title": "Second diligence request",
+        "status": "complete",
+        "input_hash": "3a3b28b0631e97d75d72c0dbc78e7fbb20e08f58961857faa77e4c68f42ee657",
+        "review_hash": "82d8a218d2e73d122baec29ddfa7b2fc0049ef7b6075fe334cca1ef8b8fd741d",
+        "dependency": null,
+        "content": {
+          "question": "What proportion of eligible new Direct Investing customers record completed order within the requested observation window?",
+          "analysis_plan": {
+            "question": "What proportion of eligible new Direct Investing customers record completed order within the requested observation window?",
+            "left": {
+              "name": "Customers completing the specified activation event",
+              "dimension": "count",
+              "unit": "unique customers",
+              "record_needed": "Redacted account-event export with stable customer key, event type, event timestamp, plan and completion/cancellation status. Count each eligible customer once if completed order occurs after registration within follow-up. Link to the eligible cohort file; missing event coverage is unresolved, not a negative outcome.",
+              "role": "count",
+              "entity": "Investment target, legal identity and service operator to confirm",
+              "service": "Direct Investing",
+              "population": "Same eligible customer cohort, grouped by entry month and service plan",
+              "window": "Latest six completed months",
+              "time_basis": "observation_window",
+              "exposure": "First ninety days after cohort entry; exclude immature accounts",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "operation": "divide",
+            "right": {
+              "name": "Eligible newly registered customers with complete follow-up",
+              "dimension": "count",
+              "unit": "unique customers",
+              "record_needed": "Redacted customer/cohort export with stable customer key, registration/enrollment/first-event date, plan, eligibility flags and data cutoff. Cohort entry is registration; document eligibility exclusions before counting. Use the same cohort and customer keys as the event export; retain only fully observed customers.",
+              "role": "count",
+              "entity": "Investment target, legal identity and service operator to confirm",
+              "service": "Direct Investing",
+              "population": "Same eligible customer cohort, grouped by entry month and service plan",
+              "window": "Latest six completed months",
+              "time_basis": "observation_window",
+              "exposure": "First ninety days after cohort entry; exclude immature accounts",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "population_basis": "Same eligible customer cohort, grouped by entry month and service plan",
+            "kind": "measurement",
+            "purpose": "cohort_rate",
+            "expected_output": "cohort_rate",
+            "population_relation": "numerator_subset_of_denominator",
+            "partner_charge_treatment": "not_applicable",
+            "fee_yield_basis": null,
+            "missing_inputs": "request_records_and_defer_decision",
+            "inference_limit": "descriptive_only_no_causal_claim"
+          },
+          "fact_ids": [
+            "S5",
+            "S1"
+          ],
+          "records_to_request": "Redacted account-event export with stable customer key, event type, event timestamp, plan and completion/cancellation status. Count each eligible customer once if completed order occurs after registration within follow-up. Link to the eligible cohort file; missing event coverage is unresolved, not a negative outcome.; Redacted customer/cohort export with stable customer key, registration/enrollment/first-event date, plan, eligibility flags and data cutoff. Cohort entry is registration; document eligibility exclusions before counting. Use the same cohort and customer keys as the event export; retain only fully observed customers.",
+          "decision": "Decision unresolved until the requested records and definitions are checked. Use measured customer participation to select the next activation or retention investigation; set an experiment threshold from an observed baseline."
+        },
+        "review": {
+          "verdict": "pass",
+          "kind": "combined_bound_review",
+          "objections": []
+        },
+        "updated_at": "2026-09-14T23:35:29.363779+00:00"
+      },
+      "readiness.action_a": {
+        "document": "readiness",
+        "title": "First readiness action",
+        "status": "complete",
+        "input_hash": "3a3b28b0631e97d75d72c0dbc78e7fbb20e08f58961857faa77e4c68f42ee657",
+        "review_hash": "82d8a218d2e73d122baec29ddfa7b2fc0049ef7b6075fe334cca1ef8b8fd741d",
+        "dependency": "diligence.request_a",
+        "content": {
+          "analysis_plan": {
+            "question": "What income does the investment entity retain from Direct Investing, and does it cover attributable variable service costs?",
+            "left": {
+              "name": "Recognized service revenue after partner charges, if applicable",
+              "dimension": "money",
+              "unit": "reconciled reporting currency",
+              "record_needed": "Entity chart and service/fee-sharing agreements; redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements. Include entity, plan, account key, month, currency, refunds and taxes. Reconcile recognition and gross/net presentation; identify any partner charges already deducted and normalize them exactly once. Exclude customer principal, assets and pass-through taxes from revenue.",
+              "role": "recognized_revenue",
+              "entity": "Investment target, legal identity and contracting entities to confirm",
+              "service": "Direct Investing",
+              "population": "Eligible service accounts, separated by plan and operating month",
+              "window": "Latest six completed months",
+              "time_basis": "flow",
+              "exposure": "Complete operating month",
+              "revenue_treatment": "net",
+              "deducted_costs": [
+                "partner_charge"
+              ]
+            },
+            "operation": "subtract",
+            "right": {
+              "name": "Attributable variable service costs excluding partner charges already deducted",
+              "dimension": "money",
+              "unit": "reconciled reporting currency",
+              "record_needed": "Supplier invoices, direct service/support cost records and staff-time allocations for the same entity, plans, accounts and months. Include currency, expense category, allocation basis and one-off versus ongoing service cost. Exclude fixed corporate overhead and partner charges already deducted from the reconciled revenue input. Request missing records; do not estimate them from public tariffs.",
+              "role": "variable_service_cost",
+              "entity": "Investment target, legal identity and contracting entities to confirm",
+              "service": "Direct Investing",
+              "population": "Eligible service accounts, separated by plan and operating month",
+              "window": "Latest six completed months",
+              "time_basis": "flow",
+              "exposure": "Complete operating month",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "population_basis": "Eligible service accounts, separated by plan and operating month",
+            "kind": "measurement",
+            "purpose": "contribution",
+            "expected_output": "contribution_profit",
+            "population_relation": "same_population",
+            "partner_charge_treatment": "already_deducted_from_revenue",
+            "fee_yield_basis": null,
+            "missing_inputs": "request_records_and_defer_decision",
+            "inference_limit": "descriptive_only_no_causal_claim"
+          },
+          "fact_ids": [
+            "S4",
+            "S1"
+          ],
+          "required_input": "Entity chart and service/fee-sharing agreements; redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements. Include entity, plan, account key, month, currency, refunds and taxes. Reconcile recognition and gross/net presentation; identify any partner charges already deducted and normalize them exactly once. Exclude customer principal, assets and pass-through taxes from revenue.; Supplier invoices, direct service/support cost records and staff-time allocations for the same entity, plans, accounts and months. Include currency, expense category, allocation basis and one-off versus ongoing service cost. Exclude fixed corporate overhead and partner charges already deducted from the reconciled revenue input. Request missing records; do not estimate them from public tariffs.",
+          "action": "Recognized service revenue after partner charges, if applicable (reconciled reporting currency) \u2212 Attributable variable service costs excluding partner charges already deducted (reconciled reporting currency). Scope: Investment target, legal identity and contracting entities to confirm; Direct Investing; Eligible service accounts, separated by plan and operating month. Align records to Latest six completed months; exposure: Complete operating month. Check definitions and reconcile inputs before calculating; leave missing inputs and zero denominators unresolved.",
+          "output": "A source-linked contribution profit table (reconciled reporting currency) with input reconciliation, definitions and unresolved differences.",
+          "decision": "Decision unresolved until the requested records and definitions are checked. Use reconciled contribution to investigate loss-making services and choose pricing or delivery-cost work before an expansion recommendation. Observed losses alone do not establish future viability."
+        },
+        "review": {
+          "verdict": "pass",
+          "kind": "combined_bound_review",
+          "objections": []
+        },
+        "updated_at": "2026-09-14T23:35:29.363780+00:00"
+      },
+      "readiness.action_b": {
+        "document": "readiness",
+        "title": "Second readiness action",
+        "status": "complete",
+        "input_hash": "3a3b28b0631e97d75d72c0dbc78e7fbb20e08f58961857faa77e4c68f42ee657",
+        "review_hash": "82d8a218d2e73d122baec29ddfa7b2fc0049ef7b6075fe334cca1ef8b8fd741d",
+        "dependency": "diligence.request_b",
+        "content": {
+          "analysis_plan": {
+            "question": "What proportion of eligible new Direct Investing customers record completed order within the requested observation window?",
+            "left": {
+              "name": "Customers completing the specified activation event",
+              "dimension": "count",
+              "unit": "unique customers",
+              "record_needed": "Redacted account-event export with stable customer key, event type, event timestamp, plan and completion/cancellation status. Count each eligible customer once if completed order occurs after registration within follow-up. Link to the eligible cohort file; missing event coverage is unresolved, not a negative outcome.",
+              "role": "count",
+              "entity": "Investment target, legal identity and service operator to confirm",
+              "service": "Direct Investing",
+              "population": "Same eligible customer cohort, grouped by entry month and service plan",
+              "window": "Latest six completed months",
+              "time_basis": "observation_window",
+              "exposure": "First ninety days after cohort entry; exclude immature accounts",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "operation": "divide",
+            "right": {
+              "name": "Eligible newly registered customers with complete follow-up",
+              "dimension": "count",
+              "unit": "unique customers",
+              "record_needed": "Redacted customer/cohort export with stable customer key, registration/enrollment/first-event date, plan, eligibility flags and data cutoff. Cohort entry is registration; document eligibility exclusions before counting. Use the same cohort and customer keys as the event export; retain only fully observed customers.",
+              "role": "count",
+              "entity": "Investment target, legal identity and service operator to confirm",
+              "service": "Direct Investing",
+              "population": "Same eligible customer cohort, grouped by entry month and service plan",
+              "window": "Latest six completed months",
+              "time_basis": "observation_window",
+              "exposure": "First ninety days after cohort entry; exclude immature accounts",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "population_basis": "Same eligible customer cohort, grouped by entry month and service plan",
+            "kind": "measurement",
+            "purpose": "cohort_rate",
+            "expected_output": "cohort_rate",
+            "population_relation": "numerator_subset_of_denominator",
+            "partner_charge_treatment": "not_applicable",
+            "fee_yield_basis": null,
+            "missing_inputs": "request_records_and_defer_decision",
+            "inference_limit": "descriptive_only_no_causal_claim"
+          },
+          "fact_ids": [
+            "S5",
+            "S1"
+          ],
+          "required_input": "Redacted account-event export with stable customer key, event type, event timestamp, plan and completion/cancellation status. Count each eligible customer once if completed order occurs after registration within follow-up. Link to the eligible cohort file; missing event coverage is unresolved, not a negative outcome.; Redacted customer/cohort export with stable customer key, registration/enrollment/first-event date, plan, eligibility flags and data cutoff. Cohort entry is registration; document eligibility exclusions before counting. Use the same cohort and customer keys as the event export; retain only fully observed customers.",
+          "action": "Customers completing the specified activation event (unique customers) \u00f7 Eligible newly registered customers with complete follow-up (unique customers). Scope: Investment target, legal identity and service operator to confirm; Direct Investing; Same eligible customer cohort, grouped by entry month and service plan. Align records to Latest six completed months; exposure: First ninety days after cohort entry; exclude immature accounts. Check definitions and reconcile inputs before calculating; leave missing inputs and zero denominators unresolved.",
+          "output": "A source-linked cohort rate table (fraction) with input reconciliation, definitions and unresolved differences.",
+          "decision": "Decision unresolved until the requested records and definitions are checked. Use measured customer participation to select the next activation or retention investigation; set an experiment threshold from an observed baseline."
+        },
+        "review": {
+          "verdict": "pass",
+          "kind": "combined_bound_review",
+          "objections": []
+        },
+        "updated_at": "2026-09-14T23:35:29.363782+00:00"
+      }
+    },
+    "attempts": [
+      {
+        "task": "shared_analysis",
+        "attempt": 0,
+        "at": "2026-09-14T23:34:31.294874+00:00",
+        "implementation_hash": "264e6c8905fd553924d26f84c32d9794772f7e89d8acf5805cd852c26c7b337f",
+        "answer": {
+          "economics_test": {
+            "service": "Direct Investing",
+            "fact_ids": [
+              "S4"
+            ]
+          },
+          "customer_test": {
+            "service": "Direct Investing",
+            "fact_ids": [
+              "S5"
+            ],
+            "method": "activation",
+            "event": "completed order"
+          },
+          "business": {
+            "fact_ids": [
+              "S1",
+              "S5"
+            ]
+          },
+          "economics": {
+            "fact_ids": [
+              "S4"
+            ]
+          },
+          "risk": {
+            "focus": "delivery_costs",
+            "fact_ids": [
+              "S4",
+              "S5"
+            ]
+          }
+        },
+        "elapsed_seconds": 19.577,
+        "invoked": true,
+        "model": "qwen3.5:9b",
+        "routing": {
+          "task": "shared_analysis",
+          "profile": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1200,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "continuation_transport": null,
+          "context_tokens": 8192,
+          "temperature": 0,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 0,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 19.57,
+          "queue_seconds": 0.02,
+          "prompt_tokens": 4781,
+          "generated_tokens": 155,
+          "done_reason": "stop"
+        },
+        "raw_response": "{\n  \"economics_test\": {\n    \"service\": \"Direct Investing\",\n    \"fact_ids\": [\"S4\"]\n  },\n  \"customer_test\": {\n    \"service\": \"Direct Investing\",\n    \"fact_ids\": [\"S5\"],\n    \"event\": \"completed order\",\n    \"method\": \"activation\"\n  },\n  \"business\": {\n    \"fact_ids\": [\"S1\", \"S5\"]\n  },\n  \"economics\": {\n    \"fact_ids\": [\"S4\"]\n  },\n  \"risk\": {\n    \"focus\": \"delivery_costs\",\n    \"fact_ids\": [\"S4\", \"S5\"]\n  }\n}"
+      },
+      {
+        "task": "shared_founder",
+        "attempt": 0,
+        "at": "2026-09-14T23:34:50.957174+00:00",
+        "implementation_hash": "264e6c8905fd553924d26f84c32d9794772f7e89d8acf5805cd852c26c7b337f",
+        "answer": {
+          "opening": {
+            "fact_ids": [
+              "S1"
+            ]
+          },
+          "offer": {
+            "text": "We propose a contribution reconciliation and customer analysis for your Direct Investing service. We request your accounting/service-cost records, specifically entity chart and service/fee-sharing agreements, redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements, supplier invoices, direct service/support cost records, and staff-time allocations. The concrete deliverable is a source-linked contribution profit table and a source-linked cohort rate table. This supports the commercial decision to investigate loss-making services, choose pricing or delivery-cost work, and select the next activation or retention investigation before an expansion recommendation.",
+            "fact_ids": [
+              "S1",
+              "S5"
+            ]
+          },
+          "customer_records": "We request redacted account-event and customer/cohort exports for Direct Investing, including stable customer keys, event types, timestamps, plan details, and completion/cancellation status, along with registration dates, eligibility flags, and data cutoffs for the latest six completed months.",
+          "invitation": "Are you available to discuss the scope of these record requests?"
+        },
+        "elapsed_seconds": 20.729,
+        "invoked": true,
+        "model": "qwen3.5:9b",
+        "routing": {
+          "task": "shared_founder",
+          "profile": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 650,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "continuation_transport": null,
+          "context_tokens": 8192,
+          "temperature": 0,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 0,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 20.73,
+          "queue_seconds": 0.01,
+          "prompt_tokens": 3080,
+          "generated_tokens": 264,
+          "done_reason": "stop"
+        },
+        "raw_response": "{\n  \"opening\": {\n    \"fact_ids\": [\n      \"S1\"\n    ]\n  },\n  \"offer\": {\n    \"text\": \"We propose a contribution reconciliation and customer analysis for your Direct Investing service. We request your accounting/service-cost records, specifically entity chart and service/fee-sharing agreements, redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements, supplier invoices, direct service/support cost records, and staff-time allocations. The concrete deliverable is a source-linked contribution profit table and a source-linked cohort rate table. This supports the commercial decision to investigate loss-making services, choose pricing or delivery-cost work, and select the next activation or retention investigation before an expansion recommendation.\",\n    \"fact_ids\": [\n      \"S1\",\n      \"S5\"\n    ]\n  },\n  \"customer_records\": \"We request redacted account-event and customer/cohort exports for Direct Investing, including stable customer keys, event types, timestamps, plan details, and completion/cancellation status, along with registration dates, eligibility flags, and data cutoffs for the latest six completed months.\",\n  \"invitation\": \"Invite a conversation with one question: Are you available to discuss the scope of these record requests?\"\n}"
+      },
+      {
+        "task": "shared_review",
+        "attempt": 0,
+        "at": "2026-09-14T23:35:11.768619+00:00",
+        "implementation_hash": "264e6c8905fd553924d26f84c32d9794772f7e89d8acf5805cd852c26c7b337f",
+        "answer": {
+          "verdict": "pass",
+          "issues": []
+        },
+        "elapsed_seconds": 17.565,
+        "invoked": true,
+        "model": "qwen3.5:9b",
+        "routing": {
+          "task": "shared_review",
+          "profile": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 900,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "continuation_transport": null,
+          "context_tokens": 8192,
+          "temperature": 0,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 0,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 17.56,
+          "queue_seconds": 0.01,
+          "prompt_tokens": 6514,
+          "generated_tokens": 10,
+          "done_reason": "stop"
+        },
+        "raw_response": "{\"verdict\":\"pass\",\"issues\":[]}"
+      }
+    ],
+    "status": "complete",
+    "started_at": "2026-09-14T23:34:31.273628+00:00",
+    "generation_config": {
+      "mode": "shared_analysis_v1",
+      "model": "qwen3.5:9b",
+      "thinking": false,
+      "review_model": "qwen3.5:9b",
+      "analysis_contract": "contribution_and_initial_activation_v1",
+      "analysis_reasoning_budget": 0,
+      "default_review_reasoning_budget": 0,
+      "continuation_protocol": "qwen35_raw_v1",
+      "review_thinking": null,
+      "contract": "6f0fe39d83c2c7dcc6b466306d508517fb39e812bdd62ff5a93a9f9a378fd058"
+    },
+    "shared_input_hash": "3a3b28b0631e97d75d72c0dbc78e7fbb20e08f58961857faa77e4c68f42ee657",
+    "shared": {
+      "analysis": {
+        "economics_test": {
+          "service": "Direct Investing",
+          "fact_ids": [
+            "S4"
+          ]
+        },
+        "customer_test": {
+          "service": "Direct Investing",
+          "fact_ids": [
+            "S5"
+          ],
+          "method": "activation",
+          "event": "completed order"
+        },
+        "business": {
+          "fact_ids": [
+            "S1",
+            "S5"
+          ]
+        },
+        "economics": {
+          "fact_ids": [
+            "S4"
+          ]
+        },
+        "risk": {
+          "focus": "delivery_costs",
+          "fact_ids": [
+            "S4",
+            "S5"
+          ]
+        }
+      },
+      "founder": {
+        "opening": {
+          "fact_ids": [
+            "S1"
+          ]
+        },
+        "offer": {
+          "text": "We propose a contribution reconciliation and customer analysis for your Direct Investing service. We request your accounting/service-cost records, specifically entity chart and service/fee-sharing agreements, redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements, supplier invoices, direct service/support cost records, and staff-time allocations. The concrete deliverable is a source-linked contribution profit table and a source-linked cohort rate table. This supports the commercial decision to investigate loss-making services, choose pricing or delivery-cost work, and select the next activation or retention investigation before an expansion recommendation.",
+          "fact_ids": [
+            "S1",
+            "S5"
+          ]
+        },
+        "customer_records": "We request redacted account-event and customer/cohort exports for Direct Investing, including stable customer keys, event types, timestamps, plan details, and completion/cancellation status, along with registration dates, eligibility flags, and data cutoffs for the latest six completed months.",
+        "invitation": "Are you available to discuss the scope of these record requests?"
+      },
+      "review": {
+        "verdict": "pass",
+        "kind": "combined_bound_review",
+        "objections": []
+      }
+    },
+    "documents": {
+      "research": {
+        "title": "Research memo",
+        "status": "complete"
+      },
+      "founder": {
+        "title": "Founder proposal",
+        "status": "complete"
+      },
+      "diligence": {
+        "title": "Diligence request",
+        "status": "complete"
+      },
+      "readiness": {
+        "title": "Investment-readiness plan",
+        "status": "complete"
+      }
+    },
+    "updated_at": "2026-09-14T23:35:29.376166+00:00",
+    "agenda": {
+      "status": "complete",
+      "questions": [
+        {
+          "dimension": "unit_economics",
+          "question": "What income does the investment entity retain from Direct Investing, and does it cover attributable variable service costs?",
+          "fact_ids": [
+            "S4",
+            "S1"
+          ]
+        },
+        {
+          "dimension": "customer_demand",
+          "question": "What proportion of eligible new Direct Investing customers record completed order within the requested observation window?",
+          "fact_ids": [
+            "S5",
+            "S1"
+          ]
+        }
+      ]
+    },
+    "last_run_budget": {
+      "max_seconds": 120.0,
+      "max_calls": 6,
+      "max_requests": 10,
+      "calls": 3,
+      "requests": 3,
+      "elapsed_seconds": 60.637
+    }
+  },
+  "metrics": {
+    "completed_sections": 9,
+    "model_calls": 3,
+    "correction_attempts": 0
+  },
+  "before_snapshot_sha256": "c3ea286ceeffae2c9bcd70cba8eda0c2e43fb0525a04f9de018a53b1623067fa",
+  "prior_pack_preserved_in_history": true
+}

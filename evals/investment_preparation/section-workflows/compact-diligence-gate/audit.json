@@ -1,0 +1,64 @@
+{
+  "case_id": "paasa_reference_test",
+  "report_sha256": "de307e4cd7594bd6ab44389a090e3ce3d21e3d10530e9f91dcc814f818d33d1d",
+  "reviewer": "Coding-session independent content inspection, not a model self-review or external practitioner audit",
+  "result": "failed",
+  "accepted_plans": 0,
+  "expected_plans": 2,
+  "runtime_context": {
+    "active_company_jobs_before_run": 0,
+    "active_search_jobs_before_run": 0,
+    "loaded_models_before_run": [],
+    "preloaded": false
+  },
+  "findings": [
+    {
+      "plan": 0,
+      "severity": "blocking",
+      "field": "measurement",
+      "finding": "Gross revenue is declared with variable_service_cost already deducted. Partner charges are declared already deducted but omitted from deducted_costs. The canonical validator rejects the original unmodified plan."
+    },
+    {
+      "plan": 0,
+      "severity": "blocking",
+      "field": "measurement.purpose",
+      "finding": "The selected contribution_margin purpose is paired with revenue minus cost. That calculates an amount, not a margin; the valid ratio would require contribution profit and recognized revenue. No observed values are available."
+    },
+    {
+      "plan": 0,
+      "severity": "blocking",
+      "field": "scope.entity",
+      "finding": "Paasa IFSC Private Limited is selected without confirming the investment entity or the advisory service relationship. Sources name multiple entities and leave investment identity unresolved."
+    },
+    {
+      "plan": 0,
+      "severity": "blocking",
+      "field": "record_needed",
+      "finding": "A billing ledger does not alone establish recognized revenue, partner pass-throughs and retained revenue. Per-trade brokerage/API logs omit the broader managed-advisory and support cost allocation needed for the proposed contribution question."
+    },
+    {
+      "plan": 1,
+      "severity": "blocking",
+      "field": "measurement",
+      "finding": "A cohort_rate uses compare instead of divide; successful transfers are denominated in transactions while eligible accounts are denominated in customers. The count inputs incorrectly use flow and point_stock rather than compatible observation windows."
+    },
+    {
+      "plan": 1,
+      "severity": "blocking",
+      "field": "question",
+      "finding": "Transfer execution does not establish resolution of customer-reported remittance friction. The proposed records do not measure the claimed problem-resolution outcome, nor link unique eligible customers to matching event windows."
+    },
+    {
+      "plan": 1,
+      "severity": "blocking",
+      "field": "scope",
+      "finding": "Paasa, Inc. is selected without confirming the investment entity. A rolling new-customer quarter with a generic equal-exposure label does not define mature cohort eligibility or customer-relative follow-up."
+    }
+  ],
+  "limits": [
+    "One known company with curated source paraphrases; no automatic collection or complete workflow tested.",
+    "No independent practitioner audit, production profile selection or cross-company acceptance.",
+    "Failure of this tested local fast profile does not prove all models or profiles incapable."
+  ],
+  "next_action": "Do not integrate the proposed faster workflow or launch automatic retries. A materially different inference approach requires a bounded capability evaluation and any necessary access/cost/privacy authorization."
+}

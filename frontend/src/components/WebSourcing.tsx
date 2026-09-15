@@ -26,7 +26,7 @@ export default function WebSourcing({ initialThesis = "", initialGeography = "",
           </button>
         </div>
       </div>
-      <p className="mt-3 text-xs text-slate-500">Search public company sources and directories. Results include supporting evidence and gaps to investigate.</p>
+      <p className="mt-3 text-xs text-slate-500">AI searches public sources and assesses the results. Preparation starts automatically for the first company found.</p>
       {error && <p role="alert" className="mt-3 text-sm text-rose-700">{error}</p>}
     </form>
   </section>;

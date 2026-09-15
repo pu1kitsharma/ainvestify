@@ -1,0 +1,59 @@
+{
+  "captured_at": "2026-09-15T05:13:52.589829+00:00",
+  "result": "NOT MVP-ready; reliable fresh generation remains unfixed",
+  "new_inference_during_checkpoint": 0,
+  "active_jobs": [],
+  "counts": {
+    "sourced_leads": 1,
+    "company_profiles": 1,
+    "operating_workspaces": 1,
+    "web_sourcing_runs": 3,
+    "deals": 0
+  },
+  "workspace_id": "workspace_d96892c5c206",
+  "revision": 42,
+  "automation": {
+    "id": "automation_26b2f9c3cfc1",
+    "status": "failed",
+    "phase": "Generation needs attention",
+    "model": "qwen3.5:9b",
+    "worker_id": "a8640c513e184d87be138353ccc5b1a9",
+    "started_at": "2026-09-15T05:01:13.916608+00:00",
+    "completed_at": "2026-09-15T05:02:15.120338+00:00",
+    "error": "{\"business\": [\"text: Put source references in fact_ids, not in the prose or a record request.\"], \"economics\": [\"revenue_mechanism: Explain payer, service and charging basis without numerical rates or thresholds. The exact published figures remain in the code-attached source passages.\", \"revenue_mechanism: Remove all numerical rates and price amounts. Explain fee types, payer and charging basis in words; exact rates remain in the source record.\"]}"
+  },
+  "pack_status": "partial",
+  "published_sections": 0,
+  "latest_budget": {
+    "max_seconds": 120.0,
+    "max_calls": 6,
+    "max_requests": 6,
+    "calls": 2,
+    "requests": 2,
+    "elapsed_seconds": 61.186
+  },
+  "live_v10_complete_packs_demonstrated": 0,
+  "actual_calls_across_six_jobs": 16,
+  "tests": {
+    "focused_backend": "258 passed, 16 warnings in 3.35s",
+    "frontend_build": "passed",
+    "frontend_lint": "passed",
+    "full_repository_suite": "not run",
+    "browser": "earlier isolated journey passed; not rerun for final v10 changes; no successful live v10 pack demonstrated"
+  },
+  "services": {
+    "api_pid": 22472,
+    "vite_pid": 48210,
+    "ollama_pid": 28520
+  },
+  "git_base": {
+    "branch": "master",
+    "commit": "f9d861b",
+    "remote": "git@github.com:pu1kitsharma/ainvestify.git",
+    "ahead_behind_after_fetch": [
+      0,
+      0
+    ]
+  },
+  "reset_backup": "runtime_backups/2026-09-15-ai-reset/company-workspace.sqlite3 (local only; excluded from Git)"
+}

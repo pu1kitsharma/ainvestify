@@ -228,8 +228,9 @@ def test_background_ai_job_persists_progress_result_and_tenant_scope(tmp_path, m
     original = app.dependency_overrides.copy()
     app.dependency_overrides[deps.get_store] = database
     app.dependency_overrides[deps.get_tenant_id] = lambda: 'one'
-    monkeypatch.setattr(routes, 'LocalModel', DraftModel)
-    monkeypatch.setattr('agents.operating_research.research_company', lambda store, lead, model, **kwargs: lead)
+    from tests.test_authored_preparation import Model
+    monkeypatch.setattr(routes, 'LocalModel', Model)
+    monkeypatch.setattr('agents.analyst_pack.collect_preparation_evidence', lambda store, lead, **kwargs: lead)
     try:
         client = TestClient(app)
         response = client.post(f'/api/operations/leads/{lead.id}/prepare-jobs')
@@ -237,7 +238,8 @@ def test_background_ai_job_persists_progress_result_and_tenant_scope(tmp_path, m
         assert response.json()['automation']['status'] == 'queued'
         workspace = client.get('/api/operations/workspaces').json()[0]
         assert workspace['automation']['status'] == 'completed'
-        assert len(workspace['drafts']) == 4
+        assert len(workspace['analyst_pack']['sections']) == 9
+        assert workspace['drafts'] == []
         assert workspace['automation']['completed_at']
         assert not workspace['capabilities']['external_sending']
         assert routes.MODEL_JOB_SLOT.acquire(blocking=False)
@@ -265,8 +267,8 @@ def test_background_ai_failure_and_restart_are_visible_and_retryable(tmp_path, m
     original = app.dependency_overrides.copy()
     app.dependency_overrides[deps.get_store] = database
     app.dependency_overrides[deps.get_tenant_id] = lambda: 'one'
-    monkeypatch.setattr(routes, 'prepare_operating_drafts', fail)
-    monkeypatch.setattr('agents.operating_research.research_company', lambda store, lead, model, **kwargs: lead)
+    monkeypatch.setattr('agents.analyst_pack.prepare_analyst_pack', fail)
+    monkeypatch.setattr('agents.analyst_pack.collect_preparation_evidence', lambda store, lead, **kwargs: lead)
     try:
         client = TestClient(app)
         assert client.post(f'/api/operations/leads/{lead.id}/prepare-jobs').status_code == 202

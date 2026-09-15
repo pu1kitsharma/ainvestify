@@ -1,0 +1,921 @@
+{
+  "case_id": "paasa_reference_test",
+  "input_hash": "bcd68f0b2e796336c56f3dd80bed5af2ad8b30783420503180a97336f7ec563b",
+  "model": "qwen3.5:9b",
+  "settings": {
+    "profile": "section_router",
+    "review_model": "qwen3.5:9b",
+    "review_thinking": false,
+    "reasoning_budget": 1024,
+    "thinking": false,
+    "tokens": 1800,
+    "context": 8192
+  },
+  "input_kind": "curated_source_checked_paraphrases",
+  "region": "India",
+  "sector": "consumer investing / financial technology",
+  "live_data_updated": false,
+  "limits": {
+    "max_corrections_per_stage": 1,
+    "max_calls": 24,
+    "max_seconds": 120
+  },
+  "reference_sha256": "c4bf1f31324154efdd712f4ea3dba067f4c9ca9c31cfaa51fc142bd97354c8da",
+  "pack": {
+    "version": 8,
+    "implementation_hash": "34dd94570503e35ded5aef77098a4f5cb91fca7be109e391a704769c901026c7",
+    "basis_hash": "b6ea20816dcc607f139257c13bd3f95bfd0a40340bd81d3990ecc835433f544c",
+    "company": "Paasa",
+    "record": {
+      "batches": {
+        "45e7ac46f308de0bb439dc889ca3ac359cb260f762a2313ec61f1a98f70361e3": {
+          "status": "complete",
+          "facts": [
+            {
+              "id": "fact_003c595b37e8",
+              "category": "offering",
+              "subject": "target",
+              "quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.",
+              "source_id": "reference_source_1",
+              "source_url": "https://www.ycombinator.com/companies/paasa",
+              "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+              "observed_at": null,
+              "origin": "source_checked_paraphrase",
+              "status": "source_reported",
+              "classification": "model_selected_not_independently_verified",
+              "source_passage_id": "P049cb3f05366eaee",
+              "source_span_start": 0,
+              "selected_quote": null,
+              "evidence_contract": "complete_source_context_v1"
+            },
+            {
+              "id": "fact_b8801a4fedef",
+              "category": "customers",
+              "subject": "target",
+              "quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.",
+              "source_id": "reference_source_1",
+              "source_url": "https://www.ycombinator.com/companies/paasa",
+              "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+              "observed_at": null,
+              "origin": "source_checked_paraphrase",
+              "status": "source_reported",
+              "classification": "model_selected_not_independently_verified",
+              "source_passage_id": "P049cb3f05366eaee",
+              "source_span_start": 0,
+              "selected_quote": null,
+              "evidence_contract": "complete_source_context_v1"
+            },
+            {
+              "id": "fact_4ec558c9fcc1",
+              "category": "pricing",
+              "subject": "target",
+              "quote": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade. The public schedule does not establish how much of a customer charge the investment target retains.",
+              "source_id": "reference_source_2",
+              "source_url": "https://paasa.com/pricing",
+              "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+              "observed_at": null,
+              "origin": "source_checked_paraphrase",
+              "status": "source_reported",
+              "classification": "model_selected_not_independently_verified",
+              "source_passage_id": "P5ec962538cd9bf7e",
+              "source_span_start": 0,
+              "selected_quote": null,
+              "evidence_contract": "complete_source_context_v1"
+            },
+            {
+              "id": "fact_514c11e88803",
+              "category": "pricing",
+              "subject": "target",
+              "quote": "The Apex plan adds managed advisory strategies and FEMA/tax support to Access. Its percentage charge is based on assets under management, stated annually and collected monthly. Brokerage fees apply separately. The page states that brokerage markups are not applied to Apex customers.",
+              "source_id": "reference_source_3",
+              "source_url": "https://paasa.com/pricing",
+              "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+              "observed_at": null,
+              "origin": "source_checked_paraphrase",
+              "status": "source_reported",
+              "classification": "model_selected_not_independently_verified",
+              "source_passage_id": "P34fe831d72c2e447",
+              "source_span_start": 0,
+              "selected_quote": null,
+              "evidence_contract": "complete_source_context_v1"
+            },
+            {
+              "id": "fact_9804e499b059",
+              "category": "offering",
+              "subject": "target",
+              "quote": "The Apex plan adds managed advisory strategies and FEMA/tax support to Access. Its percentage charge is based on assets under management, stated annually and collected monthly. Brokerage fees apply separately. The page states that brokerage markups are not applied to Apex customers.",
+              "source_id": "reference_source_3",
+              "source_url": "https://paasa.com/pricing",
+              "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+              "observed_at": null,
+              "origin": "source_checked_paraphrase",
+              "status": "source_reported",
+              "classification": "model_selected_not_independently_verified",
+              "source_passage_id": "P34fe831d72c2e447",
+              "source_span_start": 0,
+              "selected_quote": null,
+              "evidence_contract": "complete_source_context_v1"
+            },
+            {
+              "id": "fact_ec6bdd930a5d",
+              "category": "company_structure",
+              "subject": "partner",
+              "quote": "Paasa describes itself as a financial technology company rather than a bank or brokerage. It names licensed partners as the banking and brokerage service providers. The site names Arc Spire Advisory Private Limited as the advisory service provider operating under the Paasa brand and reports its SEBI registration; that registration has not been independently checked for this evaluation.",
+              "source_id": "reference_source_4",
+              "source_url": "https://paasa.com/",
+              "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+              "observed_at": null,
+              "origin": "source_checked_paraphrase",
+              "status": "source_reported",
+              "classification": "model_selected_not_independently_verified",
+              "source_passage_id": "P58053dfc09efb59a",
+              "source_span_start": 0,
+              "selected_quote": null,
+              "evidence_contract": "complete_source_context_v1"
+            }
+          ],
+          "rejected": []
+        },
+        "4de4805a18f1eaff5c598942d64591166c73839be9c95a1490ca8bdda1870a29": {
+          "status": "complete",
+          "facts": [
+            {
+              "id": "fact_8eb889c4e9a7",
+              "category": "company_structure",
+              "subject": "target",
+              "quote": "The site identifies Interactive Brokers as custodian and says customer cash and holdings are held in the customer's own name. It lists Paasa, Inc., Paasa IFSC Private Limited and Bruhm Labs Private Limited, but this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements.",
+              "source_id": "reference_source_5",
+              "source_url": "https://paasa.com/",
+              "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+              "observed_at": null,
+              "origin": "source_checked_paraphrase",
+              "status": "source_reported",
+              "classification": "model_selected_not_independently_verified",
+              "source_passage_id": "P5bea5dd58ad3cc66",
+              "source_span_start": 0,
+              "selected_quote": null,
+              "evidence_contract": "complete_source_context_v1"
+            }
+          ],
+          "rejected": []
+        }
+      },
+      "facts": [
+        {
+          "id": "fact_003c595b37e8",
+          "category": "offering",
+          "subject": "target",
+          "quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.",
+          "source_id": "reference_source_1",
+          "source_url": "https://www.ycombinator.com/companies/paasa",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "status": "source_reported",
+          "classification": "model_selected_not_independently_verified",
+          "source_passage_id": "P049cb3f05366eaee",
+          "source_span_start": 0,
+          "selected_quote": null,
+          "evidence_contract": "complete_source_context_v1"
+        },
+        {
+          "id": "fact_b8801a4fedef",
+          "category": "customers",
+          "subject": "target",
+          "quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.",
+          "source_id": "reference_source_1",
+          "source_url": "https://www.ycombinator.com/companies/paasa",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "status": "source_reported",
+          "classification": "model_selected_not_independently_verified",
+          "source_passage_id": "P049cb3f05366eaee",
+          "source_span_start": 0,
+          "selected_quote": null,
+          "evidence_contract": "complete_source_context_v1"
+        },
+        {
+          "id": "fact_4ec558c9fcc1",
+          "category": "pricing",
+          "subject": "target",
+          "quote": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade. The public schedule does not establish how much of a customer charge the investment target retains.",
+          "source_id": "reference_source_2",
+          "source_url": "https://paasa.com/pricing",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "status": "source_reported",
+          "classification": "model_selected_not_independently_verified",
+          "source_passage_id": "P5ec962538cd9bf7e",
+          "source_span_start": 0,
+          "selected_quote": null,
+          "evidence_contract": "complete_source_context_v1"
+        },
+        {
+          "id": "fact_514c11e88803",
+          "category": "pricing",
+          "subject": "target",
+          "quote": "The Apex plan adds managed advisory strategies and FEMA/tax support to Access. Its percentage charge is based on assets under management, stated annually and collected monthly. Brokerage fees apply separately. The page states that brokerage markups are not applied to Apex customers.",
+          "source_id": "reference_source_3",
+          "source_url": "https://paasa.com/pricing",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "status": "source_reported",
+          "classification": "model_selected_not_independently_verified",
+          "source_passage_id": "P34fe831d72c2e447",
+          "source_span_start": 0,
+          "selected_quote": null,
+          "evidence_contract": "complete_source_context_v1"
+        },
+        {
+          "id": "fact_9804e499b059",
+          "category": "offering",
+          "subject": "target",
+          "quote": "The Apex plan adds managed advisory strategies and FEMA/tax support to Access. Its percentage charge is based on assets under management, stated annually and collected monthly. Brokerage fees apply separately. The page states that brokerage markups are not applied to Apex customers.",
+          "source_id": "reference_source_3",
+          "source_url": "https://paasa.com/pricing",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "status": "source_reported",
+          "classification": "model_selected_not_independently_verified",
+          "source_passage_id": "P34fe831d72c2e447",
+          "source_span_start": 0,
+          "selected_quote": null,
+          "evidence_contract": "complete_source_context_v1"
+        },
+        {
+          "id": "fact_ec6bdd930a5d",
+          "category": "company_structure",
+          "subject": "partner",
+          "quote": "Paasa describes itself as a financial technology company rather than a bank or brokerage. It names licensed partners as the banking and brokerage service providers. The site names Arc Spire Advisory Private Limited as the advisory service provider operating under the Paasa brand and reports its SEBI registration; that registration has not been independently checked for this evaluation.",
+          "source_id": "reference_source_4",
+          "source_url": "https://paasa.com/",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "status": "source_reported",
+          "classification": "model_selected_not_independently_verified",
+          "source_passage_id": "P58053dfc09efb59a",
+          "source_span_start": 0,
+          "selected_quote": null,
+          "evidence_contract": "complete_source_context_v1"
+        },
+        {
+          "id": "fact_8eb889c4e9a7",
+          "category": "company_structure",
+          "subject": "target",
+          "quote": "The site identifies Interactive Brokers as custodian and says customer cash and holdings are held in the customer's own name. It lists Paasa, Inc., Paasa IFSC Private Limited and Bruhm Labs Private Limited, but this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements.",
+          "source_id": "reference_source_5",
+          "source_url": "https://paasa.com/",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "status": "source_reported",
+          "classification": "model_selected_not_independently_verified",
+          "source_passage_id": "P5bea5dd58ad3cc66",
+          "source_span_start": 0,
+          "selected_quote": null,
+          "evidence_contract": "complete_source_context_v1"
+        }
+      ],
+      "extraction": "complete_source_context_v1",
+      "passage_cache": {
+        "P049cb3f05366eaee": {
+          "contract": "bfcc95993a8a91c1a7d3cc51461a7e49328a46e64029954c0ae2527e8cc37541",
+          "facts": [
+            {
+              "id": "fact_003c595b37e8",
+              "category": "offering",
+              "subject": "target",
+              "quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.",
+              "source_id": "reference_source_1",
+              "source_url": "https://www.ycombinator.com/companies/paasa",
+              "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+              "observed_at": null,
+              "origin": "source_checked_paraphrase",
+              "status": "source_reported",
+              "classification": "model_selected_not_independently_verified",
+              "source_passage_id": "P049cb3f05366eaee",
+              "source_span_start": 0,
+              "selected_quote": null,
+              "evidence_contract": "complete_source_context_v1"
+            },
+            {
+              "id": "fact_b8801a4fedef",
+              "category": "customers",
+              "subject": "target",
+              "quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.",
+              "source_id": "reference_source_1",
+              "source_url": "https://www.ycombinator.com/companies/paasa",
+              "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+              "observed_at": null,
+              "origin": "source_checked_paraphrase",
+              "status": "source_reported",
+              "classification": "model_selected_not_independently_verified",
+              "source_passage_id": "P049cb3f05366eaee",
+              "source_span_start": 0,
+              "selected_quote": null,
+              "evidence_contract": "complete_source_context_v1"
+            }
+          ]
+        },
+        "P5ec962538cd9bf7e": {
+          "contract": "bfcc95993a8a91c1a7d3cc51461a7e49328a46e64029954c0ae2527e8cc37541",
+          "facts": [
+            {
+              "id": "fact_4ec558c9fcc1",
+              "category": "pricing",
+              "subject": "target",
+              "quote": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade. The public schedule does not establish how much of a customer charge the investment target retains.",
+              "source_id": "reference_source_2",
+              "source_url": "https://paasa.com/pricing",
+              "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+              "observed_at": null,
+              "origin": "source_checked_paraphrase",
+              "status": "source_reported",
+              "classification": "model_selected_not_independently_verified",
+              "source_passage_id": "P5ec962538cd9bf7e",
+              "source_span_start": 0,
+              "selected_quote": null,
+              "evidence_contract": "complete_source_context_v1"
+            }
+          ]
+        },
+        "P34fe831d72c2e447": {
+          "contract": "bfcc95993a8a91c1a7d3cc51461a7e49328a46e64029954c0ae2527e8cc37541",
+          "facts": [
+            {
+              "id": "fact_514c11e88803",
+              "category": "pricing",
+              "subject": "target",
+              "quote": "The Apex plan adds managed advisory strategies and FEMA/tax support to Access. Its percentage charge is based on assets under management, stated annually and collected monthly. Brokerage fees apply separately. The page states that brokerage markups are not applied to Apex customers.",
+              "source_id": "reference_source_3",
+              "source_url": "https://paasa.com/pricing",
+              "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+              "observed_at": null,
+              "origin": "source_checked_paraphrase",
+              "status": "source_reported",
+              "classification": "model_selected_not_independently_verified",
+              "source_passage_id": "P34fe831d72c2e447",
+              "source_span_start": 0,
+              "selected_quote": null,
+              "evidence_contract": "complete_source_context_v1"
+            },
+            {
+              "id": "fact_9804e499b059",
+              "category": "offering",
+              "subject": "target",
+              "quote": "The Apex plan adds managed advisory strategies and FEMA/tax support to Access. Its percentage charge is based on assets under management, stated annually and collected monthly. Brokerage fees apply separately. The page states that brokerage markups are not applied to Apex customers.",
+              "source_id": "reference_source_3",
+              "source_url": "https://paasa.com/pricing",
+              "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+              "observed_at": null,
+              "origin": "source_checked_paraphrase",
+              "status": "source_reported",
+              "classification": "model_selected_not_independently_verified",
+              "source_passage_id": "P34fe831d72c2e447",
+              "source_span_start": 0,
+              "selected_quote": null,
+              "evidence_contract": "complete_source_context_v1"
+            }
+          ]
+        },
+        "P58053dfc09efb59a": {
+          "contract": "bfcc95993a8a91c1a7d3cc51461a7e49328a46e64029954c0ae2527e8cc37541",
+          "facts": [
+            {
+              "id": "fact_ec6bdd930a5d",
+              "category": "company_structure",
+              "subject": "partner",
+              "quote": "Paasa describes itself as a financial technology company rather than a bank or brokerage. It names licensed partners as the banking and brokerage service providers. The site names Arc Spire Advisory Private Limited as the advisory service provider operating under the Paasa brand and reports its SEBI registration; that registration has not been independently checked for this evaluation.",
+              "source_id": "reference_source_4",
+              "source_url": "https://paasa.com/",
+              "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+              "observed_at": null,
+              "origin": "source_checked_paraphrase",
+              "status": "source_reported",
+              "classification": "model_selected_not_independently_verified",
+              "source_passage_id": "P58053dfc09efb59a",
+              "source_span_start": 0,
+              "selected_quote": null,
+              "evidence_contract": "complete_source_context_v1"
+            }
+          ]
+        },
+        "P5bea5dd58ad3cc66": {
+          "contract": "bfcc95993a8a91c1a7d3cc51461a7e49328a46e64029954c0ae2527e8cc37541",
+          "facts": [
+            {
+              "id": "fact_8eb889c4e9a7",
+              "category": "company_structure",
+              "subject": "target",
+              "quote": "The site identifies Interactive Brokers as custodian and says customer cash and holdings are held in the customer's own name. It lists Paasa, Inc., Paasa IFSC Private Limited and Bruhm Labs Private Limited, but this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements.",
+              "source_id": "reference_source_5",
+              "source_url": "https://paasa.com/",
+              "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+              "observed_at": null,
+              "origin": "source_checked_paraphrase",
+              "status": "source_reported",
+              "classification": "model_selected_not_independently_verified",
+              "source_passage_id": "P5bea5dd58ad3cc66",
+              "source_span_start": 0,
+              "selected_quote": null,
+              "evidence_contract": "complete_source_context_v1"
+            }
+          ]
+        }
+      },
+      "unknowns": [
+        "traction"
+      ],
+      "coverage": "selected_sources_processed",
+      "source_selection": {
+        "max_sources": 24,
+        "max_per_url": 8,
+        "max_context_characters": 4000,
+        "navigation_filtered": true,
+        "oversized_records_omitted": 0,
+        "scope": "bounded_supplied_records_not_all_public_disclosures"
+      },
+      "source_limit_reached": false
+    },
+    "sections": {
+      "research.business": {
+        "document": "research",
+        "title": "Business and customer",
+        "status": "complete",
+        "content": {
+          "text": "According to the Paasa website, the company provides a mobile service for affluent Indian customers seeking to invest in global equities. The company reports that it addresses customer problems such as remittance friction, unfamiliar tax requirements, complex paperwork, and a lack of investment guidance. Paasa describes itself as a financial technology firm that utilizes licensed partners, including Interactive Brokers for custody and Arc Spire Advisory for advisory services.",
+          "fact_ids": [
+            "fact_003c595b37e8",
+            "fact_ec6bdd930a5d",
+            "fact_8eb889c4e9a7"
+          ]
+        },
+        "input_hash": "657bcbaa86008a26549b9e3c6d235d8042cfb6145460dd1b4b452cc0a6c9cd0d",
+        "review_hash": "4ae042c752064e3f97acaf6f6dff357000b724bdb2687a7a66498927c6c34bc3",
+        "review": {
+          "objections": [],
+          "verdict": "pass"
+        },
+        "updated_at": "2026-09-14T20:37:46.532481+00:00",
+        "dependency": null
+      },
+      "research.economics": {
+        "document": "research",
+        "title": "Revenue mechanism",
+        "status": "complete",
+        "content": {
+          "revenue_mechanism": "For the Access plan, customers pay brokerage fees when they trade, but the source does not state how much revenue Paasa retains from these charges. For the Apex plan, a percentage charge based on assets under management is collected monthly, and brokerage fees apply separately.",
+          "unknown_economics": "It is unknown whether Paasa earns revenue from the Access plan's customer charges or if it acts solely as a pass-through to partners. Records showing how much of the customer charge is retained by Paasa versus passed to partners are needed to answer this.",
+          "fact_ids": [
+            "fact_4ec558c9fcc1",
+            "fact_514c11e88803"
+          ]
+        },
+        "input_hash": "455531c9582803825b1c16decf38b8cb3e57cc9e8334339ddf016488741650d9",
+        "review_hash": "4ae042c752064e3f97acaf6f6dff357000b724bdb2687a7a66498927c6c34bc3",
+        "review": {
+          "objections": [],
+          "verdict": "pass"
+        },
+        "updated_at": "2026-09-14T20:38:03.348955+00:00",
+        "dependency": null
+      }
+    },
+    "reuse_sections": {},
+    "agenda": {
+      "status": "complete",
+      "input_hash": "5630e168dba3daf8b432819cbf398b9cfb6f7db0044ee5afdcc1d1e8a0a499c7",
+      "questions": [
+        {
+          "dimension": "unit_economics",
+          "question": "What total revenue does Paasa collect per customer under each pricing tier, and what are the company's direct cost of goods sold and gross margins for the most recent reporting period?",
+          "fact_ids": [
+            "fact_4ec558c9fcc1",
+            "fact_514c11e88803"
+          ]
+        },
+        {
+          "dimension": "customer_demand",
+          "question": "What is the monthly retention rate and net revenue per user among Indian customers using Paasa's mobile service to trade global equities?",
+          "fact_ids": [
+            "fact_b8801a4fedef"
+          ]
+        }
+      ]
+    },
+    "attempts": [
+      {
+        "task": "record_extract",
+        "attempt": 0,
+        "at": "2026-09-14T20:36:12.155389+00:00",
+        "implementation_hash": "34dd94570503e35ded5aef77098a4f5cb91fca7be109e391a704769c901026c7",
+        "answer": {
+          "facts": [
+            {
+              "passage_id": "P049cb3f05366eaee",
+              "category": "offering",
+              "subject": "target"
+            },
+            {
+              "passage_id": "P049cb3f05366eaee",
+              "category": "customers",
+              "subject": "target"
+            },
+            {
+              "passage_id": "P5ec962538cd9bf7e",
+              "category": "pricing",
+              "subject": "target"
+            },
+            {
+              "passage_id": "P34fe831d72c2e447",
+              "category": "pricing",
+              "subject": "target"
+            },
+            {
+              "passage_id": "P34fe831d72c2e447",
+              "category": "offering",
+              "subject": "target"
+            },
+            {
+              "passage_id": "P58053dfc09efb59a",
+              "category": "company_structure",
+              "subject": "partner"
+            }
+          ]
+        },
+        "raw_response": "{\"facts\": [{\"passage_id\": \"P049cb3f05366eaee\", \"category\": \"offering\", \"subject\": \"target\"}, {\"passage_id\": \"P049cb3f05366eaee\", \"category\": \"customers\", \"subject\": \"target\"}, {\"passage_id\": \"P5ec962538cd9bf7e\", \"category\": \"pricing\", \"subject\": \"target\"}, {\"passage_id\": \"P34fe831d72c2e447\", \"category\": \"pricing\", \"subject\": \"target\"}, {\"passage_id\": \"P34fe831d72c2e447\", \"category\": \"offering\", \"subject\": \"target\"}, {\"passage_id\": \"P58053dfc09efb59a\", \"category\": \"company_structure\", \"subject\": \"partner\"}]}",
+        "elapsed_seconds": 16.31,
+        "invoked": true,
+        "routing": {
+          "task": "record_extract",
+          "attempt": 0,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1800,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "context_tokens": 8192,
+          "temperature": 0.7,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 16.3,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 953,
+          "generated_tokens": 211,
+          "done_reason": "stop"
+        },
+        "model": "qwen3.5:9b"
+      },
+      {
+        "task": "record_extract",
+        "attempt": 0,
+        "at": "2026-09-14T20:36:28.469838+00:00",
+        "implementation_hash": "34dd94570503e35ded5aef77098a4f5cb91fca7be109e391a704769c901026c7",
+        "answer": {
+          "facts": [
+            {
+              "passage_id": "P5bea5dd58ad3cc66",
+              "category": "company_structure",
+              "subject": "target"
+            }
+          ]
+        },
+        "raw_response": "{\"facts\": [{\"passage_id\": \"P5bea5dd58ad3cc66\", \"category\": \"company_structure\", \"subject\": \"target\"}]}",
+        "elapsed_seconds": 3.39,
+        "invoked": true,
+        "routing": {
+          "task": "record_extract",
+          "attempt": 0,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1800,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "context_tokens": 8192,
+          "temperature": 0.7,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 3.39,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 672,
+          "generated_tokens": 38,
+          "done_reason": "stop"
+        },
+        "model": "qwen3.5:9b"
+      },
+      {
+        "task": "analyst_agenda",
+        "attempt": 0,
+        "at": "2026-09-14T20:36:31.867899+00:00",
+        "implementation_hash": "34dd94570503e35ded5aef77098a4f5cb91fca7be109e391a704769c901026c7",
+        "answer": {
+          "questions": [
+            {
+              "dimension": "unit_economics",
+              "question": "What total revenue does Paasa collect per customer under each pricing tier, and what are the company's direct cost of goods sold and gross margins for the most recent reporting period?",
+              "fact_ids": [
+                "fact_4ec558c9fcc1",
+                "fact_514c11e88803"
+              ]
+            },
+            {
+              "dimension": "customer_demand",
+              "question": "What is the monthly retention rate and net revenue per user among Indian customers using Paasa's mobile service to trade global equities?",
+              "fact_ids": [
+                "fact_b8801a4fedef"
+              ]
+            }
+          ]
+        },
+        "raw_response": "{\"questions\":[{\"dimension\":\"unit_economics\",\"question\":\"What total revenue does Paasa collect per customer under each pricing tier, and what are the company's direct cost of goods sold and gross margins for the most recent reporting period?\",\"fact_ids\":[\"fact_4ec558c9fcc1\",\"fact_514c11e88803\"]},{\"dimension\":\"customer_demand\",\"question\":\"What is the monthly retention rate and net revenue per user among Indian customers using Paasa's mobile service to trade global equities?\",\"fact_ids\":[\"fact_b8801a4fedef\"]}]}",
+        "elapsed_seconds": 59.12,
+        "invoked": true,
+        "routing": {
+          "task": "analyst_agenda",
+          "attempt": 0,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": true,
+          "max_tokens": 4096,
+          "thinking_used": true,
+          "reasoning_budget": 1024,
+          "answer_continuation": true,
+          "context_tokens": 8192,
+          "temperature": 1.0,
+          "sampling": {
+            "top_p": 0.95,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 59.12,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 1787,
+          "generated_tokens": 1152,
+          "done_reason": "stop"
+        },
+        "model": "qwen3.5:9b"
+      },
+      {
+        "task": "analyst_section",
+        "attempt": 0,
+        "at": "2026-09-14T20:37:31.001102+00:00",
+        "implementation_hash": "34dd94570503e35ded5aef77098a4f5cb91fca7be109e391a704769c901026c7",
+        "answer": {
+          "text": "According to the Paasa website, the company provides a mobile service for affluent Indian customers seeking to invest in global equities. The company reports that it addresses customer problems such as remittance friction, unfamiliar tax requirements, complex paperwork, and a lack of investment guidance. Paasa describes itself as a financial technology firm that utilizes licensed partners, including Interactive Brokers for custody and Arc Spire Advisory for advisory services.",
+          "fact_ids": [
+            "fact_003c595b37e8",
+            "fact_ec6bdd930a5d",
+            "fact_8eb889c4e9a7"
+          ]
+        },
+        "raw_response": "{\n  \"text\": \"According to the Paasa website, the company provides a mobile service for affluent Indian customers seeking to invest in global equities. The company reports that it addresses customer problems such as remittance friction, unfamiliar tax requirements, complex paperwork, and a lack of investment guidance. Paasa describes itself as a financial technology firm that utilizes licensed partners, including Interactive Brokers for custody and Arc Spire Advisory for advisory services.\",\n  \"fact_ids\": [\"fact_003c595b37e8\", \"fact_ec6bdd930a5d\", \"fact_8eb889c4e9a7\"]\n}",
+        "elapsed_seconds": 10.74,
+        "invoked": true,
+        "routing": {
+          "task": "analyst_section",
+          "attempt": 0,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1800,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "context_tokens": 8192,
+          "temperature": 0.7,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 10.74,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 1545,
+          "generated_tokens": 141,
+          "done_reason": "stop"
+        },
+        "model": "qwen3.5:9b"
+      },
+      {
+        "task": "review:analyst_section",
+        "attempt": 0,
+        "at": "2026-09-14T20:37:41.758615+00:00",
+        "implementation_hash": "34dd94570503e35ded5aef77098a4f5cb91fca7be109e391a704769c901026c7",
+        "answer": {
+          "verdict": "pass",
+          "objections": []
+        },
+        "raw_response": "{\"verdict\":\"pass\",\"objections\":[]}",
+        "elapsed_seconds": 4.77,
+        "invoked": true,
+        "routing": {
+          "task": "review:analyst_section",
+          "attempt": 0,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1800,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "context_tokens": 8192,
+          "temperature": 0.7,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 4.76,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 1696,
+          "generated_tokens": 11,
+          "done_reason": "stop"
+        },
+        "model": "qwen3.5:9b"
+      },
+      {
+        "task": "analyst_section",
+        "attempt": 0,
+        "at": "2026-09-14T20:37:46.539543+00:00",
+        "implementation_hash": "34dd94570503e35ded5aef77098a4f5cb91fca7be109e391a704769c901026c7",
+        "answer": {
+          "revenue_mechanism": "For the Access plan, customers pay brokerage fees when they trade, but the source does not state how much revenue Paasa retains from these charges. For the Apex plan, a percentage charge based on assets under management is collected monthly, and brokerage fees apply separately.",
+          "unknown_economics": "It is unknown whether Paasa earns revenue from the Access plan's customer charges or if it acts solely as a pass-through to partners. Records showing how much of the customer charge is retained by Paasa versus passed to partners are needed to answer this.",
+          "fact_ids": [
+            "fact_4ec558c9fcc1",
+            "fact_514c11e88803"
+          ]
+        },
+        "raw_response": "{\n  \"revenue_mechanism\": \"For the Access plan, customers pay brokerage fees when they trade, but the source does not state how much revenue Paasa retains from these charges. For the Apex plan, a percentage charge based on assets under management is collected monthly, and brokerage fees apply separately.\",\n  \"unknown_economics\": \"It is unknown whether Paasa earns revenue from the Access plan's customer charges or if it acts solely as a pass-through to partners. Records showing how much of the customer charge is retained by Paasa versus passed to partners are needed to answer this.\",\n  \"fact_ids\": [\n    \"fact_4ec558c9fcc1\",\n    \"fact_514c11e88803\"\n  ]\n}",
+        "elapsed_seconds": 12.43,
+        "invoked": true,
+        "routing": {
+          "task": "analyst_section",
+          "attempt": 0,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1800,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "context_tokens": 8192,
+          "temperature": 0.7,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 12.43,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 1754,
+          "generated_tokens": 167,
+          "done_reason": "stop"
+        },
+        "model": "qwen3.5:9b"
+      },
+      {
+        "task": "review:analyst_section",
+        "attempt": 0,
+        "at": "2026-09-14T20:37:58.990132+00:00",
+        "implementation_hash": "34dd94570503e35ded5aef77098a4f5cb91fca7be109e391a704769c901026c7",
+        "answer": {
+          "verdict": "pass",
+          "objections": []
+        },
+        "raw_response": "{\"verdict\":\"pass\",\"objections\":[]}",
+        "elapsed_seconds": 4.36,
+        "invoked": true,
+        "routing": {
+          "task": "review:analyst_section",
+          "attempt": 0,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1800,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "context_tokens": 8192,
+          "temperature": 0.7,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 4.35,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 1472,
+          "generated_tokens": 11,
+          "done_reason": "stop"
+        },
+        "model": "qwen3.5:9b"
+      },
+      {
+        "task": "analyst_section",
+        "attempt": 0,
+        "at": "2026-09-14T20:38:03.355745+00:00",
+        "implementation_hash": "34dd94570503e35ded5aef77098a4f5cb91fca7be109e391a704769c901026c7",
+        "error": "Preparation reached its time limit during inference. The local request was cancelled; saved sections are retained.",
+        "elapsed_seconds": 8.55,
+        "invoked": true,
+        "routing": {
+          "task": "analyst_section",
+          "attempt": 0,
+          "profile": "section_router",
+          "model": "qwen3.5:9b",
+          "thinking": true,
+          "temperature": 1.0,
+          "max_tokens": 4096,
+          "context_tokens": 8192
+        },
+        "model": "qwen3.5:9b"
+      }
+    ],
+    "status": "partial",
+    "started_at": "2026-09-14T20:36:12.154410+00:00",
+    "generation_config": {
+      "mode": "section_router",
+      "model": "qwen3.5:9b",
+      "review_model": "qwen3.5:9b",
+      "thinking": false,
+      "repair_thinking": true,
+      "complex_section_thinking": true,
+      "review_thinking": false,
+      "reasoning_budget": 1024
+    },
+    "last_implementation_hash": "34dd94570503e35ded5aef77098a4f5cb91fca7be109e391a704769c901026c7",
+    "documents": {
+      "research": {
+        "title": "Research memo",
+        "status": "partial"
+      },
+      "founder": {
+        "title": "Founder proposal",
+        "status": "partial"
+      },
+      "diligence": {
+        "title": "Diligence request",
+        "status": "partial"
+      },
+      "readiness": {
+        "title": "Investment-readiness plan",
+        "status": "partial"
+      }
+    },
+    "updated_at": "2026-09-14T20:38:11.908644+00:00",
+    "calculations": [],
+    "stop_reason": "Preparation reached its time limit during inference. The local request was cancelled; saved sections are retained.",
+    "last_run_budget": {
+      "max_seconds": 119.743067584,
+      "max_calls": 24,
+      "max_requests": 32,
+      "calls": 8,
+      "requests": 9,
+      "elapsed_seconds": 119.757
+    }
+  },
+  "metrics": {
+    "completed_sections": 2,
+    "expected_sections": 9,
+    "completion_rate": 0.2222222222222222,
+    "completed_documents": [],
+    "model_calls": 8,
+    "correction_attempts": 0,
+    "inference_seconds": 119.67,
+    "independently_audited_factual_errors": null,
+    "actionable_sections": null
+  },
+  "elapsed_seconds": 119.77,
+  "actual_inference_calls": 8,
+  "denied_corrections": []
+}

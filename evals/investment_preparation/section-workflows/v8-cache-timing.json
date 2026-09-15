@@ -1,0 +1,17 @@
+{
+  "kind": "offline_fixture_not_live_model_latency",
+  "first_run_logical_tasks": 16,
+  "prior_fixture_task_count": 20,
+  "cache_ms": [
+    20.45,
+    21.32,
+    20.13
+  ],
+  "cache_median_ms": 20.45,
+  "cache_tasks": [
+    0,
+    0,
+    0
+  ],
+  "live_database_modified": false
+}
