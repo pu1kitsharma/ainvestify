@@ -66,17 +66,17 @@ def test_ambiguous_currency_and_duplicate_months_are_not_saved():
     assert not extract_metric_update(TEXT,'Founder monthly report','Hotel Example',ExtractionModel(raw))['updates']
 
 
-def test_import_job_scoping_revision_retained_sources_and_automatic_brief(tmp_path,monkeypatch):
+def test_import_job_scoping_revision_retained_sources_and_automatic_model_authored_pack(tmp_path,monkeypatch):
     from store import Store
     from tests.test_operating_workflow import company
-    from tests.test_company_brief import BriefModel
+    from tests.test_authored_preparation import Model as Writer
     from agents.operating_workflow import reconcile_workspace
-    from agents.company_brief import brief_current
+    from agents.analyst_pack import current_pack
     import api.routers.operations as api
-    class CombinedModel(BriefModel):
-        def generate(self,instruction,payload,schema):
+    class CombinedModel(Writer):
+        def generate_for_task(self,task,instruction,payload,schema,**kwargs):
             if schema.__name__=='SelectedUpdate':return ExtractionModel().generate(instruction,payload,schema)
-            return super().generate(instruction,payload,schema)
+            return super().generate_for_task(task,instruction,payload,schema,**kwargs)
     monkeypatch.setattr(api,'LocalModel',CombinedModel)
     with Store(tmp_path/'db') as store:
         lead=company(store);w=reconcile_workspace(store,lead)
@@ -91,13 +91,13 @@ def test_import_job_scoping_revision_retained_sources_and_automatic_brief(tmp_pa
         task=tasks.tasks[0];task.func(*task.args,**task.kwargs)
         done=store.get_workspace('one',lead_id=lead.id)
         assert done.automation.status=='completed',done.automation.error
-        assert brief_current(done)
+        assert current_pack(done) and done.analyst_pack['status']=='complete'
         assert len(done.metric_updates)==2
         assert done.metric_imports[-1]['status']=='applied'
         assert done.metric_updates[0]['field_sources']['revenue']['quote']=='Revenue: 1 lakh'
         assert not done.capabilities['external_sending']
-        assert 'model_generated'==done.company_brief['pitch']['generation']['kind']
-        assert len(done.company_brief['research']['generation']['evidence_ids'])==3
+        assert all(s['authorship']['kind']=='model' for s in done.analyst_pack['sections'].values())
+        assert any('Revenue' in f['quote'] for f in done.analyst_pack['record']['facts'])
 
 
 def test_no_accepted_actuals_leaves_previous_brief_and_no_fake_metrics(tmp_path,monkeypatch):

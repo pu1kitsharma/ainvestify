@@ -1,0 +1,24 @@
+{
+  "case": "resend_research",
+  "report_sha256": "e3f4a0668fd747495be0c1e4c3ad942041c38007f0cf459fdbb5d7e6235c85ce",
+  "reviewer_kind": "coding_session_development_inspection_separate_from_model_review_not_practitioner",
+  "unseen": false,
+  "elapsed_seconds": 70.16,
+  "model_calls": 4,
+  "completed_sections": 9,
+  "decision": "specific_business_and_founder_source_failure_corrected_initial_draft_usable_with_scope_edits",
+  "findings": [
+    "Business and founder openings now identify email for developers and transactional/marketing email delivery, with exact source attribution. The old pricing-footer/testimonial opening is gone.",
+    "The original complete homepage source remains behind the concise excerpt. All three pricing contexts remain quoted intact.",
+    "The first call selected completed order without ordering evidence; code rejected it and one targeted repair selected recorded product use. The final code additionally excludes the unsupported enum option before inference when ordering evidence is absent.",
+    "The contribution and activation methods request accounting, service-cost and customer/cohort inputs and defer conclusions until records are reconciled.",
+    "The registered phrase record recorded product use was grammatically duplicated; final code removes the duplicate, preserving the original report unchanged.",
+    "The economics section still quotes 8274 characters including peripheral source content. This check does not establish comprehensive or concise investment research.",
+    "Pro Plan needs to be defined as the particular email service and a concrete production-use event agreed from company records; no event counts or financial outcomes were calculated."
+  ],
+  "limits": [
+    "The exact generated result predates the final financial-context budget and event-schema exclusion patches. These do not rewrite the report; final implementation is separately checked through the live Paasa run.",
+    "Synthetic financial regressions are code checks, not verified company records.",
+    "No valuation, investment decision, practitioner acceptance or execution was established."
+  ]
+}

@@ -1,14 +1,16 @@
 # ainvestify
 
-An AI-driven, multi-agent system for sourcing and preparing companies across sectors, then helping them raise institutional funding — the way a boutique investment bank packages a raise, not a fund screening deals for its own book.
+**Current checkpoint — 15 September 2026:** [SESSION_HANDOFF.md §23](SESSION_HANDOFF.md#model-authored-reset). Reliable fresh generation remains **unfixed**. The only company after the user-authorized reset is AI-discovered GoCardless; its latest preparation failed after 61.186 seconds/two model calls, with zero published sections. No complete live v10 pack or investment-quality acceptance has been demonstrated.
 
-**Lifecycle:** source candidate companies → a human reviews and promotes a lead into an actual deal → sign an engagement mandate → ingest the company's own documents → extract structured metrics with mandatory citations → human review → external research corroboration → compile a cited, reviewable document suite (Teaser / CIM / Pro-forma) → track investor interest (demand book).
+The active API uses `authored_discovery.py` and `authored_preparation.py` with recorded raw-response provenance. Company answers must come from the model; the former v9 templates and frontend reading guide are retired from the live flow. Static labels, source binding, arithmetic and validation remain code-owned. The [v10 evidence index](evals/investment_preparation/section-workflows/v10-model-authored/README.md) preserves actual failures and test limits.
 
-This system supports that process with cited data and a reviewable memo — it does not itself contact investors, negotiate terms, or run the raise. That stays a human-led relationship/advisory activity.
+The user requested a thorough log and Git push in this state. Do not automatically start more inference. Read [AGENTS.md](AGENTS.md), the current handoff and [architecture §16.29](deal_automation_architecture.md#1629-mvp-product-contract-and-cleanup-current-priority) before resuming. The full reset backup remains local and ignored under `runtime_backups/2026-09-15-ai-reset/`.
+
+**Historical notes below:** older model versions, complete-company claims, layouts, PIDs and “run this first” instructions describe earlier checkpoints. They do not override §23 or authorize a benchmark, paid service, new reset or template fallback. Preserve the original evaluation failures; several are regression fixtures.
 
 ## Status
 
-**Automatic web sourcing pilot:** Enter a selection brief and optional geography on the Leads page, or ask the dashboard to find companies. No URLs are required. The local model plans search queries, public search discovers pages, and the collector researches original company/portfolio pages and observed links. Profiles retain cited passages, missing evidence, and proposed incubation next steps. Any sector/region is supported; India is the initial UI default.
+**Automatic web sourcing pilot:** Enter a selection brief and optional geography on the Leads page, or ask the dashboard to find companies. No URLs are required. The local model plans search queries, public search discovers pages, and the collector researches original company/portfolio pages and observed links. Profiles retain cited passages, missing evidence, and proposed incubation next steps. Sector/geography inputs are configurable; source coverage remains uneven. India is an optional pilot, not the current default or a product restriction.
 
 Run `python3 scripts/serve_local.py` and, from `frontend/`, `npm run dev`. Local task routing uses `SOURCING_MODEL` (`phi4-mini`) for short extraction and `REASONING_MODEL` (`qwen3:8b`) with thinking enabled for analytical work, screening, retries and review. On machines with at least 24 GB RAM, Qwen3:14b handles high-complexity inputs, retries and review by default. Smaller machines use Qwen3:8b for those stages with bounded context/output budgets; explicit model overrides remain available. Models must already be installed in Ollama. `PREPARATION_MODEL` selects the fast preparation route; `REVIEW_MODEL` and `ESCALATION_MODEL` can select other supported thinking models. No paid API, automatic download, cloud inference or silent downgrade is enabled. See [routing configuration and evaluation](evals/investment_preparation/model-routing.md). The Discover page defaults to worldwide and has one brief/geography search, search-scoped results, a shortlist and history. Public Antler, SOSV and Seedcamp cards supplement YC and regional sources; dynamic searches also seek industry associations and university spinouts. Inference scheduling is FIFO per model call, so web fetching never holds the GPU queue for an entire search. URLs remain optional. Restart the API after backend edits; the stable launcher avoids reloads interrupting background jobs.
 
@@ -41,6 +43,14 @@ For linked operating workspaces, teaser safe-to-send confirmation enforces relea
 1. Install [Ollama](https://ollama.com/download) and confirm `ollama serve` is running.
 2. `pip install -r requirements.txt` (or see the imports across `agents/*.py`, `schemas.py`, `store.py`, `main.py` for the current dependency set).
 3. `python3 main.py "<what you want to do>"` — e.g. `"find promising fintech companies to incubate"` or `"screen this deal, I have the pitch deck ready"`.
+
+## API documentation
+
+With `scripts/serve_local.py` running, the API is self-documenting:
+
+- **Interactive playground:** [`/docs`](http://localhost:8000/docs) (Swagger UI) — browse every endpoint grouped by lifecycle stage, expand one, fill in a real request, and hit **Try it out** to call the live local backend directly from the browser. `/redoc` gives a read-only, more narrative view of the same schema.
+- **Raw schema:** [`/openapi.json`](http://localhost:8000/openapi.json) — the OpenAPI 3.1 spec FastAPI generates from the actual route definitions, always in sync with the code (nothing hand-maintained to go stale).
+- **Postman/Insomnia collection:** [`api/postman_collection.json`](api/postman_collection.json) — import directly into Postman (File → Import) or Insomnia for a ready-to-run request tree, one folder per tag, with example JSON bodies built from each endpoint's schema. Set the collection's `baseUrl` variable if the API isn't on `http://localhost:8000`. Regenerate after a schema change with `python3 scripts/export_postman_collection.py` (fetches `/openapi.json` live, so it can never drift from the actual routes).
 
 ## Read first
 

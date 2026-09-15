@@ -1,0 +1,25 @@
+{
+  "decision": "specific_research_and_service_event_failures_corrected_initial_internal_draft",
+  "reviewer_kind": "coding_session_development_inspection_not_practitioner",
+  "report_sha256": "5f22a94cc88c90bd972ef02f23b02225e23506ae0e293c24793bb43b58d6b494",
+  "elapsed_seconds": 60.55,
+  "model_calls": 4,
+  "complete_sections": 9,
+  "findings": [
+    "Short exact business and founder excerpts retain their complete original parent source in details and export appendix.",
+    "The previously accepted order event is rejected for the source-described managed/advisory plan; the final draft requests enrollment cohorts.",
+    "Income and customer plans retain explicit entity, reporting window, equal follow-up, source records, cost presentation and missing-input conditions.",
+    "The founder offer requests accounting, cost and customer records and proposes contribution/cohort tables; it asserts neither completed work nor verified performance.",
+    "All captured commercial contexts remain intact, including plan, annual/monthly, separate brokerage and named service-provider qualifications."
+  ],
+  "limits": [
+    "Eligibility and the enrollment event need company-record definitions; define the eligible registration population before measuring plan enrollment.",
+    "The business excerpt describes one offering; full economics/source presentation remains verbose. This is not comprehensive market, competition, valuation or investment research.",
+    "No company accounts were independently verified, no real financial result was calculated, and no independent practitioner acceptance occurred.",
+    "The new financial wording and service-context rules catch demonstrated errors; they are not a complete semantic or accounting validator."
+  ],
+  "source_evidence_unchanged": true,
+  "original_section_content_preserved_in_history": true,
+  "active_jobs": [],
+  "investment_handling_accepted": false
+}

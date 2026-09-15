@@ -1,0 +1,10 @@
+{
+  "checked_at": "2026-09-15T00:30:59.013Z",
+  "job_id": "automation_cb42d54b1df3",
+  "revision": 1239,
+  "complete_sections": 9,
+  "saved_work_get_ms": 57.517,
+  "live_browser": "pass: concise excerpt, complete source details, three stages, enrollment request, no failure banner, mobile width",
+  "page_errors": [],
+  "new_inference_calls": 0
+}

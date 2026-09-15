@@ -1,0 +1,21 @@
+{
+  "report_sha256": "e63b4660f7f94528df679eed3cbdb7aee8a8ee906fbc3fc7cafcf85f3e7d90a8",
+  "decision": "source_fix_verified_founder_cost_request_failed",
+  "elapsed_seconds": 63.965,
+  "model_calls": 3,
+  "qualification_checks": {
+    "Access Plan": true,
+    "Apex Plan": true,
+    "charged annually": true,
+    "monthly installments": true,
+    "Brokerage fees apply separately": true,
+    "Brokerage markups are not applied to Apex customers": true,
+    "Arc Spire": true
+  },
+  "findings": [
+    "Direct pricing and fee/entity qualifications are now retained.",
+    "Founder offer requested agreements, revenue ledger and events but omitted service-cost inputs while promising a contribution table. Model review passed it.",
+    "The paired detailed diligence request does specify costs, but the standalone copied proposal needs the missing cost request."
+  ],
+  "reviewer_kind": "coding_session_inspection_not_practitioner"
+}

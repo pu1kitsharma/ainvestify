@@ -1,0 +1,36 @@
+{
+  "reviewer": "development_agent",
+  "reviewed": true,
+  "acceptance_milestone_met": false,
+  "automatically_completed_sections": 8,
+  "expected_sections": 9,
+  "core_deliverables_usable_together": false,
+  "findings": [
+    {
+      "section": "research.economics",
+      "severity": "failure",
+      "detail": "Redundant source IDs remain in prose; section failed validation. Code-only citation formatting was added afterward, not demonstrated in this run."
+    },
+    {
+      "section": "founder.proposal",
+      "severity": "usefulness",
+      "detail": "Generic investor readiness document and value-proposition wording; does not specify a sufficiently sharp commercial analysis and adverse decision."
+    },
+    {
+      "section": "diligence.request_b",
+      "severity": "duplication",
+      "detail": "Requests costs already included in request A. The reviewer missed the overlap."
+    },
+    {
+      "section": "record",
+      "severity": "classification",
+      "detail": "Source headings/navigation were still sometimes classified as customers or offerings. Two extraction batches failed literal-quotation checks."
+    },
+    {
+      "section": "reviewer",
+      "severity": "reasoning",
+      "detail": "A conditional recurring-revenue hypothesis was criticized as an unsupported assertion. Some usable revisions passed, but reviewer verdicts remain unreliable."
+    }
+  ],
+  "scope": "Actual application-generated Paasa pack. No manually rewritten company answers or model-weight training. Cross-company v6 benchmark was stopped before starting."
+}

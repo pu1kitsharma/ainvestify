@@ -1,0 +1,438 @@
+{
+  "case_id": "paasa_reference_test",
+  "input_hash": "bcd68f0b2e796336c56f3dd80bed5af2ad8b30783420503180a97336f7ec563b",
+  "model": "qwen3.5:9b",
+  "settings": {
+    "profile": "section_router",
+    "review_model": "qwen3.5:9b",
+    "review_thinking": true,
+    "reasoning_budget": 1024,
+    "thinking": false,
+    "tokens": 1200,
+    "context": 8192
+  },
+  "input_kind": "curated_source_checked_paraphrases",
+  "region": "India",
+  "sector": "consumer investing / financial technology",
+  "live_data_updated": false,
+  "limits": {
+    "max_corrections_per_stage": 1,
+    "max_calls": 6,
+    "max_seconds": 120
+  },
+  "reference_sha256": "c4bf1f31324154efdd712f4ea3dba067f4c9ca9c31cfaa51fc142bd97354c8da",
+  "pack": {
+    "version": 9,
+    "implementation_hash": "343c74f36161dfd86606e9c1cdbafa40995289f03fc017e3ae6be4049cce2095",
+    "basis_hash": "6806864122587b4e49a018dc0be74d359d6d6991855d675770c1edd20f940f37",
+    "company": "Paasa",
+    "record": {
+      "facts": [
+        {
+          "id": "S1",
+          "quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.",
+          "source_url": "https://www.ycombinator.com/companies/paasa",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "source_id": "reference_source_1",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S2",
+          "quote": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade. The public schedule does not establish how much of a customer charge the investment target retains.",
+          "source_url": "https://paasa.com/pricing",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "source_id": "reference_source_2",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S3",
+          "quote": "The Apex plan adds managed advisory strategies and FEMA/tax support to Access. Its percentage charge is based on assets under management, stated annually and collected monthly. Brokerage fees apply separately. The page states that brokerage markups are not applied to Apex customers.",
+          "source_url": "https://paasa.com/pricing",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "source_id": "reference_source_3",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S4",
+          "quote": "Paasa describes itself as a financial technology company rather than a bank or brokerage. It names licensed partners as the banking and brokerage service providers. The site names Arc Spire Advisory Private Limited as the advisory service provider operating under the Paasa brand and reports its SEBI registration; that registration has not been independently checked for this evaluation.",
+          "source_url": "https://paasa.com/",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "source_id": "reference_source_4",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S5",
+          "quote": "The site identifies Interactive Brokers as custodian and says customer cash and holdings are held in the customer's own name. It lists Paasa, Inc., Paasa IFSC Private Limited and Bruhm Labs Private Limited, but this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements.",
+          "source_url": "https://paasa.com/",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "source_id": "reference_source_5",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        }
+      ],
+      "prepared_at": "2026-09-14T21:43:14.788190+00:00",
+      "batches": {},
+      "extraction": "complete_context_no_generation",
+      "coverage": "selected_sources_processed",
+      "unknowns": [],
+      "source_selection": {
+        "scope": "bounded_supplied_records",
+        "omitted_for_context": 0,
+        "max_context_characters": 14000
+      }
+    },
+    "sections": {},
+    "attempts": [
+      {
+        "task": "shared_analysis",
+        "attempt": 0,
+        "at": "2026-09-14T21:43:14.790786+00:00",
+        "implementation_hash": "343c74f36161dfd86606e9c1cdbafa40995289f03fc017e3ae6be4049cce2095",
+        "answer": {
+          "economics_test": {
+            "service": "Apex",
+            "fact_ids": [
+              "S3"
+            ]
+          },
+          "customer_test": {
+            "service": "Access",
+            "fact_ids": [
+              "S1"
+            ],
+            "method": "activation",
+            "event": "funding"
+          },
+          "business": {
+            "text": "Paasa offers a mobile service for affluent Indian customers to invest in global equities through trading and advisory, identifying remittance friction and unfamiliar tax requirements as reported customer problems.",
+            "fact_ids": [
+              "S1"
+            ]
+          },
+          "economics": {
+            "text": "The Access plan offers global stock and ETF trading without a recurring plan fee, while the Apex plan adds managed advisory strategies with percentage charges based on assets under management collected monthly.",
+            "fact_ids": [
+              "S2",
+              "S3"
+            ]
+          },
+          "hypothesis": {
+            "text": "Adopting the Apex advisory structure could retain affluent customers facing tax and FEMA hurdles, whereas the Access plan targets transaction volume through a fee-free model.",
+            "fact_ids": [
+              "S2",
+              "S3"
+            ]
+          },
+          "risk": {
+            "text": "Delivered costs to manage advisory strategies or customer behavior regarding remittance friction could weaken revenue without realized company revenue for published fees held by partners.",
+            "fact_ids": [
+              "S4",
+              "S5"
+            ]
+          }
+        },
+        "elapsed_seconds": 42.695,
+        "invoked": true,
+        "model": "qwen3.5:9b",
+        "routing": {
+          "task": "shared_analysis",
+          "profile": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": true,
+          "max_tokens": 2000,
+          "thinking_used": true,
+          "reasoning_budget": 512,
+          "answer_continuation": true,
+          "context_tokens": 8192,
+          "temperature": 1.0,
+          "sampling": {
+            "top_p": 0.95,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 42.69,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 2502,
+          "generated_tokens": 832,
+          "done_reason": "stop"
+        },
+        "raw_response": "{\n  \"business\": {\n    \"text\": \"Paasa offers a mobile service for affluent Indian customers to invest in global equities through trading and advisory, identifying remittance friction and unfamiliar tax requirements as reported customer problems.\",\n    \"fact_ids\": [\"S1\"]\n  },\n  \"economics\": {\n    \"text\": \"The Access plan offers global stock and ETF trading without a recurring plan fee, while the Apex plan adds managed advisory strategies with percentage charges based on assets under management collected monthly.\",\n    \"fact_ids\": [\"S2\", \"S3\"]\n  },\n  \"economics_test\": {\n    \"service\": \"Apex\",\n    \"fact_ids\": [\"S3\"]\n  },\n  \"customer_test\": {\n    \"service\": \"Access\",\n    \"method\": \"activation\",\n    \"event\": \"funding\",\n    \"fact_ids\": [\"S1\"]\n  },\n  \"hypothesis\": {\n    \"text\": \"Adopting the Apex advisory structure could retain affluent customers facing tax and FEMA hurdles, whereas the Access plan targets transaction volume through a fee-free model.\",\n    \"fact_ids\": [\"S2\", \"S3\"]\n  },\n  \"risk\": {\n    \"text\": \"Delivered costs to manage advisory strategies or customer behavior regarding remittance friction could weaken revenue without realized company revenue for published fees held by partners.\",\n    \"fact_ids\": [\"S4\", \"S5\"]\n  }\n}"
+      },
+      {
+        "task": "shared_analysis",
+        "attempt": 1,
+        "at": "2026-09-14T21:43:57.495689+00:00",
+        "implementation_hash": "343c74f36161dfd86606e9c1cdbafa40995289f03fc017e3ae6be4049cce2095",
+        "answer": {
+          "economics_test": {
+            "service": "Apex",
+            "fact_ids": [
+              "S3"
+            ]
+          },
+          "customer_test": {
+            "service": "Access",
+            "fact_ids": [
+              "S2"
+            ],
+            "method": "activation",
+            "event": "funding"
+          },
+          "business": {
+            "text": "Paasa describes itself as a financial technology company offering mobile services for affluent Indian customers to invest in global equities. The company identifies remittance friction and unfamiliar tax requirements as reported customer problems requiring guidance.",
+            "fact_ids": [
+              "S1",
+              "S4"
+            ]
+          },
+          "economics": {
+            "text": "The Access plan offers global stock trading without a recurring plan fee, while the Apex plan adds managed advisory strategies with percentage charges based on assets under management collected monthly. Brokerage fees apply separately to both plans.",
+            "fact_ids": [
+              "S2",
+              "S3"
+            ]
+          },
+          "hypothesis": {
+            "text": "Adopting the Apex advisory structure could retain affluent customers facing tax and FEMA hurdles, whereas the Access plan targets transaction volume through a fee-free model.",
+            "fact_ids": [
+              "S1",
+              "S3"
+            ]
+          },
+          "risk": {
+            "text": "Delivered costs to manage advisory strategies or customer behavior regarding remittance friction could weaken revenue without realized company revenue for published fees held by partners.",
+            "fact_ids": [
+              "S4",
+              "S5"
+            ]
+          }
+        },
+        "elapsed_seconds": 46.998,
+        "invoked": true,
+        "model": "qwen3.5:9b",
+        "routing": {
+          "task": "shared_analysis",
+          "profile": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": true,
+          "max_tokens": 2000,
+          "thinking_used": true,
+          "reasoning_budget": 512,
+          "answer_continuation": true,
+          "context_tokens": 8192,
+          "temperature": 1.0,
+          "sampling": {
+            "top_p": 0.95,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 46.99,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 2769,
+          "generated_tokens": 887,
+          "done_reason": "stop"
+        },
+        "raw_response": "{\n  \"business\": {\n    \"text\": \"Paasa describes itself as a financial technology company offering mobile services for affluent Indian customers to invest in global equities. The company identifies remittance friction and unfamiliar tax requirements as reported customer problems requiring guidance.\",\n    \"fact_ids\": [\n    \"S1\",\n    \"S4\"\n  ]\n},\n  \"economics\": {\n    \"text\": \"The Access plan offers global stock trading without a recurring plan fee, while the Apex plan adds managed advisory strategies with percentage charges based on assets under management collected monthly. Brokerage fees apply separately to both plans.\",\n    \"fact_ids\": [\n    \"S2\",\n    \"S3\"\n  ]\n},\n  \"economics_test\": {\n    \"service\": \"Apex\",\n    \"fact_ids\": [\n    \"S3\"\n  ]\n},\n  \"customer_test\": {\n    \"service\": \"Access\",\n    \"method\": \"activation\",\n    \"event\": \"funding\",\n    \"fact_ids\": [\n    \"S2\"\n  ]\n},\n  \"hypothesis\": {\n    \"text\": \"Adopting the Apex advisory structure could retain affluent customers facing tax and FEMA hurdles, whereas the Access plan targets transaction volume through a fee-free model.\",\n    \"fact_ids\": [\n    \"S1\",\n    \"S3\"\n  ]\n},\n  \"risk\": {\n    \"text\": \"Delivered costs to manage advisory strategies or customer behavior regarding remittance friction could weaken revenue without realized company revenue for published fees held by partners.\",\n    \"fact_ids\": [\n    \"S4\",\n    \"S5\"\n  ]\n}\n}"
+      },
+      {
+        "task": "shared_founder",
+        "attempt": 0,
+        "at": "2026-09-14T21:44:44.509928+00:00",
+        "implementation_hash": "343c74f36161dfd86606e9c1cdbafa40995289f03fc017e3ae6be4049cce2095",
+        "answer": {
+          "opening": {
+            "text": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory.",
+            "fact_ids": [
+              "S1"
+            ]
+          },
+          "offer": {
+            "text": "We propose a contribution reconciliation and customer analysis of the Apex and Access plans. We would request entity charts, service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, cost records, and cohort event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table. This supports the commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.",
+            "fact_ids": [
+              "S2",
+              "S3"
+            ]
+          },
+          "invitation": "Would you be open to discussing this approach?"
+        },
+        "elapsed_seconds": 15.528,
+        "invoked": true,
+        "model": "qwen3.5:9b",
+        "routing": {
+          "task": "shared_founder",
+          "profile": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 650,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "context_tokens": 8192,
+          "temperature": 0.7,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 15.52,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 2271,
+          "generated_tokens": 143,
+          "done_reason": "stop"
+        },
+        "raw_response": "{\"opening\":{\"text\":\"Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory.\",\"fact_ids\":[\"S1\"]},\"offer\":{\"text\":\"We propose a contribution reconciliation and customer analysis of the Apex and Access plans. We would request entity charts, service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, cost records, and cohort event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table. This supports the commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\"fact_ids\":[\"S2\",\"S3\"]},\"invitation\":\"Would you be open to discussing this approach?\"}"
+      },
+      {
+        "task": "shared_founder",
+        "attempt": 1,
+        "at": "2026-09-14T21:45:00.046622+00:00",
+        "implementation_hash": "343c74f36161dfd86606e9c1cdbafa40995289f03fc017e3ae6be4049cce2095",
+        "error": "Preparation reached its time limit during inference. The local request was cancelled; saved sections are retained.",
+        "elapsed_seconds": 14.484,
+        "invoked": true,
+        "model": "qwen3.5:9b",
+        "routing": {
+          "task": "shared_founder",
+          "profile": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "temperature": 0.7,
+          "max_tokens": 650,
+          "context_tokens": 8192
+        },
+        "raw_response": ""
+      }
+    ],
+    "status": "partial",
+    "started_at": "2026-09-14T21:43:14.788233+00:00",
+    "generation_config": {
+      "mode": "shared_analysis_v1",
+      "model": "qwen3.5:9b",
+      "thinking": false,
+      "review_model": "qwen3.5:9b",
+      "analysis_reasoning_budget": 512,
+      "default_review_reasoning_budget": 512,
+      "review_thinking": null,
+      "contract": "6c3e9e30b7fc7e157c05cf098a065b45bbf209aa2910c2996a369173644077dd"
+    },
+    "shared_input_hash": "4ed357f832c40d1ff664fccf1b70ed666f6ad9c694a32faa58d28a995efad229",
+    "shared": {
+      "analysis": {
+        "economics_test": {
+          "service": "Apex",
+          "fact_ids": [
+            "S3"
+          ]
+        },
+        "customer_test": {
+          "service": "Access",
+          "fact_ids": [
+            "S2"
+          ],
+          "method": "activation",
+          "event": "funding"
+        },
+        "business": {
+          "text": "Paasa describes itself as a financial technology company offering mobile services for affluent Indian customers to invest in global equities. The company identifies remittance friction and unfamiliar tax requirements as reported customer problems requiring guidance.",
+          "fact_ids": [
+            "S1",
+            "S4"
+          ]
+        },
+        "economics": {
+          "text": "The Access plan offers global stock trading without a recurring plan fee, while the Apex plan adds managed advisory strategies with percentage charges based on assets under management collected monthly. Brokerage fees apply separately to both plans.",
+          "fact_ids": [
+            "S2",
+            "S3"
+          ]
+        },
+        "hypothesis": {
+          "text": "Adopting the Apex advisory structure could retain affluent customers facing tax and FEMA hurdles, whereas the Access plan targets transaction volume through a fee-free model.",
+          "fact_ids": [
+            "S1",
+            "S3"
+          ]
+        },
+        "risk": {
+          "text": "Delivered costs to manage advisory strategies or customer behavior regarding remittance friction could weaken revenue without realized company revenue for published fees held by partners.",
+          "fact_ids": [
+            "S4",
+            "S5"
+          ]
+        }
+      }
+    },
+    "documents": {
+      "research": {
+        "title": "Research memo",
+        "status": "partial"
+      },
+      "founder": {
+        "title": "Founder proposal",
+        "status": "partial"
+      },
+      "diligence": {
+        "title": "Diligence request",
+        "status": "partial"
+      },
+      "readiness": {
+        "title": "Investment-readiness plan",
+        "status": "partial"
+      }
+    },
+    "updated_at": "2026-09-14T21:45:14.534458+00:00",
+    "stop_reason": "Preparation reached its time limit during inference. The local request was cancelled; saved sections are retained.",
+    "last_run_budget": {
+      "max_seconds": 119.741664917,
+      "max_calls": 6,
+      "max_requests": 10,
+      "calls": 4,
+      "requests": 6,
+      "elapsed_seconds": 119.754
+    }
+  },
+  "metrics": {
+    "completed_sections": 0,
+    "expected_sections": 9,
+    "completion_rate": 0.0,
+    "completed_documents": [],
+    "model_calls": 4,
+    "correction_attempts": 2,
+    "inference_seconds": 119.7,
+    "independently_audited_factual_errors": null,
+    "actionable_sections": null
+  },
+  "elapsed_seconds": 119.76,
+  "actual_inference_calls": 4,
+  "denied_corrections": []
+}

@@ -1,0 +1,63 @@
+{
+  "accepted_scope": "internal initial contribution and customer-activation preparation",
+  "implementation_hash": "455e9d4135cef5d37f9a794a4e176ebcd05b08dd41ff133e5dfaa6ecafe4c72b",
+  "model": "qwen3.5:9b",
+  "profile": "shared_analysis_v1",
+  "source_bound_descriptions": true,
+  "registered_economic_methods": true,
+  "maximum_seconds_per_run": 120,
+  "normal_logical_calls": 3,
+  "results": [
+    {
+      "case_id": "sunculture_kenya",
+      "elapsed_seconds": 43.11,
+      "completed_sections": 9,
+      "model_calls": 3,
+      "correction_attempts": 0
+    },
+    {
+      "case_id": "notpla_uk",
+      "elapsed_seconds": 41.56,
+      "completed_sections": 9,
+      "model_calls": 3,
+      "correction_attempts": 0
+    },
+    {
+      "case_id": "paasa_live_v9",
+      "elapsed_seconds": 51.449,
+      "completed_sections": 9,
+      "model_calls": 3,
+      "correction_attempts": 0
+    }
+  ],
+  "cached_api": {
+    "cached_API_response_ms": [
+      94.297,
+      24.117,
+      21.824
+    ],
+    "new_model_calls": 0,
+    "same_job": true,
+    "note": "The existing POST reconciliation increments metadata revision; cached content and inference attempts are unchanged.",
+    "original_v7_content_preserved_in_history": true,
+    "current_version": 9,
+    "revision": 1119
+  },
+  "verification": {
+    "focused_regression_tests": 350,
+    "frontend_build": "passed",
+    "frontend_lint": "passed",
+    "isolated_browser_journey": "passed",
+    "actual_live_pages": "passed",
+    "actual_live_copy": "passed"
+  },
+  "mvp_release_accepted": false,
+  "perfect_accuracy_claimed": false,
+  "notes": [
+    "This is a three-case development check, not an unseen/practitioner acceptance study.",
+    "Published source claims remain unverified; there are no reconciled company results or executed fundraising actions.",
+    "The normal path is three local model calls; the hard budget also covers permitted field repairs."
+  ],
+  "final_live_revision": 1119,
+  "active_jobs_after_verification": 0
+}

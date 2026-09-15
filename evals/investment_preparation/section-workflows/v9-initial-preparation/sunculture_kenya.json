@@ -1,0 +1,348 @@
+{
+  "case_id": "sunculture_kenya",
+  "input_hash": "d39ffa8c23e400cece2b8a9d1e2077cee2977560a20cae56317c60e26f2aeb43",
+  "model": "qwen3.5:9b",
+  "settings": {
+    "profile": "section_router",
+    "review_model": "qwen3.5:9b",
+    "review_thinking": true,
+    "reasoning_budget": 1024,
+    "thinking": false,
+    "tokens": 1200,
+    "context": 8192
+  },
+  "input_kind": "observed_website_and_commercial_pages",
+  "region": "Kenya",
+  "sector": "solar irrigation hardware",
+  "live_data_updated": false,
+  "limits": {
+    "max_corrections_per_stage": 1,
+    "max_calls": 6,
+    "max_seconds": 120
+  },
+  "pack": {
+    "version": 9,
+    "implementation_hash": "0ac0dadf1bf3954ee10854135652347b1f58cc554cc71295d218faa0f8a016bb",
+    "basis_hash": "98f65a1ac92ecc9b6f7a5f3ed43e38885e52f417be8ab626a90a8f297fcf2b6f",
+    "company": "SunCulture",
+    "record": {
+      "facts": [
+        {
+          "id": "S1",
+          "quote": "Our Solar Irrigation Pumps",
+          "source_url": "https://sunculture.io/",
+          "retrieved_at": "2026-09-14T11:15:53.707035+00:00",
+          "observed_at": null,
+          "origin": "public_page_claim",
+          "source_id": "evidence_f5f64467874a",
+          "category": "offering",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S2",
+          "quote": "SunCulture - Solar Irrigation Pumps for Sustainable Farming Company About Us Leadership Team Partner with us Our Solar Pumps Kilimo Boost Our Impact Our Impact Carbon SunCulture Protect Contact Us Help & FAQs News Sign Up My SunCulture Life-Changing Technology for everyday challenges Building a world where people take control of their environment in rewarding and sustainable ways. Chat with Us Report a Complaint Experience the Power of the Sun Welcome to SunCulture At SunCulture, we strive to solve the biggest daily challenges of smallholder farmers. We use off-grid solar technology to",
+          "source_url": "https://sunculture.io/",
+          "retrieved_at": "2026-09-14T11:15:56.838313+00:00",
+          "observed_at": null,
+          "origin": "preparation_public_page",
+          "source_id": "evidence_fb16401e4943",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S3",
+          "quote": "provide our customers with reliable access to water, irrigation, lighting, and mobile charging, and we can do all of that with a single system. We also offer a Pay-As-You-Grow option that allows you to pay in small monthly installments. Head over to our Case Studies page to hear directly from our happy customers, then give us a call! Hear from our customers Higher Yields and Increased Incomes Tackling the Irrigation Gap Head-on. SunCulture offers a diverse value proposition for an underserved market. Our solar irrigation pump packages include everything that is needed to get started,",
+          "source_url": "https://sunculture.io/",
+          "retrieved_at": "2026-09-14T11:15:56.838345+00:00",
+          "observed_at": null,
+          "origin": "preparation_public_page",
+          "source_id": "evidence_40673a841a58",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S4",
+          "quote": "including a consultation, installation services, training, and ongoing customer support should you have any questions or issues. With SunCulture, you can increase your crop yields by 300% and reduce your water usage by 80% with a simple push of a button. Yield 0 x Up to 5 times Increase in yields Income Growth 0 x Up to 10 times increase in income Our Solar Irrigation Pumps Effective & Flexible Pricing That Adapts Your Needs ClimateSmart\u2122 Direct 2 (CSD2) with RainMaker 2S submersible pump KES. 3,900 /Month Enjoy up to 1,200 litres of water per hour at 0 metres head Deposit KES. 3,999 Pay in",
+          "source_url": "https://sunculture.io/",
+          "retrieved_at": "2026-09-14T11:15:56.838358+00:00",
+          "observed_at": null,
+          "origin": "preparation_public_page",
+          "source_id": "evidence_3676dce6b51a",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S5",
+          "quote": "30 months Cash: KES. 64,999 30 months Warranty Free Delivery Free Installation View Solar Pumps New Controller ClimateSmart\u2122 Direct 2 (CSD2) with RainMaker Kubwa MAX submersible pump KES. 4,900 /Month Enjoy up to 7,960 litres of water per hour at 0 metres head Deposit KES. 5,199 Pay in 30 months Cash: KES. 81,999 30 months Warranty Free Delivery Free Installation View Solar Pumps New Controller ClimateSmart\u2122 Direct 2 (CSD2) with RainMaker2s MAX submersible pump KES. 4,900 /Month Enjoy up to 2,000 litres of water per hour at 0 metres head Deposit KES. 5,199 Pay in 30 Months Cash: KES. 77,999",
+          "source_url": "https://sunculture.io/",
+          "retrieved_at": "2026-09-14T11:15:56.838371+00:00",
+          "observed_at": null,
+          "origin": "preparation_public_page",
+          "source_id": "evidence_09ac2c9405ed",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S6",
+          "quote": "30 months warranty Free Delivery Free Installation View Solar Pumps New Controller Providing Value To Our Clients Through Innovative Solar Irrigation Pumps How to apply for our solar irrigation pumps Select your Solar Pump Get to select a wide range of solar water pumps from our catalogue that best fit your needs Make a payment You can pay us through CASH or Malipo Pole Pole flexible plan Delivery & Installation Your selected solar water pump will be delivered to a SunCulture Service Center or Wells Fargo near you. Aftersales Services Enjoy our free Aftersale services. You'll have a",
+          "source_url": "https://sunculture.io/",
+          "retrieved_at": "2026-09-14T11:15:56.838382+00:00",
+          "observed_at": null,
+          "origin": "preparation_public_page",
+          "source_id": "evidence_6b7dc4e252f6",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S7",
+          "quote": "Relationship Manager assigned to you.. Our Partners News & Announcements Recent Articles April 13, 2026 SunCulture Advances Climate Resilience with First Insurance Payout Cycle in Kenya SunCulture is pleased to announce the successful completion of the first payout cycle under its climate insurance program in Kenya. The initiative is delivered in partnership with IBISA\u2026 Read more December 19, 2025 SunCulture Pioneers Africa\u2019s First Carbon Market Ecosystem for Solar Water Pumps SunCulture, a leading climate-smart agriculture company and developer of the first carbon project for solar",
+          "source_url": "https://sunculture.io/",
+          "retrieved_at": "2026-09-14T11:15:56.838394+00:00",
+          "observed_at": null,
+          "origin": "preparation_public_page",
+          "source_id": "evidence_03f6221fe3a3",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S8",
+          "quote": "irrigation in Africa, has sold 10,000 Verified Carbon Units (VCUs) to EDF Trading\u2026 Read more December 5, 2025 SunCulture Launches Climate Insurance to Protect Smallholder Farmers SunCulture, in partnership with Humanity Insured, APA Insurance and IBISA, has launched SunCulture Protect \u2013 Climate Insurance, a first-of-its-kind product designed to help smallholder farmers in Kenya manage\u2026 Read more Find Out More From Our News! We have a suite of solar irrigation pumps to choose from depending on the needs of your home and farm. We\u2019ll guide you through a selection process to ensure you get the",
+          "source_url": "https://sunculture.io/",
+          "retrieved_at": "2026-09-14T11:15:56.838405+00:00",
+          "observed_at": null,
+          "origin": "preparation_public_page",
+          "source_id": "evidence_763469a92984",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        }
+      ],
+      "prepared_at": "2026-09-14T22:46:14.362597+00:00",
+      "batches": {},
+      "extraction": "complete_context_no_generation",
+      "coverage": "selected_sources_processed",
+      "unknowns": [],
+      "source_selection": {
+        "scope": "bounded_supplied_records",
+        "omitted_for_context": 0,
+        "max_context_characters": 14000
+      }
+    },
+    "sections": {},
+    "attempts": [
+      {
+        "task": "shared_analysis",
+        "attempt": 0,
+        "at": "2026-09-14T22:46:14.365274+00:00",
+        "implementation_hash": "0ac0dadf1bf3954ee10854135652347b1f58cc554cc71295d218faa0f8a016bb",
+        "answer": {
+          "economics_test": {
+            "service": "ClimateSmart Direct 2 (CSD2) with RainMaker 2S submersible pump",
+            "fact_ids": [
+              "S4",
+              "S5"
+            ]
+          },
+          "customer_test": {
+            "service": "ClimateSmart Direct 2 (CSD2) with RainMaker 2S submersible pump",
+            "fact_ids": [
+              "S6"
+            ],
+            "method": "activation",
+            "event": "completed delivery"
+          },
+          "business": {
+            "fact_ids": [
+              "S2",
+              "S3"
+            ]
+          },
+          "economics": {
+            "fact_ids": [
+              "S4",
+              "S5"
+            ]
+          },
+          "risk": {
+            "focus": "delivery_costs",
+            "fact_ids": [
+              "S6"
+            ]
+          }
+        },
+        "elapsed_seconds": 14.43,
+        "invoked": true,
+        "model": "qwen3.5:9b",
+        "routing": {
+          "task": "shared_analysis",
+          "profile": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1200,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "continuation_transport": null,
+          "context_tokens": 8192,
+          "temperature": 0,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 0,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 14.43,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 2326,
+          "generated_tokens": 187,
+          "done_reason": "stop"
+        },
+        "raw_response": "{\n  \"economics_test\": {\n    \"service\": \"ClimateSmart Direct 2 (CSD2) with RainMaker 2S submersible pump\",\n    \"fact_ids\": [\"S4\", \"S5\"]\n  },\n  \"customer_test\": {\n    \"service\": \"ClimateSmart Direct 2 (CSD2) with RainMaker 2S submersible pump\",\n    \"fact_ids\": [\"S6\"],\n    \"event\": \"completed delivery\"\n  },\n  \"business\": {\n    \"fact_ids\": [\"S2\", \"S3\"]\n  },\n  \"economics\": {\n    \"fact_ids\": [\"S4\", \"S5\"]\n  },\n  \"risk\": {\n    \"focus\": \"delivery_costs\",\n    \"fact_ids\": [\"S6\"]\n  }\n}"
+      },
+      {
+        "task": "shared_analysis",
+        "attempt": 1,
+        "at": "2026-09-14T22:46:28.803520+00:00",
+        "implementation_hash": "0ac0dadf1bf3954ee10854135652347b1f58cc554cc71295d218faa0f8a016bb",
+        "answer": {
+          "economics_test": {
+            "service": "ClimateSmart Direct 2 (CSD2) with RainMaker 2S submersible pump",
+            "fact_ids": [
+              "S4",
+              "S5"
+            ]
+          },
+          "customer_test": {
+            "service": "ClimateSmart Direct 2 (CSD2) with RainMaker 2S submersible pump",
+            "fact_ids": [
+              "S6"
+            ],
+            "method": "activation",
+            "event": "completed delivery"
+          },
+          "business": {
+            "fact_ids": [
+              "S2",
+              "S3"
+            ]
+          },
+          "economics": {
+            "fact_ids": [
+              "S4",
+              "S5"
+            ]
+          },
+          "risk": {
+            "focus": "delivery_costs",
+            "fact_ids": [
+              "S6"
+            ]
+          }
+        },
+        "elapsed_seconds": 11.509,
+        "invoked": true,
+        "model": "qwen3.5:9b",
+        "routing": {
+          "task": "shared_analysis",
+          "profile": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1200,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "continuation_transport": null,
+          "context_tokens": 8192,
+          "temperature": 0,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 0,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 11.5,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 2475,
+          "generated_tokens": 115,
+          "done_reason": "stop"
+        },
+        "raw_response": "{\"economics_test\":{\"service\":\"ClimateSmart Direct 2 (CSD2) with RainMaker 2S submersible pump\",\"fact_ids\":[\"S4\",\"S5\"]},\"customer_test\":{\"service\":\"ClimateSmart Direct 2 (CSD2) with RainMaker 2S submersible pump\",\"fact_ids\":[\"S6\"],\"event\":\"completed delivery\"},\"business\":{\"fact_ids\":[\"S2\",\"S3\"]},\"economics\":{\"fact_ids\":[\"S4\",\"S5\"]},\"risk\":{\"focus\":\"delivery_costs\",\"fact_ids\":[\"S6\"]}}"
+      }
+    ],
+    "status": "partial",
+    "started_at": "2026-09-14T22:46:14.362664+00:00",
+    "generation_config": {
+      "mode": "shared_analysis_v1",
+      "model": "qwen3.5:9b",
+      "thinking": false,
+      "review_model": "qwen3.5:9b",
+      "analysis_contract": "contribution_and_initial_activation_v1",
+      "analysis_reasoning_budget": 0,
+      "default_review_reasoning_budget": 0,
+      "continuation_protocol": "qwen35_raw_v1",
+      "review_thinking": null,
+      "contract": "37d18b9bd0772a3fc5bbc88eb3a72568eb6020ab8b6f35d8d6a55912ba6ab0ab"
+    },
+    "shared_input_hash": "81d4d9399acc6b2b0397edc82b8da61ef6fb101262cb6c167b209f780337c1dc",
+    "shared": {},
+    "documents": {
+      "research": {
+        "title": "Research memo",
+        "status": "partial"
+      },
+      "founder": {
+        "title": "Founder proposal",
+        "status": "partial"
+      },
+      "diligence": {
+        "title": "Diligence request",
+        "status": "partial"
+      },
+      "readiness": {
+        "title": "Investment-readiness plan",
+        "status": "partial"
+      }
+    },
+    "updated_at": "2026-09-14T22:46:40.318008+00:00",
+    "stop_reason": "Preparation validation needs correction: analysis_plan: Unsupported reported figures in a proposed record definition: ['2'].",
+    "last_run_budget": {
+      "max_seconds": 119.739227875,
+      "max_calls": 6,
+      "max_requests": 10,
+      "calls": 2,
+      "requests": 2,
+      "elapsed_seconds": 25.962
+    }
+  },
+  "metrics": {
+    "completed_sections": 0,
+    "expected_sections": 9,
+    "completion_rate": 0.0,
+    "completed_documents": [],
+    "model_calls": 2,
+    "correction_attempts": 1,
+    "inference_seconds": 25.94,
+    "independently_audited_factual_errors": null,
+    "actionable_sections": null
+  },
+  "elapsed_seconds": 25.97,
+  "actual_inference_calls": 2,
+  "denied_corrections": []
+}

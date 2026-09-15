@@ -1,0 +1,34 @@
+{
+  "case_id": "paasa_reference_test",
+  "reviewed": true,
+  "reviewer_kind": "coding_session_content_audit_separate_from_model_self_review",
+  "report_sha256": "ad15c26fe19590174d9fe475b4e448623deab5066bb6a76bebe16077887e23eb",
+  "factual_errors": 0,
+  "actionable_sections": 9,
+  "completed_sections": 9,
+  "elapsed_seconds": 33.89,
+  "logical_calls": 3,
+  "http_requests": 3,
+  "decision": "pass_for_initial_preparation_on_this_frozen_input",
+  "scope": "Source-checked paraphrases, not raw website text. Known development case, not practitioner or held-out acceptance. No live data modified.",
+  "sections": {
+    "research.business": "Complete source excerpts identify target product/customer and distinguish partner/advisory entity; reported benefits and registration remain qualified.",
+    "research.economics": "Access recurring-fee versus brokerage distinction and Apex annual AUM basis/monthly collection/separate brokerage/no markup all preserved. Retained revenue remains unknown.",
+    "research.decision": "Conditional Apex income-after-variable-cost and funding case; participation failure changes the decision without asserting observed losses or causation. Narrower than the reference, but valid initial test.",
+    "founder.observation": "Faithful attributed opening with relevant retained-income question.",
+    "founder.proposal": "Unsent outside-adviser contribution/customer offer, requests billing/ledger/supplier/customer-event inputs and names tables plus operating decision. Detailed records and funding-event definition are in linked requests.",
+    "diligence.request_a": "Accounting, partner treatment, entity, period and direct costs are requested; assets/principal excluded and already-net partner charges not deducted twice.",
+    "diligence.request_b": "Distinct funding-activation request with anonymized customer keys, eligibility and equal follow-up. No satisfaction/causal claims.",
+    "readiness.action_a": "Canonical retained recognized revenue minus attributable variable costs; explicit entity confirmation, same service/accounts/period and missing-input behavior.",
+    "readiness.action_b": "Unique funded customers over eligible registered customers, equal ninety-day exposure, immature cohorts excluded, unresolved missing data and baseline-derived experiment threshold."
+  },
+  "minor_edits": [
+    "Source excerpts and attached evidence duplicate text in Markdown; could shorten presentation without removing qualifications.",
+    "Founder proposal can name funding activation explicitly and point to the full direct-cost/staff-allocation request.",
+    "The Apex-only initial test does not replace subsequent Access analysis or advisory retention work."
+  ],
+  "limitations": [
+    "The app generates proposals and requests; no company records were analyzed and no economic or customer result was verified.",
+    "Nine usable sections on one frozen case do not establish universal reliability or the architecture MVP release gates."
+  ]
+}

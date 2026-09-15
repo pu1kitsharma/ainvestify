@@ -1,0 +1,39 @@
+Waybill — records to request and checks to run
+
+These are proposed checks, not completed findings.
+
+1. What money does Waybill actually keep?
+Service: Agentic procurement & inventory for deep tech teams
+Check whether the income from this service covers the direct cost of providing it.
+
+Ask the founders for
+- Customer bills, refunds and payment records for the last six completed months, with personal details removed.
+- Supplier and partner bills, plus staff and support costs for the same work.
+- Agreements showing which company earns the fees and what must be paid to others.
+
+What to do with the records
+1. Work out the income the company actually earns. Separate money held for customers, taxes passed on, and money owed to partners.
+2. Subtract the direct costs of providing the service. Count each cost once; compare the same service, month and currency.
+
+What this helps decide
+Make a monthly table of income, direct costs and the amount left. If costs use up the income, investigate pricing and delivery costs before recommending expansion.
+
+Leave missing amounts unanswered. This check excludes fixed head-office costs, so the amount left is not the company’s overall profit.
+
+2. Do new customers complete their first order?
+Service: Agentic procurement & inventory for deep tech teams
+Find out how often a new sign-up turns into the customer action being checked.
+
+Ask the founders for
+- A customer list for the last six completed months, with sign-up dates and service plans. Use anonymous customer IDs.
+- Order records with the same customer IDs, dates and completed or cancelled status.
+
+What to do with the records
+1. Agree which customers belong in the comparison and what counts as a completed order.
+2. Use only customers with a full 90 days of records after sign-up. Count each customer once if they completed an order within those 90 days.
+3. Divide that count by all qualifying new customers with a full 90 days of records. Show the percentage by sign-up month and service plan.
+
+What this helps decide
+Use the result to choose where to investigate customers getting stuck. Agree an improvement target with the founders using the actual results.
+
+Missing records mean the answer is unknown. This check does not establish repeat use, customer satisfaction or why customers stopped.

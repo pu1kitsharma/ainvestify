@@ -13,7 +13,7 @@ from agents.review_checkpoint import apply_lead_decision
 from api.deps import get_reviewer, get_store, get_tenant_id
 from api.models import LeadDecisionRequest, PromoteLeadRequest, SourceLeadsRequest, WebSourceRequest
 from schemas import Deal, SourcedLead, WebSourcingRun, utcnow
-from agents.company_sourcing import source_companies
+from agents.authored_discovery import source_companies
 from agents.local_models import LocalModel
 from store import Store
 
@@ -26,9 +26,12 @@ _worker_id = uuid.uuid4().hex
 
 
 def _run_web_job(db_path, run, body):
+    prepared_lead = None
     try:
         with Store(db_path) as store:
-            source_companies(store, run, max_pages=body.max_pages, max_companies=body.max_companies, prepare_workflow=body.prepare_workflow)
+            result = source_companies(store, run, max_pages=body.max_pages, max_companies=body.max_companies)
+            if body.prepare_workflow and result.lead_ids and result.status != 'cancelled':
+                prepared_lead = result.lead_ids[0]
     except Exception as exc:
         with Store(db_path) as store:
             run.status = "failed"
@@ -37,6 +40,23 @@ def _run_web_job(db_path, run, body):
             store.save_web_run(run)
     finally:
         _web_slot.release()
+    if prepared_lead:
+        # One automatic first draft; never fan out into unbounded inference.
+        from api.routers.operations import _queue_prepare
+        tasks = BackgroundTasks()
+        try:
+            with Store(db_path) as store:
+                _queue_prepare(prepared_lead,tasks,store,run.tenant_id,analyst=True)
+                saved = store.get_web_run(run.tenant_id,run.id)
+                saved.generation_config['automatic_preparation_lead_id'] = prepared_lead
+                store.save_web_run(saved)
+            for task in tasks.tasks:
+                task.func(*task.args, **task.kwargs)
+        except Exception as exc:
+            with Store(db_path) as store:
+                saved = store.get_web_run(run.tenant_id,run.id)
+                saved.warnings.append(f'Automatic company preparation could not start ({type(exc).__name__}). Source results are retained.')
+                store.save_web_run(saved)
 
 
 @router.post("/web-runs", response_model=WebSourcingRun, status_code=202)
@@ -114,7 +134,7 @@ def source(
 ):
     """VC-style sourcing (agents/sourcing_agent.discover_leads): early-stage
     candidates via GitHub/HN recency signals."""
-    return source_leads(store, tenant_id, body.sector_keyword, location_filter=body.location_filter)
+    raise HTTPException(410, 'Use /api/leads/web-runs for model-driven company discovery.')
 
 
 @router.post("/source-ib", response_model=list[SourcedLead])
@@ -125,7 +145,7 @@ def source_ib(
 ):
     """IB-style sourcing (agents/sourcing_agent.discover_ib_targets): mature/
     public companies signaling a transaction window via SEC filings."""
-    return source_ib_targets(store, tenant_id, body.sector_keyword)
+    raise HTTPException(410, 'Use /api/leads/web-runs for model-driven company discovery.')
 
 
 @router.get("", response_model=list[SourcedLead])

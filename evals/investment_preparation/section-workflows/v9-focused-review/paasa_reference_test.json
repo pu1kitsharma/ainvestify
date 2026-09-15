@@ -1,0 +1,1185 @@
+{
+  "case_id": "paasa_reference_test",
+  "input_hash": "bcd68f0b2e796336c56f3dd80bed5af2ad8b30783420503180a97336f7ec563b",
+  "model": "qwen3.5:9b",
+  "settings": {
+    "profile": "section_router",
+    "review_model": "qwen3.5:9b",
+    "review_thinking": true,
+    "reasoning_budget": 1024,
+    "thinking": false,
+    "tokens": 1200,
+    "context": 8192
+  },
+  "input_kind": "curated_source_checked_paraphrases",
+  "region": "India",
+  "sector": "consumer investing / financial technology",
+  "live_data_updated": false,
+  "limits": {
+    "max_corrections_per_stage": 1,
+    "max_calls": 6,
+    "max_seconds": 120
+  },
+  "reference_sha256": "c4bf1f31324154efdd712f4ea3dba067f4c9ca9c31cfaa51fc142bd97354c8da",
+  "pack": {
+    "version": 9,
+    "implementation_hash": "f5a43ad305d7be9fe5bdbab0a9af1ab071f036adeaad5215a89e9dc12d1bf1ee",
+    "basis_hash": "e646904a8ae0eda0dd1e87adfda67b2478af6fb9083b8f5d553fb78a3a523875",
+    "company": "Paasa",
+    "record": {
+      "facts": [
+        {
+          "id": "S1",
+          "quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.",
+          "source_url": "https://www.ycombinator.com/companies/paasa",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "source_id": "reference_source_1",
+          "category": "offering",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S2",
+          "quote": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade. The public schedule does not establish how much of a customer charge the investment target retains.",
+          "source_url": "https://paasa.com/pricing",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "source_id": "reference_source_2",
+          "category": "pricing",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S3",
+          "quote": "The Apex plan adds managed advisory strategies and FEMA/tax support to Access. Its percentage charge is based on assets under management, stated annually and collected monthly. Brokerage fees apply separately. The page states that brokerage markups are not applied to Apex customers.",
+          "source_url": "https://paasa.com/pricing",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "source_id": "reference_source_3",
+          "category": "pricing",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S4",
+          "quote": "Paasa describes itself as a financial technology company rather than a bank or brokerage. It names licensed partners as the banking and brokerage service providers. The site names Arc Spire Advisory Private Limited as the advisory service provider operating under the Paasa brand and reports its SEBI registration; that registration has not been independently checked for this evaluation.",
+          "source_url": "https://paasa.com/",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "source_id": "reference_source_4",
+          "category": "company_structure",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S5",
+          "quote": "The site identifies Interactive Brokers as custodian and says customer cash and holdings are held in the customer's own name. It lists Paasa, Inc., Paasa IFSC Private Limited and Bruhm Labs Private Limited, but this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements.",
+          "source_url": "https://paasa.com/",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "source_id": "reference_source_5",
+          "category": "company_structure",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        }
+      ],
+      "prepared_at": "2026-09-14T22:20:09.196883+00:00",
+      "batches": {},
+      "extraction": "complete_context_no_generation",
+      "coverage": "selected_sources_processed",
+      "unknowns": [],
+      "source_selection": {
+        "scope": "bounded_supplied_records",
+        "omitted_for_context": 0,
+        "max_context_characters": 14000
+      }
+    },
+    "sections": {
+      "research.business": {
+        "document": "research",
+        "title": "Business and customer",
+        "status": "needs_revision",
+        "input_hash": "2049e945e34133cd35e005a18dca173eb955012275be16f70606fe88d17e3596",
+        "review_hash": "038bdf2281cc0b636309a33f7785fde071f55f80c3a8e1d223fd393047918690",
+        "dependency": null,
+        "content": {
+          "text": "The supplied sources state: \u201cPaasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.\u201d \u201cPaasa describes itself as a financial technology company rather than a bank or brokerage. It names licensed partners as the banking and brokerage service providers. The site names Arc Spire Advisory Private Limited as the advisory service provider operating under the Paasa brand and reports its SEBI registration; that registration has not been independently checked for this evaluation.\u201d",
+          "fact_ids": [
+            "S1",
+            "S4"
+          ],
+          "source_quotes": true
+        },
+        "review": {
+          "verdict": "revise",
+          "kind": "combined_bound_review",
+          "objections": [
+            {
+              "field": "founder.opening",
+              "passage": "{\"text\":\"Your website describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory, identifying remittance friction and unfamiliar tax requirements as customer problems.\",\"fact_ids\":[\"S1\"]}",
+              "basis_id": "S1",
+              "supporting_quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.",
+              "defect": "unobservable_event",
+              "explanation": "The draft asserts that the website identifies specific customer problems like remittance friction as facts, but S1 clarifies these are company-reported problems, not measured customer outcomes, making the assertion of them as identified facts an unobservable event.",
+              "correction": "The draft asserts that the website identifies specific customer problems like remittance friction as facts, but S1 clarifies these are company-reported problems, not measured customer outcomes, making the assertion of them as identified facts an unobservable event. Select a relevant event or enrollment status that underlying customer records can establish."
+            },
+            {
+              "field": "founder.offer",
+              "passage": "{\"text\":\"We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\"fact_ids\":[\"S2\",\"S3\",\"S1\"]}",
+              "basis_id": "S2",
+              "supporting_quote": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade. The public schedule does not establish how much of a customer charge the investment target retains.",
+              "defect": "fee_basis",
+              "explanation": "The draft claims a contribution reconciliation is proposed for the Apex plan, but S2 states the Access plan (and by extension the pricing structure context) does not establish how much of a customer charge the investment target retains, meaning the fee basis for contribution calculation is missing or undefined.",
+              "correction": "The draft claims a contribution reconciliation is proposed for the Apex plan, but S2 states the Access plan (and by extension the pricing structure context) does not establish how much of a customer charge the investment target retains, meaning the fee basis for contribution calculation is missing or undefined. Preserve payer, charge basis, period and separate plan/partner charges. Assets are not company income."
+            },
+            {
+              "field": "founder.offer",
+              "passage": "{\"text\":\"We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\"fact_ids\":[\"S2\",\"S3\",\"S1\"]}",
+              "basis_id": "S5",
+              "supporting_quote": "The site identifies Interactive Brokers as custodian and says customer cash and holdings are held in the customer's own name. It lists Paasa, Inc., Paasa IFSC Private Limited and Bruhm Labs Private Limited, but this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements.",
+              "defect": "entity_scope",
+              "explanation": "The draft requests intercompany financial statements and ownership charts as part of the proposed work, but S5 explicitly states the evidence packet contains no such documents, indicating these are unavailable company results that cannot be demanded as a precondition for requesting records to measure them.",
+              "correction": "The draft requests intercompany financial statements and ownership charts as part of the proposed work, but S5 explicitly states the evidence packet contains no such documents, indicating these are unavailable company results that cannot be demanded as a precondition for requesting records to measure them. Distinguish the target brand, operating entities and partners; confirm the investment entity from records."
+            }
+          ]
+        },
+        "updated_at": "2026-09-14T22:21:19.911989+00:00"
+      },
+      "research.economics": {
+        "document": "research",
+        "title": "Revenue mechanism",
+        "status": "needs_revision",
+        "input_hash": "2049e945e34133cd35e005a18dca173eb955012275be16f70606fe88d17e3596",
+        "review_hash": "038bdf2281cc0b636309a33f7785fde071f55f80c3a8e1d223fd393047918690",
+        "dependency": null,
+        "content": {
+          "revenue_mechanism": "The supplied sources state: \u201cThe Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade. The public schedule does not establish how much of a customer charge the investment target retains.\u201d \u201cThe Apex plan adds managed advisory strategies and FEMA/tax support to Access. Its percentage charge is based on assets under management, stated annually and collected monthly. Brokerage fees apply separately. The page states that brokerage markups are not applied to Apex customers.\u201d",
+          "unknown_economics": "What income does the investment entity retain from Apex, and does it cover attributable variable service costs? Published statements do not establish realized income; reconcile the contracting entity, recognition and company-held cost records.",
+          "fact_ids": [
+            "S2",
+            "S3"
+          ],
+          "source_quotes": true
+        },
+        "review": {
+          "verdict": "revise",
+          "kind": "combined_bound_review",
+          "objections": [
+            {
+              "field": "founder.opening",
+              "passage": "{\"text\":\"Your website describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory, identifying remittance friction and unfamiliar tax requirements as customer problems.\",\"fact_ids\":[\"S1\"]}",
+              "basis_id": "S1",
+              "supporting_quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.",
+              "defect": "unobservable_event",
+              "explanation": "The draft asserts that the website identifies specific customer problems like remittance friction as facts, but S1 clarifies these are company-reported problems, not measured customer outcomes, making the assertion of them as identified facts an unobservable event.",
+              "correction": "The draft asserts that the website identifies specific customer problems like remittance friction as facts, but S1 clarifies these are company-reported problems, not measured customer outcomes, making the assertion of them as identified facts an unobservable event. Select a relevant event or enrollment status that underlying customer records can establish."
+            },
+            {
+              "field": "founder.offer",
+              "passage": "{\"text\":\"We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\"fact_ids\":[\"S2\",\"S3\",\"S1\"]}",
+              "basis_id": "S2",
+              "supporting_quote": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade. The public schedule does not establish how much of a customer charge the investment target retains.",
+              "defect": "fee_basis",
+              "explanation": "The draft claims a contribution reconciliation is proposed for the Apex plan, but S2 states the Access plan (and by extension the pricing structure context) does not establish how much of a customer charge the investment target retains, meaning the fee basis for contribution calculation is missing or undefined.",
+              "correction": "The draft claims a contribution reconciliation is proposed for the Apex plan, but S2 states the Access plan (and by extension the pricing structure context) does not establish how much of a customer charge the investment target retains, meaning the fee basis for contribution calculation is missing or undefined. Preserve payer, charge basis, period and separate plan/partner charges. Assets are not company income."
+            },
+            {
+              "field": "founder.offer",
+              "passage": "{\"text\":\"We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\"fact_ids\":[\"S2\",\"S3\",\"S1\"]}",
+              "basis_id": "S5",
+              "supporting_quote": "The site identifies Interactive Brokers as custodian and says customer cash and holdings are held in the customer's own name. It lists Paasa, Inc., Paasa IFSC Private Limited and Bruhm Labs Private Limited, but this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements.",
+              "defect": "entity_scope",
+              "explanation": "The draft requests intercompany financial statements and ownership charts as part of the proposed work, but S5 explicitly states the evidence packet contains no such documents, indicating these are unavailable company results that cannot be demanded as a precondition for requesting records to measure them.",
+              "correction": "The draft requests intercompany financial statements and ownership charts as part of the proposed work, but S5 explicitly states the evidence packet contains no such documents, indicating these are unavailable company results that cannot be demanded as a precondition for requesting records to measure them. Distinguish the target brand, operating entities and partners; confirm the investment entity from records."
+            }
+          ]
+        },
+        "updated_at": "2026-09-14T22:21:19.912020+00:00"
+      },
+      "research.decision": {
+        "document": "research",
+        "title": "Opportunity and unresolved risks",
+        "status": "needs_revision",
+        "input_hash": "2049e945e34133cd35e005a18dca173eb955012275be16f70606fe88d17e3596",
+        "review_hash": "038bdf2281cc0b636309a33f7785fde071f55f80c3a8e1d223fd393047918690",
+        "dependency": null,
+        "content": {
+          "reason_to_engage": "If retained income from Apex covers attributable variable delivery costs and eligible Apex customers complete funding, the evidence could support further diligence on a repeatable business. Both conditions require reconciled company records.",
+          "unresolved_risk": "The commercial case weakens if eligible Apex customers do not complete funding. Equally observed cohorts are needed to identify participation gaps; event logs alone will not establish why customers behave that way.",
+          "next_decision": "Resolve the linked contribution and customer-use questions before recommending an engagement or expansion; investigate adverse results and leave missing inputs unresolved.",
+          "fact_ids": [
+            "S3",
+            "S1"
+          ]
+        },
+        "review": {
+          "verdict": "revise",
+          "kind": "combined_bound_review",
+          "objections": [
+            {
+              "field": "founder.opening",
+              "passage": "{\"text\":\"Your website describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory, identifying remittance friction and unfamiliar tax requirements as customer problems.\",\"fact_ids\":[\"S1\"]}",
+              "basis_id": "S1",
+              "supporting_quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.",
+              "defect": "unobservable_event",
+              "explanation": "The draft asserts that the website identifies specific customer problems like remittance friction as facts, but S1 clarifies these are company-reported problems, not measured customer outcomes, making the assertion of them as identified facts an unobservable event.",
+              "correction": "The draft asserts that the website identifies specific customer problems like remittance friction as facts, but S1 clarifies these are company-reported problems, not measured customer outcomes, making the assertion of them as identified facts an unobservable event. Select a relevant event or enrollment status that underlying customer records can establish."
+            },
+            {
+              "field": "founder.offer",
+              "passage": "{\"text\":\"We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\"fact_ids\":[\"S2\",\"S3\",\"S1\"]}",
+              "basis_id": "S2",
+              "supporting_quote": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade. The public schedule does not establish how much of a customer charge the investment target retains.",
+              "defect": "fee_basis",
+              "explanation": "The draft claims a contribution reconciliation is proposed for the Apex plan, but S2 states the Access plan (and by extension the pricing structure context) does not establish how much of a customer charge the investment target retains, meaning the fee basis for contribution calculation is missing or undefined.",
+              "correction": "The draft claims a contribution reconciliation is proposed for the Apex plan, but S2 states the Access plan (and by extension the pricing structure context) does not establish how much of a customer charge the investment target retains, meaning the fee basis for contribution calculation is missing or undefined. Preserve payer, charge basis, period and separate plan/partner charges. Assets are not company income."
+            },
+            {
+              "field": "founder.offer",
+              "passage": "{\"text\":\"We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\"fact_ids\":[\"S2\",\"S3\",\"S1\"]}",
+              "basis_id": "S5",
+              "supporting_quote": "The site identifies Interactive Brokers as custodian and says customer cash and holdings are held in the customer's own name. It lists Paasa, Inc., Paasa IFSC Private Limited and Bruhm Labs Private Limited, but this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements.",
+              "defect": "entity_scope",
+              "explanation": "The draft requests intercompany financial statements and ownership charts as part of the proposed work, but S5 explicitly states the evidence packet contains no such documents, indicating these are unavailable company results that cannot be demanded as a precondition for requesting records to measure them.",
+              "correction": "The draft requests intercompany financial statements and ownership charts as part of the proposed work, but S5 explicitly states the evidence packet contains no such documents, indicating these are unavailable company results that cannot be demanded as a precondition for requesting records to measure them. Distinguish the target brand, operating entities and partners; confirm the investment entity from records."
+            }
+          ]
+        },
+        "updated_at": "2026-09-14T22:21:19.912024+00:00"
+      },
+      "founder.observation": {
+        "document": "founder",
+        "title": "Why we are approaching you",
+        "status": "needs_revision",
+        "input_hash": "2049e945e34133cd35e005a18dca173eb955012275be16f70606fe88d17e3596",
+        "review_hash": "038bdf2281cc0b636309a33f7785fde071f55f80c3a8e1d223fd393047918690",
+        "dependency": null,
+        "content": {
+          "reported_observation": "Your website describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory, identifying remittance friction and unfamiliar tax requirements as customer problems.",
+          "question_to_explore": "What income does the investment entity retain from Apex, and does it cover attributable variable service costs?",
+          "fact_ids": [
+            "S1"
+          ]
+        },
+        "review": {
+          "verdict": "revise",
+          "kind": "combined_bound_review",
+          "objections": [
+            {
+              "field": "founder.opening",
+              "passage": "{\"text\":\"Your website describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory, identifying remittance friction and unfamiliar tax requirements as customer problems.\",\"fact_ids\":[\"S1\"]}",
+              "basis_id": "S1",
+              "supporting_quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.",
+              "defect": "unobservable_event",
+              "explanation": "The draft asserts that the website identifies specific customer problems like remittance friction as facts, but S1 clarifies these are company-reported problems, not measured customer outcomes, making the assertion of them as identified facts an unobservable event.",
+              "correction": "The draft asserts that the website identifies specific customer problems like remittance friction as facts, but S1 clarifies these are company-reported problems, not measured customer outcomes, making the assertion of them as identified facts an unobservable event. Select a relevant event or enrollment status that underlying customer records can establish."
+            },
+            {
+              "field": "founder.offer",
+              "passage": "{\"text\":\"We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\"fact_ids\":[\"S2\",\"S3\",\"S1\"]}",
+              "basis_id": "S2",
+              "supporting_quote": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade. The public schedule does not establish how much of a customer charge the investment target retains.",
+              "defect": "fee_basis",
+              "explanation": "The draft claims a contribution reconciliation is proposed for the Apex plan, but S2 states the Access plan (and by extension the pricing structure context) does not establish how much of a customer charge the investment target retains, meaning the fee basis for contribution calculation is missing or undefined.",
+              "correction": "The draft claims a contribution reconciliation is proposed for the Apex plan, but S2 states the Access plan (and by extension the pricing structure context) does not establish how much of a customer charge the investment target retains, meaning the fee basis for contribution calculation is missing or undefined. Preserve payer, charge basis, period and separate plan/partner charges. Assets are not company income."
+            },
+            {
+              "field": "founder.offer",
+              "passage": "{\"text\":\"We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\"fact_ids\":[\"S2\",\"S3\",\"S1\"]}",
+              "basis_id": "S5",
+              "supporting_quote": "The site identifies Interactive Brokers as custodian and says customer cash and holdings are held in the customer's own name. It lists Paasa, Inc., Paasa IFSC Private Limited and Bruhm Labs Private Limited, but this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements.",
+              "defect": "entity_scope",
+              "explanation": "The draft requests intercompany financial statements and ownership charts as part of the proposed work, but S5 explicitly states the evidence packet contains no such documents, indicating these are unavailable company results that cannot be demanded as a precondition for requesting records to measure them.",
+              "correction": "The draft requests intercompany financial statements and ownership charts as part of the proposed work, but S5 explicitly states the evidence packet contains no such documents, indicating these are unavailable company results that cannot be demanded as a precondition for requesting records to measure them. Distinguish the target brand, operating entities and partners; confirm the investment entity from records."
+            }
+          ]
+        },
+        "updated_at": "2026-09-14T22:21:19.912026+00:00"
+      },
+      "founder.proposal": {
+        "document": "founder",
+        "title": "The assistance we propose",
+        "status": "needs_revision",
+        "input_hash": "2049e945e34133cd35e005a18dca173eb955012275be16f70606fe88d17e3596",
+        "review_hash": "038bdf2281cc0b636309a33f7785fde071f55f80c3a8e1d223fd393047918690",
+        "dependency": "readiness.action_a",
+        "content": {
+          "proposed_work": "We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.",
+          "invitation": "Would you be open to a conversation to discuss these requests?",
+          "fact_ids": [
+            "S2",
+            "S3",
+            "S1"
+          ]
+        },
+        "review": {
+          "verdict": "revise",
+          "kind": "combined_bound_review",
+          "objections": [
+            {
+              "field": "founder.opening",
+              "passage": "{\"text\":\"Your website describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory, identifying remittance friction and unfamiliar tax requirements as customer problems.\",\"fact_ids\":[\"S1\"]}",
+              "basis_id": "S1",
+              "supporting_quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.",
+              "defect": "unobservable_event",
+              "explanation": "The draft asserts that the website identifies specific customer problems like remittance friction as facts, but S1 clarifies these are company-reported problems, not measured customer outcomes, making the assertion of them as identified facts an unobservable event.",
+              "correction": "The draft asserts that the website identifies specific customer problems like remittance friction as facts, but S1 clarifies these are company-reported problems, not measured customer outcomes, making the assertion of them as identified facts an unobservable event. Select a relevant event or enrollment status that underlying customer records can establish."
+            },
+            {
+              "field": "founder.offer",
+              "passage": "{\"text\":\"We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\"fact_ids\":[\"S2\",\"S3\",\"S1\"]}",
+              "basis_id": "S2",
+              "supporting_quote": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade. The public schedule does not establish how much of a customer charge the investment target retains.",
+              "defect": "fee_basis",
+              "explanation": "The draft claims a contribution reconciliation is proposed for the Apex plan, but S2 states the Access plan (and by extension the pricing structure context) does not establish how much of a customer charge the investment target retains, meaning the fee basis for contribution calculation is missing or undefined.",
+              "correction": "The draft claims a contribution reconciliation is proposed for the Apex plan, but S2 states the Access plan (and by extension the pricing structure context) does not establish how much of a customer charge the investment target retains, meaning the fee basis for contribution calculation is missing or undefined. Preserve payer, charge basis, period and separate plan/partner charges. Assets are not company income."
+            },
+            {
+              "field": "founder.offer",
+              "passage": "{\"text\":\"We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\"fact_ids\":[\"S2\",\"S3\",\"S1\"]}",
+              "basis_id": "S5",
+              "supporting_quote": "The site identifies Interactive Brokers as custodian and says customer cash and holdings are held in the customer's own name. It lists Paasa, Inc., Paasa IFSC Private Limited and Bruhm Labs Private Limited, but this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements.",
+              "defect": "entity_scope",
+              "explanation": "The draft requests intercompany financial statements and ownership charts as part of the proposed work, but S5 explicitly states the evidence packet contains no such documents, indicating these are unavailable company results that cannot be demanded as a precondition for requesting records to measure them.",
+              "correction": "The draft requests intercompany financial statements and ownership charts as part of the proposed work, but S5 explicitly states the evidence packet contains no such documents, indicating these are unavailable company results that cannot be demanded as a precondition for requesting records to measure them. Distinguish the target brand, operating entities and partners; confirm the investment entity from records."
+            }
+          ]
+        },
+        "updated_at": "2026-09-14T22:21:19.912029+00:00"
+      },
+      "diligence.request_a": {
+        "document": "diligence",
+        "title": "First diligence request",
+        "status": "needs_revision",
+        "input_hash": "2049e945e34133cd35e005a18dca173eb955012275be16f70606fe88d17e3596",
+        "review_hash": "038bdf2281cc0b636309a33f7785fde071f55f80c3a8e1d223fd393047918690",
+        "dependency": null,
+        "content": {
+          "question": "What income does the investment entity retain from Apex, and does it cover attributable variable service costs?",
+          "analysis_plan": {
+            "question": "What income does the investment entity retain from Apex, and does it cover attributable variable service costs?",
+            "left": {
+              "name": "Recognized service revenue after partner charges, if applicable",
+              "dimension": "money",
+              "unit": "reconciled reporting currency",
+              "record_needed": "Entity chart and service/fee-sharing agreements; redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements. Include entity, plan, account key, month, currency, refunds and taxes. Reconcile recognition and gross/net presentation; identify any partner charges already deducted and normalize them exactly once. Exclude customer principal, assets and pass-through taxes from revenue.",
+              "role": "recognized_revenue",
+              "entity": "Investment target, legal identity and contracting entities to confirm",
+              "service": "Apex",
+              "population": "Eligible service accounts, separated by plan and operating month",
+              "window": "Latest six completed months",
+              "time_basis": "flow",
+              "exposure": "Complete operating month",
+              "revenue_treatment": "net",
+              "deducted_costs": [
+                "partner_charge"
+              ]
+            },
+            "operation": "subtract",
+            "right": {
+              "name": "Attributable variable service costs excluding partner charges already deducted",
+              "dimension": "money",
+              "unit": "reconciled reporting currency",
+              "record_needed": "Supplier invoices, direct service/support cost records and staff-time allocations for the same entity, plans, accounts and months. Include currency, expense category, allocation basis and one-off versus ongoing service cost. Exclude fixed corporate overhead and partner charges already deducted from the reconciled revenue input. Request missing records; do not estimate them from public tariffs.",
+              "role": "variable_service_cost",
+              "entity": "Investment target, legal identity and contracting entities to confirm",
+              "service": "Apex",
+              "population": "Eligible service accounts, separated by plan and operating month",
+              "window": "Latest six completed months",
+              "time_basis": "flow",
+              "exposure": "Complete operating month",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "population_basis": "Eligible service accounts, separated by plan and operating month",
+            "kind": "measurement",
+            "purpose": "contribution",
+            "expected_output": "contribution_profit",
+            "population_relation": "same_population",
+            "partner_charge_treatment": "already_deducted_from_revenue",
+            "fee_yield_basis": null,
+            "missing_inputs": "request_records_and_defer_decision",
+            "inference_limit": "descriptive_only_no_causal_claim"
+          },
+          "fact_ids": [
+            "S3"
+          ],
+          "records_to_request": "Entity chart and service/fee-sharing agreements; redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements. Include entity, plan, account key, month, currency, refunds and taxes. Reconcile recognition and gross/net presentation; identify any partner charges already deducted and normalize them exactly once. Exclude customer principal, assets and pass-through taxes from revenue.; Supplier invoices, direct service/support cost records and staff-time allocations for the same entity, plans, accounts and months. Include currency, expense category, allocation basis and one-off versus ongoing service cost. Exclude fixed corporate overhead and partner charges already deducted from the reconciled revenue input. Request missing records; do not estimate them from public tariffs.",
+          "decision": "Decision unresolved until the requested records and definitions are checked. Use reconciled contribution to investigate loss-making services and choose pricing or delivery-cost work before an expansion recommendation. Observed losses alone do not establish future viability."
+        },
+        "review": {
+          "verdict": "revise",
+          "kind": "combined_bound_review",
+          "objections": [
+            {
+              "field": "founder.opening",
+              "passage": "{\"text\":\"Your website describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory, identifying remittance friction and unfamiliar tax requirements as customer problems.\",\"fact_ids\":[\"S1\"]}",
+              "basis_id": "S1",
+              "supporting_quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.",
+              "defect": "unobservable_event",
+              "explanation": "The draft asserts that the website identifies specific customer problems like remittance friction as facts, but S1 clarifies these are company-reported problems, not measured customer outcomes, making the assertion of them as identified facts an unobservable event.",
+              "correction": "The draft asserts that the website identifies specific customer problems like remittance friction as facts, but S1 clarifies these are company-reported problems, not measured customer outcomes, making the assertion of them as identified facts an unobservable event. Select a relevant event or enrollment status that underlying customer records can establish."
+            },
+            {
+              "field": "founder.offer",
+              "passage": "{\"text\":\"We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\"fact_ids\":[\"S2\",\"S3\",\"S1\"]}",
+              "basis_id": "S2",
+              "supporting_quote": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade. The public schedule does not establish how much of a customer charge the investment target retains.",
+              "defect": "fee_basis",
+              "explanation": "The draft claims a contribution reconciliation is proposed for the Apex plan, but S2 states the Access plan (and by extension the pricing structure context) does not establish how much of a customer charge the investment target retains, meaning the fee basis for contribution calculation is missing or undefined.",
+              "correction": "The draft claims a contribution reconciliation is proposed for the Apex plan, but S2 states the Access plan (and by extension the pricing structure context) does not establish how much of a customer charge the investment target retains, meaning the fee basis for contribution calculation is missing or undefined. Preserve payer, charge basis, period and separate plan/partner charges. Assets are not company income."
+            },
+            {
+              "field": "founder.offer",
+              "passage": "{\"text\":\"We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\"fact_ids\":[\"S2\",\"S3\",\"S1\"]}",
+              "basis_id": "S5",
+              "supporting_quote": "The site identifies Interactive Brokers as custodian and says customer cash and holdings are held in the customer's own name. It lists Paasa, Inc., Paasa IFSC Private Limited and Bruhm Labs Private Limited, but this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements.",
+              "defect": "entity_scope",
+              "explanation": "The draft requests intercompany financial statements and ownership charts as part of the proposed work, but S5 explicitly states the evidence packet contains no such documents, indicating these are unavailable company results that cannot be demanded as a precondition for requesting records to measure them.",
+              "correction": "The draft requests intercompany financial statements and ownership charts as part of the proposed work, but S5 explicitly states the evidence packet contains no such documents, indicating these are unavailable company results that cannot be demanded as a precondition for requesting records to measure them. Distinguish the target brand, operating entities and partners; confirm the investment entity from records."
+            }
+          ]
+        },
+        "updated_at": "2026-09-14T22:21:19.912032+00:00"
+      },
+      "diligence.request_b": {
+        "document": "diligence",
+        "title": "Second diligence request",
+        "status": "needs_revision",
+        "input_hash": "2049e945e34133cd35e005a18dca173eb955012275be16f70606fe88d17e3596",
+        "review_hash": "038bdf2281cc0b636309a33f7785fde071f55f80c3a8e1d223fd393047918690",
+        "dependency": null,
+        "content": {
+          "question": "What proportion of eligible new Apex customers complete funding within the requested observation window?",
+          "analysis_plan": {
+            "question": "What proportion of eligible new Apex customers complete funding within the requested observation window?",
+            "left": {
+              "name": "Customers completing the specified activation event",
+              "dimension": "count",
+              "unit": "unique customers",
+              "record_needed": "Redacted account-event export with stable customer key, event type, event timestamp, plan and completion/cancellation status. Count each eligible customer once if funding occurs after registration within follow-up. Link to the eligible cohort file; missing event coverage is unresolved, not a negative outcome.",
+              "role": "count",
+              "entity": "Investment target, legal identity and service operator to confirm",
+              "service": "Apex",
+              "population": "Same eligible customer cohort, grouped by entry month and service plan",
+              "window": "Latest six completed months",
+              "time_basis": "observation_window",
+              "exposure": "First ninety days after cohort entry; exclude immature accounts",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "operation": "divide",
+            "right": {
+              "name": "Eligible newly registered customers with complete follow-up",
+              "dimension": "count",
+              "unit": "unique customers",
+              "record_needed": "Redacted customer/cohort export with stable customer key, registration/enrollment/first-event date, plan, eligibility flags and data cutoff. Cohort entry is registration; document eligibility exclusions before counting. Use the same cohort and customer keys as the event export; retain only fully observed customers.",
+              "role": "count",
+              "entity": "Investment target, legal identity and service operator to confirm",
+              "service": "Apex",
+              "population": "Same eligible customer cohort, grouped by entry month and service plan",
+              "window": "Latest six completed months",
+              "time_basis": "observation_window",
+              "exposure": "First ninety days after cohort entry; exclude immature accounts",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "population_basis": "Same eligible customer cohort, grouped by entry month and service plan",
+            "kind": "measurement",
+            "purpose": "cohort_rate",
+            "expected_output": "cohort_rate",
+            "population_relation": "numerator_subset_of_denominator",
+            "partner_charge_treatment": "not_applicable",
+            "fee_yield_basis": null,
+            "missing_inputs": "request_records_and_defer_decision",
+            "inference_limit": "descriptive_only_no_causal_claim"
+          },
+          "fact_ids": [
+            "S1"
+          ],
+          "records_to_request": "Redacted account-event export with stable customer key, event type, event timestamp, plan and completion/cancellation status. Count each eligible customer once if funding occurs after registration within follow-up. Link to the eligible cohort file; missing event coverage is unresolved, not a negative outcome.; Redacted customer/cohort export with stable customer key, registration/enrollment/first-event date, plan, eligibility flags and data cutoff. Cohort entry is registration; document eligibility exclusions before counting. Use the same cohort and customer keys as the event export; retain only fully observed customers.",
+          "decision": "Decision unresolved until the requested records and definitions are checked. Use funded or retained participation to select an activation or retention investigation; set an experiment threshold from an observed baseline."
+        },
+        "review": {
+          "verdict": "revise",
+          "kind": "combined_bound_review",
+          "objections": [
+            {
+              "field": "founder.opening",
+              "passage": "{\"text\":\"Your website describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory, identifying remittance friction and unfamiliar tax requirements as customer problems.\",\"fact_ids\":[\"S1\"]}",
+              "basis_id": "S1",
+              "supporting_quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.",
+              "defect": "unobservable_event",
+              "explanation": "The draft asserts that the website identifies specific customer problems like remittance friction as facts, but S1 clarifies these are company-reported problems, not measured customer outcomes, making the assertion of them as identified facts an unobservable event.",
+              "correction": "The draft asserts that the website identifies specific customer problems like remittance friction as facts, but S1 clarifies these are company-reported problems, not measured customer outcomes, making the assertion of them as identified facts an unobservable event. Select a relevant event or enrollment status that underlying customer records can establish."
+            },
+            {
+              "field": "founder.offer",
+              "passage": "{\"text\":\"We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\"fact_ids\":[\"S2\",\"S3\",\"S1\"]}",
+              "basis_id": "S2",
+              "supporting_quote": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade. The public schedule does not establish how much of a customer charge the investment target retains.",
+              "defect": "fee_basis",
+              "explanation": "The draft claims a contribution reconciliation is proposed for the Apex plan, but S2 states the Access plan (and by extension the pricing structure context) does not establish how much of a customer charge the investment target retains, meaning the fee basis for contribution calculation is missing or undefined.",
+              "correction": "The draft claims a contribution reconciliation is proposed for the Apex plan, but S2 states the Access plan (and by extension the pricing structure context) does not establish how much of a customer charge the investment target retains, meaning the fee basis for contribution calculation is missing or undefined. Preserve payer, charge basis, period and separate plan/partner charges. Assets are not company income."
+            },
+            {
+              "field": "founder.offer",
+              "passage": "{\"text\":\"We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\"fact_ids\":[\"S2\",\"S3\",\"S1\"]}",
+              "basis_id": "S5",
+              "supporting_quote": "The site identifies Interactive Brokers as custodian and says customer cash and holdings are held in the customer's own name. It lists Paasa, Inc., Paasa IFSC Private Limited and Bruhm Labs Private Limited, but this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements.",
+              "defect": "entity_scope",
+              "explanation": "The draft requests intercompany financial statements and ownership charts as part of the proposed work, but S5 explicitly states the evidence packet contains no such documents, indicating these are unavailable company results that cannot be demanded as a precondition for requesting records to measure them.",
+              "correction": "The draft requests intercompany financial statements and ownership charts as part of the proposed work, but S5 explicitly states the evidence packet contains no such documents, indicating these are unavailable company results that cannot be demanded as a precondition for requesting records to measure them. Distinguish the target brand, operating entities and partners; confirm the investment entity from records."
+            }
+          ]
+        },
+        "updated_at": "2026-09-14T22:21:19.912034+00:00"
+      },
+      "readiness.action_a": {
+        "document": "readiness",
+        "title": "First readiness action",
+        "status": "needs_revision",
+        "input_hash": "2049e945e34133cd35e005a18dca173eb955012275be16f70606fe88d17e3596",
+        "review_hash": "038bdf2281cc0b636309a33f7785fde071f55f80c3a8e1d223fd393047918690",
+        "dependency": "diligence.request_a",
+        "content": {
+          "analysis_plan": {
+            "question": "What income does the investment entity retain from Apex, and does it cover attributable variable service costs?",
+            "left": {
+              "name": "Recognized service revenue after partner charges, if applicable",
+              "dimension": "money",
+              "unit": "reconciled reporting currency",
+              "record_needed": "Entity chart and service/fee-sharing agreements; redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements. Include entity, plan, account key, month, currency, refunds and taxes. Reconcile recognition and gross/net presentation; identify any partner charges already deducted and normalize them exactly once. Exclude customer principal, assets and pass-through taxes from revenue.",
+              "role": "recognized_revenue",
+              "entity": "Investment target, legal identity and contracting entities to confirm",
+              "service": "Apex",
+              "population": "Eligible service accounts, separated by plan and operating month",
+              "window": "Latest six completed months",
+              "time_basis": "flow",
+              "exposure": "Complete operating month",
+              "revenue_treatment": "net",
+              "deducted_costs": [
+                "partner_charge"
+              ]
+            },
+            "operation": "subtract",
+            "right": {
+              "name": "Attributable variable service costs excluding partner charges already deducted",
+              "dimension": "money",
+              "unit": "reconciled reporting currency",
+              "record_needed": "Supplier invoices, direct service/support cost records and staff-time allocations for the same entity, plans, accounts and months. Include currency, expense category, allocation basis and one-off versus ongoing service cost. Exclude fixed corporate overhead and partner charges already deducted from the reconciled revenue input. Request missing records; do not estimate them from public tariffs.",
+              "role": "variable_service_cost",
+              "entity": "Investment target, legal identity and contracting entities to confirm",
+              "service": "Apex",
+              "population": "Eligible service accounts, separated by plan and operating month",
+              "window": "Latest six completed months",
+              "time_basis": "flow",
+              "exposure": "Complete operating month",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "population_basis": "Eligible service accounts, separated by plan and operating month",
+            "kind": "measurement",
+            "purpose": "contribution",
+            "expected_output": "contribution_profit",
+            "population_relation": "same_population",
+            "partner_charge_treatment": "already_deducted_from_revenue",
+            "fee_yield_basis": null,
+            "missing_inputs": "request_records_and_defer_decision",
+            "inference_limit": "descriptive_only_no_causal_claim"
+          },
+          "fact_ids": [
+            "S3"
+          ],
+          "required_input": "Entity chart and service/fee-sharing agreements; redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements. Include entity, plan, account key, month, currency, refunds and taxes. Reconcile recognition and gross/net presentation; identify any partner charges already deducted and normalize them exactly once. Exclude customer principal, assets and pass-through taxes from revenue.; Supplier invoices, direct service/support cost records and staff-time allocations for the same entity, plans, accounts and months. Include currency, expense category, allocation basis and one-off versus ongoing service cost. Exclude fixed corporate overhead and partner charges already deducted from the reconciled revenue input. Request missing records; do not estimate them from public tariffs.",
+          "action": "Recognized service revenue after partner charges, if applicable (reconciled reporting currency) \u2212 Attributable variable service costs excluding partner charges already deducted (reconciled reporting currency). Scope: Investment target, legal identity and contracting entities to confirm; Apex; Eligible service accounts, separated by plan and operating month. Align records to Latest six completed months; exposure: Complete operating month. Check definitions and reconcile inputs before calculating; leave missing inputs and zero denominators unresolved.",
+          "output": "A source-linked contribution profit table (reconciled reporting currency) with input reconciliation, definitions and unresolved differences.",
+          "decision": "Decision unresolved until the requested records and definitions are checked. Use reconciled contribution to investigate loss-making services and choose pricing or delivery-cost work before an expansion recommendation. Observed losses alone do not establish future viability."
+        },
+        "review": {
+          "verdict": "revise",
+          "kind": "combined_bound_review",
+          "objections": [
+            {
+              "field": "founder.opening",
+              "passage": "{\"text\":\"Your website describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory, identifying remittance friction and unfamiliar tax requirements as customer problems.\",\"fact_ids\":[\"S1\"]}",
+              "basis_id": "S1",
+              "supporting_quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.",
+              "defect": "unobservable_event",
+              "explanation": "The draft asserts that the website identifies specific customer problems like remittance friction as facts, but S1 clarifies these are company-reported problems, not measured customer outcomes, making the assertion of them as identified facts an unobservable event.",
+              "correction": "The draft asserts that the website identifies specific customer problems like remittance friction as facts, but S1 clarifies these are company-reported problems, not measured customer outcomes, making the assertion of them as identified facts an unobservable event. Select a relevant event or enrollment status that underlying customer records can establish."
+            },
+            {
+              "field": "founder.offer",
+              "passage": "{\"text\":\"We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\"fact_ids\":[\"S2\",\"S3\",\"S1\"]}",
+              "basis_id": "S2",
+              "supporting_quote": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade. The public schedule does not establish how much of a customer charge the investment target retains.",
+              "defect": "fee_basis",
+              "explanation": "The draft claims a contribution reconciliation is proposed for the Apex plan, but S2 states the Access plan (and by extension the pricing structure context) does not establish how much of a customer charge the investment target retains, meaning the fee basis for contribution calculation is missing or undefined.",
+              "correction": "The draft claims a contribution reconciliation is proposed for the Apex plan, but S2 states the Access plan (and by extension the pricing structure context) does not establish how much of a customer charge the investment target retains, meaning the fee basis for contribution calculation is missing or undefined. Preserve payer, charge basis, period and separate plan/partner charges. Assets are not company income."
+            },
+            {
+              "field": "founder.offer",
+              "passage": "{\"text\":\"We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\"fact_ids\":[\"S2\",\"S3\",\"S1\"]}",
+              "basis_id": "S5",
+              "supporting_quote": "The site identifies Interactive Brokers as custodian and says customer cash and holdings are held in the customer's own name. It lists Paasa, Inc., Paasa IFSC Private Limited and Bruhm Labs Private Limited, but this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements.",
+              "defect": "entity_scope",
+              "explanation": "The draft requests intercompany financial statements and ownership charts as part of the proposed work, but S5 explicitly states the evidence packet contains no such documents, indicating these are unavailable company results that cannot be demanded as a precondition for requesting records to measure them.",
+              "correction": "The draft requests intercompany financial statements and ownership charts as part of the proposed work, but S5 explicitly states the evidence packet contains no such documents, indicating these are unavailable company results that cannot be demanded as a precondition for requesting records to measure them. Distinguish the target brand, operating entities and partners; confirm the investment entity from records."
+            }
+          ]
+        },
+        "updated_at": "2026-09-14T22:21:19.912037+00:00"
+      },
+      "readiness.action_b": {
+        "document": "readiness",
+        "title": "Second readiness action",
+        "status": "needs_revision",
+        "input_hash": "2049e945e34133cd35e005a18dca173eb955012275be16f70606fe88d17e3596",
+        "review_hash": "038bdf2281cc0b636309a33f7785fde071f55f80c3a8e1d223fd393047918690",
+        "dependency": "diligence.request_b",
+        "content": {
+          "analysis_plan": {
+            "question": "What proportion of eligible new Apex customers complete funding within the requested observation window?",
+            "left": {
+              "name": "Customers completing the specified activation event",
+              "dimension": "count",
+              "unit": "unique customers",
+              "record_needed": "Redacted account-event export with stable customer key, event type, event timestamp, plan and completion/cancellation status. Count each eligible customer once if funding occurs after registration within follow-up. Link to the eligible cohort file; missing event coverage is unresolved, not a negative outcome.",
+              "role": "count",
+              "entity": "Investment target, legal identity and service operator to confirm",
+              "service": "Apex",
+              "population": "Same eligible customer cohort, grouped by entry month and service plan",
+              "window": "Latest six completed months",
+              "time_basis": "observation_window",
+              "exposure": "First ninety days after cohort entry; exclude immature accounts",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "operation": "divide",
+            "right": {
+              "name": "Eligible newly registered customers with complete follow-up",
+              "dimension": "count",
+              "unit": "unique customers",
+              "record_needed": "Redacted customer/cohort export with stable customer key, registration/enrollment/first-event date, plan, eligibility flags and data cutoff. Cohort entry is registration; document eligibility exclusions before counting. Use the same cohort and customer keys as the event export; retain only fully observed customers.",
+              "role": "count",
+              "entity": "Investment target, legal identity and service operator to confirm",
+              "service": "Apex",
+              "population": "Same eligible customer cohort, grouped by entry month and service plan",
+              "window": "Latest six completed months",
+              "time_basis": "observation_window",
+              "exposure": "First ninety days after cohort entry; exclude immature accounts",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "population_basis": "Same eligible customer cohort, grouped by entry month and service plan",
+            "kind": "measurement",
+            "purpose": "cohort_rate",
+            "expected_output": "cohort_rate",
+            "population_relation": "numerator_subset_of_denominator",
+            "partner_charge_treatment": "not_applicable",
+            "fee_yield_basis": null,
+            "missing_inputs": "request_records_and_defer_decision",
+            "inference_limit": "descriptive_only_no_causal_claim"
+          },
+          "fact_ids": [
+            "S1"
+          ],
+          "required_input": "Redacted account-event export with stable customer key, event type, event timestamp, plan and completion/cancellation status. Count each eligible customer once if funding occurs after registration within follow-up. Link to the eligible cohort file; missing event coverage is unresolved, not a negative outcome.; Redacted customer/cohort export with stable customer key, registration/enrollment/first-event date, plan, eligibility flags and data cutoff. Cohort entry is registration; document eligibility exclusions before counting. Use the same cohort and customer keys as the event export; retain only fully observed customers.",
+          "action": "Customers completing the specified activation event (unique customers) \u00f7 Eligible newly registered customers with complete follow-up (unique customers). Scope: Investment target, legal identity and service operator to confirm; Apex; Same eligible customer cohort, grouped by entry month and service plan. Align records to Latest six completed months; exposure: First ninety days after cohort entry; exclude immature accounts. Check definitions and reconcile inputs before calculating; leave missing inputs and zero denominators unresolved.",
+          "output": "A source-linked cohort rate table (fraction) with input reconciliation, definitions and unresolved differences.",
+          "decision": "Decision unresolved until the requested records and definitions are checked. Use funded or retained participation to select an activation or retention investigation; set an experiment threshold from an observed baseline."
+        },
+        "review": {
+          "verdict": "revise",
+          "kind": "combined_bound_review",
+          "objections": [
+            {
+              "field": "founder.opening",
+              "passage": "{\"text\":\"Your website describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory, identifying remittance friction and unfamiliar tax requirements as customer problems.\",\"fact_ids\":[\"S1\"]}",
+              "basis_id": "S1",
+              "supporting_quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.",
+              "defect": "unobservable_event",
+              "explanation": "The draft asserts that the website identifies specific customer problems like remittance friction as facts, but S1 clarifies these are company-reported problems, not measured customer outcomes, making the assertion of them as identified facts an unobservable event.",
+              "correction": "The draft asserts that the website identifies specific customer problems like remittance friction as facts, but S1 clarifies these are company-reported problems, not measured customer outcomes, making the assertion of them as identified facts an unobservable event. Select a relevant event or enrollment status that underlying customer records can establish."
+            },
+            {
+              "field": "founder.offer",
+              "passage": "{\"text\":\"We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\"fact_ids\":[\"S2\",\"S3\",\"S1\"]}",
+              "basis_id": "S2",
+              "supporting_quote": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade. The public schedule does not establish how much of a customer charge the investment target retains.",
+              "defect": "fee_basis",
+              "explanation": "The draft claims a contribution reconciliation is proposed for the Apex plan, but S2 states the Access plan (and by extension the pricing structure context) does not establish how much of a customer charge the investment target retains, meaning the fee basis for contribution calculation is missing or undefined.",
+              "correction": "The draft claims a contribution reconciliation is proposed for the Apex plan, but S2 states the Access plan (and by extension the pricing structure context) does not establish how much of a customer charge the investment target retains, meaning the fee basis for contribution calculation is missing or undefined. Preserve payer, charge basis, period and separate plan/partner charges. Assets are not company income."
+            },
+            {
+              "field": "founder.offer",
+              "passage": "{\"text\":\"We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\"fact_ids\":[\"S2\",\"S3\",\"S1\"]}",
+              "basis_id": "S5",
+              "supporting_quote": "The site identifies Interactive Brokers as custodian and says customer cash and holdings are held in the customer's own name. It lists Paasa, Inc., Paasa IFSC Private Limited and Bruhm Labs Private Limited, but this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements.",
+              "defect": "entity_scope",
+              "explanation": "The draft requests intercompany financial statements and ownership charts as part of the proposed work, but S5 explicitly states the evidence packet contains no such documents, indicating these are unavailable company results that cannot be demanded as a precondition for requesting records to measure them.",
+              "correction": "The draft requests intercompany financial statements and ownership charts as part of the proposed work, but S5 explicitly states the evidence packet contains no such documents, indicating these are unavailable company results that cannot be demanded as a precondition for requesting records to measure them. Distinguish the target brand, operating entities and partners; confirm the investment entity from records."
+            }
+          ]
+        },
+        "updated_at": "2026-09-14T22:21:19.912039+00:00"
+      }
+    },
+    "attempts": [
+      {
+        "task": "shared_analysis",
+        "attempt": 0,
+        "at": "2026-09-14T22:20:09.199193+00:00",
+        "implementation_hash": "f5a43ad305d7be9fe5bdbab0a9af1ab071f036adeaad5215a89e9dc12d1bf1ee",
+        "answer": {
+          "economics_test": {
+            "service": "Apex",
+            "fact_ids": [
+              "S3"
+            ]
+          },
+          "customer_test": {
+            "service": "Apex",
+            "fact_ids": [
+              "S1"
+            ],
+            "method": "activation",
+            "event": "funding"
+          },
+          "business": {
+            "fact_ids": [
+              "S1",
+              "S4"
+            ]
+          },
+          "economics": {
+            "fact_ids": [
+              "S2",
+              "S3"
+            ]
+          },
+          "risk": {
+            "focus": "customer_use",
+            "fact_ids": [
+              "S1"
+            ]
+          }
+        },
+        "elapsed_seconds": 7.802,
+        "invoked": true,
+        "model": "qwen3.5:9b",
+        "routing": {
+          "task": "shared_analysis",
+          "profile": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1200,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "continuation_transport": null,
+          "context_tokens": 8192,
+          "temperature": 0,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 0,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 7.8,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 1392,
+          "generated_tokens": 155,
+          "done_reason": "stop"
+        },
+        "raw_response": "{\n  \"economics_test\": {\n    \"service\": \"Apex\",\n    \"fact_ids\": [\"S3\"]\n  },\n  \"customer_test\": {\n    \"service\": \"Apex\",\n    \"fact_ids\": [\"S1\"],\n    \"method\": \"activation\",\n    \"event\": \"funding\"\n  },\n  \"business\": {\n    \"fact_ids\": [\"S1\", \"S4\"]\n  },\n  \"economics\": {\n    \"fact_ids\": [\"S2\", \"S3\"]\n  },\n  \"risk\": {\n    \"focus\": \"customer_use\",\n    \"fact_ids\": [\"S1\"]\n  }\n}"
+      },
+      {
+        "task": "shared_founder",
+        "attempt": 0,
+        "at": "2026-09-14T22:20:17.018179+00:00",
+        "implementation_hash": "f5a43ad305d7be9fe5bdbab0a9af1ab071f036adeaad5215a89e9dc12d1bf1ee",
+        "answer": {
+          "opening": {
+            "text": "Your website describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory, identifying remittance friction and unfamiliar tax requirements as customer problems.",
+            "fact_ids": [
+              "S1"
+            ]
+          },
+          "offer": {
+            "text": "We propose a contribution reconciliation and customer analysis for the Apex plan, requesting entity charts, service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.",
+            "fact_ids": [
+              "S2",
+              "S3",
+              "S1"
+            ]
+          },
+          "invitation": "Would you be open to a conversation to discuss these requests?"
+        },
+        "elapsed_seconds": 12.887,
+        "invoked": true,
+        "model": "qwen3.5:9b",
+        "routing": {
+          "task": "shared_founder",
+          "profile": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 650,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "continuation_transport": null,
+          "context_tokens": 8192,
+          "temperature": 0,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 0,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 12.88,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 1711,
+          "generated_tokens": 188,
+          "done_reason": "stop"
+        },
+        "raw_response": "{\n  \"opening\": {\n    \"text\": \"Your website describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory, identifying remittance friction and unfamiliar tax requirements as customer problems.\",\n    \"fact_ids\": [\"S1\"]\n  },\n  \"offer\": {\n    \"text\": \"We propose a contribution reconciliation and customer analysis for the Apex plan, requesting entity charts, service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\n    \"fact_ids\": [\"S2\", \"S3\", \"S1\"]\n  },\n  \"invitation\": \"Would you be open to a conversation to discuss these requests?\"\n}"
+      },
+      {
+        "task": "shared_review",
+        "attempt": 0,
+        "at": "2026-09-14T22:20:29.925353+00:00",
+        "implementation_hash": "f5a43ad305d7be9fe5bdbab0a9af1ab071f036adeaad5215a89e9dc12d1bf1ee",
+        "answer": {
+          "issues": [
+            {
+              "passage_id": "D3",
+              "basis_id": "S1",
+              "defect": "unobservable_event",
+              "explanation": "The draft asserts that the website identifies specific customer problems like 'remittance friction' and 'unfamiliar tax requirements' as facts, but source S1 explicitly states these are 'company-reported problems, not measured customer outcomes,' making the assertion of them as identified problems an unverified claim rather than a reported fact."
+            },
+            {
+              "passage_id": "D4",
+              "basis_id": "S5",
+              "defect": "record_mismatch",
+              "explanation": "The draft requests 'entity charts' and 'intercompany financial statements' as concrete deliverables for a contribution reconciliation, yet source S5 explicitly states that 'this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements,' indicating these records are unavailable and cannot be requested as preconditions for the analysis."
+            }
+          ]
+        },
+        "elapsed_seconds": 12.694,
+        "invoked": true,
+        "model": "qwen3.5:9b",
+        "routing": {
+          "task": "shared_review",
+          "profile": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 900,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "continuation_transport": null,
+          "context_tokens": 8192,
+          "temperature": 0,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 0,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 12.69,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 1379,
+          "generated_tokens": 196,
+          "done_reason": "stop"
+        },
+        "raw_response": "{\"issues\": [{\"passage_id\": \"D3\", \"basis_id\": \"S1\", \"defect\": \"unobservable_event\", \"explanation\": \"The draft asserts that the website identifies specific customer problems like 'remittance friction' and 'unfamiliar tax requirements' as facts, but source S1 explicitly states these are 'company-reported problems, not measured customer outcomes,' making the assertion of them as identified problems an unverified claim rather than a reported fact.\"}, {\"passage_id\": \"D4\", \"basis_id\": \"S5\", \"defect\": \"record_mismatch\", \"explanation\": \"The draft requests 'entity charts' and 'intercompany financial statements' as concrete deliverables for a contribution reconciliation, yet source S5 explicitly states that 'this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements,' indicating these records are unavailable and cannot be requested as preconditions for the analysis.\"}]}"
+      },
+      {
+        "task": "shared_founder",
+        "attempt": 1,
+        "at": "2026-09-14T22:20:42.636364+00:00",
+        "implementation_hash": "f5a43ad305d7be9fe5bdbab0a9af1ab071f036adeaad5215a89e9dc12d1bf1ee",
+        "answer": {
+          "offer": {
+            "text": "We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.",
+            "fact_ids": [
+              "S2",
+              "S3",
+              "S1"
+            ]
+          },
+          "opening": {
+            "text": "Your website describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory, identifying remittance friction and unfamiliar tax requirements as customer problems.",
+            "fact_ids": [
+              "S1"
+            ]
+          }
+        },
+        "elapsed_seconds": 16.568,
+        "invoked": true,
+        "model": "qwen3.5:9b",
+        "routing": {
+          "task": "shared_founder",
+          "profile": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 650,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "continuation_transport": null,
+          "context_tokens": 8192,
+          "temperature": 0,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 0,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 16.56,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 2451,
+          "generated_tokens": 183,
+          "done_reason": "stop"
+        },
+        "raw_response": "{\n  \"offer\": {\n    \"text\": \"We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\n    \"fact_ids\": [\n      \"S2\",\n      \"S3\",\n      \"S1\"\n    ]\n  },\n  \"opening\": {\n    \"text\": \"Your website describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory, identifying remittance friction and unfamiliar tax requirements as customer problems.\",\n    \"fact_ids\": [\n      \"S1\"\n    ]\n  }\n}"
+      },
+      {
+        "task": "shared_review",
+        "attempt": 0,
+        "at": "2026-09-14T22:20:59.223126+00:00",
+        "implementation_hash": "f5a43ad305d7be9fe5bdbab0a9af1ab071f036adeaad5215a89e9dc12d1bf1ee",
+        "answer": {
+          "issues": [
+            {
+              "passage_id": "D3",
+              "basis_id": "S1",
+              "defect": "unobservable_event",
+              "explanation": "The draft asserts that the website identifies specific customer problems like remittance friction as facts, but S1 clarifies these are company-reported problems, not measured customer outcomes, making the assertion of them as identified facts an unobservable event."
+            },
+            {
+              "passage_id": "D4",
+              "basis_id": "S2",
+              "defect": "fee_basis",
+              "explanation": "The draft claims a contribution reconciliation is proposed for the Apex plan, but S2 states the Access plan (and by extension the pricing structure context) does not establish how much of a customer charge the investment target retains, meaning the fee basis for contribution calculation is missing or undefined."
+            },
+            {
+              "passage_id": "D4",
+              "basis_id": "S5",
+              "defect": "entity_scope",
+              "explanation": "The draft requests intercompany financial statements and ownership charts as part of the proposed work, but S5 explicitly states the evidence packet contains no such documents, indicating these are unavailable company results that cannot be demanded as a precondition for requesting records to measure them."
+            }
+          ]
+        },
+        "elapsed_seconds": 20.656,
+        "invoked": true,
+        "model": "qwen3.5:9b",
+        "routing": {
+          "task": "shared_review",
+          "profile": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 900,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "continuation_transport": null,
+          "context_tokens": 8192,
+          "temperature": 0,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 0,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 20.62,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 1376,
+          "generated_tokens": 250,
+          "done_reason": "stop"
+        },
+        "raw_response": "{\"issues\": [{\"passage_id\": \"D3\", \"basis_id\": \"S1\", \"defect\": \"unobservable_event\", \"explanation\": \"The draft asserts that the website identifies specific customer problems like remittance friction as facts, but S1 clarifies these are company-reported problems, not measured customer outcomes, making the assertion of them as identified facts an unobservable event.\"}, {\"passage_id\": \"D4\", \"basis_id\": \"S2\", \"defect\": \"fee_basis\", \"explanation\": \"The draft claims a contribution reconciliation is proposed for the Apex plan, but S2 states the Access plan (and by extension the pricing structure context) does not establish how much of a customer charge the investment target retains, meaning the fee basis for contribution calculation is missing or undefined.\"}, {\"passage_id\": \"D4\", \"basis_id\": \"S5\", \"defect\": \"entity_scope\", \"explanation\": \"The draft requests intercompany financial statements and ownership charts as part of the proposed work, but S5 explicitly states the evidence packet contains no such documents, indicating these are unavailable company results that cannot be demanded as a precondition for requesting records to measure them.\"}]}"
+      }
+    ],
+    "status": "partial",
+    "started_at": "2026-09-14T22:20:09.196929+00:00",
+    "generation_config": {
+      "mode": "shared_analysis_v1",
+      "model": "qwen3.5:9b",
+      "thinking": false,
+      "review_model": "qwen3.5:9b",
+      "analysis_contract": "source_and_method_selection_v1",
+      "analysis_reasoning_budget": 0,
+      "default_review_reasoning_budget": 0,
+      "continuation_protocol": "qwen35_raw_v1",
+      "review_thinking": null,
+      "contract": "01e37616ddec92c7d3fe1b6548d7fd284e9a1dfbf3ae8ee8803a5625fc0d251e"
+    },
+    "shared_input_hash": "2049e945e34133cd35e005a18dca173eb955012275be16f70606fe88d17e3596",
+    "shared": {
+      "analysis": {
+        "economics_test": {
+          "service": "Apex",
+          "fact_ids": [
+            "S3"
+          ]
+        },
+        "customer_test": {
+          "service": "Apex",
+          "fact_ids": [
+            "S1"
+          ],
+          "method": "activation",
+          "event": "funding"
+        },
+        "business": {
+          "fact_ids": [
+            "S1",
+            "S4"
+          ]
+        },
+        "economics": {
+          "fact_ids": [
+            "S2",
+            "S3"
+          ]
+        },
+        "risk": {
+          "focus": "customer_use",
+          "fact_ids": [
+            "S1"
+          ]
+        }
+      },
+      "founder": {
+        "opening": {
+          "text": "Your website describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory, identifying remittance friction and unfamiliar tax requirements as customer problems.",
+          "fact_ids": [
+            "S1"
+          ]
+        },
+        "offer": {
+          "text": "We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.",
+          "fact_ids": [
+            "S2",
+            "S3",
+            "S1"
+          ]
+        },
+        "invitation": "Would you be open to a conversation to discuss these requests?"
+      },
+      "review": {
+        "verdict": "revise",
+        "kind": "combined_bound_review",
+        "objections": [
+          {
+            "field": "founder.opening",
+            "passage": "{\"text\":\"Your website describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory, identifying remittance friction and unfamiliar tax requirements as customer problems.\",\"fact_ids\":[\"S1\"]}",
+            "basis_id": "S1",
+            "supporting_quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.",
+            "defect": "unobservable_event",
+            "explanation": "The draft asserts that the website identifies specific customer problems like remittance friction as facts, but S1 clarifies these are company-reported problems, not measured customer outcomes, making the assertion of them as identified facts an unobservable event.",
+            "correction": "The draft asserts that the website identifies specific customer problems like remittance friction as facts, but S1 clarifies these are company-reported problems, not measured customer outcomes, making the assertion of them as identified facts an unobservable event. Select a relevant event or enrollment status that underlying customer records can establish."
+          },
+          {
+            "field": "founder.offer",
+            "passage": "{\"text\":\"We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\"fact_ids\":[\"S2\",\"S3\",\"S1\"]}",
+            "basis_id": "S2",
+            "supporting_quote": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade. The public schedule does not establish how much of a customer charge the investment target retains.",
+            "defect": "fee_basis",
+            "explanation": "The draft claims a contribution reconciliation is proposed for the Apex plan, but S2 states the Access plan (and by extension the pricing structure context) does not establish how much of a customer charge the investment target retains, meaning the fee basis for contribution calculation is missing or undefined.",
+            "correction": "The draft claims a contribution reconciliation is proposed for the Apex plan, but S2 states the Access plan (and by extension the pricing structure context) does not establish how much of a customer charge the investment target retains, meaning the fee basis for contribution calculation is missing or undefined. Preserve payer, charge basis, period and separate plan/partner charges. Assets are not company income."
+          },
+          {
+            "field": "founder.offer",
+            "passage": "{\"text\":\"We propose a contribution reconciliation and customer analysis for the Apex plan, requesting service/fee-sharing agreements, redacted invoices, revenue ledgers, collection statements, supplier invoices, and customer event exports. The concrete deliverable is a source-linked contribution profit table and cohort rate table, supporting a commercial decision to investigate loss-making services or set activation experiment thresholds before expansion.\",\"fact_ids\":[\"S2\",\"S3\",\"S1\"]}",
+            "basis_id": "S5",
+            "supporting_quote": "The site identifies Interactive Brokers as custodian and says customer cash and holdings are held in the customer's own name. It lists Paasa, Inc., Paasa IFSC Private Limited and Bruhm Labs Private Limited, but this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements.",
+            "defect": "entity_scope",
+            "explanation": "The draft requests intercompany financial statements and ownership charts as part of the proposed work, but S5 explicitly states the evidence packet contains no such documents, indicating these are unavailable company results that cannot be demanded as a precondition for requesting records to measure them.",
+            "correction": "The draft requests intercompany financial statements and ownership charts as part of the proposed work, but S5 explicitly states the evidence packet contains no such documents, indicating these are unavailable company results that cannot be demanded as a precondition for requesting records to measure them. Distinguish the target brand, operating entities and partners; confirm the investment entity from records."
+          }
+        ]
+      }
+    },
+    "documents": {
+      "research": {
+        "title": "Research memo",
+        "status": "partial"
+      },
+      "founder": {
+        "title": "Founder proposal",
+        "status": "partial"
+      },
+      "diligence": {
+        "title": "Diligence request",
+        "status": "partial"
+      },
+      "readiness": {
+        "title": "Investment-readiness plan",
+        "status": "partial"
+      }
+    },
+    "updated_at": "2026-09-14T22:21:19.915085+00:00",
+    "agenda": {
+      "status": "complete",
+      "questions": [
+        {
+          "dimension": "unit_economics",
+          "question": "What income does the investment entity retain from Apex, and does it cover attributable variable service costs?",
+          "fact_ids": [
+            "S3"
+          ]
+        },
+        {
+          "dimension": "customer_demand",
+          "question": "What proportion of eligible new Apex customers complete funding within the requested observation window?",
+          "fact_ids": [
+            "S1"
+          ]
+        }
+      ]
+    },
+    "stop_reason": "The complete draft has material review objections; its proposed work has not been accepted.",
+    "last_run_budget": {
+      "max_seconds": 119.742141792,
+      "max_calls": 6,
+      "max_requests": 10,
+      "calls": 5,
+      "requests": 5,
+      "elapsed_seconds": 70.73
+    }
+  },
+  "metrics": {
+    "completed_sections": 0,
+    "expected_sections": 9,
+    "completion_rate": 0.0,
+    "completed_documents": [],
+    "model_calls": 5,
+    "correction_attempts": 1,
+    "inference_seconds": 70.61,
+    "independently_audited_factual_errors": null,
+    "actionable_sections": null
+  },
+  "elapsed_seconds": 70.75,
+  "actual_inference_calls": 5,
+  "denied_corrections": []
+}

@@ -1,0 +1,14 @@
+{
+  "report_sha256": "e34a77b97e59bdae47a9e1c2fe1ad257d820e3cf96b852040b82508dadf47270",
+  "decision": "failed_content_acceptance_despite_completed_job_and_model_pass",
+  "elapsed_seconds": 58.451,
+  "model_calls": 3,
+  "material_failure": "Apex managed/advisory activation was equated with completed orders, borrowing support from trading language for the neighboring Access service. Manager-executed trades do not establish customer activation.",
+  "other_findings": [
+    "Concise product excerpt and full source/pricing context retained.",
+    "Founder proposal requests income, cost and customer inputs; no financial performance was calculated."
+  ],
+  "followup": "Added generic plan-heading/description binding and a guard rejecting order-based activation for a source-described managed/advisory service. Retained result is an essential regression fixture.",
+  "reviewer_kind": "coding_session_development_inspection_not_practitioner",
+  "investment_handling_accepted": false
+}

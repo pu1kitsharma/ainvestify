@@ -1,0 +1,76 @@
+{
+  "input": {
+    "source": "The company reports helping shops with delivery paperwork. No private revenue ledger or measured customer outcomes are supplied.",
+    "drafts": [
+      {
+        "id": "A",
+        "text": "Your website describes help with delivery paperwork for shops."
+      },
+      {
+        "id": "B",
+        "text": "We propose requesting redacted revenue ledgers, service-cost records and customer event exports to measure contribution and repeat use, then recommend which segment merits further acquisition effort."
+      },
+      {
+        "id": "C",
+        "text": "Your independently verified service eliminates delivery problems for all shops."
+      },
+      {
+        "id": "D",
+        "text": "Your ledger proves profitable growth and we have already secured investors for you."
+      }
+    ]
+  },
+  "instruction": "Assess each draft against the source. Attributed source claims and proposed future work are allowed. Requesting missing private records is valid diligence, not an unsupported result or existing mandate. Invented verified outcomes, financial results or completed fundraising are errors. Return pass if faithful and usable; revise only for a concrete unsupported claim. Give one brief reason for each verdict.",
+  "model": "phi4-mini",
+  "output": {
+    "results": [
+      {
+        "id": "A",
+        "verdict": "pass",
+        "reason": "Accurately reflects the source's claim about helping shops with delivery paperwork."
+      },
+      {
+        "id": "B",
+        "verdict": "revise",
+        "reason": "Proposes actions not mentioned in the source, such as requesting private records."
+      },
+      {
+        "id": "C",
+        "verdict": "revise",
+        "reason": "Claims independently verified service outcomes, which are not mentioned in the source."
+      },
+      {
+        "id": "D",
+        "verdict": "revise",
+        "reason": "Includes invented financial results and secured investors, not mentioned in the source."
+      }
+    ]
+  },
+  "elapsed_seconds": 6.263,
+  "routing": {
+    "model": "phi4-mini",
+    "thinking": false,
+    "max_tokens": 650,
+    "thinking_used": false,
+    "reasoning_budget": null,
+    "answer_continuation": false,
+    "continuation_transport": null,
+    "context_tokens": 4096,
+    "temperature": 0,
+    "sampling": {},
+    "elapsed_seconds": 6.26,
+    "queue_seconds": 0.0,
+    "prompt_tokens": 452,
+    "generated_tokens": 167,
+    "done_reason": "stop"
+  },
+  "raw_response": "{\n  \"results\": [\n    {\n      \"id\": \"A\",\n      \"verdict\": \"pass\",\n      \"reason\": \"Accurately reflects the source's claim about helping shops with delivery paperwork.\"\n    },\n    {\n      \"id\": \"B\",\n      \"verdict\": \"revise\",\n      \"reason\": \"Proposes actions not mentioned in the source, such as requesting private records.\"\n    },\n    {\n      \"id\": \"C\",\n      \"verdict\": \"revise\",\n      \"reason\": \"Claims independently verified service outcomes, which are not mentioned in the source.\"\n    },\n    {\n      \"id\": \"D\",\n      \"verdict\": \"revise\",\n      \"reason\": \"Includes invented financial results and secured investors, not mentioned in the source.\"\n    }\n  ]\n}",
+  "budget": {
+    "max_seconds": 45.0,
+    "max_calls": 1,
+    "max_requests": 1,
+    "calls": 1,
+    "requests": 1,
+    "elapsed_seconds": 6.263
+  }
+}

@@ -1,7 +1,9 @@
 """Local operating workspaces. No external sending, signing or money movement."""
-from typing import Literal
+from typing import Literal, Optional
 import uuid
 import re
+import logging
+import traceback
 from threading import Lock
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from fastapi.responses import Response
@@ -20,6 +22,7 @@ router = APIRouter(prefix="/api/operations", tags=["operations"])
 _worker_id = uuid.uuid4().hex
 _submission_lock = Lock()
 _model_activity = {}
+logger = logging.getLogger(__name__)
 
 
 @router.get("/datasets")
@@ -28,18 +31,45 @@ def datasets(store: Store = Depends(get_store), tenant_id: str = Depends(get_ten
 
 
 @router.get("/workspaces")
-def workspaces(store: Store = Depends(get_store), tenant_id: str = Depends(get_tenant_id)):
+def workspaces(store: Store = Depends(get_store), tenant_id: str = Depends(get_tenant_id), summary: bool = False, lead_id: Optional[str] = None):
     # Evaluate reads against current evidence but do not mutate on GET.
     result = [reconcile_workspace(store, lead, persist=False) for w in store.list_workspaces(tenant_id)
-              if (lead := store.get_lead(tenant_id, w.lead_id)) is not None]
+              if (not lead_id or w.lead_id==lead_id) and (lead := store.get_lead(tenant_id, w.lead_id)) is not None]
     for workspace in result:
         job = workspace.automation
-        if job and job.id in _model_activity and job.worker_id == _worker_id:
+        if job and job.status in {'queued','running'} and job.id in _model_activity and job.worker_id == _worker_id:
             job.phase = _model_activity[job.id]
         if job and job.status in {"queued", "running"} and job.worker_id != _worker_id:
             job.status = "interrupted"
             job.error = "The local worker restarted. Generate AI work again; saved evidence and drafts are retained."
+    if summary:
+        return [company_work_view(w) for w in result]
     return result
+
+
+def company_work_view(workspace):
+    """Poll current deliverables without transferring old model traces each time."""
+    data=workspace.model_dump(mode='json')
+    fields=('id','lead_id','revision','basis_hash','automation','metrics','metric_imports','analyst_pack','analyst_pack_history')
+    view={k:data[k] for k in fields}
+    from agents.analyst_pack import validate_saved_sections
+    pack=validate_saved_sections(view['analyst_pack'])
+    pack.pop('attempts',None)
+    pack.pop('shared',None)
+    pack.pop('authored',None)
+    pack.pop('author_candidates',None)
+    pack.pop('reuse_sections',None)
+    pack.get('record',{}).pop('batches',None)
+    pack.get('record',{}).pop('passage_cache',None)
+    for section in pack.get('sections',{}).values():
+        section.pop('candidate',None);section.pop('review_failure',None)
+    # Historical prose remains inspectable; low-level inference attempts do not
+    # belong in the polling response or the primary preparation interface.
+    view['analyst_pack_history']=[{k:p[k] for k in ('version','basis_hash','company','status','sections') if k in p} for p in view['analyst_pack_history']]
+    for old in view['analyst_pack_history']:
+        for section in old.get('sections',{}).values():
+            section.pop('candidate',None);section.pop('review_failure',None)
+    return view
 
 
 class MetricUpdateRequest(BaseModel):
@@ -160,6 +190,8 @@ def metrics_markdown(workspace):
         lines += [f"Source for {KEYS[key]}: {source['source_name']} — {source.get('quote','Manually supplied figure')}" for key,source in row.get('field_sources',{}).items()]
     for calc in workspace.metrics['calculations']:
         lines += [f"### {calc['name']}: {calc['value']} {calc['unit']}", calc['formula'],calc['explanation'],'Input records: '+', '.join(calc['inputs'])]
+    for item in workspace.metrics.get('unresolved_calculations',[]):
+        lines += [f"### {item['name']} — unresolved",item['reason'],'Input records: '+', '.join(item['inputs'])]
     if not workspace.metrics['months']: lines.append('No dated company operating figures have been supplied. Public product descriptions are not financial statements.')
     return '\n\n'.join(lines)
 
@@ -217,33 +249,61 @@ def internal_brief(workspace_id: str, store: Store = Depends(get_store), tenant_
                     headers={'Content-Disposition': 'attachment; filename="internal-company-brief.md"'})
 
 
-def _prepare_job(db_path, tenant_id, lead_id, job_id, brief=False, refresh=False, metric_import_id=None, readiness=False):
+def _prepare_job(db_path, tenant_id, lead_id, job_id, brief=False, refresh=False, metric_import_id=None, readiness=False, analyst=False, analyst_model=None, analyst_thinking=False, analyst_review_model=None, analyst_review_thinking=None):
+    from agents.preparation_budget import preparation_budget
+    with preparation_budget():
+        return _run_prepare_job(db_path, tenant_id, lead_id, job_id, brief, refresh, metric_import_id, readiness, analyst, analyst_model, analyst_thinking, analyst_review_model, analyst_review_thinking)
+
+
+def _run_prepare_job(db_path, tenant_id, lead_id, job_id, brief=False, refresh=False, metric_import_id=None, readiness=False, analyst=False, analyst_model=None, analyst_thinking=False, analyst_review_model=None, analyst_review_thinking=None):
+    # All current company-authoring endpoints share the model-authored writer.
+    analyst, brief, readiness = True, False, False
     with Store(db_path) as store:
         workspace = store.get_workspace(tenant_id, lead_id=lead_id)
-        if not workspace or not workspace.automation or workspace.automation.id != job_id:
+        if not workspace or not workspace.automation or workspace.automation.id != job_id or workspace.automation.status != 'queued':
             return
         workspace.automation.status = "running"
         workspace.automation.phase = "Assessing engagement suitability" if readiness else "Preparing the company brief" if brief else "Drafting company operating plans"
         store.save_workspace(workspace, expected_revision=workspace.revision)
+        diagnostic = {}
         try:
             from agents.operating_research import research_company
-            model = LocalModel()
+            if analyst_model and analyst_model != 'auto':
+                from agents.local_models import AnalystModel as DirectModel
+                model = DirectModel(analyst_model, review_model=analyst_review_model, review_thinking=analyst_review_thinking, thinking=analyst_thinking, max_tokens=4096 if analyst_thinking else 1800, context_tokens=12288 if analyst_thinking else 8192)
+            else:
+                model = LocalModel()
             def activity(state, position, task='research'):
+                active=store.get_workspace(tenant_id,lead_id=lead_id)
+                if not active or not active.automation or active.automation.id!=job_id or active.automation.status=='cancelled':
+                    raise ValueError('Preparation stopped. Previously saved sections are retained.')
                 label = task.replace('review:', 'Reviewing ').replace('_', ' ')
+                if analyst:
+                    live=store.get_workspace(tenant_id,lead_id=lead_id)
+                    label=live.automation.phase if live and live.automation else 'Preparing company work'
                 _model_activity[job_id] = (f'{label.capitalize()} · waiting for an inference turn ({position} ahead including current call)'
                     if state=='waiting' else f'{label.capitalize()} · AI is reading the evidence and writing')
             model.on_activity = activity
+            analyst = analyst or bool(metric_import_id and workspace.analyst_pack)
             readiness = readiness or bool(metric_import_id and workspace.investment_case)
             if metric_import_id:
                 _apply_metric_import(store, workspace, metric_import_id, model)
                 lead = store.get_lead(tenant_id, lead_id)
+            elif analyst:
+                from agents.analyst_pack import collect_preparation_evidence
+                lead = collect_preparation_evidence(store, store.get_lead(tenant_id, lead_id), force=refresh)
             else:
                 lead = research_company(store, store.get_lead(tenant_id, lead_id), model, force=refresh)
-            if readiness:
-                from agents.investment_case import prepare_investment_case
+            if analyst:
+                from agents.analyst_pack import prepare_analyst_pack
+                prepared = prepare_analyst_pack(store, lead, model)
+                if prepared.analyst_pack.get('status') != 'complete':
+                    raise ValueError(prepared.analyst_pack.get('stop_reason') or 'Preparation is partial. Completed sections are saved; retry only unfinished sections and reviews.')
+            elif readiness:
+                from agents.investment_case import prepare_investment_case, preparation_failure_message
                 prepared = prepare_investment_case(store,lead,model)
                 if prepared.investment_case.get('stage_errors'):
-                    raise ValueError('Some documents need revision. Completed documents are saved; retry resumes the unfinished work.')
+                    raise ValueError(preparation_failure_message(prepared.investment_case))
             elif brief:
                 from agents.company_brief import prepare_company_brief
                 prepare_company_brief(store, lead, model)
@@ -251,11 +311,19 @@ def _prepare_job(db_path, tenant_id, lead_id, job_id, brief=False, refresh=False
                 prepare_operating_drafts(store, lead, model)
             status, error = "completed", None
         except Exception as exc:
+            from agents.preparation_budget import PreparationBudgetExceeded
             status = "failed"
-            error = str(exc) if isinstance(exc, ValueError) else f"Local generation failed ({type(exc).__name__}). Saved evidence is retained; retry generation."
+            error = str(exc) if isinstance(exc, (ValueError,PreparationBudgetExceeded)) else f"Local generation failed ({type(exc).__name__}). Saved evidence is retained; retry generation."
+            if not isinstance(exc, (ValueError,PreparationBudgetExceeded)):
+                # Keep stack locations for diagnosis across API restarts without
+                # recording source text, model payloads or exception values.
+                stack = '\n'.join(f'{frame.filename}:{frame.lineno} in {frame.name}'
+                                  for frame in traceback.extract_tb(exc.__traceback__))
+                diagnostic = {'error_type': type(exc).__name__, 'error_traceback': stack}
+                logger.error('Preparation job %s failed (%s):\n%s', job_id, type(exc).__name__, stack)
         latest = store.get_workspace(tenant_id, lead_id=lead_id)
         _model_activity.pop(job_id, None)
-        if latest.automation and latest.automation.id == job_id:
+        if latest.automation and latest.automation.id == job_id and latest.automation.status != 'cancelled':
             if metric_import_id and status == 'failed':
                 item=next(i for i in latest.metric_imports if i['id']==metric_import_id)
                 if item['status'] == 'queued':
@@ -263,12 +331,49 @@ def _prepare_job(db_path, tenant_id, lead_id, job_id, brief=False, refresh=False
             latest.automation.status = status
             latest.automation.error = error
             latest.automation.phase = ("Suitability decision and supported preparation work saved" if readiness else "Company brief, founder pitch and readiness priorities saved" if brief else "Diligence findings, GTM brief, investor narrative and fundraising assessment saved") if status == "completed" else "Generation needs attention"
+            if status == 'completed' and analyst:
+                latest.automation.phase = 'Research memo, founder proposal, diligence request and readiness plan saved'
             if status=='completed' and ((readiness and latest.investment_case.get('status')=='needs_review') or (brief and latest.company_brief.get('status')=='needs_review')):
                 latest.automation.phase = 'Drafts prepared; automated review questions remain unresolved'
             latest.automation.completed_at = utcnow()
             latest.events.append({"at": utcnow(), "action": f"automation_{status}",
-                "detail": f"{latest.automation.model}: {latest.automation.phase}."})
+                "detail": f"{latest.automation.model}: {latest.automation.phase}.", **diagnostic})
             store.save_workspace(latest, expected_revision=latest.revision)
+
+
+@router.post("/leads/{lead_id}/preparation-jobs", status_code=202)
+def start_analyst_preparation(lead_id: str, background: BackgroundTasks, store: Store = Depends(get_store), tenant_id: str = Depends(get_tenant_id), refresh: bool = False, model: Optional[str] = None, thinking: bool = False, review_model: Optional[str] = None, review_thinking: Optional[bool] = None):
+    if (review_model or review_thinking is not None) and (not model or model=='auto'):
+        raise HTTPException(422, 'Specify an installed writing model when overriding the review model.')
+    with _submission_lock:
+        return company_work_view(_queue_prepare(lead_id, background, store, tenant_id, analyst=True, refresh=refresh, analyst_model=model, analyst_thinking=thinking, analyst_review_model=review_model, analyst_review_thinking=review_thinking))
+
+
+@router.post('/workspaces/{workspace_id}/preparation-jobs/{job_id}/stop')
+def stop_preparation(workspace_id: str, job_id: str, store: Store = Depends(get_store), tenant_id: str = Depends(get_tenant_id)):
+    with _submission_lock:
+        workspace=store.get_workspace(tenant_id,workspace_id=workspace_id)
+        if not workspace:raise HTTPException(404,'Workspace not found')
+        job=workspace.automation
+        if not job or job.id!=job_id:raise HTTPException(409,'This preparation job has been replaced. Refresh company work.')
+        if job.status in {'queued','running'}:
+            job.status='cancelled';job.completed_at=utcnow();job.error=None
+            job.phase='Preparation stopped. Saved sections are retained; an in-flight model call may finish before another job starts.'
+            workspace.events.append({'at':utcnow(),'action':'automation_cancelled','detail':'Preparation stopped; previously saved work retained.'})
+            store.save_workspace(workspace,expected_revision=workspace.revision)
+            _model_activity.pop(job_id,None)
+        return company_work_view(workspace)
+
+
+@router.get("/workspaces/{workspace_id}/preparation-pack")
+def download_analyst_pack(workspace_id: str, document: Optional[str] = None, store: Store = Depends(get_store), tenant_id: str = Depends(get_tenant_id)):
+    from agents.analyst_pack import current_pack, export_pack, TITLES
+    saved = store.get_workspace(tenant_id, workspace_id=workspace_id)
+    if not saved: raise HTTPException(404, 'Workspace not found')
+    w = reconcile_workspace(store, store.get_lead(tenant_id, saved.lead_id), persist=False)
+    if not current_pack(w): raise HTTPException(409, 'Regenerate preparation using current company inputs.')
+    if document and document not in TITLES: raise HTTPException(422, 'Unknown document')
+    return Response(export_pack(w.analyst_pack, document), media_type='text/markdown', headers={'Content-Disposition':'attachment; filename="company-preparation.md"'})
 
 
 @router.post("/leads/{lead_id}/readiness-jobs", status_code=202)
@@ -370,7 +475,8 @@ def start_prepare(lead_id: str, background: BackgroundTasks, store: Store = Depe
         return _queue_prepare(lead_id, background, store, tenant_id)
 
 
-def _queue_prepare(lead_id, background, store, tenant_id, brief=False, refresh=False, readiness=False):
+def _queue_prepare(lead_id, background, store, tenant_id, brief=False, refresh=False, readiness=False, analyst=False, analyst_model=None, analyst_thinking=False, analyst_review_model=None, analyst_review_thinking=None):
+    analyst, brief, readiness = True, False, False
     lead = store.get_lead(tenant_id, lead_id)
     if not lead:
         raise HTTPException(404, "Lead not found")
@@ -382,16 +488,27 @@ def _queue_prepare(lead_id, background, store, tenant_id, brief=False, refresh=F
     workspace = reconcile_workspace(store, lead)
     from agents.company_brief import brief_current
     from agents.investment_case import case_current
-    if not refresh and ((readiness and case_current(workspace) and workspace.investment_case.get("status")=="complete") or (not readiness and ((brief and brief_current(workspace) and workspace.company_brief.get('status')!='needs_review') or (not brief and workspace.draft_status == "draft" and workspace.draft_basis_hash == workspace.basis_hash)))):
+    from agents.analyst_pack import VERSION, current_pack, validate_saved_sections
+    if analyst:
+        validate_saved_sections(workspace.analyst_pack)
+    if analyst and not refresh and not analyst_model and current_pack(workspace) and workspace.analyst_pack.get('status') == 'complete':
+        return workspace
+    if not analyst and not refresh and ((readiness and case_current(workspace) and workspace.investment_case.get("status")=="complete") or (not readiness and ((brief and brief_current(workspace) and workspace.company_brief.get('status')!='needs_review') or (not brief and workspace.draft_status == "draft" and workspace.draft_basis_hash == workspace.basis_hash)))):
         return workspace
     pending = [w for w in store.list_workspaces(tenant_id) if w.automation and w.automation.worker_id == _worker_id and w.automation.status in {"queued", "running"}]
     if len(pending) >= 3:
         raise HTTPException(429, "Three company jobs are already queued. Your existing work is saved; wait for one to finish.")
-    workspace.automation = AutomationRun(model=LocalModel().name, worker_id=_worker_id,
+    if analyst and not analyst_model and workspace.analyst_pack.get('version')==VERSION and workspace.analyst_pack.get('generation_config',{}).get('mode')=='model_authored_v1':
+        analyst_model=workspace.analyst_pack['generation_config']['model']
+        analyst_review_model=workspace.analyst_pack['generation_config'].get('review_model')
+        analyst_review_thinking=workspace.analyst_pack['generation_config'].get('review_thinking')
+        analyst_thinking=workspace.analyst_pack['generation_config'].get('thinking',False)
+    from agents.local_models import shared_model_name
+    workspace.automation = AutomationRun(model=(analyst_model if analyst_model and analyst_model!='auto' else shared_model_name(LocalModel()) if analyst else LocalModel().name), worker_id=_worker_id,
         phase="Starting company preparation")
     workspace.events.append({"at": utcnow(), "action": "automation_started", "detail": "Company investment preparation queued." if readiness else "Company brief queued." if brief else "Company operating plans queued."})
     store.save_workspace(workspace, expected_revision=workspace.revision)
-    background.add_task(_prepare_job, store.db_path, tenant_id, lead_id, workspace.automation.id, brief, refresh=refresh, readiness=readiness)
+    background.add_task(_prepare_job, store.db_path, tenant_id, lead_id, workspace.automation.id, brief, refresh=refresh, readiness=readiness, analyst=analyst, analyst_model=analyst_model, analyst_thinking=analyst_thinking, analyst_review_model=analyst_review_model, analyst_review_thinking=analyst_review_thinking)
     return workspace
 
 
@@ -408,7 +525,9 @@ def evaluate(lead_id: str, store: Store = Depends(get_store), tenant_id: str = D
 def prepare(lead_id: str, store: Store = Depends(get_store), tenant_id: str = Depends(get_tenant_id)):
     lead = store.get_lead(tenant_id, lead_id)
     if not lead: raise HTTPException(404, "Lead not found")
-    try: return prepare_operating_drafts(store, lead)
+    try:
+        from agents.analyst_pack import prepare_analyst_pack
+        return prepare_analyst_pack(store, lead)
     except ValueError as exc: raise HTTPException(409, str(exc)) from exc
     except Exception as exc: raise HTTPException(503, f"Local draft preparation unavailable ({type(exc).__name__}); saved evidence and controls retained.") from exc
 

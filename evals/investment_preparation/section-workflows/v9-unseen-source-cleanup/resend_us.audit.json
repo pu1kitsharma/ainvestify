@@ -1,0 +1,37 @@
+{
+  "case_id": "resend_us",
+  "report_sha256": "ab1b41b91517fbc79f38205be90fc627bffeddebc03fecdce39b6afbcfc4a025",
+  "reviewed": true,
+  "reviewer_kind": "coding_session_development_inspection_separate_from_model_review_not_practitioner",
+  "decision": "rejected_material_method_and_source_selection_errors",
+  "elapsed_seconds": 68.23,
+  "model_calls": 3,
+  "repairs": 0,
+  "completion_within_120_seconds": true,
+  "company_performance_independently_verified": false,
+  "investment_handling_accepted": false,
+  "section_assessment": {
+    "research.business": "needs_shorter_relevant_context_excludes_excessive_code_examples",
+    "research.economics": "needs_material_revision",
+    "research.decision": "needs_material_revision",
+    "founder.observation": "usable_initial_draft_minor_presentation_edits",
+    "founder.proposal": "needs_material_revision",
+    "diligence.request_a": "usable_initial_draft_minor_presentation_edits",
+    "diligence.request_b": "needs_material_revision",
+    "readiness.action_a": "usable_initial_draft_minor_presentation_edits",
+    "readiness.action_b": "needs_material_revision"
+  },
+  "issues": [
+    "Invitation repeats the literal instruction label before the question.",
+    "Quoted context remains verbose, with some standalone controls/footer labels. No compact analytical business summary is produced.",
+    "Selected completed order for a Transactional Email API without evidence of ordering/purchase/trading. The model reviewer passed it.",
+    "All four retained sources came from the homepage; collected pricing contexts were crowded out by code/examples before the 14,000-character cap."
+  ],
+  "limitations": [
+    "Three purposively selected companies, not a random accuracy sample.",
+    "Only first contribution and activation preparation; no company financial/customer records reconciled.",
+    "Source quotations establish what was captured, not the truth of commercial/impact claims.",
+    "Exact customer identities, event definitions and eligibility need agreement with the company."
+  ],
+  "retained_prices": 0
+}

@@ -96,7 +96,7 @@ class MwmblSearch:
     name = "mwmbl"
 
     def __init__(self, fetcher=None):
-        self.fetcher = fetcher or PublicWebFetcher()
+        self.fetcher = fetcher or PublicWebFetcher(read_timeout=10)
 
     def query_url(self, query: str) -> str:
         return "https://api.mwmbl.org/api/v1/search/?" + urlencode({"s": query})
@@ -281,8 +281,12 @@ class SearchSession:
                     status = exc.status if isinstance(exc, SourceError) else "failed"
                     detail = str(exc) if isinstance(exc, SourceError) else f"Search unavailable ({type(exc).__name__})."
                     run.sources.append(WebSourceOutcome(url=query_url, kind="search", status=status, detail=detail))
-                    self.disabled.add(engine.name)
-                    break
+                    # Respect access blocks and rate limits. A transport
+                    # failure for one query must not discard a different
+                    # already-planned query; never retry the failed query.
+                    if status in {'blocked','rate_limited'}:
+                        self.disabled.add(engine.name)
+                        break
             # A single weak link must not suppress the independent provider.
             if len(diversified_hits(hits)) >= 6:
                 break

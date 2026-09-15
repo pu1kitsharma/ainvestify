@@ -1,0 +1,13 @@
+{
+  "cached_API_response_ms": [
+    94.297,
+    24.117,
+    21.824
+  ],
+  "new_model_calls": 0,
+  "same_job": true,
+  "note": "The existing POST reconciliation increments metadata revision; cached content and inference attempts are unchanged.",
+  "original_v7_content_preserved_in_history": true,
+  "current_version": 9,
+  "revision": 1119
+}

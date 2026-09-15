@@ -1,0 +1,12 @@
+{
+  "report_sha256": "f5505459e4506b0129cf6bebe912071b25f3452cac560bd9233cde8d2d6879f8",
+  "decision": "source_selection_failure_preserved",
+  "elapsed_seconds": 61.825,
+  "model_calls": 3,
+  "findings": [
+    "Live source collection followed a brokerage calculator before the direct pricing page.",
+    "New page context consumed the evidence budget, leaving no retained commercial_terms source.",
+    "Three-call completion does not meet the source-qualification acceptance gate."
+  ],
+  "reviewer_kind": "coding_session_inspection_not_practitioner"
+}

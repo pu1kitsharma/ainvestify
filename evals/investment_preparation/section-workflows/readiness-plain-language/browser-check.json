@@ -1,0 +1,28 @@
+{
+  "companies": [
+    {
+      "company": "Waybill",
+      "plain_questions": true,
+      "technical_details_collapsed": true,
+      "technical_details_expand": true,
+      "source_links": true,
+      "copy_request": true,
+      "checklist_download": true,
+      "mobile_no_overflow": true,
+      "visible_words": 484
+    },
+    {
+      "company": "Paasa",
+      "plain_questions": true,
+      "technical_details_collapsed": true,
+      "technical_details_expand": true,
+      "source_links": true,
+      "copy_request": true,
+      "checklist_download": true,
+      "mobile_no_overflow": true,
+      "visible_words": 487
+    }
+  ],
+  "browser_errors": [],
+  "mutations": 0
+}

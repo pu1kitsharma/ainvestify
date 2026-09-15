@@ -1,0 +1,175 @@
+{
+  "id": "workspace_d96892c5c206",
+  "lead_id": "lead_3f0aee42d7ad",
+  "revision": 18,
+  "basis_hash": "aabef88ade02f193e61ad8de8c86d7ebd9e443e8f40f2e11e0adf24a5116c487",
+  "automation": {
+    "id": "automation_d3f0e43f20ce",
+    "status": "queued",
+    "phase": "Starting company preparation",
+    "model": "qwen3.5:9b",
+    "worker_id": "e8e8fe90495340d2a12a203a419df172",
+    "started_at": "2026-09-15T04:54:53.446352+00:00",
+    "completed_at": null,
+    "error": null
+  },
+  "metrics": {
+    "months": [],
+    "calculations": [],
+    "unresolved_calculations": [],
+    "latest_month": null,
+    "missing": [
+      "Recognized revenue",
+      "Direct variable delivery costs",
+      "Cash at month end",
+      "Net operating cash burn",
+      "Paying customers",
+      "Completed orders",
+      "Gross merchandise value"
+    ],
+    "note": "Company-reported figures, not independently verified. Blank means unknown, not zero."
+  },
+  "metric_imports": [],
+  "analyst_pack": {
+    "version": 10,
+    "company": "GoCardless",
+    "basis_hash": "aabef88ade02f193e61ad8de8c86d7ebd9e443e8f40f2e11e0adf24a5116c487",
+    "record": {
+      "facts": [
+        {
+          "id": "S1",
+          "quote": "Accept Better\n\nStop accepting high card fees and failure rates. Accept Pay by Bank.\n\nAccept Better\n\nStop accepting high card fees and failure rates. Accept Pay by Bank.\n\nAccept Better\n\nStop accepting high card fees and failure rates. Accept Pay by Bank.\n\nIt's time to accept better. Accept Pay by Bank\n\nPricing for every business\n\nPricing for every business\n\nPricing for every business\n\nPay as you go. No setup costs. No hidden fees.\n\nPay as you go. No setup costs. No hidden fees.\n\nStandard\n\nFor businesses that want to collect one-off or recurring payments\n\n1% + 20p\n\nPer transaction\n\nPrices exclude VAT.\n\nSee all fees\n\nAdvanced\n\nFor businesses that want advanced payment failure reduction\n\n1.25% + 20p\n\nPer transaction\n\nPrices exclude VAT.\n\nSee all fees\n\nPro\n\nFor businesses that want advanced payment failure and fraud reduction\n\n1.4% + 20p\n\nPer transaction\n\nPrices exclude VAT.\n\nSee all fees\n\nCustom\n\nFor businesses with \u00a31m+ annual revenue or bespoke needs\n\nFully customised package\n\nVolume-based discounts\n\nDedicated customer support\n\nContact Sales\n\nLooking for enhanced features?\n\nView our Advanced and Pro plans\n\nStandard\n\nFor businesses that want to collect one-off or recurring payments\n\n1% + 20p\n\nPer transaction\n\nPrices exclude VAT.\n\nSee all fees\n\nAdvanced\n\nFor businesses that want advanced payment failure reduction\n\n1.25% + 20p\n\nPer transaction\n\nPrices exclude VAT.\n\nSee all fees\n\nPro\n\nFor businesses that want advanced payment failure and fraud reduction\n\n1.4% + 20p\n\nPer transaction\n\nPrices exclude VAT.\n\nSee all fees\n\nCustom\n\nFor businesses with \u00a31m+ annual revenue or bespoke needs\n\nFully customised package\n\nVolume-based discounts\n\nDedicated customer support\n\nContact Sales\n\nLooking for enhanced features?\n\nView our Advanced and Pro plans\n\nCalculate your fees\n\nTransaction fee calculator\n\nCalculate your fees\n\nPlan type Standard Advanced Pro Monthly transactions Average transaction amount\n\nEstimated monthly cost\n\n\u00a3--.--\n\nSee breakdown\n\nMonthly savings\n\nCompared to card payments\n\n\u00a3--\n\nEstimated cost saving based on 2021 market research for card payments.\n\nTime saved monthly\n\nNot chasing late payments\n\n--\n\nEstimated time saving based on 2024 market research by Xero.\n\nPricing for every business\n\nPay as you go. No setup costs. No hidden fees.\n\nAll features\n\nAll features\n\nAll features\n\nAll plans include\n\nAll plans include\n\nCollect payments\n\nCollect one-off, subscription, membership, and instalment payments.\n\nFull payment management\n\nSet up, pause, edit, schedule or cancel all your payments in your dashboard easily.\n\nInternational payments\n\nCollect from 30+ countries, using the real mid-market exchange rate, powered by Wise.\n\nFlexible Direct Debit setup\n\nLet your customers set up Direct Debits online, on paper, or over the phone.\n\n350+ integrations\n\nEasily sync with apps like Xero and QuickBooks, or build a custom integration with our API.\n\nCustomisable checkout\n\nUse pre-built pages or embeddable forms, customised with your logo and branding.\n\nSecurity and compliance\n\nYour payments and data are protected by strict security and compliance standards.\n\n24/7 customer support\n\nOur friendly, award-winning team is here for anything you need.\n\nCollect payments",
+          "source_url": "https://gocardless.com/pricing",
+          "retrieved_at": "2026-09-15T04:44:02.316082+00:00",
+          "observed_at": null,
+          "origin": "preparation_public_page",
+          "context_format": "whole_html_blocks_v3",
+          "source_id": "evidence_b8133c7fb375",
+          "category": "commercial_terms",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S2",
+          "quote": "Accept Better\n\nStop accepting high card fees and failure rates. Accept Pay by Bank.\n\nAccept Better\n\nStop accepting high card fees and failure rates. Accept Pay by Bank.\n\nAccept Better\n\nStop accepting high card fees and failure rates. Accept Pay by Bank.\n\nIt's time to accept better. Accept Pay by Bank.\n\nTrusted by 100,000+ businesses\n\nThe easy way to get paid\n\nCollect and send payments, minimise failures, and fight fraud. No more chasing payments and no expensive card fees.\n\nContact Sales\n\nTrusted by 100,000+ businesses\n\nThe easy way to get paid\n\nCollect and send payments, minimise failures, and fight fraud. No more chasing payments and no expensive card fees.\n\nContact Sales\n\nTrusted by 100,000+ businesses\n\nThe easy way to get paid\n\nCollect and send payments, minimise failures, and fight fraud. No more chasing payments and no expensive card fees.\n\nContact Sales\n\nTrusted by 100,000+ businesses\n\nThe easy way to get paid\n\nCollect and send payments, minimise failures, and fight fraud. No more chasing payments and no expensive card fees.\n\nContact Sales\n\nOne platform, every payment\n\nPilates for beginners\n\n\u00a365\n\nPay by Bank\n\nInstant one-off payments\n\nCollect bank payments that confirm instantly, settle same or next day, and cost 49% less than cards. Powered by Faster Payments.\n\nMovie Streaming Plus\n\n1\n\n1st January\n\n\u00a326.99\n\n2\n\n1st February\n\n\u00a326.99\n\n3\n\n1st March\n\n\u00a326.99\n\nAutomated recurring payments\n\nAutomatically collect payments via Direct Debit, adjusting dates or amounts as needed. Access 30+ countries and 8 bank debit schemes, with 97.3% first-time success.\n\nFrom\n\nGBP Account\n\nTo\n\nLelia Johnsen\n\nOutbound payments\n\nSend payments to your customers, suppliers, or any third party in seconds \u2013 with an end-to-end, account-to-account payment solution.\n\nOne platform, every payment\n\nPilates for beginners\n\n\u00a365\n\nPay by Bank\n\nInstant one-off payments\n\nCollect bank payments that confirm instantly, settle same or next day, and cost 49% less than cards. Powered by Faster Payments.\n\nMovie Streaming Plus\n\n1\n\n1st January\n\n\u00a326.99\n\n2\n\n1st February\n\n\u00a326.99\n\n3\n\n1st March\n\n\u00a326.99\n\nAutomated recurring payments\n\nAutomatically collect payments via Direct Debit, adjusting dates or amounts as needed. Access 30+ countries and 8 bank debit schemes, with 97.3% first-time success.\n\nFrom\n\nGBP Account\n\nTo\n\nLelia Johnsen\n\nOutbound payments\n\nSend payments to your customers, suppliers, or any third party in seconds \u2013 with an end-to-end, account-to-account payment solution.\n\nOne platform, every payment\n\nPilates for beginners\n\n\u00a365\n\nPay by Bank\n\nInstant one-off payments\n\nCollect bank payments that confirm instantly, settle same or next day, and cost 49% less than cards. Powered by Faster Payments.\n\nMovie Streaming Plus\n\n1\n\n1st January\n\n\u00a326.99\n\n2\n\n1st February\n\n\u00a326.99\n\n3\n\n1st March\n\n\u00a326.99\n\nAutomated recurring payments\n\nAutomatically collect payments via Direct Debit, adjusting dates or amounts as needed. Access 30+ countries and 8 bank debit schemes, with 97.3% first-time success.\n\nFrom\n\nGBP Account\n\nTo\n\nLelia Johnsen\n\nOutbound payments\n\nSend payments to your customers, suppliers, or any third party in seconds \u2013 with an end-to-end, account-to-account payment solution.",
+          "source_url": "https://gocardless.com/",
+          "retrieved_at": "2026-09-15T04:44:01.290036+00:00",
+          "observed_at": null,
+          "origin": "preparation_public_page",
+          "context_format": "whole_html_blocks_v3",
+          "source_id": "evidence_5a24d1b5797b",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S3",
+          "quote": "Is there a discount for charities?\n\nYes, we offer a 25% discount on some transaction fees for eligible charities and nonprofits. See terms\n\nFAQs\n\nHow does GoCardless collect fees from me?\n\nIf you choose a Standard, Advanced or Pro plan, fees are deducted from your submitted payments. If you arrange a Custom plan with us, you\u2019ll be invoiced monthly instead.\n\nAre there any setup, monthly, or hidden fees?\n\nNo, for most GoCardless users there are no setup or monthly costs, and there are no hidden fees. You can sign up for free and pay as you go, with fees charged per transaction. Some add-on functionality is billed differently, but this is noted above.\n\nCustom plans, however, come with a tailored pricing agreement. This could include relevant setup or monthly costs, but typically comes with discounted rates due to high transaction volumes or amounts. Chat with our friendly Sales team to see what we can offer you. Contact Sales\n\nCan I change my plan or cancel any time?\n\nYes, you can change your plan or close your GoCardless account whenever you like. Our Standard, Advanced and Pro plans are all monthly rolling contracts designed for flexibility.\n\nYou can upgrade or downgrade your plan any time directly from your GoCardless dashboard. This must be done at least two working days before the end of the month to come into effect from the 1st of the following month. You'll be charged any applicable fees of your current pricing plan until the change is actioned.\n\nCustom plans are subject to different terms and conditions that you'll be able to discuss with our Sales team. Contact Sales\n\nWhy does GoCardless charge VAT on its fees?\n\nIt's the VAT status of a supplier that determines whether VAT is charged, and not the VAT status of the customer. In April 2020, HMRC confirmed GoCardless was providing a VATable service, so we need to charge VAT on all transaction fees invoiced to UK merchants. This applies regardless of whether the business collecting the payment is VAT exempt or not. This is a HMRC decision based on UK VAT law and not something that we have any control over.\n\nYou may be eligible to claim back from HMRC the VAT charged on your fees, however we are unable to provide any tax advice and \u2014 as tax law can be complex \u2014 we recommend consulting with a qualified tax professional if you are unsure how the laws apply to your business.\n\nDo I need separate bank accounts to collect international payments?\n\nNo, you don't need separate bank accounts to collect international payments with GoCardless. You can collect payments from 30+ countries around the world right into your UK bank account, with currency conversion powered by Wise.",
+          "source_url": "https://gocardless.com/pricing",
+          "retrieved_at": "2026-09-15T04:44:02.316165+00:00",
+          "observed_at": null,
+          "origin": "preparation_public_page",
+          "context_format": "whole_html_blocks_v3",
+          "source_id": "evidence_19893c58b36c",
+          "category": "commercial_terms",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S4",
+          "quote": "Developer docs\n\nAbout GoCardless\n\nAbout us\n\nLegal\n\nSecurity\n\nPrivacy\n\nModern slavery statement\n\nWork with us\n\nPartner with us\n\nAmbassador programme\n\nCareers\n\nPress\n\nContact\n\nContact Sales\n\n020 4579 7398\n\nContact Support\n\n020 8338 9540\n\nSeen 'GoCardless Ltd' on your bank statement?\n\nGoCardless Ltd, Sutton Yard, 65 Goswell Road, London, EC1V 7EN, United Kingdom\n\nGoCardless Ltd (company registration number 07495895) is authorised by the Financial Conduct Authority under the Payment Services Regulations 2017, registration number 597190, for the provision of payment services.\n\nCookie Settings\n\n100k+\n\nTrusted by 100,000+ businesses globally, from small to enterprise.\n\n$130bn\n\nWe process more than $130bn in payments, globally, per year.\n\n30+\n\n30+ countries, 13 methods, 8 currencies. One payments platform.\n\n24/7\n\nOur award-winning customer support team is here for anything you need.\n\nProduct\n\nOne-off payments\n\nRecurring payments\n\nOutbound payments\n\nPricing\n\nIntegrations\n\nResources\n\nTry our payment builder\n\nFAQs\n\nSupport docs\n\nDeveloper docs\n\nAbout GoCardless\n\nAbout us\n\nLegal\n\nSecurity\n\nPrivacy\n\nModern slavery statement\n\nWork with us\n\nPartner with us\n\nAmbassador programme\n\nCareers\n\nPress\n\nContact\n\nContact Sales\n\n020 4579 7398\n\nContact Support\n\n020 8338 9540\n\nSeen 'GoCardless Ltd' on your bank statement?\n\nGoCardless Ltd, Sutton Yard, 65 Goswell Road, London, EC1V 7EN, United Kingdom\n\nGoCardless Ltd (company registration number 07495895) is authorised by the Financial Conduct Authority under the Payment Services Regulations 2017, registration number 597190, for the provision of payment services.\n\nCookie Settings\n\n100k+\n\nTrusted by 100,000+ businesses globally, from small to enterprise.\n\n$130bn\n\nWe process more than $130bn in payments, globally, per year.\n\n30+\n\n30+ countries, 13 methods, 8 currencies. One payments platform.\n\n24/7\n\nOur award-winning customer support team is here for anything you need.\n\nProduct\n\nOne-off payments\n\nRecurring payments\n\nOutbound payments\n\nPricing\n\nIntegrations\n\nResources\n\nAbout GoCardless\n\nWork with us\n\nContact\n\nSeen 'GoCardless Ltd' on your bank statement?\n\nGoCardless Ltd, Sutton Yard, 65 Goswell Road, London, EC1V 7EN, United Kingdom\n\nGoCardless Ltd (company registration number 07495895) is authorised by the Financial Conduct Authority under the Payment Services Regulations 2017, registration number 597190, for the provision of payment services.\n\nCookie Settings",
+          "source_url": "https://gocardless.com/",
+          "retrieved_at": "2026-09-15T04:44:01.290108+00:00",
+          "observed_at": null,
+          "origin": "preparation_public_page",
+          "context_format": "whole_html_blocks_v3",
+          "source_id": "evidence_4fef93e0acb3",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S5",
+          "quote": "our partner network who integrate our services and trust us to deliver them to their customers; and most importantly the 50,000 businesses that have chosen GoCardless as a payments provider. Thank you to everyone who has helped to get us to where we are today. Is your business suffering from payment pains? If your business is suffering from payment pains and you\u2019re not yet a GoCardless customer, learn more about how GoCardless works today. Talk to sales Over 100,000 businesses use GoCardless to get paid on time. Learn more about how you can improve payment processing at your business today.",
+          "source_url": "https://gocardless.com/blog/gocardless-50000-businesses",
+          "retrieved_at": "2026-09-15T04:43:12.007939+00:00",
+          "observed_at": null,
+          "origin": "public_page_claim",
+          "context_format": null,
+          "source_id": "evidence_c72bb549e18b",
+          "category": "offering",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S6",
+          "quote": "all shapes and sizes spend too much time worrying about payments. At GoCardless our mission is to take the pain out of getting paid so that our customers can focus on what they do best. We have been fortunate enough to have many amazing businesses join us on our mission by trusting us with their payments. Last week we passed a major milestone and we\u2019re thrilled to now be processing payments for more than 50,000 businesses around the world. 2019 has been a big year for GoCardless already. We announced our $75m Series E funding round in February and launched in the US last month - adding",
+          "source_url": "https://gocardless.com/blog/gocardless-50000-businesses",
+          "retrieved_at": "2026-09-15T04:43:12.008014+00:00",
+          "observed_at": null,
+          "origin": "public_page_claim",
+          "context_format": null,
+          "source_id": "evidence_4a59a8e98819",
+          "category": "funding",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        }
+      ],
+      "prepared_at": "2026-09-15T04:44:02.326378+00:00",
+      "extraction": "complete_context_no_generation",
+      "coverage": "partial",
+      "unknowns": [],
+      "source_selection": {
+        "scope": "bounded_supplied_records",
+        "omitted_for_context": 10,
+        "max_context_characters": 14000
+      }
+    },
+    "generation_config": {
+      "mode": "model_authored_v1",
+      "model": "qwen3.5:9b",
+      "contract": "d2178be5179b00cac23a092d5d2bceb21f9ebd85cfa7f1d92e86024b89acc17f",
+      "thinking": false,
+      "review_model": "qwen3.5:9b",
+      "review_thinking": null
+    },
+    "authored_input_hash": "76d4f6a0455c8ac3b2af257df1b3ec8ba21a9a722aa66278e45aaab86950cead",
+    "sections": {},
+    "status": "partial",
+    "documents": {
+      "research": {
+        "title": "Research memo",
+        "status": "partial"
+      },
+      "founder": {
+        "title": "Founder proposal",
+        "status": "partial"
+      },
+      "diligence": {
+        "title": "Diligence request",
+        "status": "partial"
+      },
+      "readiness": {
+        "title": "Investment-readiness plan",
+        "status": "partial"
+      }
+    },
+    "updated_at": "2026-09-15T04:45:08.749735+00:00",
+    "stop_reason": "economics: Attribute the revenue explanation to the supplied sources; pricing claims are not independently verified results.",
+    "last_run_budget": {
+      "max_seconds": 120.0,
+      "max_calls": 6,
+      "max_requests": 6,
+      "calls": 2,
+      "requests": 2,
+      "elapsed_seconds": 70.268
+    }
+  },
+  "analyst_pack_history": []
+}

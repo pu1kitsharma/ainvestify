@@ -1,0 +1,63 @@
+[
+  {
+    "id": "paasa_reference_test",
+    "company": "Paasa",
+    "region": "India",
+    "sector": "consumer investing / financial technology",
+    "website": "https://paasa.com/",
+    "kind": "curated_source_checked_paraphrases",
+    "input_scope": "Compact paraphrases checked against the public pages on this retrieval date; not verbatim source excerpts or independently verified business results. They deliberately isolate reasoning from crawler noise. No reference answers or proposed diligence plan are provided to inference.",
+    "evidence": [
+      {
+        "id": "reference_source_1",
+        "field": "offering",
+        "value": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.",
+        "quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.",
+        "source_url": "https://www.ycombinator.com/companies/paasa",
+        "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+        "origin": "source_checked_paraphrase",
+        "observed_at": null
+      },
+      {
+        "id": "reference_source_2",
+        "field": "pricing",
+        "value": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade. The public schedule does not establish how much of a customer charge the investment target retains.",
+        "quote": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade. The public schedule does not establish how much of a customer charge the investment target retains.",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+        "origin": "source_checked_paraphrase",
+        "observed_at": null
+      },
+      {
+        "id": "reference_source_3",
+        "field": "pricing",
+        "value": "The Apex plan adds managed advisory strategies and FEMA/tax support to Access. Its percentage charge is based on assets under management, stated annually and collected monthly. Brokerage fees apply separately. The page states that brokerage markups are not applied to Apex customers.",
+        "quote": "The Apex plan adds managed advisory strategies and FEMA/tax support to Access. Its percentage charge is based on assets under management, stated annually and collected monthly. Brokerage fees apply separately. The page states that brokerage markups are not applied to Apex customers.",
+        "source_url": "https://paasa.com/pricing",
+        "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+        "origin": "source_checked_paraphrase",
+        "observed_at": null
+      },
+      {
+        "id": "reference_source_4",
+        "field": "company_structure",
+        "value": "Paasa describes itself as a financial technology company rather than a bank or brokerage. It names licensed partners as the banking and brokerage service providers. The site names Arc Spire Advisory Private Limited as the advisory service provider operating under the Paasa brand and reports its SEBI registration; that registration has not been independently checked for this evaluation.",
+        "quote": "Paasa describes itself as a financial technology company rather than a bank or brokerage. It names licensed partners as the banking and brokerage service providers. The site names Arc Spire Advisory Private Limited as the advisory service provider operating under the Paasa brand and reports its SEBI registration; that registration has not been independently checked for this evaluation.",
+        "source_url": "https://paasa.com/",
+        "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+        "origin": "source_checked_paraphrase",
+        "observed_at": null
+      },
+      {
+        "id": "reference_source_5",
+        "field": "company_structure",
+        "value": "The site identifies Interactive Brokers as custodian and says customer cash and holdings are held in the customer's own name. It lists Paasa, Inc., Paasa IFSC Private Limited and Bruhm Labs Private Limited, but this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements.",
+        "quote": "The site identifies Interactive Brokers as custodian and says customer cash and holdings are held in the customer's own name. It lists Paasa, Inc., Paasa IFSC Private Limited and Bruhm Labs Private Limited, but this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements.",
+        "source_url": "https://paasa.com/",
+        "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+        "origin": "source_checked_paraphrase",
+        "observed_at": null
+      }
+    ]
+  }
+]

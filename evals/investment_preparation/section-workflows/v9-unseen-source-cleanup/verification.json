@@ -1,0 +1,104 @@
+{
+  "tests": {
+    "focused_suite_passed": 362,
+    "warnings": 16,
+    "seconds": 11.78
+  },
+  "frontend_build": "passed",
+  "frontend_lint": "passed",
+  "isolated_browser_journey": "passed",
+  "actual_live_source_copy_mobile_check": "passed",
+  "live_final": {
+    "report": "paasa-offer-repair/live-paasa.json",
+    "elapsed_seconds": 45.531,
+    "calls": 4,
+    "repairs": 1,
+    "sources": "saved sources collected by the prior live refresh",
+    "sections": 9,
+    "job_id": "automation_d00ca4a2fb2b",
+    "revision_after_job": 1200,
+    "revision_after_cache_checks": 1204,
+    "api_pid": 93257
+  },
+  "cache": {
+    "saved_workspace_GET_milliseconds": [
+      117.711,
+      29.751,
+      25.993
+    ],
+    "new_model_calls": 0,
+    "same_job_and_current_section_content": true,
+    "original_v7_section_content_preserved": true,
+    "final_revision": 1204,
+    "active_jobs": [],
+    "cache_POSTs_this_verification": 4,
+    "note": "Four cache POSTs returned the same completed job and changed metadata only. Verification scripts initially used the wrong old-snapshot key and compared historical statuses instead of content; no POST timings are reported. Historical v7 review statuses differ from the original snapshot, but every section content value matches. Read-only saved-work GET timings are reported."
+  },
+  "reports": [
+    {
+      "path": "basigo_kenya.json",
+      "sha256": "453c2ea331121facd2ca518051474a541fd1979c86fcde1eb2d6081ec79b8585",
+      "elapsed_seconds": 54.01,
+      "model_calls": 3,
+      "implementation_hash": "fae8b87626e2dcfe6b3ef42ac001edaf849652db648b3e8636080fd150f75a84"
+    },
+    {
+      "path": "resend_us.json",
+      "sha256": "ab1b41b91517fbc79f38205be90fc627bffeddebc03fecdce39b6afbcfc4a025",
+      "elapsed_seconds": 68.23,
+      "model_calls": 3,
+      "implementation_hash": "fae8b87626e2dcfe6b3ef42ac001edaf849652db648b3e8636080fd150f75a84"
+    },
+    {
+      "path": "oddbox_uk.json",
+      "sha256": "b2325c5a08eec0acc6333aea1799e90ec156c79c67747da25c2542883ae4746b",
+      "elapsed_seconds": 58.21,
+      "model_calls": 3,
+      "implementation_hash": "fae8b87626e2dcfe6b3ef42ac001edaf849652db648b3e8636080fd150f75a84"
+    },
+    {
+      "path": "resend-retest/resend_us.json",
+      "sha256": "140a888bd89bee8a22faf20ad549e226c1fac53a50bb9dd880b75335008db59f",
+      "elapsed_seconds": 71.01,
+      "model_calls": 4,
+      "implementation_hash": "264e6c8905fd553924d26f84c32d9794772f7e89d8acf5805cd852c26c7b337f"
+    },
+    {
+      "path": "live-paasa.json",
+      "sha256": "f5505459e4506b0129cf6bebe912071b25f3452cac560bd9233cde8d2d6879f8",
+      "elapsed_seconds": 61.825,
+      "model_calls": 3,
+      "implementation_hash": "264e6c8905fd553924d26f84c32d9794772f7e89d8acf5805cd852c26c7b337f"
+    },
+    {
+      "path": "paasa-refresh-retest/live-paasa.json",
+      "sha256": "e63b4660f7f94528df679eed3cbdb7aee8a8ee906fbc3fc7cafcf85f3e7d90a8",
+      "elapsed_seconds": 63.965,
+      "model_calls": 3,
+      "implementation_hash": "702096317ffa87385c76dd76608dfc4440793a4d6085ff436a1ad890715683e9"
+    },
+    {
+      "path": "paasa-cost-input-retest/live-paasa.json",
+      "sha256": "6753b429f72da546d4ad8d2a6f014a42b91b032b75eeffe94e6912855af833dd",
+      "elapsed_seconds": 61.81,
+      "model_calls": 3,
+      "implementation_hash": "88f76f2580d2aeb0a297d36428b8a75aa591bbd47ad9ff0f5309b15998ab828f"
+    },
+    {
+      "path": "paasa-offer-repair/live-paasa.json",
+      "sha256": "e7a714600d084427bfd4d22dbfde2e1749681b3c73f8a7c820e02621e36cc259",
+      "elapsed_seconds": 45.531,
+      "model_calls": 4,
+      "implementation_hash": "f42803d3d8f3354d81b42b80d60896166502ce86bacedcae7e46f2d6d27ee061"
+    }
+  ],
+  "total_model_calls_this_turn": 26,
+  "original_reports_preserved": true,
+  "full_MVP_accepted": false,
+  "general_investment_handling_accepted": false,
+  "accuracy_percentage_estimated": false,
+  "confidence": {
+    "assisted_initial_research": "moderate_with_review",
+    "autonomous_investment_judgment_execution": "low_unproven"
+  }
+}

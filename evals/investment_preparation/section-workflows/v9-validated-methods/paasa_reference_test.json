@@ -1,0 +1,738 @@
+{
+  "case_id": "paasa_reference_test",
+  "input_hash": "bcd68f0b2e796336c56f3dd80bed5af2ad8b30783420503180a97336f7ec563b",
+  "model": "qwen3.5:9b",
+  "settings": {
+    "profile": "section_router",
+    "review_model": "qwen3.5:9b",
+    "review_thinking": false,
+    "reasoning_budget": 1024,
+    "thinking": false,
+    "tokens": 1200,
+    "context": 8192
+  },
+  "input_kind": "curated_source_checked_paraphrases",
+  "region": "India",
+  "sector": "consumer investing / financial technology",
+  "live_data_updated": false,
+  "limits": {
+    "max_corrections_per_stage": 1,
+    "max_calls": 6,
+    "max_seconds": 120
+  },
+  "reference_sha256": "c4bf1f31324154efdd712f4ea3dba067f4c9ca9c31cfaa51fc142bd97354c8da",
+  "pack": {
+    "version": 9,
+    "implementation_hash": "6f0c7d6918aab3de1d620aca12aa1df9658a3f27af287b891fc08b54204d5002",
+    "basis_hash": "412f4f82dfed0ff4a01e00b8f625ec0468999d5e0a54eba41e27306f8be98e73",
+    "company": "Paasa",
+    "record": {
+      "facts": [
+        {
+          "id": "S1",
+          "quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.",
+          "source_url": "https://www.ycombinator.com/companies/paasa",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "source_id": "reference_source_1",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S2",
+          "quote": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade. The public schedule does not establish how much of a customer charge the investment target retains.",
+          "source_url": "https://paasa.com/pricing",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "source_id": "reference_source_2",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S3",
+          "quote": "The Apex plan adds managed advisory strategies and FEMA/tax support to Access. Its percentage charge is based on assets under management, stated annually and collected monthly. Brokerage fees apply separately. The page states that brokerage markups are not applied to Apex customers.",
+          "source_url": "https://paasa.com/pricing",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "source_id": "reference_source_3",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S4",
+          "quote": "Paasa describes itself as a financial technology company rather than a bank or brokerage. It names licensed partners as the banking and brokerage service providers. The site names Arc Spire Advisory Private Limited as the advisory service provider operating under the Paasa brand and reports its SEBI registration; that registration has not been independently checked for this evaluation.",
+          "source_url": "https://paasa.com/",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "source_id": "reference_source_4",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S5",
+          "quote": "The site identifies Interactive Brokers as custodian and says customer cash and holdings are held in the customer's own name. It lists Paasa, Inc., Paasa IFSC Private Limited and Bruhm Labs Private Limited, but this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements.",
+          "source_url": "https://paasa.com/",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "source_id": "reference_source_5",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        }
+      ],
+      "prepared_at": "2026-09-14T21:35:59.425551+00:00",
+      "batches": {},
+      "extraction": "complete_context_no_generation",
+      "coverage": "selected_sources_processed",
+      "unknowns": [],
+      "source_selection": {
+        "scope": "bounded_supplied_records",
+        "omitted_for_context": 0,
+        "max_context_characters": 14000
+      }
+    },
+    "sections": {
+      "research.business": {
+        "document": "research",
+        "title": "Business and customer",
+        "status": "review_pending",
+        "candidate": {
+          "text": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems.",
+          "fact_ids": [
+            "S1"
+          ]
+        },
+        "input_hash": "c6487162b62fbce86e38a45f0b9ab19ff02cf83cbd55eb4c6e82441f91246d11",
+        "review_hash": "3f1e6c50a7ca679cc8e335a115f5224aad9c02bdd820988529b6af09fcfeb635",
+        "dependency": null
+      },
+      "research.economics": {
+        "document": "research",
+        "title": "Revenue mechanism",
+        "status": "review_pending",
+        "candidate": {
+          "revenue_mechanism": "The Access plan offers global stock and ETF trading without a recurring plan fee. The Apex plan adds managed advisory strategies and FEMA/tax support to Access with percentage charges based on assets under management, stated annually and collected monthly.",
+          "unknown_economics": "What income does the investment entity retain from Apex, and does it cover attributable variable service costs? The answer requires reconciliation of company-held accounting and service-cost records.",
+          "fact_ids": [
+            "S2",
+            "S3"
+          ]
+        },
+        "input_hash": "c6487162b62fbce86e38a45f0b9ab19ff02cf83cbd55eb4c6e82441f91246d11",
+        "review_hash": "3f1e6c50a7ca679cc8e335a115f5224aad9c02bdd820988529b6af09fcfeb635",
+        "dependency": null
+      },
+      "research.decision": {
+        "document": "research",
+        "title": "Opportunity and unresolved risks",
+        "status": "review_pending",
+        "candidate": {
+          "reason_to_engage": "Revenue realization depends on the partner charge basis for the Access plan and the annual asset-based percentage charge for the Apex plan. Brokerage fees apply separately to both plans, but brokerage markups are not applied to Apex customers.",
+          "unresolved_risk": "Delivery costs could weaken returns if customer behavior increases trading frequency on the Access plan without offsetting revenue from the partner charge basis. The site names licensed partners as banking and brokerage service providers, but investment-entity confirmation is missing.",
+          "next_decision": "Resolve the linked contribution and customer-use questions before recommending an engagement or expansion; investigate adverse results and leave missing inputs unresolved.",
+          "fact_ids": [
+            "S2",
+            "S3",
+            "S4",
+            "S5"
+          ]
+        },
+        "input_hash": "c6487162b62fbce86e38a45f0b9ab19ff02cf83cbd55eb4c6e82441f91246d11",
+        "review_hash": "3f1e6c50a7ca679cc8e335a115f5224aad9c02bdd820988529b6af09fcfeb635",
+        "dependency": null
+      },
+      "founder.observation": {
+        "document": "founder",
+        "title": "Why we are approaching you",
+        "status": "review_pending",
+        "candidate": {
+          "reported_observation": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory, noting remittance friction and unfamiliar tax requirements as key customer problems.",
+          "question_to_explore": "What income does the investment entity retain from Apex, and does it cover attributable variable service costs?",
+          "fact_ids": [
+            "S1"
+          ]
+        },
+        "input_hash": "c6487162b62fbce86e38a45f0b9ab19ff02cf83cbd55eb4c6e82441f91246d11",
+        "review_hash": "3f1e6c50a7ca679cc8e335a115f5224aad9c02bdd820988529b6af09fcfeb635",
+        "dependency": null
+      },
+      "founder.proposal": {
+        "document": "founder",
+        "title": "The assistance we propose",
+        "status": "review_pending",
+        "candidate": {
+          "proposed_work": "We propose a contribution reconciliation for the Apex managed advisory plan and an activation analysis for the Access trading plan. To execute this, we would REQUEST entity charts, service/fee-sharing agreements, redacted invoices, revenue ledgers, partner-settlement statements, supplier invoices, direct service cost records, and customer event exports aligned to the latest six completed months. The concrete deliverable is a source-linked profit table for Apex contribution margins and a cohort rate table for Access activation completion. This work supports the commercial decision to investigate loss-making services, choose pricing adjustments, or determine delivery-cost efficiency before recommending expansion.",
+          "invitation": "Would you be open to a conversation to discuss these proposed records and the scope of our contribution reconciliation?",
+          "fact_ids": [
+            "S2",
+            "S3",
+            "S4",
+            "S5"
+          ]
+        },
+        "input_hash": "c6487162b62fbce86e38a45f0b9ab19ff02cf83cbd55eb4c6e82441f91246d11",
+        "review_hash": "3f1e6c50a7ca679cc8e335a115f5224aad9c02bdd820988529b6af09fcfeb635",
+        "dependency": "readiness.action_a"
+      },
+      "diligence.request_a": {
+        "document": "diligence",
+        "title": "First diligence request",
+        "status": "review_pending",
+        "candidate": {
+          "question": "What income does the investment entity retain from Apex, and does it cover attributable variable service costs?",
+          "analysis_plan": {
+            "question": "What income does the investment entity retain from Apex, and does it cover attributable variable service costs?",
+            "left": {
+              "name": "Recognized service revenue after partner charges, if applicable",
+              "dimension": "money",
+              "unit": "reconciled reporting currency",
+              "record_needed": "Entity chart and service/fee-sharing agreements; redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements. Include entity, plan, account key, month, currency, refunds and taxes. Reconcile recognition and gross/net presentation; identify any partner charges already deducted and normalize them exactly once. Exclude customer principal, assets and pass-through taxes from revenue.",
+              "role": "recognized_revenue",
+              "entity": "Investment target, legal identity and contracting entities to confirm",
+              "service": "Apex",
+              "population": "Eligible service accounts, separated by plan and operating month",
+              "window": "Latest six completed months",
+              "time_basis": "flow",
+              "exposure": "Complete operating month",
+              "revenue_treatment": "net",
+              "deducted_costs": [
+                "partner_charge"
+              ]
+            },
+            "operation": "subtract",
+            "right": {
+              "name": "Attributable variable service costs excluding partner charges already deducted",
+              "dimension": "money",
+              "unit": "reconciled reporting currency",
+              "record_needed": "Supplier invoices, direct service/support cost records and staff-time allocations for the same entity, plans, accounts and months. Include currency, expense category, allocation basis and one-off versus ongoing service cost. Exclude fixed corporate overhead and partner charges already deducted from the reconciled revenue input. Request missing records; do not estimate them from public tariffs.",
+              "role": "variable_service_cost",
+              "entity": "Investment target, legal identity and contracting entities to confirm",
+              "service": "Apex",
+              "population": "Eligible service accounts, separated by plan and operating month",
+              "window": "Latest six completed months",
+              "time_basis": "flow",
+              "exposure": "Complete operating month",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "population_basis": "Eligible service accounts, separated by plan and operating month",
+            "kind": "measurement",
+            "purpose": "contribution",
+            "expected_output": "contribution_profit",
+            "population_relation": "same_population",
+            "partner_charge_treatment": "already_deducted_from_revenue",
+            "fee_yield_basis": null,
+            "missing_inputs": "request_records_and_defer_decision",
+            "inference_limit": "descriptive_only_no_causal_claim"
+          },
+          "fact_ids": [
+            "S3"
+          ],
+          "records_to_request": "Entity chart and service/fee-sharing agreements; redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements. Include entity, plan, account key, month, currency, refunds and taxes. Reconcile recognition and gross/net presentation; identify any partner charges already deducted and normalize them exactly once. Exclude customer principal, assets and pass-through taxes from revenue.; Supplier invoices, direct service/support cost records and staff-time allocations for the same entity, plans, accounts and months. Include currency, expense category, allocation basis and one-off versus ongoing service cost. Exclude fixed corporate overhead and partner charges already deducted from the reconciled revenue input. Request missing records; do not estimate them from public tariffs.",
+          "decision": "Decision unresolved until the requested records and definitions are checked. Use reconciled contribution to investigate loss-making services and choose pricing or delivery-cost work before an expansion recommendation. Observed losses alone do not establish future viability."
+        },
+        "input_hash": "c6487162b62fbce86e38a45f0b9ab19ff02cf83cbd55eb4c6e82441f91246d11",
+        "review_hash": "3f1e6c50a7ca679cc8e335a115f5224aad9c02bdd820988529b6af09fcfeb635",
+        "dependency": null
+      },
+      "diligence.request_b": {
+        "document": "diligence",
+        "title": "Second diligence request",
+        "status": "review_pending",
+        "candidate": {
+          "question": "What proportion of eligible new Access customers complete completed order within the requested observation window?",
+          "analysis_plan": {
+            "question": "What proportion of eligible new Access customers complete completed order within the requested observation window?",
+            "left": {
+              "name": "Customers completing the specified activation event",
+              "dimension": "count",
+              "unit": "unique customers",
+              "record_needed": "Redacted account-event export with stable customer key, event type, event timestamp, plan and completion/cancellation status. Count each eligible customer once if completed order occurs after registration within follow-up. Link to the eligible cohort file; missing event coverage is unresolved, not a negative outcome.",
+              "role": "count",
+              "entity": "Investment target, legal identity and service operator to confirm",
+              "service": "Access",
+              "population": "Same eligible customer cohort, grouped by entry month and service plan",
+              "window": "Latest six completed months",
+              "time_basis": "observation_window",
+              "exposure": "First ninety days after cohort entry; exclude immature accounts",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "operation": "divide",
+            "right": {
+              "name": "Eligible newly registered customers with complete follow-up",
+              "dimension": "count",
+              "unit": "unique customers",
+              "record_needed": "Redacted customer/cohort export with stable customer key, registration/enrollment/first-event date, plan, eligibility flags and data cutoff. Cohort entry is registration; document eligibility exclusions before counting. Use the same cohort and customer keys as the event export; retain only fully observed customers.",
+              "role": "count",
+              "entity": "Investment target, legal identity and service operator to confirm",
+              "service": "Access",
+              "population": "Same eligible customer cohort, grouped by entry month and service plan",
+              "window": "Latest six completed months",
+              "time_basis": "observation_window",
+              "exposure": "First ninety days after cohort entry; exclude immature accounts",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "population_basis": "Same eligible customer cohort, grouped by entry month and service plan",
+            "kind": "measurement",
+            "purpose": "cohort_rate",
+            "expected_output": "cohort_rate",
+            "population_relation": "numerator_subset_of_denominator",
+            "partner_charge_treatment": "not_applicable",
+            "fee_yield_basis": null,
+            "missing_inputs": "request_records_and_defer_decision",
+            "inference_limit": "descriptive_only_no_causal_claim"
+          },
+          "fact_ids": [
+            "S2"
+          ],
+          "records_to_request": "Redacted account-event export with stable customer key, event type, event timestamp, plan and completion/cancellation status. Count each eligible customer once if completed order occurs after registration within follow-up. Link to the eligible cohort file; missing event coverage is unresolved, not a negative outcome.; Redacted customer/cohort export with stable customer key, registration/enrollment/first-event date, plan, eligibility flags and data cutoff. Cohort entry is registration; document eligibility exclusions before counting. Use the same cohort and customer keys as the event export; retain only fully observed customers.",
+          "decision": "Decision unresolved until the requested records and definitions are checked. Use funded or retained participation to select an activation or retention investigation; set an experiment threshold from an observed baseline."
+        },
+        "input_hash": "c6487162b62fbce86e38a45f0b9ab19ff02cf83cbd55eb4c6e82441f91246d11",
+        "review_hash": "3f1e6c50a7ca679cc8e335a115f5224aad9c02bdd820988529b6af09fcfeb635",
+        "dependency": null
+      },
+      "readiness.action_a": {
+        "document": "readiness",
+        "title": "First readiness action",
+        "status": "review_pending",
+        "candidate": {
+          "analysis_plan": {
+            "question": "What income does the investment entity retain from Apex, and does it cover attributable variable service costs?",
+            "left": {
+              "name": "Recognized service revenue after partner charges, if applicable",
+              "dimension": "money",
+              "unit": "reconciled reporting currency",
+              "record_needed": "Entity chart and service/fee-sharing agreements; redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements. Include entity, plan, account key, month, currency, refunds and taxes. Reconcile recognition and gross/net presentation; identify any partner charges already deducted and normalize them exactly once. Exclude customer principal, assets and pass-through taxes from revenue.",
+              "role": "recognized_revenue",
+              "entity": "Investment target, legal identity and contracting entities to confirm",
+              "service": "Apex",
+              "population": "Eligible service accounts, separated by plan and operating month",
+              "window": "Latest six completed months",
+              "time_basis": "flow",
+              "exposure": "Complete operating month",
+              "revenue_treatment": "net",
+              "deducted_costs": [
+                "partner_charge"
+              ]
+            },
+            "operation": "subtract",
+            "right": {
+              "name": "Attributable variable service costs excluding partner charges already deducted",
+              "dimension": "money",
+              "unit": "reconciled reporting currency",
+              "record_needed": "Supplier invoices, direct service/support cost records and staff-time allocations for the same entity, plans, accounts and months. Include currency, expense category, allocation basis and one-off versus ongoing service cost. Exclude fixed corporate overhead and partner charges already deducted from the reconciled revenue input. Request missing records; do not estimate them from public tariffs.",
+              "role": "variable_service_cost",
+              "entity": "Investment target, legal identity and contracting entities to confirm",
+              "service": "Apex",
+              "population": "Eligible service accounts, separated by plan and operating month",
+              "window": "Latest six completed months",
+              "time_basis": "flow",
+              "exposure": "Complete operating month",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "population_basis": "Eligible service accounts, separated by plan and operating month",
+            "kind": "measurement",
+            "purpose": "contribution",
+            "expected_output": "contribution_profit",
+            "population_relation": "same_population",
+            "partner_charge_treatment": "already_deducted_from_revenue",
+            "fee_yield_basis": null,
+            "missing_inputs": "request_records_and_defer_decision",
+            "inference_limit": "descriptive_only_no_causal_claim"
+          },
+          "fact_ids": [
+            "S3"
+          ],
+          "required_input": "Entity chart and service/fee-sharing agreements; redacted invoices, credit notes, revenue ledger, collection and partner-settlement statements. Include entity, plan, account key, month, currency, refunds and taxes. Reconcile recognition and gross/net presentation; identify any partner charges already deducted and normalize them exactly once. Exclude customer principal, assets and pass-through taxes from revenue.; Supplier invoices, direct service/support cost records and staff-time allocations for the same entity, plans, accounts and months. Include currency, expense category, allocation basis and one-off versus ongoing service cost. Exclude fixed corporate overhead and partner charges already deducted from the reconciled revenue input. Request missing records; do not estimate them from public tariffs.",
+          "action": "Recognized service revenue after partner charges, if applicable (reconciled reporting currency) \u2212 Attributable variable service costs excluding partner charges already deducted (reconciled reporting currency). Scope: Investment target, legal identity and contracting entities to confirm; Apex; Eligible service accounts, separated by plan and operating month. Align records to Latest six completed months; exposure: Complete operating month. Check definitions and reconcile inputs before calculating; leave missing inputs and zero denominators unresolved.",
+          "output": "A source-linked contribution profit table (reconciled reporting currency) with input reconciliation, definitions and unresolved differences.",
+          "decision": "Decision unresolved until the requested records and definitions are checked. Use reconciled contribution to investigate loss-making services and choose pricing or delivery-cost work before an expansion recommendation. Observed losses alone do not establish future viability."
+        },
+        "input_hash": "c6487162b62fbce86e38a45f0b9ab19ff02cf83cbd55eb4c6e82441f91246d11",
+        "review_hash": "3f1e6c50a7ca679cc8e335a115f5224aad9c02bdd820988529b6af09fcfeb635",
+        "dependency": "diligence.request_a"
+      },
+      "readiness.action_b": {
+        "document": "readiness",
+        "title": "Second readiness action",
+        "status": "review_pending",
+        "candidate": {
+          "analysis_plan": {
+            "question": "What proportion of eligible new Access customers complete completed order within the requested observation window?",
+            "left": {
+              "name": "Customers completing the specified activation event",
+              "dimension": "count",
+              "unit": "unique customers",
+              "record_needed": "Redacted account-event export with stable customer key, event type, event timestamp, plan and completion/cancellation status. Count each eligible customer once if completed order occurs after registration within follow-up. Link to the eligible cohort file; missing event coverage is unresolved, not a negative outcome.",
+              "role": "count",
+              "entity": "Investment target, legal identity and service operator to confirm",
+              "service": "Access",
+              "population": "Same eligible customer cohort, grouped by entry month and service plan",
+              "window": "Latest six completed months",
+              "time_basis": "observation_window",
+              "exposure": "First ninety days after cohort entry; exclude immature accounts",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "operation": "divide",
+            "right": {
+              "name": "Eligible newly registered customers with complete follow-up",
+              "dimension": "count",
+              "unit": "unique customers",
+              "record_needed": "Redacted customer/cohort export with stable customer key, registration/enrollment/first-event date, plan, eligibility flags and data cutoff. Cohort entry is registration; document eligibility exclusions before counting. Use the same cohort and customer keys as the event export; retain only fully observed customers.",
+              "role": "count",
+              "entity": "Investment target, legal identity and service operator to confirm",
+              "service": "Access",
+              "population": "Same eligible customer cohort, grouped by entry month and service plan",
+              "window": "Latest six completed months",
+              "time_basis": "observation_window",
+              "exposure": "First ninety days after cohort entry; exclude immature accounts",
+              "revenue_treatment": "not_applicable",
+              "deducted_costs": []
+            },
+            "population_basis": "Same eligible customer cohort, grouped by entry month and service plan",
+            "kind": "measurement",
+            "purpose": "cohort_rate",
+            "expected_output": "cohort_rate",
+            "population_relation": "numerator_subset_of_denominator",
+            "partner_charge_treatment": "not_applicable",
+            "fee_yield_basis": null,
+            "missing_inputs": "request_records_and_defer_decision",
+            "inference_limit": "descriptive_only_no_causal_claim"
+          },
+          "fact_ids": [
+            "S2"
+          ],
+          "required_input": "Redacted account-event export with stable customer key, event type, event timestamp, plan and completion/cancellation status. Count each eligible customer once if completed order occurs after registration within follow-up. Link to the eligible cohort file; missing event coverage is unresolved, not a negative outcome.; Redacted customer/cohort export with stable customer key, registration/enrollment/first-event date, plan, eligibility flags and data cutoff. Cohort entry is registration; document eligibility exclusions before counting. Use the same cohort and customer keys as the event export; retain only fully observed customers.",
+          "action": "Customers completing the specified activation event (unique customers) \u00f7 Eligible newly registered customers with complete follow-up (unique customers). Scope: Investment target, legal identity and service operator to confirm; Access; Same eligible customer cohort, grouped by entry month and service plan. Align records to Latest six completed months; exposure: First ninety days after cohort entry; exclude immature accounts. Check definitions and reconcile inputs before calculating; leave missing inputs and zero denominators unresolved.",
+          "output": "A source-linked cohort rate table (fraction) with input reconciliation, definitions and unresolved differences.",
+          "decision": "Decision unresolved until the requested records and definitions are checked. Use funded or retained participation to select an activation or retention investigation; set an experiment threshold from an observed baseline."
+        },
+        "input_hash": "c6487162b62fbce86e38a45f0b9ab19ff02cf83cbd55eb4c6e82441f91246d11",
+        "review_hash": "3f1e6c50a7ca679cc8e335a115f5224aad9c02bdd820988529b6af09fcfeb635",
+        "dependency": "diligence.request_b"
+      }
+    },
+    "attempts": [
+      {
+        "task": "shared_analysis",
+        "attempt": 0,
+        "at": "2026-09-14T21:35:59.427994+00:00",
+        "implementation_hash": "6f0c7d6918aab3de1d620aca12aa1df9658a3f27af287b891fc08b54204d5002",
+        "answer": {
+          "economics_test": {
+            "service": "Apex",
+            "fact_ids": [
+              "S3"
+            ]
+          },
+          "customer_test": {
+            "service": "Access",
+            "fact_ids": [
+              "S2"
+            ],
+            "method": "activation",
+            "event": "completed order"
+          },
+          "business": {
+            "text": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems.",
+            "fact_ids": [
+              "S1"
+            ]
+          },
+          "economics": {
+            "text": "The Access plan offers global stock and ETF trading without a recurring plan fee. The Apex plan adds managed advisory strategies and FEMA/tax support to Access with percentage charges based on assets under management, stated annually and collected monthly.",
+            "fact_ids": [
+              "S2",
+              "S3"
+            ]
+          },
+          "hypothesis": {
+            "text": "Revenue realization depends on the partner charge basis for the Access plan and the annual asset-based percentage charge for the Apex plan. Brokerage fees apply separately to both plans, but brokerage markups are not applied to Apex customers.",
+            "fact_ids": [
+              "S2",
+              "S3"
+            ]
+          },
+          "risk": {
+            "text": "Delivery costs could weaken returns if customer behavior increases trading frequency on the Access plan without offsetting revenue from the partner charge basis. The site names licensed partners as banking and brokerage service providers, but investment-entity confirmation is missing.",
+            "fact_ids": [
+              "S2",
+              "S4",
+              "S5"
+            ]
+          }
+        },
+        "elapsed_seconds": 22.685,
+        "invoked": true,
+        "model": "qwen3.5:9b",
+        "routing": {
+          "task": "shared_analysis",
+          "profile": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 1200,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "context_tokens": 8192,
+          "temperature": 0.7,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 22.68,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 1989,
+          "generated_tokens": 372,
+          "done_reason": "stop"
+        },
+        "raw_response": "{\n  \"economics_test\": {\n    \"service\": \"Apex\",\n    \"fact_ids\": [\"S3\"]\n  },\n  \"customer_test\": {\n    \"service\": \"Access\",\n    \"fact_ids\": [\"S2\"],\n    \"method\": \"activation\",\n    \"event\": \"completed order\"\n  },\n  \"business\": {\n    \"text\": \"Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems.\",\n    \"fact_ids\": [\"S1\"]\n  },\n  \"economics\": {\n    \"text\": \"The Access plan offers global stock and ETF trading without a recurring plan fee. The Apex plan adds managed advisory strategies and FEMA/tax support to Access with percentage charges based on assets under management, stated annually and collected monthly.\",\n    \"fact_ids\": [\"S2\", \"S3\"]\n  },\n  \"hypothesis\": {\n    \"text\": \"Revenue realization depends on the partner charge basis for the Access plan and the annual asset-based percentage charge for the Apex plan. Brokerage fees apply separately to both plans, but brokerage markups are not applied to Apex customers.\",\n    \"fact_ids\": [\"S2\", \"S3\"]\n  },\n  \"risk\": {\n    \"text\": \"Delivery costs could weaken returns if customer behavior increases trading frequency on the Access plan without offsetting revenue from the partner charge basis. The site names licensed partners as banking and brokerage service providers, but investment-entity confirmation is missing.\",\n    \"fact_ids\": [\"S2\", \"S4\", \"S5\"]\n  }\n}"
+      },
+      {
+        "task": "shared_founder",
+        "attempt": 0,
+        "at": "2026-09-14T21:36:22.129064+00:00",
+        "implementation_hash": "6f0c7d6918aab3de1d620aca12aa1df9658a3f27af287b891fc08b54204d5002",
+        "answer": {
+          "opening": {
+            "text": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory, noting remittance friction and unfamiliar tax requirements as key customer problems.",
+            "fact_ids": [
+              "S1"
+            ]
+          },
+          "offer": {
+            "text": "We propose a contribution reconciliation for the Apex managed advisory plan and an activation analysis for the Access trading plan. To execute this, we would REQUEST entity charts, service/fee-sharing agreements, redacted invoices, revenue ledgers, partner-settlement statements, supplier invoices, direct service cost records, and customer event exports aligned to the latest six completed months. The concrete deliverable is a source-linked profit table for Apex contribution margins and a cohort rate table for Access activation completion. This work supports the commercial decision to investigate loss-making services, choose pricing adjustments, or determine delivery-cost efficiency before recommending expansion.",
+            "fact_ids": [
+              "S2",
+              "S3",
+              "S4",
+              "S5"
+            ]
+          },
+          "invitation": "Would you be open to a conversation to discuss these proposed records and the scope of our contribution reconciliation?"
+        },
+        "elapsed_seconds": 17.492,
+        "invoked": true,
+        "model": "qwen3.5:9b",
+        "routing": {
+          "task": "shared_founder",
+          "profile": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 650,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "context_tokens": 8192,
+          "temperature": 0.7,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 17.49,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 2308,
+          "generated_tokens": 245,
+          "done_reason": "stop"
+        },
+        "raw_response": "{\n  \"opening\": {\n    \"text\": \"Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory, noting remittance friction and unfamiliar tax requirements as key customer problems.\",\n    \"fact_ids\": [\"S1\"]\n  },\n  \"offer\": {\n    \"text\": \"We propose a contribution reconciliation for the Apex managed advisory plan and an activation analysis for the Access trading plan. To execute this, we would REQUEST entity charts, service/fee-sharing agreements, redacted invoices, revenue ledgers, partner-settlement statements, supplier invoices, direct service cost records, and customer event exports aligned to the latest six completed months. The concrete deliverable is a source-linked profit table for Apex contribution margins and a cohort rate table for Access activation completion. This work supports the commercial decision to investigate loss-making services, choose pricing adjustments, or determine delivery-cost efficiency before recommending expansion.\",\n    \"fact_ids\": [\"S2\", \"S3\", \"S4\", \"S5\"]\n  },\n  \"invitation\": \"Would you be open to a conversation to discuss these proposed records and the scope of our contribution reconciliation?\"\n}"
+      },
+      {
+        "task": "shared_review",
+        "attempt": 0,
+        "at": "2026-09-14T21:36:39.636116+00:00",
+        "implementation_hash": "6f0c7d6918aab3de1d620aca12aa1df9658a3f27af287b891fc08b54204d5002",
+        "error": "3 validation errors for SharedReview\nobjections.0.correction\n  String should have at most 400 characters [type=string_too_long, input_value=\"The draft claims 'activa...ro or a confirmed rate.\", input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long\nobjections.1.correction\n  String should have at most 400 characters [type=string_too_long, input_value=\"The draft states 'invest... guess not found in S4.\", input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long\nobjections.2.correction\n  String should have at most 400 characters [type=string_too_long, input_value=\"The draft proposes an 'a...s, only fee structures.\", input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long",
+        "elapsed_seconds": 25.31,
+        "invoked": true,
+        "model": "qwen3.5:9b",
+        "routing": {
+          "task": "shared_review",
+          "profile": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": false,
+          "max_tokens": 900,
+          "thinking_used": false,
+          "reasoning_budget": null,
+          "answer_continuation": false,
+          "context_tokens": 8192,
+          "temperature": 0.7,
+          "sampling": {
+            "top_p": 0.8,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 25.3,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 2717,
+          "generated_tokens": 385,
+          "done_reason": "stop"
+        },
+        "raw_response": "{\"verdict\":\"revise\",\"objections\":[{\"passage_id\":\"D2\",\"basis_id\":\"S2\",\"correction\":\"The draft claims 'activation' method with event 'completed order' based on S2. However, S2 explicitly states the public schedule does not establish how much of a customer charge the investment target retains and implies no recurring fee structure is defined. The proposed method requires specific event records (redacted account-event export) which are missing from the source text. Treating the absence of a stated recurring fee in S2 as an established 'activation' metric for revenue analysis ignores the instruction that missing data are unresolved, not zero or a confirmed rate.\"},{\"passage_id\":\"D6\",\"basis_id\":\"S4\",\"correction\":\"The draft states 'investment-entity confirmation is missing' citing S4. While S4 notes the lack of ownership charts or intercompany statements in the evidence packet, it does not explicitly state that 'investment-entity confirmation' (a specific document type) is absent; rather, it lists what is missing generally. The objection must bind to the specific text in S4 regarding 'no ownership chart... or intercompany financial statements'. The draft's phrasing 'investment-entity confirmation' is a model guess not found in S4.\"},{\"passage_id\":\"D8\",\"basis_id\":\"S2\",\"correction\":\"The draft proposes an 'activation analysis for the Access trading plan' based on S2. S2 describes Access as offering trading without a recurring plan fee and customers paying brokerage when they trade. It does not support an activation analysis yielding a retention or repeat-use metric, nor does it validate the 'completed order' event as a proxy for revenue realization without explicit record linkage. The draft's claim that this supports a commercial decision to investigate loss-making services is invalid because S2 provides no data on variable service costs or contribution margins, only fee structures.\"}]}"
+      }
+    ],
+    "status": "partial",
+    "started_at": "2026-09-14T21:35:59.425596+00:00",
+    "generation_config": {
+      "mode": "shared_analysis_v1",
+      "model": "qwen3.5:9b",
+      "thinking": false,
+      "review_model": "qwen3.5:9b",
+      "review_thinking": false,
+      "contract": "32c1376a03b572d2caa96725c454d6561dde9b9aef8d01f16a2abd05b1119728"
+    },
+    "shared_input_hash": "c6487162b62fbce86e38a45f0b9ab19ff02cf83cbd55eb4c6e82441f91246d11",
+    "shared": {
+      "analysis": {
+        "economics_test": {
+          "service": "Apex",
+          "fact_ids": [
+            "S3"
+          ]
+        },
+        "customer_test": {
+          "service": "Access",
+          "fact_ids": [
+            "S2"
+          ],
+          "method": "activation",
+          "event": "completed order"
+        },
+        "business": {
+          "text": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems.",
+          "fact_ids": [
+            "S1"
+          ]
+        },
+        "economics": {
+          "text": "The Access plan offers global stock and ETF trading without a recurring plan fee. The Apex plan adds managed advisory strategies and FEMA/tax support to Access with percentage charges based on assets under management, stated annually and collected monthly.",
+          "fact_ids": [
+            "S2",
+            "S3"
+          ]
+        },
+        "hypothesis": {
+          "text": "Revenue realization depends on the partner charge basis for the Access plan and the annual asset-based percentage charge for the Apex plan. Brokerage fees apply separately to both plans, but brokerage markups are not applied to Apex customers.",
+          "fact_ids": [
+            "S2",
+            "S3"
+          ]
+        },
+        "risk": {
+          "text": "Delivery costs could weaken returns if customer behavior increases trading frequency on the Access plan without offsetting revenue from the partner charge basis. The site names licensed partners as banking and brokerage service providers, but investment-entity confirmation is missing.",
+          "fact_ids": [
+            "S2",
+            "S4",
+            "S5"
+          ]
+        }
+      },
+      "founder": {
+        "opening": {
+          "text": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory, noting remittance friction and unfamiliar tax requirements as key customer problems.",
+          "fact_ids": [
+            "S1"
+          ]
+        },
+        "offer": {
+          "text": "We propose a contribution reconciliation for the Apex managed advisory plan and an activation analysis for the Access trading plan. To execute this, we would REQUEST entity charts, service/fee-sharing agreements, redacted invoices, revenue ledgers, partner-settlement statements, supplier invoices, direct service cost records, and customer event exports aligned to the latest six completed months. The concrete deliverable is a source-linked profit table for Apex contribution margins and a cohort rate table for Access activation completion. This work supports the commercial decision to investigate loss-making services, choose pricing adjustments, or determine delivery-cost efficiency before recommending expansion.",
+          "fact_ids": [
+            "S2",
+            "S3",
+            "S4",
+            "S5"
+          ]
+        },
+        "invitation": "Would you be open to a conversation to discuss these proposed records and the scope of our contribution reconciliation?"
+      }
+    },
+    "documents": {
+      "research": {
+        "title": "Research memo",
+        "status": "partial"
+      },
+      "founder": {
+        "title": "Founder proposal",
+        "status": "partial"
+      },
+      "diligence": {
+        "title": "Diligence request",
+        "status": "partial"
+      },
+      "readiness": {
+        "title": "Investment-readiness plan",
+        "status": "partial"
+      }
+    },
+    "updated_at": "2026-09-14T21:37:04.952008+00:00",
+    "agenda": {
+      "status": "complete",
+      "questions": [
+        {
+          "dimension": "unit_economics",
+          "question": "What income does the investment entity retain from Apex, and does it cover attributable variable service costs?",
+          "fact_ids": [
+            "S3"
+          ]
+        },
+        {
+          "dimension": "customer_demand",
+          "question": "What proportion of eligible new Access customers complete completed order within the requested observation window?",
+          "fact_ids": [
+            "S2"
+          ]
+        }
+      ]
+    },
+    "stop_reason": "Preparation validation needs correction: 3 validation errors for SharedReview\nobjections.0.correction\n  String should have at most 400 characters [type=string_too_long, input_value=\"The draft claims 'activa...ro or a confirmed rate.\", input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long\nobjections.1.correction\n  String should have at most 400 characters [type=string_too_long, input_value=\"The draft states 'invest... guess not found in S4.\", input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long\nobjections.2.correction\n  String should have at most 400 characters [type=string_too_long, input_value=\"The draft proposes an 'a...s, only fee structures.\", input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_too_long",
+    "last_run_budget": {
+      "max_seconds": 119.740690542,
+      "max_calls": 6,
+      "max_requests": 6,
+      "calls": 3,
+      "requests": 3,
+      "elapsed_seconds": 65.534
+    }
+  },
+  "metrics": {
+    "completed_sections": 0,
+    "expected_sections": 9,
+    "completion_rate": 0.0,
+    "completed_documents": [],
+    "model_calls": 3,
+    "correction_attempts": 0,
+    "inference_seconds": 65.49,
+    "independently_audited_factual_errors": null,
+    "actionable_sections": null
+  },
+  "elapsed_seconds": 65.55,
+  "actual_inference_calls": 3,
+  "denied_corrections": []
+}

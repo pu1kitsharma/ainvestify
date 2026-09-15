@@ -5,6 +5,7 @@
 *.db-wal
 memo_output/
 uploads/
+runtime_backups/
 .DS_Store
 
 # Claude Code local session state -- machine-local, not project source

@@ -1,0 +1,2041 @@
+{
+  "info": {
+    "name": "AInvestify API",
+    "description": "AI-driven sourcing, incubation, and fundraising-support pipeline for early-stage companies -- boutique-IB-style document packaging, not a fund screening deals for its own book. Lifecycle: **source** candidate companies -> a human **promotes** a lead into a deal -> **ingest** documents -> **extract** structured metrics with mandatory source citations -> **human review** -> **research** external corroboration -> **compile** a cited, reviewable document suite (CIM / teaser / pro-forma).\n\nEvery extracted numeric field carries a source citation or stays `null` -- never inferred from a typical value. Human review/sign-off is mandatory before any document is finalized. This system does not itself contact investors, negotiate terms, or run a raise -- that stays a human-led activity.\n\nPhase 0: local-only, no auth, CORS open only to the local Vite dev server.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "leads",
+      "description": "Deal Sourcing Agent (\u00a75.8): discover candidate companies, human keep/dismiss review, promote a kept lead into a real Deal. A lead never touches ExtractionResult until promoted.",
+      "item": [
+        {
+          "name": "Start Web Run",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/leads/web-runs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "leads",
+                "web-runs"
+              ],
+              "variable": []
+            },
+            "description": "Start Web Run",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"thesis\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Web Runs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/leads/web-runs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "leads",
+                "web-runs"
+              ],
+              "variable": []
+            },
+            "description": "List Web Runs"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Web Run",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/leads/web-runs/:run_id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "leads",
+                "web-runs",
+                ":run_id"
+              ],
+              "variable": [
+                {
+                  "key": "run_id",
+                  "value": "<run_id>"
+                }
+              ]
+            },
+            "description": "Get Web Run"
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel Web Run",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/leads/web-runs/:run_id/cancel",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "leads",
+                "web-runs",
+                ":run_id",
+                "cancel"
+              ],
+              "variable": [
+                {
+                  "key": "run_id",
+                  "value": "<run_id>"
+                }
+              ]
+            },
+            "description": "Cancel Web Run"
+          },
+          "response": []
+        },
+        {
+          "name": "Web Run Leads",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/leads/web-runs/:run_id/leads",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "leads",
+                "web-runs",
+                ":run_id",
+                "leads"
+              ],
+              "variable": [
+                {
+                  "key": "run_id",
+                  "value": "<run_id>"
+                }
+              ]
+            },
+            "description": "Web Run Leads"
+          },
+          "response": []
+        },
+        {
+          "name": "Source",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/leads/source",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "leads",
+                "source"
+              ],
+              "variable": []
+            },
+            "description": "VC-style sourcing (agents/sourcing_agent.discover_leads): early-stage\ncandidates via GitHub/HN recency signals.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sector_keyword\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Source Ib",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/leads/source-ib",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "leads",
+                "source-ib"
+              ],
+              "variable": []
+            },
+            "description": "IB-style sourcing (agents/sourcing_agent.discover_ib_targets): mature/\npublic companies signaling a transaction window via SEC filings.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sector_keyword\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Leads",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/leads?status=<status>&web_run_only=<web_run_only>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "leads"
+              ],
+              "variable": [],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "<status>",
+                  "disabled": true
+                },
+                {
+                  "key": "web_run_only",
+                  "value": "<web_run_only>",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "List Leads"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Lead",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/leads/:lead_id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "leads",
+                ":lead_id"
+              ],
+              "variable": [
+                {
+                  "key": "lead_id",
+                  "value": "<lead_id>"
+                }
+              ]
+            },
+            "description": "Get Lead"
+          },
+          "response": []
+        },
+        {
+          "name": "Decide Lead",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/leads/:lead_id/decision",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "leads",
+                ":lead_id",
+                "decision"
+              ],
+              "variable": [
+                {
+                  "key": "lead_id",
+                  "value": "<lead_id>"
+                }
+              ]
+            },
+            "description": "Decide Lead",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"decision\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Promote",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/leads/:lead_id/promote",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "leads",
+                ":lead_id",
+                "promote"
+              ],
+              "variable": [
+                {
+                  "key": "lead_id",
+                  "value": "<lead_id>"
+                }
+              ]
+            },
+            "description": "Promote",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "deals",
+      "description": "Deal lifecycle writes: create a deal, sign the mandate, upload a document (ingestion), run extraction, read the audit log. GET list/detail live under `dashboard`; review decisions live under `review`.",
+      "item": [
+        {
+          "name": "Create Deal",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals"
+              ],
+              "variable": []
+            },
+            "description": "Create Deal",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Sign Mandate",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/mandate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "mandate"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                }
+              ]
+            },
+            "description": "Sign Mandate",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mandate_type\": \"string\",\n  \"terms_summary\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload Document",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/documents",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "documents"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                }
+              ]
+            },
+            "description": "Upload Document",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Run Extract",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/extract",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "extract"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                }
+              ]
+            },
+            "description": "Run Extract",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"phi4-mini\",\n  \"reviewer_feedback\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Source Documents",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/source-documents",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "source-documents"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                }
+              ]
+            },
+            "description": "The raw ingested documents (with their DocBlocks) a deal's extraction\nwas built from -- named distinctly from GET /{deal_id}/documents\n(api/routers/compilation.py), which lists the *compiled* memo suite\n(CIM/teaser/proforma) instead. This is what a review screen's source-\ncitation drawer reads: a citation is a source_block_id, and this is the\nonly endpoint that can resolve one back to its actual content."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Audit Log",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/audit-log",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "audit-log"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                }
+              ]
+            },
+            "description": "Get Audit Log"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "dashboard",
+      "description": "Read-only deal summaries for the dashboard view.",
+      "item": [
+        {
+          "name": "List Deals",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals?status=<status>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals"
+              ],
+              "variable": [],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "<status>",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "List Deals"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Deal",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                }
+              ]
+            },
+            "description": "Get Deal"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "review",
+      "description": "Human Review Checkpoint (\u00a75.5): per-field approve/edit/reject on an ExtractionResult, cap-table/funding-history block review, and the bounded 2-retry reject loop that re-invokes extraction with the reviewer's note.",
+      "item": [
+        {
+          "name": "Get Review",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/review",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "review"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                }
+              ]
+            },
+            "description": "Get Review"
+          },
+          "response": []
+        },
+        {
+          "name": "Decide Field",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/review/fields/:field_name",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "review",
+                "fields",
+                ":field_name"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                },
+                {
+                  "key": "field_name",
+                  "value": "<field_name>"
+                }
+              ]
+            },
+            "description": "Decide Field",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"decision\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Decide Cap Table",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/review/cap-table",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "review",
+                "cap-table"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                }
+              ]
+            },
+            "description": "Decide Cap Table",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"decision\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Decide Funding History",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/review/funding-history",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "review",
+                "funding-history"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                }
+              ]
+            },
+            "description": "Decide Funding History",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"decision\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "research",
+      "description": "Market Research Agent (\u00a75.4): run live external-signal lookups for a deal, list findings, per-finding approve/reject, mark-reviewed.",
+      "item": [
+        {
+          "name": "Run Research",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/research/run",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "research",
+                "run"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                }
+              ]
+            },
+            "description": "Run Research",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"company_name\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Research",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/research",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "research"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                }
+              ]
+            },
+            "description": "List Research"
+          },
+          "response": []
+        },
+        {
+          "name": "Decide Finding",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/research/:finding_id/decision",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "research",
+                ":finding_id",
+                "decision"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                },
+                {
+                  "key": "finding_id",
+                  "value": "<finding_id>"
+                }
+              ]
+            },
+            "description": "Decide Finding",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"decision\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Mark Reviewed",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/research/mark-reviewed",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "research",
+                "mark-reviewed"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                }
+              ]
+            },
+            "description": "Mark Reviewed"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "compilation",
+      "description": "Compilation Agent (\u00a75.7): compile the CIM, the teaser's two-step draft + safe-to-send confirm, the pro-forma with an optional growth-rate override, rerun analytics, and fetch the resulting document suite.",
+      "item": [
+        {
+          "name": "List Documents",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/documents?document_type=<document_type>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "documents"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                }
+              ],
+              "query": [
+                {
+                  "key": "document_type",
+                  "value": "<document_type>",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "The document suite (plan \u00a72): every version of every document type\nby default, or every version of one type via ?document_type=teaser."
+          },
+          "response": []
+        },
+        {
+          "name": "Compile Cim Endpoint",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/compile/cim",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "compile",
+                "cim"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                }
+              ]
+            },
+            "description": "Compile Cim Endpoint"
+          },
+          "response": []
+        },
+        {
+          "name": "Compile Teaser Draft Endpoint",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/compile/teaser/draft",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "compile",
+                "teaser",
+                "draft"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                }
+              ]
+            },
+            "description": "Compile Teaser Draft Endpoint",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"business_description\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Confirm Teaser Endpoint",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/compile/teaser/:memo_id/confirm",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "compile",
+                "teaser",
+                ":memo_id",
+                "confirm"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                },
+                {
+                  "key": "memo_id",
+                  "value": "<memo_id>"
+                }
+              ]
+            },
+            "description": "Confirm Teaser Endpoint",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"confirmed\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Compile Proforma Endpoint",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/compile/proforma",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "compile",
+                "proforma"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                }
+              ]
+            },
+            "description": "Compile Proforma Endpoint",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"growth_rate_override\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Rerun Analytics Endpoint",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/analytics/rerun",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "analytics",
+                "rerun"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                }
+              ]
+            },
+            "description": "Rerun Analytics Endpoint"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Latest Document",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/documents/latest?document_type=<document_type>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "documents",
+                "latest"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                }
+              ],
+              "query": [
+                {
+                  "key": "document_type",
+                  "value": "<document_type>",
+                  "disabled": false
+                }
+              ]
+            },
+            "description": "Get Latest Document"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "investors",
+      "description": "Investor / demand-book record-keeping (\u00a75.9 Roadshow stage). Pure record-keeping only -- this never contacts an investor or sends anything.",
+      "item": [
+        {
+          "name": "Add Investor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/investors",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "investors"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                }
+              ]
+            },
+            "description": "Add Investor",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"investor_name\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Investors",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/investors",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "investors"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                }
+              ]
+            },
+            "description": "List Investors"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "operations",
+      "description": "Local operating workspaces for a shortlisted company: AI-prepared research/pitch/readiness drafts and evidence-backed reviews. No external sending, signing, or money movement.",
+      "item": [
+        {
+          "name": "Datasets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/operations/datasets",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "operations",
+                "datasets"
+              ],
+              "variable": []
+            },
+            "description": "Datasets"
+          },
+          "response": []
+        },
+        {
+          "name": "Workspaces",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/operations/workspaces?summary=<summary>&lead_id=<lead_id>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "operations",
+                "workspaces"
+              ],
+              "variable": [],
+              "query": [
+                {
+                  "key": "summary",
+                  "value": "<summary>",
+                  "disabled": true
+                },
+                {
+                  "key": "lead_id",
+                  "value": "<lead_id>",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Workspaces"
+          },
+          "response": []
+        },
+        {
+          "name": "Save Metrics",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/operations/workspaces/:workspace_id/metrics",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "operations",
+                "workspaces",
+                ":workspace_id",
+                "metrics"
+              ],
+              "variable": [
+                {
+                  "key": "workspace_id",
+                  "value": "<workspace_id>"
+                }
+              ]
+            },
+            "description": "Save Metrics",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"expected_revision\": 0,\n  \"update\": {\n    \"month\": \"string\",\n    \"currency\": \"string\",\n    \"source_note\": \"string\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Download Metrics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/operations/workspaces/:workspace_id/metrics",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "operations",
+                "workspaces",
+                ":workspace_id",
+                "metrics"
+              ],
+              "variable": [
+                {
+                  "key": "workspace_id",
+                  "value": "<workspace_id>"
+                }
+              ]
+            },
+            "description": "Download Metrics"
+          },
+          "response": []
+        },
+        {
+          "name": "Import Metrics",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/operations/workspaces/:workspace_id/metric-imports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "operations",
+                "workspaces",
+                ":workspace_id",
+                "metric-imports"
+              ],
+              "variable": [
+                {
+                  "key": "workspace_id",
+                  "value": "<workspace_id>"
+                }
+              ]
+            },
+            "description": "Import Metrics",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"expected_revision\": 0,\n  \"source_name\": \"string\",\n  \"text\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Data Request",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/operations/workspaces/:workspace_id/data-request",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "operations",
+                "workspaces",
+                ":workspace_id",
+                "data-request"
+              ],
+              "variable": [
+                {
+                  "key": "workspace_id",
+                  "value": "<workspace_id>"
+                }
+              ]
+            },
+            "description": "Data Request"
+          },
+          "response": []
+        },
+        {
+          "name": "Internal Brief",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/operations/workspaces/:workspace_id/internal-brief",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "operations",
+                "workspaces",
+                ":workspace_id",
+                "internal-brief"
+              ],
+              "variable": [
+                {
+                  "key": "workspace_id",
+                  "value": "<workspace_id>"
+                }
+              ]
+            },
+            "description": "Internal Brief"
+          },
+          "response": []
+        },
+        {
+          "name": "Start Analyst Preparation",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/operations/leads/:lead_id/preparation-jobs?refresh=<refresh>&model=<model>&thinking=<thinking>&review_model=<review_model>&review_thinking=<review_thinking>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "operations",
+                "leads",
+                ":lead_id",
+                "preparation-jobs"
+              ],
+              "variable": [
+                {
+                  "key": "lead_id",
+                  "value": "<lead_id>"
+                }
+              ],
+              "query": [
+                {
+                  "key": "refresh",
+                  "value": "<refresh>",
+                  "disabled": true
+                },
+                {
+                  "key": "model",
+                  "value": "<model>",
+                  "disabled": true
+                },
+                {
+                  "key": "thinking",
+                  "value": "<thinking>",
+                  "disabled": true
+                },
+                {
+                  "key": "review_model",
+                  "value": "<review_model>",
+                  "disabled": true
+                },
+                {
+                  "key": "review_thinking",
+                  "value": "<review_thinking>",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Start Analyst Preparation"
+          },
+          "response": []
+        },
+        {
+          "name": "Stop Preparation",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/operations/workspaces/:workspace_id/preparation-jobs/:job_id/stop",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "operations",
+                "workspaces",
+                ":workspace_id",
+                "preparation-jobs",
+                ":job_id",
+                "stop"
+              ],
+              "variable": [
+                {
+                  "key": "workspace_id",
+                  "value": "<workspace_id>"
+                },
+                {
+                  "key": "job_id",
+                  "value": "<job_id>"
+                }
+              ]
+            },
+            "description": "Stop Preparation"
+          },
+          "response": []
+        },
+        {
+          "name": "Download Analyst Pack",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/operations/workspaces/:workspace_id/preparation-pack?document=<document>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "operations",
+                "workspaces",
+                ":workspace_id",
+                "preparation-pack"
+              ],
+              "variable": [
+                {
+                  "key": "workspace_id",
+                  "value": "<workspace_id>"
+                }
+              ],
+              "query": [
+                {
+                  "key": "document",
+                  "value": "<document>",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Download Analyst Pack"
+          },
+          "response": []
+        },
+        {
+          "name": "Start Readiness",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/operations/leads/:lead_id/readiness-jobs?refresh=<refresh>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "operations",
+                "leads",
+                ":lead_id",
+                "readiness-jobs"
+              ],
+              "variable": [
+                {
+                  "key": "lead_id",
+                  "value": "<lead_id>"
+                }
+              ],
+              "query": [
+                {
+                  "key": "refresh",
+                  "value": "<refresh>",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Start Readiness"
+          },
+          "response": []
+        },
+        {
+          "name": "Export Investment Case",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/operations/workspaces/:workspace_id/investment-case",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "operations",
+                "workspaces",
+                ":workspace_id",
+                "investment-case"
+              ],
+              "variable": [
+                {
+                  "key": "workspace_id",
+                  "value": "<workspace_id>"
+                }
+              ]
+            },
+            "description": "Export Investment Case"
+          },
+          "response": []
+        },
+        {
+          "name": "Start Brief",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/operations/leads/:lead_id/brief-jobs?refresh=<refresh>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "operations",
+                "leads",
+                ":lead_id",
+                "brief-jobs"
+              ],
+              "variable": [
+                {
+                  "key": "lead_id",
+                  "value": "<lead_id>"
+                }
+              ],
+              "query": [
+                {
+                  "key": "refresh",
+                  "value": "<refresh>",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Start Brief"
+          },
+          "response": []
+        },
+        {
+          "name": "Export Company Brief",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/operations/workspaces/:workspace_id/company-brief",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "operations",
+                "workspaces",
+                ":workspace_id",
+                "company-brief"
+              ],
+              "variable": [
+                {
+                  "key": "workspace_id",
+                  "value": "<workspace_id>"
+                }
+              ]
+            },
+            "description": "Export Company Brief"
+          },
+          "response": []
+        },
+        {
+          "name": "Start Prepare",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/operations/leads/:lead_id/prepare-jobs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "operations",
+                "leads",
+                ":lead_id",
+                "prepare-jobs"
+              ],
+              "variable": [
+                {
+                  "key": "lead_id",
+                  "value": "<lead_id>"
+                }
+              ]
+            },
+            "description": "Start Prepare"
+          },
+          "response": []
+        },
+        {
+          "name": "Evaluate",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/operations/leads/:lead_id/evaluate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "operations",
+                "leads",
+                ":lead_id",
+                "evaluate"
+              ],
+              "variable": [
+                {
+                  "key": "lead_id",
+                  "value": "<lead_id>"
+                }
+              ]
+            },
+            "description": "Evaluate"
+          },
+          "response": []
+        },
+        {
+          "name": "Prepare",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/operations/leads/:lead_id/prepare",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "operations",
+                "leads",
+                ":lead_id",
+                "prepare"
+              ],
+              "variable": [
+                {
+                  "key": "lead_id",
+                  "value": "<lead_id>"
+                }
+              ]
+            },
+            "description": "Prepare"
+          },
+          "response": []
+        },
+        {
+          "name": "Attest",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/operations/workspaces/:workspace_id/attestations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "operations",
+                "workspaces",
+                ":workspace_id",
+                "attestations"
+              ],
+              "variable": [
+                {
+                  "key": "workspace_id",
+                  "value": "<workspace_id>"
+                }
+              ]
+            },
+            "description": "Attest",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"kind\": \"source_rights_review\",\n  \"note\": \"string\",\n  \"evidence_ids\": [\n    \"string\"\n  ],\n  \"expected_revision\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "External Action",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/operations/workspaces/:workspace_id/execute/:action",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "operations",
+                "workspaces",
+                ":workspace_id",
+                "execute",
+                ":action"
+              ],
+              "variable": [
+                {
+                  "key": "workspace_id",
+                  "value": "<workspace_id>"
+                },
+                {
+                  "key": "action",
+                  "value": "<action>"
+                }
+              ]
+            },
+            "description": "External Action"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "prompt",
+      "description": "Free-text directive classification -- the API-native equivalent of `main.py`'s CLI prompt router.",
+      "item": [
+        {
+          "name": "Classify",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/prompt/classify",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "prompt",
+                "classify"
+              ],
+              "variable": []
+            },
+            "description": "Classify",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Preview Directive",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/deals/:deal_id/directive/preview",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "deals",
+                ":deal_id",
+                "directive",
+                "preview"
+              ],
+              "variable": [
+                {
+                  "key": "deal_id",
+                  "value": "<deal_id>"
+                }
+              ]
+            },
+            "description": "Preview Directive",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"directive\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "health",
+      "description": "",
+      "item": [
+        {
+          "name": "Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "health"
+              ],
+              "variable": []
+            },
+            "description": "Health"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "case_id": "oddbox_uk",
+  "report_sha256": "b2325c5a08eec0acc6333aea1799e90ec156c79c67747da25c2542883ae4746b",
+  "reviewed": true,
+  "reviewer_kind": "coding_session_development_inspection_separate_from_model_review_not_practitioner",
+  "decision": "usable_internal_initial_plan_with_minor_edits",
+  "elapsed_seconds": 58.21,
+  "model_calls": 3,
+  "repairs": 0,
+  "completion_within_120_seconds": true,
+  "company_performance_independently_verified": false,
+  "investment_handling_accepted": false,
+  "section_assessment": {
+    "research.business": "usable_initial_draft_minor_presentation_edits",
+    "research.economics": "usable_initial_draft_minor_presentation_edits",
+    "research.decision": "usable_initial_draft_minor_presentation_edits",
+    "founder.observation": "usable_initial_draft_minor_presentation_edits",
+    "founder.proposal": "usable_initial_draft_minor_presentation_edits",
+    "diligence.request_a": "usable_initial_draft_minor_presentation_edits",
+    "diligence.request_b": "usable_initial_draft_minor_presentation_edits",
+    "readiness.action_a": "usable_initial_draft_minor_presentation_edits",
+    "readiness.action_b": "usable_initial_draft_minor_presentation_edits"
+  },
+  "issues": [
+    "Invitation repeats the literal instruction label before the question.",
+    "Quoted context remains verbose, with some standalone controls/footer labels. No compact analytical business summary is produced."
+  ],
+  "limitations": [
+    "Three purposively selected companies, not a random accuracy sample.",
+    "Only first contribution and activation preparation; no company financial/customer records reconciled.",
+    "Source quotations establish what was captured, not the truth of commercial/impact claims.",
+    "Exact customer identities, event definitions and eligibility need agreement with the company."
+  ],
+  "notes": "Fruit/vegetable boxes and first completed delivery match the service. Requested billing, fulfillment-cost and eligible customer exports support the limited initial plan. The collection found no additional pricing-pattern URL; it does not establish that no pricing page exists. Recipe content in the second context is peripheral."
+}

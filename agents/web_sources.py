@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import io
 import ipaddress
+import re
 import socket
 import time
 from dataclasses import dataclass, field
@@ -67,6 +68,9 @@ class Page:
     links: list[dict[str, str]] = field(default_factory=list)
     truncated: bool = False
     directory_entries: list[dict[str, str]] = field(default_factory=list)
+    # Complete visible HTML blocks, before any preparation context budget.
+    # Kept separately from flat text for callers that must not split sentences.
+    content_blocks: list[str] = field(default_factory=list)
 
 
 class PageParser(HTMLParser):
@@ -80,8 +84,29 @@ class PageParser(HTMLParser):
         self.href = None
         self.anchor: list[str] = []
         self.result_link = False
+        self.text_scopes = []
+        self.link_navigation = False
+        self.content_blocks = []
+        self.block_parts = []
+
+    def flush_block(self):
+        if self.block_parts:
+            self.content_blocks.append(' '.join(self.block_parts))
+            self.block_parts = []
+
+    BLOCK_TAGS = {'p','div','section','article','header','footer','main','ul','ol','li',
+                  'table','tr','h1','h2','h3','h4','h5','h6','blockquote','br','hr'}
 
     def handle_starttag(self, tag, attrs):
+        attributes = dict(attrs)
+        if tag in self.BLOCK_TAGS:
+            self.flush_block()
+        if tag not in {'area','base','br','col','embed','hr','img','input','link','meta','param','source','track','wbr'}:
+            # Structural navigation only: never erase an entire footer, which
+            # can contain service-entity, tax and pricing qualifications.
+            tokens = set(re.split(r'[^a-z0-9]+', ((attributes.get('class') or '')+' '+(attributes.get('id') or '')).lower()))
+            navigation = tag == 'nav' or attributes.get('role', '').lower() in {'navigation','menu','menubar'} or bool(tokens & {'navbar','navigation','nav','menu'})
+            self.text_scopes.append((tag, navigation))
         if tag in {"script", "style", "noscript", "svg", "template"}:
             self.hidden += 1
         if self.hidden:
@@ -89,11 +114,18 @@ class PageParser(HTMLParser):
         if tag == "title":
             self.in_title = True
         if tag == "a":
-            self.href = dict(attrs).get("href")
+            self.href = attributes.get("href")
             self.anchor = []
-            self.result_link = "result__a" in dict(attrs).get("class", "").split()
+            self.result_link = "result__a" in attributes.get("class", "").split()
+            self.link_navigation = any(excluded for _, excluded in self.text_scopes)
 
     def handle_endtag(self, tag):
+        if tag in self.BLOCK_TAGS:
+            self.flush_block()
+        for index in range(len(self.text_scopes)-1, -1, -1):
+            if self.text_scopes[index][0] == tag:
+                del self.text_scopes[index:]
+                break
         if tag in {"script", "style", "noscript", "svg", "template"}:
             self.hidden = max(0, self.hidden - 1)
         if self.hidden:
@@ -102,6 +134,7 @@ class PageParser(HTMLParser):
             self.in_title = False
         if tag == "a" and self.href:
             self.links.append({"url": self.href, "label": " ".join(self.anchor),
+                               "navigation": self.link_navigation,
                                **({"kind": "search_result"} if self.result_link else {})})
             self.href = None
 
@@ -110,7 +143,10 @@ class PageParser(HTMLParser):
             return
         value = " ".join(data.split())
         if value:
-            self.parts.append(value)
+            ui_label=(self.href or any(tag=='button' for tag,_ in self.text_scopes)) and value.casefold().rstrip(' →↗>') in {'skip to content','open main menu','close menu','log in','sign in','get started','learn more','read more'}
+            if not self.in_title and not ui_label and not any(excluded for _, excluded in self.text_scopes):
+                self.parts.append(value)
+                self.block_parts.append(value)
             if self.in_title:
                 self.title.append(value)
             if self.href:
@@ -120,9 +156,12 @@ class PageParser(HTMLParser):
 def parse_page(url: str, html: str) -> Page:
     parser = PageParser()
     parser.feed(html)
+    parser.flush_block()
     links = []
     seen = set()
-    for link in parser.links:
+    # Keep navigation destinations for discovery, but spend the link budget on
+    # body sources first. Menu labels are not company evidence.
+    for link in sorted(parser.links, key=lambda link: link.get('navigation', False)):
         try:
             target = normalize_url(urljoin(url, link["url"]))
         except SourceError:
@@ -134,15 +173,29 @@ def parse_page(url: str, html: str) -> Page:
     text = " ".join(parser.parts)
     from agents.public_directories import parse_directory_entries
     entries = parse_directory_entries(url, html)
-    return Page(url, " ".join(parser.title), text[:24000], links[:100], len(text) > 24000 or len(links) > 100, entries)
+    blocks=[]; size=0
+    for block in parser.content_blocks:
+        if size+len(block)+bool(blocks)>24000:
+            break
+        size+=len(block)+bool(blocks);blocks.append(block)
+    # A long body catalogue must not hide an observed primary pricing link
+    # behind the link cap. Keep body-first discovery order and reserve at most
+    # four slots for direct commercial destinations omitted by that cap.
+    commercial=[link for link in links[100:] if urlsplit(link['url']).path.strip('/').casefold() in {'pricing','fees','tariff','plans'}][:4]
+    selected_links=links[:100-len(commercial)]+commercial
+    return Page(url, " ".join(parser.title), text[:24000], selected_links, len(text) > 24000 or len(links) > 100, entries, blocks)
 
 
 class PublicWebFetcher:
-    def __init__(self):
+    def __init__(self, read_timeout=5):
+        self.read_timeout = read_timeout
         self.robots: dict[str, RobotFileParser] = {}
         self.last_request: dict[str, float] = {}
 
     def _request(self, url: str, deadline: float, allow_truncate: bool = False) -> tuple[int, dict, bytes]:
+        from agents.preparation_budget import ACTIVE_BUDGET
+        budget=ACTIVE_BUDGET.get()
+        if budget:deadline=min(deadline,time.monotonic()+budget.remaining())
         addresses = public_addresses(url)
         p = urlsplit(url)
         remaining = deadline - time.monotonic()
@@ -153,7 +206,7 @@ class PublicWebFetcher:
             time.sleep(interval)
         self.last_request[p.netloc] = time.monotonic()
         kwargs = dict(host=addresses[0], port=p.port or (443 if p.scheme == "https" else 80),
-                      timeout=urllib3.Timeout(connect=min(5, remaining), read=min(5, remaining)),
+                      timeout=urllib3.Timeout(connect=min(5, remaining), read=min(self.read_timeout, remaining)),
                       retries=False)
         pool = (urllib3.HTTPSConnectionPool(**kwargs, server_hostname=p.hostname,
                                           assert_hostname=p.hostname, cert_reqs="CERT_REQUIRED")

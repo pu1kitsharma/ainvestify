@@ -83,3 +83,31 @@ The Qwen3.5 4B reasoning probe was rejected for company-role confusion and an un
 A final US robotics diagnostic exposed software automation and biotech candidates being incorrectly admitted. A physical-robotics evidence gate now uses the original request, independently of broadened LLM synonyms. That diagnostic was cancelled, retaining history. Bing RSS was also tested as a possible additional free provider; it returned general robotics definitions instead of matching companies, so it was not added. These observations do not establish adequate worldwide market recall.
 
 Final validation: 189 relevant tests pass, frontend build/lint and browser checks pass. All application jobs were idle before the final API reload; no manual restart remains pending. Paasa’s last completed live run remains a failed preparation pack, with a saved suitability decision and document-specific errors. This work fixes infrastructure, coverage breadth, validation and recovery defects; it does not establish reliable investor-quality model reasoning.
+
+## Follow-up: production-equivalent repair evaluation
+
+The evaluation script previously allowed measurement plans in memos and retried
+without the production rejected-draft context. It now imports the production
+schema, instruction suffix, validation and repair helpers, records input/schema
+hashes, and exits unsuccessfully for rejected or interrupted runs.
+
+A production-contract replay reproduced another failure: an initial short
+record-label error hid unverified benefits from the sole repair attempt. The
+second answer still asserted those benefits and was rejected. Validation now
+aggregates detectable record, number and outcome defects. A parseable answer
+that fails schema constraints can supply diagnostic feedback, but never becomes
+an accepted product through a relaxed schema.
+
+A combined-feedback replay tested that correction with the same recorded
+public Waybill evidence and Qwen3:8b. The revision relabeled the asserted benefits
+as hypotheses but retained metric labels instead of actual records, an invalid
+time comparison, and a completion condition seeking to validate an absence of
+pricing information. It failed. This was not a successful preparation result,
+and no live company output was updated or manually rewritten.
+
+The API/UI now distinguish an empty failed pack from saved working drafts.
+200 relevant Python tests pass; frontend build/lint and the browser regression,
+including empty/partial preparation states, pass. The idle API was restarted
+and its health endpoint responded successfully. Paasa still has zero accepted
+preparation documents; the corrected evaluation does not establish reliable
+investor-quality generation or autonomous fundraising.

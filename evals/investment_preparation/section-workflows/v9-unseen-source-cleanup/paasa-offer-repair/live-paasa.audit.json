@@ -1,0 +1,41 @@
+{
+  "report_sha256": "e7a714600d084427bfd4d22dbfde2e1749681b3c73f8a7c820e02621e36cc259",
+  "reviewed": true,
+  "reviewer_kind": "coding_session_development_inspection_separate_from_model_review_not_practitioner",
+  "decision": "usable_internal_initial_plan_with_presentation_edits",
+  "elapsed_seconds": 45.531,
+  "model_calls": 4,
+  "correction_attempts": 1,
+  "qualification_checks": {
+    "Access Plan": true,
+    "Apex Plan": true,
+    "charged annually": true,
+    "monthly installments": true,
+    "Brokerage fees apply separately": true,
+    "Brokerage markups are not applied to Apex customers": true,
+    "Arc Spire": true
+  },
+  "section_assessment": {
+    "research.business": "usable_for_initial_internal_preparation",
+    "research.economics": "usable_for_initial_internal_preparation",
+    "research.decision": "usable_for_initial_internal_preparation",
+    "founder.observation": "usable_for_initial_internal_preparation",
+    "founder.proposal": "usable_for_initial_internal_preparation",
+    "diligence.request_a": "usable_for_initial_internal_preparation",
+    "diligence.request_b": "usable_for_initial_internal_preparation",
+    "readiness.action_a": "usable_for_initial_internal_preparation",
+    "readiness.action_b": "usable_for_initial_internal_preparation"
+  },
+  "findings": [
+    "The first offer omitted costs; the guard rejected it. The targeted repair added supplier invoices and direct service/support cost records while preserving the proposed work and customer request.",
+    "Service/fee-sharing agreements, revenue ledger, cost inputs and account-event/cohort exports support the proposed limited analyses. Detailed linked requests include entity, population, dates, reconciliation and missing-data handling.",
+    "First completed order is compatible with the published trading service; define qualifying Apex activity with the company. It does not establish returns, retention or customer satisfaction.",
+    "Published plan/provider qualifications remain exact source text. The proposal is future work and an invitation; no mandate or completed result is asserted."
+  ],
+  "limitations": [
+    "Source context remains long; more relevant concise summaries are still needed.",
+    "Bounded source coverage is partial and old observed calculator content remains available with its timestamp.",
+    "Company claims and performance are unverified. No private ledger/cohort reconciliation or practitioner acceptance has occurred.",
+    "This is a development retest using saved freshly collected public sources, not an unseen or cold end-to-end collection benchmark."
+  ]
+}

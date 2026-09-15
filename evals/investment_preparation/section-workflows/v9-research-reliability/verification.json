@@ -1,0 +1,49 @@
+{
+  "backend_tests": {
+    "passed": 200,
+    "warnings": 16,
+    "seconds": 3.02
+  },
+  "frontend_build": "passed",
+  "frontend_lint": "passed",
+  "isolated_browser_regression": "passed",
+  "real_model_runs": [
+    {
+      "artifact": "resend/resend_research.json",
+      "seconds": 70.16,
+      "calls": 4
+    },
+    {
+      "artifact": "live-paasa.json",
+      "seconds": 58.451,
+      "calls": 3,
+      "content_acceptance": "failed, preserved"
+    },
+    {
+      "artifact": "final/live-paasa.json",
+      "seconds": 60.55,
+      "calls": 4
+    }
+  ],
+  "total_real_model_calls": 11,
+  "api_pid": 527,
+  "api_session": 50196,
+  "live_revision": 1239,
+  "source_evidence_unchanged": true,
+  "original_section_content_retained": true,
+  "active_jobs": [],
+  "file_sha256": {
+    "agents/research_evidence.py": "de7a3e63b315bdace6b3e7b2d1bdfde4668c388e77e7991c05ff87aa89c7cfa6",
+    "agents/shared_preparation.py": "ecbdfb468dd2d10d3e75f47ceb4c5618c2f3b97f4987550d35b061f41f5f65ed",
+    "agents/analyst_pack.py": "76edca2d21050aa462931da7ed09f49cdd05e4e8c8ba60ee5e9769f7dfc5a5a5",
+    "agents/company_metrics.py": "394033b1dad8d44248d891b79f51c012bee4cc47c2f88202f9b9dae889af395e",
+    "agents/measurement_plan.py": "56b50d4cdfd70723ec870d49eb8d04a60f675f408cbc922d712813bb16b59891",
+    "api/routers/operations.py": "88d7310c700fbaf7a6b0aad1c7a843ca255859946892e4fb863e907b8a032d42",
+    "frontend/src/components/PreparationWorkspace.tsx": "ef00a7a9c47ba4805922e7d6fbed76a11b05fdecf80c7f4d872ed11308a2a53a",
+    "frontend/src/components/CompanyMetrics.tsx": "7a784e00ecce5825e5ca1fe933c563da7456b23ed0e91bd5bf9ccaa65c6b3a8a",
+    "tests/test_research_evidence.py": "66bc0f76429e55d93a502b141a2775965716f6a02dbf6f3b219050b6f1038c33",
+    "tests/test_company_metrics.py": "309781429f98595eec65a326bff47d0d1d88eb7e75515ccadab2426e47ca54b1",
+    "tests/test_shared_preparation.py": "5d48d99d18133c6d464d1bc9abf354dcbd2e3bc02188da1fb4598b8bb00464ab",
+    "scripts/check_operations_ui.cjs": "71ccd35ac7db028ec8fbd9ba6f98cf3665df24e92abbdaf8e981db1224854b98"
+  }
+}

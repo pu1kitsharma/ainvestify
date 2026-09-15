@@ -1,0 +1,223 @@
+{
+  "case_id": "paasa_reference_test",
+  "input_hash": "bcd68f0b2e796336c56f3dd80bed5af2ad8b30783420503180a97336f7ec563b",
+  "model": "qwen3.5:9b",
+  "settings": {
+    "profile": "section_router",
+    "review_model": "qwen3.5:9b",
+    "review_thinking": true,
+    "reasoning_budget": 1024,
+    "thinking": false,
+    "tokens": 1200,
+    "context": 8192
+  },
+  "input_kind": "curated_source_checked_paraphrases",
+  "region": "India",
+  "sector": "consumer investing / financial technology",
+  "live_data_updated": false,
+  "limits": {
+    "max_corrections_per_stage": 1,
+    "max_calls": 6,
+    "max_seconds": 120
+  },
+  "reference_sha256": "c4bf1f31324154efdd712f4ea3dba067f4c9ca9c31cfaa51fc142bd97354c8da",
+  "pack": {
+    "version": 9,
+    "implementation_hash": "0b06c2bfc70a499fcc1bafeab0b6e84b36c87fe26ff7a3aca3e58d24a6c4345f",
+    "basis_hash": "1a45f4f4d4d4aa6532da304fa15285f1f3412a6cb69375fc29fb7e1f2b3e5eb0",
+    "company": "Paasa",
+    "record": {
+      "facts": [
+        {
+          "id": "S1",
+          "quote": "Paasa describes a mobile service for affluent Indian customers to invest in global equities through trading and advisory. Its profile identifies remittance friction, unfamiliar tax requirements, paperwork and a lack of guidance as customer problems. These are company-reported problems, not measured customer outcomes.",
+          "source_url": "https://www.ycombinator.com/companies/paasa",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "source_id": "reference_source_1",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S2",
+          "quote": "The Access plan offers global stock and ETF trading without a recurring plan fee. Customers pay brokerage when they trade. The public schedule does not establish how much of a customer charge the investment target retains.",
+          "source_url": "https://paasa.com/pricing",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "source_id": "reference_source_2",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S3",
+          "quote": "The Apex plan adds managed advisory strategies and FEMA/tax support to Access. Its percentage charge is based on assets under management, stated annually and collected monthly. Brokerage fees apply separately. The page states that brokerage markups are not applied to Apex customers.",
+          "source_url": "https://paasa.com/pricing",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "source_id": "reference_source_3",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S4",
+          "quote": "Paasa describes itself as a financial technology company rather than a bank or brokerage. It names licensed partners as the banking and brokerage service providers. The site names Arc Spire Advisory Private Limited as the advisory service provider operating under the Paasa brand and reports its SEBI registration; that registration has not been independently checked for this evaluation.",
+          "source_url": "https://paasa.com/",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "source_id": "reference_source_4",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        },
+        {
+          "id": "S5",
+          "quote": "The site identifies Interactive Brokers as custodian and says customer cash and holdings are held in the customer's own name. It lists Paasa, Inc., Paasa IFSC Private Limited and Bruhm Labs Private Limited, but this evidence packet contains no ownership chart, investment-entity confirmation or intercompany financial statements.",
+          "source_url": "https://paasa.com/",
+          "retrieved_at": "2026-09-14T19:51:15.395124+00:00",
+          "observed_at": null,
+          "origin": "source_checked_paraphrase",
+          "source_id": "reference_source_5",
+          "category": "source_passage",
+          "subject": "unclear",
+          "status": "source_reported",
+          "classification": "complete_supplied_context_not_model_extracted"
+        }
+      ],
+      "prepared_at": "2026-09-14T21:48:48.480807+00:00",
+      "batches": {},
+      "extraction": "complete_context_no_generation",
+      "coverage": "selected_sources_processed",
+      "unknowns": [],
+      "source_selection": {
+        "scope": "bounded_supplied_records",
+        "omitted_for_context": 0,
+        "max_context_characters": 14000
+      }
+    },
+    "sections": {},
+    "attempts": [
+      {
+        "task": "shared_analysis",
+        "attempt": 0,
+        "at": "2026-09-14T21:48:48.483314+00:00",
+        "implementation_hash": "0b06c2bfc70a499fcc1bafeab0b6e84b36c87fe26ff7a3aca3e58d24a6c4345f",
+        "error": "1 validation error for BoundSharedAnalysis\neconomics_test\n  Field required [type=missing, input_value={'business': {'text': 'Pa....', 'fact_ids': ['S5']}}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/missing",
+        "elapsed_seconds": 73.339,
+        "invoked": true,
+        "model": "qwen3.5:9b",
+        "routing": {
+          "task": "shared_analysis",
+          "profile": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": true,
+          "max_tokens": 2400,
+          "thinking_used": true,
+          "reasoning_budget": 1024,
+          "answer_continuation": true,
+          "context_tokens": 8192,
+          "temperature": 1.0,
+          "sampling": {
+            "top_p": 0.95,
+            "top_k": 20,
+            "min_p": 0,
+            "presence_penalty": 1.5,
+            "repeat_penalty": 1.0
+          },
+          "elapsed_seconds": 73.34,
+          "queue_seconds": 0.0,
+          "prompt_tokens": 2713,
+          "generated_tokens": 1394,
+          "done_reason": "stop"
+        },
+        "raw_response": "{\n  \"business\": {\n    \"text\": \"Paasa offers mobile investment access for affluent Indian customers facing remittance and tax friction through a fintech platform utilizing licensed partners. Source reported customer issues include unfamiliar tax requirements and paperwork burdens requiring specific guidance support.\",\n    \"fact_ids\": [\n      \"S1\",\n      \"S4\"\n    ]\n  },\n  \"customer_test\": {\n    \"service\": \"Apex plan\",\n    \"method\": \"repeat_use\",\n    \"event\": \"monthly fee collection\",\n    \"fact_ids\": [\n      \"S3\"\n    ]\n  },\n  \"economics\": {\n    \"text\": \"The Access plan collects charges on trade execution while the Apex plan utilizes an asset-based percentage fee structure for advisory services and support. Both plans involve licensed partners for custody and banking functions where published fees do not establish how much of a customer charge the investment target retains.\",\n    \"fact_ids\": [\n      \"S2\",\n      \"S3\"\n    ]\n  },\n  \"hypothesis\": {\n    \"text\": \"If Apex plan assets under management grow and customers utilize managed advisory strategies alongside trade execution, the company realizes revenue through monthly collected percentage fees. Fee structure alone is not sufficient to establish a hypothesis for realized earnings.\",\n    \"fact_ids\": [\n      \"S3\"\n    ]\n  },\n  \"risk\": {\n    \"text\": \"Delivery costs could weaken margins if partner charges are higher than publicly stated schedules. Missing public data regarding ownership chart and intercompany financial statements creates uncertainty rather than the risk itself regarding investment entity identity.\",\n    \"fact_ids\": [\n      \"S5\"\n    ]\n  }\n}"
+      },
+      {
+        "task": "shared_analysis",
+        "attempt": 1,
+        "at": "2026-09-14T21:50:01.832110+00:00",
+        "implementation_hash": "0b06c2bfc70a499fcc1bafeab0b6e84b36c87fe26ff7a3aca3e58d24a6c4345f",
+        "error": "Preparation reached its time limit during inference. The local request was cancelled; saved sections are retained.",
+        "elapsed_seconds": 46.394,
+        "invoked": true,
+        "model": "qwen3.5:9b",
+        "routing": {
+          "task": "shared_analysis",
+          "profile": "shared_analysis_v1",
+          "model": "qwen3.5:9b",
+          "thinking": true,
+          "temperature": 1.0,
+          "max_tokens": 2400,
+          "context_tokens": 8192
+        },
+        "raw_response": ""
+      }
+    ],
+    "status": "partial",
+    "started_at": "2026-09-14T21:48:48.480860+00:00",
+    "generation_config": {
+      "mode": "shared_analysis_v1",
+      "model": "qwen3.5:9b",
+      "thinking": false,
+      "review_model": "qwen3.5:9b",
+      "analysis_reasoning_budget": 1024,
+      "default_review_reasoning_budget": 512,
+      "review_thinking": null,
+      "contract": "561f024af3f79a1c3343d83d475c689895f427b1aea058f0e64d1c08182971e5"
+    },
+    "shared_input_hash": "2eda50ec88c39dac2e4eccc3d1c3717d59379011e4a837600a25864fcfab72b0",
+    "shared": {},
+    "documents": {
+      "research": {
+        "title": "Research memo",
+        "status": "partial"
+      },
+      "founder": {
+        "title": "Founder proposal",
+        "status": "partial"
+      },
+      "diligence": {
+        "title": "Diligence request",
+        "status": "partial"
+      },
+      "readiness": {
+        "title": "Investment-readiness plan",
+        "status": "partial"
+      }
+    },
+    "updated_at": "2026-09-14T21:50:48.229293+00:00",
+    "stop_reason": "Preparation reached its time limit during inference. The local request was cancelled; saved sections are retained.",
+    "last_run_budget": {
+      "max_seconds": 119.743339208,
+      "max_calls": 6,
+      "max_requests": 10,
+      "calls": 2,
+      "requests": 3,
+      "elapsed_seconds": 119.756
+    }
+  },
+  "metrics": {
+    "completed_sections": 0,
+    "expected_sections": 9,
+    "completion_rate": 0.0,
+    "completed_documents": [],
+    "model_calls": 2,
+    "correction_attempts": 1,
+    "inference_seconds": 119.73,
+    "independently_audited_factual_errors": null,
+    "actionable_sections": null
+  },
+  "elapsed_seconds": 119.76,
+  "actual_inference_calls": 2,
+  "denied_corrections": []
+}

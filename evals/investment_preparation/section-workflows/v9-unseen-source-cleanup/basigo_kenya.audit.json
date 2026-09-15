@@ -1,0 +1,35 @@
+{
+  "case_id": "basigo_kenya",
+  "report_sha256": "453c2ea331121facd2ca518051474a541fd1979c86fcde1eb2d6081ec79b8585",
+  "reviewed": true,
+  "reviewer_kind": "coding_session_development_inspection_separate_from_model_review_not_practitioner",
+  "decision": "usable_internal_initial_plan_with_minor_edits",
+  "elapsed_seconds": 54.01,
+  "model_calls": 3,
+  "repairs": 0,
+  "completion_within_120_seconds": true,
+  "company_performance_independently_verified": false,
+  "investment_handling_accepted": false,
+  "section_assessment": {
+    "research.business": "usable_initial_draft_minor_presentation_edits",
+    "research.economics": "usable_initial_draft_minor_presentation_edits",
+    "research.decision": "usable_initial_draft_minor_presentation_edits",
+    "founder.observation": "usable_initial_draft_minor_presentation_edits",
+    "founder.proposal": "usable_initial_draft_minor_presentation_edits",
+    "diligence.request_a": "usable_initial_draft_minor_presentation_edits",
+    "diligence.request_b": "usable_initial_draft_minor_presentation_edits",
+    "readiness.action_a": "usable_initial_draft_minor_presentation_edits",
+    "readiness.action_b": "usable_initial_draft_minor_presentation_edits"
+  },
+  "issues": [
+    "Invitation repeats the literal instruction label before the question.",
+    "Quoted context remains verbose, with some standalone controls/footer labels. No compact analytical business summary is produced."
+  ],
+  "limitations": [
+    "Three purposively selected companies, not a random accuracy sample.",
+    "Only first contribution and activation preparation; no company financial/customer records reconciled.",
+    "Source quotations establish what was captured, not the truth of commercial/impact claims.",
+    "Exact customer identities, event definitions and eligibility need agreement with the company."
+  ],
+  "notes": "Lease fee scope and battery/full-bus alternatives remain quoted. Delivery is a reasonable initial handover event, with operator customer identity to confirm and plans analyzed separately. Variable contribution is not total lease profitability: vehicle/battery capital, finance/default and residual-value diligence remain outside this initial method."
+}

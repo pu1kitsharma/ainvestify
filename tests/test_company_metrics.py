@@ -41,6 +41,33 @@ def test_currency_mismatch_zero_baseline_and_missing_are_not_guessed():
     assert metrics_report([row('2025-01',revenue=0,direct_costs=10)])['calculations'][0]['value']=='-10.00'
 
 
+@pytest.mark.parametrize('field,quote,name,values',[
+    ('revenue','Revenue: INR 100, net of direct variable delivery costs.','Delivery contribution',{'revenue':100,'direct_costs':40}),
+    ('direct_costs','Direct variable costs: INR 40, including fixed overhead.','Delivery contribution',{'revenue':100,'direct_costs':40}),
+    ('cash','Cash at month end: INR 100, including customer funds.','Cash coverage',{'cash':100,'net_burn':10}),
+])
+def test_source_qualifications_block_economically_invalid_calculations(field,quote,name,values):
+    report=metrics_report([row('2025-01',**values,field_sources={field:{'quote':quote}})])
+    assert not report['calculations']
+    assert report['unresolved_calculations'][0]['name']==name
+    assert report['unresolved_calculations'][0]['inputs']==['2025-01']
+
+
+def test_partner_netting_is_not_confused_with_delivery_cost_deduction():
+    report=metrics_report([row('2025-01',revenue=100,direct_costs=40,
+        field_sources={'revenue':{'quote':'Revenue: INR 100, net of partner charges.'}})])
+    assert report['calculations'][0]['value']=='60.00'
+    assert report['unresolved_calculations']==[]
+
+
+def test_explicit_exclusion_of_overhead_and_restricted_funds_is_not_a_blocker():
+    report=metrics_report([row('2025-01',revenue=100,direct_costs=40,cash=100,net_burn=10,
+        field_sources={'direct_costs':{'quote':'Direct variable costs: INR 40, not including fixed overhead.'},
+                       'cash':{'quote':'Cash at month end: INR 100, does not include customer funds.'}})])
+    assert report['unresolved_calculations']==[]
+    assert len(report['calculations'])==3
+
+
 def test_metric_update_scoping_revision_corrections_and_brief_invalidation(tmp_path):
     from store import Store
     from tests.test_operating_workflow import company

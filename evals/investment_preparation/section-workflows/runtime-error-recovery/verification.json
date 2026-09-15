@@ -1,0 +1,37 @@
+{
+  "verified_at": "2026-09-15T00:04:02.420Z",
+  "workspace_id": "workspace_c63410428a00",
+  "job_id": "automation_d00ca4a2fb2b",
+  "job_status": "completed",
+  "pack_status": "complete",
+  "complete_sections": 9,
+  "saved_work_get_ms": 70.991,
+  "live_browser": "pass: three stages available; founder and readiness shown; no failure banner",
+  "export": "pass",
+  "page_errors": [],
+  "non_get_requests": [],
+  "new_inference_calls": 0,
+  "backend_tests": {
+    "passed": 135,
+    "warnings": 15,
+    "elapsed_seconds": 9.88,
+    "command": "PYTHONDONTWRITEBYTECODE=1 MPLCONFIGDIR=/private/tmp/deal-document-matplotlib python3 -m pytest -q --disable-warnings tests/test_preparation_contract.py tests/test_shared_preparation.py tests/test_operating_workflow.py tests/test_analyst_pack.py tests/test_web_sourcing.py"
+  },
+  "frontend_build": "passed",
+  "frontend_lint": "passed",
+  "isolated_browser_regression": "passed",
+  "unchanged_workspace_rows": 31,
+  "live_revision": 1204,
+  "api_pid": 94995,
+  "historical_error_cause": "Unavailable: the original worker discarded the traceback. Missing content_blocks is reproduced and fixed; stale failed-state UI is independently reproduced and fixed.",
+  "file_sha256": {
+    "agents/analyst_pack.py": "109c5159ff1aa23bf464bd5f6f34f348164418e8f0ce4954ccd1814b72070b13",
+    "api/routers/operations.py": "cb999a2361e32b034f8b8d8c82198970ce3b1193bec68d32b784a5056a634c43",
+    "frontend/src/api/preparationRefresh.ts": "fef1df50b93a19cfb929ce30f3c4affad2f52112717713c7fcf1ffd57ce91f52",
+    "frontend/src/pages/Operations.tsx": "5bc0f8edb6c961399f82588023983d55c9c319942ee85ce02b666ab11e90cce9",
+    "frontend/src/pages/Dashboard.tsx": "99d6680f6c4935d8a6696510a3abeaa9a37c77165a91599ffbf427b724ed9c21",
+    "scripts/check_operations_ui.cjs": "e7fec51f7dcb112ba8f22333f2c412a48f53d6e8c88ee44b6e80f5f5a4f2e338",
+    "tests/test_preparation_contract.py": "41b8d979a055b89b0125a637cefdcc9cd368cce8a030961b08f8a1bc7fc78048",
+    "tests/test_shared_preparation.py": "f3b3e441245ad2911c7e439911ae7575d0b57daa248e712d2ce352c3199085c0"
+  }
+}

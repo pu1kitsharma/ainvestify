@@ -1,0 +1,29 @@
+[
+  {
+    "id": "basigo_kenya",
+    "company": "BasiGo",
+    "website": "https://www.basi-go.com/",
+    "region": "Kenya",
+    "sector": "electric transport",
+    "kind": "homepage_only_no_curated_evidence",
+    "evidence": []
+  },
+  {
+    "id": "resend_us",
+    "company": "Resend",
+    "website": "https://resend.com/",
+    "region": "United States",
+    "sector": "developer email infrastructure",
+    "kind": "homepage_only_no_curated_evidence",
+    "evidence": []
+  },
+  {
+    "id": "oddbox_uk",
+    "company": "Oddbox",
+    "website": "https://www.oddbox.co.uk/",
+    "region": "United Kingdom",
+    "sector": "produce subscription delivery",
+    "kind": "homepage_only_no_curated_evidence",
+    "evidence": []
+  }
+]

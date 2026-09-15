@@ -142,3 +142,18 @@ def test_failed_request_can_escalate_to_a_different_capacity_model():
     assert retried['model']=='qwen3:14b' and retried['thinking'] is True
     assert policy.select('investment_case',json.dumps({'sources':[{'quote':'Observed source content '*30}]*30}))['model']=='qwen3:14b'
     assert retried['max_tokens']>policy.select('investment_case','{}')['max_tokens']
+
+
+def test_qwen_nonthinking_sampling_avoids_greedy_defaults():
+    model=LocalModel('qwen3:8b',thinking=False)
+    assert model.temperature==.7
+    assert model.sampling=={'top_p':.8,'top_k':20,'min_p':0}
+    assert LocalModel('qwen3:8b',thinking=False,temperature=.3).temperature==.3
+
+
+def test_routing_counts_new_analyst_evidence_shape():
+ policy=RoutingPolicy(escalation_model='qwen3:14b')
+ small=policy.select('analyst_section',json.dumps({'evidence_record':[{'id':'one'}]}))
+ large=policy.select('analyst_section',json.dumps({'evidence_record':[{'id':str(i),'quote':'Evidence passage '*100} for i in range(30)]}))
+ assert large['complexity_score']>small['complexity_score']
+ assert large['model']=='qwen3:14b'

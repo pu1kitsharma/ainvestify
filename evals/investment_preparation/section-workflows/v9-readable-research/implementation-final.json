@@ -1,0 +1,9 @@
+{
+  "agents/shared_preparation.py": "37027ccb6ad2541921d85b4b6cb58c0cca2ccdd91ad55a840bd612e7099fe8b7",
+  "agents/research_evidence.py": "741bebac84b03e0fd89500266f76c8f7816ba1ede92d62c7f43cb37343371001",
+  "agents/analyst_pack.py": "19e9da3c45659a1b72bf5c87ce66b58823fdad86d3a87cc814ea006445928b2c",
+  "frontend/src/components/PreparationWorkspace.tsx": "7c368a56cadd485ac2eaa12a0ca67fc94a092dc726ae92a545f29a4e3564669d",
+  "scripts/check_operations_ui.cjs": "a7b7a9d72b2bd94c9257e14b8ba0ce6896349dee1a0c189c967beb4e09915c42",
+  "tests/test_research_evidence.py": "96b00ab0d7bd450765b6a0b8fb0f06b4d3d04fe1f8d7a224b0d166b1e718acd4",
+  "tests/test_shared_preparation.py": "aa60c9693c33ed8da094753cc3dc10d70b544d4cd03c6122fe268cb5e5e142da"
+}
