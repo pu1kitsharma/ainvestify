@@ -229,7 +229,7 @@ def test_background_ai_job_persists_progress_result_and_tenant_scope(tmp_path, m
     app.dependency_overrides[deps.get_store] = database
     app.dependency_overrides[deps.get_tenant_id] = lambda: 'one'
     from tests.test_authored_preparation import Model
-    monkeypatch.setattr(routes, 'LocalModel', Model)
+    monkeypatch.setattr(routes, 'make_preparation_model', lambda *args, **kwargs: Model())
     monkeypatch.setattr('agents.analyst_pack.collect_preparation_evidence', lambda store, lead, **kwargs: lead)
     try:
         client = TestClient(app)

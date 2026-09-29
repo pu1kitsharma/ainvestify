@@ -1,5 +1,11 @@
 # Session handoff — company preparation MVP
 
+> **Latest, 26 September — shared founder recovery:** Read [handoff §33](#shared-founder-recovery) and the [run/failure record](evals/investment_preparation/section-workflows/founder-recovery-2026-09-26/README.md). CropX and Arable have current reviewed founder proposals. Shared fixes distinguish summary accounts from underlying records, repair review metadata, recover deleted source links and preserve the six-call/two-minute bound with separately counted search turns. The same UI/workflow applies to every company; broader first-pass reliability is not established. Preserve concurrent provider work and check active jobs before restarting.
+
+> **Latest, 26 September — results-first analysis:** Read [handoff §32](#results-first-analysis) and the [evidence/failure index](evals/investment_preparation/section-workflows/analysis-workflow-2026-09-26/README.md). Continued agrotech discovery now shows eight candidates. CropX has a reviewed seven-metric analysis and conditional outlooks, with public lookup gaps assigned to the system and optional user contributions. This required repeated development corrections, not reliable first-pass generation. Legacy research/founder validation still needs attention. Keep the concurrent Anthropic API/deployment work compatible; check active jobs before any restart.
+
+> **Latest, 16 September:** [agrotech source selection](#agrotech-source-selection). The app now shows a model-discovered CropX candidate from an 83-second run, verified in the browser. Coverage is limited; full reliable preparation remains unresolved. Read §25 after the earlier failure records. Check live jobs before any restart.
+
 > **FINAL CHECKPOINT — 15 September 2026: [§23, model-authored workflow and freeze](#model-authored-reset). Reliable fresh generation is NOT fixed.** Latest live GoCardless preparation failed in 61.186 seconds/two calls and published zero sections. No complete live v10 pack has been demonstrated. The user asked to stop implementation, thoroughly record the state and push the changes.
 
 > **Read §23 first. Sections 1–22 are a chronological historical record, not current runtime instructions.** Their statements about Paasa/Waybill being complete, v7/v8/v9 being active, service PIDs, remaining untracked files and recommended experiments have been superseded. The user rejected template-assisted company answers and authorized resetting the old companies. Those historical outputs remain evidence, not model-authored successes.
@@ -989,3 +995,685 @@ No further model runs, implementation changes, downloads, paid services, outreac
 ### Ready-to-paste next-session prompt
 
 > Read AGENTS.md and SESSION_HANDOFF.md §23 first. The last request was to log and push the current state. The active v10 pipeline must get substantive discovery/company/draft text from recorded model responses; never add templates or manually promote a company answer. The user selected companies across sectors worldwide and previously allowed up to two minutes for fresh preparation. Old companies were explicitly reset after a verified local backup; current GoCardless preparation failed after 61.186 seconds/two calls with zero published sections. No live v10 complete pack has passed. Inspect the v10 evidence index, verification and final-failure snapshot, and preserve every original response. Read the latest user request before resuming work; do not automatically start another benchmark, inference, reset, download or paid service. If implementation is requested, explain and test a materially justified correction to the actual source/analysis failure, with a bounded real acceptance task and no hardcoded replacement prose. Report demonstrated results and remaining limits separately from passing engineering tests.
+
+<a id="agrotech-search-recovery"></a>
+## 24. Agrotech search outage and bounded recovery — 16 September 2026 IST
+
+After asking to boot the app, the user reported `source_run_e44ceb8e96b5` for `agrotech`: DuckDuckGo HTTP 202 and two Mwmbl timeouts, zero company pages. The full [failure/fix record](evals/investment_preparation/section-workflows/v10-agrotech-search/README.md) preserves the original run and the new bounded retest. This user report authorized investigation and a targeted search correction after the earlier freeze; it does not authorize another general model sweep.
+
+Current changes add one deadline-bound transient GET retry per provider, preserve both failed and successful source outcomes, stop repeated outages and keep blocks/rate limits/TLS failures non-retryable. The AI may now write a one-word sector query; its first query must have at most four words. Overlong queries require model correction, never code-authored replacements. Unavailable search services are distinguished from a responding index with no pages. No company or sector answer was hardcoded.
+
+**Partial technical result, not discovery acceptance:** live `source_run_5e4668ef629e` recovered an actual Mwmbl timeout on its single retry, but retained zero companies in 60.767 seconds/three model calls. The two-page test selected weak sources; extraction chose irrelevant Jio Financial Services sector facts from a news-topic page and was rejected. The third selected software-directory page was not reached under that test's two-page cap. No company assessment/preparation ran. Useful agrotech discovery, reliable source relevance and fresh preparation remain unresolved. Do not present successful search HTTP responses as a successful company search.
+
+61 focused tests passed, then 28 sourcing/transport tests after two new classification cases; these sets overlap. `git diff --check` passed. No frontend code changed. Stable API was restarted only after no active jobs were confirmed: PID 29090, tool session 29178, `scripts/serve_local.py`, no reload. Vite and Ollama were left running. Original run/data remain preserved. These changes are local follow-up work after pushed checkpoint `b3945b6`; no follow-up push was requested or performed in this turn.
+
+
+<a id="agrotech-source-selection"></a>
+## 25. Source selection now produces an agrotech candidate — 16 September 2026 IST
+
+The user's follow-up authorized continuing the discovery correction. Read the [source-selection follow-up](evals/investment_preparation/section-workflows/v10-agrotech-search/README.md#source-selection-follow-up-one-real-candidate-now-reaches-the-app) and [verification](evals/investment_preparation/section-workflows/v10-agrotech-search/adaptive-verification.json). Search snippets were being discarded before model selection; the selector had only titles and no bounded way to change queries. Snippets now remain unverified navigation context, and the model can choose a single refinement round. Source URLs remain observed-only; actual company evidence still comes from original fetched pages. No substantive company text was hand-written into the app.
+
+Live `source_run_fd105db2c459` returned CropX (`lead_5d58877abb93`) in 83.028 seconds/five calls, verified on the real browser page. Coverage remains partial; no official website or location was established, no independent verification occurred, and the source's one-rating count is not company growth evidence. The model wrote its own assessment. This controlled test did not start preparation. 50 focused tests and the read-only live browser check passed; original responses, failed URL binding and snapshot are retained.
+
+API PID 29998, tool session 14330, stable launcher. A separate user/app-triggered preparation `automation_6435d6bd2820` in `workspace_9558c2ea5574` was running at the final read-only inspection; do not restart or cancel it based on earlier no-active-job snapshots. These follow-up changes remain local. Full reliable preparation and representative global discovery are not established by this one result.
+
+<a id="local-first-recovery"></a>
+## 26. Local-first clarification and response recovery — 24 September 2026
+
+The user asked whether AWS would fix the product, requested web research, then clarified that local context, avoiding API bills, fixed output format and first-iteration quality are core requirements. They have Claude Pro and delegated its role. Chosen direction: local storage and normal inference; Pro for development and a bounded comparison using public evidence after sign-in. Do not implement the paid-provider proposal as though spending were approved. Read [the researched decision and later amendment](RECOVERY_DECISION_2026-09-24.md).
+
+Read-only live SQLite inspection found two companies, two workspaces and no completed preparation pack. GoCardless's latest saved job is `automation_10c031a8d61c`, failed after about 30 seconds on a 400-character `economics.unknown_economics` answer exceeding its 350-character contract, with zero sections. CropX's latest saved job is `automation_eb590e208dd8`, failed on a step-number validator defect with three saved sections. These supersede earlier run/PID statements, but do not establish the services' present liveness. No new live model run or service restart occurred in this September 24 work.
+
+The working tree already contained September 16 discovery and preparation changes. Additional September 24 changes in `model_authorship.py` and `authored_preparation.py` retain schema-invalid JSON as an unaccepted candidate, preserve exact original responses, support nested model patches and revalidate the reconstructed response before acceptance. Missing fields trigger a full model replacement rather than invented defaults. Strict response reads still reject failed candidates. Changed/tampered raw text and invalid source IDs cannot be published. Existing local-only model transport, time/call ceilings and no-template rule remain.
+
+`generation_metrics` reports calls by phase, writing repair calls and `first_attempt_contract_pass`. This is contract/review completion, not factual-accuracy certification. Cached output must not be counted as a new successful generation. A success requiring correction has this first-attempt flag false.
+
+Verification: **107 focused tests passed**, with 15 existing dependency warnings: `tests/test_authored_preparation.py`, `tests/test_authored_discovery.py`, `tests/test_local_models.py`, `tests/test_preparation_contract.py`, `tests/test_preparation_budget.py`, `tests/test_analyst_pack.py`. New regressions cover overlong-field repair, failed-patch resume, preservation of neighbouring fields, missing-field replacement, raw-response integrity and citation rejection. Injected responses verify engineering behavior; they are not live model quality results.
+
+Claude Code 2.1.203 is installed. The CLI authentication check reported no signed-in session in this environment. The official `claude auth login --claudeai` flow was opened in the user's native Terminal (window 796) so the user can complete sign-in privately; the final auth-status check still reported not signed in. Do not ask for authorization codes in chat. No Pro inference, paid API calls, model download, training, company reset or manual company-answer changes occurred. Current reliable fresh generation remains unproved. Changes remain local/uncommitted; do not describe this as a deployed or pushed fix.
+
+<a id="pro-first-pass-diagnostic"></a>
+## 27. Pro authenticated; first-pass comparison still fails — 24 September 2026
+
+After the user completed sign-in, the unsandboxed official CLI check confirmed `loggedIn: true`, `authMethod: claude.ai`, `subscriptionType: pro`. The sandboxed check still says not signed in because it cannot access the credential store; do not repeatedly ask the user to log in based only on that check.
+
+The authorized bounded public-evidence comparison is recorded in [this evidence index](evals/investment_preparation/section-workflows/pro-subscription-diagnostic-2026-09-24/README.md) and `audit.json`. One GoCardless case, same first research task/schema/input, fresh isolated stores, zero repairs, 120-second/four-call ceilings. Actual Sonnet 5 via Pro got through research but failed work-question length limits (192/199 versus 170) in 41.084 seconds/two application calls. Local Qwen3.5:9b failed research JSON parsing in 39.369 seconds/one call and again confused payment volume with revenue. Neither completed a pack. Pro's raw work also has citation/method defects; it is not an accepted reference answer. No more companies were tested after this failed first gate.
+
+The Pro CLI also reported auxiliary Haiku usage: application-call counts are not total underlying LLM requests. Its API-equivalent estimate ($0.154738) is not an invoice. No API key, paid fallback, company-record upload, model download or production-provider switch occurred. Six public website passages were supplied explicitly with CLI tools/customizations disabled.
+
+Ollama was initially stopped. The first local attempt was a connection failure with no inference; that artifact remains. The local service was then started with `OLLAMA_HOST=127.0.0.1:11434 OLLAMA_NO_CLOUD=1` (tool session 84548; recheck liveness before relying on it). Metal reported an Apple M5 and 11.8 GiB available inference memory. The stable API and frontend were not restarted. Live SQLite company workspaces were not changed.
+
+Follow-up fixes: first-attempt counters exclude explicitly denied calls, and plain consecutive inline numbered steps no longer count as company figures. Original reports retain their original counters; the audit has corrected executed-call counts. 108 focused tests passed after the metric fix; 65 affected tests passed after the list-label fix. All changes and evaluation artifacts remain local/uncommitted. Reliable first-pass preparation remains unresolved.
+
+<a id="parser-context-review-recovery"></a>
+## 28. Parser, source context and review corrections — 24 September 2026
+
+The user asked “so were do we go from here? fix it”, authorizing implementation and bounded verification. Read the [new evidence index](evals/investment_preparation/section-workflows/local-contract-recovery-2026-09-24/README.md) and its `audit.json` before inference. Six targeted runs used the same public GoCardless snapshot, isolated temporary stores, a 120-second ceiling per run and no repair calls. None is independently accepted as reliable company preparation. No live answers were manually changed, no models downloaded, no API billing fallback or production-provider switch enabled.
+
+Production-path engineering corrections: content regex checks remain enforced after JSON generation but no longer enter the decoder grammar; only exact adjacent repeated source blocks are compacted for inference (12,648 → 9,726 characters in this case; raw sources unchanged); sole JSON Markdown fences are parsed without changing substantive content or raw response provenance; financial prompts distinguish payment volume, earned revenue and costs; nested errors render readably in the UI. Review corrections now target the underlying field, including `required_input` → `records_to_request`. Older configurations missing optional settings remain eligible for reuse as candidates, with current validation and review required.
+
+An opt-in coordinated draft/review profile was implemented and tested. It writes all nine sections as exact projections of one model response and requires per-section source/method review checks. **It is not the default API workflow.** The default remains local three-phase preparation. The natural-reasoning option is also diagnostic-only; no new local profile was promoted.
+
+Observed results: local 9B three-phase run produced candidates in 109.9 seconds but failed review; coordinated local 9B took 106.5 seconds with incorrect critic judgments; local 4B natural reasoning exhausted its output budget after 80.7 seconds. Pro coordinated generation mechanically completed in 35.8 seconds, but independent audit found citation/method defects; this is not an accepted success. A subsequent Pro answer failed because of JSON fences (parser then fixed). The final recorded Pro comparison took 72.4 seconds, retained nine candidates and rejected an invented reporting year; its reviewer also falsely objected to founder/research alignment. Final instructions correct that false-positive class, but no successful final-code model rerun was claimed.
+
+118 focused tests passed before the final backwards-compatible configuration adjustment; all 26 authored-preparation tests passed after that adjustment. The frontend build and isolated browser journey passed, including nested errors, retained failures, exports and mobile layout. These are engineering checks, not investment-quality certification. The entire repository suite was not run.
+
+Both live companies remain unchanged: GoCardless and CropX, latest preparation jobs failed. No search or preparation job was active before starting services. Vite was started on 127.0.0.1:5173 (tool session 35579); the API uses `scripts/serve_local.py` without reload. Recheck current process state instead of trusting old PIDs. Ollama remains local. Original reports, SQLite and workspace history are retained. All new changes remain local/uncommitted after `b3945b6`.
+
+Final service verification: stable API PID 15381/tool session 89493, frontend session 35579. A read-only browser visit to the actual GoCardless research route loaded without JavaScript errors; all three stages still show **Not prepared**, as expected from the retained failed live job. This confirms app liveness, not fresh preparation success. No generation was triggered by that check. `git diff --check` passed.
+
+Next work must address source-qualified economic reasoning and critic calibration on unseen companies before claiming a reliable generator. Do not repeat the same one-case prompt experiments indefinitely, import the mechanically complete Pro draft as a live success, or move the same failing model to AWS and call the problem solved. The user’s local-context/no-recurring-API intent remains in force; any production remote-inference path needs a concrete product decision.
+
+<a id="public-pro-working-path"></a>
+## 29. Approved public-evidence Pro provider and bounded recovery — 24 September 2026
+
+The user asked to fix reliable fresh generation and explicitly selected **“Use Claude Pro for public-evidence drafts (recommended)”**. This authorizes the application path, not merely development assistance. Earlier local-only production notices are superseded for public website evidence. Private notes, uploads, financial records and storage stay local. Discovery remains local and still depends on fallible public search; no AWS deployment, API key, paid fallback, model download, new subscription, company reset, external message or investment execution was performed.
+
+### Provider and privacy boundary
+
+`agents/subscription_model.py` implements `ClaudeProModel`, selected by default through `PREPARATION_PROVIDER=claude_pro_public`; `PREPARATION_PROVIDER=local` or an explicit supported local model remains available. The API queue and worker share this factory, including preparation following discovery. A saved failed local profile cannot silently override the newly approved default. Private financial-import jobs keep their local model path.
+
+Authentication uses the official `claude auth status --json`, requiring `claude.ai`/Pro. The official CLI owns the credentials; no tokens were read or copied. Sandboxed auth checks can incorrectly appear signed out because they cannot access the keychain. The running local API needs the same official CLI/sign-in access as the user's terminal.
+
+The CLI runs in an empty temporary directory with safe mode, empty setting sources, no tools/MCP/browser/slash commands, no session persistence, explicit Sonnet and medium effort. `ANTHROPIC_*`/`CLAUDE_*` overrides are removed from the child environment. The actual route/model and CLI usage are recorded. Pro quota still applies; dollar values in CLI output are API-equivalent estimates, not invoices, and auxiliary CLI model usage means logical application calls are not total underlying model requests.
+
+Only allowlisted collected public origins with acceptable public HTTP(S) URLs enter the remote source manifest. Private financial facts and workspace thesis/events are excluded. Every remote payload must match the approved company/facts manifest and an empty private request. Corrective drafts are recorded model outputs from the same public workflow. The client displays the public-evidence/private-record boundary. Tests inject private sentinels and confirm they never enter remote prompts.
+
+### Generation, correction and validation changes
+
+Pro writes research, work and founder sections in one coordinated response, projected exactly into nine displayed sections. Review checks every section and maps financial inputs to exact spans in the model's record requests. Missing method inputs cause model-authored correction. This is an explicit methodological gate for certain plan types, not a universal financial semantics engine or an executed typed measurement plan.
+
+Source records now preserve the discovery model's selected exact claim alongside the full original passage. This corrected a real directory-boundary error: CropX's preceding listing mentioned electronic trading and apps; the target company is described by its soil-sensor platform entry. No passage was manually rewritten or reduced to a supplied company answer. Draft/review instructions explicitly separate adjacent entries and avoid treating directory ratings as adoption. A narrow validator also rejects describing outbound payments as collected.
+
+Corrections across multiple phases share one recorded response, with phase-specific patch references checked on reconstruction. Unchanged content remains byte-equivalent to its original model response. Invalid review JSON receives a recorded correction; invalid field corrections can use one further attempt within the existing budget. Targeted correction instructions override whole-draft word targets, which otherwise caused a short-field correction to become too long. Budget-denied attempts are marked non-invoked rather than inheriting the previous route's invocation flag.
+
+Every fresh/resumed preparation retains the 120-second/six-call/six-request ceiling. High-effort review exceeded that ceiling, so medium effort is used. All retries share the ceiling; timeout/cancellation terminates and reaps the CLI process group. No automatic unbounded restart is scheduled. Source collection shares the preparation job budget; discovery has a separate budget. Existing complete packs return without inference. Changing the contract requires current validation/review; old passes are not silently grandfathered in.
+
+### Measured evidence and honest limits
+
+Read the [complete evidence index](evals/investment_preparation/section-workflows/generation-quality-2026-09-24/README.md). It includes every successful and failed diagnostic and live checkpoint, not just the final output. Contracts changed between development iterations, so their pass count is not an independent benchmark or accuracy estimate.
+
+Fresh CropX completed its nine-section live pack in **102.028 seconds / five calls** after source-attribution and correction changes. Its charging model, customer numbers, retention and financial results remain unknown. Fresh isolated GoCardless completed in **99.214 seconds / four calls**, including one combined correction and two reviews. The latter still has an arbitrary example fiscal year and imprecise payment-rail wording; it is evidence of mechanical completion, not an independently accepted investment-quality reference. It was not imported into the live workspace.
+
+At the first final live checkpoint, GoCardless's retained draft completed after a **38.544-second/two-call resume**, including a model-written payment-direction correction; CropX's same draft passed **30.876-second/one-call contract revalidation**. These are not fresh-generation timings. Both actual pages displayed all three stages as **Draft available**. Real browser checks covered all six company/tab combinations without JavaScript errors, and eight document exports returned successfully. Research/readiness screenshots were visually inspected.
+
+Two real cached preparation requests took **40.49 ms and 19.21 ms**, keeping the same job IDs and identical model-attempt records. That demonstrates zero-inference reuse on this machine; it does not promise a universal latency SLA. Original company evidence, failed drafts, response hashes and workspace histories remain in SQLite. No model-authored company text was edited by hand or replaced with a template.
+
+The final bounded-correction change required one more contract review of the retained live drafts; final service/job/cache verification follows below. Do not conflate this with another fresh company test.
+
+### Verification and remaining scope
+
+**321 focused/regression tests passed, 16 warnings, 5.33 seconds**, covering authored preparation/discovery, source handling, public payload restrictions, actual subprocess deadline cleanup, invalid correction retention, combined patches, API job integration, budget accounting, cache reuse and existing financial/measurement validators. The frontend production build and lint passed. The isolated browser journey passed failure recovery, stop/resume, sources, downloads and mobile layout. The full repository suite was not run. Passing deterministic tests does not measure investment correctness.
+
+The supported result is model-authored initial research, founder discussion and proposed diligence drafts based on retained public claims. Financial analysis has not been executed and source claims have not been independently verified. Review can miss substantive defects and raise false positives. Public-source discovery and company attribution remain limiting factors. Two companies with bounded repairs do not establish universal first-pass success, near-instant uncached output or a justified accuracy percentage. Do not remove failed reports or promote the mechanically complete fresh GoCardless diagnostic to a golden answer.
+
+Keep follow-up evaluation varied and source-qualified; do not repeat the same company until a lucky answer is obtained. If expanding financial autonomy, implement and evaluate typed calculation inputs/units/accounting treatment against actual authorized records rather than declaring narrative plans equivalent to completed diligence. No external fundraising or investment actions are authorized.
+
+Changes remain local/uncommitted after `b3945b6`. This turn did not push. Runtime databases, backups, credentials, uploads and local service artifacts must remain uncommitted. The stable API uses `scripts/serve_local.py` without reload. Check active jobs before any restart; historical PIDs above are superseded.
+
+Final service recheck exposed one additional recovery defect: after its second review round rejected a wording ambiguity, GoCardless stopped and a resume would repeat the review rather than act on the retained objection. The writer now records `pending_review` with content/contract hashes. Resume applies that recorded feedback first, then reviews the model's correction. An older rejection can be reused only when its exact input, instruction and schema match; old passes are never inherited across contracts. A regression proves resume uses a correction plus review, rather than an extra redundant review. The failed recheck and CropX's successful schema-review recovery are preserved in `contract-recheck-*.json`.
+
+The next GoCardless resume did apply the recorded objection directly. Its final check exposed an audit false positive: the exact quote **“the revenue ledger with recognition policy for an agreed period in GBP”** was classified only as a ledger, so the validator claimed policy was missing despite its explicit presence. `preparation_review.py` now recognizes this precise compound request as both inputs; a regression rejects the contrasting “without recognition policy.” This changes validation of a declared record request, not company prose. `resume-recheck-gocardless.json` preserves the failure; no model answer was edited to mask it.
+
+The subsequent GoCardless review passed, while CropX exposed an additional reviewer-annotation failure: it labeled “subscription billing records” as transactions, alongside an already valid separate quote of “individual transaction records with amounts and plan terms.” The strict label check stopped the run even though the company request included the necessary inputs. Rather than deleting the invalid annotation or relaxing the role check, `ReviewInputError` now triggers one bounded **model-written review correction**. The company prose stays unchanged. This is separate from correction of an actual missing company record request. `input-annotation-*.json` preserves both outcomes; the new regression verifies review-only correction and unchanged original draft projections.
+
+### Final deployed checkpoint — 25 September IST / 24 September UTC
+
+The final API is running as PID **19430**, tool session **8469**, on `127.0.0.1:8000`; Vite remains on `127.0.0.1:5173`. Both actual workspaces have **nine complete sections / three Draft available stages**, with no active preparation/search jobs at verification. Recheck liveness/jobs next session rather than trusting these process IDs.
+
+| Company | Final job | Final operation | Time / calls | Cached request |
+| --- | --- | --- | --- | --- |
+| GoCardless, `lead_3f0aee42d7ad` | `automation_8ce0f699c07e` | Contract review of retained model-written draft | 32.208 s / 1 | 51.26 ms / zero inference |
+| CropX, `lead_5d58877abb93` | `automation_5182ab8fbd9d` | Contract review of retained model-written draft | 39.507 s / 1 | 27.58 ms / zero inference |
+
+`deployed-gocardless.json`, `deployed-cropx.json` and `deployed-check.json` preserve the final public-only packs, job IDs, call/time budgets, identical attempt records across cached requests, and all eight successful exports. `deployed-browser-check.json` and `deployed-*.png` record all six real company/tab views, three available stages each, no incomplete banner and no JavaScript errors. Earlier screenshots/checkpoints remain; later files do not overwrite them. The separate content inspection in this section is Codex's review of the sources and original outputs, not external human financial certification.
+
+No new inference is needed to open either saved company page. New companies still require collection/generation and can fail the bounded gate. Keep the distinction between a working prepared draft, broad first-pass reliability and autonomous investment quality explicit. Final `git diff --check` passed; no commit or push was made.
+
+<a id="product-quality-rejection"></a>
+
+## 30. Product quality rejection — 25 September
+
+The user said results were very bad and clarified that all three problems apply:
+generic analysis, confusing language, and incorrect/unsupported information. They
+also identified `source_run_25b0f737e2a4`, an agrotech search with one vague result.
+The subsequent read-only review **rejects the current output as a useful research
+product**, superseding any implication of product recovery from §29's engineering
+completion.
+
+The [full audit](evals/investment_preparation/section-workflows/generation-quality-2026-09-24/PRODUCT_QUALITY_REJECTION.md)
+records exact run/provider/timing, browser findings, source limitations, current
+draft defects and primary-source checks. Discovery still uses local Qwen; it got
+three search hits, one relevant directory, and explicitly extracted at most one
+company per page. CropX's official identity remained unresolved. Its new live
+preparation `automation_2f14aee105ce` completed but still uses one short directory
+passage and proposes unsupported tariff components. Do not confuse this new job
+with the earlier deployed checkpoint in §29.
+
+GoCardless's draft missed Mollie's official 1 September 2026 announcement of the
+completed acquisition. The code's two-page homepage/pricing collector neither
+checks current ownership nor expires its evidence cache. CropX's official about
+page offers relevant primary research not collected by the app. Both companies
+receive similar accounting proposals; repeated financial-method instructions and
+sparse inputs are likely contributors. Improving the model alone did not fix this.
+
+No production changes, model calls or restarts were made in this audit. Only this
+record and the evaluation document were added. Next implementation must address
+discovery breadth, source quality/currentness, company-specific usefulness and an
+independent content acceptance check. No company-specific facts from this review
+may be inserted as hardcoded production answers. Original drafts and failed runs
+remain preserved; no commit or push was made.
+
+
+<a id="public-research-repair"></a>
+
+## 31. Public research and preparation repair — 26 September IST
+
+The user explicitly asked to fix all issues identified in §30. Their prior approval
+of Claude Pro for public-evidence discovery/drafts still applies. This authorized
+implementation and bounded live checks; no paid API, AWS deployment, private-record
+transmission or company prose written by hand was used.
+
+Read the [full evidence index](evals/investment_preparation/section-workflows/public-research-2026-09-25/README.md).
+Production discovery now uses recorded Pro WebSearch results and batched selection,
+with up to five companies across six locally fetched pages. Only structured search
+links establish observed destinations. Multiple companies can come from a directory,
+but names, exact claims, source blocks and citations must still bind independently.
+Complete sentence/paragraph blocks replace arbitrary 600-character boundaries that
+had rejected legitimate quoted claims. One source correction is model-authored and
+recorded. Cards expose their rationale and open question without expansion.
+
+Preparation now researches the official business/product pages and current ownership
+news; company identity must be supported by a fetched official page and another
+substantive page. Collection expires after 24 hours, and its cache cannot silently
+reuse a failed or stale collection. Up to six pages are fetched concurrently, with
+source URLs and dates included in the model context. The source gate establishes
+coverage, not independent verification. Old evidence and collection histories remain.
+
+The new source collection found GoCardless's completed Mollie acquisition and official
+CropX product/technology pages plus acquisition reporting. Prompt/review instructions
+prioritize company-specific decisions and material ownership changes. Accounting work
+is conditional on the question, not a mandatory template. Specific checks distinguish
+ARR from earned revenue, require consistent organic/acquired growth definitions, and
+require meaningful dated cohorts for before/after comparisons. These are proposed
+analyses, not executed financial diligence.
+
+Live checks found further defects. Semantic method corrections initially changed an
+action while leaving incompatible records/output; both single-phase and combined
+corrections can now rewrite the entire affected model-authored plan. Length-only
+repairs still touch only the indicated fields. Malformed patch responses are retained,
+but resume rolls its candidate pointer back to the last reconstructable model answer.
+A narrow numeric-validation normalization handles genuine inline list labels while
+preserving company prose and rejecting unsupported prices/figures.
+
+The native StructuredOutput experiment repeatedly produced invalid wrappers,
+$FUNCTION_NAME/$PARAMETER_NAME keys and incomplete tool inputs. It is now OFF by
+default. Direct JSON generation exposes no tools and must originate in one recorded
+assistant response; schema, source binding, authorship hashes and semantic review
+remain enforced. Native-mode regression fixtures remain as failed experimental
+material. Do not describe native formatting as reliable or re-enable it by default.
+A dropped connection receives at most one recorded retry of the identical request;
+both attempts count toward the original budget. Authentication/quota failures and
+ordinary invalid answers do not use this transport retry. A remaining invalid prose
+correction can use one further bounded model correction, never a code-authored answer.
+
+Several diagnostics failed, including a dropped connection and native generation
+exhausting the 120-second limit. The four-candidate 79.437-second discovery result is
+real, but is an intermediate-contract result, not a universal success rate. Later
+failures remain preserved. Each preparation job shares a 120-second/six-call/six-main-
+request budget; discovery has a separate 120-second/four-call/six-request budget.
+Repeated explicit development jobs are cumulative compute, not a single two-minute
+end-to-end success. No unattended retry loop or benchmark was scheduled.
+
+Final live results and verification are recorded below after the last bounded check.
+
+
+### Final deployed verification — 26 September IST
+
+Both workspaces have nine complete model-authored draft sections and three “Draft
+available” stages. These are initial public-evidence research and proposed-work
+outputs, not completed diligence or a certification of investment accuracy.
+
+| Company | Final job | Operation | Measured budget | Saved request |
+| --- | --- | --- | --- | --- |
+| GoCardless | `automation_d15342d01f23` | Retained-draft correction and review | 42.211 s; 2 calls / 2 requests | 90.59 ms; zero inference |
+| CropX | `automation_36baba8d8d12` | Fresh collection, fresh draft and review with annotation repair | 79.004 s; 4 calls / 6 requests | 107.86 ms; zero inference |
+
+CropX's final fresh pack contains three drafting/review response records; the fourth
+logical call was public navigation in the collection record. Its two main tasks
+now cover an acquisition-adjusted recurring-revenue comparison and integration
+milestones against the stated future profitability target. GoCardless explicitly
+recognizes its completed acquisition and defers treating it as an independent
+fundraising prospect. These replace the old directory-only/generic-fee-audit output.
+Both still have partial source coverage and require company records for proposed
+financial work. The plans retain terms such as ARR and EBITDA and are not a fully
+typed executable financial model. Further plain-language quality and first-pass
+reliability across unrelated companies remain unestablished.
+
+The final agrotech search is `source_run_e9bc7930c9a7`: CropX, Cropin, Trace AgTech and
+AGCO Corporation in 58.948 seconds. It is marked partial rather than claiming a fifth
+result or verified investment suitability. GoCardless research, CropX readiness and
+all four discovery cards were inspected in the real browser. The generated prose
+and source links are displayed; neither company has the incomplete-preparation
+banner. Zero-inference cache checks compared identical saved job IDs and full model
+attempt records before/after POSTs, rather than assuming a fast response was cached.
+
+`deployed-gocardless.json`, `deployed-cropx.json` and `deployed-check.json` preserve
+final public output, source collection, exact responses, budget and cache evidence.
+The preceding checkpoint files preserve failed intermediate work. A cache-check
+script initially assumed internal attempts were exposed by the public API and
+raised KeyError; the corrected check uses read-only SQLite for provenance and the
+API for the actual request. That was a verification-script error, not another
+preparation failure.
+
+Final focused/regression suite: **233 passed, 15 warnings, 19.20 seconds**. Frontend
+build/lint passed; no frontend changes followed that check. The stable API is
+PID24389/tool session27840 on127.0.0.1:8000, with Vite on5173. Recheck liveness and
+active jobs rather than trusting these historical IDs. No unattended model jobs
+remain at this checkpoint. Changes remain uncommitted; no push was made this turn.
+
+
+<a id="results-first-analysis"></a>
+## 32. Executing analysis and results-first UI — 26 September 2026
+
+The user asked why discovery showed four companies, rejected provider/privacy
+implementation banners and generic founder downloads, and requested an executing
+research/financial-analysis workflow with official records and future outlooks.
+They then clarified: human intervention must not mean asking them to research,
+provide every metric or write the analysis. A separate session is adding Anthropic
+API/deployment support; the user explicitly said to keep both sets compatible.
+These later instructions expand the earlier narrative-only readiness contract.
+
+Read the [full implementation, evidence and failure record](evals/investment_preparation/section-workflows/analysis-workflow-2026-09-26/README.md)
+before changing this workflow or starting inference. The original database,
+responses and failed reports remain intact. No company prose was manually entered.
+
+### Current deliverables
+
+- `source_run_9d225ce15412`: four additional model-discovered agrotech companies in
+  67.401 seconds; the continued search combines these with the prior four and
+  visibly shows eight. This is limited source coverage, not an exhaustive market.
+- CropX `lead_5d58877abb93`, workspace `workspace_9558c2ea5574`: model analysis
+  available, seven source-linked metrics, findings and three conditional outlooks.
+  Job `automation_4445f087ab5e` corrected retained work and reviewed it in 97.765
+  seconds/two new calls. It is NOT a fresh first-pass success.
+- [Analysis UI](http://localhost:5173/operations?lead=lead_5d58877abb93&tab=readiness)
+  shows results before forms. Two public lookup gaps belong to the system; one
+  private-financial-record request is shown. Private records, source links and
+  manually chosen growth scenarios are optional collapsed controls. No provider
+  name/privacy implementation banner remains in the primary product flow.
+- `cropx-analysis.md` contains metrics, exact passages, narrative citations,
+  conditional outlooks and unresolved inputs. Cached download was 125 ms with no
+  model call. Founder filenames are company-specific and include this appendix.
+
+### Active modules and contracts
+
+`agents/company_analysis.py` handles collection, source-selected numbers/dates,
+model-written analysis, evidence-bound review, targeted model patches, public gap
+research, private-record requests and deterministic scenario arithmetic. Published
+prose is an exact, replayable projection of recorded draft/patch responses, with
+source and final-review checks. Old rejection reuse avoids repeating an already
+recorded exact review. A failed update retains the last verified report for display,
+clearly identified as the previous analysis.
+
+New endpoints: lead `analysis-jobs` (including `research_gaps`), workspace
+`analysis-inputs`, `analysis-scenarios`, `analysis-report`. Existing local metric
+imports calculate supported results without remotely regenerating the public
+pack. Public-source and identity questions are system research tasks; human notes
+are local responses, not proof or completed diligence. The public-gap search takes
+its query targets from model-authored tasks without asking the user for URLs.
+This targeted branch is regression-tested; no live claim of complete government
+coverage is justified.
+
+Source collection actually obtained official company news/homepage evidence.
+The Israeli registrar lookup timed out; no government filing was verified. Private
+accounts are absent. CropX's ARR is a bound, not eligible as an exact numeric
+forecast baseline. Conditional outlooks are not predicted returns. Do not claim
+all metrics, completed financial diligence, a calibrated accuracy rate, or an
+investment banker replacement.
+
+### Failures and remaining work
+
+Ten analysis snapshots retain the attempted sequence, including one interrupted
+concurrent job. Failures include copied-value/date/length/schema errors, wrong
+metric classes, ungrounded reviews, JSON fencing, an encoded citation-list patch
+and timeouts. Repeated explicit development attempts consumed over thirteen
+minutes of analysis inference; the two-minute per-job cap is not an end-to-end
+reliability claim. Reviewer latency remains poor (85.632 seconds in the successful
+resumed run). No unattended retries or benchmark were scheduled.
+
+A concurrent CropX job started before a restart. The agent batched checking and
+restarting and incorrectly proceeded despite the active result, interrupting that
+job. Its partial report is preserved in snapshot 07 and the user was told. Later
+restart commands check immediately and refuse to stop an active worker. Recheck
+live jobs now; do not use an old PID blindly.
+
+Attempt 03 had mutable prompt-input metadata; subsequent updates changed earlier
+recorded inputs. Raw responses remain original, but that snapshot is not a pristine
+prompt audit. Recording now deep-copies input payloads. The parser now accepts a
+sole unclosed Markdown fence only when the entire remaining JSON is complete; it
+never repairs JSON content, removes fields or clips company prose.
+
+Legacy research/founder draft review is still unresolved after the concurrent
+provider/parser contract changes. Revalidation `automation_e754962b8c2f` failed on
+an unsupported method-input role annotation. Those two stages show Needs attention;
+the separate analysis is valid and available. Founder export still has unvalidated
+legacy-section notices plus the new analysis appendix. Do not present it as a
+repaired founder proposal. GoCardless's older pack was not revalidated here.
+
+228 focused regression tests passed; after final export/cancellation changes,
+40 affected tests passed. Frontend build/lint and diff whitespace checks passed.
+The API transport compatibility fixture was updated for period candidates and
+passes. Live runs here used Pro; no credentials, provider defaults or deployment
+files from the concurrent session were replaced. No new cloud deployment, external
+message or investment action was taken. Changes remain uncommitted in this task.
+
+<a id="shared-founder-recovery"></a>
+## 33. Shared founder review, source recovery and cross-company checks — 26 September
+
+The user asked to fix the remaining founder-proposal failure and whether the
+workflow works for companies other than CropX. The fixes are shared runtime code,
+with no company names, IDs, URL lists or substantive answers added to production.
+See the [complete run/failure record](evals/investment_preparation/section-workflows/founder-recovery-2026-09-26/README.md).
+
+The reviewer had mislabeled summary profit-and-loss accounts as revenue ledgers
+and then underlying cost records, and an ARR bridge as customer-cohort analysis.
+The review schema now has a distinct summary-account role, method distinctions,
+aggregate annotation feedback and content-field-only issue targets. Invalid audit
+metadata is corrected by the model, never used to force unrelated draft rewrites.
+Summary accounts still cannot satisfy detailed contribution-analysis inputs.
+Unreviewed document downloads return HTTP 409 rather than placeholder exports.
+
+CropX's initial recovery completed in 17.853 seconds/one new review. Its final
+contract revalidation `automation_67d344380d73` completed in 16.762 seconds/one call.
+Research and founder proposals now display Draft available. The original model
+prose was retained and provenance checked, not manually rewritten.
+
+Arable (`lead_776f1e84a658`, `workspace_33438c5c87d0`) was selected to test a company
+with no preparation. The initial attempt failed on deleted indexed pages. A shared
+bounded fallback now lets the model select up to three alternatives from actual
+HTML links and unused structured search results, with exact URL checks. In the
+live retry it obtained Arable's current company page and a Mississippi State
+University project announcement. The writer generated and corrected its draft,
+but the former six-request cap blocked review at 68.425 seconds. Those original
+failures remain in the evidence directory and database.
+
+Preparation and analysis remain bounded at 120 seconds and six task calls.
+The request cap is now eight to allow the navigation task's two additional search
+tool turns. Explicitly smaller passed budgets are still respected. The clock and
+used call counters are never reset to conceal earlier work. Arable's retained
+draft then passed its review in 14.728 seconds/one new call, job
+`automation_5b2ab7229abd`. This is a development recovery, not a fresh first-pass
+success. Both founder exports returned substantive, reviewed company-specific
+Markdown without unavailable-section notices, and were verified in the browser.
+
+Review cache identity no longer changes merely because navigation or provider
+transport implementation changed. Writing, provenance, evidence validation,
+actual source inputs and model configuration still determine validity. The
+analysis component resets its form state when changing workspace. A failed
+separate analysis no longer marks a completed founder pack as incomplete.
+
+The same workflow is available for all saved companies. A company with no saved
+work still needs a first generation; opening it does not run all stages or all
+companies automatically. GoCardless's historical pack was not revalidated in this
+turn. No universal company coverage, investment accuracy or first-pass guarantee
+is established. No private data was sent, no production company prose was
+hand-authored, no outbound founder communication occurred, and concurrent
+Anthropic API/deployment changes were preserved. Changes remain uncommitted.
+
+Verification: 289 focused tests passed before final budget alignment, followed by
+68 affected tests and 17 analysis tests. The additional correction-loop fixes
+passed 29 analysis/API tests. Build, lint and whitespace checks passed.
+Recheck live jobs before a restart; historical service PIDs are not authority to
+interrupt work. New analysis follow-up results are recorded in the evidence index.
+
+The cross-company analysis check exposed further recovery defects: a metric
+explanation could be corrected while its inconsistent headline survived, and
+format-repair feedback did not include the actual rejected replacement. New
+observation patches must include both label and meaning; rejected patches are
+sent back verbatim with their validation errors and unchanged base. At most three
+patch attempts share the existing six-call/eight-request/120-second budget. Old
+reviewed patch histories replay unchanged. Strict schemas, financial meaning,
+source binding and length limits were not relaxed. The evidence index records
+the timeouts, format failures, substantive rejections and final live outcome.
+
+**Final cross-company limit:** Arable's founder/research pack is complete, but its
+separate analysis is still unpublished. Six explicit development analysis jobs
+used about 592 seconds cumulatively. The latest, `automation_60a69ad7e8c3`, saved
+target-label/citation corrections but reached the 120-second deadline in review
+(budget elapsed 120.630 seconds, three calls). Original sources, candidate and
+patches remain saved in the database and `arable-analysis-timeout-06.json`.
+No full Arable analysis success or reliable unseen-company first pass is claimed.
+The founder-review fix is app-wide; that does not establish that every new
+company's entire analysis completes reliably. No further model retry was started
+at the checkpoint. Keep these results separate in the next user update.
+
+
+<a id="analysis-correction-loop"></a>
+## 34. Sonnet 5 and automatic analysis correction — 26 September 2026
+
+This checkpoint supersedes §33's final Arable-unpublished status and the historical
+single-pass/no-automatic-retry restriction. The user explicitly requested a retry
+loop after resetting capacity, prohibited Opus, and then approved **Sonnet 5**
+after the exact Sonnet 5.5 request returned unavailable/inaccessible. No fallback
+model is silently selected. The official CLI is pinned to `claude-sonnet-5`, and
+recorded primary response model IDs are checked against that exact identifier.
+Concurrent Anthropic API/deployment work remains intact; the live local app uses
+the Pro subscription path. Private financial records and notes remain local.
+
+### Execution and recovery contract
+
+`agents/company_analysis.py::run_analysis_loop` now owns automatic continuation
+for the API analysis job and isolated evaluation script. Each pass allows at most
+120 seconds, six task calls and eight provider requests. A job permits at most
+three passes. Cumulative passes/calls/requests/elapsed time are recorded under
+`retry_loop` and displayed in the UI; the clock is not represented as a single
+two-minute success. Two unchanged checkpoints stop continuation. Cancellation,
+changed input/job ownership, subscription quota, authentication and unavailable
+models stop work rather than consume more correction attempts. Process-local
+workers still require resume after a crash/restart; this is not a durable queue.
+
+A continuation reuses sources and model-authored candidates/patches. Pending JSON
+formatting survives a pass deadline. A changed review contract triggers review
+without a fresh writer. Malformed saved reviewer quotations now trigger review
+repair without dropping the candidate. Accepted patches clear obsolete objections
+before another review. No company text is hand-authored to make a run pass.
+
+Search response length/schema failures reuse observed search links in tool-free
+correction calls. Extra forbidden writer fields are removed only by recorded model
+formatting instructions. The same bounded mechanism now repairs extra forbidden
+patch fields, replaying the original raw patch plus exact model-declared removals;
+valid schema fields cannot be removed. Patches retain paired observation labels
+and meanings, and independently reviewed final responses retain exact provenance.
+Subscription errors are not misclassified as JSON errors.
+
+Numerical parsing preserves scale after a plus sign, e.g. “5+ billion”. Review
+binding accepts a real citation-list member while rejecting invented paths and
+quotes. Last reviewed analysis remains available after a failed refresh in the UI
+and downloadable Markdown. With no reviewed answer, download returns HTTP 409
+rather than an empty success. Research/founder pack validation remains separate.
+
+### Live evidence and verification
+
+The detailed run ledger, original failures and final verification are in
+[analysis-loop-2026-09-26](evals/investment_preparation/section-workflows/analysis-loop-2026-09-26/README.md).
+The earlier [analysis-recovery record](evals/investment_preparation/section-workflows/analysis-recovery-2026-09-26/README.md)
+contains the intervening successful Arable/CropX recoveries, fresh CropX draft and
+failed diagnostics; keep those failures. This work is checkpoint recovery and
+limited live testing, not broad first-pass reliability or investment certification.
+
+GoCardless job `automation_757bb4fa6f73` published reviewed analysis in 74.867
+seconds (74.610 pass budget), four calls in one pass. It reused a saved draft;
+every new response reported Sonnet 5. The browser shows analysis and outlooks.
+Its older research/founder pack still needs separate revalidation. Only one metric
+card appears despite financial facts in prose: the 120-candidate extraction cap
+was exhausted by its first source. This unresolved quality defect is documented.
+
+Arable job `automation_a31f913f920f` automatically executed three passes in
+191.592 seconds/ten calls. It exposed malformed-review checkpoint loss: pass two
+failed without inference and pass three rewrote the draft. The shared bug was fixed
+and regression-tested. Job `automation_4d7e8fa8c1fb` then retained its writer and
+automatically ran three passes, but failed after 76.710 seconds/twelve calls on
+repeated extra patch keys. Both failures are preserved. The subsequent patch
+formatting fix requires a model-declared removal list and strict schema/provenance
+checks; it does not discard keys silently or weaken semantic review.
+
+155 focused backend tests passed, including provider compatibility, public privacy,
+checkpoint timeout continuation, cancellation/no-progress/quota stops, malformed
+review recovery, patch formatting provenance and failed-refresh downloads.
+Frontend production build and lint passed. Existing urllib3 LibreSSL and plotting
+library deprecation warnings remain. Changes are local and uncommitted.
+
+Final Arable job `automation_bb66c0b1ddb5` published eight metrics and three
+conditional outlooks in 47.026 seconds / three calls, all Sonnet 5: patch,
+model-authored patch cleanup and approving review. No writer/search rerun occurred
+in this final recovery. The earlier 191.592s and 76.710s failures are separate and
+retained. Final API checks returned substantive analysis downloads for all three
+companies and founder downloads for Arable/CropX; GoCardless founder remains 409.
+No live jobs remained after verification.
+
+### Blockers and next session
+
+Read the [complete blocker inventory](evals/investment_preparation/section-workflows/analysis-loop-2026-09-26/BLOCKERS.md)
+before claiming readiness: provider limits, variable latency, inconsistent model
+reviews, incomplete/blocked official evidence, limited discovery breadth/duplicate
+entities, numeric candidate starvation, absent private actuals, conditional rather
+than validated forecasts, incomplete executable diligence, process-local workers,
+and outstanding cross-sector expert acceptance/hosted validation. AWS alone does
+not resolve these quality defects. Check active jobs before restarting services.
+
+Final browser inspection confirmed Arable displays all three steps as available,
+eight metric cards and the 47-second recovery counter. It also exposed substantive
+remaining quality defects: unsupported universal absence language (“no public ...
+disclosures exist”), financing coverage regressing to 2020 despite a 2022 event in
+earlier retained research, and operational unit labels rendered as unspecified.
+Model review approval is therefore not expert acceptance. These examples are in
+the blocker inventory; no content was manually rewritten to hide them. Eight
+additional preparation-budget tests passed after neutralizing obsolete error text.
+
+
+<a id="discovery-breadth-and-identity"></a>
+## 35. Discovery breadth and identity — 26 September 2026
+
+The user asked whether company information was hardcoded and requested immediate
+repair of limited discovery and duplicate companies. The active discovery and
+preparation modules contain no company-name branches or company-specific answer
+catalogue. All 19 profiles checked before continuation referenced recorded model
+extraction with valid raw hashes. Do not confuse generic validation, identity and
+budget code with model-authored company facts.
+
+Read the [full change/run ledger](evals/investment_preparation/section-workflows/discovery-breadth-2026-09-26/README.md).
+The five-company hidden clamp is removed. Users choose a target of 1–50 (default
+20). Discovery navigation can select twelve observed URLs; extraction progresses
+through bounded groups of three pages/eight candidates, saving source-bound results
+as they arrive. A complete run still has a 120-second, eight-call/ten-request budget.
+Fresh retained page checkpoints and pending groups let Find more continue without
+repeating completed search/download work. Unmatched unsupported candidates are
+not invented to meet the target.
+
+New discovery reuses IDs for evidence-supported identity matches. Read views group
+historical duplicate profiles without deleting leads, company profiles, workspaces
+or source snapshots. Original records remain linked in the UI. Name normalization
+alone is not enough: compatible official hosts or shared source identity evidence
+is required. Ambiguous same-name records can be compared by the model using only
+public facts; its exact decision and evidence references are recorded, and conflicting
+known official hosts are kept separate. `scripts/reconcile_company_identities.py`
+is read-only unless explicitly passed `--apply`; application mode is model-driven
+and bounded, not a manual alias map. Its use in this turn was authorized by the
+user's duplicate-repair request. Future calls still need applicable task scope.
+
+Live agrotech initial run `source_run_e37be4a4a80d` saved eight distinct companies
+before timing out during the next batch (120.578 seconds, four calls/six requests).
+Continuation `source_run_043e78b1ab2f` reused recorded public pages and added ten
+(120.640 seconds, four calls/four requests, no new search/fetch). **18 distinct
+companies** appear in the combined search. Both runs remain honestly partial;
+there is no claim of 20 companies in one instant run or exhaustive discovery.
+
+The known legal-name duplicate was grouped generically. A cross-directory duplicate
+exposed by continuation was resolved in one 3.638-second Sonnet 5 call citing both
+sides' business evidence. Final catalogue has 29 preserved records representing
+27 displayed identities, with no repeated normalized names in that check. New
+unresolved identities are kept separate if evidence cannot establish a match.
+All new model responses used Sonnet 5. No Opus or company-specific production edits.
+
+136 related tests passed before the final additions; 58 affected tests then passed,
+plus frontend build/lint. See the run ledger for artifacts and scope. Analysis and
+investment-quality blockers from §34 are not resolved by increasing discovery
+breadth. Changes remain uncommitted; concurrent API/deployment work is preserved.
+Check active jobs before restarting the API.
+
+
+<a id="records-page-empty-preparation-fix"></a>
+## 36. Records page blank-screen fix — 26 September 2026
+
+The user reported `/operations?lead=lead_3f0aee42d7ad&view=records` did not work.
+The API was healthy. Browser console reproduced `Cannot read properties of
+undefined (reading 'map')` in OperationsRecords: `preparation` was `{}`, while the
+component assumed `financials` and `calculations` existed. Both lists are now
+optional and default to empty UI collections, with an explicit empty state. No
+company fact, financial number or model draft was added or changed.
+
+Records and preparation routes now request the explicit lead ID rather than finding
+it in the deduplicated catalogue, preserving access to historical linked records.
+Records fetch only the requested workspace. The parent no longer loads preparation
+queries unnecessarily while rendering records. Dismissed records remain readable.
+
+Verified the user's actual GoCardless page in Chrome: company documents, public
+sources, approvals and history render; expanding Financial source figures shows
+“No extracted financial figures are saved in this record yet.” Frontend production
+build, lint and whitespace checks passed. No model inference or backend restart
+was needed. The corrected records page was left open.
+
+<a id="documents-release-and-activity-fix"></a>
+## 37. Documents API crash and records activity design — 26 September 2026
+
+The user reported HTTP 500 at `/deals/deal_ed3279b8bc08/documents` and an
+unhelpful records-page history showing obsolete “Generator/editor: Not recorded”
+and a long sequence of past failures alongside later successes.
+
+Reproduced the backend failure: `_current_release_status` in
+`api/routers/compilation.py` raised `StopIteration` while finding the legacy
+`release` work item. The `model_authored_v1` reconciliation path intentionally
+returns no legacy work items. An identical assumption existed in teaser
+confirmation in `agents/planner_agent.py`. Both now handle a missing release
+step explicitly: document reads succeed, historical teaser approvals are
+projected as inactive, and a new approval attempt receives HTTP 409. Historical
+approval records remain unchanged. This does not add a release workflow or
+permit external distribution.
+
+Added a regression test using an authored workspace, covering an empty document
+list, list/latest projections of an old approved teaser, blocked confirmation,
+and preservation of the stored historical approval. All 28 tests in
+`tests/test_api_compilation.py` and `tests/test_operating_workflow.py` passed.
+Existing library deprecation/LibreSSL warnings remain. Frontend build and lint
+passed. No model runs were started for this fix.
+
+The records page now uses `PreparationActivity`: latest run status, timestamp,
+and saved phase are visible separately from a collapsed, bounded history.
+History initially shows five recent events and can reveal all original events;
+old failed attempts are preserved and labeled as such. Generation metadata comes
+from the recorded automation run, falling back to the old workspace model field.
+Active records-page jobs poll every three seconds. Latest failures expose their
+recorded error and a link back to preparation. Completion here means completion
+of that run, not investment readiness or independent verification. The actual
+GoCardless workspace's most recent analysis run completed at 18:04:26 IST; its
+legacy event stream has 47 events ending with a separate preparation completion
+at 17:50:37. The UI now distinguishes these instead of treating the legacy event
+stream as the current run state.
+
+Investor-materials loading errors now have an inline retry action and expandable
+error details. Teaser confirmation errors are visible. Empty formal-document
+states no longer imply that company research has never been prepared; they link
+to saved company work and supporting-figure review.
+
+Checked all workspace and discovery jobs were idle immediately before restarting
+the API with `python3 scripts/serve_local.py` (no reload). New PID was 46438 at
+verification; recheck actual processes and jobs before any future restart.
+Direct API and Vite proxy requests for the user's documents endpoint returned
+HTTP 200 with an empty list; source documents also returned 200/empty. Browser
+verified records latest status and expandable history/provider, then the exact
+reported documents page with “No investment memorandum compiled yet” and its
+working navigation links. The documents page was left open. No financial inputs,
+company drafts, approvals, source evidence or raw model responses were changed.
+These fixes address the page crash and confusing presentation; they do not
+resolve the wider analysis-quality limitations recorded in §34.

@@ -229,3 +229,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Deployment credentials stay outside source control and release archives.
+deployment/.secrets/
+deployment/.env

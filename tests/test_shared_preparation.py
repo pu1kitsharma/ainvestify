@@ -421,7 +421,7 @@ def test_api_worker_uses_model_authored_workflow_and_publishes_only_completed_wo
     import agents.analyst_pack as pipeline
     from tests.test_authored_preparation import Model
     model=Model()
-    monkeypatch.setattr(api,'LocalModel',lambda:model)
+    monkeypatch.setattr(api,'make_preparation_model',lambda *args,**kwargs:model)
     monkeypatch.setattr(pipeline,'collect_preparation_evidence',lambda store,lead,**kwargs:lead)
     with Store(tmp_path/'db') as store:
         lead=company(store)
@@ -440,7 +440,7 @@ def test_unexpected_worker_failure_preserves_saved_work_and_records_stack(tmp_pa
     from api.routers import operations as api
     import agents.analyst_pack as pipeline
     model=SharedModel()
-    monkeypatch.setattr(api,'LocalModel',lambda:model)
+    monkeypatch.setattr(api,'make_preparation_model',lambda *args,**kwargs:model)
     def broken_fetcher(*args,**kwargs):
         raise AttributeError('private source detail must not appear in diagnostics')
     monkeypatch.setattr(pipeline,'collect_preparation_evidence',broken_fetcher)
@@ -475,4 +475,4 @@ def test_migrating_old_work_does_not_restore_the_failed_long_reasoning_profile(t
         tasks=BackgroundTasks();start_analyst_preparation(lead.id,tasks,store,'one')
         kwargs=tasks.tasks[0].kwargs
         assert kwargs['analyst_model'] is None and kwargs['analyst_review_thinking'] is None
-        assert store.get_workspace('one',lead_id=lead.id).automation.model=='qwen3.5:9b'
+        assert store.get_workspace('one',lead_id=lead.id).automation.model=='claude-pro-sonnet'

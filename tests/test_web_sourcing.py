@@ -262,3 +262,21 @@ def test_navigation_is_not_company_evidence_but_its_destinations_remain():
     assert 'Farmers pay for equipment' in page.text and 'Named Partner Limited' in page.text
     assert page.links[0]['url'] == 'https://example.org/results'
     assert any(link['url']=='https://example.org/pricing' and link['label']=='Plans' for link in page.links)
+
+
+@pytest.mark.parametrize('error,retryable', [
+    ('timeout', True), ('tls', False),
+])
+def test_transport_marks_only_transient_errors_retryable(monkeypatch, error, retryable):
+    import time
+    import urllib3
+    monkeypatch.setattr('agents.web_sources.public_addresses', lambda url: ['93.184.216.34'])
+    cause = (urllib3.exceptions.ReadTimeoutError(None, '/', 'timed out') if error == 'timeout'
+             else urllib3.exceptions.SSLError('certificate verification failed'))
+    pool = Mock()
+    pool.urlopen.side_effect = cause
+    monkeypatch.setattr('agents.web_sources.urllib3.HTTPSConnectionPool', Mock(return_value=pool))
+    with pytest.raises(SourceError) as failure:
+        PublicWebFetcher()._request('https://example.org/', time.monotonic() + 10)
+    assert failure.value.retryable is retryable
+    pool.close.assert_called_once()

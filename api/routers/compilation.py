@@ -54,7 +54,8 @@ def _current_release_status(store: Store, tenant_id: str, deal_id: str, versions
     from agents.operating_workflow import reconcile_workspace
 
     workspace = reconcile_workspace(store, lead, persist=False)
-    ready = next(item for item in workspace.work_items if item.id == "release").status == "completed"
+    release = next((item for item in workspace.work_items if item.id == "release"), None)
+    ready = release is not None and release.status == "completed"
     return [memo.model_copy(update={"approved_by": None})
             if memo.document_type == "teaser" and memo.approved_by and
             (not ready or memo.approval_basis_hash != workspace.basis_hash) else memo for memo in versions]

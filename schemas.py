@@ -244,6 +244,7 @@ class SourcedLead(BaseModel):
     promoted_deal_id: Optional[str] = None
     company_id: Optional[str] = None
     company_profile: Optional[CompanyProfile] = None
+    related_lead_ids: list[str] = Field(default_factory=list)
 
 
 class ResearchFinding(BaseModel):

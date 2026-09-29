@@ -9,6 +9,17 @@ class Output(BaseModel):
     summary:str=Field(min_length=5,max_length=20)
 
 
+def test_sole_json_fence_is_parsed_without_changing_recorded_response():
+    model = LocalModel(); model.client = Mock()
+    raw = '```json\n{"summary":"A supported summary"}\n```'
+    model.client.chat.return_value = {'message': {'content': raw}}
+    assert model.generate('Summarize', 'source', Output).summary == 'A supported summary'
+    assert model.last_response_text == raw
+    model.client.chat.return_value = {'message': {'content': 'Commentary\n' + raw}}
+    with pytest.raises(ValidationError):
+        model.generate('Summarize', 'source', Output)
+
+
 def test_decoder_does_not_clip_prose_but_original_contract_still_validates():
     spec=generation_schema(Output)
     assert 'maxLength' not in spec['properties']['summary']

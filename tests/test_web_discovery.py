@@ -251,7 +251,7 @@ def test_mwmbl_parses_api_results_without_using_snippets_as_evidence():
             assert url.startswith("https://api.mwmbl.org/api/v1/search/?s=")
             return 200, {}, json.dumps([{"url": "https://farm.example/", "title": [{"value": "Farm Works"}],
                                        "extract": [{"value": "Unverified sales figures"}]}]).encode()
-    assert MwmblSearch(Transport()).search("farm India") == [SearchHit("https://farm.example/", "Farm Works")]
+    assert MwmblSearch(Transport()).search("farm India") == [SearchHit("https://farm.example/", "Farm Works", "Unverified sales figures")]
 
 
 def test_unusable_search_pages_expand_to_catalog(tmp_path, monkeypatch):
@@ -271,3 +271,52 @@ def test_unusable_search_pages_expand_to_catalog(tmp_path, monkeypatch):
         assert result.company_ids
         assert any("Expanding" in warning for warning in result.warnings)
         assert result.status == "partial"
+
+
+def test_transient_search_retry_retains_failure_and_reuses_success():
+    from unittest.mock import Mock
+    from agents.web_discovery import SearchSession
+    provider = Mock(name='provider')
+    provider.name = 'temporary'
+    provider.query_url.return_value = 'https://search.example/'
+    provider.search.side_effect = [SourceError('failed', 'Timed out', retryable=True),
+                                   [SearchHit('https://farm.example/', 'Farm')]]
+    session = SearchSession([provider])
+    run = WebSourcingRun(tenant_id='one', thesis='agrotech', model='fixture')
+    for _ in range(2):
+        assert session.search_queries(['agrotech'], run, lambda: True) == [SearchHit('https://farm.example/', 'Farm')]
+    assert provider.search.call_count == 2
+    assert [s.status for s in run.sources] == ['failed', 'ok']
+    assert run.search_queries == ['agrotech']
+
+
+def test_repeated_transport_failure_stops_provider_within_job():
+    from unittest.mock import Mock
+    from agents.web_discovery import SearchSession
+    provider = Mock()
+    provider.name = 'temporary'
+    provider.query_url.return_value = 'https://search.example/'
+    provider.search.side_effect = SourceError('failed', 'Timed out', retryable=True)
+    session = SearchSession([provider])
+    run = WebSourcingRun(tenant_id='one', thesis='agrotech', model='fixture')
+    assert not session.search_queries(['agrotech', 'agritech companies'], run, lambda: True)
+    assert not session.search_queries(['another query'], run, lambda: True)
+    assert provider.search.call_count == 2
+    assert len(run.sources) == 2
+
+
+def test_no_search_retry_on_block_or_near_deadline():
+    from unittest.mock import Mock
+    from agents.web_discovery import SearchSession
+    from agents.preparation_budget import PreparationBudget, preparation_budget
+    for error in [SourceError('blocked', 'Human verification'),
+                  SourceError('rate_limited', 'Slow down'),
+                  SourceError('failed', 'Timed out', retryable=True)]:
+        provider = Mock()
+        provider.name = 'temporary'
+        provider.query_url.return_value = 'https://search.example/'
+        provider.search.side_effect = error
+        run = WebSourcingRun(tenant_id='one', thesis='agrotech', model='fixture')
+        with preparation_budget(PreparationBudget(max_seconds=10)):
+            assert not SearchSession([provider]).search_queries(['agrotech', 'another query'], run, lambda: True)
+        assert provider.search.call_count == 1

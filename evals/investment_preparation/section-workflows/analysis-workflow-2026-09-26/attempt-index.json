@@ -1,0 +1,173 @@
+[
+  {
+    "file": "cropx-attempt-01.json",
+    "at": "2026-09-26T07:51:14.841787+00:00",
+    "status": "needs_attention",
+    "historical_interrupted_snapshot": false,
+    "budget": {
+      "max_seconds": 120.0,
+      "max_calls": 6,
+      "max_requests": 6,
+      "calls": 1,
+      "requests": 3,
+      "elapsed_seconds": 24.59
+    },
+    "error": "Official-record search selected an unobserved link.",
+    "issues": null
+  },
+  {
+    "file": "cropx-attempt-02.json",
+    "at": "2026-09-26T07:54:46.959537+00:00",
+    "status": "needs_attention",
+    "historical_interrupted_snapshot": false,
+    "budget": {
+      "max_seconds": 120.0,
+      "max_calls": 6,
+      "max_requests": 6,
+      "calls": 2,
+      "requests": 2,
+      "elapsed_seconds": 90.559
+    },
+    "error": "observations.0: quote/value must occur exactly in its source.",
+    "issues": null
+  },
+  {
+    "file": "cropx-attempt-03.json",
+    "at": "2026-09-26T07:59:50.467908+00:00",
+    "status": "needs_review",
+    "historical_interrupted_snapshot": false,
+    "budget": {
+      "max_seconds": 120.0,
+      "max_calls": 6,
+      "max_requests": 6,
+      "calls": 5,
+      "requests": 5,
+      "elapsed_seconds": 109.52
+    },
+    "error": null,
+    "issues": [
+      "N6 in metric_candidates has unit \"count\" but value \"100\" — used correctly in observations, but note the answer's summary/finding text does not flag that this 100-employee figure is from 2023 (stale, 3+ years old) and is presented without noting it may be outdated given multiple acquisitions since.",
+      "Observation 'SCIO acquisition team added' (N113) and finding text both correctly cite F9, but the summary/observations fail to flag that F9's 'eighth acquisition' claim directly conflicts with F6's 'seventh acquisition' (Acclym) framing — this is noted in findings but the summary line still asserts both as settled facts ('eighth deal announced with SCIO; seventh was Acclym') rather than flagging the inconsistency there too.",
+      "ARR observation (N110) is handled reasonably as approximate/reported, but the outlook 'upside' scenario speculates ARR could move 'clearly above' $20M and profitability 'sooner than 2027' based on Acclym/SCIO customer relationships — this has no observable driver or evidence in sources tying those specific deals to ARR acceleration; it reads as speculative extrapolation beyond a conditional inference.",
+      "The 'downside' outlook cites integration costs/slowness as a driver but sources F7 explicitly state most acquisitions were profitable and integration is described as a refined 'playbook,' so the downside framing runs counter to the CEO's stated track record without acknowledging this tension.",
+      "F7's quote 'PMI' is used in the source without expansion in the review materials; the answer does not flag or explain this abbreviation, leaving an unexplained acronym in cited material.",
+      "The needs section asks for confirmation of 'a precise, dated list of acquisitions' and audited financials — reasonable, but the assumption item conflates treating ARR as non-revenue with needing to reconcile the acquisition-count discrepancy already identified in findings, creating redundant/circular framing between findings and needs without resolving the actual conflict."
+    ]
+  },
+  {
+    "file": "cropx-attempt-04.json",
+    "at": "2026-09-26T08:08:47.876802+00:00",
+    "status": "needs_review",
+    "historical_interrupted_snapshot": false,
+    "budget": {
+      "max_seconds": 120.0,
+      "max_calls": 6,
+      "max_requests": 6,
+      "calls": 5,
+      "requests": 5,
+      "elapsed_seconds": 105.44
+    },
+    "error": null,
+    "issues": [
+      "observations: N6 employee count metric is mislabeled 'lower_bound' — 'over 100 employees' with a plus-style phrasing is correctly lower_bound per vocabulary, but summary/finding text then treats it as a stale snapshot fact without flagging that F1's dateline is April 2023 while other same-source blog links show 2026 dates, creating date ambiguity not addressed.",
+      "outlook[2] (upside case) cites F6 as a source_id, but F6 is a Yahoo Finance market-ticker page with no content about ARR, enterprise contracts, or CropX customer expansion — this citation does not support the statement.",
+      "findings[1] cites F7 for the profitability/ARR claim, but F7 (AgFunderNews M&A profile) never mentions ARR or a 2027 profitability target — that specific figure/claim comes only from F9; attaching F7 as support is a mismatched citation.",
+      "observations for N29/N30 (20,000+ users, 70+ countries) correctly flag these as unsourced marketing claims, but the qualification field labels them 'lower_bound', which is correct per vocabulary; however the summary then calls the same figures 'unsourced marketing text' while also using them as if establishing scale in findings — this creates an internal inconsistency about how much weight to give them.",
+      "needs[2] question about reconciling '7th' vs '8th' acquisition count implies a discrepancy needing reconciliation, but the two counts come from different dated articles (Sept 2025 vs Aug 2026) describing sequential deals — treating this as needing reconciliation risks fabricating a conflict where none exists.",
+      "outlook[0] downside scenario is reasonably conditional, but its 'implication' asserts ARR progress 'could stall' and profitability 'could slip' — acceptable as conditional, though the watch criteria don't clearly tie back to an observable driver distinct from restating the condition itself."
+    ]
+  },
+  {
+    "file": "cropx-attempt-05.json",
+    "at": "2026-09-26T08:14:11.256646+00:00",
+    "status": "needs_attention",
+    "historical_interrupted_snapshot": false,
+    "budget": {
+      "max_seconds": 120.0,
+      "max_calls": 6,
+      "max_requests": 6,
+      "calls": 2,
+      "requests": 2,
+      "elapsed_seconds": 49.064
+    },
+    "error": "observations.0: period is not source text.",
+    "issues": null
+  },
+  {
+    "file": "cropx-attempt-06.json",
+    "at": "2026-09-26T08:18:30.928876+00:00",
+    "status": "needs_review",
+    "historical_interrupted_snapshot": false,
+    "budget": {
+      "max_seconds": 120.0,
+      "max_calls": 6,
+      "max_requests": 6,
+      "calls": 3,
+      "requests": 3,
+      "elapsed_seconds": 119.366
+    },
+    "error": null,
+    "issues": [
+      "observations.1.metric: This observation (N6) describes employee headcount, not customers. Labeling the metric as 'customers' conflates staff count with a customer/revenue metric; it should be categorized as headcount/employees, not customers.",
+      "observations.3.metric: N112 measures SCIO devices deployed globally, a hardware unit count, not paying customers. Devices must not be relabeled as customers; the metric category should reflect device deployments, not customer count.",
+      "observations.5.metric: N29 refers to platform 'users,' a marketing claim about usage, not verified paying customers. Users must not be relabeled as a customers metric, since the source never states these are paying accounts."
+    ]
+  },
+  {
+    "file": "cropx-attempt-07.json",
+    "at": "2026-09-26T08:23:55.633500+00:00",
+    "status": "running",
+    "historical_interrupted_snapshot": true,
+    "budget": null,
+    "error": null,
+    "issues": null
+  },
+  {
+    "file": "cropx-attempt-08.json",
+    "at": "2026-09-26T08:24:21.873734+00:00",
+    "status": "needs_attention",
+    "historical_interrupted_snapshot": false,
+    "budget": {
+      "max_seconds": 120.0,
+      "max_calls": 6,
+      "max_requests": 6,
+      "calls": 4,
+      "requests": 4,
+      "elapsed_seconds": 120.637
+    },
+    "error": "Preparation reached its time limit. Validated sections are saved; unresolved work needs an explicit resume.",
+    "issues": null
+  },
+  {
+    "file": "cropx-attempt-09.json",
+    "at": "2026-09-26T08:27:29.414081+00:00",
+    "status": "needs_attention",
+    "historical_interrupted_snapshot": false,
+    "budget": {
+      "max_seconds": 120.0,
+      "max_calls": 6,
+      "max_requests": 6,
+      "calls": 2,
+      "requests": 2,
+      "elapsed_seconds": 104.925
+    },
+    "error": "Only existing string fields can be corrected.",
+    "issues": null
+  },
+  {
+    "file": "cropx-attempt-10.json",
+    "at": "2026-09-26T08:38:25.608508+00:00",
+    "status": "waiting_for_input",
+    "historical_interrupted_snapshot": false,
+    "budget": {
+      "max_seconds": 120.0,
+      "max_calls": 6,
+      "max_requests": 6,
+      "calls": 2,
+      "requests": 2,
+      "elapsed_seconds": 97.765
+    },
+    "error": null,
+    "issues": []
+  }
+]

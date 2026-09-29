@@ -1,0 +1,56 @@
+{
+  "scope": "reviewed_public_evidence_only",
+  "company": "CropX",
+  "website": "",
+  "evidence": [
+    {
+      "id": "evidence_ee4f937c708a",
+      "field": "name",
+      "value": "CropX",
+      "quote": "module facilitates seamless electronic trading with customers and suppliers, while the versatile Apps suite delivers smart, real-time updates and extended mobility beyond the desktop. 2 CropX CropX 1 Rating See Software Our cloud-based platform processes information gathered from soil sensors that are layered together to deliver optimal recommendations regarding irrigation, fertilization, and crop protection strategies. Each sensor is capable of measuring moisture, temperature, and electrical conductivity (EC) at various depths within the soil. The frequency of data collection and",
+      "source_url": "https://slashdot.org/software/precision-agriculture//",
+      "retrieved_at": "2026-09-15T20:36:17.631507+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_e80c889a15c1",
+      "field": "offering",
+      "value": "cloud-based platform processes information gathered from soil sensors",
+      "quote": "module facilitates seamless electronic trading with customers and suppliers, while the versatile Apps suite delivers smart, real-time updates and extended mobility beyond the desktop. 2 CropX CropX 1 Rating See Software Our cloud-based platform processes information gathered from soil sensors that are layered together to deliver optimal recommendations regarding irrigation, fertilization, and crop protection strategies. Each sensor is capable of measuring moisture, temperature, and electrical conductivity (EC) at various depths within the soil. The frequency of data collection and",
+      "source_url": "https://slashdot.org/software/precision-agriculture//",
+      "retrieved_at": "2026-09-15T20:36:17.631658+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_a887b11af2b4",
+      "field": "sector",
+      "value": "irrigation, fertilization, and crop protection strategies",
+      "quote": "module facilitates seamless electronic trading with customers and suppliers, while the versatile Apps suite delivers smart, real-time updates and extended mobility beyond the desktop. 2 CropX CropX 1 Rating See Software Our cloud-based platform processes information gathered from soil sensors that are layered together to deliver optimal recommendations regarding irrigation, fertilization, and crop protection strategies. Each sensor is capable of measuring moisture, temperature, and electrical conductivity (EC) at various depths within the soil. The frequency of data collection and",
+      "source_url": "https://slashdot.org/software/precision-agriculture//",
+      "retrieved_at": "2026-09-15T20:36:17.631701+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    },
+    {
+      "id": "evidence_8e1a40590833",
+      "field": "traction",
+      "value": "1 Rating",
+      "quote": "module facilitates seamless electronic trading with customers and suppliers, while the versatile Apps suite delivers smart, real-time updates and extended mobility beyond the desktop. 2 CropX CropX 1 Rating See Software Our cloud-based platform processes information gathered from soil sensors that are layered together to deliver optimal recommendations regarding irrigation, fertilization, and crop protection strategies. Each sensor is capable of measuring moisture, temperature, and electrical conductivity (EC) at various depths within the soil. The frequency of data collection and",
+      "source_url": "https://slashdot.org/software/precision-agriculture//",
+      "retrieved_at": "2026-09-15T20:36:17.631734+00:00",
+      "origin": "public_page_claim",
+      "dataset_id": null,
+      "row_key": null,
+      "observed_at": null
+    }
+  ],
+  "audit_note": "Retained public directory snippet includes preceding-company text and one directory rating. Neither establishes CropX trading services, traction, revenue or customer growth."
+}

@@ -34,6 +34,11 @@ def generation_schema(schema):
             if node.get('type')=='string':
                 node.pop('maxLength',None)
                 node.pop('minLength',None)
+                # Content patterns are application checks, not JSON syntax.
+                # The retained September diagnostic returned literal control
+                # bytes with negated content patterns in its decoding grammar.
+                # Keep the original schema in the prompt and final validation.
+                node.pop('pattern',None)
             for value in node.values():visit(value)
         elif isinstance(node,list):
             for value in node:visit(value)
@@ -170,7 +175,8 @@ class LocalModel:
             raise ValueError('Model exhausted its response budget before completing the answer. Retry with a larger reasoning budget or smaller scoped input.')
         if self.thinking and not self.last_call['thinking_used']:
             raise ValueError('The local runtime returned no thinking output for a reasoning task. Check model/runtime compatibility; this answer was not accepted as a reasoning result.')
-        return schema.model_validate_json(self.last_response_text)
+        from agents.model_output import json_body
+        return schema.model_validate_json(json_body(self.last_response_text))
 
 
 class AnalystModel:
@@ -262,8 +268,8 @@ def shared_model_name(model):
 
 
 def generate_authored_task(model,task,instruction,evidence,schema,*,attempt=0):
-    limits={'research':1100,'work':1400,'founder':700,'review':600,
-            'discovery_plan':550,'discovery_sources':250,'discovery_extract':550,'discovery_assess':650}
+    limits={'draft':2400,'research':1100,'work':1400,'founder':700,'review':1800,
+            'discovery_plan':550,'discovery_sources':400,'discovery_extract':1100,'discovery_assess':650}
     kind=task.removeprefix('authored_')
     if kind not in limits:raise ValueError('Unsupported model-authored task.')
     selected=shared_model_name(model)
@@ -271,8 +277,10 @@ def generate_authored_task(model,task,instruction,evidence,schema,*,attempt=0):
     thinking=bool(getattr(model,'thinking',False))
     if kind=='review' and getattr(model,'shared_review_thinking',None) is not None:
         thinking=model.shared_review_thinking
-    adapter=LocalModel(selected,thinking=thinking,max_tokens=limits[kind]+(512 if thinking else 0),temperature=0,context_tokens=8192,
-        reasoning_budget=512 if thinking and selected.startswith(('qwen3:','qwen3.5:')) else None)
+    natural_reasoning = thinking and bool(getattr(model, 'authored_natural_reasoning', False))
+    output_limit = max(limits[kind], 2000) if natural_reasoning else limits[kind]+(512 if thinking else 0)
+    adapter=LocalModel(selected,thinking=thinking,max_tokens=output_limit,temperature=0,context_tokens=8192,
+        reasoning_budget=512 if thinking and not natural_reasoning and selected.startswith(('qwen3:','qwen3.5:')) else None)
     adapter.sampling={**adapter.sampling,'presence_penalty':0}
     callback=getattr(model,'on_activity',None)
     if callback:adapter.on_activity=lambda state,position:callback(state,position,task)
@@ -309,7 +317,12 @@ def generate_shared_task(model,task,instruction,evidence,schema,*,attempt=0):
 def generate_task(model, task, instruction, evidence, schema, *, attempt=0):
     """Keep injected/offline model implementations compatible with task routing."""
     budget = ACTIVE_BUDGET.get()
-    if budget:budget.start_call()
+    if budget:
+        try:
+            budget.start_call()
+        except PreparationBudgetExceeded:
+            model.last_route = {'task': task, 'invoked': False, 'reason': 'preparation_budget'}
+            raise
     if callable(getattr(type(model), 'generate_for_task', None)):
         return model.generate_for_task(task, instruction, evidence, schema, attempt=attempt)
     return model.generate(instruction, evidence, schema)

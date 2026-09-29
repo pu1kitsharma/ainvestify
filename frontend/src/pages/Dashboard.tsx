@@ -5,7 +5,8 @@ import {api} from '../api/client';
 import {preparationRefresh} from '../api/preparationRefresh';
 import {PREPARATION_VERSION,PreparationSteps,NextPreparationLink} from '../components/PreparationWorkspace';
 import type {AnalystPack} from '../components/PreparationWorkspace';
-type Work={id:string;lead_id:string;basis_hash:string;analyst_pack?:AnalystPack;automation?:{status:string;phase:string}};
+import type {CompanyAnalysisReport} from '../components/CompanyAnalysis';
+type Work={id:string;lead_id:string;basis_hash:string;analyst_pack?:AnalystPack;company_analysis?:CompanyAnalysisReport;automation?:{status:string;phase:string}};
 
 export default function Dashboard(){
  const leads=useLeads();const deals=useDeals();
@@ -28,9 +29,10 @@ export default function Dashboard(){
    const busy=['queued','running'].includes(w?.automation?.status||'');
    return <article key={lead.id} className="rounded-xl border border-slate-200 bg-white p-5 sm:p-6">
     <div className="flex flex-wrap items-start justify-between gap-4"><div className="min-w-0 flex-1"><Link className="text-xl font-semibold hover:text-indigo-600" to={`/operations?lead=${lead.id}`}>{lead.company_name}</Link><p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">{description||'Prepare research to establish the business and its investment case.'}</p></div><NextPreparationLink pack={pack} leadId={lead.id}/></div>
+    {!!lead.related_lead_ids?.length&&<details className="mt-3 text-xs text-slate-500"><summary>Earlier source records ({lead.related_lead_ids.length})</summary>{lead.related_lead_ids.map(id=><Link key={id} className="mt-2 block text-indigo-600" to={`/operations?lead=${id}&view=records`}>Open preserved record →</Link>)}</details>}
     {busy&&<p className="mt-3 text-sm text-indigo-700">Preparation in progress · saved work is available inside.</p>}
     {(decision||risk)&&<div className="mt-5 grid gap-4 border-t border-slate-100 pt-4 md:grid-cols-2">{decision&&<div><h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500">Next decision</h3><p className="mt-2 text-sm leading-6">{decision}</p></div>}{risk&&<div><h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500">Unresolved risk</h3><p className="mt-2 text-sm leading-6 text-slate-600">{risk}</p></div>}</div>}
-    <div className="mt-5"><PreparationSteps pack={pack} leadId={lead.id}/></div>
+    <div className="mt-5"><PreparationSteps pack={pack} leadId={lead.id} analysis={w?.company_analysis}/></div>
    </article>;
   })}</div>
   <details className="rounded-xl border border-slate-200 bg-white p-5"><summary className="cursor-pointer text-sm font-medium text-slate-500">Other document records ({standalone.length})</summary><p className="mt-3 text-sm text-slate-500">Existing documents outside your company shortlist.</p>{deals.error&&<p role="alert">{deals.error.message}</p>}<ul className="mt-4 space-y-3">{standalone.map(d=><li key={d.deal.id}><Link className="text-sm text-indigo-600" to={`/deals/${d.deal.id}/documents`}>{d.deal.name} →</Link></li>)}</ul></details>

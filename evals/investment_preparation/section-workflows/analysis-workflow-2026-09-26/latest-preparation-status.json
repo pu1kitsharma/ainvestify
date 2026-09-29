@@ -1,0 +1,15 @@
+{
+  "automation": {
+    "id": "automation_e754962b8c2f",
+    "status": "failed",
+    "phase": "Generation needs attention",
+    "model": "claude-pro-sonnet",
+    "worker_id": "6c4b6992477949759d255901b9bff1ed",
+    "started_at": "2026-09-26T08:42:14.391330+00:00",
+    "completed_at": "2026-09-26T08:43:06.749491+00:00",
+    "error": "Method review assigned a record role unsupported by its quoted request: second, cost_records, 'a consolidated profit-and-loss statement for CropX Inc. by entity and period'. Use the actual matching record span, or omit this unsupported annotation; required inputs must still be accounted for."
+  },
+  "pack_status": "partial",
+  "stop_reason": "Method review assigned a record role unsupported by its quoted request: second, cost_records, 'a consolidated profit-and-loss statement for CropX Inc. by entity and period'. Use the actual matching record span, or omit this unsupported annotation; required inputs must still be accounted for.",
+  "analysis_status": "waiting_for_input"
+}

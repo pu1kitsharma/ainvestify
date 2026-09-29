@@ -1,0 +1,445 @@
+{
+  "id": "source_run_9d225ce15412",
+  "thesis": "agrotech",
+  "geography": null,
+  "status": "partial",
+  "started_at": "2026-09-26T08:09:56.339246+00:00",
+  "completed_at": "2026-09-26T08:11:03.750072+00:00",
+  "company_profiles": [
+    {
+      "id": "company_0ac48951a24d",
+      "tenant_id": "default_tenant",
+      "name": "Arable",
+      "website": "",
+      "discovery_source_url": "https://www.omdena.com/blog/top-precision-agriculture-companies",
+      "criteria_review": [],
+      "growth_analysis": {},
+      "identity_status": "website_unresolved",
+      "evidence": [
+        {
+          "id": "evidence_81e4358570de",
+          "field": "name",
+          "value": "Arable",
+          "quote": "Agriculture software platforms help farmers and agribusinesses monitor crops, analyze field data, manage operations, and make data-driven decisions. These solutions include farm management, crop monitoring, agronomic analytics, and precision agriculture tools. 1. AGRIVI AGRIVI Headquarters: London, England Founded: 2013 Founders: Matija Zulj, Roger Blott Category: Agriculture Software Platform AGRIVI is a precision agriculture software company that provides farm management and agronomic analytics solutions. Its platform enables data-driven decision-making through real-time insights, helping farmers improve productivity and reduce operational costs. Key Solutions AGRIVI 360: End-to-end farm management platform Farm Insights: Crop monitoring and analytics Farm Enterprise: Advanced farm operations management Farm Advisory: Decision-support tools for agronomists AGRIVI IoT: Real-time field data and sensor integration Best For : Farm management 2. Arable Arable Headquarters: San Francisco, California Founded: 2014 Founder(s): Adam Wolf Category: Agriculture Data & Analytics Platform Arable is a precision agriculture technology company that provides real-time field data and agronomic analytics solutions. Its platform combines in-field sensing with data analytics to help farmers and agribusinesses make data-driven decisions, improve efficiency, and enhance sustainability. Key Solutions Arable Mark (Sensor Platform): In-field data collection for weather, soil, and crop conditions Data Analytics & Integration: Converts field data into actionable insights and alerts Agronomic Models: Advanced analytics for crop monitoring and decision support Best For: Real-time field intelligence 3. Instacrops Instacrops Headquarters: Santiago, Chile Founded: 2015",
+          "source_url": "https://www.omdena.com/blog/top-precision-agriculture-companies",
+          "retrieved_at": "2026-09-26T08:11:03.727869+00:00",
+          "origin": "public_page_claim",
+          "dataset_id": null,
+          "row_key": null,
+          "observed_at": null
+        },
+        {
+          "id": "evidence_278ba9dad03b",
+          "field": "offering",
+          "value": "Arable is a precision agriculture technology company that provides real-time field data and agronomic analytics solutions.",
+          "quote": "Agriculture software platforms help farmers and agribusinesses monitor crops, analyze field data, manage operations, and make data-driven decisions. These solutions include farm management, crop monitoring, agronomic analytics, and precision agriculture tools. 1. AGRIVI AGRIVI Headquarters: London, England Founded: 2013 Founders: Matija Zulj, Roger Blott Category: Agriculture Software Platform AGRIVI is a precision agriculture software company that provides farm management and agronomic analytics solutions. Its platform enables data-driven decision-making through real-time insights, helping farmers improve productivity and reduce operational costs. Key Solutions AGRIVI 360: End-to-end farm management platform Farm Insights: Crop monitoring and analytics Farm Enterprise: Advanced farm operations management Farm Advisory: Decision-support tools for agronomists AGRIVI IoT: Real-time field data and sensor integration Best For : Farm management 2. Arable Arable Headquarters: San Francisco, California Founded: 2014 Founder(s): Adam Wolf Category: Agriculture Data & Analytics Platform Arable is a precision agriculture technology company that provides real-time field data and agronomic analytics solutions. Its platform combines in-field sensing with data analytics to help farmers and agribusinesses make data-driven decisions, improve efficiency, and enhance sustainability. Key Solutions Arable Mark (Sensor Platform): In-field data collection for weather, soil, and crop conditions Data Analytics & Integration: Converts field data into actionable insights and alerts Agronomic Models: Advanced analytics for crop monitoring and decision support Best For: Real-time field intelligence 3. Instacrops Instacrops Headquarters: Santiago, Chile Founded: 2015",
+          "source_url": "https://www.omdena.com/blog/top-precision-agriculture-companies",
+          "retrieved_at": "2026-09-26T08:11:03.727975+00:00",
+          "origin": "public_page_claim",
+          "dataset_id": null,
+          "row_key": null,
+          "observed_at": null
+        },
+        {
+          "id": "evidence_40e7014d2106",
+          "field": "location",
+          "value": "Headquarters: San Francisco, California",
+          "quote": "Agriculture software platforms help farmers and agribusinesses monitor crops, analyze field data, manage operations, and make data-driven decisions. These solutions include farm management, crop monitoring, agronomic analytics, and precision agriculture tools. 1. AGRIVI AGRIVI Headquarters: London, England Founded: 2013 Founders: Matija Zulj, Roger Blott Category: Agriculture Software Platform AGRIVI is a precision agriculture software company that provides farm management and agronomic analytics solutions. Its platform enables data-driven decision-making through real-time insights, helping farmers improve productivity and reduce operational costs. Key Solutions AGRIVI 360: End-to-end farm management platform Farm Insights: Crop monitoring and analytics Farm Enterprise: Advanced farm operations management Farm Advisory: Decision-support tools for agronomists AGRIVI IoT: Real-time field data and sensor integration Best For : Farm management 2. Arable Arable Headquarters: San Francisco, California Founded: 2014 Founder(s): Adam Wolf Category: Agriculture Data & Analytics Platform Arable is a precision agriculture technology company that provides real-time field data and agronomic analytics solutions. Its platform combines in-field sensing with data analytics to help farmers and agribusinesses make data-driven decisions, improve efficiency, and enhance sustainability. Key Solutions Arable Mark (Sensor Platform): In-field data collection for weather, soil, and crop conditions Data Analytics & Integration: Converts field data into actionable insights and alerts Agronomic Models: Advanced analytics for crop monitoring and decision support Best For: Real-time field intelligence 3. Instacrops Instacrops Headquarters: Santiago, Chile Founded: 2015",
+          "source_url": "https://www.omdena.com/blog/top-precision-agriculture-companies",
+          "retrieved_at": "2026-09-26T08:11:03.728032+00:00",
+          "origin": "public_page_claim",
+          "dataset_id": null,
+          "row_key": null,
+          "observed_at": null
+        },
+        {
+          "id": "evidence_5dd0cb2a9904",
+          "field": "funding",
+          "value": "Founded: 2014",
+          "quote": "Agriculture software platforms help farmers and agribusinesses monitor crops, analyze field data, manage operations, and make data-driven decisions. These solutions include farm management, crop monitoring, agronomic analytics, and precision agriculture tools. 1. AGRIVI AGRIVI Headquarters: London, England Founded: 2013 Founders: Matija Zulj, Roger Blott Category: Agriculture Software Platform AGRIVI is a precision agriculture software company that provides farm management and agronomic analytics solutions. Its platform enables data-driven decision-making through real-time insights, helping farmers improve productivity and reduce operational costs. Key Solutions AGRIVI 360: End-to-end farm management platform Farm Insights: Crop monitoring and analytics Farm Enterprise: Advanced farm operations management Farm Advisory: Decision-support tools for agronomists AGRIVI IoT: Real-time field data and sensor integration Best For : Farm management 2. Arable Arable Headquarters: San Francisco, California Founded: 2014 Founder(s): Adam Wolf Category: Agriculture Data & Analytics Platform Arable is a precision agriculture technology company that provides real-time field data and agronomic analytics solutions. Its platform combines in-field sensing with data analytics to help farmers and agribusinesses make data-driven decisions, improve efficiency, and enhance sustainability. Key Solutions Arable Mark (Sensor Platform): In-field data collection for weather, soil, and crop conditions Data Analytics & Integration: Converts field data into actionable insights and alerts Agronomic Models: Advanced analytics for crop monitoring and decision support Best For: Real-time field intelligence 3. Instacrops Instacrops Headquarters: Santiago, Chile Founded: 2015",
+          "source_url": "https://www.omdena.com/blog/top-precision-agriculture-companies",
+          "retrieved_at": "2026-09-26T08:11:03.728080+00:00",
+          "origin": "public_page_claim",
+          "dataset_id": null,
+          "row_key": null,
+          "observed_at": null
+        }
+      ],
+      "assessment": {
+        "recommendation": "investigate",
+        "rationale": "Arable combines in-field sensors with analytics for farmers seeking real-time crop and weather intelligence, a clear agrotech fit. Its official website was not present in the observed links, so identity confirmation is needed.",
+        "strengths": [
+          "Hardware plus analytics combination (Arable Mark sensor platform)",
+          "Decade of operation since 2014 founding"
+        ],
+        "concerns": [
+          "No verified official website in the observed data"
+        ],
+        "missing_information": [
+          "Confirmed company URL",
+          "Current customer or deployment scale"
+        ],
+        "incubation_actions": [
+          "Verify official web presence before deeper outreach"
+        ],
+        "evidence_ids": [
+          "evidence_81e4358570de",
+          "evidence_278ba9dad03b",
+          "evidence_40e7014d2106"
+        ],
+        "model": "claude-pro-sonnet",
+        "assessed_at": "2026-09-26T08:11:03.728423+00:00",
+        "status": "model_proposed"
+      },
+      "provenance": {
+        "pipeline": "public_research_v2",
+        "run_id": "source_run_9d225ce15412",
+        "response_id": "response_2",
+        "candidate_index": 1,
+        "evidence_aliases": {
+          "E1": "evidence_81e4358570de",
+          "E2": "evidence_278ba9dad03b",
+          "E3": "evidence_40e7014d2106",
+          "E4": "evidence_5dd0cb2a9904"
+        },
+        "source_correction_response_id": "response_3"
+      },
+      "updated_at": "2026-09-26T08:11:03.728099+00:00"
+    },
+    {
+      "id": "company_510b91b70258",
+      "tenant_id": "default_tenant",
+      "name": "Instacrops",
+      "website": "",
+      "discovery_source_url": "https://www.omdena.com/blog/top-precision-agriculture-companies",
+      "criteria_review": [],
+      "growth_analysis": {},
+      "identity_status": "website_unresolved",
+      "evidence": [
+        {
+          "id": "evidence_1fb5f27e402d",
+          "field": "name",
+          "value": "Instacrops",
+          "quote": "Founder: Mario Andrés Bustamante Bernucci Category: Agriculture IoT & Analytics Platform Instacrops is a precision agriculture platform that integrates IoT, satellite imagery, and AI to deliver real-time insights and recommendations for farmers. Its solutions help optimize irrigation, monitor crop conditions, and improve decision-making through data-driven agriculture. Key Solutions InstaWeather: Real-time weather monitoring for field conditions InstaSoil: Soil moisture tracking for irrigation optimization InstaFlow: Remote irrigation control and water management InstaFrost: Frost prediction and alert system SkyCrops: Crop diagnostics using drone and satellite imagery Crop Advisor: AI-powered recommendations for farm decisions Best For: Smart irrigation and field monitoring 4. OneSoil OneSoil Headquarters: Zurich, Switzerland Founded: 2017 Founders: Usevalad Henin, Slava Mazai, Sasha Yakovlev Category: Agriculture Data & Analytics Platform OneSoil is a precision agriculture platform that uses satellite imagery and machine learning to help farmers monitor crops, analyze field conditions, and optimize farm productivity. Its tools provide real-time insights that support data-driven decision-making in modern precision agriculture. Key Solutions OneSoil App: Crop monitoring and field analysis using satellite data OneSoil Web Platform: Field insights and farm management tools OneSoil Yield: AI-powered solution for optimizing inputs and improving yields Satellite Monitoring (NDVI): Tracks vegetation health and crop performance OneSoil Map: AI-driven global field and crop analytics platform Best For: Satellite-based crop monitoring 5. Plantix Plantix Headquarters: Berlin, Germany Founded: 2015 Founders: Simone Strey, Rob Strey Category: Agriculture AI & Mobile App Platform",
+          "source_url": "https://www.omdena.com/blog/top-precision-agriculture-companies",
+          "retrieved_at": "2026-09-26T08:11:03.736565+00:00",
+          "origin": "public_page_claim",
+          "dataset_id": null,
+          "row_key": null,
+          "observed_at": null
+        },
+        {
+          "id": "evidence_222d95c8c3cf",
+          "field": "offering",
+          "value": "Instacrops is a precision agriculture platform that integrates IoT, satellite imagery, and AI to deliver real-time insights and recommendations for farmers.",
+          "quote": "Founder: Mario Andrés Bustamante Bernucci Category: Agriculture IoT & Analytics Platform Instacrops is a precision agriculture platform that integrates IoT, satellite imagery, and AI to deliver real-time insights and recommendations for farmers. Its solutions help optimize irrigation, monitor crop conditions, and improve decision-making through data-driven agriculture. Key Solutions InstaWeather: Real-time weather monitoring for field conditions InstaSoil: Soil moisture tracking for irrigation optimization InstaFlow: Remote irrigation control and water management InstaFrost: Frost prediction and alert system SkyCrops: Crop diagnostics using drone and satellite imagery Crop Advisor: AI-powered recommendations for farm decisions Best For: Smart irrigation and field monitoring 4. OneSoil OneSoil Headquarters: Zurich, Switzerland Founded: 2017 Founders: Usevalad Henin, Slava Mazai, Sasha Yakovlev Category: Agriculture Data & Analytics Platform OneSoil is a precision agriculture platform that uses satellite imagery and machine learning to help farmers monitor crops, analyze field conditions, and optimize farm productivity. Its tools provide real-time insights that support data-driven decision-making in modern precision agriculture. Key Solutions OneSoil App: Crop monitoring and field analysis using satellite data OneSoil Web Platform: Field insights and farm management tools OneSoil Yield: AI-powered solution for optimizing inputs and improving yields Satellite Monitoring (NDVI): Tracks vegetation health and crop performance OneSoil Map: AI-driven global field and crop analytics platform Best For: Satellite-based crop monitoring 5. Plantix Plantix Headquarters: Berlin, Germany Founded: 2015 Founders: Simone Strey, Rob Strey Category: Agriculture AI & Mobile App Platform",
+          "source_url": "https://www.omdena.com/blog/top-precision-agriculture-companies",
+          "retrieved_at": "2026-09-26T08:11:03.736655+00:00",
+          "origin": "public_page_claim",
+          "dataset_id": null,
+          "row_key": null,
+          "observed_at": null
+        },
+        {
+          "id": "evidence_9fa8493d0dfd",
+          "field": "location",
+          "value": "Headquarters: Santiago, Chile",
+          "quote": "Agriculture software platforms help farmers and agribusinesses monitor crops, analyze field data, manage operations, and make data-driven decisions. These solutions include farm management, crop monitoring, agronomic analytics, and precision agriculture tools. 1. AGRIVI AGRIVI Headquarters: London, England Founded: 2013 Founders: Matija Zulj, Roger Blott Category: Agriculture Software Platform AGRIVI is a precision agriculture software company that provides farm management and agronomic analytics solutions. Its platform enables data-driven decision-making through real-time insights, helping farmers improve productivity and reduce operational costs. Key Solutions AGRIVI 360: End-to-end farm management platform Farm Insights: Crop monitoring and analytics Farm Enterprise: Advanced farm operations management Farm Advisory: Decision-support tools for agronomists AGRIVI IoT: Real-time field data and sensor integration Best For : Farm management 2. Arable Arable Headquarters: San Francisco, California Founded: 2014 Founder(s): Adam Wolf Category: Agriculture Data & Analytics Platform Arable is a precision agriculture technology company that provides real-time field data and agronomic analytics solutions. Its platform combines in-field sensing with data analytics to help farmers and agribusinesses make data-driven decisions, improve efficiency, and enhance sustainability. Key Solutions Arable Mark (Sensor Platform): In-field data collection for weather, soil, and crop conditions Data Analytics & Integration: Converts field data into actionable insights and alerts Agronomic Models: Advanced analytics for crop monitoring and decision support Best For: Real-time field intelligence 3. Instacrops Instacrops Headquarters: Santiago, Chile Founded: 2015",
+          "source_url": "https://www.omdena.com/blog/top-precision-agriculture-companies",
+          "retrieved_at": "2026-09-26T08:11:03.736699+00:00",
+          "origin": "public_page_claim",
+          "dataset_id": null,
+          "row_key": null,
+          "observed_at": null
+        },
+        {
+          "id": "evidence_72248d19dcdc",
+          "field": "funding",
+          "value": "Founded: 2015",
+          "quote": "Founder: Mario Andrés Bustamante Bernucci Category: Agriculture IoT & Analytics Platform Instacrops is a precision agriculture platform that integrates IoT, satellite imagery, and AI to deliver real-time insights and recommendations for farmers. Its solutions help optimize irrigation, monitor crop conditions, and improve decision-making through data-driven agriculture. Key Solutions InstaWeather: Real-time weather monitoring for field conditions InstaSoil: Soil moisture tracking for irrigation optimization InstaFlow: Remote irrigation control and water management InstaFrost: Frost prediction and alert system SkyCrops: Crop diagnostics using drone and satellite imagery Crop Advisor: AI-powered recommendations for farm decisions Best For: Smart irrigation and field monitoring 4. OneSoil OneSoil Headquarters: Zurich, Switzerland Founded: 2017 Founders: Usevalad Henin, Slava Mazai, Sasha Yakovlev Category: Agriculture Data & Analytics Platform OneSoil is a precision agriculture platform that uses satellite imagery and machine learning to help farmers monitor crops, analyze field conditions, and optimize farm productivity. Its tools provide real-time insights that support data-driven decision-making in modern precision agriculture. Key Solutions OneSoil App: Crop monitoring and field analysis using satellite data OneSoil Web Platform: Field insights and farm management tools OneSoil Yield: AI-powered solution for optimizing inputs and improving yields Satellite Monitoring (NDVI): Tracks vegetation health and crop performance OneSoil Map: AI-driven global field and crop analytics platform Best For: Satellite-based crop monitoring 5. Plantix Plantix Headquarters: Berlin, Germany Founded: 2015 Founders: Simone Strey, Rob Strey Category: Agriculture AI & Mobile App Platform",
+          "source_url": "https://www.omdena.com/blog/top-precision-agriculture-companies",
+          "retrieved_at": "2026-09-26T08:11:03.736763+00:00",
+          "origin": "public_page_claim",
+          "dataset_id": null,
+          "row_key": null,
+          "observed_at": null
+        }
+      ],
+      "assessment": {
+        "recommendation": "investigate",
+        "rationale": "Instacrops helps farmers manage irrigation and frost risk via IoT and satellite data, benefiting Latin American growers. Official site unresolved, so identity check is warranted before engagement.",
+        "strengths": [
+          "Multi-module suite covering weather, soil, irrigation and frost alerts",
+          "Regional focus on Latin American agriculture"
+        ],
+        "concerns": [
+          "No confirmed official website observed"
+        ],
+        "missing_information": [
+          "Verified company URL",
+          "Traction or deployment metrics"
+        ],
+        "incubation_actions": [
+          "Confirm official domain and current operating status"
+        ],
+        "evidence_ids": [
+          "evidence_1fb5f27e402d",
+          "evidence_222d95c8c3cf",
+          "evidence_9fa8493d0dfd"
+        ],
+        "model": "claude-pro-sonnet",
+        "assessed_at": "2026-09-26T08:11:03.736810+00:00",
+        "status": "model_proposed"
+      },
+      "provenance": {
+        "pipeline": "public_research_v2",
+        "run_id": "source_run_9d225ce15412",
+        "response_id": "response_2",
+        "candidate_index": 2,
+        "evidence_aliases": {
+          "E1": "evidence_1fb5f27e402d",
+          "E2": "evidence_222d95c8c3cf",
+          "E3": "evidence_9fa8493d0dfd",
+          "E4": "evidence_72248d19dcdc"
+        },
+        "source_correction_response_id": "response_3"
+      },
+      "updated_at": "2026-09-26T08:11:03.736775+00:00"
+    },
+    {
+      "id": "company_ded81dea0885",
+      "tenant_id": "default_tenant",
+      "name": "OneSoil",
+      "website": "",
+      "discovery_source_url": "https://www.omdena.com/blog/top-precision-agriculture-companies",
+      "criteria_review": [],
+      "growth_analysis": {},
+      "identity_status": "website_unresolved",
+      "evidence": [
+        {
+          "id": "evidence_31a5339e1367",
+          "field": "name",
+          "value": "OneSoil",
+          "quote": "Founder: Mario Andrés Bustamante Bernucci Category: Agriculture IoT & Analytics Platform Instacrops is a precision agriculture platform that integrates IoT, satellite imagery, and AI to deliver real-time insights and recommendations for farmers. Its solutions help optimize irrigation, monitor crop conditions, and improve decision-making through data-driven agriculture. Key Solutions InstaWeather: Real-time weather monitoring for field conditions InstaSoil: Soil moisture tracking for irrigation optimization InstaFlow: Remote irrigation control and water management InstaFrost: Frost prediction and alert system SkyCrops: Crop diagnostics using drone and satellite imagery Crop Advisor: AI-powered recommendations for farm decisions Best For: Smart irrigation and field monitoring 4. OneSoil OneSoil Headquarters: Zurich, Switzerland Founded: 2017 Founders: Usevalad Henin, Slava Mazai, Sasha Yakovlev Category: Agriculture Data & Analytics Platform OneSoil is a precision agriculture platform that uses satellite imagery and machine learning to help farmers monitor crops, analyze field conditions, and optimize farm productivity. Its tools provide real-time insights that support data-driven decision-making in modern precision agriculture. Key Solutions OneSoil App: Crop monitoring and field analysis using satellite data OneSoil Web Platform: Field insights and farm management tools OneSoil Yield: AI-powered solution for optimizing inputs and improving yields Satellite Monitoring (NDVI): Tracks vegetation health and crop performance OneSoil Map: AI-driven global field and crop analytics platform Best For: Satellite-based crop monitoring 5. Plantix Plantix Headquarters: Berlin, Germany Founded: 2015 Founders: Simone Strey, Rob Strey Category: Agriculture AI & Mobile App Platform",
+          "source_url": "https://www.omdena.com/blog/top-precision-agriculture-companies",
+          "retrieved_at": "2026-09-26T08:11:03.741419+00:00",
+          "origin": "public_page_claim",
+          "dataset_id": null,
+          "row_key": null,
+          "observed_at": null
+        },
+        {
+          "id": "evidence_84e6b554a25b",
+          "field": "offering",
+          "value": "OneSoil is a precision agriculture platform that uses satellite imagery and machine learning to help farmers monitor crops, analyze field conditions, and optimize farm productivity.",
+          "quote": "Founder: Mario Andrés Bustamante Bernucci Category: Agriculture IoT & Analytics Platform Instacrops is a precision agriculture platform that integrates IoT, satellite imagery, and AI to deliver real-time insights and recommendations for farmers. Its solutions help optimize irrigation, monitor crop conditions, and improve decision-making through data-driven agriculture. Key Solutions InstaWeather: Real-time weather monitoring for field conditions InstaSoil: Soil moisture tracking for irrigation optimization InstaFlow: Remote irrigation control and water management InstaFrost: Frost prediction and alert system SkyCrops: Crop diagnostics using drone and satellite imagery Crop Advisor: AI-powered recommendations for farm decisions Best For: Smart irrigation and field monitoring 4. OneSoil OneSoil Headquarters: Zurich, Switzerland Founded: 2017 Founders: Usevalad Henin, Slava Mazai, Sasha Yakovlev Category: Agriculture Data & Analytics Platform OneSoil is a precision agriculture platform that uses satellite imagery and machine learning to help farmers monitor crops, analyze field conditions, and optimize farm productivity. Its tools provide real-time insights that support data-driven decision-making in modern precision agriculture. Key Solutions OneSoil App: Crop monitoring and field analysis using satellite data OneSoil Web Platform: Field insights and farm management tools OneSoil Yield: AI-powered solution for optimizing inputs and improving yields Satellite Monitoring (NDVI): Tracks vegetation health and crop performance OneSoil Map: AI-driven global field and crop analytics platform Best For: Satellite-based crop monitoring 5. Plantix Plantix Headquarters: Berlin, Germany Founded: 2015 Founders: Simone Strey, Rob Strey Category: Agriculture AI & Mobile App Platform",
+          "source_url": "https://www.omdena.com/blog/top-precision-agriculture-companies",
+          "retrieved_at": "2026-09-26T08:11:03.741502+00:00",
+          "origin": "public_page_claim",
+          "dataset_id": null,
+          "row_key": null,
+          "observed_at": null
+        },
+        {
+          "id": "evidence_82aa24fe6341",
+          "field": "location",
+          "value": "Headquarters: Zurich, Switzerland",
+          "quote": "Founder: Mario Andrés Bustamante Bernucci Category: Agriculture IoT & Analytics Platform Instacrops is a precision agriculture platform that integrates IoT, satellite imagery, and AI to deliver real-time insights and recommendations for farmers. Its solutions help optimize irrigation, monitor crop conditions, and improve decision-making through data-driven agriculture. Key Solutions InstaWeather: Real-time weather monitoring for field conditions InstaSoil: Soil moisture tracking for irrigation optimization InstaFlow: Remote irrigation control and water management InstaFrost: Frost prediction and alert system SkyCrops: Crop diagnostics using drone and satellite imagery Crop Advisor: AI-powered recommendations for farm decisions Best For: Smart irrigation and field monitoring 4. OneSoil OneSoil Headquarters: Zurich, Switzerland Founded: 2017 Founders: Usevalad Henin, Slava Mazai, Sasha Yakovlev Category: Agriculture Data & Analytics Platform OneSoil is a precision agriculture platform that uses satellite imagery and machine learning to help farmers monitor crops, analyze field conditions, and optimize farm productivity. Its tools provide real-time insights that support data-driven decision-making in modern precision agriculture. Key Solutions OneSoil App: Crop monitoring and field analysis using satellite data OneSoil Web Platform: Field insights and farm management tools OneSoil Yield: AI-powered solution for optimizing inputs and improving yields Satellite Monitoring (NDVI): Tracks vegetation health and crop performance OneSoil Map: AI-driven global field and crop analytics platform Best For: Satellite-based crop monitoring 5. Plantix Plantix Headquarters: Berlin, Germany Founded: 2015 Founders: Simone Strey, Rob Strey Category: Agriculture AI & Mobile App Platform",
+          "source_url": "https://www.omdena.com/blog/top-precision-agriculture-companies",
+          "retrieved_at": "2026-09-26T08:11:03.741569+00:00",
+          "origin": "public_page_claim",
+          "dataset_id": null,
+          "row_key": null,
+          "observed_at": null
+        },
+        {
+          "id": "evidence_c118eea86998",
+          "field": "funding",
+          "value": "Founded: 2017",
+          "quote": "Founder: Mario Andrés Bustamante Bernucci Category: Agriculture IoT & Analytics Platform Instacrops is a precision agriculture platform that integrates IoT, satellite imagery, and AI to deliver real-time insights and recommendations for farmers. Its solutions help optimize irrigation, monitor crop conditions, and improve decision-making through data-driven agriculture. Key Solutions InstaWeather: Real-time weather monitoring for field conditions InstaSoil: Soil moisture tracking for irrigation optimization InstaFlow: Remote irrigation control and water management InstaFrost: Frost prediction and alert system SkyCrops: Crop diagnostics using drone and satellite imagery Crop Advisor: AI-powered recommendations for farm decisions Best For: Smart irrigation and field monitoring 4. OneSoil OneSoil Headquarters: Zurich, Switzerland Founded: 2017 Founders: Usevalad Henin, Slava Mazai, Sasha Yakovlev Category: Agriculture Data & Analytics Platform OneSoil is a precision agriculture platform that uses satellite imagery and machine learning to help farmers monitor crops, analyze field conditions, and optimize farm productivity. Its tools provide real-time insights that support data-driven decision-making in modern precision agriculture. Key Solutions OneSoil App: Crop monitoring and field analysis using satellite data OneSoil Web Platform: Field insights and farm management tools OneSoil Yield: AI-powered solution for optimizing inputs and improving yields Satellite Monitoring (NDVI): Tracks vegetation health and crop performance OneSoil Map: AI-driven global field and crop analytics platform Best For: Satellite-based crop monitoring 5. Plantix Plantix Headquarters: Berlin, Germany Founded: 2015 Founders: Simone Strey, Rob Strey Category: Agriculture AI & Mobile App Platform",
+          "source_url": "https://www.omdena.com/blog/top-precision-agriculture-companies",
+          "retrieved_at": "2026-09-26T08:11:03.741632+00:00",
+          "origin": "public_page_claim",
+          "dataset_id": null,
+          "row_key": null,
+          "observed_at": null
+        }
+      ],
+      "assessment": {
+        "recommendation": "investigate",
+        "rationale": "OneSoil offers satellite-based crop monitoring benefiting farmers wanting scalable field insights without ground sensors. Website not confirmed in the observed links, warranting further verification.",
+        "strengths": [
+          "Satellite-based approach enables scale without hardware installs",
+          "Multiple product tiers (App, Web Platform, Yield, Map)"
+        ],
+        "concerns": [
+          "No verified official website in the observed data"
+        ],
+        "missing_information": [
+          "Confirmed company URL",
+          "Current user base or geographic coverage"
+        ],
+        "incubation_actions": [
+          "Verify official web presence and current operating status"
+        ],
+        "evidence_ids": [
+          "evidence_31a5339e1367",
+          "evidence_84e6b554a25b",
+          "evidence_82aa24fe6341"
+        ],
+        "model": "claude-pro-sonnet",
+        "assessed_at": "2026-09-26T08:11:03.741683+00:00",
+        "status": "model_proposed"
+      },
+      "provenance": {
+        "pipeline": "public_research_v2",
+        "run_id": "source_run_9d225ce15412",
+        "response_id": "response_2",
+        "candidate_index": 3,
+        "evidence_aliases": {
+          "E1": "evidence_31a5339e1367",
+          "E2": "evidence_84e6b554a25b",
+          "E3": "evidence_82aa24fe6341",
+          "E4": "evidence_c118eea86998"
+        },
+        "source_correction_response_id": "response_3"
+      },
+      "updated_at": "2026-09-26T08:11:03.741644+00:00"
+    },
+    {
+      "id": "company_3895bd21cbd8",
+      "tenant_id": "default_tenant",
+      "name": "Green Collar Agritech Solutions",
+      "website": "https://greencollar.ai/products/taramiq",
+      "discovery_source_url": "https://www.startus-insights.com/innovators-guide/agriculture-technology-companies/",
+      "criteria_review": [],
+      "growth_analysis": {},
+      "identity_status": "source_supported_unverified",
+      "evidence": [
+        {
+          "id": "evidence_971efddbe2cd",
+          "field": "name",
+          "value": "Green Collar Agritech Solutions",
+          "quote": "Through the Big Data & Artificial Intelligence (AI)-powered StartUs Insights Discovery Platform , covering over 7M+ startups, 20K+ technology trends, plus 150M+ patents, news articles & market reports, we identified 861 agriculture technology startups. The Global Startup Heat Map below highlights the 10 agriculture technology startups you should watch in 2025, as well as the geo-distribution of 861 agriculture technology startups & scaleups we analyzed for this research. According to our data, we observe high startup activity in India and the US, followed by the UK. The top 5 Startup Hubs for Agriculture Technology are Bangalore, London, Singapore, Hyderabad, and Pune. Meet 10 Emerging Agriculture Technology Companies & Startups to Watch in 2025 We hand-picked startups to showcase in this report by filtering for their technology, founding year, location, funding, and other metrics. These agriculture technology startups work on solutions ranging from plant health detection and precision agriculture to crop growth analysis and automation. Green Collar Agritech Solutions – Crop Growth Analytics Abit – Functional Biodiversity Management Software Yevul Info – AI-enhanced Plant Health Detection Addium – Food Safety and Quality Control BioArmix – Pathogenic Bacteria Protection MilkWinner – Clean-in-Place (CIP) Washing System Farmtri – Precision Agriculture Cloner – Cultivation and Automation Platform DRONEQUBE – Robotic Autonomous Station FeatheryCare – AI Farming Assistant 1. Green Collar Agritech Solutions Founding Year : 2022 Location : Bangalore, India Use For : Crop Growth Analytics",
+          "source_url": "https://www.startus-insights.com/innovators-guide/agriculture-technology-companies/",
+          "retrieved_at": "2026-09-26T08:11:03.746052+00:00",
+          "origin": "public_page_claim",
+          "dataset_id": null,
+          "row_key": null,
+          "observed_at": null
+        },
+        {
+          "id": "evidence_a720f611d109",
+          "field": "offering",
+          "value": "Indian startup Green Collar Agritech Solutions creates crop growth analytics utilizing machine learning and AI to increase agricultural production.",
+          "quote": "Indian startup Green Collar Agritech Solutions creates crop growth analytics utilizing machine learning and AI to increase agricultural production. It provides real-time insights about crop health and growth patterns by analyzing large datasets from multiple sources, such as sensor data and satellite photography. The startup’s TARAM is a portable AI-powered device for instant, on-site quality analysis of spices and high-value crops. The TARAM-IQ platform aggregates and analyzes data on quality, quantity, and location to support better decision-making in the agricultural value chain. This way, Green Collar Agritech Solutions provides farmers with useful information that raises the caliber of agricultural products, encourages sustainable farming methods, and boosts food security. 2. Abit Founding Year : 2022 Location : Milan, Italy Use For : Functional Biodiversity Management Software Italian startup Abit offers biodiversity management tools for farmers to preserve the ecological balance of agricultural systems. The startup’s platform utilizes AI to analyze biodiversity data and forecast how different agricultural methods affect the health of ecosystems. It provides information on crop diversity, pest management, and soil health by combining real-time analytics with biodiversity measures. This enables farmers to implement more environmentally friendly methods. The main advantages of this platform include improved decision-making skills, increased crop resistance to pests and diseases, and resource efficiency. 3. Yevul Info Founding Year : 2022 Location : Katzrin, Israel Use For : AI-enhanced Plant Health Detection",
+          "source_url": "https://www.startus-insights.com/innovators-guide/agriculture-technology-companies/",
+          "retrieved_at": "2026-09-26T08:11:03.746119+00:00",
+          "origin": "public_page_claim",
+          "dataset_id": null,
+          "row_key": null,
+          "observed_at": null
+        },
+        {
+          "id": "evidence_30061d187e49",
+          "field": "location",
+          "value": "Location : Bangalore, India",
+          "quote": "Through the Big Data & Artificial Intelligence (AI)-powered StartUs Insights Discovery Platform , covering over 7M+ startups, 20K+ technology trends, plus 150M+ patents, news articles & market reports, we identified 861 agriculture technology startups. The Global Startup Heat Map below highlights the 10 agriculture technology startups you should watch in 2025, as well as the geo-distribution of 861 agriculture technology startups & scaleups we analyzed for this research. According to our data, we observe high startup activity in India and the US, followed by the UK. The top 5 Startup Hubs for Agriculture Technology are Bangalore, London, Singapore, Hyderabad, and Pune. Meet 10 Emerging Agriculture Technology Companies & Startups to Watch in 2025 We hand-picked startups to showcase in this report by filtering for their technology, founding year, location, funding, and other metrics. These agriculture technology startups work on solutions ranging from plant health detection and precision agriculture to crop growth analysis and automation. Green Collar Agritech Solutions – Crop Growth Analytics Abit – Functional Biodiversity Management Software Yevul Info – AI-enhanced Plant Health Detection Addium – Food Safety and Quality Control BioArmix – Pathogenic Bacteria Protection MilkWinner – Clean-in-Place (CIP) Washing System Farmtri – Precision Agriculture Cloner – Cultivation and Automation Platform DRONEQUBE – Robotic Autonomous Station FeatheryCare – AI Farming Assistant 1. Green Collar Agritech Solutions Founding Year : 2022 Location : Bangalore, India Use For : Crop Growth Analytics",
+          "source_url": "https://www.startus-insights.com/innovators-guide/agriculture-technology-companies/",
+          "retrieved_at": "2026-09-26T08:11:03.746170+00:00",
+          "origin": "public_page_claim",
+          "dataset_id": null,
+          "row_key": null,
+          "observed_at": null
+        },
+        {
+          "id": "evidence_f35e926af560",
+          "field": "funding",
+          "value": "Founding Year : 2022",
+          "quote": "Through the Big Data & Artificial Intelligence (AI)-powered StartUs Insights Discovery Platform , covering over 7M+ startups, 20K+ technology trends, plus 150M+ patents, news articles & market reports, we identified 861 agriculture technology startups. The Global Startup Heat Map below highlights the 10 agriculture technology startups you should watch in 2025, as well as the geo-distribution of 861 agriculture technology startups & scaleups we analyzed for this research. According to our data, we observe high startup activity in India and the US, followed by the UK. The top 5 Startup Hubs for Agriculture Technology are Bangalore, London, Singapore, Hyderabad, and Pune. Meet 10 Emerging Agriculture Technology Companies & Startups to Watch in 2025 We hand-picked startups to showcase in this report by filtering for their technology, founding year, location, funding, and other metrics. These agriculture technology startups work on solutions ranging from plant health detection and precision agriculture to crop growth analysis and automation. Green Collar Agritech Solutions – Crop Growth Analytics Abit – Functional Biodiversity Management Software Yevul Info – AI-enhanced Plant Health Detection Addium – Food Safety and Quality Control BioArmix – Pathogenic Bacteria Protection MilkWinner – Clean-in-Place (CIP) Washing System Farmtri – Precision Agriculture Cloner – Cultivation and Automation Platform DRONEQUBE – Robotic Autonomous Station FeatheryCare – AI Farming Assistant 1. Green Collar Agritech Solutions Founding Year : 2022 Location : Bangalore, India Use For : Crop Growth Analytics",
+          "source_url": "https://www.startus-insights.com/innovators-guide/agriculture-technology-companies/",
+          "retrieved_at": "2026-09-26T08:11:03.746216+00:00",
+          "origin": "public_page_claim",
+          "dataset_id": null,
+          "row_key": null,
+          "observed_at": null
+        }
+      ],
+      "assessment": {
+        "recommendation": "invite_to_discussion",
+        "rationale": "Green Collar helps farmers analyze crop health and spice quality via its TARAM device and TARAM-IQ platform, aiding sustainable practices and food security. A live product link supports credibility.",
+        "strengths": [
+          "Portable AI device (TARAM) for on-site quality analysis of high-value crops",
+          "Confirmed product webpage observed in links"
+        ],
+        "concerns": [
+          "Very early-stage, founded 2022, with no traction figures given"
+        ],
+        "missing_information": [
+          "Customer adoption or pilot results",
+          "Revenue or funding status"
+        ],
+        "incubation_actions": [
+          "Request a demo of TARAM-IQ to assess real-world data quality"
+        ],
+        "evidence_ids": [
+          "evidence_971efddbe2cd",
+          "evidence_a720f611d109",
+          "evidence_30061d187e49"
+        ],
+        "model": "claude-pro-sonnet",
+        "assessed_at": "2026-09-26T08:11:03.746268+00:00",
+        "status": "model_proposed"
+      },
+      "provenance": {
+        "pipeline": "public_research_v2",
+        "run_id": "source_run_9d225ce15412",
+        "response_id": "response_2",
+        "candidate_index": 4,
+        "evidence_aliases": {
+          "E1": "evidence_971efddbe2cd",
+          "E2": "evidence_a720f611d109",
+          "E3": "evidence_30061d187e49",
+          "E4": "evidence_f35e926af560"
+        },
+        "source_correction_response_id": "response_3"
+      },
+      "updated_at": "2026-09-26T08:11:03.746226+00:00"
+    }
+  ],
+  "lead_ids": [
+    "lead_776f1e84a658",
+    "lead_41c663530e00",
+    "lead_ab11fc5e1671",
+    "lead_cc71357ac565"
+  ],
+  "source_outcomes": null,
+  "source_coverage": null,
+  "warnings": [
+    "A model candidate failed literal source binding and was excluded.",
+    "Several companies lack a confirmed official website beyond directory/LinkedIn links",
+    "No financial, funding, or customer-traction data was available for most entries",
+    "Facts limited to single-page directory descriptions; no cross-verification across independent sources",
+    "Established 4 of up to 5 requested candidates; no extra companies were invented."
+  ],
+  "generation_config": {
+    "continuation_of": "source_run_e9bc7930c9a7",
+    "exclude_names": [
+      "CropX",
+      "Cropin",
+      "Trace AgTech",
+      "AGCO Corporation"
+    ],
+    "mode": "public_research_v2",
+    "model": "claude-pro-sonnet",
+    "contract": "0191f1c52aa7d2df47fee79ddb0f540f3d46a45f313c16817df3fda701a176ad",
+    "budget": {
+      "max_seconds": 120.0,
+      "max_calls": 4,
+      "max_requests": 6,
+      "calls": 3,
+      "requests": 5,
+      "elapsed_seconds": 67.401
+    }
+  }
+}

@@ -24,13 +24,13 @@ class PreparationBudget:
     def remaining(self):
         remaining = self.max_seconds - (time.monotonic() - self.started)
         if remaining <= 0:
-            raise PreparationBudgetExceeded('Preparation reached its time limit. Validated sections are saved; unresolved work needs an explicit resume.')
+            raise PreparationBudgetExceeded('This preparation pass reached its time limit. Saved work is retained.')
         return remaining
 
     def start_call(self):
         self.remaining()
         if self.calls >= self.max_calls:
-            raise PreparationBudgetExceeded('Preparation reached its model-call limit. Saved work is retained; no automatic restart was scheduled.')
+            raise PreparationBudgetExceeded('This preparation pass reached its model-call limit. Saved work is retained.')
         self.calls += 1
 
     def start_request(self):

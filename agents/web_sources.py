@@ -23,9 +23,10 @@ MAX_BYTES = 3_000_000
 
 
 class SourceError(Exception):
-    def __init__(self, status: str, message: str):
+    def __init__(self, status: str, message: str, *, retryable: bool = False):
         super().__init__(message)
         self.status = status
+        self.retryable = retryable
 
 
 def normalize_url(url: str) -> str:
@@ -236,7 +237,9 @@ class PublicWebFetcher:
                 chunks.append(chunk)
             return response.status, dict(response.headers), b"".join(chunks)
         except (urllib3.exceptions.HTTPError, OSError) as exc:
-            raise SourceError("failed", "Source connection failed or timed out.") from exc
+            raise SourceError("failed", "Source connection failed or timed out.",
+                              retryable=isinstance(exc, (urllib3.exceptions.TimeoutError,
+                                                        urllib3.exceptions.ProtocolError))) from exc
         finally:
             if response:
                 response.close()

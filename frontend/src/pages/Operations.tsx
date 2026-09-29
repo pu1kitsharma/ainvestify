@@ -2,17 +2,21 @@ import {Link,Navigate,useSearchParams} from 'react-router-dom';
 import {useQuery} from '@tanstack/react-query';
 import {api} from '../api/client';
 import {preparationRefresh} from '../api/preparationRefresh';
-import {useLeads} from '../api/hooks';
+import type {SourcedLead} from '../api/types';
 import PreparationWorkspace from '../components/PreparationWorkspace';
 import type {AnalystWorkspace} from '../components/PreparationWorkspace';
 import OperationsRecords from './OperationsRecords';
 export default function Operations(){
- const [params]=useSearchParams();const leads=useLeads();
+ const [params]=useSearchParams();
+ return params.get('view')==='records'?<OperationsRecords/>:<CompanyPreparation/>;
+}
+function CompanyPreparation(){
+ const [params]=useSearchParams();const id=params.get('lead');
+ const leadQuery=useQuery({queryKey:['leads',id],queryFn:()=>api.get<SourcedLead>(`/api/leads/${encodeURIComponent(id!)}`),enabled:!!id});
  const workspaces=useQuery({queryKey:['operations','summary',params.get('lead')],queryFn:()=>api.get<AnalystWorkspace[]>(`/api/operations/workspaces?summary=true&lead_id=${encodeURIComponent(params.get('lead')||'')}`),...preparationRefresh});
- if(params.get('view')==='records')return <OperationsRecords/>;
- if(leads.isLoading||workspaces.isLoading)return <p role="status">Loading company work…</p>;
- if(leads.error||workspaces.error)return <p role="alert">{leads.error?.message||workspaces.error?.message}</p>;
- const id=params.get('lead');if(!id)return <Navigate to="/" replace/>;
- const lead=leads.data?.find(l=>l.id===id&&l.company_profile&&l.status!=='dismissed');
+ if(leadQuery.isLoading||workspaces.isLoading)return <p role="status">Loading company work…</p>;
+ if(leadQuery.error||workspaces.error)return <p role="alert">{leadQuery.error?.message||workspaces.error?.message}</p>;
+ if(!id)return <Navigate to="/" replace/>;
+ const lead=leadQuery.data?.company_profile&&leadQuery.data.status!=='dismissed'?leadQuery.data:undefined;
  return lead?<PreparationWorkspace key={id} lead={lead} workspace={workspaces.data?.find(w=>w.lead_id===id)}/>:<p>Company unavailable. <Link to="/">Your companies</Link></p>;
 }

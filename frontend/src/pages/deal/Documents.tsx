@@ -36,7 +36,12 @@ export default function Documents() {
   const [citationBlockId, setCitationBlockId] = useState<string | null>(null);
 
   if (documents.isLoading) return <p className="text-sm text-slate-500">Loading…</p>;
-  if (documents.isError) return <p className="text-sm text-rose-600">{documents.error.message}</p>;
+  if (documents.isError) return <section role="alert" className="rounded-xl border border-slate-200 bg-white p-6">
+    <h1 className="text-xl font-semibold">Investor materials could not be loaded</h1>
+    <p className="mt-3 text-sm text-slate-600">Try loading the saved documents again.</p>
+    <button onClick={() => documents.refetch()} disabled={documents.isFetching} className="mt-4 rounded-lg bg-indigo-600 px-4 py-2 text-sm text-white disabled:opacity-50">{documents.isFetching ? "Loading…" : "Retry loading"}</button>
+    <details className="mt-4 text-xs text-slate-500"><summary className="cursor-pointer">Error details</summary><p className="mt-2">{documents.error.message}</p></details>
+  </section>;
 
   function latestOf(type: DocumentType): MemoVersion | undefined {
     return documents.data
@@ -61,7 +66,7 @@ export default function Documents() {
         ))}
       </nav>
 
-      {!latestOf(activeTab) && !review.data?.ready_for_compilation ? <section className="rounded-xl border border-slate-200 bg-white p-6"><h2 className="font-semibold">{activeTab==='cim'?'Build the investment argument first':activeTab==='teaser'?'Establish a supported introduction first':'Establish the financial baseline first'}</h2><p className="mt-3 text-sm leading-6 text-slate-600">{activeTab==='cim'?'The memorandum should explain the company, market, traction, economics, risks and funding purpose. The AI preparation workspace drafts the argument and identifies missing records.':activeTab==='teaser'?'The introduction summarizes the opportunity without identifying the company. Its claims and financial highlights need supported source records.':'Scenarios need dated financial inputs and explicit assumptions. Compiling an empty model cannot establish runway, financing needs or a valuation.'}</p><div className="mt-5 flex flex-wrap gap-4">{company && <Link className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white" to={`/operations?lead=${company.id}&tab=readiness`}>Prepare the investment case</Link>}<Link className="text-sm font-semibold text-indigo-600" to={`/deals/${dealId}/review`}>Add or check supporting figures →</Link></div>{review.error && <p role="alert" className="mt-3 text-sm text-rose-700">{review.error.message}</p>}</section> : <>
+      {!latestOf(activeTab) && !review.data?.ready_for_compilation ? <section className="rounded-xl border border-slate-200 bg-white p-6"><h2 className="font-semibold">{activeTab==='cim'?'No investment memorandum compiled yet':activeTab==='teaser'?'No anonymous introduction compiled yet':'No financial scenarios compiled yet'}</h2><p className="mt-3 text-sm leading-6 text-slate-600">{activeTab==='cim'?'Company research and proposals are managed in the company workspace. This formal memorandum also needs reviewed supporting figures before it can be compiled.':activeTab==='teaser'?'The introduction summarizes the opportunity without identifying the company. Its claims and financial highlights need supported source records.':'Scenarios need dated financial inputs and explicit assumptions. Compiling an empty model cannot establish runway, financing needs or a valuation.'}</p><div className="mt-5 flex flex-wrap gap-4">{company && <Link className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white" to={`/operations?lead=${company.id}&tab=readiness`}>Open saved company work</Link>}<Link className="text-sm font-semibold text-indigo-600" to={`/deals/${dealId}/review`}>Add or check supporting figures →</Link></div>{review.error && <p role="alert" className="mt-3 text-sm text-rose-700">{review.error.message}</p>}</section> : <>
       {activeTab === "cim" && <CimView dealId={dealId} memo={latestOf("cim")} onCite={setCitationBlockId} />}
       {activeTab === "teaser" && <TeaserView dealId={dealId} memo={latestOf("teaser")} />}
       {activeTab === "proforma" && <ProformaView dealId={dealId} memo={latestOf("proforma")} />}
@@ -281,6 +286,7 @@ function TeaserView({ dealId, memo }: { dealId: string; memo: MemoVersion | unde
         )}
       </div>
 
+      {confirm.error && <p role="alert" className="text-sm text-rose-700">{confirm.error.message}</p>}
       <p className="rounded-lg border border-slate-200 bg-white p-4 text-sm text-slate-800 shadow-sm">
         {data.business_description}
       </p>

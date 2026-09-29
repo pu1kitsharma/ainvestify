@@ -122,6 +122,7 @@ class OperatingWorkspace(BaseModel):
     thesis: str = ""
     revision: int = 0
     basis_hash: str = ""
+    public_evidence_hash: str = ""
     evaluated_at: str = Field(default_factory=utcnow)
     controls: list[ControlCheck] = Field(default_factory=list)
     work_items: list[WorkItem] = Field(default_factory=list)
@@ -135,6 +136,8 @@ class OperatingWorkspace(BaseModel):
     analysis_review: dict = Field(default_factory=dict)
     preparation: dict = Field(default_factory=dict)
     investment_case: dict = Field(default_factory=dict)
+    company_analysis: dict = Field(default_factory=dict)
+    company_analysis_history: list[dict] = Field(default_factory=list)
     analyst_pack: dict = Field(default_factory=dict)
     analyst_pack_history: list[dict] = Field(default_factory=list)
     investment_case_history: list[dict] = Field(default_factory=list)

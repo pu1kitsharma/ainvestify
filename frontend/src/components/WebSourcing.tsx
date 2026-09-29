@@ -1,13 +1,14 @@
 import { useState } from "react";
 
-export default function WebSourcing({ initialThesis = "", initialGeography = "", busy, starting, stopping, onSearch, onCancel, error }: {
-  initialThesis?: string; initialGeography?: string; busy: boolean; starting: boolean; stopping: boolean;
-  onSearch: (brief: string, geography: string) => void; onCancel: () => void; error?: string;
+export default function WebSourcing({ initialThesis = "", initialGeography = "", initialTarget = 20, busy, starting, stopping, onSearch, onCancel, error }: {
+  initialThesis?: string; initialGeography?: string; initialTarget?: number; busy: boolean; starting: boolean; stopping: boolean;
+  onSearch: (brief: string, geography: string, target: number) => void; onCancel: () => void; error?: string;
 }) {
   const [thesis, setThesis] = useState(initialThesis);
   const [geography, setGeography] = useState(initialGeography);
+  const [target, setTarget] = useState(initialTarget);
   return <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-    <form onSubmit={e => { e.preventDefault(); onSearch(thesis.trim(), geography.trim()); }}>
+    <form onSubmit={e => { e.preventDefault(); onSearch(thesis.trim(), geography.trim(), target); }}>
       <label htmlFor="company-brief" className="block text-sm font-semibold text-slate-800">What companies are you looking for?</label>
       <textarea id="company-brief" value={thesis} onChange={e => setThesis(e.target.value)} rows={2} maxLength={2000}
         placeholder="Describe the sector, stage or problem they solve…" required
@@ -16,6 +17,9 @@ export default function WebSourcing({ initialThesis = "", initialGeography = "",
         <label htmlFor="company-geography" className="block text-xs font-medium text-slate-500">Geography
           <input id="company-geography" value={geography} onChange={e => setGeography(e.target.value)} maxLength={120} placeholder="Worldwide"
             className="mt-1 block w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-800 outline-none focus:border-indigo-500 sm:w-56" />
+        </label>
+        <label htmlFor="company-target" className="block text-xs font-medium text-slate-500">Company target
+          <input id="company-target" type="number" min={1} max={50} required value={target} onChange={e=>setTarget(Number(e.target.value))} className="mt-1 block w-24 rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-800"/>
         </label>
         <div className="flex items-center gap-3">
           {busy && <button type="button" disabled={stopping} onClick={onCancel} className="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 disabled:opacity-50">{stopping ? "Stopping…" : "Stop search"}</button>}
@@ -26,7 +30,7 @@ export default function WebSourcing({ initialThesis = "", initialGeography = "",
           </button>
         </div>
       </div>
-      <p className="mt-3 text-xs text-slate-500">AI searches public sources and assesses the results. Preparation starts automatically for the first company found.</p>
+      <p className="mt-3 text-xs text-slate-500">AI searches public sources and assesses the results. A new search prepares the first company; results appear as batches finish. The target is not a guaranteed count.</p>
       {error && <p role="alert" className="mt-3 text-sm text-rose-700">{error}</p>}
     </form>
   </section>;

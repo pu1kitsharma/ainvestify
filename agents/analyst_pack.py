@@ -262,7 +262,7 @@ def navigation_heavy(text):
 
 def raw_sources(lead):
     seen=set();rows=[];counts={}
-    current_urls={e.source_url for e in lead.company_profile.evidence if (e.row_key or '').startswith('preparation_context_v3:')}
+    current_urls={e.source_url for e in lead.company_profile.evidence if (e.row_key or '').startswith(('preparation_context_v3:', 'preparation_context_v4:'))}
     evidence=sorted(lead.company_profile.evidence,key=lambda e:(e.source_url not in current_urls or e.origin!='preparation_public_page',e.field not in {'offering','business_model','product'}))
     for e in evidence:
         # Old flattened extracts remain in the profile/history. A current
@@ -277,7 +277,7 @@ def raw_sources(lead):
         if len(quote)>4000:continue
         rows.append({'id':e.id,'quote':quote,'source_url':e.source_url,
                      'retrieved_at':e.retrieved_at,'observed_at':e.observed_at,'origin':e.origin,
-                     'context_format':'whole_html_blocks_v3' if (e.row_key or '').startswith('preparation_context_v3:') else None})
+                     'context_format':'whole_html_blocks_v3' if (e.row_key or '').startswith(('preparation_context_v3:', 'preparation_context_v4:')) else None})
     # Give every freshly captured page room before catalogue/code examples
     # consume the shared context. Retain opening terms and closing disclosures
     # first; remaining complete contexts follow. Original evidence is untouched.
@@ -344,11 +344,22 @@ def requested_scope_text(text):
 
 
 def without_list_labels(text):
-    """Consecutive parenthesized list labels are structure, not reported metrics."""
-    marker=re.compile(r'(^|[;:\n])\s*\((\d{1,2})\)\s+',re.M)
-    labels=[int(m[2]) for m in marker.finditer(text)]
-    if len(labels)>=2 and labels==list(range(1,len(labels)+1)):
-        return marker.sub(lambda m:m[1]+' ',text)
+    """Ignore consecutive step labels for checking, never edit displayed prose."""
+    # Inline enumerations can introduce the second item with a comma and
+    # conjunction. Require an explicit work-list introduction, so parenthetical
+    # monetary amounts cannot disappear from the numeric evidence check.
+    if re.search(r'\b(?:two|following)\s+(?:workstreams|steps|actions|tasks|checks|questions|parts|deliverables)\s*:', text, re.I):
+        inline = re.compile(r'([:;,]|\band|\bor)\s*\((\d{1,2})\)\s+(?=[A-Za-z])')
+        matches = list(inline.finditer(text))
+        if len(matches) >= 2 and [int(m[2]) for m in matches] == list(range(1,len(matches)+1)):
+            text = inline.sub(lambda m: m[1]+' ', text)
+    for pattern, group in ((r'(^|[;:\n])\s*\((\d{1,2})\)\s+', 2),
+                           (r'\bStep\s+(\d{1,2})\s*:\s*', 1),
+                           (r'(^|[.!?;:\n])\s*(\d{1,2})[.)]\s+(?=[A-Z])', 2)):
+        marker = re.compile(pattern, re.M)
+        labels = [int(m[group]) for m in marker.finditer(text)]
+        if len(labels)>=2 and labels==list(range(1,len(labels)+1)):
+            text = marker.sub(lambda m: (m[1] if group == 2 else '')+' ', text)
     return text
 
 
@@ -1043,12 +1054,15 @@ def preparation_contexts(page):
     return list(dict.fromkeys(groups[i] for i in indices)),len(groups),omitted
 
 
-def collect_preparation_evidence(store, lead, fetcher=None, force=False):
+def collect_preparation_evidence(store, lead, fetcher=None, force=False, model=None):
     """Read the known website and observed pricing link before asking for pricing.
 
     Retrieval is code; the subsequent passage classifier owns semantic selection.
     No generated URLs, company-specific adapters, external logins or paid access.
     """
+    if model is not None and getattr(model, 'public_only', False):
+        from agents.public_research import collect_company_research
+        return collect_company_research(store, lead, force=force, model=model, fetcher=fetcher)
     from urllib.parse import urlsplit
     from agents.web_sources import PublicWebFetcher, SourceError
     from schemas import CompanyEvidence

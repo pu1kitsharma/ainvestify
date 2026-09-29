@@ -17,7 +17,7 @@ from fastapi.testclient import TestClient
 import api.deps as deps
 from agents.planner_agent import start_deal
 from api.main import app
-from schemas import FieldStatus
+from schemas import CompanyProfile, FieldStatus, MemoVersion, SourcedLead
 from store import Store
 
 MEMO_OUTPUT_ROOT = Path(__file__).parent.parent / "memo_output"
@@ -195,3 +195,43 @@ def test_get_latest_document_404_when_none_exists(tmp_path):
     client = _client_for(db_path)
     r = client.get(f"/api/deals/{deal.id}/documents/latest", params={"document_type": "teaser"})
     assert r.status_code == 404
+
+
+def test_authored_workspace_documents_without_legacy_release_step(tmp_path):
+    """New workspaces support reading documents, but cannot inherit release approval."""
+    from agents.operating_workflow import reconcile_workspace
+
+    db_path = tmp_path / "test.db"
+    with Store(db_path) as store:
+        deal = start_deal(store, TENANT, "Example company")
+        profile = CompanyProfile(tenant_id=TENANT, name=deal.name, website="https://company.example/",
+                                 provenance={"pipeline": "model_authored_v1"})
+        lead = SourcedLead(tenant_id=TENANT, company_name=deal.name,
+                          company_profile=profile, promoted_deal_id=deal.id)
+        store.save_lead(lead)
+        workspace = reconcile_workspace(store, lead)
+        assert workspace.work_items == []
+
+    client = _client_for(db_path)
+    try:
+        url = f"/api/deals/{deal.id}/documents"
+        empty = client.get(url)
+        assert empty.status_code == 200
+        assert empty.json() == []
+        with Store(db_path) as store:
+            memo = MemoVersion(tenant_id=TENANT, deal_id=deal.id, version_number=1,
+                               content_uri="unused.md", document_type="teaser",
+                               approved_by="historical reviewer", approval_basis_hash=workspace.basis_hash)
+            store.save_memo_version(memo)
+        for response in (client.get(url), client.get(url + "/latest?document_type=teaser")):
+            assert response.status_code == 200
+            body = response.json()
+            assert (body[0] if isinstance(body, list) else body)["approved_by"] is None
+        confirmation = client.post(f"/api/deals/{deal.id}/compile/teaser/{memo.id}/confirm",
+                                   json={"confirmed": True})
+        assert confirmation.status_code == 409
+        assert "release checks" in confirmation.json()["detail"]
+        with Store(db_path) as store:
+            assert store.get_memo_version(TENANT, memo.id).approved_by == "historical reviewer"
+    finally:
+        app.dependency_overrides.clear()

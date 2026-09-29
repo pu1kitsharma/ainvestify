@@ -511,10 +511,11 @@ def confirm_teaser_safe_to_send(store: Store, deal: Deal, memo_id: str, reviewer
             from agents.operating_workflow import reconcile_workspace
 
             workspace = reconcile_workspace(store, lead, persist=False)
-            release = next(item for item in workspace.work_items if item.id == "release")
-            if release.status != "completed":
+            release = next((item for item in workspace.work_items if item.id == "release"), None)
+            if release is None or release.status != "completed":
                 raise CompilationBlockedError(
-                    "Company operating-workflow release checks are incomplete: " + release.reason
+                    "Company operating-workflow release checks are incomplete: "
+                    + (release.reason if release else "Release approval is not available for this workspace. Saved drafts remain available for internal review.")
                 )
             memo.approval_basis_hash = workspace.basis_hash
     else:

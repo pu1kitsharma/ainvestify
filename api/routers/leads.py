@@ -16,6 +16,7 @@ from schemas import Deal, SourcedLead, WebSourcingRun, utcnow
 from agents.authored_discovery import source_companies
 from agents.local_models import LocalModel
 from store import Store
+from agents.company_identity import unique_leads, unique_run
 
 router = APIRouter(prefix="/api/leads", tags=["leads"])
 
@@ -67,6 +68,13 @@ def start_web_run(body: WebSourceRequest, background: BackgroundTasks,
     try:
         run = WebSourcingRun(tenant_id=tenant_id, thesis=body.thesis, geography=body.geography,
                             seed_urls=body.seed_urls, model=LocalModel().name, worker_id=_worker_id)
+        if body.continuation_of:
+            previous=store.get_web_run(tenant_id,body.continuation_of)
+            if not previous: raise HTTPException(404,'Previous discovery batch not found')
+            if previous.thesis!=body.thesis or previous.geography!=body.geography:
+                raise HTTPException(422,'Continue the same search brief and geography, or start a new search.')
+            excluded=list(dict.fromkeys([*previous.generation_config.get('exclude_names',[]),*[p.name for p in previous.company_profiles]]))
+            run.generation_config={'continuation_of':previous.id,'exclude_names':excluded[-100:]}
         store.save_web_run(run)
         background.add_task(_run_web_job, store.db_path, run, body)
         return run
@@ -86,7 +94,7 @@ def _recover_run(store, run):
 
 @router.get("/web-runs", response_model=list[WebSourcingRun], response_model_exclude={"__all__": {"company_profiles"}})
 def list_web_runs(store: Store = Depends(get_store), tenant_id: str = Depends(get_tenant_id)):
-    return [_recover_run(store, run) for run in store.list_web_runs(tenant_id)]
+    return [unique_run(_recover_run(store, run)) for run in store.list_web_runs(tenant_id)]
 
 
 @router.get("/web-runs/{run_id}", response_model=WebSourcingRun)
@@ -94,7 +102,7 @@ def get_web_run(run_id: str, store: Store = Depends(get_store), tenant_id: str =
     run = store.get_web_run(tenant_id, run_id)
     if run is None:
         raise HTTPException(status_code=404, detail="Research run not found")
-    return _recover_run(store, run)
+    return unique_run(_recover_run(store, run))
 
 
 @router.post("/web-runs/{run_id}/cancel", response_model=WebSourcingRun)
@@ -110,20 +118,26 @@ def cancel_web_run(run_id: str, store: Store = Depends(get_store), tenant_id: st
 
 
 @router.get("/web-runs/{run_id}/leads", response_model=list[SourcedLead])
-def web_run_leads(run_id: str, store: Store = Depends(get_store), tenant_id: str = Depends(get_tenant_id)):
+def web_run_leads(run_id: str, store: Store = Depends(get_store), tenant_id: str = Depends(get_tenant_id), include_previous: bool = False):
     run = store.get_web_run(tenant_id, run_id)
     if run is None:
         raise HTTPException(404, "Research run not found")
-    snapshots = {profile.id: profile for profile in run.company_profiles}
-    result = []
-    for lead_id in run.lead_ids:
-        lead = store.get_lead(tenant_id, lead_id)
-        if lead:
-            profile = snapshots.get(lead.company_id)
-            if profile:
-                lead = lead.model_copy(update={"company_profile": profile, "company_name": profile.name})
-            result.append(lead)
-    return result
+    result = [];visited=set();seen_leads=set();batch=run
+    while batch and batch.id not in visited:
+        visited.add(batch.id)
+        snapshots = {profile.id: profile for profile in batch.company_profiles}
+        for lead_id in batch.lead_ids:
+            if lead_id in seen_leads:continue
+            lead = store.get_lead(tenant_id, lead_id)
+            if lead:
+                profile = snapshots.get(lead.company_id)
+                if profile:
+                    lead = lead.model_copy(update={"company_profile": profile, "company_name": profile.name})
+                result.append(lead);seen_leads.add(lead_id)
+        previous=batch.generation_config.get('continuation_of') if include_previous else None
+        batch=store.get_web_run(tenant_id,previous) if previous else None
+        if batch and (batch.thesis!=run.thesis or batch.geography!=run.geography):break
+    return unique_leads(result)
 
 
 @router.post("/source", response_model=list[SourcedLead])
@@ -155,7 +169,7 @@ def list_leads(
     store: Store = Depends(get_store),
     tenant_id: str = Depends(get_tenant_id),
 ):
-    return store.list_leads(tenant_id, status=status, web_run_only=web_run_only)
+    return unique_leads(store.list_leads(tenant_id, status=status, web_run_only=web_run_only))
 
 
 @router.get("/{lead_id}", response_model=SourcedLead)

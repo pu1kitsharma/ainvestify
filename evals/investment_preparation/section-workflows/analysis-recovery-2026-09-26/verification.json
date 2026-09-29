@@ -1,0 +1,65 @@
+[
+  {
+    "lead_id": "lead_776f1e84a658",
+    "workspace_id": "workspace_33438c5c87d0",
+    "status": "needs_attention",
+    "published": false,
+    "metrics": 0,
+    "outlooks": 0,
+    "requests": [
+      {
+        "path": "/analysis-report",
+        "status": 200,
+        "characters": 308
+      },
+      {
+        "path": "/preparation-pack?document=founder",
+        "status": 200,
+        "characters": 6435
+      }
+    ],
+    "read_and_export_seconds": 0.372,
+    "scaled_metric": []
+  },
+  {
+    "lead_id": "lead_5d58877abb93",
+    "workspace_id": "workspace_9558c2ea5574",
+    "status": "waiting_for_input",
+    "published": true,
+    "metrics": 7,
+    "outlooks": 3,
+    "requests": [
+      {
+        "path": "/analysis-report",
+        "status": 200,
+        "characters": 9346
+      },
+      {
+        "path": "/preparation-pack?document=founder",
+        "status": 200,
+        "characters": 15589
+      }
+    ],
+    "read_and_export_seconds": 0.529
+  },
+  {
+    "lead_id": "lead_3f0aee42d7ad",
+    "workspace_id": "workspace_d96892c5c206",
+    "status": "needs_attention",
+    "published": false,
+    "metrics": 0,
+    "outlooks": 0,
+    "requests": [
+      {
+        "path": "/analysis-report",
+        "status": 200,
+        "characters": 830
+      },
+      {
+        "path": "/preparation-pack?document=founder",
+        "status": 409
+      }
+    ],
+    "read_and_export_seconds": 0.327
+  }
+]

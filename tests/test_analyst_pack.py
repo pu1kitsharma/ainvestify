@@ -261,7 +261,7 @@ def test_stop_during_work_is_not_overwritten_as_failure(tmp_path,monkeypatch):
  import agents.analyst_pack as pipeline
  with Store(tmp_path/'db') as s:
   lead=company(s);queued=api.start_analyst_preparation(lead.id,BackgroundTasks(),s,'one')
-  monkeypatch.setattr(api,'LocalModel',lambda:Model())
+  monkeypatch.setattr(api,'make_preparation_model',lambda *args,**kwargs:Model())
   monkeypatch.setattr(pipeline,'collect_preparation_evidence',lambda store,lead,**kw:lead)
   def cancelled(store,lead,model):
    api.stop_preparation(queued['id'],queued['automation']['id'],store,'one')
@@ -314,6 +314,18 @@ def test_preparation_reads_observed_pricing_without_user_urls(tmp_path):
   assert any(e.source_url.endswith('/pricing') and e.origin=='preparation_public_page' for e in l.company_profile.evidence)
   collect_preparation_evidence(s,l,fetcher)
   assert len(fetcher.urls)==2
+
+
+def test_inline_workstream_labels_are_not_company_figures():
+ from agents.analyst_pack import without_list_labels, comparable_numbers
+ prose='We propose two workstreams: (1) examining adoption, and (2) checking delivery, using the reported 40 customers.'
+ checked=without_list_labels(prose)
+ assert comparable_numbers(checked)=={'40'}
+ assert '(1)' in prose and '(2)' in prose
+ amounts='The source reports two charges: (1) USD per month, and (2) USD per transaction.'
+ assert comparable_numbers(without_list_labels(amounts))=={'1','2'}
+ rates='We propose two checks: (1) testing a 15% rate, and (2) checking a 20% margin.'
+ assert comparable_numbers(without_list_labels(rates))=={'15%','20%'}
 
 
 def test_calculated_figures_are_cited_from_code_not_invented_by_writer(tmp_path):
@@ -551,7 +563,9 @@ def test_format_repair_does_not_consume_content_revision_budget(tmp_path):
 
 
 @pytest.mark.parametrize('override',[None,'auto','qwen3:8b'])
-def test_resume_retains_profile_unless_explicitly_changed(tmp_path,override):
+def test_local_resume_retains_profile_unless_explicitly_changed(tmp_path,override,monkeypatch):
+ monkeypatch.setenv('PREPARATION_PROVIDER','local')
+ monkeypatch.setenv('PREPARATION_MODEL','qwen3:14b')
  from fastapi import BackgroundTasks
  from api.routers.operations import start_analyst_preparation
  with Store(tmp_path/'db') as s:

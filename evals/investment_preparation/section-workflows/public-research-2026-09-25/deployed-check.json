@@ -1,0 +1,34 @@
+[
+  {
+    "lead_id": "lead_3f0aee42d7ad",
+    "job_id": "automation_d15342d01f23",
+    "status": "complete",
+    "sections": 9,
+    "cached_request_ms": 90.59,
+    "same_job_and_attempts": true,
+    "last_run_budget": {
+      "max_seconds": 120.0,
+      "max_calls": 6,
+      "max_requests": 6,
+      "calls": 2,
+      "requests": 2,
+      "elapsed_seconds": 42.211
+    }
+  },
+  {
+    "lead_id": "lead_5d58877abb93",
+    "job_id": "automation_36baba8d8d12",
+    "status": "complete",
+    "sections": 9,
+    "cached_request_ms": 107.86,
+    "same_job_and_attempts": true,
+    "last_run_budget": {
+      "max_seconds": 120.0,
+      "max_calls": 6,
+      "max_requests": 6,
+      "calls": 4,
+      "requests": 6,
+      "elapsed_seconds": 79.004
+    }
+  }
+]

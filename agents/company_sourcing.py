@@ -106,12 +106,12 @@ def useful_follow_links(page: Page) -> list[str]:
     return [link["url"] for link in links[:2]]
 
 
-def accepted_candidate(candidate: Candidate, page: Page) -> Optional[CompanyProfile]:
+def accepted_candidate(candidate: Candidate, page: Page, *, context_blocks=None) -> Optional[CompanyProfile]:
     """Accept only literal support and observed destinations; no invented URLs."""
     text = normalized(page.text)
     if candidate.entity_type != "company":
         return None
-    blocks = page_blocks(page)
+    blocks = context_blocks if context_blocks is not None else page_blocks(page)
     if candidate.name_block_id and candidate.name_block_id not in blocks:
         return None
     name_quote = blocks.get(candidate.name_block_id, candidate.name_quote)

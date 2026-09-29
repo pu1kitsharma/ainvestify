@@ -30,6 +30,7 @@ class SearchPlan(BaseModel):
 class SearchHit:
     url: str
     title: str
+    snippet: str = ""
 
 
 class SearchProvider(Protocol):
@@ -115,8 +116,9 @@ class MwmblSearch:
             for item in data[:30]:
                 url = clean_destination(item["url"])
                 title = "".join(segment["value"] for segment in item["title"])
+                snippet = "".join(segment["value"] for segment in item.get("extract", []))
                 if url:
-                    hits.append(SearchHit(url, title[:200]))
+                    hits.append(SearchHit(url, title[:200], snippet[:700]))
             return diversified_hits(hits)[:limit]
         except (ValueError, KeyError, TypeError) as exc:
             raise SourceError("failed", "Mwmbl returned an invalid search response.") from exc
@@ -156,7 +158,7 @@ def diversified_hits(hits: list[SearchHit]) -> list[SearchHit]:
         seen.add(url)
         domains[host] = domains.get(host, 0) + 1
         target = deferred if any(host == d or host.endswith("." + d) for d in ("linkedin.com", "facebook.com", "instagram.com")) else output
-        target.append(SearchHit(url, hit.title))
+        target.append(SearchHit(url, hit.title, hit.snippet))
     return output + deferred
 
 
@@ -256,8 +258,9 @@ class SearchSession:
         self.providers = providers if providers is not None else [DuckDuckGoSearch(), MwmblSearch()]
         self.disabled = set()
         self.cache = {}
+        self.retried = set()
 
-    def search_queries(self, queries, run, checkpoint):
+    def search_queries(self, queries, run, checkpoint, *, limit=6):
         hits = []
         for engine in self.providers:
             if engine.name in self.disabled:
@@ -270,23 +273,36 @@ class SearchSession:
                 key = (engine.name, query)
                 query_url = (engine.query_url(query) if hasattr(engine, "query_url") else
                              "https://html.duckduckgo.com/html/?" + urlencode({"q": query}))
-                try:
-                    if key not in self.cache:
-                        self.cache[key] = engine.search(query, limit=6)
-                        results = self.cache[key]
-                        run.sources.append(WebSourceOutcome(url=query_url, kind="search", status="ok" if results else "no_results",
-                            detail=f"{engine.name}: {len(results)} discovery links; original pages require verification."))
-                    hits.extend(self.cache[key])
-                except Exception as exc:
-                    status = exc.status if isinstance(exc, SourceError) else "failed"
-                    detail = str(exc) if isinstance(exc, SourceError) else f"Search unavailable ({type(exc).__name__})."
-                    run.sources.append(WebSourceOutcome(url=query_url, kind="search", status=status, detail=detail))
-                    # Respect access blocks and rate limits. A transport
-                    # failure for one query must not discard a different
-                    # already-planned query; never retry the failed query.
-                    if status in {'blocked','rate_limited'}:
-                        self.disabled.add(engine.name)
+                while True:
+                    try:
+                        if key not in self.cache:
+                            self.cache[key] = engine.search(query, limit=limit)
+                            results = self.cache[key]
+                            run.sources.append(WebSourceOutcome(url=query_url, kind="search", status="ok" if results else "no_results",
+                                detail=f"{engine.name}: {len(results)} discovery links; original pages require verification."))
+                        hits.extend(self.cache[key])
                         break
+                    except Exception as exc:
+                        status = exc.status if isinstance(exc, SourceError) else "failed"
+                        detail = str(exc) if isinstance(exc, SourceError) else f"Search unavailable ({type(exc).__name__})."
+                        run.sources.append(WebSourceOutcome(url=query_url, kind="search", status=status, detail=detail))
+                        # One transient GET retry per provider for the whole
+                        # job, retaining both outcomes. Never retry access
+                        # blocks, rate limits, TLS errors or malformed data.
+                        if status in {'blocked', 'rate_limited'}:
+                            self.disabled.add(engine.name)
+                        elif isinstance(exc, SourceError) and exc.retryable:
+                            from agents.preparation_budget import ACTIVE_BUDGET
+                            budget = ACTIVE_BUDGET.get()
+                            if engine.name not in self.retried and (not budget or budget.remaining() > 15):
+                                self.retried.add(engine.name)
+                                if not checkpoint():
+                                    return diversified_hits(hits)
+                                continue
+                            self.disabled.add(engine.name)
+                        break
+                if engine.name in self.disabled:
+                    break
             # A single weak link must not suppress the independent provider.
             if len(diversified_hits(hits)) >= 6:
                 break

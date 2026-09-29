@@ -1,0 +1,38 @@
+{
+  "run": "source_run_fd105db2c459",
+  "status": "partial",
+  "budget": {
+    "max_seconds": 120.0,
+    "max_calls": 9,
+    "max_requests": 9,
+    "calls": 5,
+    "requests": 5,
+    "elapsed_seconds": 83.028
+  },
+  "companies": [
+    {
+      "name": "CropX",
+      "id": "company_a8310c2d971e",
+      "website": ""
+    }
+  ],
+  "result": "One model-discovered, source-bound candidate (CropX); limited coverage, not independent company verification or investment acceptance",
+  "model_calls": 5,
+  "prepare_workflow": false,
+  "focused_tests": "50 passed, 15 warnings in 8.98s",
+  "browser": {
+    "url": "http://localhost:5173/leads?run=source_run_fd105db2c459",
+    "cropx_visible": true,
+    "soil_sensor_description": true,
+    "page_errors": [],
+    "blocked_write_requests": []
+  },
+  "source_hashes": {
+    "agents/authored_discovery.py": "dbcc4ccdf9fa4260af6f395590b47da494cb86248aeec84ae57e4f55c69301c1",
+    "agents/web_discovery.py": "d92c7c387c55154b42d508c6543c3bf447f13b22227450b5bfab4f37bd98a6fa",
+    "agents/web_sources.py": "e27a1518e07adccc54c9014275aad3f2c5f343bbc08d666a945fd132d5f6aa16",
+    "agents/local_models.py": "79c1ab63cacf402d7e4ba94dad1b98ce949f4962b84bf9518c3670ee9bbb5cbc"
+  },
+  "api_pid": 29998,
+  "other_live_work": "A separate app-triggered preparation was active at final inspection; do not restart/cancel it."
+}

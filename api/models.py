@@ -49,11 +49,12 @@ class SourceLeadsRequest(BaseModel):
 
 
 class WebSourceRequest(BaseModel):
+    continuation_of: Optional[str] = None
     thesis: str = Field(min_length=3, max_length=2000)
     geography: Optional[str] = Field(default=None, max_length=120)
     seed_urls: list[str] = Field(default_factory=list, max_length=5)
-    max_pages: int = Field(default=24, ge=1, le=30)
-    max_companies: int = Field(default=5, ge=1, le=10)
+    max_pages: int = Field(default=12, ge=1, le=30)
+    max_companies: int = Field(default=20, ge=1, le=50)
     prepare_workflow: bool = True
 
     @field_validator("seed_urls")

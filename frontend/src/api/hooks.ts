@@ -79,7 +79,7 @@ export function useWebRuns() {
 export function useStartWebRun() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (body: { thesis: string; geography?: string; seed_urls?: string[]; prepare_workflow?: boolean }) =>
+    mutationFn: (body: { thesis: string; geography?: string; seed_urls?: string[]; prepare_workflow?: boolean; continuation_of?: string; max_companies?: number }) =>
       api.post<WebSourcingRun>("/api/leads/web-runs", body),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["webRuns"] }),
   });

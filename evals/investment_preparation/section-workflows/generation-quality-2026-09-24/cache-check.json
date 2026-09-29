@@ -1,0 +1,16 @@
+[
+  {
+    "lead_id": "lead_3f0aee42d7ad",
+    "elapsed_ms": 40.49,
+    "same_job": true,
+    "same_attempts": true,
+    "status": "complete"
+  },
+  {
+    "lead_id": "lead_5d58877abb93",
+    "elapsed_ms": 19.21,
+    "same_job": true,
+    "same_attempts": true,
+    "status": "complete"
+  }
+]

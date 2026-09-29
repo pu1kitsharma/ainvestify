@@ -5,7 +5,7 @@ export default function ResearchReasoning({ run }: { run: WebSourcingRun }) {
   if (!plan?.interpretation) return null;
   const decisions = (run.reasoning_log ?? []).filter(e => e.step !== 'Interpret request');
   return <section className="rounded-xl border border-indigo-100 bg-white p-5" aria-label="AI research">
-    <div className="flex flex-wrap justify-between gap-2"><h2 className="font-semibold text-slate-800">AI research brief</h2><span className="text-xs text-slate-500">{plan.status === 'model_interpreted' ? `Interpreted by ${plan.model}` : 'Model interpretation unavailable · original request retained'}</span></div>
+    <h2 className="font-semibold text-slate-800">Search scope</h2>
     <p className="mt-2 text-sm text-slate-600">{plan.interpretation}</p>
     {plan.coverage_aim && <p className="mt-2 text-sm text-slate-600">{plan.coverage_aim}</p>}
     <div className="mt-4 grid gap-3 sm:grid-cols-3">{plan.criteria.map((c,i) => <div key={i} className="rounded-lg bg-slate-50 p-3"><p className="text-xs font-semibold text-indigo-700">{c.requirement}</p><p className="mt-1 text-xs leading-relaxed text-slate-500">Evidence needed: {c.evidence_needed}</p></div>)}</div>

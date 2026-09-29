@@ -69,6 +69,10 @@ def reconcile_workspace(store, lead, geography=None, thesis=None, persist=True):
     if changed:
         workspace.events.append({"at": utcnow(), "action": "evidence_changed", "detail": "Drafts and prior attestations require re-evaluation."})
     workspace.basis_hash = basis
+    from agents.preparation_sources import is_public_source
+    workspace.public_evidence_hash = hashlib.sha256(json.dumps(
+        {'company':profile.name,'website':profile.website,
+         'evidence':[e.model_dump() for e in profile.evidence if is_public_source(e.model_dump())]},sort_keys=True).encode()).hexdigest()
     workspace.evaluated_at = utcnow()
     if profile.provenance.get('pipeline') == 'model_authored_v1':
         # Fresh company work is exclusively in the model-authored pack. Do not

@@ -120,6 +120,7 @@ export interface DiscoverySignal {
 }
 
 export interface SourcedLead {
+  related_lead_ids?: string[];
   id: string;
   tenant_id: string;
   company_name: string;
@@ -144,6 +145,7 @@ export interface SourcedLead {
 }
 
 export interface WebSourcingRun {
+  generation_config?: { continuation_of?: string; exclude_names?: string[]; requested_companies?: number };
   id: string;
   thesis: string;
   geography: string | null;

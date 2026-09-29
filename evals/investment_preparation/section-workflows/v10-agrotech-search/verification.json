@@ -1,0 +1,54 @@
+{
+  "captured_at": "2026-09-15T20:28:44.405898+00:00",
+  "original_run": "source_run_e44ceb8e96b5",
+  "retest_run": "source_run_5e4668ef629e",
+  "result": "Transient search recovery demonstrated; useful agrotech company discovery NOT demonstrated",
+  "retest_limits": {
+    "max_pages": 2,
+    "max_companies": 2,
+    "prepare_workflow": false
+  },
+  "budget": {
+    "max_seconds": 120.0,
+    "max_calls": 9,
+    "max_requests": 9,
+    "calls": 3,
+    "requests": 3,
+    "elapsed_seconds": 60.767
+  },
+  "lead_count": 0,
+  "search_outcomes": [
+    {
+      "url": "https://html.duckduckgo.com/html/?q=agrotech+companies",
+      "status": "blocked",
+      "detail": "Source returned HTTP 202."
+    },
+    {
+      "url": "https://api.mwmbl.org/api/v1/search/?s=agrotech+companies",
+      "status": "ok",
+      "detail": "mwmbl: 2 discovery links; original pages require verification."
+    },
+    {
+      "url": "https://api.mwmbl.org/api/v1/search/?s=precision+agriculture+software+firms",
+      "status": "failed",
+      "detail": "Source connection failed or timed out."
+    },
+    {
+      "url": "https://api.mwmbl.org/api/v1/search/?s=precision+agriculture+software+firms",
+      "status": "ok",
+      "detail": "mwmbl: 1 discovery links; original pages require verification."
+    }
+  ],
+  "checks": {
+    "focused_suite": "61 passed, 15 warnings in 9.17s",
+    "transport_suite_after_two_added_cases": "28 passed, 15 warnings in 10.86s; includes previously tested cases",
+    "live_retry": "same model-written query timed out, then returned one search link",
+    "company_generation": "no company retained; no preparation launched"
+  },
+  "api_pid": 29090,
+  "implementation_hashes": {
+    "agents/web_sources.py": "e27a1518e07adccc54c9014275aad3f2c5f343bbc08d666a945fd132d5f6aa16",
+    "agents/web_discovery.py": "c2a40272d7fd089ec28f6cdf32498cba6976d29142a5999e81c36872c864bece",
+    "agents/authored_discovery.py": "c76f051bfe1a9bec42750221d5882a9d92dbf14b5d43d3e7ae30a8ad26a750be"
+  }
+}

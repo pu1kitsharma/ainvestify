@@ -1,0 +1,41 @@
+{
+  "results": [
+    {
+      "company": "gocardless",
+      "tab": "research",
+      "stages": "STEP 1\nResearch\nDraft available\nSTEP 2\nPitch founders\nDraft available\nSTEP 3\nInvestment readiness\nDraft available",
+      "loaded": true
+    },
+    {
+      "company": "gocardless",
+      "tab": "founder",
+      "stages": "STEP 1\nResearch\nDraft available\nSTEP 2\nPitch founders\nDraft available\nSTEP 3\nInvestment readiness\nDraft available",
+      "loaded": true
+    },
+    {
+      "company": "gocardless",
+      "tab": "readiness",
+      "stages": "STEP 1\nResearch\nDraft available\nSTEP 2\nPitch founders\nDraft available\nSTEP 3\nInvestment readiness\nDraft available",
+      "loaded": true
+    },
+    {
+      "company": "cropx",
+      "tab": "research",
+      "stages": "STEP 1\nResearch\nDraft available\nSTEP 2\nPitch founders\nDraft available\nSTEP 3\nInvestment readiness\nDraft available",
+      "loaded": true
+    },
+    {
+      "company": "cropx",
+      "tab": "founder",
+      "stages": "STEP 1\nResearch\nDraft available\nSTEP 2\nPitch founders\nDraft available\nSTEP 3\nInvestment readiness\nDraft available",
+      "loaded": true
+    },
+    {
+      "company": "cropx",
+      "tab": "readiness",
+      "stages": "STEP 1\nResearch\nDraft available\nSTEP 2\nPitch founders\nDraft available\nSTEP 3\nInvestment readiness\nDraft available",
+      "loaded": true
+    }
+  ],
+  "page_errors": []
+}
