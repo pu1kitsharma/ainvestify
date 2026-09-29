@@ -28,10 +28,10 @@ from typing import Optional
 import ollama
 from pydantic import BaseModel
 
-from agents.planner_agent import handle_directive, promote_lead_to_deal, start_deal
-from agents.review_checkpoint import review_leads
+from agents.core.planner_agent import handle_directive, promote_lead_to_deal, start_deal
+from agents.core.review_checkpoint import review_leads
 from schemas import LeadStatus, WebSourcingRun
-from agents.company_sourcing import source_companies
+from agents.discovery.company_sourcing import source_companies
 from store import Store
 
 ROUTER_MODEL = "llama3.2:3b"

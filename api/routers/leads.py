@@ -8,15 +8,15 @@ from threading import BoundedSemaphore
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 
-from agents.planner_agent import promote_lead_to_deal, source_ib_targets, source_leads
-from agents.review_checkpoint import apply_lead_decision
+from agents.core.planner_agent import promote_lead_to_deal, source_ib_targets, source_leads
+from agents.core.review_checkpoint import apply_lead_decision
 from api.deps import get_reviewer, get_store, get_tenant_id
 from api.models import LeadDecisionRequest, PromoteLeadRequest, SourceLeadsRequest, WebSourceRequest
 from schemas import Deal, SourcedLead, WebSourcingRun, utcnow
-from agents.authored_discovery import source_companies
-from agents.local_models import LocalModel
+from agents.preparation.authored_discovery import source_companies
+from agents.inference.local_models import LocalModel
 from store import Store
-from agents.company_identity import unique_leads, unique_run
+from agents.discovery.company_identity import unique_leads, unique_run
 
 router = APIRouter(prefix="/api/leads", tags=["leads"])
 

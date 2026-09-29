@@ -205,7 +205,7 @@ class Store:
         instead of interleaving with it. Used for the one call site
         (_run_ingest's document_ids.append) where a lost update is silent
         data loss rather than a merely-stale field a page refresh would
-        fix -- see agents/planner_agent.py for why the other save_deal()
+        fix -- see agents/core/planner_agent.py for why the other save_deal()
         call sites weren't converted to this (a documented, deliberate
         Phase 0 scope decision, not an oversight)."""
         self.conn.execute("BEGIN IMMEDIATE")

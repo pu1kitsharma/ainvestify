@@ -2,8 +2,8 @@
 import argparse,hashlib,json,sys,tempfile,time,signal
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
-from agents.analyst_pack import prepare_analyst_pack,export_pack,SECTIONS,VERSION,IMPLEMENTATION_HASH,collect_preparation_evidence
-from agents.local_models import AnalystModel,PreparationModel,LocalModel,generate_task
+from agents.analysis.analyst_pack import prepare_analyst_pack,export_pack,SECTIONS,VERSION,IMPLEMENTATION_HASH,collect_preparation_evidence
+from agents.inference.local_models import AnalystModel,PreparationModel,LocalModel,generate_task
 from schemas import CompanyEvidence,CompanyProfile,SourcedLead
 from store import Store
 
@@ -76,9 +76,9 @@ def select_completed_model(reports,case_ids):
 
 def evaluate_compact_diligence(case, model, *, max_seconds=60):
     """One isolated capability call; never select a profile or publish a pack."""
-    from agents.analyst_pack import (CompactDiligencePair, COMPACT_DILIGENCE_METHOD,
+    from agents.analysis.analyst_pack import (CompactDiligencePair, COMPACT_DILIGENCE_METHOD,
                                     expand_compact_requests, Action)
-    from agents.preparation_budget import PreparationBudget, preparation_budget
+    from agents.preparation.preparation_budget import PreparationBudget, preparation_budget
     facts=[{'id':e['id'],'quote':e.get('quote') or e['value'],
             'category':e['field'],'source_url':e['source_url'],
             'origin':e.get('origin'),'status':'source_reported'} for e in case['evidence']]
@@ -164,7 +164,7 @@ def main():
                 limit=min(a.max_seconds or 120,120)
                 previous_handler=signal.signal(signal.SIGALRM,deadline)
                 signal.setitimer(signal.ITIMER_REAL,max(.001,limit-(time.monotonic()-start)))
-                from agents.preparation_budget import PreparationBudget,preparation_budget
+                from agents.preparation.preparation_budget import PreparationBudget,preparation_budget
                 # Leave a small margin for saving the partial pack before the
                 # outer process cap; exercise production cancellation itself.
                 budget=PreparationBudget(max_seconds=max(.01,min(a.max_seconds or 120,120)-(time.monotonic()-start)-.25),max_calls=min(a.max_calls or 24,100))

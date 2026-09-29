@@ -10,7 +10,7 @@ and let the human accept or override before anything happens, the same
 non-negotiable gate _confirm_with_human enforces for the CLI.
 
 There is deliberately no generic "/directive/execute" endpoint here. Milestone
-1 flagged this as an open design question (see agents/planner_agent.py's
+1 flagged this as an open design question (see agents/core/planner_agent.py's
 handle_directive dispatch, which was deliberately left un-refactored into a
 generic dispatcher). Having now designed the real request/response shapes for
 each action (mandate, ingest, extract, review decisions, research, compile,
@@ -24,7 +24,7 @@ endpoint itself, the same role handle_directive's if/elif plays for the CLI.
 """
 from fastapi import APIRouter, Depends, HTTPException
 
-from agents.planner_agent import CONTINUE_WORDS, DEFAULT_ACTION, PlannerDecision, classify_directive
+from agents.core.planner_agent import CONTINUE_WORDS, DEFAULT_ACTION, PlannerDecision, classify_directive
 from api.deps import get_store, get_tenant_id
 from api.models import DirectiveRequest, PromptRequest
 from main import RouterDecision, classify_prompt

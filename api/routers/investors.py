@@ -7,7 +7,7 @@ anyone, matching the same boundary CLAUDE.md states for sourcing.
 """
 from fastapi import APIRouter, Depends, HTTPException
 
-from agents.planner_agent import apply_add_investor
+from agents.core.planner_agent import apply_add_investor
 from api.deps import get_store, get_tenant_id
 from api.models import AddInvestorRequest
 from schemas import InvestorContact

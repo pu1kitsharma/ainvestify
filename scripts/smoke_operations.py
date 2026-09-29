@@ -4,8 +4,8 @@ import sys
 import tempfile
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from agents.datasets import discover_dataset_companies
-from agents.operating_workflow import prepare_operating_drafts, reconcile_workspace
+from agents.discovery.datasets import discover_dataset_companies
+from agents.analysis.operating_workflow import prepare_operating_drafts, reconcile_workspace
 from schemas import SourcedLead, WebSourcingRun
 from store import Store
 

@@ -1,5 +1,7 @@
 # Deal Automation System — Revised Architecture & Design Document
 
+**Module layout note (2026-09-30):** `agents/` and `tests/` were reorganized from a flat 50-file directory into subpackages by concern — `core/` (the original §5.1-§5.8 pipeline agents), `discovery/`, `research/`, `preparation/`, `analysis/`, `inference/`. This is a structural/import-path change only, made after full test-suite verification (no behavior changed); it does not itself change or supersede any decision recorded below. File paths quoted in the dated sections below (e.g. `agents/planner_agent.py`) describe the layout **at the time each section was written** and are left as historical record rather than retroactively rewritten — see `README.md`'s "Package layout" section for the current, authoritative module map.
+
 **Current product direction (2026-09-13):** See §16 for the controlling lifecycle and implementation plan: identify companies worth incubation effort → incubate toward market and investment readiness → prepare fundraising materials → support VC fundraising through closing. The user explicitly wants LLM-driven work across this lifecycle. §16 supersedes older scope exclusions for evidence-backed selection, incubation, and fundraising/closing workflow support. Earlier sections still describe the existing prototype; features proposed in §16 are not implemented merely by appearing here.
 
 **Status:** Design proposal, supersedes the original executive briefing where noted.

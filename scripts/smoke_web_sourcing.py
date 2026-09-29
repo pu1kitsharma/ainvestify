@@ -11,10 +11,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from agents.company_sourcing import source_companies
-from agents.local_models import LocalModel
-from agents.web_discovery import discover_pages
-from agents.web_sources import PublicWebFetcher, SourceError
+from agents.discovery.company_sourcing import source_companies
+from agents.inference.local_models import LocalModel
+from agents.discovery.web_discovery import discover_pages
+from agents.discovery.web_sources import PublicWebFetcher, SourceError
 from schemas import WebSourcingRun
 from store import Store
 

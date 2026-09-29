@@ -8,9 +8,9 @@ import json
 import sys
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
-from agents.company_identity import name_key,same_company,resolve_profile_identity,unique_leads
-from agents.public_research import PublicResearchModel
-from agents.preparation_budget import PreparationBudget,preparation_budget
+from agents.discovery.company_identity import name_key,same_company,resolve_profile_identity,unique_leads
+from agents.research.public_research import PublicResearchModel
+from agents.preparation.preparation_budget import PreparationBudget,preparation_budget
 from store import Store
 
 

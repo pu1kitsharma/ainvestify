@@ -10,9 +10,9 @@ from pathlib import Path
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from agents.company_brief import CONTRACTS, INSTRUCTIONS
-from agents.investment_case import WorkProduct, FitNarrative, WORK
-from agents.investment_practice import ROOT
+from agents.preparation.company_brief import CONTRACTS, INSTRUCTIONS
+from agents.preparation.investment_case import WorkProduct, FitNarrative, WORK
+from agents.preparation.investment_practice import ROOT
 
 
 def export(output):

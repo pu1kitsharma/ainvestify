@@ -13,9 +13,9 @@ import tempfile
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from agents.company_analysis import run_analysis_loop, analysis_view, public_basis
-from agents.operating_workflow import reconcile_workspace
-from agents.public_research import fresh_collection
+from agents.analysis.company_analysis import run_analysis_loop, analysis_view, public_basis
+from agents.analysis.operating_workflow import reconcile_workspace
+from agents.research.public_research import fresh_collection
 from schemas import CompanyProfile, SourcedLead, utcnow
 from store import Store
 from workflow_schemas import AutomationRun

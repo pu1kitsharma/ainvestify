@@ -11,11 +11,11 @@ import sys
 import tempfile
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from agents.analyst_pack import prepare_analyst_pack, export_pack
-from agents.authored_preparation import validate_authored_pack
-from agents.local_models import AnalystModel
-from agents.model_authorship import digest
-from agents.preparation_budget import PreparationBudget, PreparationBudgetExceeded
+from agents.analysis.analyst_pack import prepare_analyst_pack, export_pack
+from agents.preparation.authored_preparation import validate_authored_pack
+from agents.inference.local_models import AnalystModel
+from agents.inference.model_authorship import digest
+from agents.preparation.preparation_budget import PreparationBudget, PreparationBudgetExceeded
 from schemas import CompanyEvidence, CompanyProfile, SourcedLead
 from store import Store
 
@@ -38,7 +38,7 @@ class FirstPassModel:
         self.last_route = {}
         self.last_response_text = ''
         self.public_only = provider == 'pro'
-        from agents.subscription_model import ClaudeProModel
+        from agents.inference.subscription_model import ClaudeProModel
         self.pro = ClaudeProModel(capture=lambda raw: (self.directory / ('call-' + str(self.calls) + '.json')).write_text(raw)) if self.public_only else None
 
     def check_subscription(self):

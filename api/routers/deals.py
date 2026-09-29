@@ -12,7 +12,7 @@ from pathlib import Path
 
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 
-from agents.planner_agent import _run_extract, _run_ingest, apply_sign_mandate, start_deal
+from agents.core.planner_agent import _run_extract, _run_ingest, apply_sign_mandate, start_deal
 from api.deps import get_store, get_tenant_id
 from api.models import CreateDealRequest, ExtractRequest, SignMandateRequest
 from schemas import AuditEvent, Deal, Document, ExtractionResult, new_id

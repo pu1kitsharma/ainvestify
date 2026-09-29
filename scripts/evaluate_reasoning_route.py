@@ -6,12 +6,12 @@ import sys
 import time
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
-from agents.local_models import PreparationModel, generate_task
-from agents.investment_case import (VERSION, WORK, work_instruction, work_product_schema,
+from agents.inference.local_models import PreparationModel, generate_task
+from agents.preparation.investment_case import (VERSION, WORK, work_instruction, work_product_schema,
                                    validate_work_product, revision_context, REVISION_INSTRUCTION,
                                    GENERATION_INSTRUCTION)
-from agents.investment_practice import practice_instruction, practice_manifest
-from agents.preparation_quality import review_preparation, review_passed
+from agents.preparation.investment_practice import practice_instruction, practice_manifest
+from agents.preparation.preparation_quality import review_preparation, review_passed
 
 
 def main():

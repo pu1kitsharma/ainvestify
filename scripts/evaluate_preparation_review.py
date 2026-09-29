@@ -3,8 +3,8 @@ import json
 import sys
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
-from agents.local_models import LocalModel
-from agents.preparation_quality import review_preparation
+from agents.inference.local_models import LocalModel
+from agents.preparation.preparation_quality import review_preparation
 
 
 def run(output):

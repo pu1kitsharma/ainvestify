@@ -9,15 +9,15 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from fastapi.responses import Response
 from pydantic import BaseModel, Field
 from api.deps import get_store, get_tenant_id, get_reviewer
-from agents.datasets import SOURCES
-from agents.local_models import MODEL_JOB_SLOT, PreparationModel as LocalModel
-from agents.subscription_model import make_preparation_model, default_preparation_name, PRO_MODEL, is_public_preparation_name
-from agents.operating_workflow import reconcile_workspace, prepare_operating_drafts, workspace_basis
+from agents.discovery.datasets import SOURCES
+from agents.inference.local_models import MODEL_JOB_SLOT, PreparationModel as LocalModel
+from agents.inference.subscription_model import make_preparation_model, default_preparation_name, PRO_MODEL, is_public_preparation_name
+from agents.analysis.operating_workflow import reconcile_workspace, prepare_operating_drafts, workspace_basis
 from schemas import utcnow, new_id
 from store import Store
 from workflow_schemas import WorkspaceAttestation, AutomationRun
 
-from agents.company_metrics import MonthlyUpdate
+from agents.analysis.company_metrics import MonthlyUpdate
 
 router = APIRouter(prefix="/api/operations", tags=["operations"])
 _worker_id = uuid.uuid4().hex
@@ -53,10 +53,10 @@ def company_work_view(workspace):
     data=workspace.model_dump(mode='json')
     fields=('id','lead_id','revision','basis_hash','automation','metrics','metric_imports','analyst_pack','analyst_pack_history')
     view={k:data[k] for k in fields}
-    from agents.company_analysis import analysis_view
+    from agents.analysis.company_analysis import analysis_view
     view['company_analysis'] = analysis_view(workspace)
     view['preparation_provider'] = {'name': default_preparation_name(), 'public_only': is_public_preparation_name(default_preparation_name())}
-    from agents.analyst_pack import validate_saved_sections
+    from agents.analysis.analyst_pack import validate_saved_sections
     pack=validate_saved_sections(view['analyst_pack'])
     pack.pop('attempts',None)
     pack.pop('shared',None)
@@ -134,8 +134,8 @@ def import_metrics(workspace_id: str, body: MetricImportRequest, background: Bac
 
 
 def _apply_metric_import(store, workspace, import_id, model):
-    from agents.metric_extraction import extract_metric_update
-    from agents.company_metrics import KEYS, metrics_report
+    from agents.analysis.metric_extraction import extract_metric_update
+    from agents.analysis.company_metrics import KEYS, metrics_report
     item=next(i for i in workspace.metric_imports if i['id']==import_id)
     if item['status'] == 'applied':
         return
@@ -186,7 +186,7 @@ def download_metrics(workspace_id: str, store: Store = Depends(get_store), tenan
 
 
 def metrics_markdown(workspace):
-    from agents.company_metrics import KEYS
+    from agents.analysis.company_metrics import KEYS
     lines = [f'## {workspace.company_name}: operating metrics', workspace.metrics['note']]
     for row in workspace.metrics['months']:
         lines += [f"### {row['month']} ({row['currency']})", f"Source: {row['source_note']} · Record: {row['id']}"]
@@ -254,7 +254,7 @@ def internal_brief(workspace_id: str, store: Store = Depends(get_store), tenant_
 
 
 def _prepare_job(db_path, tenant_id, lead_id, job_id, brief=False, refresh=False, metric_import_id=None, readiness=False, analyst=False, analyst_model=None, analyst_thinking=False, analyst_review_model=None, analyst_review_thinking=None):
-    from agents.preparation_budget import preparation_budget
+    from agents.preparation.preparation_budget import preparation_budget
     with preparation_budget():
         return _run_prepare_job(db_path, tenant_id, lead_id, job_id, brief, refresh, metric_import_id, readiness, analyst, analyst_model, analyst_thinking, analyst_review_model, analyst_review_thinking)
 
@@ -271,7 +271,7 @@ def _run_prepare_job(db_path, tenant_id, lead_id, job_id, brief=False, refresh=F
         store.save_workspace(workspace, expected_revision=workspace.revision)
         diagnostic = {}
         try:
-            from agents.operating_research import research_company
+            from agents.research.operating_research import research_company
             if metric_import_id:
                 model = LocalModel()
             else:
@@ -294,7 +294,7 @@ def _run_prepare_job(db_path, tenant_id, lead_id, job_id, brief=False, refresh=F
                 _apply_metric_import(store, workspace, metric_import_id, model)
                 lead = store.get_lead(tenant_id, lead_id)
             elif analyst:
-                from agents.analyst_pack import collect_preparation_evidence
+                from agents.analysis.analyst_pack import collect_preparation_evidence
                 lead = collect_preparation_evidence(store, store.get_lead(tenant_id, lead_id), force=refresh, model=model)
             else:
                 lead = research_company(store, store.get_lead(tenant_id, lead_id), model, force=refresh)
@@ -304,23 +304,23 @@ def _run_prepare_job(db_path, tenant_id, lead_id, job_id, brief=False, refresh=F
                 # spend another run regenerating an unrelated proposal.
                 reconcile_workspace(store, lead)
             elif analyst:
-                from agents.analyst_pack import prepare_analyst_pack
+                from agents.analysis.analyst_pack import prepare_analyst_pack
                 prepared = prepare_analyst_pack(store, lead, model)
                 if prepared.analyst_pack.get('status') != 'complete':
                     raise ValueError(prepared.analyst_pack.get('stop_reason') or 'Preparation is partial. Completed sections are saved; retry only unfinished sections and reviews.')
             elif readiness:
-                from agents.investment_case import prepare_investment_case, preparation_failure_message
+                from agents.preparation.investment_case import prepare_investment_case, preparation_failure_message
                 prepared = prepare_investment_case(store,lead,model)
                 if prepared.investment_case.get('stage_errors'):
                     raise ValueError(preparation_failure_message(prepared.investment_case))
             elif brief:
-                from agents.company_brief import prepare_company_brief
+                from agents.preparation.company_brief import prepare_company_brief
                 prepare_company_brief(store, lead, model)
             else:
                 prepare_operating_drafts(store, lead, model)
             status, error = "completed", None
         except Exception as exc:
-            from agents.preparation_budget import PreparationBudgetExceeded
+            from agents.preparation.preparation_budget import PreparationBudgetExceeded
             status = "failed"
             error = str(exc) if isinstance(exc, (ValueError,PreparationBudgetExceeded)) else f"Generation failed ({type(exc).__name__}). Saved evidence is retained; retry generation."
             if not isinstance(exc, (ValueError,PreparationBudgetExceeded)):
@@ -378,7 +378,7 @@ def stop_preparation(workspace_id: str, job_id: str, store: Store = Depends(get_
 
 @router.get("/workspaces/{workspace_id}/preparation-pack")
 def download_analyst_pack(workspace_id: str, document: Optional[str] = None, store: Store = Depends(get_store), tenant_id: str = Depends(get_tenant_id)):
-    from agents.analyst_pack import current_pack, export_pack, TITLES, validate_saved_sections
+    from agents.analysis.analyst_pack import current_pack, export_pack, TITLES, validate_saved_sections
     saved = store.get_workspace(tenant_id, workspace_id=workspace_id)
     if not saved: raise HTTPException(404, 'Workspace not found')
     w = reconcile_workspace(store, store.get_lead(tenant_id, saved.lead_id), persist=False)
@@ -387,7 +387,7 @@ def download_analyst_pack(workspace_id: str, document: Optional[str] = None, sto
     checked = validate_saved_sections(w.analyst_pack)
     if (checked.get('documents', {}).get(document, {}).get('status') if document else checked.get('status')) != 'complete':
         raise HTTPException(409, 'This draft has not passed review yet. Resume preparation before downloading it.')
-    from agents.company_analysis import analysis_markdown
+    from agents.analysis.company_analysis import analysis_markdown
     content=export_pack(checked, document)
     try: appendix=analysis_markdown(w)
     except ValueError: appendix=None
@@ -405,7 +405,7 @@ def start_readiness(lead_id: str, background: BackgroundTasks, store: Store = De
 
 @router.get("/workspaces/{workspace_id}/investment-case")
 def export_investment_case(workspace_id: str, store: Store = Depends(get_store), tenant_id: str = Depends(get_tenant_id)):
-    from agents.investment_case import case_current
+    from agents.preparation.investment_case import case_current
     saved=store.get_workspace(tenant_id,workspace_id=workspace_id)
     if not saved:raise HTTPException(404,"Workspace not found")
     lead=store.get_lead(tenant_id,saved.lead_id)
@@ -441,7 +441,7 @@ def start_brief(lead_id: str, background: BackgroundTasks, store: Store = Depend
 
 @router.get("/workspaces/{workspace_id}/company-brief")
 def export_company_brief(workspace_id: str, store: Store = Depends(get_store), tenant_id: str = Depends(get_tenant_id)):
-    from agents.company_brief import brief_current, pitch_text
+    from agents.preparation.company_brief import brief_current, pitch_text
     saved = store.get_workspace(tenant_id, workspace_id=workspace_id)
     if not saved:
         raise HTTPException(404, "Workspace not found")
@@ -507,12 +507,12 @@ def _queue_prepare(lead_id, background, store, tenant_id, brief=False, refresh=F
     if saved and saved.automation and saved.automation.worker_id == _worker_id and saved.automation.status in {"queued", "running"}:
         return saved
     workspace = reconcile_workspace(store, lead)
-    from agents.company_brief import brief_current
-    from agents.investment_case import case_current
-    from agents.analyst_pack import VERSION, current_pack, validate_saved_sections
+    from agents.preparation.company_brief import brief_current
+    from agents.preparation.investment_case import case_current
+    from agents.analysis.analyst_pack import VERSION, current_pack, validate_saved_sections
     if analyst:
         validate_saved_sections(workspace.analyst_pack)
-    from agents.public_research import fresh_collection
+    from agents.research.public_research import fresh_collection
     collection = workspace.research.get('preparation_sources', {})
     research_fresh = not workspace.analyst_pack.get('generation_config', {}).get('public_only') or (
         collection.get('version') == 4 and collection.get('basis_hash') == workspace.basis_hash
@@ -529,7 +529,7 @@ def _queue_prepare(lead_id, background, store, tenant_id, brief=False, refresh=F
         analyst_review_model=workspace.analyst_pack['generation_config'].get('review_model')
         analyst_review_thinking=workspace.analyst_pack['generation_config'].get('review_thinking')
         analyst_thinking=workspace.analyst_pack['generation_config'].get('thinking',False)
-    from agents.local_models import shared_model_name
+    from agents.inference.local_models import shared_model_name
     workspace.automation = AutomationRun(model=(analyst_model if analyst_model and analyst_model!='auto' else default_preparation_name()), worker_id=_worker_id,
         phase="Starting company preparation")
     workspace.events.append({"at": utcnow(), "action": "automation_started", "detail": "Company investment preparation queued." if readiness else "Company brief queued." if brief else "Company operating plans queued."})
@@ -554,7 +554,7 @@ class AnalysisRequest(BaseModel):
 
 
 def _analysis_job(db_path, tenant_id, lead_id, job_id, body):
-    from agents.company_analysis import run_analysis_loop
+    from agents.analysis.company_analysis import run_analysis_loop
     with Store(db_path) as store:
         w=store.get_workspace(tenant_id,lead_id=lead_id)
         if not w or not w.automation or w.automation.id!=job_id or w.automation.status!='queued': return
@@ -575,7 +575,7 @@ def _analysis_job(db_path, tenant_id, lead_id, job_id, body):
 
 
 def _queue_analysis(lead_id, body, background, store, tenant_id):
-    from agents.web_sources import normalize_url
+    from agents.discovery.web_sources import normalize_url
     lead=store.get_lead(tenant_id,lead_id)
     if not lead: raise HTTPException(404,'Company not found')
     for url in body.public_urls:
@@ -621,12 +621,12 @@ def save_analysis_input(workspace_id: str,body: AnalysisInput,store: Store=Depen
     return company_work_view(w)
 
 
-from agents.company_analysis import ScenarioRequest
+from agents.analysis.company_analysis import ScenarioRequest
 
 
 @router.post('/workspaces/{workspace_id}/analysis-scenarios')
 def save_analysis_scenarios(workspace_id: str,body: ScenarioRequest,store: Store=Depends(get_store),tenant_id: str=Depends(get_tenant_id)):
-    from agents.company_analysis import calculate_scenarios
+    from agents.analysis.company_analysis import calculate_scenarios
     w=store.get_workspace(tenant_id,workspace_id=workspace_id)
     if not w:raise HTTPException(404,'Workspace not found')
     if w.revision!=body.expected_revision:raise HTTPException(409,'Records changed. Reload before approving assumptions.')
@@ -640,7 +640,7 @@ def save_analysis_scenarios(workspace_id: str,body: ScenarioRequest,store: Store
 
 @router.get('/workspaces/{workspace_id}/analysis-report')
 def download_analysis(workspace_id: str,store: Store=Depends(get_store),tenant_id: str=Depends(get_tenant_id)):
-    from agents.company_analysis import analysis_markdown
+    from agents.analysis.company_analysis import analysis_markdown
     w=store.get_workspace(tenant_id,workspace_id=workspace_id)
     if not w:raise HTTPException(404,'Workspace not found')
     w=reconcile_workspace(store,store.get_lead(tenant_id,w.lead_id),persist=False)
@@ -655,7 +655,7 @@ def prepare(lead_id: str, store: Store = Depends(get_store), tenant_id: str = De
     lead = store.get_lead(tenant_id, lead_id)
     if not lead: raise HTTPException(404, "Lead not found")
     try:
-        from agents.analyst_pack import prepare_analyst_pack
+        from agents.analysis.analyst_pack import prepare_analyst_pack
         return prepare_analyst_pack(store, lead)
     except ValueError as exc: raise HTTPException(409, str(exc)) from exc
     except Exception as exc: raise HTTPException(503, f"Local draft preparation unavailable ({type(exc).__name__}); saved evidence and controls retained.") from exc
@@ -682,7 +682,7 @@ def attest(workspace_id: str, body: AttestationRequest, store: Store = Depends(g
     if body.kind != "identity_review" and not any(e.startswith("doc:") for e in body.evidence_ids):
         raise HTTPException(422, "This review requires a supporting company document; public company claims alone do not satisfy it.")
     if body.kind == "financial_review":
-        from agents.review_checkpoint import is_ready_for_compilation
+        from agents.core.review_checkpoint import is_ready_for_compilation
         if extraction is None or not is_ready_for_compilation(extraction):
             raise HTTPException(409, "The existing financial extraction/review checks must pass first.")
     if body.kind == "release_approval" and (workspace.draft_status != "draft" or workspace.draft_basis_hash != basis):

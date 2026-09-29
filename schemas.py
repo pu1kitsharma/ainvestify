@@ -226,7 +226,7 @@ class WebSourcingRun(BaseModel):
     @computed_field
     @property
     def source_coverage(self) -> list[dict[str, Any]]:
-        from agents.source_coverage import summarize_coverage
+        from agents.discovery.source_coverage import summarize_coverage
         return summarize_coverage(self)
 
 

@@ -14,7 +14,7 @@ from fastapi.staticfiles import StaticFiles
 
 from api.routers import compilation, dashboard, deals, investors, leads, operations, prompt, research, review
 
-# agents/analytics_agent.py writes chart PNGs to memo_output/{deal_id}/charts/
+# agents/core/analytics_agent.py writes chart PNGs to memo_output/{deal_id}/charts/
 # and stores that relative path as ChartArtifact.storage_uri (and inside a
 # compiled document's structured_data). Until this mount, that path was a
 # real file on disk with no HTTP route to it at all -- the Documents tab's

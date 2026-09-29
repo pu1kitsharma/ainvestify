@@ -7,7 +7,7 @@ from typing import Optional
 
 from pydantic import BaseModel, Field, field_validator
 
-from agents.review_checkpoint import ReviewDecisionOutcome
+from agents.core.review_checkpoint import ReviewDecisionOutcome
 from schemas import Deal, ExtractionResult
 
 
@@ -60,7 +60,7 @@ class WebSourceRequest(BaseModel):
     @field_validator("seed_urls")
     @classmethod
     def public_url_syntax(cls, urls):
-        from agents.web_sources import normalize_url, SourceError
+        from agents.discovery.web_sources import normalize_url, SourceError
         try:
             return list(dict.fromkeys(normalize_url(url) for url in urls))
         except SourceError as exc:

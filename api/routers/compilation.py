@@ -3,8 +3,8 @@ Compilation endpoints (plan §2/§4, milestone 4): compile the CIM; the
 teaser's two-step draft + safe-to-send confirm; the pro-forma with an
 optional growth-rate override; rerun analytics; fetch the document suite.
 
-Every write here delegates to the pure functions agents/planner_agent.py
-and agents/compilation_agent.py already built (Milestones 1 and 4) -- no
+Every write here delegates to the pure functions agents/core/planner_agent.py
+and agents/core/compilation_agent.py already built (Milestones 1 and 4) -- no
 compilation/anonymization logic lives in this file.
 """
 from typing import Optional
@@ -12,8 +12,8 @@ from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 
-from agents.compilation_agent import CompilationBlockedError
-from agents.planner_agent import (
+from agents.core.compilation_agent import CompilationBlockedError
+from agents.core.planner_agent import (
     _run_compile,
     _run_rerun_analytics,
     apply_compile_proforma,
@@ -51,7 +51,7 @@ def _current_release_status(store: Store, tenant_id: str, deal_id: str, versions
     lead = store.get_lead_by_promoted_deal_id(tenant_id, deal_id)
     if not lead or not store.get_workspace(tenant_id, lead_id=lead.id):
         return versions
-    from agents.operating_workflow import reconcile_workspace
+    from agents.analysis.operating_workflow import reconcile_workspace
 
     workspace = reconcile_workspace(store, lead, persist=False)
     release = next((item for item in workspace.work_items if item.id == "release"), None)

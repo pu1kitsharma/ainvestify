@@ -4,8 +4,8 @@ for a deal, list findings, per-finding approve/reject, mark-reviewed.
 """
 from fastapi import APIRouter, Depends, HTTPException
 
-from agents.planner_agent import _run_research, mark_research_reviewed
-from agents.review_checkpoint import apply_finding_decision
+from agents.core.planner_agent import _run_research, mark_research_reviewed
+from agents.core.review_checkpoint import apply_finding_decision
 from api.deps import get_reviewer, get_store, get_tenant_id
 from api.models import FindingDecisionRequest, RunResearchRequest
 from schemas import Deal, ResearchFinding

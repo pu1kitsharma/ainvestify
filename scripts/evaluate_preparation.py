@@ -12,9 +12,9 @@ import time
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from pydantic import Field, create_model
 from typing import Literal
-from agents.company_brief import CONTRACTS, INSTRUCTIONS, validate_deliverable
-from agents.investment_practice import practice_instruction, practice_manifest
-from agents.local_models import LocalModel
+from agents.preparation.company_brief import CONTRACTS, INSTRUCTIONS, validate_deliverable
+from agents.preparation.investment_practice import practice_instruction, practice_manifest
+from agents.inference.local_models import LocalModel
 
 
 def check_response(case, output):

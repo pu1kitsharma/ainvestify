@@ -8,8 +8,8 @@ from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException
 
-from agents.extraction_agent import extract
-from agents.review_checkpoint import (
+from agents.core.extraction_agent import extract
+from agents.core.review_checkpoint import (
     apply_cap_table_decision,
     apply_field_decision,
     apply_funding_history_decision,
