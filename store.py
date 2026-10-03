@@ -113,6 +113,12 @@ class Store:
         # that, it just compares thread ids and raises unconditionally.
         self.conn = sqlite3.connect(str(db_path), timeout=30.0, check_same_thread=False)
         self.conn.executescript(_SCHEMA)
+        from security.identity import SCHEMA as AUTH_SCHEMA
+        self.conn.executescript(AUTH_SCHEMA)
+        from delivery.jobs import SCHEMA as JOB_SCHEMA
+        self.conn.executescript(JOB_SCHEMA)
+        from delivery.artifacts import SCHEMA as ARTIFACT_SCHEMA
+        self.conn.executescript(ARTIFACT_SCHEMA)
         # WAL: readers no longer block on a writer (and vice versa) the way
         # SQLite's default rollback-journal mode does -- the single biggest
         # lever for a multi-connection workload like concurrent API requests
@@ -536,6 +542,13 @@ class Store:
             "SELECT data FROM operating_workspaces WHERE tenant_id=? ORDER BY id", (tenant_id,)).fetchall()]
 
     def save_workspace(self, workspace, expected_revision=None):
+        if workspace.deal_id:
+            lead = self.get_lead(workspace.tenant_id, workspace.lead_id)
+            deal = self.get_deal(workspace.tenant_id, workspace.deal_id)
+            if not lead or not deal or lead.promoted_deal_id != deal.id:
+                raise ValueError("Workspace Deal association is not valid within this tenant")
+            if sum(l.promoted_deal_id == deal.id for l in self.list_leads(workspace.tenant_id)) != 1:
+                raise ValueError("Ambiguous promoted Deal association")
         next_revision = workspace.revision + 1
         data = workspace.model_copy(update={"revision": next_revision}).model_dump_json()
         if expected_revision is None:

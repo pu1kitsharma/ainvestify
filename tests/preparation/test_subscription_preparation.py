@@ -189,10 +189,14 @@ def test_public_workflow_omits_private_evidence_and_workspace_notes(tmp_path):
         assert pack['generation_config']['public_only'] is True
 
 
-def test_approved_default_uses_pro_but_explicit_local_selection_stays_local(monkeypatch):
+def test_local_default_requires_explicit_selection_for_hosted_public_providers(monkeypatch):
     monkeypatch.delenv('PREPARATION_PROVIDER', raising=False)
-    assert make_preparation_model().name == PRO_MODEL
-    assert make_preparation_model('qwen3.5:9b').name == 'qwen3.5:9b'
+    assert not make_preparation_model().name.startswith(('deepseek-api:','anthropic-api:','claude-pro'))
+    monkeypatch.setenv('PREPARATION_PROVIDER','deepseek_public')
+    with pytest.raises(ValueError, match='local'): make_preparation_model()
+    monkeypatch.setenv('PREPARATION_PROVIDER','claude_pro_public')
+    with pytest.raises(ValueError, match='local'): make_preparation_model()
+    with pytest.raises(ValueError, match='local'): make_preparation_model('qwen3.5:9b')
     monkeypatch.setenv('PREPARATION_PROVIDER', 'local')
     assert make_preparation_model().name != PRO_MODEL
 

@@ -29,20 +29,15 @@ def wants_growth(brief):
 
 
 def interpret_brief(run, model):
-    try:
-        plan = generate_task(model, 'sourcing_plan', practice_instruction('sourcing_plan', 'Interpret this company sourcing request. Extract the actual sector and its business synonyms, '
+    plan = generate_task(model, 'sourcing_plan', practice_instruction('sourcing_plan', 'Interpret this company sourcing request. Extract the actual sector and its business synonyms, '
             'all selection criteria, the evidence needed to evaluate each, 3 short discovery queries of 5-9 words (not questions) and research follow-up terms. '
             'Services we provide (incubation/fundraising) are not company sectors. Rapid growth needs dated comparable business metrics; '
             'portfolio membership, funding alone and promotional adjectives do not prove growth. Never add years, stages or requirements '
             'the user did not request. Geography parameter controls geographic scope. Do not invent company names or results.'),
             json.dumps({'request':run.thesis, 'geography':run.geography, 'today':utcnow()[:10]}), ResearchPlan)
-        data = ResearchPlan.model_validate(plan.model_dump()).model_dump()
-        data['status'] = 'model_interpreted'
-        data['routing'] = dict(model.last_route) if isinstance(getattr(model, 'last_route', None), dict) else {}
-    except Exception:
-        from agents.discovery.public_directories import industry_terms
-        data = dict(interpretation=run.thesis, sector_terms=industry_terms(run.thesis), criteria=[dict(dimension='sector', requirement=run.thesis, evidence_needed='Company offering relevant to the request')],
-            queries=[f'{run.thesis} {run.geography or ""} companies'], follow_up_terms=['products', 'customers'], status='fallback')
+    data = ResearchPlan.model_validate(plan.model_dump()).model_dump()
+    data['status'] = 'model_interpreted'
+    data['routing'] = dict(model.last_route) if isinstance(getattr(model, 'last_route', None), dict) else {}
     if run.geography and not any(c['dimension']=='geography' for c in data['criteria']):
         data['criteria'].append(dict(dimension='geography', requirement=f'Operating in {run.geography}', evidence_needed='Company-specific location or operating-market evidence'))
     if data['sector_terms'] and not any(c['dimension']=='sector' for c in data['criteria']):
@@ -56,6 +51,8 @@ def interpret_brief(run, model):
         data['follow_up_terms'] = list(dict.fromkeys(['revenue growth', 'customer growth'] + data['follow_up_terms']))[:5]
     from agents.discovery.web_discovery import discovery_queries
     data['queries'] = discovery_queries(run.thesis, run.geography, data['queries'])[:3]
+    if not data['queries']:
+        raise ValueError('Local sourcing plan supplied no usable public search queries')
     data['model'] = model.name
     data['practice'] = practice_manifest('sourcing_plan')
     run.research_plan = data

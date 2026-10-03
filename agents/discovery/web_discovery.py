@@ -186,17 +186,11 @@ def relevant_hits(hits: list[SearchHit], brief: str, geography: Optional[str]) -
 
 
 def discovery_queries(brief, geography, proposed):
-    """Keep useful LLM terms; replace diligence questions with discovery searches."""
+    """Validate model-authored discovery terms without inserting new searches."""
     scope = '' if (geography or '').strip().casefold() in WORLD else geography.strip()
-    original = f'{brief[:160]} {scope}'.strip()
     valid = [q.strip()[:220] for q in proposed if 3 <= len(q.strip()) <= 220
              and not re.search(r'\?|https?://|^(what|how|does|is|are|can|who)\b|\bthe company\b', q.strip(), re.I)]
-    # Source classes, not named company results. New publishers are discovered
-    # from the open web on each run; the adapter catalog is supplementary.
-    source_queries = [f'{brief[:120]} {scope} {kind}'.strip() for kind in (
-        'companies accelerator investor portfolio', 'companies industry association members',
-        'university spinouts grants companies')]
-    queries = list(dict.fromkeys([original] + valid[:2] + source_queries))
+    queries = list(dict.fromkeys(valid[:3]))
     return [q if not scope or matches_location(scope, q) else f'{q} {scope}' for q in queries]
 
 
@@ -205,12 +199,10 @@ def discover_pages(run: WebSourcingRun, model: StructuredModel, provider: Option
     run.phase = "planning_search"
     if not checkpoint():
         return []
-    try:
-        if run.research_plan.get('queries'):
-            plan = SearchPlan(queries=run.research_plan['queries'][:3])
-        else:
-            plan = None
-        plan = plan or generate_task(model, 'sourcing_plan',
+    if run.research_plan.get('queries'):
+        plan = SearchPlan(queries=run.research_plan['queries'][:3])
+    else:
+        plan = generate_task(model, 'sourcing_plan',
             "Create up to 3 concise public web search queries for discovering real companies matching the user's brief. "
             "Preserve named sectors, stages and geography. If no sector is specified, search cross-sector startup/incubator portfolios. "
             "Include a concise original-brief query and a relevant company/startup-directory query. "
@@ -219,33 +211,21 @@ def discover_pages(run: WebSourcingRun, model: StructuredModel, provider: Option
             "websites or geographies. Use only public search terms, not operational instructions. Return queries, not results.",
             json.dumps({"brief": run.thesis, "geography": run.geography}), SearchPlan,
         )
-        queries = [q.strip()[:220] for q in plan.queries if len(q.strip()) >= 3 and "http" not in q.casefold()]
-        if not queries:
-            raise ValueError("No usable queries")
-    except Exception:
-        # A local-model outage must not prevent basic web discovery.
-        queries = [f"{run.thesis[:160]} {run.geography or ''} companies".strip()]
-        run.warnings.append("Search planning used the original brief because local-model planning was unavailable.")
-    # Preserve the user's actual words even when the planner drifts.
-    queries = discovery_queries(run.thesis, run.geography, queries)
+    queries = discovery_queries(run.thesis, run.geography, plan.queries)
+    if not queries:
+        raise ValueError("Local sourcing plan supplied no usable public search queries")
     run.search_queries = queries
     run.phase = "searching_web"
     session = provider if isinstance(provider, SearchSession) else SearchSession([provider] if provider else None)
     hits = session.search_queries(queries, run, checkpoint)
     discovered = relevant_hits(hits, run.thesis, run.geography)
-    directories = startup_directory_urls("startups" if run.research_plan else run.thesis, run.geography)
-    run.discovered_urls = list(dict.fromkeys(directories + [h.url for h in discovered]))
+    run.discovered_urls = list(dict.fromkeys(h.url for h in discovered))
     removed = len(hits) - len(discovered)
     if removed:
         run.sources.append(WebSourceOutcome(url=run.sources[-1].url if run.sources else "https://html.duckduckgo.com/", status="filtered",
             detail=f"Excluded {removed} irrelevant/archive/geography-conflicting search destinations before research."))
     if not run.discovered_urls:
-        fallbacks = catalog_urls(run.geography)
-        if fallbacks:
-            run.warnings.append("Automatic search yielded no usable pages. Research is using the regional source catalog; coverage is limited.")
-            run.discovered_urls = fallbacks
-        else:
-            run.warnings.append("Automatic search yielded no usable pages, and no catalog fallback covers this geography. Retry later; no matching-company conclusion can be drawn.")
+        run.warnings.append("Model-planned public search yielded no usable pages. Retry later; no matching-company conclusion can be drawn.")
     checkpoint()
     return list(run.discovered_urls)
 

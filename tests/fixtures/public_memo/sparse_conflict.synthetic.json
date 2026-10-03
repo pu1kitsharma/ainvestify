@@ -1,0 +1,32 @@
+{
+  "classification": "synthetic",
+  "rights_reviewed": true,
+  "company": "Example Labs",
+  "as_of_date": "2026-10-03",
+  "sources": [
+    {
+      "id": "S1",
+      "url": "https://example.invalid/registry/round",
+      "title": "Synthetic funding registry entry",
+      "passage": "A synthetic registry lists an Example Labs seed round dated 2024-04-10 with a reported INR 2 crore amount. The transaction completion status is unknown, and the entry does not state current cash availability.",
+      "version": "synthetic-round-v1",
+      "attribution": "Synthetic registry fixture"
+    },
+    {
+      "id": "S2",
+      "url": "https://example.invalid/company/product",
+      "title": "Synthetic company product statement",
+      "passage": "Example Labs states that its pilot software was launched in 2025-08. This is a company statement; the page does not report independently verified customers, revenue, or signed contracts.",
+      "version": "synthetic-product-v1",
+      "attribution": "Synthetic company fixture"
+    },
+    {
+      "id": "S3",
+      "url": "https://example.invalid/registry/later-event",
+      "title": "Synthetic later financing entry",
+      "passage": "A later synthetic registry entry dated 2026-02-19 labels an Example Labs financing event Series B. The entry provides no amount and gives its completion status as unknown; its label conflicts with treating the company as currently at seed stage.",
+      "version": "synthetic-later-v1",
+      "attribution": "Synthetic registry fixture"
+    }
+  ]
+}

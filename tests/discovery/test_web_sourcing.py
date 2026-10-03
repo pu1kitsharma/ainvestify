@@ -236,6 +236,8 @@ def test_web_api_job_history_validation_and_tenant_scope(tmp_path, monkeypatch):
         with TestClient(app) as client:
             response = client.post("/api/leads/web-runs", json={"thesis": "Any sector", "seed_urls": ["https://farm.example/"], "prepare_workflow": False})
             assert response.status_code == 202
+            assert response.json()["geography"] is None
+            assert response.json()["generation_config"]["discovery_policy"] == "global_research_v1"
             run_id = response.json()["id"]
             assert client.get(f"/api/leads/web-runs/{run_id}").json()["status"] == "completed"
             workspaces = client.get("/api/operations/workspaces").json()
@@ -280,3 +282,12 @@ def test_transport_marks_only_transient_errors_retryable(monkeypatch, error, ret
         PublicWebFetcher()._request('https://example.org/', time.monotonic() + 10)
     assert failure.value.retryable is retryable
     pool.close.assert_called_once()
+def test_javascript_site_publisher_description_is_labeled_source_metadata():
+    from agents.discovery.web_sources import parse_page
+
+    page = parse_page('https://example.org/', '''<html><head><title>Example</title>
+      <meta name="description" content="A publisher-authored product description that can be checked against the live site.">
+      </head><body><div id="root"></div></body></html>''')
+    assert page.content_blocks == [
+        '[Publisher page description metadata] A publisher-authored product description that can be checked against the live site.']
+    assert page.title == 'Example'

@@ -1,3 +1,4 @@
+import AuthGate from "./components/AuthGate";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import Dashboard from "./pages/Dashboard";
@@ -12,7 +13,7 @@ import Operations from "./pages/Operations";
 
 export default function App() {
   return (
-    <Routes>
+    <AuthGate><Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/leads" element={<Leads />} />
@@ -26,6 +27,6 @@ export default function App() {
           <Route path="audit-log" element={<AuditLog />} />
         </Route>
       </Route>
-    </Routes>
+    </Routes></AuthGate>
   );
 }

@@ -55,7 +55,14 @@ class WebSourceRequest(BaseModel):
     seed_urls: list[str] = Field(default_factory=list, max_length=5)
     max_pages: int = Field(default=12, ge=1, le=30)
     max_companies: int = Field(default=20, ge=1, le=50)
-    prepare_workflow: bool = True
+    prepare_workflow: bool = False
+
+    @field_validator('geography', mode='before')
+    @classmethod
+    def normalize_geography(cls, value):
+        if value is None or not str(value).strip() or str(value).strip().casefold() == 'worldwide':
+            return None
+        return str(value).strip()
 
     @field_validator("seed_urls")
     @classmethod

@@ -67,6 +67,8 @@ def upload_document(
     deal = _get_deal_or_404(store, tenant_id, deal_id)
     if not file.filename or Path(file.filename).suffix.lower() not in (".pdf", ".xlsx", ".xlsm"):
         raise HTTPException(status_code=400, detail="Only .pdf/.xlsx/.xlsm documents are supported")
+    if getattr(store,'authenticated_identity',None) is not None and not deal.mandate_signed_at:
+        raise HTTPException(409,'Record the required engagement mandate before ingesting deal documents')
 
     # A fresh subdirectory per upload, not deal_dir/file.filename directly:
     # two uploads sharing a filename (a plausible real collision, not just a
@@ -79,12 +81,28 @@ def upload_document(
     # at a path the second upload has since overwritten. The subdirectory
     # (not a renamed file) keeps Document.filename showing the original
     # name Path(path).name derives it from, in ingest_pdf/ingest_excel.
-    deal_dir = UPLOAD_ROOT / deal_id / new_id("upload")
-    deal_dir.mkdir(parents=True, exist_ok=True)
+    from delivery.storage import MAX_FILE_BYTES, scope_component
+    if Path(file.filename).name != file.filename or "\\" in file.filename or "\x00" in file.filename:
+        raise HTTPException(400, "Invalid upload filename")
+    content = file.file.read(MAX_FILE_BYTES + 1)
+    if not content or len(content) > MAX_FILE_BYTES:
+        raise HTTPException(413, "Document is empty or exceeds the 32 MiB limit")
+    deal_dir = UPLOAD_ROOT / scope_component(tenant_id) / scope_component(deal_id) / new_id("upload")
+    if any(p.is_symlink() for p in (UPLOAD_ROOT,deal_dir.parent.parent,deal_dir.parent)):
+        raise HTTPException(409,"Upload storage is not a private directory")
+    deal_dir.mkdir(mode=0o700,parents=True, exist_ok=False)
     dest = deal_dir / file.filename
-    dest.write_bytes(file.file.read())
+    import os
+    fd = os.open(str(dest),os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600)
+    with os.fdopen(fd,"wb") as output:
+        output.write(content)
 
     _run_ingest(store, deal, str(dest))
+    if getattr(store,'authenticated_identity',None) is not None:
+        lead=store.get_lead_by_promoted_deal_id(tenant_id,deal_id)
+        if lead and store.get_workspace(tenant_id,lead_id=lead.id):
+            from api.routers.rooms import activate
+            activate(store,store.authenticated_identity,lead.id)
     return store.get_deal(tenant_id, deal_id)
 
 

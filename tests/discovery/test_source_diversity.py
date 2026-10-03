@@ -1,3 +1,4 @@
+import json
 from unittest.mock import Mock
 
 from agents.discovery.company_sourcing import source_companies
@@ -5,6 +6,8 @@ from agents.discovery.public_directories import directory_profiles
 from agents.discovery.web_sources import Page, SourceError, parse_page
 from schemas import CompanyEvidence, CompanyProfile, WebSourcingRun, WebSourceOutcome
 from store import Store
+from agents.research.research_reasoning import ResearchPlan, Screening
+from agents.discovery.web_discovery import SearchPlan
 
 
 def yc(name):
@@ -35,10 +38,26 @@ def test_independent_portfolio_parsers_keep_geography_and_status_honest():
     assert not parse_page('https://impostor.example/', blume('Wrong')).directory_entries
 
 
-class NoModel:
+class FixtureModel:
     name = 'offline-test'
-    def generate(self, *args):
-        raise RuntimeError('No model in this retrieval test')
+    def generate(self, instruction, evidence, schema):
+        if schema is ResearchPlan:
+            fintech = 'fintech' in json.loads(evidence)['request']
+            return ResearchPlan(interpretation='Public company discovery',
+                sector_terms=['fintech'] if fintech else ['technology'],
+                criteria=[dict(dimension='sector', requirement='Requested sector', evidence_needed='Offering')],
+                queries=['public startup companies'], follow_up_terms=['offering'])
+        if issubclass(schema, Screening):
+            data = json.loads(evidence)
+            return Screening(candidates=[dict(candidate_id=p['candidate_id'], priority=1,
+                reason='Source describes an operating company', criteria=[dict(
+                    dimension=c['dimension'], status='supported' if c['dimension']=='sector' else 'unknown',
+                    reason='Offering is source reported' if c['dimension']=='sector' else 'Requires further review',
+                    evidence_ids=[next(e['id'] for e in p['evidence'] if e['field']=='offering')])
+                    for c in data['plan']['criteria']]) for p in data['candidates']])
+        if schema is SearchPlan:
+            return SearchPlan(queries=['public startup companies'])
+        raise RuntimeError('Assessment unavailable in retrieval fixture')
 
 
 class NoSearch:
@@ -53,7 +72,7 @@ def test_first_directory_cannot_consume_all_candidate_slots(tmp_path):
         return parse_page(url, html) if html else Page(url, '', '')
     with Store(tmp_path / 'db') as store:
         run = source_companies(store, WebSourcingRun(tenant_id='one', thesis='tech startups', geography='India', model='test'),
-            model=NoModel(), fetcher=Mock(fetch=Mock(side_effect=fetch)), search_provider=NoSearch(), max_pages=8, max_companies=5)
+            model=FixtureModel(), fetcher=Mock(fetch=Mock(side_effect=fetch)), search_provider=NoSearch(), max_pages=8, max_companies=5)
         assert len(run.company_profiles) == 5
         counts = {r['host']: r['discovered_companies'] for r in run.source_coverage}
         assert counts['ycombinator.com'] == counts['blume.vc'] == 2
@@ -74,7 +93,7 @@ def test_thin_yc_directory_read_is_marked_incomplete_not_no_results(tmp_path):
         return Page(url, '', '')
     with Store(tmp_path / 'db') as store:
         run = source_companies(store, WebSourcingRun(tenant_id='one', thesis='tech startups', geography='United States', model='test'),
-            model=NoModel(), fetcher=Mock(fetch=Mock(side_effect=fetch)), search_provider=NoSearch(), max_companies=5)
+            model=FixtureModel(), fetcher=Mock(fetch=Mock(side_effect=fetch)), search_provider=NoSearch(), max_companies=5)
         outcome = next(o for o in run.sources if o.kind == 'directory' and 'ycombinator.com' in o.url)
         assert outcome.status == 'incomplete'
         assert 'JavaScript' in outcome.detail
@@ -88,7 +107,7 @@ def test_unavailable_sources_backfill_but_do_not_claim_diversity(tmp_path):
         raise SourceError('blocked', 'Provider unavailable')
     with Store(tmp_path / 'db') as store:
         run = source_companies(store, WebSourcingRun(tenant_id='one', thesis='tech startups', geography='India', model='test'),
-            model=NoModel(), fetcher=Mock(fetch=Mock(side_effect=fetch)), search_provider=NoSearch(), max_companies=5)
+            model=FixtureModel(), fetcher=Mock(fetch=Mock(side_effect=fetch)), search_provider=NoSearch(), max_companies=5)
         assert len(run.company_profiles) == 5
         assert len([r for r in run.source_coverage if r['discovered_companies']]) == 1
         assert any('Only one discovery publisher' in w for w in run.warnings)
@@ -116,7 +135,7 @@ def test_natural_fintech_brief_uses_directories_and_stable_claim_ids(tmp_path):
     with Store(tmp_path / 'db') as store:
         def execute():
             return source_companies(store,WebSourcingRun(tenant_id='one',thesis=brief,geography='India',model='test'),
-                model=NoModel(),fetcher=Mock(fetch=Mock(side_effect=fetch)),search_provider=NoSearch(),max_companies=2)
+                model=FixtureModel(),fetcher=Mock(fetch=Mock(side_effect=fetch)),search_provider=NoSearch(),max_companies=2)
         first = execute()
         assert [p.name for p in first.company_profiles] == ['PaymentExample']
         second = execute()

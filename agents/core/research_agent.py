@@ -33,8 +33,8 @@ from pathlib import Path
 from typing import Optional
 
 import numpy as np
-import ollama
 import requests
+from agents.inference.local_ollama import local_embed
 
 from schemas import ResearchFinding
 
@@ -214,7 +214,7 @@ class SectorNotesIndex:
             self.notes = json.load(f)
 
         embeddings = [
-            ollama.embed(model=EMBED_MODEL, input=note["text"]).embeddings[0]
+            local_embed(model=EMBED_MODEL, input=note["text"]).embeddings[0]
             for note in self.notes
         ]
         matrix = np.array(embeddings, dtype="float32")
@@ -225,7 +225,7 @@ class SectorNotesIndex:
     def query(self, tenant_id: str, deal_id: str, query_text: str, top_k: int = 2) -> list[ResearchFinding]:
         import faiss
 
-        query_vec = np.array([ollama.embed(model=EMBED_MODEL, input=query_text).embeddings[0]], dtype="float32")
+        query_vec = np.array([local_embed(model=EMBED_MODEL, input=query_text).embeddings[0]], dtype="float32")
         faiss.normalize_L2(query_vec)
         scores, indices = self.index.search(query_vec, min(top_k, len(self.notes)))
 
@@ -251,16 +251,20 @@ def research_deal(
     company_name: str,
     sector_query: Optional[str] = None,
     sector_index: Optional[SectorNotesIndex] = None,
+    public_identity: bool = False,
 ) -> list[ResearchFinding]:
     """Run every connector for one deal. `sector_query` should describe what
     to benchmark against (e.g. "SaaS Series A burn multiple and runway") --
     pass an already-built `sector_index` to avoid re-embedding the corpus
     on every call within one process."""
     findings: list[ResearchFinding] = []
-    findings += fetch_github_signal(tenant_id, deal_id, company_name)
-    findings += fetch_hn_mentions(tenant_id, deal_id, company_name)
-    findings += fetch_edgar_mentions(tenant_id, deal_id, company_name)
-    findings += fetch_wikipedia_summary(tenant_id, deal_id, company_name)
+    # A deal name can come from a private document or an unsourced user entry.
+    # External lookup is opt-in only after the caller verifies public identity.
+    if public_identity:
+        findings += fetch_github_signal(tenant_id, deal_id, company_name)
+        findings += fetch_hn_mentions(tenant_id, deal_id, company_name)
+        findings += fetch_edgar_mentions(tenant_id, deal_id, company_name)
+        findings += fetch_wikipedia_summary(tenant_id, deal_id, company_name)
 
     if sector_query:
         index = sector_index or SectorNotesIndex()

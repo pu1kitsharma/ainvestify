@@ -1,10 +1,7 @@
-"""
-Research endpoints (plan §2/§3, milestone 3): run the Market Research Agent
-for a deal, list findings, per-finding approve/reject, mark-reviewed.
-"""
+"""Read/review historical findings; new research runs use the deal room."""
 from fastapi import APIRouter, Depends, HTTPException
 
-from agents.core.planner_agent import _run_research, mark_research_reviewed
+from agents.core.planner_agent import mark_research_reviewed
 from agents.core.review_checkpoint import apply_finding_decision
 from api.deps import get_reviewer, get_store, get_tenant_id
 from api.models import FindingDecisionRequest, RunResearchRequest
@@ -28,12 +25,7 @@ def run_research(
     store: Store = Depends(get_store),
     tenant_id: str = Depends(get_tenant_id),
 ):
-    deal = _get_deal_or_404(store, tenant_id, deal_id)
-    # No sector_index passed -- same as handle_directive's own default, a
-    # fresh SectorNotesIndex gets built per call (research_deal's own
-    # fallback). Caching one across calls is a later performance concern,
-    # not a Milestone 3 correctness one.
-    return _run_research(store, deal, body.company_name, body.sector_query, None)
+    raise HTTPException(410, 'Legacy connector research is retired. Open the deal room for local-model, evidence-bound research.')
 
 
 @router.get("/{deal_id}/research", response_model=list[ResearchFinding])

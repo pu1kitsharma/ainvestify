@@ -46,6 +46,7 @@ class Document(BaseModel):
     type: str  # "pdf" | "xlsx"
     storage_uri: str
     blocks: list[DocBlock] = Field(default_factory=list)
+    workbook_inventory: dict[str, Any] = Field(default_factory=dict)
 
 
 class FieldStatus(str, Enum):
@@ -93,6 +94,7 @@ class FundingRound(BaseModel):
     # source_block_id is dropped by the Extraction Agent, not kept uncited.
     source_block_id: Optional[str] = None
     source_page: Optional[int] = None
+    unit: Optional[str] = None
 
 
 class ExtractionResult(BaseModel):
@@ -101,12 +103,12 @@ class ExtractionResult(BaseModel):
     tenant_id: str
     deal_id: str
     document_id: str
-    arr: ExtractedValue = Field(default_factory=lambda: ExtractedValue(unit="USD"))
-    arr_prior_year: ExtractedValue = Field(default_factory=lambda: ExtractedValue(unit="USD"))
-    mrr: ExtractedValue = Field(default_factory=lambda: ExtractedValue(unit="USD"))
+    arr: ExtractedValue = Field(default_factory=ExtractedValue)
+    arr_prior_year: ExtractedValue = Field(default_factory=ExtractedValue)
+    mrr: ExtractedValue = Field(default_factory=ExtractedValue)
     growth_rate_yoy: ExtractedValue = Field(default_factory=lambda: ExtractedValue(unit="%"))
-    burn_monthly: ExtractedValue = Field(default_factory=lambda: ExtractedValue(unit="USD"))
-    cash_on_hand: ExtractedValue = Field(default_factory=lambda: ExtractedValue(unit="USD"))
+    burn_monthly: ExtractedValue = Field(default_factory=ExtractedValue)
+    cash_on_hand: ExtractedValue = Field(default_factory=ExtractedValue)
     runway_months: ExtractedValue = Field(default_factory=ExtractedValue)
     headcount: ExtractedValue = Field(default_factory=ExtractedValue)
     cap_table: list[CapTableRow] = Field(default_factory=list)

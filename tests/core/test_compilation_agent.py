@@ -17,6 +17,9 @@ from agents.core.compilation_agent import (
     render_teaser_markdown,
 )
 from schemas import CapTableRow, ChartArtifact, FieldStatus, FundingRound, ResearchFinding
+from schemas import ExtractedValue
+from agents.core.compilation_agent import CompilationBlockedError
+import pytest
 
 TENANT, DEAL = "tenant_test", "deal_test"
 
@@ -125,3 +128,28 @@ def test_proforma_markdown_labels_itself_projected_not_extracted():
     projection = generate_proforma_projection(result, years=1)
     rendered = render_proforma_markdown(result, projection, version_number=1)
     assert "PROJECTED, NOT EXTRACTED" in rendered
+
+
+def test_proforma_preserves_inr_mn_and_blocks_mixed_or_unknown_units():
+    result = _fully_approved_result(
+        arr=ExtractedValue(value=12.5, unit='INR mn', status=FieldStatus.APPROVED),
+        burn_monthly=ExtractedValue(value=1.0, unit='INR mn', status=FieldStatus.APPROVED),
+        cash_on_hand=ExtractedValue(value=15.0, unit='INR mn', status=FieldStatus.APPROVED),
+    )
+    projection = generate_proforma_projection(result, years=1)
+    assert projection['money_unit'] == 'INR mn'
+    rendered = render_proforma_markdown(result, projection)
+    assert 'INR mn' in rendered and '$' not in rendered
+    result.burn_monthly.unit = 'USD'
+    with pytest.raises(CompilationBlockedError, match='different currencies'):
+        generate_proforma_projection(result)
+    result.arr.unit = None
+    with pytest.raises(CompilationBlockedError, match='unknown currency'):
+        generate_proforma_projection(result)
+
+
+def test_legacy_funding_amount_without_recorded_currency_is_labeled_unknown():
+    result = _fully_approved_result(funding_history=[FundingRound(round_name='Seed', amount=12.5, source_block_id='b1')])
+    result.funding_history_status = FieldStatus.APPROVED
+    data = build_cim_data(result, [], include_narrative=False)
+    assert 'currency/scale not established' in render_cim_markdown(data)

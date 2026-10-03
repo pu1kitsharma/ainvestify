@@ -13,15 +13,21 @@ export class ApiClientError extends Error {
   }
 }
 
+let csrfToken = "";
+export function setCsrfToken(value: string) { csrfToken = value; }
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(path, {
     ...init,
+    credentials: "same-origin",
     headers: {
       ...(init?.body && !(init.body instanceof FormData) ? { "Content-Type": "application/json" } : {}),
+      ...(init?.method && init.method !== "GET" ? {"X-CSRF-Token": csrfToken} : {}),
       ...init?.headers,
     },
   });
   if (!res.ok) {
+    if(res.status === 401) window.dispatchEvent(new Event("session-expired"));
     let detail = res.statusText;
     try {
       const body = (await res.json()) as ApiError;

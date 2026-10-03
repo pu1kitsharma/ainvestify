@@ -68,13 +68,17 @@ def start_web_run(body: WebSourceRequest, background: BackgroundTasks,
     try:
         run = WebSourcingRun(tenant_id=tenant_id, thesis=body.thesis, geography=body.geography,
                             seed_urls=body.seed_urls, model=LocalModel().name, worker_id=_worker_id)
+        from agents.discovery.eligibility import GLOBAL_POLICY
+        run.generation_config['discovery_policy'] = GLOBAL_POLICY
         if body.continuation_of:
             previous=store.get_web_run(tenant_id,body.continuation_of)
             if not previous: raise HTTPException(404,'Previous discovery batch not found')
+            if previous.generation_config.get('discovery_policy') != GLOBAL_POLICY:
+                raise HTTPException(422,'Start a new search. This saved run used a different discovery policy.')
             if previous.thesis!=body.thesis or previous.geography!=body.geography:
                 raise HTTPException(422,'Continue the same search brief and geography, or start a new search.')
             excluded=list(dict.fromkeys([*previous.generation_config.get('exclude_names',[]),*[p.name for p in previous.company_profiles]]))
-            run.generation_config={'continuation_of':previous.id,'exclude_names':excluded[-100:]}
+            run.generation_config.update(continuation_of=previous.id,exclude_names=excluded[-100:])
         store.save_web_run(run)
         background.add_task(_run_web_job, store.db_path, run, body)
         return run

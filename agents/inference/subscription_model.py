@@ -210,32 +210,22 @@ class ClaudeProModel:
 
 
 def default_preparation_name():
-    provider = os.environ.get('PREPARATION_PROVIDER', 'claude_pro_public')
-    if provider == 'anthropic_api_public':
-        from agents.inference.anthropic_api import api_model_name
-        return api_model_name()
-    if provider == 'claude_pro_public':
-        return PRO_MODEL
-    if provider == 'local':
-        from agents.inference.local_models import PreparationModel, shared_model_name
-        return shared_model_name(PreparationModel())
-    raise ValueError('PREPARATION_PROVIDER must be anthropic_api_public, claude_pro_public or local.')
+    provider = os.environ.get('PREPARATION_PROVIDER', 'local')
+    if provider != 'local':
+        raise ValueError('Only local model responses are enabled; set PREPARATION_PROVIDER=local.')
+    from agents.inference.local_models import PreparationModel, shared_model_name
+    return shared_model_name(PreparationModel())
 
 
 def is_public_preparation_name(name):
-    return name == PRO_MODEL or name.startswith('anthropic-api:')
+    return name == PRO_MODEL or name.startswith(('anthropic-api:', 'deepseek-api:'))
 
 
 def make_preparation_model(selection=None, *, thinking=False, review_model=None, review_thinking=None):
+    if os.environ.get('PREPARATION_PROVIDER', 'local') != 'local':
+        raise ValueError('Only local model responses are enabled; set PREPARATION_PROVIDER=local.')
     selected = default_preparation_name() if not selection or selection == 'auto' else selection
-    if selected.startswith('anthropic-api:'):
-        if thinking or review_thinking is not None or review_model not in (None, selected):
-            raise ValueError('Local model overrides do not apply to public API preparation.')
-        from agents.inference.anthropic_api import ClaudeAPIModel
-        return ClaudeAPIModel(selected)
-    if selected == PRO_MODEL:
-        if thinking or review_thinking is not None or review_model not in (None, PRO_MODEL):
-            raise ValueError('Local model overrides do not apply to Claude Pro public preparation.')
-        return ClaudeProModel()
+    if is_public_preparation_name(selected) or (review_model and is_public_preparation_name(review_model)):
+        raise ValueError('Hosted model response routes are retired; select an installed local model.')
     from agents.inference.local_models import AnalystModel
     return AnalystModel(selected, thinking=thinking, review_model=review_model, review_thinking=review_thinking)

@@ -9,6 +9,7 @@ import WebSourcing from "../components/WebSourcing";
 import type { SourcedLead, WebSourcingRun } from "../api/types";
 
 const running = (run?: WebSourcingRun) => !!run && ["running", "cancel_requested"].includes(run.status);
+const CURRENT_POLICY = 'global_research_v1';
 const label = (value: string) => value.replaceAll("_", " ");
 const host = (url: string) => { try { return new URL(url).hostname.replace(/^www\./, ""); } catch { return "Source"; } };
 const recommendationStyle: Record<string, string> = {
@@ -44,6 +45,9 @@ export default function Leads() {
   const queryClient = useQueryClient();
   const [tab, setTab] = useState<"results" | "shortlist" | "history">("results");
   const runs = useWebRuns();
+  const runtime = useQuery({queryKey:['public-research-status'],
+    queryFn:()=>api.get<{configured:boolean;message:string}>('/api/operations/public-research-status'),
+    staleTime:30000,retry:false});
   const allLeads = useLeads();
   const start = useStartWebRun();
   const cancel = useCancelWebRun();
@@ -51,8 +55,8 @@ export default function Leads() {
   const selectedId = params.get("run");
   const requestedBrief = params.get("keyword");
   const selected = selectedId ? runs.data?.find(r => r.id === selectedId) : requestedBrief
-    ? runs.data?.find(r => r.thesis.toLowerCase() === requestedBrief.toLowerCase() && (!params.get("location") || r.geography?.toLowerCase() === params.get("location")!.toLowerCase()))
-    : runs.data?.[0];
+    ? runs.data?.find(r => r.generation_config?.discovery_policy === CURRENT_POLICY && r.thesis.toLowerCase() === requestedBrief.toLowerCase())
+    : runs.data?.find(r => r.generation_config?.discovery_policy === CURRENT_POLICY);
   const active = runs.data?.find(running);
   // A new request clears visible results immediately. No global lead backlog
   // may be substituted while that request has zero companies or is loading.
@@ -71,16 +75,17 @@ export default function Leads() {
   const selectRun = (id: string) => { setParams({ run: id }); setTab("results"); };
   const search = (thesis: string, geography: string, target: number) => {
     setTab("results");
-    start.mutate({ thesis, geography: geography || undefined, max_companies: target, prepare_workflow: true }, { onSuccess: run => selectRun(run.id) });
+    start.mutate({ thesis, geography: geography || undefined, max_companies: target, prepare_workflow: false }, { onSuccess: run => selectRun(run.id) });
   };
   const error = start.error ?? cancel.error ?? decision.error ?? runs.error ?? results.error ?? allLeads.error;
   return <div className="space-y-6">
     <header className="flex flex-wrap items-end justify-between gap-3">
       <div><p className="text-xs font-semibold uppercase tracking-widest text-indigo-600">Company discovery</p>
         <h1 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900">Find your next opportunity</h1>
-        <p className="mt-2 text-sm text-slate-500">Research a market. Compare companies. Build your shortlist.</p></div>
+        <p className="mt-2 text-sm text-slate-500">Research startups worldwide against your investment brief. Due diligence is required before an investment suggestion.</p></div>
       <button onClick={() => setTab("shortlist")} className="rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:border-indigo-300">Shortlist <span className="ml-2 rounded bg-slate-100 px-1.5 py-0.5 text-xs">{shortlist.length}</span></button>
     </header>
+    {runtime.data && !runtime.data.configured && <p role="status" className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">{runtime.data.message}</p>}
     <WebSourcing key={selected?.id ?? "new"} initialTarget={selected?.generation_config?.requested_companies ?? 20}
       initialThesis={params.get("keyword") ?? selected?.thesis ?? ""} initialGeography={params.get("location") ?? selected?.geography ?? ""}
       busy={!!active} starting={start.isPending} stopping={cancel.isPending || active?.status === "cancel_requested"}
@@ -99,6 +104,8 @@ export default function Leads() {
     </section> : <>
       {tab === "results" && visibleRun && <SearchProgress run={visibleRun} count={current.length} />}
       {tab === "results" && visibleRun && <ResearchReasoning run={visibleRun} />}
+      {tab === "results" && visibleRun && visibleRun.generation_config?.discovery_policy !== CURRENT_POLICY && <p className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">Historical search: this run used an earlier research policy. Start a new search for the current brief; saved records remain available.</p>}
+      {tab === "results" && !!visibleRun?.generation_config?.eligibility_exclusions?.length && <details className="rounded-xl border border-slate-200 bg-white p-4 text-sm"><summary className="cursor-pointer">Excluded or unresolved candidates ({visibleRun.generation_config.eligibility_exclusions.length})</summary>{visibleRun.generation_config.eligibility_exclusions.map((item,i)=><p key={i} className="mt-2 text-slate-600">{item.name}: {item.reason}</p>)}</details>}
       {tab === "shortlist" && <div><h2 className="font-semibold">Companies you’ve shortlisted</h2><p className="mt-1 text-sm text-slate-500">Saved across searches, ready for further diligence and company work.</p></div>}
       {(start.isPending || runs.isLoading || (results.isLoading && !!visibleRun && tab === "results")) ? <p role="status" className="rounded-xl bg-white p-6 text-sm text-slate-500">{start.isPending ? "Starting a new search…" : "Loading your results…"}</p>
         : companies.length ? <div className="grid items-start gap-4 md:grid-cols-2">{companies.map(lead => <CompanyCard key={lead.id} lead={lead} pending={decision.isPending} researching={tab === "results" && running(visibleRun)}
@@ -107,7 +114,7 @@ export default function Leads() {
           <h2 className="text-base font-semibold text-slate-700">{tab === "shortlist" ? "Your shortlist starts here" : running(visibleRun) ? "Looking for companies that match your brief" : visibleRun ? "No matching companies were established in this search" : "Start with the companies you want to find"}</h2>
           <p className="mx-auto mt-2 max-w-lg text-sm text-slate-500">{tab === "shortlist" ? "Shortlist a company from your search results to keep working on it." : running(visibleRun) ? "Candidates will appear here as evidence is collected." : visibleRun ? "The available sources did not provide enough relevant evidence. You can retry the search; this does not mean the market has no companies." : "Enter a brief and geography above. Each search has its own results."}</p>
         </div>}
-      {tab === "results" && visibleRun && !running(visibleRun) && <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white p-4"><p className="text-sm text-slate-600">This run targets {visibleRun.generation_config?.requested_companies ?? 20} {visibleRun.generation_config?.continuation_of ? "additional " : ""}distinct companies within its time limit. Results appear as batches finish; find more to extend the search.</p><button disabled={!!active || start.isPending} className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50" onClick={()=>start.mutate({thesis:visibleRun.thesis,geography:visibleRun.geography||undefined,continuation_of:visibleRun.id,max_companies:visibleRun.generation_config?.requested_companies??20,prepare_workflow:false},{onSuccess:run=>selectRun(run.id)})}>Find more companies</button></div>}
+      {tab === "results" && visibleRun && !running(visibleRun) && <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white p-4"><p className="text-sm text-slate-600">This run targets {visibleRun.generation_config?.requested_companies ?? 20} {visibleRun.generation_config?.continuation_of ? "additional " : ""}distinct companies within its time limit. Results appear as batches finish; find more to extend the search.</p><button disabled={!!active || start.isPending || visibleRun.generation_config?.discovery_policy !== CURRENT_POLICY} className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50" onClick={()=>start.mutate({thesis:visibleRun.thesis,geography:visibleRun.geography||undefined,continuation_of:visibleRun.id,max_companies:visibleRun.generation_config?.requested_companies??20,prepare_workflow:false},{onSuccess:run=>selectRun(run.id)})}>Find more companies</button></div>}
       {tab === "results" && visibleRun && <>{visibleRun.generation_config?.continuation_of&&<p className="text-sm text-slate-500">Results include earlier batches of this search. Source coverage below describes the latest batch; earlier collection details remain in Search history.</p>}<SourceCoverage run={visibleRun} /></>}
     </>}
   </div>;

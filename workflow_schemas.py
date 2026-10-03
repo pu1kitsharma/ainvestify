@@ -116,6 +116,7 @@ class OperatingWorkspace(BaseModel):
     id: str = Field(default_factory=lambda: new_id("workspace"))
     tenant_id: str
     lead_id: str
+    deal_id: Optional[str] = None
     company_id: str
     company_name: str
     geography: Optional[str] = None

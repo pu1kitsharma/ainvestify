@@ -1,5 +1,8 @@
 # Deal Automation System — Revised Architecture & Design Document
 
+> Historical context: current instructions are in [AGENTS.md](AGENTS.md) and the [local-to-cloud plan](LOCAL_TO_CLOUD_RELEASE_PLAN.md). Older scope/provider/deployment statements below are superseded where they conflict. Preserve the historical evidence.
+
+
 **Module layout note (2026-09-30):** `agents/` and `tests/` were reorganized from a flat 50-file directory into subpackages by concern — `core/` (the original §5.1-§5.8 pipeline agents), `discovery/`, `research/`, `preparation/`, `analysis/`, `inference/`. This is a structural/import-path change only, made after full test-suite verification (no behavior changed); it does not itself change or supersede any decision recorded below. File paths quoted in the dated sections below (e.g. `agents/planner_agent.py`) describe the layout **at the time each section was written** and are left as historical record rather than retroactively rewritten — see `README.md`'s "Package layout" section for the current, authoritative module map.
 
 **Current product direction (2026-09-13):** See §16 for the controlling lifecycle and implementation plan: identify companies worth incubation effort → incubate toward market and investment readiness → prepare fundraising materials → support VC fundraising through closing. The user explicitly wants LLM-driven work across this lifecycle. §16 supersedes older scope exclusions for evidence-backed selection, incubation, and fundraising/closing workflow support. Earlier sections still describe the existing prototype; features proposed in §16 are not implemented merely by appearing here.
@@ -1059,3 +1062,22 @@ The latest reliability change binds concise research/founder excerpts to complet
 Financial calculation guards now defer explicit double deduction of delivery costs, overhead mixed into variable costs, and cash coverage using restricted/customer funds. Exact financial source passages and unresolved-calculation reasons survive into model evidence and exports. Complete recent financial facts share the bounded evidence budget with public sources. These checks do not establish the truth of company records or constitute a complete semantic/accounting validator.
 
 See [handoff §20](SESSION_HANDOFF.md#research-reliability-latest) and the [verification record](evals/investment_preparation/section-workflows/v9-research-reliability/README.md). Final live Paasa: nine initial sections in 60.55 seconds/four local calls; saved work 57.517 ms; 200 focused tests and browser/build checks passed. The preceding model-approved Paasa result failed content acceptance and remains a regression fixture. This improves initial preparation reliability; it does not establish autonomous investment accuracy, complete research/valuation coverage, independently verified accounts or practitioner acceptance.
+
+
+### 16.36 India startup fundraising and offline public reasoning/cache
+
+The user's current mandate supersedes worldwide discovery: India pre-seed/seed
+companies, investor intro/pitch decks, and startup fundraising memoranda with
+transaction-specific compliance review. See [the current product and ES cache
+plan](LOCAL_TO_CLOUD_RELEASE_PLAN.md) for the delivery sequence and legal scope.
+Public reasoning is prepared through a direct DeepSeek adapter, independently
+retrieved web evidence and loopback ES exact caches; private records and derived
+content stay on local inference. Legacy explicit providers remain available.
+
+[Handoff §38](SESSION_HANDOFF.md#india-seed-offline) records implementation,
+213 passing affected tests, historical failing tests, and operational limits.
+No paid calls or live switch were made. Caches and scope gates are implemented;
+actual deck renderers, compliance rules/sign-off, live output quality and recovery
+of the failed Kaleidofin preparation are not established. Use the
+[setup guide](deployment/PUBLIC_RESEARCH_SETUP.md) when credentials and local ES
+are available; configuration presence alone is not a successful connection.

@@ -1,0 +1,229 @@
+{
+ "classification": "synthetic",
+ "suite": "claim_coverage",
+ "base": {
+  "company": "Example Labs",
+  "as_of_date": "2026-10-03"
+ },
+ "cases": [
+  {
+   "id": "financing_statements",
+   "sources": [
+    {
+     "id": "S1",
+     "url": "https://example.invalid/company",
+     "title": "Example Labs site",
+     "passage": "Example Labs describes a scheduling tool for clinics and a pilot with a regional clinic group. The page does not report revenue, customer counts or retention.",
+     "version": "company-version-1",
+     "attribution": "Synthetic company page"
+    },
+    {
+     "id": "S2",
+     "url": "https://example.invalid/registry",
+     "title": "Financing registry",
+     "passage": "{\"entity\":\"Example Labs\",\"round\":\"Seed\",\"date\":\"2025-06\",\"amount\":\"USD 100000\",\"status\":\"unknown\"}",
+     "version": "registry-version-1",
+     "attribution": "Synthetic registry"
+    },
+    {
+     "id": "S3",
+     "url": "https://example.invalid/notice",
+     "title": "Funding notice",
+     "passage": "Example Labs announced a Series B round in a notice dated 2025-09. The notice does not state whether the round has closed.",
+     "version": "notice-version-1",
+     "attribution": "Synthetic publisher"
+    }
+   ],
+   "statements": [
+    {
+     "id": "T1",
+     "text": "Example Labs closed a USD 100000 seed round and received the funds.",
+     "pair": "reported_vs_verified_amount",
+     "variant": "defect",
+     "allowed_labels": [
+      "unsupported",
+      "contradicted"
+     ]
+    },
+    {
+     "id": "T2",
+     "text": "A registry entry reports a USD 100000 seed round for Example Labs with unknown status.",
+     "pair": "reported_vs_verified_amount",
+     "variant": "control",
+     "allowed_labels": [
+      "supported"
+     ]
+    },
+    {
+     "id": "T3",
+     "text": "The registry entry does not state the size of the seed round.",
+     "pair": "reported_amount_called_absent",
+     "variant": "defect",
+     "allowed_labels": [
+      "unsupported",
+      "contradicted"
+     ]
+    },
+    {
+     "id": "T4",
+     "text": "The registry entry gives the seed round amount as USD 100000.",
+     "pair": "reported_amount_called_absent",
+     "variant": "control",
+     "allowed_labels": [
+      "supported"
+     ]
+    },
+    {
+     "id": "T5",
+     "text": "Example Labs is currently a seed stage company.",
+     "pair": "stale_listing_vs_newer_announcement",
+     "variant": "defect",
+     "allowed_labels": [
+      "unsupported",
+      "contradicted"
+     ]
+    },
+    {
+     "id": "T6",
+     "text": "A notice dated 2025-09 reports a Series B round for Example Labs.",
+     "pair": "stale_listing_vs_newer_announcement",
+     "variant": "control",
+     "allowed_labels": [
+      "supported"
+     ]
+    },
+    {
+     "id": "T7",
+     "text": "Example Labs has growing recurring revenue from clinics.",
+     "pair": "missing_finances",
+     "variant": "defect",
+     "allowed_labels": [
+      "unsupported",
+      "contradicted"
+     ]
+    },
+    {
+     "id": "T8",
+     "text": "The company site does not report revenue, customer counts or retention.",
+     "pair": "missing_finances",
+     "variant": "control",
+     "allowed_labels": [
+      "supported"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "identity_statements",
+   "sources": [
+    {
+     "id": "S1",
+     "url": "https://example.invalid/entity-sg",
+     "title": "Company registry",
+     "passage": "{\"entity\":\"Example Labs Pte Ltd\",\"jurisdiction\":\"Singapore\",\"product\":\"clinic scheduling software\"}",
+     "version": "entity-sg-version-1",
+     "attribution": "Synthetic registry"
+    },
+    {
+     "id": "S2",
+     "url": "https://example.invalid/entity-de",
+     "title": "Company registry",
+     "passage": "{\"entity\":\"Example Labs GmbH\",\"jurisdiction\":\"Germany\",\"product\":\"warehouse robotics\",\"contract\":\"supply agreement with a logistics group\"}",
+     "version": "entity-de-version-1",
+     "attribution": "Synthetic registry"
+    },
+    {
+     "id": "S3",
+     "url": "https://example.invalid/status-early",
+     "title": "Company registry",
+     "passage": "{\"entity\":\"Example Labs Pte Ltd\",\"operating_status\":\"active\",\"as_of\":\"2025-01\"}",
+     "version": "status-early-version-1",
+     "attribution": "Synthetic registry"
+    },
+    {
+     "id": "S4",
+     "url": "https://example.invalid/status-later",
+     "title": "Company registry",
+     "passage": "{\"entity\":\"Example Labs Pte Ltd\",\"operating_status\":\"dissolved\",\"as_of\":\"2026-02\"}",
+     "version": "status-later-version-1",
+     "attribution": "Synthetic registry"
+    },
+    {
+     "id": "S5",
+     "url": "https://example.invalid/round-a",
+     "title": "Financing registry",
+     "passage": "{\"company\":\"Example Labs Pte Ltd\",\"label\":\"Series A\",\"date\":\"2024-03\",\"status\":\"unknown\"}",
+     "version": "round-a-version-1",
+     "attribution": "Synthetic registry"
+    },
+    {
+     "id": "S6",
+     "url": "https://example.invalid/round-seed",
+     "title": "Financing registry",
+     "passage": "{\"company\":\"Example Labs Pte Ltd\",\"label\":\"Seed\",\"date\":\"2025-06\",\"status\":\"unknown\"}",
+     "version": "round-seed-version-1",
+     "attribution": "Synthetic registry"
+    }
+   ],
+   "statements": [
+    {
+     "id": "T1",
+     "text": "Example Labs Pte Ltd has signed a supply agreement with a logistics group.",
+     "pair": "distinct_legal_entities",
+     "variant": "defect",
+     "allowed_labels": [
+      "unsupported",
+      "contradicted"
+     ]
+    },
+    {
+     "id": "T2",
+     "text": "A record for Example Labs GmbH in Germany reports a supply agreement with a logistics group.",
+     "pair": "distinct_legal_entities",
+     "variant": "control",
+     "allowed_labels": [
+      "supported"
+     ]
+    },
+    {
+     "id": "T3",
+     "text": "Example Labs Pte Ltd is an active operating company today.",
+     "pair": "contradictory_source",
+     "variant": "defect",
+     "allowed_labels": [
+      "unsupported",
+      "contradicted"
+     ]
+    },
+    {
+     "id": "T4",
+     "text": "A registry record dated 2026-02 reports Example Labs Pte Ltd as dissolved.",
+     "pair": "contradictory_source",
+     "variant": "control",
+     "allowed_labels": [
+      "supported"
+     ]
+    },
+    {
+     "id": "T5",
+     "text": "Example Labs Pte Ltd progressed from a seed round to a later Series A round.",
+     "pair": "reversed_stage_chronology",
+     "variant": "defect",
+     "allowed_labels": [
+      "unsupported",
+      "contradicted"
+     ]
+    },
+    {
+     "id": "T6",
+     "text": "A registry lists a Series A entry dated 2024-03 for Example Labs Pte Ltd.",
+     "pair": "reversed_stage_chronology",
+     "variant": "control",
+     "allowed_labels": [
+      "supported"
+     ]
+    }
+   ]
+  }
+ ]
+}

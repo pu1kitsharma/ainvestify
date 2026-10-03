@@ -1,0 +1,641 @@
+{
+ "classification": "synthetic",
+ "suite": "reconciliation",
+ "base": {
+  "as_of_date": "2026-10-03"
+ },
+ "cases": [
+  {
+   "id": "stale_listing_defect",
+   "pair": "stale_listing_vs_newer_announcement",
+   "variant": "defect",
+   "mandate": {
+    "stages": [
+     "pre-seed",
+     "seed"
+    ],
+    "geography": "any",
+    "sector": "any"
+   },
+   "candidates": [
+    {
+     "id": "C1",
+     "records": [
+      {
+       "id": "S1",
+       "url": "https://example.invalid/alpha-directory",
+       "title": "Startup directory",
+       "passage": "{\"entity\":\"Alpha Clinic Tools\",\"stage\":\"Seed\",\"listing_date\":\"2023-05\",\"product\":\"clinic scheduling software\"}",
+       "version": "alpha-directory-version-1",
+       "attribution": "Synthetic registry"
+      },
+      {
+       "id": "S2",
+       "url": "https://example.invalid/alpha-notice",
+       "title": "Funding notice",
+       "passage": "Alpha Clinic Tools announced a Series B round in a notice dated 2025-09. The notice does not state whether the round has closed.",
+       "version": "alpha-notice-version-1",
+       "attribution": "Synthetic registry"
+      }
+     ]
+    },
+    {
+     "id": "C2",
+     "records": [
+      {
+       "id": "S9",
+       "url": "https://example.invalid/beta",
+       "title": "Startup directory",
+       "passage": "{\"entity\":\"Beta Freight Apps\",\"stage\":\"Seed\",\"listing_date\":\"2026-04\",\"product\":\"freight scheduling software\"}",
+       "version": "beta-version-1",
+       "attribution": "Synthetic registry"
+      }
+     ]
+    }
+   ],
+   "expected": {
+    "allowed_status": {
+     "C1": [
+      "defer",
+      "exclude"
+     ],
+     "C2": [
+      "investigate",
+      "defer"
+     ]
+    },
+    "allowed_selection": [
+     "C2",
+     "none"
+    ]
+   }
+  },
+  {
+   "id": "stale_listing_control",
+   "pair": "stale_listing_vs_newer_announcement",
+   "variant": "control",
+   "mandate": {
+    "stages": [
+     "pre-seed",
+     "seed"
+    ],
+    "geography": "any",
+    "sector": "any"
+   },
+   "candidates": [
+    {
+     "id": "C1",
+     "records": [
+      {
+       "id": "S1",
+       "url": "https://example.invalid/alpha-directory",
+       "title": "Startup directory",
+       "passage": "{\"entity\":\"Alpha Clinic Tools\",\"stage\":\"Seed\",\"listing_date\":\"2026-03\",\"product\":\"clinic scheduling software\"}",
+       "version": "alpha-directory-version-1",
+       "attribution": "Synthetic registry"
+      }
+     ]
+    },
+    {
+     "id": "C2",
+     "records": [
+      {
+       "id": "S9",
+       "url": "https://example.invalid/beta",
+       "title": "Startup directory",
+       "passage": "{\"entity\":\"Beta Freight Apps\",\"stage\":\"Seed\",\"listing_date\":\"2026-04\",\"product\":\"freight scheduling software\"}",
+       "version": "beta-version-1",
+       "attribution": "Synthetic registry"
+      }
+     ]
+    }
+   ],
+   "expected": {
+    "allowed_status": {
+     "C1": [
+      "investigate",
+      "defer"
+     ],
+     "C2": [
+      "investigate",
+      "defer"
+     ]
+    },
+    "allowed_selection": [
+     "C1",
+     "C2",
+     "none"
+    ]
+   }
+  },
+  {
+   "id": "entity_defect",
+   "pair": "distinct_legal_entities",
+   "variant": "defect",
+   "mandate": {
+    "stages": [
+     "pre-seed",
+     "seed"
+    ],
+    "geography": "any",
+    "sector": "any"
+   },
+   "candidates": [
+    {
+     "id": "C1",
+     "records": [
+      {
+       "id": "S1",
+       "url": "https://example.invalid/alpha-sg",
+       "title": "Company registry",
+       "passage": "{\"entity\":\"Alpha Clinic Tools Pte Ltd\",\"jurisdiction\":\"Singapore\",\"product\":\"clinic scheduling software\",\"founders\":[\"A. Example\"]}",
+       "version": "alpha-sg-version-1",
+       "attribution": "Synthetic registry"
+      },
+      {
+       "id": "S2",
+       "url": "https://example.invalid/alpha-us",
+       "title": "Financing registry",
+       "passage": "{\"entity\":\"Alpha Clinic Tools Inc\",\"jurisdiction\":\"Delaware\",\"stage\":\"Seed\",\"date\":\"2026-02\",\"founders\":[\"B. Sample\"]}",
+       "version": "alpha-us-version-1",
+       "attribution": "Synthetic registry"
+      }
+     ]
+    },
+    {
+     "id": "C2",
+     "records": [
+      {
+       "id": "S9",
+       "url": "https://example.invalid/beta",
+       "title": "Startup directory",
+       "passage": "{\"entity\":\"Beta Freight Apps\",\"stage\":\"Seed\",\"listing_date\":\"2026-04\",\"product\":\"freight scheduling software\"}",
+       "version": "beta-version-1",
+       "attribution": "Synthetic registry"
+      }
+     ]
+    }
+   ],
+   "expected": {
+    "allowed_status": {
+     "C1": [
+      "defer",
+      "exclude"
+     ],
+     "C2": [
+      "investigate",
+      "defer"
+     ]
+    },
+    "allowed_selection": [
+     "C2",
+     "none"
+    ]
+   }
+  },
+  {
+   "id": "entity_control",
+   "pair": "distinct_legal_entities",
+   "variant": "control",
+   "mandate": {
+    "stages": [
+     "pre-seed",
+     "seed"
+    ],
+    "geography": "any",
+    "sector": "any"
+   },
+   "candidates": [
+    {
+     "id": "C1",
+     "records": [
+      {
+       "id": "S1",
+       "url": "https://example.invalid/alpha-sg",
+       "title": "Company registry",
+       "passage": "{\"entity\":\"Alpha Clinic Tools Pte Ltd\",\"jurisdiction\":\"Singapore\",\"product\":\"clinic scheduling software\",\"founders\":[\"A. Example\"]}",
+       "version": "alpha-sg-version-1",
+       "attribution": "Synthetic registry"
+      },
+      {
+       "id": "S2",
+       "url": "https://example.invalid/alpha-sg-round",
+       "title": "Financing registry",
+       "passage": "{\"entity\":\"Alpha Clinic Tools Pte Ltd\",\"jurisdiction\":\"Singapore\",\"stage\":\"Seed\",\"date\":\"2026-02\",\"founders\":[\"A. Example\"]}",
+       "version": "alpha-sg-round-version-1",
+       "attribution": "Synthetic registry"
+      }
+     ]
+    },
+    {
+     "id": "C2",
+     "records": [
+      {
+       "id": "S9",
+       "url": "https://example.invalid/beta",
+       "title": "Startup directory",
+       "passage": "{\"entity\":\"Beta Freight Apps\",\"stage\":\"Seed\",\"listing_date\":\"2026-04\",\"product\":\"freight scheduling software\"}",
+       "version": "beta-version-1",
+       "attribution": "Synthetic registry"
+      }
+     ]
+    }
+   ],
+   "expected": {
+    "allowed_status": {
+     "C1": [
+      "investigate",
+      "defer"
+     ],
+     "C2": [
+      "investigate",
+      "defer"
+     ]
+    },
+    "allowed_selection": [
+     "C1",
+     "C2",
+     "none"
+    ]
+   }
+  },
+  {
+   "id": "finances_defect",
+   "pair": "missing_finances",
+   "variant": "defect",
+   "mandate": {
+    "stages": [
+     "pre-seed",
+     "seed"
+    ],
+    "geography": "any",
+    "sector": "any"
+   },
+   "candidates": [
+    {
+     "id": "C1",
+     "records": [
+      {
+       "id": "S1",
+       "url": "https://example.invalid/alpha-directory",
+       "title": "Startup directory",
+       "passage": "{\"entity\":\"Alpha Clinic Tools\",\"stage\":\"Seed\",\"listing_date\":\"2026-03\",\"product\":\"clinic scheduling software\"}",
+       "version": "alpha-directory-version-1",
+       "attribution": "Synthetic registry"
+      }
+     ]
+    },
+    {
+     "id": "C2",
+     "records": [
+      {
+       "id": "S9",
+       "url": "https://example.invalid/beta",
+       "title": "Startup directory",
+       "passage": "{\"entity\":\"Beta Freight Apps\",\"stage\":\"Seed\",\"listing_date\":\"2026-04\",\"product\":\"freight scheduling software\"}",
+       "version": "beta-version-1",
+       "attribution": "Synthetic registry"
+      }
+     ]
+    }
+   ],
+   "expected": {
+    "allowed_status": {
+     "C1": [
+      "investigate",
+      "defer"
+     ],
+     "C2": [
+      "investigate",
+      "defer"
+     ]
+    },
+    "allowed_selection": [
+     "C1",
+     "C2",
+     "none"
+    ]
+   }
+  },
+  {
+   "id": "finances_control",
+   "pair": "missing_finances",
+   "variant": "control",
+   "mandate": {
+    "stages": [
+     "pre-seed",
+     "seed"
+    ],
+    "geography": "any",
+    "sector": "any"
+   },
+   "candidates": [
+    {
+     "id": "C1",
+     "records": [
+      {
+       "id": "S1",
+       "url": "https://example.invalid/alpha-directory",
+       "title": "Startup directory",
+       "passage": "{\"entity\":\"Alpha Clinic Tools\",\"stage\":\"Seed\",\"listing_date\":\"2026-03\",\"product\":\"clinic scheduling software\",\"reported_revenue\":\"USD 40000 in 2025, company-reported\"}",
+       "version": "alpha-directory-version-1",
+       "attribution": "Synthetic registry"
+      }
+     ]
+    },
+    {
+     "id": "C2",
+     "records": [
+      {
+       "id": "S9",
+       "url": "https://example.invalid/beta",
+       "title": "Startup directory",
+       "passage": "{\"entity\":\"Beta Freight Apps\",\"stage\":\"Seed\",\"listing_date\":\"2026-04\",\"product\":\"freight scheduling software\"}",
+       "version": "beta-version-1",
+       "attribution": "Synthetic registry"
+      }
+     ]
+    }
+   ],
+   "expected": {
+    "allowed_status": {
+     "C1": [
+      "investigate",
+      "defer"
+     ],
+     "C2": [
+      "investigate",
+      "defer"
+     ]
+    },
+    "allowed_selection": [
+     "C1",
+     "C2",
+     "none"
+    ]
+   }
+  },
+  {
+   "id": "status_conflict_defect",
+   "pair": "contradictory_source",
+   "variant": "defect",
+   "mandate": {
+    "stages": [
+     "pre-seed",
+     "seed"
+    ],
+    "geography": "any",
+    "sector": "any"
+   },
+   "candidates": [
+    {
+     "id": "C1",
+     "records": [
+      {
+       "id": "S1",
+       "url": "https://example.invalid/alpha-status-early",
+       "title": "Company registry",
+       "passage": "{\"entity\":\"Alpha Clinic Tools\",\"stage\":\"Seed\",\"listing_date\":\"2026-03\",\"product\":\"clinic scheduling software\",\"operating_status\":\"active\",\"as_of\":\"2025-01\"}",
+       "version": "alpha-status-early-version-1",
+       "attribution": "Synthetic registry"
+      },
+      {
+       "id": "S2",
+       "url": "https://example.invalid/alpha-status-later",
+       "title": "Company registry",
+       "passage": "{\"entity\":\"Alpha Clinic Tools\",\"operating_status\":\"dissolved\",\"as_of\":\"2026-02\"}",
+       "version": "alpha-status-later-version-1",
+       "attribution": "Synthetic registry"
+      }
+     ]
+    },
+    {
+     "id": "C2",
+     "records": [
+      {
+       "id": "S9",
+       "url": "https://example.invalid/beta",
+       "title": "Startup directory",
+       "passage": "{\"entity\":\"Beta Freight Apps\",\"stage\":\"Seed\",\"listing_date\":\"2026-04\",\"product\":\"freight scheduling software\"}",
+       "version": "beta-version-1",
+       "attribution": "Synthetic registry"
+      }
+     ]
+    }
+   ],
+   "expected": {
+    "allowed_status": {
+     "C1": [
+      "defer",
+      "exclude"
+     ],
+     "C2": [
+      "investigate",
+      "defer"
+     ]
+    },
+    "allowed_selection": [
+     "C2",
+     "none"
+    ]
+   }
+  },
+  {
+   "id": "status_conflict_control",
+   "pair": "contradictory_source",
+   "variant": "control",
+   "mandate": {
+    "stages": [
+     "pre-seed",
+     "seed"
+    ],
+    "geography": "any",
+    "sector": "any"
+   },
+   "candidates": [
+    {
+     "id": "C1",
+     "records": [
+      {
+       "id": "S1",
+       "url": "https://example.invalid/alpha-status-early",
+       "title": "Company registry",
+       "passage": "{\"entity\":\"Alpha Clinic Tools\",\"stage\":\"Seed\",\"listing_date\":\"2026-03\",\"product\":\"clinic scheduling software\",\"operating_status\":\"active\",\"as_of\":\"2025-01\"}",
+       "version": "alpha-status-early-version-1",
+       "attribution": "Synthetic registry"
+      },
+      {
+       "id": "S2",
+       "url": "https://example.invalid/alpha-status-later",
+       "title": "Company registry",
+       "passage": "{\"entity\":\"Alpha Clinic Tools\",\"operating_status\":\"active\",\"as_of\":\"2026-02\"}",
+       "version": "alpha-status-later-version-1",
+       "attribution": "Synthetic registry"
+      }
+     ]
+    },
+    {
+     "id": "C2",
+     "records": [
+      {
+       "id": "S9",
+       "url": "https://example.invalid/beta",
+       "title": "Startup directory",
+       "passage": "{\"entity\":\"Beta Freight Apps\",\"stage\":\"Seed\",\"listing_date\":\"2026-04\",\"product\":\"freight scheduling software\"}",
+       "version": "beta-version-1",
+       "attribution": "Synthetic registry"
+      }
+     ]
+    }
+   ],
+   "expected": {
+    "allowed_status": {
+     "C1": [
+      "investigate",
+      "defer"
+     ],
+     "C2": [
+      "investigate",
+      "defer"
+     ]
+    },
+    "allowed_selection": [
+     "C1",
+     "C2",
+     "none"
+    ]
+   }
+  },
+  {
+   "id": "chronology_defect",
+   "pair": "reversed_stage_chronology",
+   "variant": "defect",
+   "mandate": {
+    "stages": [
+     "pre-seed",
+     "seed"
+    ],
+    "geography": "any",
+    "sector": "any"
+   },
+   "candidates": [
+    {
+     "id": "C1",
+     "records": [
+      {
+       "id": "S1",
+       "url": "https://example.invalid/alpha-round-a",
+       "title": "Financing registry",
+       "passage": "{\"company\":\"Alpha Clinic Tools\",\"label\":\"Series A\",\"date\":\"2024-03\",\"status\":\"unknown\"}",
+       "version": "alpha-round-a-version-1",
+       "attribution": "Synthetic registry"
+      },
+      {
+       "id": "S2",
+       "url": "https://example.invalid/alpha-round-seed",
+       "title": "Financing registry",
+       "passage": "{\"company\":\"Alpha Clinic Tools\",\"label\":\"Seed\",\"date\":\"2025-06\",\"status\":\"unknown\"}",
+       "version": "alpha-round-seed-version-1",
+       "attribution": "Synthetic registry"
+      }
+     ]
+    },
+    {
+     "id": "C2",
+     "records": [
+      {
+       "id": "S9",
+       "url": "https://example.invalid/beta",
+       "title": "Startup directory",
+       "passage": "{\"entity\":\"Beta Freight Apps\",\"stage\":\"Seed\",\"listing_date\":\"2026-04\",\"product\":\"freight scheduling software\"}",
+       "version": "beta-version-1",
+       "attribution": "Synthetic registry"
+      }
+     ]
+    }
+   ],
+   "expected": {
+    "allowed_status": {
+     "C1": [
+      "defer",
+      "exclude"
+     ],
+     "C2": [
+      "investigate",
+      "defer"
+     ]
+    },
+    "allowed_selection": [
+     "C2",
+     "none"
+    ]
+   }
+  },
+  {
+   "id": "chronology_control",
+   "pair": "reversed_stage_chronology",
+   "variant": "control",
+   "mandate": {
+    "stages": [
+     "pre-seed",
+     "seed"
+    ],
+    "geography": "any",
+    "sector": "any"
+   },
+   "candidates": [
+    {
+     "id": "C1",
+     "records": [
+      {
+       "id": "S1",
+       "url": "https://example.invalid/alpha-round-pre",
+       "title": "Financing registry",
+       "passage": "{\"company\":\"Alpha Clinic Tools\",\"label\":\"Pre-Seed\",\"date\":\"2024-03\",\"status\":\"unknown\"}",
+       "version": "alpha-round-pre-version-1",
+       "attribution": "Synthetic registry"
+      },
+      {
+       "id": "S2",
+       "url": "https://example.invalid/alpha-round-seed",
+       "title": "Financing registry",
+       "passage": "{\"company\":\"Alpha Clinic Tools\",\"label\":\"Seed\",\"date\":\"2025-06\",\"status\":\"unknown\"}",
+       "version": "alpha-round-seed-version-1",
+       "attribution": "Synthetic registry"
+      }
+     ]
+    },
+    {
+     "id": "C2",
+     "records": [
+      {
+       "id": "S9",
+       "url": "https://example.invalid/beta",
+       "title": "Startup directory",
+       "passage": "{\"entity\":\"Beta Freight Apps\",\"stage\":\"Seed\",\"listing_date\":\"2026-04\",\"product\":\"freight scheduling software\"}",
+       "version": "beta-version-1",
+       "attribution": "Synthetic registry"
+      }
+     ]
+    }
+   ],
+   "expected": {
+    "allowed_status": {
+     "C1": [
+      "investigate",
+      "defer"
+     ],
+     "C2": [
+      "investigate",
+      "defer"
+     ]
+    },
+    "allowed_selection": [
+     "C1",
+     "C2",
+     "none"
+    ]
+   }
+  }
+ ]
+}

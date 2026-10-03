@@ -145,6 +145,7 @@ def test_api_rejects_cross_tenant_review_and_unauthorized_execution(tmp_path):
     app.dependency_overrides[deps.get_tenant_id] = lambda: 'one'
     try:
         client = TestClient(app)
+        app.dependency_overrides[deps.get_reviewer] = lambda: 'synthetic_authenticated_reviewer'
         assert client.get('/api/operations/datasets').status_code == 200
         assert client.post(f'/api/operations/workspaces/{w.id}/execute/send').status_code == 409
         body = {'kind': 'funds_received', 'note': 'Funds confirmed from name alone', 'evidence_ids': [lead.company_profile.evidence[0].id], 'expected_revision': w.revision}
@@ -159,7 +160,7 @@ def test_api_rejects_cross_tenant_review_and_unauthorized_execution(tmp_path):
         app.dependency_overrides.clear()
 
 
-def test_teaser_release_uses_current_workspace_and_cannot_cross_deals(tmp_path):
+def test_retired_teaser_release_does_not_approve_historical_memo(tmp_path):
     path = tmp_path / 'db'
     with Store(path) as store:
         lead = company(store)
@@ -167,7 +168,6 @@ def test_teaser_release_uses_current_workspace_and_cannot_cross_deals(tmp_path):
         store.save_deal(deal)
         lead.promoted_deal_id = deal.id
         store.save_lead(lead)
-        w = prepare_operating_drafts(store, lead, DraftModel())
         memo = MemoVersion(tenant_id='one', deal_id=deal.id, version_number=1,
                            content_uri='unused.md', document_type='teaser')
         store.save_memo_version(memo)
@@ -183,36 +183,13 @@ def test_teaser_release_uses_current_workspace_and_cannot_cross_deals(tmp_path):
         client = TestClient(app)
         confirm_url = f'/api/deals/{deal.id}/compile/teaser/{memo.id}/confirm'
         response = client.post(confirm_url, json={'confirmed': True})
-        assert response.status_code == 409
-        assert 'release checks' in response.json()['detail']
-        assert client.post(f'/api/deals/{other.id}/compile/teaser/{memo.id}/confirm', json={'confirmed': True}).status_code == 404
-        assert client.post(confirm_url, json={'confirmed': False}).status_code == 200
-
-        # Simulate reviews already validated by the attestation boundary. The
-        # release endpoint must accept satisfied dependencies, not block forever.
+        assert response.status_code == 410
+        assert 'retired' in response.json()['detail']
+        assert client.post(confirm_url, json={'confirmed': False}).status_code == 410
+        assert client.post(f'/api/deals/{other.id}/compile/teaser/{memo.id}/confirm',
+                           json={'confirmed': True}).status_code == 410
         with Store(path) as store:
-            w = store.get_workspace('one', workspace_id=w.id)
-            kinds = ['source_rights_review', 'identity_review', 'engagement_authority', 'regulatory_scope',
-                     'privacy_basis', 'commercial_validation', 'financial_review', 'incubation_outcomes',
-                     'release_approval']
-            w.attestations = [WorkspaceAttestation(kind=kind, note='Supporting review recorded for this fixture',
-                evidence_ids=[lead.company_profile.evidence[0].id], reviewer='analyst', basis_hash=w.basis_hash) for kind in kinds]
-            store.save_workspace(w, expected_revision=w.revision)
-        approved = client.post(confirm_url, json={'confirmed': True})
-        assert approved.status_code == 200
-        assert approved.json()['approved_by'] == 'analyst'
-        assert approved.json()['approval_basis_hash'] == w.basis_hash
-        latest_url = f'/api/deals/{deal.id}/documents/latest?document_type=teaser'
-        assert client.get(latest_url).json()['approved_by'] == 'analyst'
-
-        with Store(path) as store:
-            lead.company_profile.evidence.append(CompanyEvidence(field='location', value='India', quote='India', source_url=lead.company_profile.website))
-            store.save_lead(lead)
-        assert client.get(latest_url).json()['approved_by'] is None
-        assert client.get(f'/api/deals/{deal.id}/documents').json()[0]['approved_by'] is None
-        assert client.post(confirm_url, json={'confirmed': True}).status_code == 409
-        with Store(path) as store:
-            assert store.get_memo_version('one', memo.id).approved_by == 'analyst'  # Historical review retained.
+            assert store.get_memo_version('one', memo.id).approved_by is None
     finally:
         app.dependency_overrides.clear()
 

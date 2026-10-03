@@ -26,6 +26,12 @@ _model_activity = {}
 logger = logging.getLogger(__name__)
 
 
+@router.get('/public-research-status')
+def public_research_status():
+    from agents.inference.runtime_status import public_runtime_status
+    return public_runtime_status()
+
+
 @router.get("/datasets")
 def datasets(store: Store = Depends(get_store), tenant_id: str = Depends(get_tenant_id)):
     return {"sources": SOURCES, "snapshots": store.list_dataset_snapshots(tenant_id)}
@@ -40,7 +46,14 @@ def workspaces(store: Store = Depends(get_store), tenant_id: str = Depends(get_t
         job = workspace.automation
         if job and job.status in {'queued','running'} and job.id in _model_activity and job.worker_id == _worker_id:
             job.phase = _model_activity[job.id]
-        if job and job.status in {"queued", "running"} and job.worker_id != _worker_id:
+        if job and job.worker_id == 'durable-room':
+            from delivery.jobs import list_jobs
+            durable=next((j for j in list_jobs(store.conn,tenant_id,workspace.id) if j['id']==job.id),None)
+            if durable:
+                job.status=durable['state'] if durable['state'] in {'queued','running','completed','failed','cancelled'} else 'failed'
+                job.phase='Room workflow: '+durable['state'].replace('_',' ')
+                job.error='Open the deal room stage details for required inputs or checks.' if job.status=='failed' else None
+        if job and job.status in {"queued", "running"} and job.worker_id not in {_worker_id,'durable-room'}:
             job.status = "interrupted"
             job.error = "The local worker restarted. Generate AI work again; saved evidence and drafts are retained."
     if summary:
@@ -98,7 +111,11 @@ def save_metrics(workspace_id: str, body: MetricUpdateRequest, store: Store = De
     except ValueError as exc:
         raise HTTPException(409, "Company records changed. Reload before saving.") from exc
     lead = store.get_lead(tenant_id, saved.lead_id)
-    return reconcile_workspace(store, lead)
+    workspace=reconcile_workspace(store, lead)
+    if getattr(store,'authenticated_identity',None) is not None:
+        from api.routers.rooms import activate
+        activate(store,store.authenticated_identity,lead.id)
+    return workspace
 
 
 class MetricImportRequest(BaseModel):
@@ -124,6 +141,11 @@ def import_metrics(workspace_id: str, body: MetricImportRequest, background: Bac
         item = {'id':new_id('metric_import'),'source_name':body.source_name,'text':body.text,
                 'status':'queued','issues':[],'created_at':utcnow()}
         saved.metric_imports.append(item)
+        if getattr(store,'authenticated_identity',None) is not None:
+            item['status']='awaiting_input'
+            item['issues']=['Private metric extraction requires its isolated worker qualification. The original update is saved.']
+            store.save_workspace(saved,expected_revision=body.expected_revision)
+            return _queue_prepare(saved.lead_id,background,store,tenant_id)
         saved.automation = AutomationRun(model=LocalModel().name, worker_id=_worker_id, phase="Queued: read company update and revise the investment case")
         try:
             store.save_workspace(saved, expected_revision=body.expected_revision)
@@ -367,6 +389,9 @@ def stop_preparation(workspace_id: str, job_id: str, store: Store = Depends(get_
         if not workspace:raise HTTPException(404,'Workspace not found')
         job=workspace.automation
         if not job or job.id!=job_id:raise HTTPException(409,'This preparation job has been replaced. Refresh company work.')
+        if job.worker_id=='durable-room':
+            from delivery.jobs import cancel
+            cancel(store.conn,tenant_id,job_id)
         if job.status in {'queued','running'}:
             job.status='cancelled';job.completed_at=utcnow();job.error=None
             job.phase='Preparation stopped. Saved sections are retained; an in-flight model call may finish before another job starts.'
@@ -497,6 +522,16 @@ def start_prepare(lead_id: str, background: BackgroundTasks, store: Store = Depe
 
 
 def _queue_prepare(lead_id, background, store, tenant_id, brief=False, refresh=False, readiness=False, analyst=False, analyst_model=None, analyst_thinking=False, analyst_review_model=None, analyst_review_thinking=None):
+    if getattr(store,'authenticated_identity',None) is not None:
+        if analyst_model and analyst_model!='auto':
+            raise HTTPException(422,'Room workers use the configured installed local model; per-request model overrides are disabled.')
+        from api.routers.rooms import activate
+        activated=activate(store,store.authenticated_identity,lead_id)
+        workspace=store.get_workspace(tenant_id,workspace_id=activated['workspace_id'])
+        workspace.automation=AutomationRun(id=activated['job']['id'],model=default_preparation_name(),
+            worker_id='durable-room',phase='Room workflow queued; inspect the deal room for stage status')
+        store.save_workspace(workspace,expected_revision=workspace.revision)
+        return workspace
     analyst, brief, readiness = True, False, False
     lead = store.get_lead(tenant_id, lead_id)
     if not lead:
@@ -575,6 +610,10 @@ def _analysis_job(db_path, tenant_id, lead_id, job_id, body):
 
 
 def _queue_analysis(lead_id, body, background, store, tenant_id):
+    if getattr(store,'authenticated_identity',None) is not None:
+        if body.public_urls or body.research_gaps:
+            raise HTTPException(409,'Targeted public collection is not yet connected to the durable room worker.')
+        return company_work_view(_queue_prepare(lead_id,background,store,tenant_id))
     from agents.discovery.web_sources import normalize_url
     lead=store.get_lead(tenant_id,lead_id)
     if not lead: raise HTTPException(404,'Company not found')
@@ -652,6 +691,8 @@ def download_analysis(workspace_id: str,store: Store=Depends(get_store),tenant_i
 
 @router.post("/leads/{lead_id}/prepare")
 def prepare(lead_id: str, store: Store = Depends(get_store), tenant_id: str = Depends(get_tenant_id)):
+    if getattr(store,'authenticated_identity',None) is not None:
+        return _queue_prepare(lead_id,None,store,tenant_id)
     lead = store.get_lead(tenant_id, lead_id)
     if not lead: raise HTTPException(404, "Lead not found")
     try:

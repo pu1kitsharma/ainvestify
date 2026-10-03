@@ -13,14 +13,48 @@ from store import Store
 from agents.research.research_reasoning import ResearchPlan, Screening
 
 
-def test_company_questions_are_replaced_with_diverse_discovery_queries():
+def test_only_model_queries_are_used_for_discovery():
     from agents.discovery.web_discovery import discovery_queries
     queries=discovery_queries('AI & Robotics','United States',["What is the company's primary product?",'AI robotics companies'])
     assert all('?' not in q and 'the company' not in q for q in queries)
     assert all('United States' in q for q in queries)
-    assert any('association' in q for q in queries)
-    assert any('spinouts' in q for q in queries)
+    assert queries == ['AI robotics companies United States']
     assert not any('India' in q for q in queries)
+
+
+def test_local_sourcing_plan_failure_does_not_search_or_substitute_catalog():
+    class Unavailable:
+        name = 'local-unavailable'
+
+        def generate(self, instruction, evidence, schema):
+            raise RuntimeError('Local inference unavailable')
+
+    class NoSearch:
+        name = 'no-search'
+
+        def search(self, query, limit=6):
+            raise AssertionError('Search must not run without a model plan')
+
+    run = WebSourcingRun(tenant_id='one', thesis='Indian seed companies', geography='India', model='local')
+    with pytest.raises(RuntimeError, match='Local inference unavailable'):
+        discover_pages(run, Unavailable(), NoSearch(), lambda: True)
+    assert run.discovered_urls == []
+    assert run.search_queries == []
+
+
+def test_local_research_plan_failure_does_not_create_heuristic_criteria():
+    from agents.research.research_reasoning import interpret_brief
+
+    class Unavailable:
+        name = 'local-unavailable'
+
+        def generate(self, instruction, evidence, schema):
+            raise RuntimeError('Local inference unavailable')
+
+    run = WebSourcingRun(tenant_id='one', thesis='Indian seed companies', geography='India', model='local')
+    with pytest.raises(RuntimeError, match='Local inference unavailable'):
+        interpret_brief(run, Unavailable())
+    assert run.research_plan == {}
 
 
 class Model:
@@ -83,7 +117,7 @@ def test_brief_only_run_searches_then_fetches_and_persists(tmp_path, monkeypatch
         assert run.status == "partial"
         assert any('Only one discovery publisher' in warning for warning in run.warnings)
         assert run.seed_urls == []
-        assert search.queries[0] == "Agricultural businesses India"
+        assert search.queries[0] == "agricultural companies solar dryers India"
         assert "agricultural companies solar dryers India" in search.queries
         assert set(fetcher.visited) == {"https://farm.example/"}
         assert run.discovered_urls == ["https://farm.example/"]
@@ -117,7 +151,7 @@ def test_challenge_is_failure_not_zero_results():
         DuckDuckGoSearch(ChallengeFetcher()).search("farm companies")
 
 
-def test_search_failure_uses_catalog_without_asking_for_urls():
+def test_search_failure_does_not_substitute_unselected_catalog_urls():
     class BlockedSearch(Search):
         def search(self, query, limit=6):
             self.queries.append(query)
@@ -125,8 +159,7 @@ def test_search_failure_uses_catalog_without_asking_for_urls():
     run = WebSourcingRun(tenant_id="one", thesis="Any sector", geography="India", model="local")
     provider = BlockedSearch()
     urls = discover_pages(run, Model(), provider, lambda: True)
-    assert urls == catalog_urls("India")
-    assert urls
+    assert urls == []
     assert run.sources[0].status == "rate_limited"
     assert run.warnings
     assert len(provider.queries) == 1
@@ -204,17 +237,24 @@ def test_api_accepts_brief_without_urls(tmp_path, monkeypatch):
     import api.routers.leads as routes
     from api.main import app
     from fastapi.testclient import TestClient
+    from security.identity import COOKIE, create_session, provision_verified_identity
     def get_store():
         with Store(tmp_path / "api.db") as store:
             yield store
     def worker(store, run, **kwargs):
         return source_companies(store, run, model=Model(), fetcher=Fetcher(), search_provider=Search(), **kwargs)
     monkeypatch.setattr(routes, "source_companies", worker)
+    monkeypatch.setattr(deps, 'app_origin', lambda: 'http://testserver')
+    with Store(tmp_path / 'api.db') as store:
+        user, tenant = provision_verified_identity(store.conn, 'https://accounts.google.com', 'fixture-discovery-user')
+        token, csrf = create_session(store.conn, user, tenant)
     original = app.dependency_overrides.copy()
     app.dependency_overrides[deps.get_store] = get_store
     try:
         with TestClient(app) as client:
-            response = client.post("/api/leads/web-runs", json={"thesis": "Find agricultural companies", "geography": "India"})
+            client.cookies.set(COOKIE, token)
+            response = client.post("/api/leads/web-runs", json={"thesis": "Find agricultural companies", "geography": "India"},
+                headers={'origin': 'http://testserver', 'x-csrf-token': csrf})
             assert response.status_code == 202
             result = client.get(f"/api/leads/web-runs/{response.json()['id']}").json()
             assert result["seed_urls"] == []

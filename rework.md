@@ -1,5 +1,8 @@
  # Investment Banking & Venture Capital Workspace
 
+> Historical context: current instructions are in [AGENTS.md](AGENTS.md) and the [local-to-cloud plan](LOCAL_TO_CLOUD_RELEASE_PLAN.md). Older scope/provider/deployment statements below are superseded where they conflict. Preserve the historical evidence.
+
+
 > **2026-09-13 priority update:** This document is retained as broader strategy/history. The current, narrower user-directed lifecycle and build order are in [deal_automation_architecture.md §16](deal_automation_architecture.md#16-llm-driven-company-selection-incubation-and-vc-fundraising-plan). Start with evidence-backed company selection, then incubation/readiness, materials, and VC fundraising through closing. Existing feature-status inventories below are historical and must be checked against code.
 
  ## End-to-End Product Strategy, Workflow, Architecture, and Product Roadmap

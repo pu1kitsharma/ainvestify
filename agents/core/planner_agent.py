@@ -39,9 +39,10 @@ connected flow owned by one module, not three disconnected scripts.
 from __future__ import annotations
 
 from typing import Optional
+from urllib.parse import urlsplit
 
-import ollama
 from pydantic import BaseModel
+from agents.inference.local_ollama import local_chat
 
 from agents.core.analytics_agent import generate_charts
 from agents.core.compilation_agent import (
@@ -169,7 +170,7 @@ name that field in target_field using its schema name: {EXTRACTION_SCHEMA_FIELDS
 If they just want to proceed normally, pick the most natural next step.
 Give a one-sentence reasoning. Return only the JSON object."""
 
-    response = ollama.chat(
+    response = local_chat(
         model=PLANNER_MODEL,
         messages=[{"role": "user", "content": prompt}],
         format=PlannerDecision.model_json_schema(),
@@ -379,9 +380,22 @@ def _run_research(
     store: Store, deal: Deal, company_name: str,
     sector_query: Optional[str], sector_index: Optional[SectorNotesIndex],
 ) -> list[ResearchFinding]:
-    findings = research_deal(
-        deal.tenant_id, deal.id, company_name, sector_query=sector_query, sector_index=sector_index,
+    lead = store.get_lead_by_promoted_deal_id(deal.tenant_id, deal.id)
+    profile = lead.company_profile if lead else None
+    public_identity = bool(
+        lead and profile and deal.name.casefold() == company_name.casefold()
+        and lead.company_name.casefold() == company_name.casefold()
+        and profile.name.casefold() == company_name.casefold()
+        and profile.identity_status == 'source_supported_unverified'
+        and profile.website.startswith('https://')
+        and any(e.origin == 'public_page_claim' and e.source_url.startswith('https://')
+                and urlsplit(e.source_url).hostname == urlsplit(profile.website).hostname
+                for e in profile.evidence)
     )
+    research_kwargs = {'sector_query': sector_query, 'sector_index': sector_index}
+    if public_identity:
+        research_kwargs['public_identity'] = True
+    findings = research_deal(deal.tenant_id, deal.id, company_name, **research_kwargs)
 
     # Fold in the originating lead's own discovery signals, if this deal was
     # promoted from one -- real feedback that research findings feel thin/
@@ -393,7 +407,6 @@ def _run_research(
     # carried forward, so a fuzzy name re-search here had to independently
     # rediscover the same signal (or miss it) rather than just reusing it.
     # Deduped by source_url against what the fresh search already found.
-    lead = store.get_lead_by_promoted_deal_id(deal.tenant_id, deal.id)
     if lead:
         already_seen = {f.source_url for f in findings if f.source_url}
         for signal in lead.discovery_signals:

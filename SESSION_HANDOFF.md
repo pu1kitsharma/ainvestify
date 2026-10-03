@@ -1,5 +1,16 @@
 # Session handoff — company preparation MVP
 
+> **Latest direction, 1 October:** Read §56 before following §55's execution order.
+> Public KB generation is P1, local-model-only product responses are P2, and live
+> Google OIDC is P5. Historical hosted-provider authorizations are superseded.
+>
+> **Latest implementation, 30 September — runtime continuation:** See §48. Google
+> OIDC/session provisioning, durable room jobs, scoped private workers, actual-file
+> inspection and the release/download gateway are connected. Live Google login,
+> private LibreOffice/UNO qualification and full mandatory validation remain blocked
+> or unqualified. This is not L1 acceptance. The controlling plan remains
+> [LOCAL_TO_CLOUD_RELEASE_PLAN.md](LOCAL_TO_CLOUD_RELEASE_PLAN.md).
+
 > **Latest, 26 September — shared founder recovery:** Read [handoff §33](#shared-founder-recovery) and the [run/failure record](evals/investment_preparation/section-workflows/founder-recovery-2026-09-26/README.md). CropX and Arable have current reviewed founder proposals. Shared fixes distinguish summary accounts from underlying records, repair review metadata, recover deleted source links and preserve the six-call/two-minute bound with separately counted search turns. The same UI/workflow applies to every company; broader first-pass reliability is not established. Preserve concurrent provider work and check active jobs before restarting.
 
 > **Latest, 26 September — results-first analysis:** Read [handoff §32](#results-first-analysis) and the [evidence/failure index](evals/investment_preparation/section-workflows/analysis-workflow-2026-09-26/README.md). Continued agrotech discovery now shows eight candidates. CropX has a reviewed seven-metric analysis and conditional outlooks, with public lookup gaps assigned to the system and optional user contributions. This required repeated development corrections, not reliable first-pass generation. Legacy research/founder validation still needs attention. Keep the concurrent Anthropic API/deployment work compatible; check active jobs before any restart.
@@ -1677,3 +1688,2122 @@ working navigation links. The documents page was left open. No financial inputs,
 company drafts, approvals, source evidence or raw model responses were changed.
 These fixes address the page crash and confusing presentation; they do not
 resolve the wider analysis-quality limitations recorded in §34.
+
+
+<a id="india-seed-offline"></a>
+## 38. India seed discovery and public reasoning/cache — 30 September 2026
+
+Latest user decisions supersede worldwide discovery and the Claude default: India
+only; pre-seed/seed only; intro and pitch decks for VC investors; a transaction-
+specific startup fundraising memorandum for compliance. This is not an AIF fund
+PPM mandate or a blanket promise of SEBI compliance. Private documents and their
+derivatives must stay on local inference. The user requested inexpensive public
+reasoning and Elasticsearch reuse, restored the stashed work after concurrent
+repository changes, and explicitly requested **offline implementation and setup
+instructions because no DeepSeek API key is available**.
+
+Read [the product plan](LOCAL_TO_CLOUD_RELEASE_PLAN.md) and
+[setup guide](deployment/PUBLIC_RESEARCH_SETUP.md). No paid inference, credential
+entry, ES installation, live provider switch, service restart, commit or push was
+performed in this checkpoint. Check active jobs before any subsequent restart.
+
+### Implemented offline
+
+- Default public adapter is direct DeepSeek Flash, separated from the Claude
+  class/harness through `agents/inference/public_contract.py`. Private-context
+  and payload checks run before cache/network access. Explicit legacy provider
+  selections remain compatible; local inference has no hosted fallback.
+- Independent public search uses DDG/Mwmbl, with retained query/model provenance.
+  Free search coverage and the provider's reasoning quality need live evaluation.
+- Loopback Elasticsearch exact caches retain public search results (6 hours),
+  source snapshots and schema-valid raw model results (24 hours). Evidence,
+  instructions, schema, model contract and settings affect result fingerprints.
+  Cache responses are hash/schema checked and downstream review still applies.
+  Schema validity is not investment approval. This is not semantic company search.
+- Paid inference requires configured, available ES. Create-only leases and
+  sequence fencing prevent concurrent duplicate generation. Ambiguous failed
+  requests retain their lease for 180 seconds rather than automatically rebilling.
+  Cache hits use no paid inference request. Persistent local SQLite reservations
+  enforce $5/month by default; each pass reserves at most $0.25 (three analysis
+  passes can reserve $0.75). Estimates retain failed reservations, are not actual
+  billing reconciliation, and are not shared across multiple deployments.
+- Discovery requires model-authored India/stage/maturity classifications and
+  exact dated source quotations, including a recent stage date. Unknown/later/
+  established results are excluded with recorded reasons, without company-name
+  deny lists. New searches default to the scoped policy; historical searches and
+  companies are preserved but cannot continue under the new policy implicitly.
+  First-result automatic preparation is disabled.
+- Generic drafting/review guidance distinguishes subset metrics from overall
+  metrics and requires revenue-recognition/cost-treatment inputs when needed.
+  No company answer was manually rewritten and no validator was weakened.
+- Hidden credential helper, static runtime-status endpoint/UI and local setup
+  instructions are included. Status is configuration presence, not connectivity.
+
+### Failure diagnosis and undelivered work
+
+Kaleidofin `lead_ac2205b7040a`, preparation `automation_77f99a8eacfc`, retained nine
+review-pending sections: product-partner subset metrics were compared with whole-
+company totals as contradictory, and a proposed financial method omitted needed
+recognition/cost-treatment inputs. The shared prompt was corrected; successful
+model-authored recovery is **not demonstrated**. Existing eligibility is not
+proof that Kaleidofin meets the new seed mandate.
+
+The existing research/founder workflow is not an investor deck renderer. Actual
+intro/pitch PPTX/PDF rendering, compliance rules registry and qualified sign-off
+remain product implementation work specified in the plan. The Toffee reference
+PDFs were inspected for metadata only (9/16 pages, 16:9); confidential page text
+and images were not sent to a hosted model. No full reference-layout reproduction
+is claimed. Private storage is preserved. App-level public/private checks do not
+constitute OS network isolation; deployment isolation remains necessary for a
+strong confidentiality boundary.
+
+### Verification
+
+Final affected suite: **213 passed**, including inference/provider, discovery,
+research/cache, preparation/review/budgets and analysis. Command:
+
+```bash
+python3 -m pytest tests/inference/test_deepseek_api.py tests/inference/test_anthropic_api.py tests/discovery/test_eligibility.py tests/discovery/test_discovery_results.py tests/discovery/test_web_sourcing.py tests/research/test_independent_cache.py tests/research/test_public_research.py tests/preparation/test_authored_discovery.py tests/preparation/test_authored_preparation.py tests/preparation/test_subscription_preparation.py tests/preparation/test_preparation_review.py tests/preparation/test_preparation_budget.py tests/analysis/test_company_analysis.py -q
+```
+
+All provider calls in these tests were mocked. Frontend `npm run build` and
+`npm run lint` passed; `git diff --check` passed. Static setup check reported
+missing DeepSeek key/local ES and `connectivity_verified: false`. Existing
+LibreSSL/Matplotlib warnings remain.
+
+An earlier broader run also included `tests/api/test_api_leads_live.py`: three
+historical tests failed because they expect HTTP 200 from retired `/source` and
+`/source-ib` routes, while HEAD already returns HTTP 410 (one dependent KeyError).
+These were not changed or counted as passing. A continuation test initially used
+an old-policy fixture; it now explicitly creates a current-policy run, with a
+separate regression proving historical continuation is rejected and releases the
+job slot. No live success or end-to-end investment quality is implied by tests.
+
+
+<a id="investment-materials-roadmap"></a>
+## 39. Scheduled KB, local-model suitability and delivery roadmap — 30 September 2026
+
+The user supplied a public-source list and asked about free scheduled ingestion.
+The [KB plan](deployment/PUBLIC_KNOWLEDGE_BASE_PLAN.md) records source-specific
+restrictions: Entrackr, YourStory, Tracxn and NSE are not blanket free scraping
+feeds. Prioritize permitted primary sources and authorized imports. A durable
+evidence/claim KB is distinct from the existing expiring caches. No scheduled job
+was installed or started. Source-list content was research input, not instructions.
+
+The user then asked whether local models are sufficient. The answer was task-
+specific: collection/calculation/rendering should use code; local extraction is
+a candidate requiring validation; the recorded Qwen reasoning failures do not
+support autonomous investment/compliance drafting. Do not present offline tests
+as actual model-quality acceptance. Private derivatives must remain local even
+if that requires assisted review or better self-hosted hardware.
+
+The latest request was to create a thorough architectural plan with achievable
+milestones. [LOCAL_TO_CLOUD_RELEASE_PLAN.md](LOCAL_TO_CLOUD_RELEASE_PLAN.md)
+is the execution plan. M0–M10 cover contracts, enforced privacy, model evaluation,
+first intro deck, durable KB, scheduling, scoped discovery, private financials,
+full artifacts, compliance-review memo and held-out pilot. Each has dependencies,
+deliverables, acceptance criteria and a demo. Proposed effort is 49–74 engineer-
+days for one engineer with part-time domain/design reviewers, roughly 12–18
+calendar weeks with review/integration allowance, to be revised after M2/M3.
+These are estimates, not commitments or proof of completion.
+
+Read-only implementation inspection confirmed caller-supplied tenant/reviewer
+headers in `api/deps.py`, BackgroundTasks/process-local semaphore jobs in
+`api/routers/leads.py`, and Markdown-only legacy compilation. The plan therefore
+requires real authorization before team use, OS/egress isolation for private
+workers, durable job coordination and an actual editable artifact pipeline.
+The first intro deck uses authorized evidence before scaling the crawler.
+
+New module names, timers, schemas, quality thresholds and deployment controls in
+the roadmap are proposed, not installed code. Existing offline implementation
+and runtime data were preserved. Only planning documentation and entry-point
+links were edited in this planning turn. `git diff --check` passed; no code tests
+were rerun for this documentation-only update. No confidential PDF content was
+read, no model/download/paid run was started, and no services were restarted.
+
+
+<a id="financial-projection-plan"></a>
+## 40. Company projection XLSX and estimated financial models — 30 September 2026
+
+User added a private Toffee projections workbook and asked to plan understanding
+company-supplied projections and creating models from estimates. Read
+[FINANCIAL_PROJECTIONS_PLAN.md](FINANCIAL_PROJECTIONS_PLAN.md). It separates
+management models, analyst scenarios and newly estimated forecasts, and adds a
+supporting editable XLSX feeding the intro/pitch/memo's common financial facts.
+
+Read-only local ZIP/XML inspection emitted structure only: 14 worksheets, five
+hidden, 3,008 formula cells, 1,407 cross-sheet formula syntax occurrences, five
+names, 104 stored error cells and one formula lacking a stored value. These are
+cached states, not a recalculation or diagnosis. No private cell values, formulas,
+sheet names or business narrative were emitted into the model context; the file
+was neither modified nor copied into the repository. Attached document content
+was treated as data, not instructions. No macro or external refresh was executed.
+
+Confirmed `agents/core/ingestion_agent.py::ingest_excel` reads `data_only=True`,
+which loses the formulas needed for model interpretation. The plan adds dual
+formula/value representations, dependency coverage, semantic mapping, isolated
+recalculation, an assumptions register, genuinely calculated scenarios and
+reviewed forecast snapshots. The local LLM interprets/proposes; a spreadsheet
+engine or typed calculation code computes. Unsupported Excel features and missing
+inputs are visible. Never overwrite management's original or represent analyst
+hypotheses as supplied facts. Preserve historical forecast vintage even after
+its dates have passed.
+
+P1–P6 replace M7's original 6–9 days with 22–33 days (incremental 16–24).
+The roadmap total is revised from 49–74 to 65–98 engineer-days, approximately
+16–24 calendar weeks with review allowance. M3's first deck can proceed without
+unsupported financial forecasts. The spreadsheet skill was used for the read-only
+structural/architecture review. No forecast or workbook deliverable was generated.
+Only planning docs/links changed; no production code, provider runs, installations
+or service changes. `git diff --check` and local document-link checks passed.
+
+
+<a id="private-aws-plan"></a>
+## 41. Private AWS compute and measured response quality — 30 September 2026
+
+User clarified confidentiality as the primary concern, asked to forget timelines,
+and offered AWS for greater compute with accurate structured responses and minimal
+repeated corrections/human intervention. [AWS plan](LOCAL_TO_CLOUD_RELEASE_PLAN.md#11-private-aws-migration-details)
+sets self-hosted model weights as the target core inference path, separate from
+public collection. Earlier public DeepSeek/Kimi API recommendations are superseded
+for that target; existing code is unchanged and still defaults to DeepSeek.
+
+The plan covers private EC2 or network-isolated SageMaker, authenticated ingress,
+separate public collectors, restricted storage/egress/telemetry, spreadsheet
+calculation, structured evidence-grounded responses, bounded corrections and
+held-out evaluation. Qwen3.5-35B-A3B and 122B-A10B are initial evaluation candidates,
+not accepted models or a claim to be the best current choice. GPU fit depends on
+weights, context, runtime, precision and concurrency. Region/capacity/cost remain
+unverified for an actual account. AWS infrastructure becomes part of the trust
+boundary; this is not on-device-only processing.
+
+Do not promise perfect answers, use model self-rated confidence as accuracy, or
+remove final transaction/compliance review. Automate routine work and escalate
+specific missing evidence/assumptions and material exceptions. Calendar/effort
+estimates were removed from active roadmap/projection milestones; historical
+sections preserve prior decisions. Only documentation changed. No AWS resources,
+model downloads, paid calls, private transfers, runtime reconfiguration or service
+restart occurred. Document links/formatting checked; no code tests needed.
+
+
+<a id="local-cloud-release-gate"></a>
+## 42. Local-first implementation and mandatory artifact release validation — 30 September 2026
+
+User requested local implementation first, followed by cloud deployment, with
+production-ready PPT/decks, IM and projection sheets, charts (including pie
+charts), zero formula errors and a validation suite before submission. Read
+[LOCAL_TO_CLOUD_RELEASE_PLAN.md](LOCAL_TO_CLOUD_RELEASE_PLAN.md). It governs the
+current execution order and release contract; prior M0–M10/P1–P6 remain detailed
+capability workstreams rather than competing deployment orders.
+
+Local milestones cover contracts/fixtures, private execution and jobs, workbook
+interpretation/calculation, all editable/distribution formats, mandatory delivery
+gates and end-to-end qualification. Cloud milestones follow with adapter/data
+migration, stronger self-hosted model qualification and controlled production
+release. A limited local model may allow engineering acceptance while model
+quality remains unresolved; do not describe that as production-ready inference.
+
+The release suite checks actual exported PPTX/PDF, DOCX/PDF and XLSX for provenance,
+formula execution including hidden cells, financial semantics, scenarios,
+cross-artifact numbers, chart data, layout, consumer-engine compatibility and
+confidentiality. Pie charts require valid mutually exclusive nonnegative parts
+and an explicit denominator. Embedded chart workbooks/notes/metadata must not
+leak audience-excluded private data. Chart appearance alone is insufficient.
+
+A passing exact-file manifest and required reviews control final downloads.
+Failed/unrun/unsupported required checks block release; no stale pass applies to
+changed bytes. Original broken workbooks remain preserved separately. Zero
+unresolved formula errors is the release requirement, not a guarantee against
+all undiscovered semantic mistakes. Draft previews are explicitly marked and
+not submitted as production files. Negative tests must prove blocked delivery.
+
+Only documentation and navigation links changed. No runtime validator, new
+artifact, cloud resource, workbook change, inference run or deployment was
+performed. `git diff --check` and local link checks passed. No code tests were
+rerun for this planning-only update.
+
+
+<a id="documentation-cleanup"></a>
+## 43. Consolidated planning documents — 30 September 2026
+
+User requested removal of redundant Markdown/files. Consolidated the overlapping
+product plan, delivery roadmap and separate private-AWS plan into
+[LOCAL_TO_CLOUD_RELEASE_PLAN.md](LOCAL_TO_CLOUD_RELEASE_PLAN.md), preserving the
+implementation baseline, shared data contracts, model/discovery/compliance gates
+and cloud details. Removed those three superseded planning files instead of
+creating another archive copy. Historical links now resolve to the consolidated
+plan; historical descriptions remain dated evidence, not current instructions.
+
+Current sharing set: AGENTS.md, LOCAL_TO_CLOUD_RELEASE_PLAN.md,
+FINANCIAL_PROJECTIONS_PLAN.md and deployment/PUBLIC_KNOWLEDGE_BASE_PLAN.md;
+SESSION_HANDOFF.md is additional implementation history. AGENTS.md was shortened
+to current scope, constraints and known limitations. Updated README, plan links
+and milestone dependencies. Marked legacy context/design/recovery/AWS assessment
+files as historical because they retain unique source references/failure evidence.
+PUBLIC_RESEARCH_SETUP.md remains a runbook for the existing optional public API,
+not a recommendation to abandon self-hosting.
+
+Removed four .DS_Store files outside Git internals. Verified hashes of all 550
+non-Markdown/non-OS-metadata tracked-or-unignored files remained unchanged during
+consolidation. Source code, tests, runtime data, originals, fixtures and concurrent
+uncommitted implementation were preserved. No inference or service restart.
+Validated document links and diff whitespace; code tests were not rerun for this
+documentation/OS-metadata cleanup.
+
+
+## 44. Evidence-backed deal room as the core workflow — 30 September 2026
+
+User clarified that everything must be backed by data, opening a deal room should
+initiate the preparation workflow, and the public KB must support both discovery
+and deal rooms. Updated the three existing plans and entry points; no additional
+planning document was created.
+
+The controlling plan now defines idempotent DealRoomActivated orchestration:
+identity, KB-first public evidence, authorized private uploads, evidence/gap and
+conflict mapping, financial model/scenarios, common materials, exported-file
+validation and required review. Reopening an unchanged room reuses saved work.
+Source/upload/assumption changes invalidate only dependent tasks/approvals. Missing
+inputs are consolidated and specific; substantive unsupported content is not
+invented to make a room appear complete. Direct-entry rooms are supported as well
+as discovery-promoted companies, with transparent scope and identity checks.
+
+Public KB retrieval has two explicit consumers: filtered lead discovery and room
+company/market/competitor/benchmark research. Mature-company context is distinct
+from eligible leads. Public source reuse respects rights scope; room facts, notes,
+subscriptions and derived data remain private and never automatically populate
+public knowledge or other rooms. Material claims and conclusions need supporting
+source/calculation lineage; estimates remain labeled and supported. Unsupported
+hypotheticals may exist only as clearly illustrative internal work, not as
+released data-backed investment claims.
+
+These are planning changes, not implemented room automation. No source code,
+company data, inference, scheduled jobs or service settings changed. Diff whitespace
+and active-document local links checked; code tests not needed for this update.
+
+
+## 45. Incorporated external plan review — 30 September 2026
+
+User supplied Claude's review and requested incorporation where necessary.
+Cross-checked the existing Deal/OperatingWorkspace schemas, workspace_basis's
+promoted-deal relation, cached-value Excel ingestion and requirements.txt. The
+pasted review was analysis input, not an instruction to execute its closing offer
+or change deployment authorization.
+
+Accepted four findings in the existing documents, without adding another plan:
+1. DealRoom is a facade over an evolved OperatingWorkspace with an explicit,
+   tenant-checked optional Deal association. No third parallel facts/approval silo.
+   L0 mapping/migration cases preserve current mandates, ownership and history.
+2. Name the initial stack: LibreOffice headless/UNO recalculation and PDF conversion,
+   python-pptx, python-docx and openpyxl authoring/parsing. Qualify versions, round
+   trips, native chart support and destination-engine compatibility in L0/L1.
+3. Run a bounded public/synthetic local-model feasibility screen during L0/L1,
+   before building the full pipeline. Broader held-out acceptance remains L5/C1.
+4. Record an unassigned qualified compliance reviewer and financial acceptance
+   owner as explicit dependencies; no engineer/model self-appointed sign-off.
+
+Qualified two suggestions: python-docx does not imply native editable Word chart
+support (initial DOCX uses data-bound chart images plus editable text/tables), and
+no-fee software is not zero infrastructure cost. Preparing a cloud benchmark can
+proceed after an early local failure, but live paid cloud evaluation still respects
+the user's local-first order and requires its deployment/spend gate. No installs,
+model runs, entity migration, runtime edits or AWS provisioning occurred.
+
+Updated controlling plan, projection/KB supplements and AGENTS.md. Diff whitespace
+and local document links checked; no runtime tests required for planning changes.
+
+
+## 46. OAuth registration and per-user sandbox requirements — 30 September 2026
+
+User added user-sandbox isolation and OAuth registration to the ongoing plan.
+Updated the controlling plan, AGENTS, README and KB supplement. OIDC over OAuth
+Authorization Code/PKCE identifies users; a transactional personal sandbox and
+server-derived membership/authorization isolate rooms, jobs, uploads and artifacts.
+Explicit reviewer grants are required for collaboration; sign-in does not grant
+compliance-reviewer authority. Shared public KB reuse does not share private user
+activity or deal facts. Provider choice/client registration remains a dependency.
+
+Code inspection confirmed caller-controlled tenant/reviewer headers in api/deps.py
+and an unauthenticated /memo_output StaticFiles mount in api/main.py. Plan requires
+replacement with trusted identity and an authorized artifact gateway, including
+preview/release checks. Existing default-tenant data needs a deliberate verified-
+owner migration; it must not be claimed by the first OAuth registrant. Job/access
+revocation, scoped private caches/temp files and cross-user security tests belong
+to local L1 and repeat in cloud qualification.
+
+This turn only updates requirements, consistent with the ongoing planning task.
+No OAuth provider account/client, live user registration, authentication code,
+data ownership migration or network/deployment change was performed. Diff whitespace
+and plan links checked; no runtime tests run for documentation-only edits.
+
+## 47. Initial executable L0 contracts — 30 September 2026
+
+User requested a thorough project/plan review and the start of implementation.
+Read AGENTS, the controlling release plan, financial and public-KB supplements,
+latest handoff requirements and §38 implementation evidence; inspected the store,
+workspace reconciliation, schemas, API identity/static serving, inference routing,
+Excel ingestion, dependencies, frontend entry points and relevant tests. Existing
+uncommitted work was preserved. No live database or original artifact was opened,
+changed, migrated or reset; no production service was restarted.
+
+Implemented the first L0 slice in new modules:
+
+- `delivery/contracts.py`: four artifact kinds and required editable/distribution
+  formats, initial section lists, mandatory check IDs, strict manifests and
+  full-package revision hashing. A pure assessment blocks missing/extra files,
+  changed observed hashes, obsolete policies, missing/duplicate/stale checks,
+  incomplete coverage, all fail/not-run/unsupported/N/A results and absent,
+  ambiguous, rejected, stale or unauthorized financial/compliance reviews.
+- `delivery/room_mapping.py`: read-only mapping proposals over complete
+  tenant-scoped snapshots. Unpromoted/manual leads stay unlinked; an unambiguous
+  promoted relation becomes a candidate; missing/cross-tenant records, identity
+  mismatches and duplicate relationships fail closed. Legacy Deals require an
+  explicit migration. No association was written and no mandate was changed.
+- `delivery/workflow_contracts.py`: bounded DealRoomActivated event and scoped
+  work key, stable for unchanged reopening and different for changed inputs,
+  workflow or room/tenant. Public KB request contracts separate seed discovery
+  from room/comparable context; arbitrary private request fields and private
+  claim classifications are rejected. These type checks do not prove egress
+  isolation or source entitlements and do not implement queue deduplication.
+- `scripts/export_delivery_contracts.py`: stdout-only export of the policy and
+  seven JSON schemas, without DB/model/network access.
+
+Verification: **87 new tests passed** in `tests/delivery`; **22 existing tests
+passed** across `tests/analysis/test_operating_workflow.py` and
+`tests/core/test_concurrency.py`. The concurrency upload test initially could not
+bind its temporary loopback server in the sandbox (operation not permitted), then
+passed with local test-server permission. Existing urllib3/LibreSSL and matplotlib
+deprecation warnings remain. JSON export and `git diff --check` passed. No model
+calls, downloads, inference spending, AWS work, commits or pushes were performed.
+
+This is contract-level validation with synthetic results, not actual exported-file
+inspection or model/investment acceptance. The assessor returns eligibility only;
+it cannot authenticate, persist a release or authorize a download. Existing API
+routes are unchanged and do not enforce it yet. Trusted check reports, freshly
+observed file hashes and current reviewer grants must come from future private
+services, never client request values. Section lists await acceptance-owner review.
+
+Observed local tooling: Python 3.9.6, Pydantic 2.13.4, openpyxl 3.1.5, FastAPI
+0.115.0. LibreOffice was absent from PATH and the standard /Applications app path;
+python-pptx distribution metadata was absent. No install or compatibility pass
+was attempted. openpyxl remains a reader/writer, not a calculation engine.
+
+Next: complete the synthetic workbook/model feasibility corpus and engine
+qualification, identify supported destination applications and named financial/
+compliance acceptance owners. Then implement L1 server-derived identity, legacy
+ownership quarantine, authorized artifact access, durable jobs and checked room
+associations. The current header identity, public static artifact mount,
+deepseek_public default and process-local jobs remain known gaps; L0 and L1 are
+not complete. Do not expose the application for team use on this basis.
+
+## 48. Runtime identity, durable room workers and exported-file gates — 30 September 2026
+
+The user requested connecting the L0 foundation to runtime, then selected Google
+for sign-in. This section supersedes §47's implementation-status statements, not
+its contracts or the controlling release requirements. Existing company records,
+originals, raw responses, backups, failed reports and concurrent uncommitted work
+were preserved. No reset, commit, push, model download, paid inference, AWS work
+or external outreach was performed. No live API restart or worker run was made
+against the existing database; only read-only aggregate job/process checks were
+used before considering startup. New schemas were exercised on synthetic databases.
+
+### Connected runtime
+
+- `security/identity.py`, `security/oidc.py`, `api/routers/auth.py`: Google/default
+  configurable OIDC with PKCE S256, one-use browser-bound state, nonce, signed
+  issuer/audience/expiry verification, opaque hashed server sessions, idle/absolute
+  expiry and revocation. `(issuer, subject)` uniquely provisions an empty sandbox
+  transactionally. Legacy data is never adopted by a first registrant. Writes
+  require session CSRF plus exact Origin. Cookies are HttpOnly/SameSite and Secure
+  except explicitly enabled loopback development. Provider tokens remain server-side.
+  [Authlib's OIDC integration](https://docs.authlib.org/en/v1.6.9/client/starlette.html)
+  is the relevant upstream reference. Client registration/secret are still absent;
+  no live Google sign-in has been demonstrated. README gives the callback/config.
+- All business API routers use session-derived identity; tenant/reviewer headers
+  are no longer authentication. The public `memo_output` mount is removed.
+  Legacy chart responses use a tenant/deal-authorized gateway without rewriting
+  historical stored memo data. Frontend login/session/CSRF handling is connected.
+- `/api/rooms` supports manual company entry; activation of a lead checks its
+  workspace/Deal association and reuses unchanged work. Authenticated existing
+  preparation/analysis entry points now enqueue durable room jobs. The UI activates
+  rooms and polls stages, cancellation and private draft links. Existing metric
+  import saves input as awaiting_input instead of launching unsafe private legacy
+  work. This is not completed metric extraction or public source collection.
+- `delivery/jobs.py` persists input keys, states, bounded lease recovery, checkpoints,
+  attempt limits and membership checks. Changed inputs fence obsolete leases.
+  Registration of drafts is fenced by job token and membership. Room authoring is
+  merged with optimistic workspace revision checks. `scripts/run_room_worker.py`
+  is a separate process; `serve_local.py` starts it without reload, suppresses URL
+  access logs and waits for bounded shutdown. SQLite is a single-host implementation,
+  not the planned multi-host transactional migration.
+- `delivery/preparation.py` snapshots only the authorized room into its private
+  attempt directory, retains raw attempts and runs local inference with a
+  110-second/six-call budget inside the room pass's 120-second bound. No public
+  provider fallback is permitted there. The macOS subprocess boundary restricts
+  filesystem reads/writes and network access; inference has only loopback Ollama
+  access, while document workers have no external network access. Unsupported
+  platforms fail closed. Local inference quality was not tested or accepted.
+- `delivery/inspection.py` examines real bounded OOXML/PDF bytes, all worksheet
+  formulas/caches including hidden cells, names, stored errors, malformed archives,
+  active/external features and embedded content. Excel ingestion retains the private
+  inventory alongside cell citations. This is structural inspection, not a full
+  dependency graph, financial review, layout assessment or application compatibility.
+- `delivery/rendering.py` creates bounded draft intro PPTX and memo DOCX from
+  validated recorded model sections, never hand-authored replacement company answers.
+  Missing evidence keeps stages awaiting_input. Immutable artifact storage verifies
+  content hashes and rejects symlink scope escapes. Actual-file validation creates
+  a trusted package record. Release and every final download recheck exact bytes,
+  input/model versions (including actual source bytes and recorded extraction),
+  mandatory results and current reviewer grants. Unrun checks
+  block release; owners are not automatically financial/compliance reviewers.
+  Reviewer appointment/review collection and complete validators remain outstanding.
+
+### Engine evidence and blockers
+
+The project `.venv` now has Authlib 1.6.9, python-pptx 1.0.2, python-docx 1.2.0,
+pypdf 6.18.1 and defusedxml 0.7.1 in addition to existing openpyxl 3.1.5.
+LibreOffice 26.8.0.3 was installed after official checksum verification.
+Installation is not renderer qualification.
+
+`scripts/qualify_renderers.py` generated synthetic documents/workbooks only.
+Its private-conversion report at ignored `runtime_qualification/report.json`
+records four failures. Job-local HOME/cache settings did not resolve the silent
+exit 1. The bundled Python/UNO executable was killed with exit 137; strict
+code-signature verification reports an invalid signature. No code-signature repair,
+isolation relaxation or private-runtime bypass was introduced.
+
+The separate synthetic-only `--diagnose-unisolated` report records four functional
+passes: PPTX/DOCX produced searchable one-page PDFs, and workbook inputs 10 and 15
+produced expected results (20,15,16) and (30,25,26), preserving formulas and a hidden
+sheet after save/reopen. Both PDF pages were rendered and visually inspected as
+readable/unclipped. These small fixtures do not establish held-out layout coverage,
+Excel/PowerPoint parity, chart correctness or investment-quality materials.
+CLI round trips are not explicit UNO `calculateAll` qualification; see the
+[UNO calculation interface](https://api.libreoffice.org/docs/idl/ref/interfacecom_1_1sun_1_1star_1_1sheet_1_1XCalculatable.html).
+The company-supplied projection workbook was not recalculated or changed.
+
+### Verification and next execution boundary
+
+- Targeted current runtime/contract/API/workflow suite: **151 passed, 5 skipped**.
+  Command: `.venv/bin/python -m pytest tests/delivery tests/api/test_authentication.py
+  tests/api/test_oidc.py tests/api/test_rooms.py tests/api/test_api_writes.py
+  tests/analysis/test_operating_workflow.py -q --disable-warnings --tb=short`.
+- The five opt-in real macOS tests were separately run outside the nested tool
+  sandbox with `RUN_PRIVATE_RUNTIME_TESTS=1`: **5 passed**. They exercise sibling
+  file/network/secret denial, isolated real-file parser/rendering, restricted
+  network exceptions and single-room model-worker startup/abstention without
+  inference. They do not establish arbitrary malicious-document safety or Linux/AWS
+  isolation.
+- The preserved §38 affected regression selection passed **213 tests**. Frontend
+  production build and lint passed. These are software checks, not release approval.
+  A broader API run still contains three retired-route expectations and tests that
+  require unavailable live Ollama; no all-suite/live-model pass is claimed.
+
+Continue with Google client registration in the local server environment and a
+real callback/session acceptance run; do not put the secret in chat. Establish
+verified ownership before migrating any legacy tenant. Resolve private LibreOffice
+and signed UNO availability without disabling isolation, then expand the held-out
+workbook/rendering corpus and implement the remaining calculation/evidence/layout/
+compatibility validators. Durable public KB ingestion/discovery is still pending;
+room activation currently reports that gap explicitly. Complete four-artifact
+generation, named financial/compliance acceptance ownership and exact-version review
+collection before considering L1/L2 acceptance. No final investor package is released.
+
+## 49. Conservative workbook lineage follow-up — 30 September 2026
+
+Continuing §48, `delivery/formula_lineage.py` now inventories bounded cell and
+range references across sheets, including hidden sheets, from actual exported
+XLSX formulas. `delivery/inspection.py` maps workbook relationship IDs to sheet
+parts and retains the private dependency graph. Dynamic/unknown references,
+oversized ranges, missing mappings and detected formula cycles produce explicit
+findings. The public status summary omits the graph. This is **cell-reference
+coverage only**, not a formula evaluator, qualified recalculation, complete
+named-range analysis or financial-semantic review. `calculation_status` remains
+`not_run` and mandatory release checks remain blocking.
+
+The targeted runtime plus public KB selection passed **158 tests, 5 skipped**,
+including two new lineage and five public KB tests. Google client ID/secret are unset in this process, so live Google
+callback acceptance remains outstanding. Read-only inspection found no auth/job
+tables in the existing live database; process enumeration was denied by the local
+sandbox, and no server/worker restart was attempted. The retained private Office
+report still records four failed conversions, and strict `codesign --verify` still
+reports an invalid signature on the installed LibreOffice app. No signing repair,
+new installation, isolation relaxation, model download or external spend occurred.
+Future synthetic qualification reports now include a concise code-signature state.
+Originals, databases, failed reports and concurrent uncommitted work were preserved.
+
+An offline public KB foundation was added in `public_kb/ingestion.py`: an explicit
+source registry defaults disabled and requires separately recorded access,
+retention, inference and investor-reuse rights before staging. Immutable
+content-hash versions and a bounded, leased SQLite outbox survive sink errors;
+unchanged content is indexed once and overlapping publishers do not concurrently
+claim one version. Five synthetic tests cover disabled rights, idempotence, changed
+versions, sink recovery and overlap. This is **not scheduled ingestion**: no
+publisher has been enabled, no HTTP fetcher, extraction, ES sink or timer was
+installed or run. Only synthetic public fixture bytes were processed.
+
+## 50. Local server configuration — 30 September 2026
+
+The user asked to start and configure the server. After checking the live database
+for active room jobs (none), the FastAPI API was restarted with
+`scripts/serve_local.py --local-dev --without-worker`; Vite remains on
+`127.0.0.1:5173`. The explicit local option sets the development-only
+`APP_ORIGIN=http://127.0.0.1:5173` and loopback HTTP allowance, and refuses
+`APP_ENV=production`. The frontend, proxied `/api/health` and auth configuration
+endpoint responded successfully. No worker is running. The user reported that a
+Google OAuth Web client has not been created; `/api/auth/config` reports
+`configured:false`, so live sign-in remains blocked pending client registration
+and secure server-side credentials. No client secret was stored or requested in chat.
+
+## 51. Temporary loopback user sign-in — 30 September 2026
+
+At the user's request, the login screen now offers Google OIDC when configured
+and temporary user ID/password access on explicit `--local-dev` loopback startup.
+The latter is disabled outside `APP_ENV=development`, exact
+`http://127.0.0.1:5173` origin and loopback client access. It does not satisfy
+the OIDC release requirement. A `temporary` account was created with a new empty
+personal sandbox; legacy data was not adopted. Its generated password is only in
+a mode-0600 file under a mode-0700 directory at
+`/private/tmp/deal-local-credentials-li4w7uuj/login.txt`, not in chat, code or DB.
+The password verifier uses a unique salt and PBKDF2-HMAC-SHA256 (600,000 rounds);
+login throttles after five failures. Session and CSRF values are stored only as
+SHA-256 hashes. The database's existing `auth_sessions.csrf` column now contains
+a hash; there were no preexisting live sessions before this change.
+
+After confirming no active room jobs, the API was restarted with
+`--local-dev --without-worker`. Live login through Vite returned 200, `/me`
+returned owner scope, the DB hash check passed, and test logout returned 204.
+Targeted backend selection: **138 passed, 5 skipped**; frontend production build
+and lint passed. Google remains unconfigured. The room worker remains off; no
+model, public KB or artifact release qualification is implied.
+
+## 52. Loopback origin mismatch fixed — 1 October 2026
+
+The user reported `Request origin is invalid` on temporary login. Reproduction
+confirmed `http://localhost:5173` returned 403 while `127.0.0.1:5173` passed
+the origin check. Both frontend hostnames are reachable locally. In explicit
+loopback development only, `api/deps.py` now allows those two exact origins for
+login and session CSRF checks; production remains exact-origin. Google sign-in
+continues to use the canonical `127.0.0.1` callback, and the frontend now uses
+the server-provided absolute Google login URL when configured. The API was
+restarted without a worker after confirming no active room jobs. Tests covering
+localhost login, authenticated write and hostile-origin rejection passed in the
+38-test targeted selection; frontend build and lint passed. Live localhost login,
+`/me` and CSRF-protected logout returned 200, 200 and 204 respectively.
+
+## 53. Account UI refinement — 1 October 2026
+
+The sign-in page was redesigned as a responsive two-column account screen with
+clear Google and temporary-local choices. Pending Google configuration has a
+visually disabled status rather than an action that fails on click. Local fields
+have visible labels, password reveal, inline errors and a full-width submit
+button. The signed-in account and sign-out action now live together in the main
+application header instead of a detached top strip. `/api/auth/me` derives the
+local display ID server-side; a Google session has a generic Google label with
+an internal account suffix pending verified profile display work. The temporary
+user appears as `temporary`, with its local-account method visible.
+
+Desktop and narrow mobile sign-in screens were visually inspected in the live
+browser. Frontend build and lint passed; 10 targeted auth tests passed. Live
+login, `/me` (display `temporary`, method `local`, role `owner`) and logout
+passed after the API was restarted with no active room jobs and no worker.
+The signed-in header itself has code/build/API verification, but no browser
+visual inspection with a live authenticated cookie was performed in this turn.
+
+## 54. Sign-in copy simplification — 1 October 2026
+
+After user feedback, the sign-in screen no longer repeats private-workspace
+assurances in its heading, body and footer. The left panel now describes the
+deal workflow once; the form simply asks how to continue. Google setup status
+remains visible without a second explanatory sentence, and the local form uses
+shorter labels. Desktop and narrow mobile screenshots were inspected; the
+mobile pending badge was shortened so the Google label stays on one line.
+
+## 55. Next-agent execution handoff — 1 October 2026
+
+The user asked for the plans to reflect the current state. The controlling
+release plan, financial supplement, public KB supplement and `AGENTS.md` were
+updated with this checkpoint. These documentation edits do not qualify a release,
+change runtime data or authorize a cloud service/model download. Preserve all
+uncommitted work, originals, private data and failed reports; do not commit/push.
+
+**Observed runtime before this handoff:** Vite was listening on `127.0.0.1:5173`
+and the Python API on `127.0.0.1:8000`; the API was previously started with
+`scripts/serve_local.py --local-dev --without-worker`. A read-only database check
+found no room jobs, one auth user, one local credential and five session rows,
+one currently valid. These are transient observations: check processes and active
+job leases again before any restart. The local temporary password is held in the
+private credential file described in §51; do not print, copy into a plan or commit
+it. No Google OAuth Web client has been created, so live Google callback acceptance
+is outstanding. The local password path is restricted to development loopback and
+does not satisfy the OIDC release rule. The UI now has concise sign-in copy, a
+signed-in account header and sign-out; the header still needs authenticated visual
+inspection in a browser.
+
+**Qualification boundary:** §48 implemented OIDC/session isolation, private
+workspaces, durable room leases/checkpoints, initial PPTX/DOCX renderers and an
+exact-file release gateway. §49 added bounded cross-sheet/hidden-sheet formula
+lineage and an offline rights-gated public KB staging/outbox. The retained private
+LibreOffice report has four failed conversions, and strict signature verification
+of the installed app failed; a small unisolated diagnostic was functional but is
+not private-runtime qualification. `calculation_status` remains `not_run`. No
+scheduled KB, complete four-artifact production package, full financial/compliance
+approval or L1/L5/C1 release acceptance exists. Legacy discovery BackgroundTasks
+are still not durable multi-host work. The latest targeted checks cited in §§49–53
+are scoped software evidence, not an all-suite or live-model pass.
+
+**Next sequence:**
+
+1. Read `AGENTS.md`, the controlling release plan, financial and KB supplements,
+   then inspect `git status --short`, active API/Vite/worker processes and room-job
+   leases. Do not restart a serving process while a job is active. Use
+   `scripts/serve_local.py` without reload when a restart is actually needed.
+2. Register/configure a Google OAuth **Web** client through the user's provider
+   account, keeping its secret server-side. Test the real local callback, session,
+   CSRF-protected write, logout, private-room/file denial across users and new
+   sandbox provisioning. Verify historical ownership from evidence before any
+   legacy migration; do not claim old records for the temporary user.
+3. Resolve the invalid/private LibreOffice and bundled UNO qualification with a
+   valid signed or separately isolated runtime. Retain the private isolation
+   boundary; repeat synthetic conversion and explicit `calculateAll` mutation,
+   save/reopen and hidden-cell checks, then held-out authorized files. Keep failed
+   reports. Do not install/download or incur spend under this plan alone.
+4. Finish selected-output workbook dependencies and financial semantics, qualified
+   recalculation, independent arithmetic, generated scenarios, exact-export
+   layout/chart/evidence validators and cross-artifact consistency. Missing or
+   unsupported mandatory checks must continue to block final download. Name the
+   financial and compliance acceptance owners and bind approvals to exact versions.
+5. Select a rights-cleared public source before enabling it. Add bounded safe
+   collection, durable cursors/archive, extraction, ES sink and KB-first retrieval
+   shared by discovery and room research. Prove retry/idempotence and private-data
+   separation before installing a timer. Do not use public searches for private
+   room text or spend on hosted inference.
+
+The next agent should distinguish code paths that exist from gates that have run
+on the actual exported files and from reviewer-approved release readiness. The
+failed Kaleidofin evidence and broader model-quality limitations remain as in
+§38; do not repair a failed answer manually to present an acceptance pass.
+
+## 56. User reprioritization: public KB and local-only responses — 1 October 2026
+
+The user corrected the next-agent direction: **focus on public knowledge base
+generation, remove Claude dependency, generate all product responses through local
+models, and treat OAuth as P5**. This supersedes the execution order in §55 and
+earlier Claude Pro/DeepSeek public-generation choices. P5 means fifth execution
+priority; OIDC and verified ownership still block multi-user release. Existing
+temporary loopback login can support local development in the meantime, with
+private room and file authorization enforced. Do not weaken isolation to speed KB
+work or call a hosted model for public evidence.
+
+1. **P1 durable public KB:** inspect the offline rights-gated registry, immutable
+   source versions and leased outbox in `public_kb/ingestion.py`. Implement the
+   first rights-cleared, bounded source collector; source archive and deterministic
+   extraction; idempotent ES sink and mappings; KB-first retrieval for both lead
+   discovery and room research; then a bounded external timer. Keep publishers
+   disabled until access, retention, inference and investor-use rights are recorded.
+   Test unchanged content, changed facts, sink failure/restart, overlapping workers,
+   later-stage eligibility updates and private-data non-leakage. Use no private
+   room text in outbound public requests.
+2. **P2 local-only answers:** inspect every product route selecting
+   `PREPARATION_PROVIDER`, `agents/inference/subscription_model.py`, public
+   discovery/research, KB extraction/enrichment and room drafting. Remove Claude
+   Pro, Anthropic API and DeepSeek as runtime response dependencies; wire those
+   paths to installed local model adapters and fail closed if unavailable. Preserve
+   old modules/raw responses as historical evidence until safe migration is clear;
+   do not erase records or manually author company answers. Verify with route-level
+   tests that no hosted LLM request or fallback can occur. Public website fetches
+   remain separate from inference.
+3. **P3/P4:** qualify private LibreOffice/UNO without relaxing isolation, complete
+   financial and exact-export artifact validation, then run integrated local and
+   held-out acceptance. Existing failed reports remain evidence; passing unit
+   tests do not qualify investor materials.
+4. **P5 OAuth:** configure the Google Web client and exercise real callback,
+   session, cross-user denial, logout and ownership migration before team release.
+   Keep the existing OIDC implementation secure while this work is deferred.
+
+No code, data, services or providers were changed by this documentation correction.
+The prior runtime snapshot in §55 is transient; check current jobs/processes before
+any restart. No commit/push, model download, paid inference or cloud spend.
+
+## 57. Public KB collector and local response routing checkpoint — 1 October 2026
+
+Work following §56 changed code without changing live company data or starting a
+service. `public_kb/collector.py` now collects only registered, currently reviewed
+and fully permitted HTTPS sources. It uses the existing public-IP-pinned fetcher,
+robots checks, same-host redirects, conditional requests, supported MIME/size
+limits, a five-second domain interval and a SQLite source lease. The registry URL
+is immutable; source-version metadata pins URL, terms review and media type.
+Unchanged content remains a no-op. `public_kb/elasticsearch.py` deterministically
+extracts source passages, writes retained version and current-source documents
+with stable IDs, and checks rights, source version and freshness on retrieval.
+Sink failure leaves the outbox version retryable. `public_kb/retrieval.py` makes
+these passages available to discovery and room research before fresh lookup;
+room collection records source-version IDs. `scripts/run_public_kb.py` is a
+bounded, externally invokable pass with a worker lease; no timer was installed.
+
+The product selection boundary now rejects nonlocal `PREPARATION_PROVIDER` values
+and explicit Claude Pro, Anthropic API and DeepSeek selections. Public research
+generation uses the local Ollama adapter and the independent public search path.
+Historical provider modules, direct transport tests and saved responses remain.
+Route tests verify retired configurations fail before network/model calls and a
+public answer invokes the local adapter. Live local inference was not exercised.
+
+Focused KB and routing tests passed (19 tests); the broader affected research,
+preparation and historical transport suite passed 77 tests after updating five
+route expectations. A separate auth/room/eligibility run passed 21 of 22 tests;
+the remaining room preview test could not import `pptx` in the active Python 3.9
+environment. `git diff --check` passed. The live room-job table had no queued or
+running jobs; no app, Elasticsearch or Ollama listener was present. No publisher
+rights were newly established, no real public source was contacted, and no ES
+index was created. Do not treat the synthetic sink tests as live ES qualification.
+
+Open P1 work: record and verify an actual publisher's automated access, retention,
+inference and investor-use rights; run real collection and Elasticsearch recovery;
+extract and validate company/entity/claim/funding-event history; recheck prior
+leads when later-stage evidence arrives; complete freshness and conflict handling
+across both consumers; then qualify an external timer. P2 still needs an exhaustive
+product-route audit and live installed-model acceptance. P3–P5 remain as in §56.
+An official-source review found data.gov.in's open government license a possible
+commercial-reuse basis, but the Company Master Data catalog's individual
+license/API access and live content were not qualified. It remains disabled;
+see the public KB plan for links and scope.
+
+## 58. Live open-license KB and local inference checkpoint — 1 October 2026
+
+The user asked for verified open-license sources and applicable scraping.
+StartupDB's [API guide](https://startupdb.com/api) permits public read-only
+access without a key and states its rate limit; its
+[data terms](https://startupdb.com/legal) license the dataset's facts and
+compilation CC BY 4.0 with credit, while excluding logos, marks, photos and
+third-party descriptions. A new `public_kb/startupdb.py` allowlist projects
+only identity and funding-event fields before any archive write. The
+`startupdb-sarvam-ai` API detail source is enabled in ignored
+`runtime_public_kb/kb.db`; one live filtered version (SHA-256 prefix
+`27d7b8971b6c`, 1,495 bytes, three publisher-reported rounds) is archived.
+The Wikidata candidate remains disabled after its robots rule blocked collection.
+No private room content entered public collection.
+
+The official Elasticsearch 9.5.4 ARM archive was downloaded, SHA-512 verified,
+and extracted under ignored `runtime_public_kb/elasticsearch_dist/`. A
+loopback-only local node indexed the retained version and returned one result
+for both company and funding-label queries with its version ID and StartupDB
+credit. A second live collection was unchanged: the version count stayed one
+and no outbox item remained. The local single-node indices were configured
+with zero replicas and cluster health was green. The worker marked the version
+indexed. SQLite rights-date queries were
+fixed to use the same local date as the Python registry; live collection had
+exposed the UTC-midnight mismatch. The loopback ES instance was restarted
+after a launchd attempt, and current listener health should be checked.
+
+A launchd Elasticsearch job registered but failed with exit 126 because macOS
+denied execution from the Desktop workspace. The failed job was booted out;
+ignored plist drafts remain under `runtime_public_kb/launchd/`. No timer is
+enabled. A durable scheduled service needs a location macOS permits launchd
+to execute and read, then a verified restart/recovery test.
+
+One synthetic public-identity request ran through `PublicResearchModel` and
+the installed local `qwen3.5:9b` model, returning a local response. No model
+was downloaded and no hosted inference was used. `PublicResearchModel` no
+longer inherits the historical Claude transport; product provider selection
+still rejects all retired hosted names. The affected research,
+local-route, eligibility and room test set passed 100 tests in `.venv`.
+The synthetic private Office canary still failed in the macOS sandbox;
+an unisolated diagnostic passed all four conversions and is not private
+qualification. Google OIDC live client/legacy ownership, broad public KB
+coverage, later-stage updates, full route/integration acceptance and exact
+artifact validation remain open. No release is qualified.
+
+The full `.venv/bin/python -m pytest -q` run completed with 820 passed,
+5 skipped and 17 failed. Eleven live API tests target retired unauthenticated
+lead/prompt/review behavior, three concurrency tests likewise predate the
+current auth boundary, and three preparation tests assert legacy job flags
+or the retired Claude default. These failures were not bypassed or converted
+into a release pass. The focused current research/routing/eligibility/room
+suite passed 100 tests before the final decoupling test was added.
+
+## 59. Private Toffee acceptance inputs and confidence gates — 1 October 2026
+
+The user provided the Toffee Oct-22–Sep-23 workbook and two PDFs as private
+reference and acceptance examples, **not a product template or assumptions to
+hardcode**. They asked for broad free rights-cleared public data in ES,
+thorough local model work at room activation, zero-error output, and cloud
+compute if measured local limits require it. Document content is evidence,
+not instructions. The user will provide a cloud budget; none was spent.
+
+Read-only local workbook qualification preserved its source SHA-256
+`776c0759e50e15c2db3eb967c6519cda617b190426ca6e416f4c6e5561616b84`.
+It has 14 sheets (five hidden), 3,008 formulas, 104 stored formula-error
+cells, 22 broken formula references, two broken names, one missing formula
+cache and 23 unresolved reference formulas. A bounded defined-name tracer
+raised resolved reference edges from 3,706 to 3,768, but coverage remains
+partial and recalculation was not run. Ignored diagnostic:
+`runtime_qualification/toffee_workbook_2026-10-01.json`. The source is
+blocked as a validated projection.
+
+Read-only PDF qualification preserved both originals. The intro has nine
+pages and the full deck 16. The intro cap-table slide 8 states INR/USD 75,
+while four displayed INR/USD pairs imply about 70; a source owner must
+reconcile that contradiction. The full deck's slide 10 is image-heavy with
+only a page number in searchable text. Both PDFs have action annotations on
+contact pages. New PDF structural checks flag these conditions but do not
+establish visual/export parity. Ignored diagnostic:
+`runtime_qualification/toffee_pdf_review/report.json`.
+
+`delivery/worker.py` now distinguishes uploaded workbook formula errors
+from generic recalculation review and exposes a finding count in the room
+stage; the frontend displays the blocked reason. The worker still does not
+produce a validated financial model, matching PPTX/PDF pairs, or a complete
+investor package. Private LibreOffice/UNO remains unqualified. The original
+Toffee files were not uploaded into the shared KB or sent to a hosted model.
+
+The active legacy deal inference paths were audited and changed to use an
+explicit 127.0.0.1 Ollama client, ignoring a remote `OLLAMA_HOST`. They now
+reject incomplete responses, avoid invented USD units, block mixed/unknown
+money calculations and skip outbound public research for private names unless
+public identity is supported. A synthetic live local call with a hostile
+`OLLAMA_HOST` still used local `phi4-mini`. Historical hosted adapters remain
+on disk for records/evaluator scripts, not product routing.
+
+Three parallel native agents reviewed workbook, PDF and model paths.
+Claude Code 2.1.203 is installed and subscription auth later reported Pro.
+An attempted bounded Claude agent-team review of sanitized code returned no
+result and was stopped. A subsequent bounded, single Claude Code Pro review
+of sanitized code completed; it suggested rechecking room worker access and
+document-read races. The generic worker now rechecks access before work,
+and source reads use a checked file descriptor instead of reopening a path.
+No private Toffee content was sent to Claude Code. Automatic approval
+review rejected the assistant's attempt to click Google's Claude OAuth
+Continue control because the requested scopes covered inference, sessions,
+MCP servers, file uploads and API-key creation. The assistant did not retry
+or bypass that click.
+
+Post-change focused delivery/inference/core/research/room run: 336 passed,
+five skipped, three old unauthenticated concurrency tests failed with 401.
+After the file-descriptor read and reference-only correction, focused
+delivery/room tests passed 17/17 and the full suite reached 848 passed,
+five skipped, 17 failed. The failures remain retired lead routes, live model
+tests unable to connect to Ollama in the test sandbox, unauthenticated
+concurrency tests, and three retired preparation expectations. `lsof` still
+showed loopback Ollama and Elasticsearch listeners, so connectivity needs
+an isolated diagnosis; listener presence does not prove the test process
+could reach local inference. Frontend production build and `git diff --check`
+passed. This is a code/diagnostic checkpoint, not zero-error investor output
+or a qualified release.
+
+## 60. Live StartupDB sample room and local-model reasoning checkpoint — 1 October 2026
+
+The user directed focus to the core room workflow, deferring OIDC changes,
+and corrected the assistant for choosing a candidate itself. The final
+sample candidate was selected by installed local `qwen3.5:9b` from five
+rights-filtered StartupDB detail records, then checked against the retained
+fields and independently reviewed with Claude Code using **public data only**.
+No private room material went to Claude. StartupDB Qosmic, Powerup Money, Rivo,
+ByteAsk and 1001 AI detail sources were enabled after the existing API/legal
+rights review, collected with the bounded collector and indexed in local ES.
+The source projection now retains factual headquarters, founding year and
+operating status fields; third-party descriptions/images remain excluded.
+
+The local model made three bounded selection attempts, retained at
+`runtime_qualification/public_candidate_assessment_2026-10-01*.json`.
+The first overcalled a dated round active; the second falsely treated June
+2026 as future relative to 1 October 2026; the third selected Qosmic for a
+**sample diligence room**, not an investment recommendation. Claude Code's
+second public-only review supported opening the sample room but flagged two
+remaining wording errors: a past round date cannot prove whether fundraising
+is open, and Powerup Money's duplicate/out-of-order dates are not
+"overlapping." These findings remain recorded in the room rather than
+silently replacing model text. Claude's first review itself claimed article
+corroboration without reading article bodies; that claim was rejected.
+
+The Qosmic private room is `workspace_6e71e7156759`, linked to lead
+`lead_8dd1c869c1c0`, with `startupdb-qosmic` source version
+`ecd411b5766c72c6...` and three tenant-scoped evidence entries. Its bounded
+room job `job_116aa896bf152a23216e0231861964fd` ran local preparation
+with four calls in about 88 seconds but ended `awaiting_input`: sparse
+funding/identity evidence did not support two distinct validated diligence
+questions. The job created no full PPTX/DOCX/PDF package. It also has no
+financial inputs. The historical job checkpoint says `public_kb:
+not_implemented` because that was the code it ran; the worker now verifies
+current indexed source rights/version and marks future jobs as bound.
+
+A separate bounded local-model public brief was drafted in three retained
+attempts at `runtime_qualification/qosmic_public_brief_2026-10-01*.json`.
+Claude Code reviewed the public-only draft. Two model sections continued to
+make unsupported URL-content claims after the final bounded correction and
+were rejected. Only the two source-supported, model-written sections and
+its decision boundary were rendered to
+`output/pdf/Qosmic_StartupDB_sample_draft.pdf`, registered privately as
+artifact `artifact_ffb59059c71b814ad44bdba11939d221`. The PDF visibly
+states it is an incomplete sample draft, identifies the local model,
+generation date, two omitted sections and StartupDB CC BY 4.0 attribution.
+Exact PDF bytes passed structural inspection and were rendered/visually
+reviewed with pypdfium2 because Poppler is unavailable. A synthetic private
+renderer canary passed PPTX, DOCX and PDF under `sandbox-exec` when run
+outside the outer Codex sandbox. The sample does not validate investment
+merit, model calculations or a full room package.
+
+Generic code added: `public_kb/room_seed.py` and an authenticated KB-room
+activation route, local-model candidate comparison and public brief modules,
+ReportLab PDF renderer in the private document worker, and a version/rights
+check in the room worker. Reimport of an unchanged KB version now preserves
+the existing lead, evidence IDs and assessment. Future public brief inference
+omits article URL slugs from model context because they are links, not read
+article content; structural output explicitly awaits claim review. The affected
+tests passed 19/19 before the final idempotence guard, and its focused 6/6
+tests passed afterward; `git diff --check`
+passed. API and frontend were started loopback-only with no reload at
+127.0.0.1:8000 and 127.0.0.1:5173 after confirming no active room jobs;
+verify current listeners/jobs before changing them. The draft preview remains
+authenticated (unauthenticated HTTP returned 401). No OIDC code was changed,
+and deferring OIDC does not waive multi-user release gates.
+
+## 61. Local investment-memo qualification checkpoint — 2 October 2026
+
+The QOSMIC sample room remains an active engineering case, not an accepted
+investment recommendation or investor-ready package. Live, rights-reviewed
+StartupDB and company/news passages were retrieved from loopback Elasticsearch
+for the private room. The latest bounded job is
+`job_398b399c1d83e01199355cd117731a16` (`awaiting_input`, one pass).
+Its local qwen3:14b review revision was retained as `response_15` but rejected:
+it said a June 2026 event was future relative to 2 October 2026, embedded
+source markers in prose the renderer must bind, and made unsupported claims.
+The preceding qwen3.5:9b review returned `revise`; some objections were valid,
+while several confused the date or treated missing revenue as zero. No revised
+memo, accepted PDF, deck or financial workbook was emitted. The older partial
+QOSMIC PDF remains a failed/sample artifact and must not be promoted.
+
+The private memo pipeline now retains hashed raw local-model attempts and
+reconstructs accepted prose, quotes and review before rendering. Quote selection
+uses exact source spans; numeric prose must match one selected claim and its
+quote, not a pool of claims sharing a citation. New rejection checks block
+model-supplied citation markers in prose patches and explicit past/future
+statements that contradict the recorded `as_of_date`. The same recorded date is
+used during replay. These guards prevent specific observed mistakes; they do
+not prove semantic correctness. Live local inference produced several
+source/number-valid drafts but no independently accepted final memo. Funding
+status, customer economics and projections remain unverified or unavailable.
+
+Claude Code Pro was verified signed in and completed an independent **code-only**
+review of sanitized modules, with no private runtime data. Its concrete findings
+about pooled numeric claims, attribution fallback, worker source independence,
+stale correction context and error-field routing were checked and fixed where
+applicable; its rights and lease concerns were already enforced deeper in the
+path. It did not cross-verify or approve a private investment memo.
+
+Focused research/delivery/room/local-only tests after the latest guards:
+137 passed, five skipped. Full suite: 876 passed, five skipped, 30 failed. The
+failures include tests expecting intentionally retired legacy generation routes,
+old unauthenticated calls, live Ollama calls denied by the test sandbox, and
+discovery/preparation expectations predating fail-closed local-only behavior.
+Do not restore hosted inference or remove auth to make those old expectations
+green; reconcile their contracts and rerun live tests in a permitted local
+environment. `git diff --check` passed before this note. The API was restarted
+only after confirming no active room/KB worker or queued/running room job; it is
+again on loopback `127.0.0.1:8000` without reload or embedded worker, and
+`/api/health` returned `ok`. Ollama and ES were left running. No functioning timer, cloud
+resource, model download, reset, commit or push occurred.
+
+The bounded KB command completed a live zero-due pass (`collected: 0`,
+`errors: 0`), and an hourly launchd plist was prepared at
+`deployment/com.ainvestify.public-kb.plist` and passed `plutil -lint`.
+An installed test tick then failed before Python startup because macOS denied
+launchd access to `.venv/pyvenv.cfg` under this Desktop project. The job was
+unloaded and the installed plist removed, leaving no active or login timer;
+its failure logs remain under `runtime_public_kb/`. The repo plist is a
+deployment template only. The KB worker still requires manual invocation until
+the workspace is moved to a launchd-readable location or access is granted and
+the installed timer is retested. A running ES process and a zero-due worker
+pass do not establish unattended ingestion.
+
+## 62. Feasibility check for a stronger installed reviewer — 2 October 2026
+
+After the user asked whether an accepted local investment memo is achievable,
+the installed models were inventoried without downloading anything: qwen3:14b,
+qwen3.5:9b/4b, qwen3:8b, phi4-mini and smaller models are present. A single
+bounded private local qwen3:14b thinking call was run against three already
+retained **public** QOSMIC excerpts and an explicit 2026-10-02 as-of date.
+Its raw result and call metadata are retained under the latest room job's
+`investment_memo/experiments/reviewer_calibration_2026_10_02/` directory.
+It correctly classified June 2026 as past, StartupDB's funding status as
+unknown, and the 50+ station count as planned. It classified website metrics
+as `unknown` rather than the more precise `company_claim`, so the result was
+three of four checks, not a qualification pass. This suggests a stronger
+installed local model can improve targeted reasoning but does not establish
+reliable full-memo review. The experiment was not a room job, did not alter
+the accepted artifact state and created no PDF. The next engineering step is
+to test small, independently checked decision-critical claim stages and an
+evidence-limited recommendation before a full document render; keep financial
+inputs missing until provided and validated.
+
+## 63. Quote-bound decision experiment — 2 October 2026
+
+The user authorized proceeding with smaller, decision-critical local reasoning.
+`agents/research/fieldwise_memo.py` now has a generic model-authored
+recommendation schema: the model selects an existing claim and a byte-exact
+quote option, authors its own sentence/decision, and deterministic code binds
+that sentence as both the visible claim and cited reason. The binder rejects
+unsupported numbers, citation-marker injection, false temporal direction and
+absence claims inferred solely from a quote's silence. Tests pass 20/20 for
+the fieldwise and existing investment memo contracts. This module is not yet
+on the production room route and does not qualify an artifact.
+
+Four bounded qwen3:14b local recommendation experiments and two reviewer
+experiments are retained under the prior QOSMIC room job's
+`investment_memo/experiments/fieldwise_*` directories. The initial rewrite
+improved the defer rationale but cited the event amount while reasoning from
+an `unknown` status outside its selected exact quote. The first quote-bound
+attempt rounded a reported amount and repeated index labels; a retry repeated
+the label error. The simplified third attempt selected exact relevant quotes
+and passed numeric binding, but asserted no deployment timeline while another
+retained passage describes a deployment target. Its thinking reviewer timed
+out at 105 seconds; a non-thinking reviewer produced a `revise` verdict and
+flagged the timeline problem but exceeded the original defect-length schema,
+so it is retained as an invalid raw response. The fourth recommendation
+revision again inferred a missing deployment timeline from an excerpt's
+silence and is rejected by the new absence check. No experiment was promoted
+to the room memo or PDF. The strongest installed model remains unreliable on
+full-source semantic consistency within the current bounded pass. No model
+download, hosted inference or cloud spend occurred.
+
+## 64. Draft PDF layout qualification — 2 October 2026
+
+While the user prepares a private-compute budget/region, the local ReportLab
+renderer was improved using **synthetic** memo text only. It now separates
+analysis from exact source excerpts and version references, uses evidence
+panels, includes a draft/date header and page footers, and keeps each section's
+heading, opening prose and first evidence panel together. The synthetic
+three-page temporary canary passed exact-byte
+structural inspection with no findings and was rendered to PNGs using
+`pypdfium2`; all three pages were visually inspected, then the temporary
+canary and PNGs were removed. The first iteration
+split an evidence panel across pages; the second over-grouped entire sections;
+the final layout avoids both in the canary. Focused PDF/fieldwise/memo tests
+passed 22/22; `git diff --check` passed. This validates a renderer layout
+against synthetic content, not a QOSMIC or investor-ready PDF. The rejected
+QOSMIC model outputs remain unpromoted. The broader affected
+research/delivery/room/local-only suite passed 142 tests with five skipped
+after the renderer change.
+
+## 65. Private GPU budget and account-access checkpoint — 2 October 2026
+
+The user supplied a ₹15,000/month compute ceiling and Mumbai or Hyderabad.
+`deployment/PRIVATE_GPU_EVALUATION_PLAN.md` now costs a public-only, four-hour
+QOSMIC reasoning canary on a Mumbai `g6e.2xlarge` (48 GB L40S), with a 32-hour
+monthly maximum and reserve for network, storage, tax and FX. It proposes the
+Apache-2.0 Qwen3-32B-AWQ as an **uninstalled candidate**, not a qualified
+upgrade. The exact model revision, size, serving stack, GPU quota and live
+account pricing must be checked before a run. A successful reasoning benchmark
+would not itself qualify an investment memo or investor-ready PDF.
+
+This Mac has no `aws` CLI or `AWS_*` environment profile. Computer-use browser
+inventory failed at native-pipe startup, so signed-in AWS Console access could
+not be inspected. Historical AWS readiness notes reported account verification
+in progress; current account status remains unknown. `claude auth status` still
+returns `loggedIn: false`, so independent Claude Code review was not run in
+this turn. The user was asked to make an AWS profile or signed-in console
+available locally without sharing credentials in chat. No cloud resource,
+model download, hosted inference, private upload, service restart, reset,
+commit or push occurred. The existing failed QOSMIC recommendation/PDF remains
+unpromoted.
+
+## 66. AWS CLI browser login — 2 October 2026
+
+At the user's request, Homebrew installed AWS CLI 2.37.7. `aws login --profile
+deal-gpu-eval --region ap-south-1` used the Mac's default Chrome browser and
+completed. `sts get-caller-identity` succeeded; the selected identity is the
+account **root**, so no resource should be provisioned with that principal.
+The login cache and configuration are outside the repo under `~/.aws` and were
+restricted to owner-only permissions. No credential contents were copied to the
+workspace. Read-only EC2 calls showed `g6e.2xlarge` offered in both Mumbai and
+Hyderabad. Read-only Service Quotas calls showed the account's `Running
+On-Demand G and VT instances` quota is **0 vCPUs** in both regions. A
+`g6e.2xlarge` needs 8 vCPUs, so the planned four-hour trial cannot launch until
+a quota increase is granted. No quota request, IAM mutation, instance, model
+download, or other AWS resource was created.
+
+## 67. GPU quota request and limited-access block — 2 October 2026
+
+The user said to proceed. A read-only preflight found no EC2 instances or
+earlier G/VT quota requests in Mumbai. The CLI submitted an 8-vCPU EC2
+on-demand G/VT quota increase for Mumbai, ID
+`46d60de6adb64058a541d0e74f798b6dZevI4hRM`; it remains `PENDING`.
+`DealGpuEvalOperator` IAM role was created with read-only EC2/Service Quotas
+permissions and a trust policy limited to the root principal. A local
+`deal-gpu-eval-operator` profile was configured. STS explicitly rejected role
+assumption: `Roles may not be assumed by root accounts.` The role is currently
+unusable. No EC2 launch permission was granted.
+
+Read-only checks found zero IAM users and zero IAM Identity Center instances in
+Mumbai. Attempting to create a scoped bootstrap IAM user was rejected by the
+automatic approval reviewer: a persistent user and long-lived credential are
+security-sensitive and were not explicitly authorized. Do not work around that
+rejection. The user was asked to choose federated access or explicitly
+authorize a limited IAM user. Cost Explorer returned `User not enabled for cost
+explorer access`, and Budgets listed no budgets. No compute, storage, model
+download, private upload or paid inference was started. Do not claim spend is
+under control from the quota request alone; verify cost visibility and a
+deadline before any launch.
+
+## 68. Federated AWS access and quota case — 2 October 2026
+
+The user selected federated access and explicitly confirmed enabling AWS
+Organizations with all features and an IAM Identity Center organization
+instance in Mumbai. Organization `o-wj64j1pxy4` is `ALL`; Identity Center
+instance `ssoins-65959c33133deb93` is `ACTIVE`, with identity store
+`d-9f67588460` and access portal
+`https://d-9f67588460.awsapps.com/start`. The instance uses the single-region
+AWS-owned key option. An Identity Center user at the account root contact
+address was created with no password in the CLI. After the user's separate
+confirmation, email OTP for API-created users was enabled. The one-hour
+`DealGpuEvalReadOnly` permission set was assigned to that user on account
+`467816189934`; assignment status is `SUCCEEDED`. Its inline policy contains
+only EC2 Describe and Service Quotas Get/List actions, with no launch or
+billing mutation permission. The local `deal-gpu-sso` CLI profile points to
+this portal, account and permission set.
+
+`aws sso login --profile deal-gpu-sso` opened the CLI device authorization in
+Chrome and is awaiting the user's own email OTP, password/MFA setup and
+authorization. This is a credential handoff; do not handle or request their
+secrets. Once complete, verify `sts get-caller-identity` with the SSO profile
+shows a non-root assumed role and a permitted Describe call works. The older
+`deal-gpu-eval-operator` profile remains unusable because root cannot assume
+its IAM role. Do not use the root CLI profile to launch resources.
+
+The Mumbai 8-vCPU G/VT quota request is now `CASE_OPENED`, support case
+`179088963500151`, not approved. Cost Explorer is not enabled and no AWS
+Budget was found. Before any GPU launch, confirm quota approval, live costs,
+a budget alert, explicit hard stop/deadline and a limited provisioning role.
+The user supplied a ₹15,000/month ceiling; it is not an enforced cap. No EC2
+instance, EBS volume, model download, private upload or paid inference was
+started. The QOSMIC recommendation/PDF is still unaccepted.
+
+The user's first Identity Center sign-in reached a **password prompt**, not an
+automatic email OTP prompt. The account was created through the CLI without a
+password. The user was directed to the page's `Forgot password?` flow, which
+AWS documents as sending a reset link to the user's email. Do not suggest the
+AWS root password or handle the new password/MFA in automation. At that point,
+the federated CLI session was still unverified.
+
+The user signed in through the portal after using the actual Identity Center
+username `pulkitsharma0007` (the contact email is a separate attribute).
+The earlier instruction to use the email as username caused a failed password
+reset attempt; the user was corrected. A fresh CLI device request was approved
+by the user. `aws sso login --profile deal-gpu-sso` succeeded. STS returned
+`assumed-role/AWSReservedSSO_DealGpuEvalReadOnly_0295c8bc06b7ff07/`
+`pulkitsharma0007`, account `467816189934`, rather than root. A read-only
+`ec2 describe-instances` succeeded and reported zero reservations in Mumbai.
+This verifies authentication and read access only; the SSO permission set has
+no provisioning rights. The quota case and budget/hard-stop gates remain.
+
+## 69. GPU quota denial and appeal draft — 2 October 2026
+
+AWS emailed that it cannot approve the Mumbai 8-vCPU G/VT quota request now
+because it wants gradual activity and lower risk of unexpected bills. It
+invited a detailed use-case appeal by reopening case `179088963500151`.
+The Support console still displayed `Work in progress` and only the earlier
+correspondence, while Service Quotas still reported `CASE_OPENED`; those views
+lag the denial email. The original case's use-case description was only
+`This support case was created by Service Quotas`. AWS Support API
+`describe-cases` returned `SubscriptionRequiredException` on the Basic plan,
+so inspect the console for case interaction.
+
+At the denial checkpoint, an **unsent** draft appeal was added to
+`deployment/PRIVATE_GPU_EVALUATION_PLAN.md`. It asks for only 8 vCPUs to run
+one `g6e.2xlarge` for a four-hour public-only model-quality canary, with a
+32-hour monthly maximum and the user's ₹15,000 ceiling. It describes budget
+alerts, a fixed stop deadline and separate scoped provisioning identity as
+steps to complete *before* any launch; these controls are not yet configured.
+The draft contains no private source text or credentials. The denial left
+cloud GPU inference blocked; do not launch a
+different GPU or infer that local model quality has improved.
+
+The user subsequently authorized sending the exact draft to AWS Support and
+opened the account-specific case URL in Chrome. Submission initially failed:
+the Chrome computer-use bridge returned only a window title with no
+accessibility controls and no screenshot, while the Chrome extension inventory
+reported `failed to start codex app-server: No such file or directory`.
+Resetting the CUA runtime and reopening the tab did not restore control.
+Basic Support disallows the `aws support describe-cases` API and hence the
+CLI route was unavailable. The following paragraph records the later
+successful console submission and verification.
+
+The user asked to use Chrome's authenticated session. Native Chrome control
+recovered on the account-specific Support case URL. The approved appeal was
+entered and submitted through the case's Web reply form. A fresh case tab
+showed the full appeal in correspondence at **03:28:59 IST** on 2 October,
+and expanded case details reported `Status Customer action completed`.
+The visible appeal includes the single-instance public-only use case,
+four-hour initial limit, 32-hour monthly plan, ₹15,000 ceiling, and the
+*future* cost controls. AWS has not approved the quota; continue to treat
+GPU launch as blocked. No duplicate appeal was sent. Update the plan if AWS
+responds; do not provision merely because the support reply succeeded.
+
+## 70. Work while GPU quota is pending — 2 October 2026
+
+The user asked what can proceed before approval. AWS Budgets pricing and setup
+were checked against current official AWS documentation: budget monitoring is
+free, and a first budget can enable Cost Explorer, whose data may take up to
+24 hours to appear. Using the already authenticated root CLI only for billing
+setup, an account-wide `DealGpuEvalAccountMonthlyAlert` COST budget was created
+at **US$100/month**, with tax included and ACTUAL spend email notifications
+at 50%, 80% and 100% to the account root contact address. `describe-budget`
+verified the limit, monthly period, tax setting and initial US$0 reported
+actual spend; `describe-notifications-for-budget` verified all three alerts,
+and subscriber count for the 50% alert was one. This is a conservative
+warning threshold relative to the user's ₹15,000 ceiling, not a hard cap or
+an FX guarantee. The follow-up Cost Explorer query returned
+`DataUnavailableException` (not yet ingested), instead of the earlier
+disabled-access error. Billing data can lag. No Budget action, EC2 resource or
+model download was created.
+
+The remaining pre-launch work includes Cost Explorer visibility/delivery of
+alerts, a separately scoped non-root provisioning role, a fixed instance
+deadline and independent scheduled stop, live price/capacity confirmation,
+and quota approval. Meanwhile the rights-cleared public KB, local-model
+route audit, source-bound investment memo quality, and export validation can
+continue entirely locally. Do not wait for AWS to work on those gates or
+misreport a budget alert as protection from an overrun.
+
+## 71. Local KB, memo coverage, route and artifact audit — 2 October 2026
+
+The user asked to continue local work and assess progress honestly. No API,
+Elasticsearch or Ollama listener was present on 8000/9200/11434 during this
+turn. The retained public KB SQLite registry has seven sources (six enabled
+StartupDB detail records and one disabled Wikidata record), 11 indexed source
+versions, and seven fetch-state records. These counts establish retained local
+state, not live search availability or unattended ingestion. No service or job
+was restarted and no new source was scraped in this turn.
+
+Correction after user steering: the context-limit stop added during this turn
+was removed because it blocked generation without solving generic evidence
+selection. The unchanged 30-source/24,000-character bound still needs a
+model-authored, auditable coverage stage. The binder now records eligible,
+selected and omitted passage counts as evaluator metadata without stopping
+drafting or rewriting a model response. A draft with omitted evidence is not
+qualified as complete. See
+`deployment/LOCAL_MODEL_QUALITY_EXECUTION.md` for the company-agnostic plan.
+
+The saved private memo result files under `private_artifacts` numbered 23:
+20 `blocked`, three `needs_resume`, zero `accepted`. The existing fieldwise
+decision experiment is still not connected to the production room route.
+Static product-route inspection found local model defaults and explicit
+rejection of hosted provider selection; historical hosted modules and an
+evaluation script remain in the tree. This was not an exhaustive dynamic P2
+route audit and did not run local inference. The current draft exported PDF
+fixtures `runtime_qualification/intro.pdf` and `memo.docx.pdf` each passed
+structural inspection as one-page searchable PDFs, but this says nothing about
+their investment substance, visual acceptance or full package completeness.
+The financial checkpoint still blocks workbook projection generation pending
+formula dependency/recalculation qualification. Release checks remain
+`not_run` and the package is blocked.
+
+Focused tests: 119 passed/five skipped in delivery plus local-only routing;
+27 passed in public KB modules; 31 passed in fieldwise reasoning, investment
+memo, inspection, PDF and financial checkpoints. `git diff --check` passed.
+These are code tests, not live ES ingestion, local inference, private Office
+qualification, or a qualified investor package. Preserve all failed outputs.
+
+Subsequent generic memo-path work froze `as_of_date` in new private request
+snapshots and passes it to all local model stages, so resumed analysis uses the
+same clock. Review reuse now requires an exact current memo payload; a review
+revision already in progress can continue only through its recorded review ID.
+A focused synthetic regression verifies that a changed model-authored Part A
+gets a fresh review. The renderer also rejects a review record whose input
+does not contain the exact memo and source set being rendered. This preserves
+model authorship and raw attempt history;
+it does not establish live semantic quality. The requested Claude Code
+multi-agent evaluation could not run: `claude auth status` returned
+`loggedIn: false`. No private data was sent to Claude.
+
+Later in the same turn, the user completed Claude Code sign-in; an unsandboxed
+`claude auth status` returned logged in on the existing Pro subscription.
+A sanitized code-only snapshot was copied under `/private/tmp` and a two-agent
+read-only Claude evaluation completed. It found a concrete quote-repair risk:
+short clauses could be padded into an unrelated sentence, putting extra
+numbers into a candidate exact quote. That padding, arbitrary prefix fallback
+and cross-sentence token windows were removed; quote repair now fails closed
+when no coherent span exists. The child memo budget is now passed as a per-pass
+file below the outer sandbox timeout, so resumable time limits can fire before
+the OS kill. Public HTTP page hosts now count in source coverage. Exact current
+memo reviews are preferred over older linked correction reviews. Claude also
+confirmed that hostname counts do not establish true publisher independence
+and that omitted evidence is not yet selected/reviewed by the model. Those
+gaps remain open. No private room data was in the snapshot. Also, `run_stage` now continues from Part A to Part B to review
+within one bounded pass when possible; two linked review revisions can run in
+one subsequent pass. Every raw response is saved before proceeding. Focused
+synthetic memo tests passed 25/25 after this change, but live model output has
+not yet been checked.
+
+The rights-cleared StartupDB extractor now includes source-native funding
+date, status, original amount and currency in each indexed event passage and
+statement path. `scripts/run_public_kb.py --reindex-retained` can replay
+approved retained versions through the idempotent ES sink in bounded batches
+after an extractor change; it preserves original bytes and SQLite history.
+Focused replay/extraction tests passed offline. Later in the turn, after
+confirming no queued/running room jobs and no ES listener, the existing
+Elasticsearch 9.5.4 distribution was started on loopback with its preserved
+data directory. The bounded `--reindex-retained` pass republished all 11
+approved versions without changing archive bytes or SQLite state. Direct ES
+counts were 11 version documents and six current documents; both KB indices
+were green. Current records expose source-native funding date, status,
+original amount and currency statement types. KB-first search for the public
+term `seed` returned five attributed, `source_reported` records. This is live
+local indexing/retrieval of the six enabled publisher records, not broad
+source coverage or a working timer.
+An additional source-ID/URL inspection of all 17 current/versioned ES
+documents found only approved `startupdb-*` IDs and `startupdb.com` hosts.
+This checks the observed index contents, not every private-data leak path.
+
+The offline `agents/discovery/kb_candidate.py` comparator was run against all
+six retained public StartupDB records through locally installed qwen3.5:9b;
+Ollama was started on loopback with `OLLAMA_NO_CLOUD=1`. Its first schema-valid
+response omitted one source decision yet selected that omitted source, so
+validation rejected it and the raw public response was saved under
+`runtime_qualification/public_candidate_live_2026_10_02/`. One bounded
+model-authored correction supplied six decisions and selected `none`, but
+incorrectly asserted that a reported Seed round alone makes an Indian company
+too mature for seed consideration. This is a semantic failure, not an accepted
+selection. The comparator now gives one further bounded model correction for
+this generic error: an Indian source with only Seed/Pre-Seed funding and no
+closed/acquired status cannot be excluded solely because it previously raised
+seed. The model must rewrite the decision; code does not choose a company or
+write its rationale. This comparator is not yet wired into the production
+discovery route, which has its own KB-first local-model path. A further live
+run is pending at this checkpoint. Preserve every raw attempt.
+
+That further bounded public-only run completed three local qwen3.5:9b calls,
+all raw responses retained under `scope_retry_run/`. Its structural/scope gate
+returned a candidate, but content inspection rejected the output: it inferred
+an active fundraising cycle from a historical reported round, called
+publisher-reported headquarters data confirmed, and referred to previous
+review feedback inside the rationale. The unmodified model result and a
+separate `audit.json` rejection are retained. The comparator input now carries
+source-native event status/date precision and its generic validator rejects
+those unsupported claim classes, requesting a model-authored rewrite within
+the same 120-second/three-call ceiling. Replaying the saved raw answer through
+the new gate confirmed rejection. This is still an offline comparator, not the
+production discovery route or an accepted investment recommendation. A second
+Claude Code multi-agent review of only these rights-cleared public records and
+model output was started; add its actual findings before claiming cross-check.
+
+The second Claude Code review completed with two independent read-only evaluator
+agents using only the six rights-cleared StartupDB projections and the saved
+public local-model answer. Both independently confirmed the false inference of
+active fundraising from a historical Seed event and the overstatement of a
+publisher-reported headquarters field as confirmed. They also found a direct
+cross-company contradiction (another record explicitly listed Bangalore,
+India), an unaddressed Seed/Series A/Pre-Seed reverse chronology in one record,
+cross-company round labels being combined as though they belonged to each
+company, a dollar figure attributed to a round with no amount, duplicate or
+conflicting funding entries treated as settled, and inconsistent missing-data
+standards. One evaluator also noted the answer cited prior review feedback in
+its rationale. These findings concern the preserved rejected output, not
+validated investment facts. The local three-item audit was directionally
+correct but missed several material defects. No Claude agent authored a
+replacement company decision or saw private room data.
+
+The generic production discovery path remains `agents/discovery/subscription_discovery.py`.
+`agents/discovery/kb_candidate.py` is an offline evaluator prototype and is not
+wired into that product route. Tightening its lexical gates alone cannot
+qualify product reasoning. The next core implementation must give production
+discovery and room research a shared versioned evidence bundle, model-authored
+selection of relevant and contradictory passages, a separately recorded local
+review of the exact answer against the complete bundle, and a promotion gate
+for resolved citations and material contradictions. Keep review and correction
+bounded and model-authored; preserve every raw answer. Until that path has a
+live accepted run and useful exported artifacts, there is no investment
+recommendation or investor-ready package.
+
+One verified production eligibility hole was closed: a model's `country=India`
+classification can no longer be accepted with a location quote containing
+only a city name. The cited quote must explicitly say India; this prevents
+promoting an ambiguous headquarters field as established Indian operating-base
+evidence. Focused eligibility/public-research/comparator tests passed 34/34.
+This is a conservative gate, not a resolution of the wider semantic failures.
+
+## 2 October decisive production blockers
+
+The user requested a working real-company investor package or exact blockers,
+without more prototype progress being described as success. Read-only review
+of the current live DB found 28 room jobs: 22 `awaiting_input`, 3 `blocked`,
+3 `cancelled`; none queued or running. Twenty checkpoints have
+`materials.reason=local_memo_validation_failed`. Existing Elasticsearch and
+Ollama listen on loopback; no API listener was observed. The sandbox denied
+process-list inspection, so worker-process status was not established.
+
+`delivery/worker.py` has three decisive gates independent of model size:
+
+1. A memo requires two independent source groups. The enabled public KB has
+   StartupDB as its sole approved publisher; six StartupDB company records
+   remain one publisher group. Another rights-cleared independent source or
+   relevant private room document is needed for a given company. Do not count
+   multiple pages or funding links from that publisher as independent.
+2. `financial_checkpoint()` always returns `awaiting_input` without workbooks
+   or `blocked` with them; it contains no validated-financial state or qualified
+   recalculation path. Consumer projections are allowed inputs, but their
+   historical formulas cannot be assumed correct.
+3. After memo acceptance, the worker renders only a draft intro PPTX, memo
+   DOCX and research PDF, then unconditionally sets
+   `validation={state:blocked, reason:complete_formats_calculation_layout_and_exact_version_reviews_required}`.
+   No production investment-memo PDF, pitch-deck PDF, projection XLSX or exact
+   exported-file acceptance path is implemented here. A useful investor-ready
+   package cannot emerge from this code even with a perfect model response.
+
+The production memo itself remains unaccepted: 20 existing material checkpoints
+say local memo validation failed, and the independent public evaluator found
+material factual contradictions in the separate offline comparator. This is
+an internal quality and implementation blocker, not an AWS quota blocker.
+Do not label a synthetic or unreviewed draft as accepted to bypass these gates.
+
+## 2 October production repair and live local-model result
+
+The room worker now permits a **draft-only** memo from one source channel if
+the recorded local model itself chooses `defer_pending_evidence`; advancing or
+declining from a single channel is blocked, and final release still requires
+independent evidence. Zero channels still await evidence. This does not count
+multiple StartupDB records as independent publishers. `run_memo_pass` projects
+the exact model recommendation for that gate and freezes the saved primary
+model name across resumes. A previous `materials=awaiting_input` checkpoint
+no longer prevents a later accepted draft from reaching rendering. The final
+validation checkpoint now lists independent-evidence and financial blockers
+explicitly rather than silently implying completion.
+
+The first live, public-only trial used the top generic `seed` ES hit (four
+unchanged retained StartupDB passages) and private-sandbox loopback inference;
+it did not choose a company manually or send data to hosted inference. Its
+qwen3.5:4b Part A and Part B responses were saved, then prose refinement
+failed after a short schema-invalid response. All original failed files remain
+under `runtime_qualification/one_source_memo_trial/`. Further trials copied
+only those saved public responses into new ignored directories; originals were
+not modified.
+
+The trial exposed and led to these generic fixes:
+
+- Parseable schema-invalid prose patches now receive bounded local-model
+  correction instead of a terminal `ValidationError`; canceled zero-output
+  requests do not consume the three answered-patch limit.
+- A claim assertion with a number absent from its exact quote now routes to
+  model-authored claim correction, not prose repair, which cannot alter the
+  underlying claim. The correction schema offers a full retained event when
+  it fits the quote bound, so the model may select date, stage and amount in
+  one exact span.
+- Conservative numeric comparison equates `$9M` with source `9000000` and
+  an English month-year with a source `YYYY-MM`, while mismatched values still
+  fail. Overall memo section-length and exact quote/review gates remain.
+- Per-sentence presentation minimum in the prose patch changed from 90 to
+  75 characters; the final section schema still requires substantive total
+  length. A local HTTP read timeout now becomes a resumable bounded-time
+  result instead of crashing the private worker.
+
+Focused inference/memo/delivery tests passed 53/53. **No local memo was
+accepted.** With the corrected full-event quote, the 14B prose model still
+produced invalid cross-claim or too-short sentences; a 9B prose trial also
+mixed values from separate claims and repeated the error within three
+answered attempts. The 9B substitution was reverted; the production prose
+model remains the installed qwen3:14b. The final live result is a model-quality
+failure, not a validated recommendation or PDF. The room worker's financial
+checkpoint and exact exported-artifact release gate remain unimplemented as
+previously described. No live room job or production data was changed.
+
+An additional claim-order schema prototype was tested on the same public
+snapshot. qwen3:14b produced no response in three 105-second bounded attempts;
+one qwen3.5:9b response arrived promptly but still put one funding event's
+amount/date into a sentence cited to another claim. That schema prototype was
+reverted from production after the failed trial. The observed limitation is
+not a missing regex: batching several competing claims in one prose task
+remains unreliable with the installed models. A production fix needs smaller
+per-claim local-model tasks with durable response IDs, then an exact combined
+review; this has not been implemented. Do not replay any rejected response
+as an accepted artifact.
+
+## 2 October isolated-claim memo repair (later checkpoint)
+
+The production staged memo now has a bounded, model-authored **single-claim
+field** task. For a validation failure in one analysis field, it sends only
+that field's first model-selected claim and exact retained quote to the frozen
+installed local model. The response supplies two sentences; code checks their
+layout, dates and numeric overlap, attaches the selected citation, saves the
+raw response ID, and replays those exact fields when resuming or rendering.
+The full memo still needs exact source validation and an independent local
+review. This does not guarantee semantic entailment or investment quality.
+The task prompt is versioned `isolated-claim-v2`, and the local review prompt
+now explicitly separates reuse rights from factual verification and compares
+event months with the recorded as-of date. The worker uses its frozen selected
+local model for isolated prose, replacing the hardwired qwen3:14b prose route.
+
+Live public-only qualification used the retained StartupDB `1001 AI` snapshot
+solely as an evidence-bound pipeline probe. No private room data, hosted model,
+or newly scraped data entered those calls. The qwen3.5:9b isolated-field call
+returned promptly; the revised prompt improved its source status language.
+The full stage still did **not** accept a memo or emit a PDF. The 9B reviewer
+returned `revise` with real defects: the draft invented sector,
+differentiation and possible fabrication from funding-only records. Its review
+also contained errors of its own (calling July 2026 future relative to
+2 October 2026 and treating CC BY licensing as verification). A separate
+qwen3:14b thinking review likewise returned `revise` after 155 seconds,
+longer than the production 105-second pass; its raw output is retained under
+`runtime_qualification/local_review_14b_v2/`. All 9B responses and failed
+passes remain under `runtime_qualification/one_source_isolated_field_v2/`.
+Do not describe this as a qualified recommendation or investor-ready artifact.
+
+The probe found and fixed two generic replay/validation defects: a cited
+company name containing digits was wrongly treated as an unsupported financial
+number, and a saved Part B correction was ignored on resume because its input
+correctly lacked `part_a`, causing another local call and review timeout.
+Regression tests cover both cases. Focused research and delivery tests passed
+142 with 5 skipped after the final company-name regression. The live room workflow, financial
+validation, exported PDF quality, independent publisher evidence, and release
+acceptance remain open. `claude auth status` currently says `loggedIn: false`,
+so the requested Claude Code evaluator was not available in this runtime.
+
+## 3 October generic memo repair and Claude Code agent-team review
+
+The earlier authentication notice above is historical. Claude Code Pro signed
+in successfully in a scoped terminal session. An interactive agent team with
+three read-only teammates reviewed a sanitized 17-file code/plan snapshot,
+then reviewed the refreshed snapshot after implementation. No private room
+documents, runtime responses, credentials or company conclusions were sent to
+Claude; the local LLM remains the only product author. Claude's reviews were
+static evaluator reports, not product inference or investor approval.
+A final narrow recheck of the last retry/guard changes stalled after seven
+file reads and was interrupted without findings; do not describe that final
+delta as independently verified by Claude.
+
+Changes in the uncommitted tree:
+
+- Memo review revisions use isolated local-model field tasks tied to the exact
+  rejected review, claim, prior field, source digest and date. Unflagged fields
+  stay byte-identical; renderer replays the exact response chain and requires a
+  fresh review of the reconstructed memo. Schema-valid but source-invalid
+  isolated responses now get at most three answered, saved, model-authored
+  correction attempts with explicit validator feedback; unanswered timeouts do
+  not become accepted evidence. A company-name digit no longer supports a
+  second unsupported numeric assertion.
+- Each new memo job freezes draft, review, corrector and prose local model
+  roles. The private worker validates saved task models, and reopening an
+  accepted memo rechecks the roles before rendering. Historical attempts with
+  no frozen roles are blocked for migration review, not silently reused.
+- Long room evidence inventories are retained privately with opaque passage
+  IDs and an immutable digest. The local model records bounded include/exclude
+  decisions in raw replayable attempts. Changed, oversized or incomplete
+  inventories block. Because the memo reviewer cannot yet verify excluded
+  material, **any exclusion now leaves the memo awaiting independent source
+  review**; an all-selected set above 30 passages/24,000 characters also
+  stops. Long-inventory acceptance is therefore still open, and six selection
+  batches can consume the current three room passes.
+- Product discovery now rejects Claude Pro, Anthropic API and DeepSeek provider
+  configuration before fetch/storage/inference. An HTTP route test confirms
+  those transports are not invoked. Historical provider modules and evaluator
+  scripts remain outside product selection. Immutable artifact slots reject
+  changed bytes at the same revision; registration validates approved release
+  kind/format pairs and the private `research_brief` PDF preview. The preview
+  is excluded from investor-package manifests, which still block on missing
+  required files and unrun validation.
+
+Combined focused research, delivery, local-route and room tests: **274 passed,
+5 skipped** after the final changes. A broader discovery/KB run had **133 passed,
+6 failed**: five older directory-first fixtures do not match the current
+model-authored discovery path; one API fixture lacks the required auth override.
+Do not report that broader suite as passing. The current Ollama loopback
+service had the installed 4B, 9B and 14B models; Elasticsearch loopback was
+not reachable at this checkpoint. Neither service was restarted. No production
+room, SQLite company data, timer, cloud resource or source registry changed.
+
+One fresh public-only trial reused four retained, rights-cleared StartupDB
+passages for 1001 AI in ignored
+`runtime_qualification/public_memo_repair_2026-10-03/`. Three 90-second
+passes saved draft parts and corrections, but the last isolated risks response
+introduced a number absent from its cited claim. The validator blocked before
+review; **no accepted recommendation or PDF** resulted. Raw attempts and failed
+reports are preserved. The subsequent isolated-response retry fix has offline
+tests only; do not run a fourth pass on this trial or portray it as accepted.
+
+The core blockers are measured local-model factual reliability, independent
+review of model-excluded evidence, broader rights-cleared/structured KB claims
+and eligibility updates, live integrated room acceptance, financial
+recalculation, and validation of every exact exported investor file. AWS GPU
+quota was previously denied; no GPU instance or cloud spend was started. P5
+OIDC remains deferred in priority but required before multi-user release.
+
+## 3 October follow-up: exclusion review packet and exact export pair check
+
+Read-only runtime inspection found no queued/running room jobs in the live
+SQLite database (22 awaiting input, three blocked, three cancelled). An
+escalated process check found Ollama serving but no Elasticsearch, API or room
+worker process. The loopback Ollama API listed the installed 4B, 9B and 14B
+profiles; no service was restarted or model downloaded. The broader
+discovery/KB suite was rerun: 119 passed, six failed, matching the earlier
+five directory-first fixtures and one unauthenticated API fixture.
+
+When the local source selector excludes a passage, its private job now retains
+an immutable, digest-bound `excluded_source_review.json` with each exact
+passage, source metadata, model reason and response IDs. Replay and the parent
+room stage verify it against the full source inventory. Exclusion still leaves
+the memo awaiting independent source review; the packet is a review queue, not
+an approval or recommendation. A bounded live synthetic-only selection with
+the installed 4B model completed in about 14 seconds: it retained an old seed
+event and a later Series B contradiction, excluded generic navigation text,
+and saved a valid review packet under ignored
+`runtime_qualification/synthetic_source_selection_2026-10-03/`. This one case
+does not qualify model reasoning or a public company memo.
+
+The exact-file release validator now compares a PPTX export's slide count with
+the PDF's page count and blocks a mismatch under file compatibility. It also
+rejects duplicate kind/format slots rather than selecting an arbitrary file.
+The structural pair check leaves content and visual validation `not_run`; a
+matching page count is not conversion or investment-quality acceptance. The
+existing draft intro PPTX/PDF had matching slide/page counts; the memo DOCX/PDF
+passed individual structural inspection only. Content/layout remain unrun.
+Focused room, memo, delivery and local-route
+tests: 188 passed, five skipped. No investor package, recommendation or PDF was
+accepted; the prior three-pass public memo failure and every retained report
+remain unchanged. Next work: provide an authorized independent review decision
+path for excluded passages, improve live source-bound numeric reliability,
+and validate exact exported content, layout, charts and finances.
+
+## 3 October follow-up: bounded retry, discovery fixtures, and export text
+
+After the user asked for a multi-agent push, three agents worked on separate
+bounded tasks while the primary agent integrated exact-file validation. The
+retained public-only memo failure was traced to an isolated risks response that
+copied a GBP amount and July date from its quote although its selected claim
+assertion did not contain those numbers. The validator was correct to block it.
+The isolated local-model retry now includes the exact allowed numeric set,
+source-bound validation feedback and a saved rejected candidate. Parseable
+schema-invalid responses also receive bounded corrective feedback; old saved
+retries replay without a new call. The three answered-output cap remains.
+The source-selection worker similarly gives a schema-invalid response one
+bounded corrective attempt tied to the same inventory digest. No failed
+production response was promoted.
+
+A **new synthetic-only** live retry with the installed 9B model took 8.809
+seconds for its local answer. Given a deliberately rejected sentence containing
+an amount/date absent from the selected assertion, it produced two sentences
+without those numeric values and passed the isolated field binder. Both raw
+attempts are retained under ignored
+`runtime_qualification/synthetic_numeric_retry_2026-10-03/`. This is one
+correction probe, not an accepted real-company memo or evidence of general
+model reliability. The original three-pass public trial was not rerun.
+
+The six previously failing broader discovery/KB tests were stale fixtures:
+five assumed directory publication before required model planning/screening,
+and one API POST lacked an authenticated session and CSRF token. Tests now
+exercise the current model-authored and authenticated contracts without a
+product fallback. No production discovery or auth gate was weakened. Exact
+PPTX/PDF inspection now checks editable text appears on the corresponding PDF
+page as well as page count, using the actual bytes; DOCX/PDF checks editable
+text presence across the PDF. It records a hash of any missing fragment rather
+than private text. Chart data, PDF-only additions, visual layout and financial
+content remain unqualified. A locally reproduced orphan-slide defect was fixed:
+the PPTX inspector counts referenced presentation slides and fails on orphan
+parts instead of counting every slide XML member.
+
+Combined focused delivery, memo, local-route, room, discovery, public KB and
+API-write suites: **339 passed, five skipped**. These are engineering tests.
+Claude Code CLI is signed in, but automatic approval review rejected sending
+nonpublic repository code to its hosted service without specific authorization.
+No code or private material was sent. The Claude agent performed local static
+review only and surfaced the orphan-slide and retry-feedback defects; its
+hosted independent review remains pending explicit approval. No package or
+company recommendation passed live acceptance, and no investor-ready file was
+released. All prior failed reports, SQLite data and raw attempts remain intact.
+
+## 3 October later follow-up: approved Claude review and fresh public trial
+
+The user explicitly approved sending a sanitized subset of memo and validation
+code/tests to hosted Claude Code for **read-only evaluation**. Auto-review then
+permitted the CLI call with tools disabled and no session persistence. It saw
+line-numbered generic code excerpts only (source selection, memo source binding,
+isolated retry, file inspection); no runtime responses, company evidence,
+private room data, credentials or company conclusion was sent. Claude proposed
+several defects; local checks confirmed the oversized-selection early-return
+validation gap, duplicate excluded packet rows collapsing in a dict, and
+whitespace-only exclusion reasons. These were fixed with regressions. Other
+claims that did not match the code were discarded. Claude did not author a
+product answer or approve an artifact.
+
+A fresh ignored **public-only** trial copied the same four retained, attributed
+StartupDB source passages into
+`runtime_qualification/public_memo_fresh_retry_2026-10-03/` with no previous
+attempts. It made exactly three 90-second bounded passes against installed
+local models. Pass one saved both draft parts and timed out during correction;
+pass two saved a corrected first part and an isolated field, then timed out
+during second-part correction. Pass three saved the second-part correction,
+then an isolated risks answer that incorrectly copied amount/date values from
+its quote when its selected assertion contained neither. The validator
+rejected it; the new numeric-feedback retry produced a source-bound correction
+without those numbers. The pass ended as `needs_resume` at the configured
+limit before full memo validation and independent review. **Do not run a fourth
+pass on this trial or promote any of its prose.** No recommendation or PDF was
+accepted. All nine raw responses, timeouts, corrections and validation feedback
+remain in the ignored trial directory.
+
+The public trial confirms one real source-bound numeric correction can work;
+it also measures the remaining bottleneck: whole-part corrections took roughly
+54–57 seconds each, so the three-pass limit elapsed before review. This is
+model/workflow quality evidence, not a passing memo. The integrated offline
+delivery, research, room, discovery, KB and API-write selection passed **341
+tests with five skipped** after the Claude finding fixes. No production room
+job, company database, source registry, original evidence or failed report was
+changed, and nothing was committed or deployed. Next work should reduce
+whole-part correction cost with smaller model-authored claim/field tasks and
+then test a genuinely independent source set; do not relax the three-pass or
+source-validation gates to claim success.
+
+## 3 October bounded local multi-role memo comparison
+
+The memo path now uses model-authored claim patches for source-bound numeric
+errors, with exact source/quote targets and saved-response replay. Targeted
+prose repairs remain separate. The private worker recognizes claim-patch
+responses as the frozen corrector role. A diagnostic harness
+(`scripts/evaluate_local_memo_harness.py`) runs the production staged memo path
+on explicitly attested public or synthetic fixtures only, pins installed
+Ollama model digests per role, and saves every attempt and pass under ignored
+`runtime_qualification/local_memo_harness/`. It cannot promote an artifact.
+
+On the same three-source synthetic conflict fixture, a 4B draft with 9B
+corrector/prose/reviewer used nine calls across three passes and ended before
+source validation or review. A 9B draft with 9B in the other roles used seven
+calls across three passes; claim patch, source validation and model review
+passed. This establishes one local diagnostic success, not general memo quality.
+
+A separate **fresh** 9B-role diagnostic used the four previously retained,
+rights-reviewed public StartupDB passages for 1001 AI. It did not resume or
+alter the prior failed trial. Its first Part B generation timed out; later
+passes reached the reviewer, which returned `revise` because the draft treated
+reported Seed, Series A and later-dated Pre-Seed labels as a chronological
+progression. The source data conflict is real; the review correctly blocked
+acceptance. Result: `needs_resume`, three passes, eight saved attempts, no
+accepted memo or PDF. Do not run a fourth pass on this diagnostic or promote
+its prose. All raw attempts and review issues remain in
+`runtime_qualification/local_memo_harness/startupdb_1001_ai_9b_draft_2026-10-03/`.
+
+New private memo attempts default to a 9B draft; saved jobs retain their
+frozen earlier role profile. The room input revision reflects the new default.
+The combined delivery, memo, harness, local-route, room, discovery, public KB
+and API-write suite passed **350 tests with five skipped**. This is code
+verification, not live investor-artifact acceptance. The remaining concrete
+quality gap is handling contradictory source-reported stage/date labels before
+review, while preserving them as uncertain evidence. No production room job,
+private source, failed report or SQLite data was changed, and nothing was
+committed or deployed.
+
+## 3 October follow-up: pre-review timeline gate and local model limits
+
+The user requested Claude Code plus multiple local agents to fix repeated
+source-timeline failures. Three local agents independently analyzed the
+retained public rejection, implemented a pre-review timeline gate and added
+synthetic conflict/control fixtures; Claude Code reviewed sanitized generic
+code/tests only, with tools disabled and no persistent session. No private
+source, runtime answer, credential or company conclusion was sent to Claude.
+
+For structured JSON funding records with a matching company, month/date and
+recognized stage labels, code now identifies inversions such as a later
+Pre-Seed entry after an earlier Series A entry. The discrepancy is supplied to
+the local draft. Before review, the memo must cite both conflicting entries
+and describe the unresolved discrepancy; unsupported progression language
+triggers a bounded model-authored patch. The check does not call either
+source-reported event impossible, completed or fraudulent. Claude findings
+closed false suppression by a caveat, missing claim-assertion checks, omitted
+conflict citations, null-company grouping and silent pair truncation. The
+review prompt likewise distinguishes inconsistent labels from impossible
+events. Unstructured or differently labeled evidence still relies on
+independent review; this detector does not establish broad semantic coverage.
+
+The memo worker now preserves exact Part A/B, claim-patch and timeline-patch
+attempts and gives schema/semantic failures bounded feedback without loosening
+quote or numeric validation. A saved timeout can receive one retry. Exact
+source/claim/review snapshots govern replay; older isolated responses can
+replay only against their original claim, clock and source digest. Short JSON
+claim patches use the full exact record so dates and numbered company names
+cannot be asserted beside a status-only excerpt. Isolated prose receives a
+masked task view of quantities absent from both its selected assertion and
+quote, while the original claim remains intact for final validation. Claude's
+numeric probes led to additional rejection of unparsed spelled/plural and
+glued quantities and an echoed mask marker. The task view uses an opaque
+clock digest, preventing a prose model from copying or inventing a report
+cutoff date. A measured scheduler defers Part B when the observed Part A
+duration exceeds time left in the pass. Room revision hashes now reflect
+actual frozen memo role names and caps. No existing saved profile is rewritten.
+
+An optional split Part B local role is frozen in new profiles and supported by
+the diagnostic harness. The public-only harness keeps installed model digests,
+105 seconds and five calls/requests per pass, at most three passes. It never
+promotes prose or artifacts. An independent diagnostic exclusion review found
+the StartupDB license-credit passage immaterial to the company decision; its
+original and review manifest are retained. Three funding-event passages form
+a separate public fixture. This does not waive production excluded-evidence
+review or change the public KB.
+
+Live results are mixed and **no public memo was accepted**. A 9B draft/9B
+corrector route with the four original passages reached independent review in
+the earlier run, which correctly rejected a false funding progression. Fresh
+post-fix runs saved draft/schema/numeric/timeline failures and bounded retries
+in separate ignored `runtime_qualification/local_memo_harness/` directories;
+none may receive a fourth pass. On the three-event fixture, a 9B Part A/4B
+Part B/9B corrector/14B prose split reached `timeline_patch_pending` after
+three passes. A faster 4B/4B draft split reached the timeline patch in pass
+two; its first 9B patch still asserted unsupported progression and the retry
+timed out in pass three. The review stage was not reached in either final
+split run. No recommendation, investor-ready PDF or exported-file acceptance
+resulted. The measured remaining limit is local-model compliance and latency
+for multi-field conflict repair within the required three-pass window; do not
+relax the evidence or review gates to claim success.
+
+The combined delivery/memo/harness/local-route/room/discovery/public-KB/API
+suite passed **376 tests with five skipped**; `git diff --check` passed. This
+is engineering verification only. No production room job, private evidence,
+SQLite data or failed report was reset, committed, deployed or promoted.
+
+Additional isolated local-model probes on the exact saved public timeline
+patch ruled out a simple role swap: installed 14B did not finish within 105
+seconds, and installed 4B returned a patch still asserting unsupported
+progression. Both raw attempts are retained in separate ignored diagnostic
+directories. Do not resume any exhausted three-pass trial. On a production
+room's third pass, an unaccepted memo now checkpoints as `awaiting_input` with
+`bounded_local_memo_attempts_exhausted`, preserving its last phase and raw
+attempts; the materials stage also remains awaiting input. This prevents an
+unchanged room from appearing to have an indefinitely resumable memo.
+
+## 3 October diagnostic PDF, Claude-assisted timeline repair, and live result
+
+The user requested the saved memo and a clear account of the recurring failure.
+`output/pdf/1001_AI_unreviewed_model_memo_diagnostic_2026-10-03.pdf` is a
+three-page diagnostic rendering of the exact memo in the final timeline-patch
+input of the earlier public-only fast-draft trial. It visibly says **unreviewed
+and rejected for investor use**, includes the recorded claims, unknowns,
+source passages, validation status and a cover note identifying the false
+"July cannot precede June" sentence and unsupported fraud speculation. Its
+pages were rendered and visually inspected; extracted text was checked against
+the saved draft. It is not the required approved IM PDF or an accepted
+recommendation. The PDF generation script is in `tmp/pdfs/`.
+
+Independent audit of saved attempts identified four concrete causes: the
+StartupDB funding listings have conflicting stage/date labels and unknown
+transaction status, with no primary confirmation; drafts asserted a linear
+progression or speculated beyond evidence; the timeline repair prompt/schema
+was too broad, allowed section-heading drift and had a cautious-wording false
+positive; and local latency consumed the three bounded passes before review.
+
+Claude Code CLI was reauthenticated and used for a **sanitized generic coding
+task**, with no company/runtime/private evidence sent. Its per-field repair
+design was integrated into `agents/research/staged_memo.py`: one target per
+request, source-bound compact payloads, saved chain replay and bounded retries,
+while retaining full numeric/source/conflict validation. The integrator also
+fixed retry propagation and `agents/research/investment_memo.py` exact renderer
+replay of timeline-patch chains, with tamper rejection. The focused memo,
+harness and delivery-stage suite passed **98 tests** and `git diff --check`
+passed after integration. These are code tests, not live acceptance.
+
+The first new v2 public-only run was interrupted by local Ollama disappearing;
+its blocked `model_digest_recheck_failed` report remains. After checking that
+no room jobs were queued/running (22 awaiting input, three blocked, three
+cancelled), Ollama was restarted on loopback. The next v2 and Claude-assisted
+v3 public-only trials each used the allowed three 105-second passes and saved
+11 attempts; both stopped before review because the 9B timeline patch wrote
+dates in risks prose that were not covered by the adjacent claim at each
+citation. Their reports are under
+`runtime_qualification/local_memo_harness/startupdb_1001_ai_timeline_v2_retry_2026-10-03/`
+and `startupdb_1001_ai_timeline_v3_2026-10-03/`. Do not resume them for a
+fourth pass. A targeted 105-second, three-call public-only single-field probe
+after stronger qualitative-prose instructions also failed: 9B repeated the
+same invalid risk analysis three times. Its raw attempts are retained under
+`startupdb_1001_ai_single_timeline_probe_2026-10-03/`. No reviewer or exact
+investor export acceptance was reached. A different structured repair
+contract or stronger local model capability is needed; repeating this prompt
+shape is not a justified next trial.
+
+Later on 3 October, Claude Code contributed generic inline code for a
+**prose-only timeline repair** after a sanitized request. The initial Claude
+reply incorrectly claimed to have written temporary files; that claim was
+checked and rejected, and only the actual inline code was adapted. The task
+view now omits rejected prose, claims, quotes, passages and company name;
+reported earlier/later order and source IDs remain, while exact dates stay in
+frozen model-authored claims. Code preserves those claims and headings, checks
+citations, quantities, unsupported fraud/impossibility language, complete
+conflict coverage and exact saved response replay. The conflict detector now
+recognizes explicit "inversion" and "contradiction" wording. A renderer test
+replays the exact analysis-only response and rejects a tampered digest. The
+focused memo/harness/delivery suite passed **102 tests** and `git diff --check`
+passed. No private material was sent to Claude or hosted inference.
+
+The first analysis-only public probe still failed three times because its
+compact packet contained literal dates, which 9B copied into forbidden prose.
+The revised date-free packet succeeded on the exact saved public draft in one
+9B call (about five seconds), with a source-valid timeline patch. Both probe
+reports and raw responses remain under separate ignored
+`runtime_qualification/local_memo_harness/startupdb_1001_ai_analysis_only_*probe_2026-10-03/`
+directories. This is a narrow live success, not independent memo review.
+
+Two subsequent fresh complete public-only trials remained unaccepted. The
+4B-draft/9B-corrector/14B-prose run used all three 105-second passes on draft
+and claim corrections, stopping before timeline patch or reviewer; one claim
+patch consumed about 75 seconds. The all-9B run used about 102 seconds for
+Part A alone and exhausted the next two passes in Part B, with only three
+saved attempts total. Both have `review_status=not_reached` and their reports
+are preserved as `startupdb_1001_ai_analysis_v5_full_2026-10-03/` and
+`startupdb_1001_ai_analysis_v6_all9b_2026-10-03/`. Neither may receive a
+fourth pass. The remaining live blocker is upstream local draft/correction
+throughput and reliability within the fixed total budget, followed by actual
+review and exact exported-file validation. Do not repeat role shuffles without
+a measured structural change. The diagnostic PDF remains the only shared memo
+file and is unreviewed/rejected for investor use.
+
+## 3 October user scope correction and end-to-end materials closeout map
+
+The user clarified that a meaningful intro/pitch deck and investment
+memorandum are non-negotiable; projection generation is conditional on a
+company-supplied model or an explicit user request with sufficient reviewed
+data. Codex and Claude Code CLI are to collaborate on generic implementation,
+while local product models alone author company conclusions. The three Toffee
+files in Downloads are private untrusted acceptance inputs, not instructions
+or templates. The complete dependency map, acceptance matrix and copy-ready
+next-agent prompts are in
+Section 0 of `LOCAL_TO_CLOUD_RELEASE_PLAN.md`; the controlling
+release plan, financial plan and AGENTS now point to this scope correction.
+
+The independent pipeline audit found a structural blocker separate from model
+latency: the room worker renders only draft `intro.pptx`, `memo.docx` and
+`research.pdf` preview, using the same research memo sections for slides and
+DOCX. There is no pitch-plan authoring, pitch renderer, full IM content spec,
+matching intro/pitch/IM distribution PDFs or qualified release checks. The
+financial checkpoint never becomes validated. `delivery/release.py` records
+mandatory checks `not_run` and the worker unconditionally blocks validation.
+Thus an instant model would still not produce an accepted package.
+
+Code changed this turn: `delivery/contracts.py` now enforces intro, pitch and
+IM as required kinds under policy `local-artifacts-v2`; `delivery/release.py`
+requests an XLSX only when a projection artifact is present. A real
+room-scoped explicit projection request and supportability decision are still
+missing; this contract change does not release anything. Synthetic tests prove
+the three core kinds can be assessed without XLSX, while omission of pitch or
+IM still blocks. `delivery/evidence_readiness.py` is a pure preparatory gate,
+co-designed through Claude Code **CLI** with sanitized generic inputs and
+adapted locally. It requires a distinct recorded deck plan, flags missing or
+stale provenance and prevents unresolved evidence being labeled supported.
+It is **not wired into the worker** because no model-authored deck-plan task
+exists; wiring it alone would merely block drafts. Claude's two larger CLI
+implementation prompts timed out; one short concrete code prompt completed.
+No Toffee text, company runtime response or credentials were sent to Claude.
+
+Private read-only inspection found a 9-page intro PDF, 16-page full deck PDF
+with some image-heavy pages, and a 14-sheet workbook with five hidden sheets,
+3,008 formulas, 104 cached errors and 22 formulas containing literal broken
+references. These are historical projections, not validated current forecasts.
+The original files were not modified or recalculated. The prior local
+workbook diagnostic remains preserved. Never round-trip the source workbook
+through an importer that drops unsupported drawings; inspect every PDF page
+visually, reconcile source page/cell figures and periods, and qualify
+recalculation before any forecast claim.
+
+Read-only runtime check: SQLite room jobs were 22 awaiting input, three
+blocked and three cancelled, with none queued/running; `ollama serve` was the
+only observed relevant local service (no API, ES or room worker). No service
+was restarted, no model downloaded, no cloud spend or hosted product inference
+used, and nothing committed/reset. `tests/delivery` plus
+`tests/api/test_rooms.py` passed **153 tests with five skipped**;
+`git diff --check` passed. These are code tests only; no new live room or
+investor-file acceptance occurred. The first next implementation action is a
+recorded local-model deck-plan/content-spec producer bound to a frozen claim
+ledger and reviewed memo/source revision, followed by separate intro/pitch/IM
+rendering and exact exported-file checks. Do not claim this scope can close as
+investor-ready today without those live gates and authorized reviews.
+
+## 3 October discovery root-cause and startups.gallery checkpoint
+
+The user asked for startups.gallery intake, company-follow-up evidence from
+LinkedIn/announcement boards, an exact root cause and an executable plan.
+Independent agents audited the product discovery path and the public site.
+Their consolidated diagnosis is recorded in
+Section 0 of `LOCAL_TO_CLOUD_RELEASE_PLAN.md`, and the public KB plan now
+lists startups.gallery as a disabled candidate source. The production collector
+fetches one registered URL at a time; generic HTML is archived as passages,
+not reconciled identities/claims/funding events. Production discovery checks
+small selected-page batches, so adverse later-stage evidence on another page
+may not reach the same eligibility decision. The six earlier broader test
+failures were stale fixtures later repaired; they were not six live failures.
+
+The public startups.gallery India page currently lists only Airbound (Seed)
+and Ultrahuman (Series B). Profiles/news expose outbound company and press
+links, but the directory is a secondary lead source with narrow India coverage.
+Airbound's own 25 August 2026 announcement reports a $37M Series A, so its
+directory Seed label is stale and it must not be promoted as a current seed
+lead. Both displayed India entries fail the present stage gate; this does
+not imply there are no other eligible Indian companies.
+The directory's Default profile labels a $20M Series A, whereas its linked
+founder announcement says total funds raised reached $20M; round amount is
+unresolved. Do not promote directory labels as verified claims. Site automated
+access, retention, model-processing and investor-document rights could not be
+verified from available tools; site robots/terms were inaccessible. The current
+LinkedIn User Agreement and crawling terms prohibit unapproved automated
+scraping, so LinkedIn URLs remain manual/authorized-API leads. No scraping
+connector was enabled and no private room data was exposed.
+
+Claude Code **CLI**, on a sanitized generic coding task, contributed a
+bounded public link candidate staging slice. New
+`public_kb/source_candidates.py` reads only a current, indexed,
+rights-approved and archive-hash-verified StartupDB public record, retains
+company/announcement HTTPS link leads with source-version provenance and
+`pending_rights_review`, and never fetches or approves destinations. It is
+not wired to the worker or a startups.gallery parser; this is tested
+infrastructure, not live intake. The candidate, collector and ingestion tests
+passed 11 tests, and `git diff --check` passed. Claude additionally noted
+that HTTP 304 handling lacks an archive-integrity recheck; collector remains
+unchanged. No live accepted Indian shortlist or investor material resulted.
+
+## 3 October end-to-end plan consolidation and scheduler correction
+
+The user made phased company-entry→profile→official-site→announcement
+collection, full logging, 6/12-hour scheduled refresh and reconciled history
+non-negotiable. A read-only implementation audit confirmed the worker has a
+single hard-coded six-hour threshold for all approved URLs, no per-source
+12-hour cadence, no durable due queue or stale-current reconciliation, and no
+active launchd timer. The passage index and page-batch discovery path still
+do not compare all dated cross-publisher events before eligibility.
+
+Section 0 of `LOCAL_TO_CLOUD_RELEASE_PLAN.md` is now the fresh controlling
+end-to-end plan: S0-S9 phases, an event/log schema, six-hour announcement and
+12-hour directory/profile/official-status cadence, append-only claim/event
+history, derived current eligibility, exact six-file materials release,
+acceptance cases and a copy-ready next-agent instruction. The public KB plan
+cadence and `AGENTS.md` navigation were aligned. "Prune stale" means remove
+superseded facts from current search/eligibility and invalidate dependent
+rooms, while retaining source versions, claims and failed reports.
+
+After migrating the unique decisions, the two overlapping 3 October
+checkpoint Markdown files under `deployment/` (`DISCOVERY_ROOT_CAUSE` and
+`END_TO_END_MATERIALS_CLOSEOUT`) were deleted and all Markdown links to them
+removed. Detailed financial, public KB, local-model and GPU specifications,
+historical documents, `SESSION_HANDOFF.md` and all `evals/**` failed reports
+were retained. `git diff --check` passed. This was a plan/doc consolidation;
+the 6/12-hour scheduler, traversal, reconciliation and live acceptance are
+still not implemented.
+
+## 3 October product-scope correction: worldwide diligence before suggestions
+
+The user corrected the previous India/seed framing. The product is for
+worldwide startup research and due diligence before evidence-backed investment
+suggestions, as well as investor materials for company fundraising. India
+pre-seed/seed was a constrained pilot because live output quality was poor; it
+is not the product market or a universal eligibility rule. Do not describe the
+system as only a fundraising adviser or exclude investor research.
+
+This checkpoint changed new web-run API defaults to `global_research_v1`,
+allowed optional/user-specified geography, removed the read-only India UI
+field, and labeled discovery results preliminary. The old
+`india_preseed_seed_v1` policy and saved runs remain as pilot regression
+evidence, and the public KB contract accepts both policy identifiers. The
+generic discovery path already existed; this change does not qualify its
+source coverage, reconciled history, live model output or investment quality.
+The controlling plan now adds S7a: a versioned, source-bound diligence dossier
+and independent review before any positive investment suggestion. Reconciled
+identity/funding/status, contradictory sources, product, market, team,
+financials, risks and material unknowns are mandatory. Research gaps result
+in questions, not a positive suggestion. Exact exports and materials remain
+blocked until their separate acceptance gates pass.
+
+Focused discovery, delivery-contract and company-analysis tests passed 115
+tests; frontend build and `git diff --check` passed.
+This is tested scope plumbing and documentation, not live accepted worldwide
+discovery or completed due diligence. The runtime process inspection command
+was denied by the shell environment, so no service restart or live job was
+attempted. Do not interpret this checkpoint as accepted investor output.

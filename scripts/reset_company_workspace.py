@@ -16,8 +16,15 @@ def reset(db_path, tenant_id, backup_dir):
                 job = data.get('automation') if table == 'operating_workspaces' else data
                 if job and job.get('status') in {'queued','running','cancel_requested'}:
                     raise ValueError('Stop active company jobs before resetting their records.')
-        tables = [row[0] for row in source.execute("SELECT name FROM sqlite_master WHERE type='table'")
-                  if row[0] != 'sqlite_sequence']
+        existing={row[0] for row in source.execute("SELECT name FROM sqlite_master WHERE type='table'")}
+        # Historical reset tooling must not expand its destructive scope when
+        # authentication, durable jobs or release records are added to the DB.
+        for protected in ('auth_memberships','room_jobs','room_artifacts','room_packages'):
+            if protected in existing and source.execute('SELECT 1 FROM '+protected+' WHERE tenant_id=? LIMIT 1',(tenant_id,)).fetchone():
+                raise ValueError('Legacy reset cannot clear authenticated sandboxes or durable room history.')
+        legacy={'deals','documents','extraction_results','research_findings','chart_artifacts','memo_versions',
+            'audit_log','investor_contacts','sourced_leads','company_profiles','dataset_snapshots','operating_workspaces','web_sourcing_runs'}
+        tables=sorted(existing & legacy)
         counts = {table:source.execute('SELECT count(*) FROM '+table+' WHERE tenant_id=?',(tenant_id,)).fetchone()[0] for table in tables}
         backup_path = backup_dir/'company-workspace.sqlite3'
         with sqlite3.connect(backup_path) as backup:

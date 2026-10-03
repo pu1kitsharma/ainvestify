@@ -8,12 +8,22 @@ import json
 import math
 import os
 import platform
+import re
 import subprocess
 from functools import lru_cache
 from dataclasses import dataclass
 
 REASONING_TASKS = {'analyst_section', 'analyst_agenda', 'preparation', 'research', 'readiness', 'investment_case', 'commercial_test', 'funding_outline',
                    'company suitability', 'diligence', 'incubation', 'documents', 'fundraising', 'metric_extraction'}
+
+
+def validate_local_model_name(name):
+    """Accept an Ollama model identifier, never a provider or endpoint selector."""
+    if (not isinstance(name, str) or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._/-]*(?::[A-Za-z0-9][A-Za-z0-9._-]*)?', name)
+            or 'cloud' in name.casefold() or name.casefold() == 'claude-pro-sonnet'
+            or name.casefold().startswith(('anthropic-api:', 'deepseek-api:'))):
+        raise ValueError('Routing requires an installed local model name for Ollama; hosted routes and URLs are not enabled.')
+    return name
 
 
 def _number(name, default, minimum, maximum, integer=False):
@@ -69,8 +79,7 @@ class RoutingPolicy:
         if policy.quality_weight + policy.latency_weight == 0:
             raise ValueError('Routing preference weights cannot both be zero')
         for name in (policy.fast_model, policy.reasoning_model, policy.review_model) + ((policy.escalation_model,) if policy.escalation_model else ()):
-            if not name or 'cloud' in name.lower():
-                raise ValueError('Routing requires installed local models; cloud models are not enabled')
+            validate_local_model_name(name)
         if policy.context_tokens <= policy.reasoning_tokens:
             raise ValueError('MODEL_CONTEXT_TOKENS must leave room for input beyond the reasoning output budget')
         return policy

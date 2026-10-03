@@ -1,5 +1,6 @@
 """Per-run local inference limits, shared by queueing and answer continuation."""
 import os
+import math
 import time
 from contextlib import contextmanager
 from contextvars import ContextVar
@@ -20,6 +21,15 @@ class PreparationBudget:
         self.max_calls, self.max_requests = max_calls, max_requests
         self.started = time.monotonic()
         self.calls = self.requests = 0
+        self.cache_hits = 0
+        self.reserved_cost_usd = 0.0
+        self.max_cost_usd = .25
+
+    def reserve_cost(self, maximum):
+        self.remaining()
+        if not math.isfinite(maximum) or maximum < 0 or self.reserved_cost_usd + maximum > self.max_cost_usd:
+            raise PreparationBudgetExceeded('Public reasoning reached its $0.25 per-pass cost ceiling; saved work is retained.')
+        self.reserved_cost_usd += maximum
 
     def remaining(self):
         remaining = self.max_seconds - (time.monotonic() - self.started)
@@ -41,7 +51,8 @@ class PreparationBudget:
 
     def snapshot(self):
         return {'max_seconds':self.max_seconds, 'max_calls':self.max_calls, 'max_requests':self.max_requests,
-                'calls':self.calls, 'requests':self.requests, 'elapsed_seconds':round(time.monotonic()-self.started,3)}
+                'calls':self.calls, 'requests':self.requests, 'elapsed_seconds':round(time.monotonic()-self.started,3),
+                'cache_hits':self.cache_hits,'reserved_cost_usd':self.reserved_cost_usd,'max_cost_usd':self.max_cost_usd}
 
 
 @contextmanager
