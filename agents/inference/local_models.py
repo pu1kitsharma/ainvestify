@@ -9,10 +9,12 @@ import asyncio
 from typing import Protocol, TypeVar
 
 import ollama
+import httpx
 from pydantic import BaseModel
 
 from agents.inference.inference_queue import InferenceQueue
 from agents.preparation.preparation_budget import ACTIVE_BUDGET, PreparationBudgetExceeded
+from agents.inference.model_routing import validate_local_model_name
 
 MODEL_JOB_SLOT = InferenceQueue()
 T = TypeVar("T", bound=BaseModel)
@@ -49,8 +51,7 @@ def generation_schema(schema):
 class LocalModel:
     def __init__(self, name=None, *, thinking=False, max_tokens=2200, context_tokens=16384, temperature=None, reasoning_budget=None):
         self.name = name or os.environ.get("SOURCING_MODEL", "phi4-mini")
-        if "cloud" in self.name.casefold():
-            raise ValueError("SOURCING_MODEL must be a local model; cloud models are not enabled.")
+        validate_local_model_name(self.name)
         # Explicit loopback host: no hosted endpoint, cloud fallback, model pull,
         # or paid inference can be triggered through this adapter.
         self.thinking = thinking
@@ -72,7 +73,16 @@ class LocalModel:
     def _request(self, operation, **kwargs):
         budget = ACTIVE_BUDGET.get()
         if budget is None:
-            return getattr(self.client,operation)(**kwargs)
+            try:
+                return getattr(self.client,operation)(**kwargs)
+            except (httpx.ConnectError, httpx.ConnectTimeout) as exc:
+                raise RuntimeError('Local Ollama inference is unavailable at 127.0.0.1:11434; saved work is retained.') from exc
+            except httpx.ReadTimeout as exc:
+                raise RuntimeError('Local Ollama inference timed out; saved work is retained.') from exc
+            except ollama.ResponseError as exc:
+                if exc.status_code == 404:
+                    raise RuntimeError(f'Installed local Ollama model {self.name!r} was not found; no model was downloaded or fallback used.') from exc
+                raise RuntimeError(f'Local Ollama inference failed (HTTP {exc.status_code}); saved work is retained.') from exc
         budget.start_request()
         async def bounded_request():
             # Async cancellation closes the HTTP request, including while the
@@ -80,11 +90,18 @@ class LocalModel:
             client = ollama.AsyncClient(host='http://127.0.0.1:11434', timeout=budget.remaining())
             try:
                 return await asyncio.wait_for(getattr(client,operation)(**kwargs), timeout=budget.remaining())
-            except asyncio.TimeoutError as exc:
+            except (asyncio.TimeoutError, httpx.ReadTimeout) as exc:
                 raise PreparationBudgetExceeded('Preparation reached its time limit during inference. The local request was cancelled; saved sections are retained.') from exc
             finally:
                 await client._client.aclose()
-        return asyncio.run(bounded_request())
+        try:
+            return asyncio.run(bounded_request())
+        except (httpx.ConnectError, httpx.ConnectTimeout) as exc:
+            raise RuntimeError('Local Ollama inference is unavailable at 127.0.0.1:11434; saved work is retained.') from exc
+        except ollama.ResponseError as exc:
+            if exc.status_code == 404:
+                raise RuntimeError(f'Installed local Ollama model {self.name!r} was not found; no model was downloaded or fallback used.') from exc
+            raise RuntimeError(f'Local Ollama inference failed (HTTP {exc.status_code}); saved work is retained.') from exc
 
     def generate(self, instruction: str, evidence: str, schema: type[T]) -> T:
         started = time.monotonic()
@@ -151,7 +168,7 @@ class LocalModel:
                     prompt+='<|im_start|>assistant\n'+prefill
                     final=self._request('generate',model=self.name,prompt=prompt,raw=True,think=False,
                         **({} if answer_prefix else {'format':spec}),options=final_options)
-                    response={k:final.get(k) for k in ('done_reason','eval_count','prompt_eval_count')}
+                    response={k:final.get(k) for k in ('model','done_reason','eval_count','prompt_eval_count')}
                     response['message']={'content':final['response']}
                 else:
                     response=self._chat(model=self.name,messages=messages+[{'role':'assistant','content':prefill}],
@@ -171,8 +188,14 @@ class LocalModel:
         # Kept only on this adapter instance for isolated evaluation; never
         # published or persisted as an accepted result after validation fails.
         self.last_response_text = answer_prefix+response["message"]["content"]
+        returned_model = response.get('model')
+        requested_names = {self.name} if ':' in self.name else {self.name, self.name + ':latest'}
+        if returned_model and returned_model not in requested_names:
+            raise ValueError('Local runtime returned a different model than requested; the answer was not accepted.')
         if response.get('done_reason') == 'length' or not self.last_response_text.strip():
             raise ValueError('Model exhausted its response budget before completing the answer. Retry with a larger reasoning budget or smaller scoped input.')
+        if response.get('done_reason') not in (None, 'stop'):
+            raise ValueError('Local model response did not finish normally; the answer was not accepted.')
         if self.thinking and not self.last_call['thinking_used']:
             raise ValueError('The local runtime returned no thinking output for a reasoning task. Check model/runtime compatibility; this answer was not accepted as a reasoning result.')
         from agents.inference.model_output import json_body
@@ -187,11 +210,11 @@ class AnalystModel:
     This is an evaluated profile, not a claim that the critic is infallible.
     """
     def __init__(self,name,*,thinking=False,max_tokens=4096,context_tokens=12288,review_model=None,review_thinking=None):
+        validate_local_model_name(name)
+        validate_local_model_name(review_model or name)
         self.name=name;self.thinking=thinking;self.max_tokens=max_tokens;self.context_tokens=context_tokens
         self.review_model=review_model or name
         self.shared_review_thinking=review_thinking
-        if any('cloud' in selected.casefold() for selected in (name,self.review_model)):
-            raise ValueError('Analyst profiles require installed local models.')
         supports_review_thinking=self.review_model.startswith(('qwen3:', 'qwen3.5:', 'deepseek-r1:', 'gpt-oss:'))
         self.review_thinking=supports_review_thinking if review_thinking is None else review_thinking
         if self.review_thinking and not supports_review_thinking:

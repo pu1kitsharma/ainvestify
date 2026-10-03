@@ -16,6 +16,17 @@ def transcript():
         'Generated summary says https://invented.example/ is official.']}}]
 
 
+def test_metadata_only_page_uses_bounded_browser_render(monkeypatch):
+    from agents.research.public_research import fetch_pages
+    original = Page('https://example.org/', 'Example',
+                    '[Publisher page description metadata] A long product description for a JavaScript site.',
+                    content_blocks=['[Publisher page description metadata] A long product description for a JavaScript site.'])
+    rendered = Page('https://example.org/', 'Example', 'Detailed rendered company source passage. ' * 4)
+    monkeypatch.setattr('agents.research.source_cache.fetch_public_page', lambda url: original)
+    monkeypatch.setattr('agents.research.browser_source.render_public_page', lambda url: rendered)
+    assert fetch_pages(['https://example.org/'])[0][0] is rendered
+
+
 def test_only_structured_tool_links_establish_observed_destinations():
     links,queries=observed_search(transcript()+[{'type':'assistant','tool_use_result':{'query':'fake','results':[{'content':[{'url':'https://fake.example/'}]}]}}])
     assert links=={'https://hotel.example/':'Hotel Example'}
@@ -34,20 +45,11 @@ def test_public_research_manifest_blocks_private_fields_and_changed_payloads(mon
 
 
 def test_search_cli_has_only_search_tool_and_reserves_both_turns(monkeypatch):
-    model=PublicResearchModel();model._authenticated=True
-    payload={'purpose':'company','public_request':'Hotel Example','geography':None,'as_of':'2026-09-25'}
-    model.approve('public_navigation',payload)
-    answer={'interpretation':'Read public company evidence.','urls':['https://hotel.example/'],'official_website':'https://hotel.example/'}
-    process=Mock();process.returncode=0;process.poll.return_value=0
-    process.communicate.return_value=(json.dumps(transcript()+[{'type':'result','num_turns':2,'result':json.dumps(answer)}]),'')
-    start=Mock(return_value=process);monkeypatch.setattr('agents.inference.subscription_model.subprocess.Popen',start)
-    with preparation_budget(PreparationBudget(10,max_requests=3)) as budget:
-        result=model.generate_for_task('public_navigation','test',json.dumps(payload),Navigation)
-    command=start.call_args[0][0]
-    assert command[command.index('--tools')+1]=='WebSearch'
-    assert command[command.index('--max-turns')+1]=='2'
-    assert '--safe-mode' in command and '--no-session-persistence' in command
-    assert budget.requests==2 and result.urls==answer['urls']
+    monkeypatch.setenv('PREPARATION_PROVIDER','claude_pro_public')
+    start=Mock();monkeypatch.setattr('agents.inference.subscription_model.subprocess.Popen',start)
+    with pytest.raises(ValueError, match='local'):
+        PublicResearchModel()
+    start.assert_not_called()
 
 
 def test_complete_source_claim_crossing_old_character_boundary_still_binds():
@@ -146,6 +148,38 @@ def test_multiple_companies_from_one_directory_are_independently_bound(tmp_path,
             assert profile.assessment.rationale.startswith(profile.name)
 
 
+def test_discovery_uses_kb_passage_without_fresh_search(tmp_path, monkeypatch):
+    from agents.discovery.subscription_discovery import source_public_companies
+    from schemas import WebSourcingRun
+    from store import Store
+    page=Page('https://directory.example/', 'Hotel directory',
+              'Hotel Alpha operates hotels.', content_blocks=['Hotel Alpha operates hotels.'],
+              source_version_id='directory:sha1')
+    monkeypatch.setattr('public_kb.retrieval.search_pages', lambda *args, **kwargs: [page])
+    monkeypatch.setattr('agents.discovery.subscription_discovery.navigate',
+                        lambda *args, **kwargs: pytest.fail('KB hit should avoid a fresh search'))
+
+    class Model:
+        name='local-fixture'; last_route={}
+        def approve(self,*args): pass
+        def generate_for_task(self,task,instruction,evidence,schema,**kwargs):
+            self.last_response_text=json.dumps({'companies':[{'name':'Hotel Alpha','page_id':'P1',
+                'name_block_id':'b1','entity_type':'company','website':None,
+                'facts':[{'field':'offering','value':'operates hotels','source_block_id':'b1'}],
+                'assessment':{'recommendation':'investigate',
+                    'rationale':'Hotel Alpha reports hotel operations. Guest demand needs investigation.',
+                    'strengths':[],'concerns':[],'missing_information':[],
+                    'incubation_actions':[],'evidence_ids':['E2']}}], 'coverage_limits':[]})
+            return schema.model_validate_json(self.last_response_text)
+
+    with Store(tmp_path/'db') as store:
+        run=WebSourcingRun(tenant_id='one', thesis='Hotels', model='local-fixture')
+        result=source_public_companies(store,run,model=Model(),fetcher=Mock(),max_companies=1)
+        assert result.status=='completed'
+        assert result.research_plan['status']=='kb_retrieved'
+        assert any('directory:sha1' in item.detail for item in result.sources)
+
+
 def test_company_research_collects_status_and_product_sources_and_reuses_fresh_evidence(tmp_path,monkeypatch):
     from agents.research.public_research import collect_company_research
     from tests.analysis.test_operating_workflow import company
@@ -171,6 +205,25 @@ def test_company_research_collects_status_and_product_sources_and_reuses_fresh_e
         store.save_workspace(w,expected_revision=w.revision)
         collect_company_research(store,lead,fetcher=Fetcher())
         assert len(calls)==2
+
+
+def test_room_research_uses_retained_kb_pages_before_new_search(tmp_path, monkeypatch):
+    from agents.research.public_research import collect_company_research
+    from tests.analysis.test_operating_workflow import company
+    from store import Store
+    pages = [Page('https://hotel.example/', 'Hotel Example', 'Hotel Example operates hotels.',
+                  content_blocks=['Hotel Example operates hotels.'], source_version_id='official:sha1'),
+             Page('https://owner.example/news', 'Hotel Example ownership',
+                  'Owner reports Hotel Example ownership.',
+                  content_blocks=['Owner reports Hotel Example ownership.'], source_version_id='news:sha2')]
+    monkeypatch.setattr('public_kb.retrieval.search_pages', lambda *args, **kwargs: pages)
+    monkeypatch.setattr('agents.research.public_research.navigate',
+                        lambda *args, **kwargs: pytest.fail('KB coverage should avoid a fresh search'))
+    with Store(tmp_path/'db') as store:
+        lead=collect_company_research(store, company(store), fetcher=Mock())
+        collection=store.get_workspace(lead.tenant_id,lead_id=lead.id).research['preparation_sources']
+        assert collection['kb_source_versions']==['official:sha1','news:sha2']
+        assert {row['source_version_id'] for row in collection['pages']}==set(collection['kb_source_versions'])
 
 
 def test_one_directory_cannot_satisfy_company_research_gate(tmp_path,monkeypatch):

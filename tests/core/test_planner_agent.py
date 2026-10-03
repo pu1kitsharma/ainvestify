@@ -26,7 +26,7 @@ from agents.core.planner_agent import (
     promote_lead_to_deal,
     start_deal,
 )
-from schemas import DealStatus, DiscoverySignal, FieldStatus, SourcedLead
+from schemas import CompanyEvidence, CompanyProfile, DealStatus, DiscoverySignal, FieldStatus, SourcedLead
 
 MEMO_OUTPUT_ROOT = Path(__file__).parent.parent.parent / "memo_output"
 
@@ -149,6 +149,30 @@ def test_run_research_dedupes_lead_signal_against_fresh_search_result(store, mon
     # must not be appended a second time.
     assert len(findings) == 1
     assert findings[0].topic == "oss_traction"
+
+
+def test_run_research_requires_source_supported_public_identity_for_outbound_lookup(store, monkeypatch):
+    lead = SourcedLead(tenant_id='tenant_test', company_name='Public Company',
+                       company_profile=CompanyProfile(tenant_id='tenant_test', name='Public Company',
+                           website='https://public.example.test', identity_status='source_supported_unverified',
+                           evidence=[CompanyEvidence(field='identity', value='Public Company',
+                               quote='Public Company', source_url='https://public.example.test/about')]))
+    store.save_lead(lead)
+    deal = promote_lead_to_deal(store, lead)
+    import agents.core.planner_agent as planner_module
+    flags = []
+
+    def fake_research_deal(*args, **kwargs):
+        flags.append(kwargs.get('public_identity', False))
+        return []
+
+    monkeypatch.setattr(planner_module, 'research_deal', fake_research_deal)
+    _run_research(store, deal, 'Public Company', None, None)
+    assert flags == [True]
+    lead.company_profile.evidence[0].source_url = 'https://other.example.test/about'
+    store.save_lead(lead)
+    _run_research(store, deal, 'Public Company', None, None)
+    assert flags == [True, False]
 
 
 def test_teaser_draft_then_confirm_two_step_flow(store):

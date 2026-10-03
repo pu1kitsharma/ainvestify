@@ -15,7 +15,7 @@ export default function WebSourcing({ initialThesis = "", initialGeography = "",
         className="mt-2 block w-full resize-y rounded-xl border border-slate-200 bg-slate-50 p-3 text-base outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100" />
       <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <label htmlFor="company-geography" className="block text-xs font-medium text-slate-500">Geography
-          <input id="company-geography" value={geography} onChange={e => setGeography(e.target.value)} maxLength={120} placeholder="Worldwide"
+          <input id="company-geography" value={geography} onChange={e => setGeography(e.target.value)} placeholder="Worldwide (optional)" maxLength={120}
             className="mt-1 block w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-800 outline-none focus:border-indigo-500 sm:w-56" />
         </label>
         <label htmlFor="company-target" className="block text-xs font-medium text-slate-500">Company target
@@ -30,7 +30,7 @@ export default function WebSourcing({ initialThesis = "", initialGeography = "",
           </button>
         </div>
       </div>
-      <p className="mt-3 text-xs text-slate-500">AI searches public sources and assesses the results. A new search prepares the first company; results appear as batches finish. The target is not a guaranteed count.</p>
+      <p className="mt-3 text-xs text-slate-500">Search public information in the geography and stage you specify. Results are research candidates; investment suggestions require company due diligence. Preparation starts when you choose a company.</p>
       {error && <p role="alert" className="mt-3 text-sm text-rose-700">{error}</p>}
     </form>
   </section>;

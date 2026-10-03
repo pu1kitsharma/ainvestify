@@ -1,5 +1,7 @@
 import json
 from unittest.mock import Mock
+import httpx
+import ollama
 import pytest
 from pydantic import BaseModel,Field,ValidationError
 from agents.inference.local_models import LocalModel,generation_schema
@@ -70,6 +72,62 @@ def test_failed_call_does_not_reuse_previous_response_as_repair_input():
  with pytest.raises(RuntimeError):model.generate('Write','{}',Output)
  assert model.last_response_text==''
  assert 'generated_tokens' not in model.last_call
+
+
+@pytest.mark.parametrize('name', ['https://api.example.test/model', 'anthropic-api:sonnet',
+                                  'deepseek-api:chat', 'claude-pro-sonnet', 'qwen3:8b extra'])
+def test_local_adapter_rejects_hosted_or_endpoint_model_names(name):
+    with pytest.raises(ValueError, match='local model name'):
+        LocalModel(name)
+
+
+def test_local_transport_failure_and_missing_model_fail_clearly():
+    model = LocalModel('phi4-mini')
+    model.client = Mock()
+    model.client.chat.side_effect = httpx.ConnectError('connection refused')
+    with pytest.raises(RuntimeError, match='Local Ollama inference is unavailable'):
+        model.generate('Write', '{}', Output)
+    model.client.chat.side_effect = ollama.ResponseError('model not found', status_code=404)
+    with pytest.raises(RuntimeError, match='no model was downloaded or fallback used'):
+        model.generate('Write', '{}', Output)
+    assert model.last_response_text == ''
+
+
+def test_bounded_local_read_timeout_yields_saved_work_state(monkeypatch):
+    from agents.preparation.preparation_budget import (
+        PreparationBudget, PreparationBudgetExceeded, preparation_budget)
+    class Client:
+        def __init__(self, **kwargs): self._client = self
+        async def chat(self, **kwargs): raise httpx.ReadTimeout('local inference stalled')
+        async def aclose(self): pass
+    monkeypatch.setattr(ollama, 'AsyncClient', Client)
+    with preparation_budget(PreparationBudget(2, max_calls=1, max_requests=1)):
+        with pytest.raises(PreparationBudgetExceeded, match='local request was cancelled'):
+            LocalModel('phi4-mini')._request('chat', messages=[])
+
+
+def test_nonstop_json_response_is_not_accepted():
+    model = LocalModel('phi4-mini')
+    model.client = Mock()
+    model.client.chat.return_value = {'message': {'content': '{"summary":"A supported summary"}'},
+                                      'done_reason': 'cancelled'}
+    with pytest.raises(ValueError, match='did not finish normally'):
+        model.generate('Write', '{}', Output)
+    assert model.last_response_text == '{"summary":"A supported summary"}'
+
+
+def test_wrong_local_model_response_is_not_accepted():
+    model = LocalModel('phi4-mini')
+    model.client = Mock()
+    model.client.chat.return_value = {'model': 'other-model:latest',
+                                      'message': {'content': '{"summary":"A supported summary"}'},
+                                      'done_reason': 'stop'}
+    with pytest.raises(ValueError, match='different model'):
+        model.generate('Write', '{}', Output)
+    model.client.chat.return_value['model'] = 'phi4-mini:latest'
+    assert model.generate('Write', '{}', Output).summary == 'A supported summary'
+    model.client.chat.return_value['model'] = 'phi4-mini'
+    assert model.generate('Write', '{}', Output).summary == 'A supported summary'
 
 
 def test_section_profile_uses_reasoning_for_writing_and_critical_review(monkeypatch):

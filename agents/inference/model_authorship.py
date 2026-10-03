@@ -63,7 +63,7 @@ def _recorded_call(model, task, instruction, payload, schema, attempts, save, at
 
 def response_answer(attempts, response_id, *, allow_schema_candidate=False):
     row = next((r for r in attempts if r['id'] == response_id), None)
-    if not row or (row.get('error') and not (
+    if not row or ('error' in row and not (
             allow_schema_candidate and row.get('failure_kind') == 'schema_validation')):
         raise ValueError('No successful model response supports this content.')
     if digest(row['raw_response']) != row['response_hash']:

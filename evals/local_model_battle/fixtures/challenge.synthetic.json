@@ -1,0 +1,731 @@
+{
+ "classification": "synthetic",
+ "suite": "challenge",
+ "base": {
+  "company": "Example Labs",
+  "as_of_date": "2026-10-03",
+  "sources": [
+   {
+    "id": "S1",
+    "url": "https://example.invalid/company",
+    "title": "Example Labs site",
+    "passage": "Example Labs describes a scheduling tool for clinics and a pilot with a regional clinic group. The page does not report revenue, customer counts or retention.",
+    "version": "company-version-1",
+    "attribution": "Synthetic company page"
+   },
+   {
+    "id": "S2",
+    "url": "https://example.invalid/registry",
+    "title": "Financing registry",
+    "passage": "{\"entity\":\"Example Labs\",\"round\":\"Seed\",\"date\":\"2025-06\",\"amount\":\"USD 100000\",\"status\":\"unknown\"}",
+    "version": "registry-version-1",
+    "attribution": "Synthetic registry"
+   }
+  ],
+  "memo": {
+   "recommendation": "defer_pending_evidence",
+   "recommendation_reason": "The company site describes a clinic scheduling tool and a pilot [S1], which justifies further questions but not a decision. The page reports neither revenue nor retention, so the recommendation is to defer until usage and contract records are obtained.",
+   "recommendation_claims": [
+    {
+     "source_id": "S1",
+     "quote": "Example Labs describes a scheduling tool for clinics and a pilot with a regional clinic group.",
+     "assertion": "The company site describes a scheduling tool for clinics and a pilot with a regional clinic group."
+    }
+   ],
+   "investment_thesis": {
+    "heading": "Investment thesis",
+    "analysis": "The company site describes a scheduling tool for clinics and a pilot with a regional clinic group [S1]. The thesis is that clinics may pay for better scheduling, but the page does not report revenue or retention, so repeat demand is an open question and not an established result.",
+    "claims": [
+     {
+      "source_id": "S1",
+      "quote": "Example Labs describes a scheduling tool for clinics and a pilot with a regional clinic group.",
+      "assertion": "The company site describes a scheduling tool for clinics and a pilot with a regional clinic group."
+     }
+    ]
+   },
+   "business_and_market": {
+    "heading": "Business and market",
+    "analysis": "The site presents the product as scheduling software for clinics and names a pilot with a regional clinic group [S1]. The size of the clinic market and the price clinics would accept are not stated on the page, so the commercial case rests on evidence that still has to be collected.",
+    "claims": [
+     {
+      "source_id": "S1",
+      "quote": "Example Labs describes a scheduling tool for clinics and a pilot with a regional clinic group.",
+      "assertion": "The company site describes a scheduling tool for clinics and a pilot with a regional clinic group."
+     }
+    ]
+   },
+   "differentiation_and_execution": {
+    "heading": "Differentiation and execution",
+    "analysis": "The site describes the scheduling tool and a pilot with a regional clinic group [S1]. It does not describe how the tool differs from other scheduling products or who built it, so differentiation and the ability to execute cannot be judged from this page alone.",
+    "claims": [
+     {
+      "source_id": "S1",
+      "quote": "Example Labs describes a scheduling tool for clinics and a pilot with a regional clinic group.",
+      "assertion": "The company site describes a scheduling tool for clinics and a pilot with a regional clinic group."
+     }
+    ]
+   },
+   "risks_and_countercase": {
+    "heading": "Risks and countercase",
+    "analysis": "The site describes a pilot with a regional clinic group [S1]. The countercase is that a pilot may not convert into paid use, and the page does not report revenue, customer counts or retention, so commercial traction is unknown until usage records are obtained.",
+    "claims": [
+     {
+      "source_id": "S1",
+      "quote": "Example Labs describes a scheduling tool for clinics and a pilot with a regional clinic group.",
+      "assertion": "The company site describes a scheduling tool for clinics and a pilot with a regional clinic group."
+     }
+    ]
+   },
+   "diligence_plan": {
+    "heading": "Diligence plan",
+    "analysis": "The site describes a pilot with a regional clinic group [S1]. Diligence should request dated usage records from the pilot, the contract terms with the clinic group and company accounts, because the page itself does not report revenue, customer counts or retention.",
+    "claims": [
+     {
+      "source_id": "S1",
+      "quote": "Example Labs describes a scheduling tool for clinics and a pilot with a regional clinic group.",
+      "assertion": "The company site describes a scheduling tool for clinics and a pilot with a regional clinic group."
+     }
+    ]
+   },
+   "unknowns": [
+    {
+     "question": "Does the clinic pilot show repeat use by clinic staff?",
+     "why_it_matters": "A pilot without repeat use does not establish demand for the product.",
+     "evidence_needed": "Dated usage records and the pilot contract with the clinic group."
+    },
+    {
+     "question": "What revenue and cost does the company report in its accounts?",
+     "why_it_matters": "The retained page does not report revenue, customer counts or retention.",
+     "evidence_needed": "Company accounts and a scoped revenue recognition policy."
+    }
+   ]
+  }
+ },
+ "cases": [
+  {
+   "id": "absent_amount_defect",
+   "pair": "reported_amount_called_absent",
+   "variant": "defect",
+   "memo_patch": {
+    "risks_and_countercase": {
+     "heading": "Risks and countercase",
+     "analysis": "A registry lists a seed financing entry for the company with unknown status, and the size of the reported round is undisclosed [S2]. The countercase is that the listing may not reflect money the company holds, so it cannot support a view on runway until primary financing records are obtained.",
+     "claims": [
+      {
+       "source_id": "S2",
+       "quote": "@S2",
+       "assertion": "The registry record lists a Seed entry for Example Labs with status unknown."
+      }
+     ]
+    }
+   },
+   "expected": {
+    "verdict": "revise",
+    "flag": {
+     "field": "risks_and_countercase",
+     "memo_span": "the size of the reported round is undisclosed",
+     "source_spans": {
+      "S2": "\"amount\":\"USD 100000\""
+     },
+     "kinds": [
+      "contradiction",
+      "unsupported"
+     ]
+    }
+   }
+  },
+  {
+   "id": "absent_amount_control",
+   "pair": "reported_amount_called_absent",
+   "variant": "control",
+   "sources": [
+    {
+     "id": "S2",
+     "url": "https://example.invalid/registry",
+     "title": "Financing registry",
+     "passage": "{\"entity\":\"Example Labs\",\"round\":\"Seed\",\"date\":\"2025-06\",\"status\":\"unknown\"}",
+     "version": "registry-version-1",
+     "attribution": "Synthetic registry"
+    }
+   ],
+   "memo_patch": {
+    "risks_and_countercase": {
+     "heading": "Risks and countercase",
+     "analysis": "A registry lists a seed financing entry for the company with unknown status, and the size of the reported round is undisclosed [S2]. The countercase is that the listing may not reflect money the company holds, so it cannot support a view on runway until primary financing records are obtained.",
+     "claims": [
+      {
+       "source_id": "S2",
+       "quote": "@S2",
+       "assertion": "The registry record lists a Seed entry for Example Labs with status unknown."
+      }
+     ]
+    }
+   },
+   "expected": {
+    "verdict": "no_material_defect"
+   }
+  },
+  {
+   "id": "verified_amount_defect",
+   "pair": "reported_vs_verified_amount",
+   "variant": "defect",
+   "memo_patch": {
+    "risks_and_countercase": {
+     "heading": "Risks and countercase",
+     "analysis": "A registry lists a seed financing entry [S2], and the company therefore closed the round and holds the cash to fund its clinic rollout. The countercase is limited to execution risk, since the financing itself is settled and the registry entry removes the question of whether capital is available for the plan.",
+     "claims": [
+      {
+       "source_id": "S2",
+       "quote": "@S2",
+       "assertion": "The registry record lists a Seed entry for Example Labs with status unknown."
+      }
+     ]
+    }
+   },
+   "expected": {
+    "verdict": "revise",
+    "flag": {
+     "field": "risks_and_countercase",
+     "memo_span": "closed the round and holds the cash",
+     "source_spans": {
+      "S2": "\"status\":\"unknown\""
+     },
+     "kinds": [
+      "unsupported",
+      "contradiction"
+     ]
+    }
+   }
+  },
+  {
+   "id": "verified_amount_control",
+   "pair": "reported_vs_verified_amount",
+   "variant": "control",
+   "memo_patch": {
+    "risks_and_countercase": {
+     "heading": "Risks and countercase",
+     "analysis": "A registry lists a seed financing entry with unknown status [S2]. The entry is a source report and does not show that the round closed or that the company holds the cash, so the countercase is that available capital may be lower than the listing implies until primary financing records are obtained.",
+     "claims": [
+      {
+       "source_id": "S2",
+       "quote": "@S2",
+       "assertion": "The registry record lists a Seed entry for Example Labs with status unknown."
+      }
+     ]
+    }
+   },
+   "expected": {
+    "verdict": "no_material_defect"
+   }
+  },
+  {
+   "id": "chronology_defect",
+   "pair": "reversed_stage_chronology",
+   "variant": "defect",
+   "sources": [
+    {
+     "id": "S2",
+     "url": "https://example.invalid/registry",
+     "title": "Financing registry",
+     "passage": "{\"company\":\"Example Labs\",\"label\":\"Series A\",\"date\":\"2024-03\",\"status\":\"unknown\"}",
+     "version": "registry-version-1",
+     "attribution": "Synthetic registry"
+    },
+    {
+     "id": "S3",
+     "url": "https://example.invalid/registry-later",
+     "title": "Financing registry",
+     "passage": "{\"company\":\"Example Labs\",\"label\":\"Seed\",\"date\":\"2025-06\",\"status\":\"unknown\"}",
+     "version": "registry-later-version-1",
+     "attribution": "Synthetic registry"
+    }
+   ],
+   "memo_patch": {
+    "risks_and_countercase": {
+     "heading": "Risks and countercase",
+     "analysis": "Registry entries list a seed round [S3] and a Series A round [S2], which shows the company progressed from seed to Series A and has a steady funding trajectory. The countercase is therefore narrow, because successive rounds indicate that investors have repeatedly backed the business over time.",
+     "claims": [
+      {
+       "source_id": "S2",
+       "quote": "@S2",
+       "assertion": "The registry lists a Series A entry for the company dated 2024-03 with status unknown."
+      },
+      {
+       "source_id": "S3",
+       "quote": "@S3",
+       "assertion": "The registry lists a Seed entry for the company dated 2025-06 with status unknown."
+      }
+     ]
+    }
+   },
+   "expected": {
+    "verdict": "revise",
+    "flag": {
+     "field": "risks_and_countercase",
+     "memo_span": "progressed from seed to Series A",
+     "source_spans": {
+      "S2": "\"date\":\"2024-03\"",
+      "S3": "\"date\":\"2025-06\""
+     },
+     "kinds": [
+      "contradiction",
+      "unsupported"
+     ]
+    }
+   }
+  },
+  {
+   "id": "chronology_control",
+   "pair": "reversed_stage_chronology",
+   "variant": "control",
+   "sources": [
+    {
+     "id": "S2",
+     "url": "https://example.invalid/registry",
+     "title": "Financing registry",
+     "passage": "{\"company\":\"Example Labs\",\"label\":\"Series A\",\"date\":\"2024-03\",\"status\":\"unknown\"}",
+     "version": "registry-version-1",
+     "attribution": "Synthetic registry"
+    },
+    {
+     "id": "S3",
+     "url": "https://example.invalid/registry-later",
+     "title": "Financing registry",
+     "passage": "{\"company\":\"Example Labs\",\"label\":\"Seed\",\"date\":\"2025-06\",\"status\":\"unknown\"}",
+     "version": "registry-later-version-1",
+     "attribution": "Synthetic registry"
+    }
+   ],
+   "memo_patch": {
+    "risks_and_countercase": {
+     "heading": "Risks and countercase",
+     "analysis": "Registry entries list a Series A round [S2] and a seed round [S3] whose reported dates are out of the conventional order. The discrepancy is unresolved and neither entry is confirmed, so the countercase is that the financing history cannot be relied on until primary dated financing records reconcile the listings.",
+     "claims": [
+      {
+       "source_id": "S2",
+       "quote": "@S2",
+       "assertion": "The registry lists a Series A entry for the company dated 2024-03 with status unknown."
+      },
+      {
+       "source_id": "S3",
+       "quote": "@S3",
+       "assertion": "The registry lists a Seed entry for the company dated 2025-06 with status unknown."
+      }
+     ]
+    }
+   },
+   "expected": {
+    "verdict": "no_material_defect"
+   }
+  },
+  {
+   "id": "stale_listing_defect",
+   "pair": "stale_listing_vs_newer_announcement",
+   "variant": "defect",
+   "sources": [
+    {
+     "id": "S2",
+     "url": "https://example.invalid/directory",
+     "title": "Startup directory",
+     "passage": "{\"entity\":\"Example Labs\",\"stage\":\"Seed\",\"listing_date\":\"2023-05\"}",
+     "version": "directory-version-1",
+     "attribution": "Synthetic directory"
+    },
+    {
+     "id": "S3",
+     "url": "https://example.invalid/notice",
+     "title": "Funding notice",
+     "passage": "Example Labs announced a Series B round in a notice dated 2025-09. The notice does not state whether the round has closed.",
+     "version": "notice-version-1",
+     "attribution": "Synthetic publisher"
+    }
+   ],
+   "memo_patch": {
+    "risks_and_countercase": {
+     "heading": "Risks and countercase",
+     "analysis": "A directory listing describes the company as a seed stage business [S2], so it is currently a seed stage prospect that fits an early mandate. The countercase is limited to execution, because the stage is clear and the listing gives no sign that the company has moved beyond its first institutional round.",
+     "claims": [
+      {
+       "source_id": "S2",
+       "quote": "@S2",
+       "assertion": "The directory lists Example Labs at Seed stage with a listing date of 2023-05."
+      }
+     ]
+    }
+   },
+   "expected": {
+    "verdict": "revise",
+    "flag": {
+     "field": "risks_and_countercase",
+     "memo_span": "it is currently a seed stage prospect",
+     "source_spans": {
+      "S3": "announced a Series B round",
+      "S2": "\"listing_date\":\"2023-05\""
+     },
+     "kinds": [
+      "contradiction",
+      "omission",
+      "unsupported"
+     ]
+    }
+   }
+  },
+  {
+   "id": "stale_listing_control",
+   "pair": "stale_listing_vs_newer_announcement",
+   "variant": "control",
+   "sources": [
+    {
+     "id": "S2",
+     "url": "https://example.invalid/directory",
+     "title": "Startup directory",
+     "passage": "{\"entity\":\"Example Labs\",\"stage\":\"Seed\",\"listing_date\":\"2023-05\"}",
+     "version": "directory-version-1",
+     "attribution": "Synthetic directory"
+    },
+    {
+     "id": "S3",
+     "url": "https://example.invalid/notice",
+     "title": "Funding notice",
+     "passage": "Example Labs announced a Series B round in a notice dated 2025-09. The notice does not state whether the round has closed.",
+     "version": "notice-version-1",
+     "attribution": "Synthetic publisher"
+    }
+   ],
+   "memo_patch": {
+    "risks_and_countercase": {
+     "heading": "Risks and countercase",
+     "analysis": "A directory listing describes the company as a seed stage business [S2], while a newer notice reports a Series B round whose closing is not stated [S3]. The countercase is that the company may already be beyond an early mandate, so the current stage stays open until primary financing records are obtained.",
+     "claims": [
+      {
+       "source_id": "S2",
+       "quote": "@S2",
+       "assertion": "The directory lists Example Labs at Seed stage with a listing date of 2023-05."
+      },
+      {
+       "source_id": "S3",
+       "quote": "Example Labs announced a Series B round in a notice dated 2025-09.",
+       "assertion": "A notice dated 2025-09 reports a Series B round for Example Labs."
+      }
+     ]
+    }
+   },
+   "expected": {
+    "verdict": "no_material_defect"
+   }
+  },
+  {
+   "id": "entity_defect",
+   "pair": "distinct_legal_entities",
+   "variant": "defect",
+   "sources": [
+    {
+     "id": "S2",
+     "url": "https://example.invalid/entity-sg",
+     "title": "Company registry",
+     "passage": "{\"entity\":\"Example Labs Pte Ltd\",\"jurisdiction\":\"Singapore\",\"product\":\"clinic scheduling software\"}",
+     "version": "entity-sg-version-1",
+     "attribution": "Synthetic registry"
+    },
+    {
+     "id": "S3",
+     "url": "https://example.invalid/entity-de",
+     "title": "Company registry",
+     "passage": "{\"entity\":\"Example Labs GmbH\",\"jurisdiction\":\"Germany\",\"product\":\"warehouse robotics\",\"contract\":\"supply agreement with a logistics group\"}",
+     "version": "entity-de-version-1",
+     "attribution": "Synthetic registry"
+    }
+   ],
+   "memo_patch": {
+    "risks_and_countercase": {
+     "heading": "Risks and countercase",
+     "analysis": "A registry record reports a supply agreement with a logistics group [S3], which shows the company has already signed a commercial customer. The countercase is therefore limited, because a signed agreement indicates demand and reduces the risk that the clinic product fails to find buyers.",
+     "claims": [
+      {
+       "source_id": "S3",
+       "quote": "@S3",
+       "assertion": "The registry record for Example Labs GmbH reports a supply agreement with a logistics group."
+      }
+     ]
+    }
+   },
+   "expected": {
+    "verdict": "revise",
+    "flag": {
+     "field": "risks_and_countercase",
+     "memo_span": "shows the company has already signed a commercial customer",
+     "source_spans": {
+      "S3": "\"entity\":\"Example Labs GmbH\"",
+      "S2": "\"entity\":\"Example Labs Pte Ltd\""
+     },
+     "kinds": [
+      "unsupported",
+      "contradiction"
+     ]
+    }
+   }
+  },
+  {
+   "id": "entity_control",
+   "pair": "distinct_legal_entities",
+   "variant": "control",
+   "sources": [
+    {
+     "id": "S2",
+     "url": "https://example.invalid/entity-sg",
+     "title": "Company registry",
+     "passage": "{\"entity\":\"Example Labs Pte Ltd\",\"jurisdiction\":\"Singapore\",\"product\":\"clinic scheduling software\"}",
+     "version": "entity-sg-version-1",
+     "attribution": "Synthetic registry"
+    },
+    {
+     "id": "S3",
+     "url": "https://example.invalid/entity-de",
+     "title": "Company registry",
+     "passage": "{\"entity\":\"Example Labs GmbH\",\"jurisdiction\":\"Germany\",\"product\":\"warehouse robotics\",\"contract\":\"supply agreement with a logistics group\"}",
+     "version": "entity-de-version-1",
+     "attribution": "Synthetic registry"
+    }
+   ],
+   "memo_patch": {
+    "risks_and_countercase": {
+     "heading": "Risks and countercase",
+     "analysis": "A registry record for a differently named entity in another jurisdiction reports a supply agreement with a logistics group [S3]. That record may describe a separate company, so the countercase is that it cannot be counted as demand for the clinic product until the legal identity is confirmed.",
+     "claims": [
+      {
+       "source_id": "S3",
+       "quote": "@S3",
+       "assertion": "The registry record for Example Labs GmbH reports a supply agreement with a logistics group."
+      }
+     ]
+    }
+   },
+   "expected": {
+    "verdict": "no_material_defect"
+   }
+  },
+  {
+   "id": "finances_defect",
+   "pair": "missing_finances",
+   "variant": "defect",
+   "sources": [
+    {
+     "id": "S2",
+     "passage": null
+    }
+   ],
+   "memo_patch": {
+    "risks_and_countercase": {
+     "heading": "Risks and countercase",
+     "analysis": "The site describes a pilot with a regional clinic group [S1], and the company has no revenue and no paying customers. The countercase is that the business is pre-commercial, so any valuation would rest entirely on the product concept and the team instead of on demonstrated demand.",
+     "claims": [
+      {
+       "source_id": "S1",
+       "quote": "Example Labs describes a scheduling tool for clinics and a pilot with a regional clinic group. The page does not report revenue, customer counts or retention.",
+       "assertion": "The company site describes a clinic pilot and does not report revenue, customer counts or retention."
+      }
+     ]
+    }
+   },
+   "expected": {
+    "verdict": "revise",
+    "flag": {
+     "field": "risks_and_countercase",
+     "memo_span": "the company has no revenue and no paying customers",
+     "source_spans": {
+      "S1": "does not report revenue"
+     },
+     "kinds": [
+      "unsupported",
+      "contradiction"
+     ]
+    }
+   }
+  },
+  {
+   "id": "finances_control",
+   "pair": "missing_finances",
+   "variant": "control",
+   "sources": [
+    {
+     "id": "S2",
+     "passage": null
+    }
+   ],
+   "memo_patch": {
+    "risks_and_countercase": {
+     "heading": "Risks and countercase",
+     "analysis": "The site describes a pilot with a regional clinic group [S1], and the page does not report revenue, customer counts or retention. The countercase is that commercial traction is unknown and not shown to be absent, so the financial position stays open until company accounts are obtained.",
+     "claims": [
+      {
+       "source_id": "S1",
+       "quote": "Example Labs describes a scheduling tool for clinics and a pilot with a regional clinic group. The page does not report revenue, customer counts or retention.",
+       "assertion": "The company site describes a clinic pilot and does not report revenue, customer counts or retention."
+      }
+     ]
+    }
+   },
+   "expected": {
+    "verdict": "no_material_defect"
+   }
+  },
+  {
+   "id": "status_conflict_defect",
+   "pair": "contradictory_source",
+   "variant": "defect",
+   "sources": [
+    {
+     "id": "S2",
+     "url": "https://example.invalid/status-early",
+     "title": "Company registry",
+     "passage": "{\"entity\":\"Example Labs\",\"operating_status\":\"active\",\"as_of\":\"2025-01\"}",
+     "version": "status-early-version-1",
+     "attribution": "Synthetic registry"
+    },
+    {
+     "id": "S3",
+     "url": "https://example.invalid/status-later",
+     "title": "Company registry",
+     "passage": "{\"entity\":\"Example Labs\",\"operating_status\":\"dissolved\",\"as_of\":\"2026-02\"}",
+     "version": "status-later-version-1",
+     "attribution": "Synthetic registry"
+    }
+   ],
+   "memo_patch": {
+    "risks_and_countercase": {
+     "heading": "Risks and countercase",
+     "analysis": "A registry record reports the company as active [S2], so the business is operating and able to deliver the clinic pilot. The countercase is limited to commercial risk, because the operating status is settled and gives no reason to doubt that the company continues to trade.",
+     "claims": [
+      {
+       "source_id": "S2",
+       "quote": "@S2",
+       "assertion": "The registry record reports Example Labs as active as of 2025-01."
+      }
+     ]
+    }
+   },
+   "expected": {
+    "verdict": "revise",
+    "flag": {
+     "field": "risks_and_countercase",
+     "memo_span": "the business is operating",
+     "source_spans": {
+      "S3": "\"operating_status\":\"dissolved\""
+     },
+     "kinds": [
+      "contradiction",
+      "omission"
+     ]
+    }
+   }
+  },
+  {
+   "id": "status_conflict_control",
+   "pair": "contradictory_source",
+   "variant": "control",
+   "sources": [
+    {
+     "id": "S2",
+     "url": "https://example.invalid/status-early",
+     "title": "Company registry",
+     "passage": "{\"entity\":\"Example Labs\",\"operating_status\":\"active\",\"as_of\":\"2025-01\"}",
+     "version": "status-early-version-1",
+     "attribution": "Synthetic registry"
+    },
+    {
+     "id": "S3",
+     "url": "https://example.invalid/status-later",
+     "title": "Company registry",
+     "passage": "{\"entity\":\"Example Labs\",\"operating_status\":\"dissolved\",\"as_of\":\"2026-02\"}",
+     "version": "status-later-version-1",
+     "attribution": "Synthetic registry"
+    }
+   ],
+   "memo_patch": {
+    "risks_and_countercase": {
+     "heading": "Risks and countercase",
+     "analysis": "A registry record reports the company as active [S2], while a later record reports it as dissolved [S3]. The records conflict and neither is confirmed, so the countercase is that the company may no longer trade, and the operating status stays open until a primary registry extract is obtained.",
+     "claims": [
+      {
+       "source_id": "S2",
+       "quote": "@S2",
+       "assertion": "The registry record reports Example Labs as active as of 2025-01."
+      },
+      {
+       "source_id": "S3",
+       "quote": "@S3",
+       "assertion": "The registry record reports Example Labs as dissolved as of 2026-02."
+      }
+     ]
+    }
+   },
+   "expected": {
+    "verdict": "no_material_defect"
+   }
+  },
+  {
+   "id": "absent_amount_claim_defect",
+   "pair": "reported_amount_called_absent_in_claim",
+   "variant": "defect",
+   "memo_patch": {
+    "risks_and_countercase": {
+     "heading": "Risks and countercase",
+     "analysis": "A registry lists a seed financing entry with unknown status [S2]. The entry is a source report and does not show that the round closed or that the company holds the cash, so the countercase is that available capital may be lower than the listing implies until primary financing records are obtained.",
+     "claims": [
+      {
+       "source_id": "S2",
+       "quote": "@S2",
+       "assertion": "The registry record lists a Seed entry for Example Labs and does not disclose the round amount."
+      }
+     ]
+    }
+   },
+   "expected": {
+    "verdict": "revise",
+    "flag": {
+     "field": "risks_and_countercase",
+     "location": "claim",
+     "memo_span": "does not disclose the round amount",
+     "source_spans": {
+      "S2": "\"amount\":\"USD 100000\""
+     },
+     "kinds": [
+      "contradiction",
+      "unsupported"
+     ]
+    }
+   }
+  },
+  {
+   "id": "absent_amount_claim_control",
+   "pair": "reported_amount_called_absent_in_claim",
+   "variant": "control",
+   "sources": [
+    {
+     "id": "S2",
+     "url": "https://example.invalid/registry",
+     "title": "Financing registry",
+     "passage": "{\"entity\":\"Example Labs\",\"round\":\"Seed\",\"date\":\"2025-06\",\"status\":\"unknown\"}",
+     "version": "registry-version-1",
+     "attribution": "Synthetic registry"
+    }
+   ],
+   "memo_patch": {
+    "risks_and_countercase": {
+     "heading": "Risks and countercase",
+     "analysis": "A registry lists a seed financing entry with unknown status [S2]. The entry is a source report and does not show that the round closed or that the company holds the cash, so the countercase is that available capital may be lower than the listing implies until primary financing records are obtained.",
+     "claims": [
+      {
+       "source_id": "S2",
+       "quote": "@S2",
+       "assertion": "The registry record lists a Seed entry for Example Labs and does not disclose the round amount."
+      }
+     ]
+    }
+   },
+   "expected": {
+    "verdict": "no_material_defect"
+   }
+  }
+ ]
+}

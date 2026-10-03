@@ -50,7 +50,7 @@ import re
 from pathlib import Path
 from typing import Optional
 
-import ollama
+from agents.inference.local_ollama import local_chat
 
 from agents.core.review_checkpoint import is_ready_for_compilation
 from schemas import ChartArtifact, ExtractionResult, FieldStatus, MemoVersion, ResearchFinding
@@ -137,6 +137,7 @@ def _funding_history_data(result: ExtractionResult) -> dict:
             {
                 "round_name": r.round_name, "amount": r.amount, "date": r.date,
                 "lead_investor": r.lead_investor, "source_block_id": r.source_block_id,
+                "unit": r.unit,
             }
             for r in result.funding_history
         ] if available else [],
@@ -176,7 +177,7 @@ def _generate_narrative_summary(result: ExtractionResult) -> Optional[str]:
         f"Data available (do not restate the numbers): {approved_categories}."
     )
     try:
-        response = ollama.chat(
+        response = local_chat(
             model=SUMMARY_MODEL,
             messages=[{"role": "user", "content": prompt}],
             options={"temperature": 0},
@@ -254,7 +255,7 @@ def _render_scalar_line(field: dict) -> str:
         return f"- **{field['label']}:** Not disclosed"
     value = (
         f"${field['value']:,.0f}" if field["unit"] == "USD"
-        else f"{field['value']}{(' ' + field['unit']) if field['unit'] else ''}"
+        else f"{field['value']}{(' ' + field['unit']) if field['unit'] else ' (unit not established)'}"
     )
     edited = " _(reviewer-edited)_" if field["edited"] else ""
     source = f" `[source: {field['source_block_id']}, page {field['source_page']}]`" if field["show_source"] else ""
@@ -277,12 +278,20 @@ def _render_funding_history(data: dict) -> str:
         return "_No approved funding history for this memo._"
     lines = ["| Round | Amount | Date | Lead Investor | Source |", "| --- | --- | --- | --- | --- |"]
     for r in data["rounds"]:
-        amount = f"${r['amount']:,.0f}" if r["amount"] is not None else "-"
+        amount = _format_money(r['amount'], r.get('unit')) if r["amount"] is not None else "-"
         lines.append(
             f"| {r['round_name'] or '-'} | {amount} | {r['date'] or '-'} | "
             f"{r['lead_investor'] or '-'} | `{r['source_block_id']}` |"
         )
     return "\n".join(lines)
+
+
+def _format_money(value: float, unit: Optional[str]) -> str:
+    if unit == 'USD':
+        return f'${value:,.0f}'
+    if unit:
+        return f'{value:,.0f} {unit}'
+    return f'{value:,.0f} (currency/scale not established)'
 
 
 def _render_external_signals(items: list[dict]) -> str:
@@ -472,6 +481,13 @@ def generate_proforma_projection(
     visual treatment off the data, not off convention."""
     if result.arr.status not in APPROVED or result.arr.value is None:
         raise CompilationBlockedError("Cannot build a pro-forma model without an approved ARR figure.")
+    unit = result.arr.unit
+    if not unit:
+        raise CompilationBlockedError('Cannot project ARR with an unknown currency or scale.')
+    for field in ('cash_on_hand', 'burn_monthly'):
+        value = getattr(result, field)
+        if value.status in APPROVED and value.value is not None and value.unit != unit:
+            raise CompilationBlockedError(f'Cannot combine {field} with ARR across unknown or different currencies/scales.')
 
     assumptions: list[str] = []
     growth_rate = annual_growth_rate_pct_override
@@ -486,14 +502,14 @@ def generate_proforma_projection(
 
     burn = result.burn_monthly.value if result.burn_monthly.status in APPROVED else None
     if burn is not None:
-        assumptions.append(f"Monthly burn held constant at ${burn:,.0f}/month (no efficiency-curve assumption).")
+        assumptions.append(f"Monthly burn held constant at {_format_money(burn, unit)}/month (no efficiency-curve assumption).")
     else:
         assumptions.append("No approved monthly burn -- cash runway is not projected.")
     assumptions.append("No additional funding round modeled during the projection period.")
 
     rows = []
     arr = result.arr.value
-    cash = result.cash_on_hand.value if result.cash_on_hand.status in APPROVED else None
+    cash = result.cash_on_hand.value if result.cash_on_hand.status in APPROVED and burn is not None else None
     runs_out_year: Optional[int] = None
     for year in range(years + 1):
         if year > 0:
@@ -514,10 +530,13 @@ def generate_proforma_projection(
             "-- an additional funding round would be needed before then."
         )
 
-    return {"assumptions": assumptions, "rows": rows, "growth_rate_pct": growth_rate, "is_projected": True}
+    return {"assumptions": assumptions, "rows": rows, "growth_rate_pct": growth_rate,
+            "money_unit": unit, "is_projected": True}
 
 
 def render_proforma_markdown(result: ExtractionResult, projection: dict, version_number: int = 1) -> str:
+    if projection.get('money_unit') != result.arr.unit or not result.arr.unit:
+        raise CompilationBlockedError('Projection currency/scale no longer matches the approved ARR source.')
     lines = [
         f"# Pro-Forma Financial Model — {result.deal_id}",
         "",
@@ -538,8 +557,8 @@ def render_proforma_markdown(result: ExtractionResult, projection: dict, version
     lines.append("| Year | Projected ARR | Projected Cash on Hand |")
     lines.append("| --- | --- | --- |")
     for row in projection["rows"]:
-        arr_str = f"${row['arr']:,.0f}"
-        cash_str = f"${row['cash_on_hand']:,.0f}" if row["cash_on_hand"] is not None else "not projected"
+        arr_str = _format_money(row['arr'], projection['money_unit'])
+        cash_str = _format_money(row['cash_on_hand'], projection['money_unit']) if row["cash_on_hand"] is not None else "not projected"
         lines.append(f"| Year {row['year']} | {arr_str} | {cash_str} |")
 
     return "\n".join(lines)

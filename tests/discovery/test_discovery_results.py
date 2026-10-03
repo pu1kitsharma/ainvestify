@@ -120,13 +120,31 @@ def test_run_results_exclude_history_and_keep_evidence_snapshot(tmp_path):
         app.dependency_overrides.update(original)
 
 
-def test_candidates_are_published_before_model_work_and_survive_model_failure(tmp_path):
+def test_screened_candidates_are_published_before_assessment_and_survive_assessment_failure(tmp_path):
     with Store(tmp_path / 'db') as store:
         run = WebSourcingRun(tenant_id='one', thesis='tech startups', geography='India', model='test')
         class Model:
             name = 'test'
             def generate(self, instruction, evidence, schema):
-                # Public records must already be visible when planning starts.
+                from agents.research.research_reasoning import ResearchPlan, Screening
+                from agents.discovery.web_discovery import SearchPlan
+                import json
+                if schema is ResearchPlan:
+                    return ResearchPlan(interpretation='Technology company discovery',
+                        sector_terms=['technology'], criteria=[dict(dimension='sector',
+                        requirement='Technology business', evidence_needed='Offering')],
+                        queries=['technology startup companies'], follow_up_terms=['offering'])
+                if issubclass(schema, Screening):
+                    data = json.loads(evidence)
+                    return Screening(candidates=[dict(candidate_id=p['candidate_id'], priority=1,
+                        reason='Source describes the company', criteria=[dict(dimension=c['dimension'],
+                        status='supported' if c['dimension']=='sector' else 'unknown',
+                        reason='Offering is source reported' if c['dimension']=='sector' else 'Needs further review',
+                        evidence_ids=[next(e['id'] for e in p['evidence'] if e['field']=='offering')])
+                        for c in data['plan']['criteria']]) for p in data['candidates']])
+                if schema is SearchPlan:
+                    return SearchPlan(queries=['technology startup companies'])
+                # Candidates must be visible before assessment or enrichment.
                 saved = store.get_web_run('one', run.id)
                 assert len(saved.lead_ids) == 1
                 assert saved.company_profiles[0].name == 'Candidate'

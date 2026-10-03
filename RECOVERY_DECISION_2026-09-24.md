@@ -1,5 +1,8 @@
 # Recovery decision — 24 September 2026
 
+> Historical context: current instructions are in [AGENTS.md](AGENTS.md) and the [local-to-cloud plan](LOCAL_TO_CLOUD_RELEASE_PLAN.md). Older scope/provider/deployment statements below are superseded where they conflict. Preserve the historical evidence.
+
+
 > **Latest decision:** The user explicitly approved **“Use Claude Pro for public-evidence drafts.”** The app now uses the official signed-in CLI for that limited scope. Private records/context and storage remain local; no API-key fallback or AWS service was configured. See [handoff §29](SESSION_HANDOFF.md#public-pro-working-path) and the [complete run history](evals/investment_preparation/section-workflows/generation-quality-2026-09-24/README.md). Earlier proposals and local-only statements below preserve history and do not override this approval.
 
 > **Later user clarification:** the intended product keeps company context and inference local to avoid recurring API billing. The user has Claude Pro and wants to use that where possible. The paid-model/search proposal below is retained as researched history, not an approved implementation direction. See the amendment at the end. No provider was enabled.

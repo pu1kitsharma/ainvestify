@@ -1,25 +1,17 @@
 """
-FastAPI app entry point (plan §2). Local-only for this phase -- no auth,
-no deployment config, CORS opened for a local Vite dev server only.
+FastAPI app with server-side OIDC sessions and private artifact gateways.
 
-Run with: uvicorn api.main:app --reload
+Run with: python scripts/serve_local.py (no reload or callback URL access logging).
 """
 from contextlib import asynccontextmanager
-from pathlib import Path
 
 import anyio.to_thread
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
+from api.deps import get_tenant_id
 
 from api.routers import compilation, dashboard, deals, investors, leads, operations, prompt, research, review
-
-# agents/core/analytics_agent.py writes chart PNGs to memo_output/{deal_id}/charts/
-# and stores that relative path as ChartArtifact.storage_uri (and inside a
-# compiled document's structured_data). Until this mount, that path was a
-# real file on disk with no HTTP route to it at all -- the Documents tab's
-# <img src="/memo_output/..."> would have silently 404'd forever.
-MEMO_OUTPUT_ROOT = Path(__file__).parent.parent / "memo_output"
+from api.routers import auth, rooms
 
 # Every sync `def` endpoint/dependency in this app (all of them -- see
 # api/deps.get_store's own docstring on why sqlite3 needs that) runs via
@@ -79,7 +71,8 @@ app = FastAPI(
         "inferred from a typical value. Human review/sign-off is mandatory before any document "
         "is finalized. This system does not itself contact investors, negotiate terms, or run "
         "a raise -- that stays a human-led activity.\n\n"
-        "Phase 0: local-only, no auth, CORS open only to the local Vite dev server."
+        "Local runtime with OIDC sessions, private rooms and durable room jobs. "
+        "Production artifact release remains blocked until all mandatory checks pass."
     ),
     version="0.1.0",
     openapi_tags=TAGS_METADATA,
@@ -93,21 +86,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(dashboard.router)
-app.include_router(deals.router)
-app.include_router(review.router)
-app.include_router(research.router)
-app.include_router(investors.router)
-app.include_router(leads.router)
-app.include_router(operations.router)
-app.include_router(prompt.router)
-app.include_router(compilation.router)
+app.include_router(auth.router)
+app.include_router(rooms.router)
+for protected in (dashboard, deals, review, research, investors, leads, operations, prompt, compilation):
+    app.include_router(protected.router, dependencies=[Depends(get_tenant_id)])
 
-# check_dir=False: memo_output/ is created lazily by the first chart/memo
-# compile, not guaranteed to exist at app startup (e.g. right after `rm -rf
-# memo_output` during test cleanup) -- StaticFiles would otherwise refuse to
-# mount at all until the directory existed.
-app.mount("/memo_output", StaticFiles(directory=str(MEMO_OUTPUT_ROOT), check_dir=False), name="memo_output")
+# No public static route for private artifacts. Legacy URLs now return 404.
+
+
+@app.middleware("http")
+async def private_response_headers(request, call_next):
+    response = await call_next(request)
+    if request.url.path.startswith("/api/"):
+        response.headers["Cache-Control"] = "no-store"
+        response.headers["Referrer-Policy"] = "no-referrer"
+        response.headers["X-Content-Type-Options"] = "nosniff"
+    return response
 
 
 @app.get("/api/health", tags=["health"])

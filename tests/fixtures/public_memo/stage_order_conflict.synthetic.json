@@ -1,0 +1,40 @@
+{
+  "classification": "synthetic",
+  "rights_reviewed": true,
+  "company": "Harborline Systems",
+  "as_of_date": "2026-10-03",
+  "sources": [
+    {
+      "id": "S1",
+      "url": "https://example.invalid/harborline/product",
+      "title": "Synthetic company product statement",
+      "passage": "Harborline Systems states that it builds scheduling software for small freight operators. This company statement provides no independently verified customer count, revenue, contracts, or deployment results.",
+      "version": "synthetic-product-v1",
+      "attribution": "Synthetic company fixture"
+    },
+    {
+      "id": "S2",
+      "url": "https://example.invalid/harborline/financing/pre-seed",
+      "title": "Synthetic financing registry Pre-Seed entry",
+      "passage": "{\"company\":\"Harborline Systems\",\"label\":\"Pre-Seed\",\"date\":\"2026-07\",\"date_precision\":\"month\",\"amount\":\"INR 4 crore\",\"status\":\"unknown\",\"evidence_status\":\"registry source-reported\"}",
+      "version": "synthetic-pre-seed-v1",
+      "attribution": "Synthetic registry fixture"
+    },
+    {
+      "id": "S3",
+      "url": "https://example.invalid/harborline/financing/series-a",
+      "title": "Synthetic financing registry Series A entry",
+      "passage": "{\"company\":\"Harborline Systems\",\"label\":\"Series A\",\"date\":\"2026-06\",\"date_precision\":\"month\",\"amount\":\"INR 20 crore\",\"status\":\"unknown\",\"evidence_status\":\"registry source-reported\"}",
+      "version": "synthetic-series-a-v1",
+      "attribution": "Synthetic registry fixture"
+    },
+    {
+      "id": "S4",
+      "url": "https://example.invalid/harborline/financing/seed",
+      "title": "Synthetic financing registry Seed entry",
+      "passage": "{\"company\":\"Harborline Systems\",\"label\":\"Seed\",\"date\":\"2025-10\",\"date_precision\":\"month\",\"amount\":\"INR 8 crore\",\"status\":\"unknown\",\"evidence_status\":\"registry source-reported\"}",
+      "version": "synthetic-seed-v1",
+      "attribution": "Synthetic registry fixture"
+    }
+  ]
+}

@@ -482,11 +482,12 @@ def test_private_metric_import_recalculates_without_regenerating_public_drafts(t
 
 def test_discovery_continuation_carries_exclusions_and_enforces_tenant(tmp_path):
     import api.routers.leads as api
+    from agents.discovery.eligibility import GLOBAL_POLICY
     from api.models import WebSourceRequest
     from schemas import WebSourcingRun
     with Store(tmp_path/'db') as store:
         lead=company(store)
-        previous=WebSourcingRun(tenant_id='one',thesis='hotel operators',status='completed',model='fixture',company_profiles=[lead.company_profile],generation_config={'exclude_names':['Earlier Hotel']})
+        previous=WebSourcingRun(tenant_id='one',thesis='hotel operators',geography=None,status='completed',model='fixture',company_profiles=[lead.company_profile],generation_config={'discovery_policy':GLOBAL_POLICY,'exclude_names':['Earlier Hotel']})
         store.save_web_run(previous)
         body=WebSourceRequest(thesis=previous.thesis,continuation_of=previous.id,prepare_workflow=False)
         with pytest.raises(HTTPException) as denied:api.start_web_run(body,BackgroundTasks(),store,'other')
@@ -505,6 +506,23 @@ def test_discovery_continuation_carries_exclusions_and_enforces_tenant(tmp_path)
             assert api.web_run_leads(run.id,store,'one',include_previous=True)==[]
         finally:
             api._web_slot.release()  # Do not start a network job in this test.
+
+
+def test_historical_discovery_cannot_continue_and_releases_job_slot(tmp_path):
+    import api.routers.leads as api
+    from api.models import WebSourceRequest
+    from schemas import WebSourcingRun
+    with Store(tmp_path/'db') as store:
+        previous=WebSourcingRun(tenant_id='one',thesis='hotel operators',status='completed',model='fixture')
+        store.save_web_run(previous)
+        tasks=BackgroundTasks()
+        with pytest.raises(HTTPException) as denied:
+            api.start_web_run(WebSourceRequest(thesis=previous.thesis,continuation_of=previous.id),tasks,store,'one')
+        assert denied.value.status_code==422
+        assert tasks.tasks==[]
+        assert api._web_slot.acquire(blocking=False)
+        api._web_slot.release()
+        assert store.get_web_run('one',previous.id)==previous
 
 
 def test_malformed_saved_review_is_repaired_without_losing_or_rewriting_candidate(tmp_path):

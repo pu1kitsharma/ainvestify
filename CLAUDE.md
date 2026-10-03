@@ -1,5 +1,8 @@
 # Deal Automation System — Project Context
 
+> Historical context: current instructions are in [AGENTS.md](AGENTS.md) and the [local-to-cloud plan](LOCAL_TO_CLOUD_RELEASE_PLAN.md). Older scope/provider/deployment statements below are superseded where they conflict. Preserve the historical evidence.
+
+
 > **Latest, 30 September — codebase restructure and README/API documentation:** `agents/` and `tests/` were reorganized from flat 50-file directories into subpackages by concern (`core/`, `discovery/`, `research/`, `preparation/`, `analysis/`, `inference/`); see the updated "Files in this project" list below for the current module map. This is a structural change only — full offline test suite verified against the pre-reorg baseline with zero behavior change (same 2 pre-existing failures, both unrelated to this change). `README.md` was rewritten with a complete API reference for every router. Does not supersede any product/model decision recorded elsewhere in this file.
 
 > **Latest, 26 September — discovery breadth and identity:** Read [handoff §35](SESSION_HANDOFF.md#discovery-breadth-and-identity) and the [live ledger](evals/investment_preparation/section-workflows/discovery-breadth-2026-09-26/README.md). The hidden five-company cap is removed; targets are configurable and results save in batches. Retained source checkpoints support continuation. Two live agrotech runs produced 18 distinct results; known duplicates now group with preserved record links. Ambiguous identities use recorded public-evidence model decisions, never company-specific alias code. Analysis-quality limits remain. Check active jobs before restart.

@@ -135,21 +135,32 @@ def ingest_excel(path: str, tenant_id: str, deal_id: str) -> Document:
         storage_uri=str(xlsx_path.resolve()),
     )
 
-    workbook = openpyxl.load_workbook(str(xlsx_path), data_only=True)
-    for sheet in workbook.worksheets:
-        for row in sheet.iter_rows():
-            cells = {cell.coordinate: cell.value for cell in row if cell.value is not None}
-            if not cells:
-                continue
-            row_number = row[0].row
-            document.blocks.append(DocBlock(
-                id=new_id("blk"),
-                document_id=document.id,
-                page=1,  # sheets don't paginate; sheet name carries the location instead
-                block_type=BlockType.TABLE,
-                coordinates={"sheet": sheet.title, "row": row_number},
-                content=cells,
-            ))
+    from delivery.inspection import inspect_bytes
+    from delivery.storage import MAX_FILE_BYTES
+    if xlsx_path.stat().st_size > MAX_FILE_BYTES:
+        raise ValueError("Workbook exceeds the supported input size")
+    document.workbook_inventory = inspect_bytes(xlsx_path.read_bytes(), "xlsx")
+    if any(f["code"] == "invalid_or_unsupported_file" for f in document.workbook_inventory["findings"]):
+        raise ValueError("Workbook package is invalid or outside safe inspection limits")
+    # Keep the existing cached-value citation blocks for compatibility, alongside
+    # a separate formula/cache/hidden-sheet inventory. Neither evaluates formulas.
+    workbook = openpyxl.load_workbook(str(xlsx_path), data_only=True, read_only=True, keep_links=False)
+    try:
+        for sheet in workbook.worksheets:
+            if sheet.max_row and sheet.max_column and sheet.max_row * sheet.max_column > 1_000_000:
+                raise ValueError("Worksheet dimensions exceed supported inspection limits")
+            for row_number, row in enumerate(sheet.iter_rows(), start=1):
+                cells = {cell.coordinate: cell.value for cell in row if cell.value is not None}
+                if not cells:
+                    continue
+                document.blocks.append(DocBlock(
+                    id=new_id("blk"), document_id=document.id, page=1,
+                    block_type=BlockType.TABLE,
+                    coordinates={"sheet": sheet.title, "row": row_number, "visibility": sheet.sheet_state},
+                    content=cells,
+                ))
+    finally:
+        workbook.close()
 
     return document
 

@@ -145,7 +145,7 @@ export interface SourcedLead {
 }
 
 export interface WebSourcingRun {
-  generation_config?: { continuation_of?: string; exclude_names?: string[]; requested_companies?: number };
+  generation_config?: { continuation_of?: string; exclude_names?: string[]; requested_companies?: number; discovery_policy?: string; eligibility_exclusions?: { name: string; reason: string }[] };
   id: string;
   thesis: string;
   geography: string | null;

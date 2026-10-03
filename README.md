@@ -1,37 +1,166 @@
 # ainvestify
 
-An AI-driven, multi-agent system for sourcing and incubating early-stage companies, then helping them raise institutional funding — the way a boutique investment bank packages a raise, not a fund screening deals for its own book.
+An AI-driven, multi-agent system for worldwide startup discovery, company research and due diligence, evidence-backed investment suggestions, and preparation of investor materials for fundraising. It supports both investors evaluating opportunities and companies preparing a raise.
 
-Lifecycle: **source** candidate companies → a human **promotes** a lead into a deal → **ingest** the company's own documents → **extract** structured metrics with mandatory citations → **human review** → **research** external corroboration → **compile** a cited, reviewable document suite (CIM / teaser / pro-forma). A parallel **operations** track takes a sourced-but-not-yet-promoted lead through AI-prepared research, founder outreach and investment-readiness drafts, all evidence-cited and human-reviewed.
+Lifecycle: **discover** candidates → **follow** permitted company and announcement sources → **reconcile** identity, funding and status history → **perform due diligence** on market, product, team, finances and risks → **review** an evidence-backed investment suggestion → **promote** a company into a deal room → **prepare** cited, reviewable investor materials. The existing discovery and room workflows implement only parts of this lifecycle; the full diligence and recommendation gate is not accepted.
 
-Every extracted numeric field carries a source citation or stays `null` — never inferred from a "typical" value. Human review/sign-off is mandatory before any document is finalized. This system does not itself contact investors, negotiate terms, or run a raise — that stays a human-led activity.
+Every substantive numeric claim must carry traceable evidence or remain explicitly
+missing/illustrative; a typical value cannot become a company fact. Human
+review/sign-off is mandatory before a document is released. This system does
+not contact investors, negotiate terms or run a raise.
 
-**Status:** Phase 0 — local, CPU-only validation, zero cloud spend. **[CLAUDE.md](CLAUDE.md)** carries the current, dated status log (what's built, what's validated, what's known-broken) and is the source of truth for "is X working right now" — it is not duplicated here because a second copy of that log would just drift out of sync. Read it, and [SESSION_HANDOFF.md](SESSION_HANDOFF.md) for full session-by-session detail, before assuming any feature described below is production-quality.
+**Status (4 October 2026): not production-ready.** Start with [AGENTS.md](AGENTS.md),
+then [NEXT_AGENT.md](NEXT_AGENT.md) for the latest tested-code/live-acceptance split.
+Historical success notices do not establish current investment quality.
+
+The installed local `qwen3.5:9b` produced synthetic intro and pitch PPTX/PDF pairs
+and an IM DOCX/PDF pair that passed structural and text-pair checks. The last completed live
+semantic material review remains blocked by wrong-source selections, and visual
+inspection found sparse slides and a dense memo. These are diagnostic outputs,
+not accepted investor materials. Code tests, PDF text parity and a passing
+model self-review cannot replace independent content, financial and visual review.
+
+## Current plans
+
+- [Local-to-cloud release plan](LOCAL_TO_CLOUD_RELEASE_PLAN.md): controlling product,
+  architecture, milestones, mandatory artifact validation and later private AWS.
+- [Financial projections](FINANCIAL_PROJECTIONS_PLAN.md): supplied models, formulas,
+  recalculation, estimates and scenario XLSX.
+- [Public knowledge base](deployment/PUBLIC_KNOWLEDGE_BASE_PLAN.md): source rights,
+  incremental collection, Elasticsearch and evidence reuse.
+
+The active public KB is a narrow rights-approved pilot: six StartupDB company
+detail sources with 23 publisher-reported funding observations, all with unknown
+round-completion status. Its source registry, collection, immutable staging,
+structured claim projection and Elasticsearch passage sink are implemented.
+MCA Company Master Data/OGD identity import, startups.gallery scheduling and
+broad worldwide coverage are not enabled. A discovery lead or historical funding
+observation is preliminary, never a diligence-complete investment suggestion.
+
+Product scope is worldwide and follows the user's investment brief. India
+pre-seed/seed remains a pilot regression case. The required material set is an
+editable intro deck, pitch deck and investment memorandum, each with a matching
+PDF. A projection XLSX is conditional on a supplied company model or an explicit
+request backed by sufficient reviewed inputs. Missing financials must be disclosed;
+forecasts and financial charts cannot be invented. Implement locally first and
+qualify private self-hosted cloud inference later. The runtime records exported-file
+inspection and enforces exact-package release/download checks. Missing mandatory
+validators block final release.
+
+The target core experience is a deal room that automatically prepares evidence,
+financials and materials upon activation. The public KB supports both discovery
+and room research; private uploads stay isolated. Every substantive output must
+have traceable evidence, calculations or explicitly supported forecast assumptions.
+Google OIDC sign-in, opaque server sessions and private sandbox provisioning are
+implemented. Client registration is still required for live login. Tenant/reviewer
+headers no longer authenticate requests, and the public artifact mount is removed.
+Legacy data is not assigned to the first registrant. See handoff §48 for the exact
+implementation and qualification limits; full L1 acceptance is not claimed.
 
 ## Setup
 
+Preparation now defaults to local inference without hosted fallback. The
+[public research setup](deployment/PUBLIC_RESEARCH_SETUP.md) describes a
+historical optional adapter, not the target self-hosted KB. No AWS deployment or
+live investment-quality acceptance is implied.
+
+For Google login, register a **Web application** OAuth client with Google and set
+`OIDC_CLIENT_ID` and `OIDC_CLIENT_SECRET` in the backend environment, outside source
+control. The issuer defaults to `https://accounts.google.com`; only identity scopes
+are requested. Never paste the secret into chat or commit it.
+
+Set `APP_ORIGIN` to the exact frontend origin. The registered callback is always
+`<APP_ORIGIN>/api/auth/callback`. Prefer trusted local HTTPS. For explicitly isolated
+loopback development only, use `APP_ENV=development`, `ALLOW_LOOPBACK_HTTP=1` and
+`APP_ORIGIN=http://127.0.0.1:5173` when using `--local-dev`, and register
+`http://127.0.0.1:5173/api/auth/callback` with Google. Temporary local login
+accepts either `127.0.0.1:5173` or `localhost:5173`; Google login uses the
+canonical `127.0.0.1` callback. Non-loopback HTTP and relaxed production settings
+are rejected. This is sign-in only, not Google Drive access.
+
+Use the project environment: `source .venv/bin/activate` (or create it first with
+`python3 -m venv .venv` and install requirements). `scripts/serve_local.py` now starts
+one separate durable room worker; `--without-worker` is available when supervising
+`scripts/run_room_worker.py --watch` separately. Access logging is disabled to keep
+callback codes out of URL logs. The API remains on loopback without reload.
+Do not run a worker against the live DB until ownership and local configuration
+are intentional. New authenticated users start with empty sandboxes; no automatic
+legacy ownership migration exists.
+For the local Vite frontend, start the backend with
+`.venv/bin/python scripts/serve_local.py --local-dev --without-worker` while
+ownership is unverified. This sets only the explicit loopback development origin;
+Google OAuth client credentials still need to be supplied securely in the backend
+environment.
+
+The `--local-dev` option also enables a **temporary user ID/password** sign-in
+choice on the local login screen. It is restricted to loopback development and
+is unavailable in production. Create a fresh isolated sandbox with
+`APP_ENV=development ALLOW_LOOPBACK_HTTP=1 LOCAL_DEV_PASSWORD_LOGIN=1 APP_ORIGIN=http://127.0.0.1:5173 .venv/bin/python scripts/create_local_dev_user.py --user-id temporary`.
+The script prints a mode-0600 local credential-file path; it never prints the
+password to routine server logs. Keep that file private. Passwords are stored
+as salted PBKDF2 verifiers and session/CSRF tokens only as hashes in SQLite.
+This temporary login does not satisfy the OIDC release requirement or migrate
+any legacy data into the new sandbox.
+
+Room activation is exposed at `POST /api/rooms/from-lead/{lead_id}/activate`; direct
+entry uses `POST /api/rooms`. The UI activates the room on opening. Unchanged work
+reuses its job; changed inputs fence obsolete work. Inspect states with
+`GET /api/rooms/{id}`. Artifact previews require authentication. Final downloads
+recheck trusted package manifests, actual bytes, current inputs and reviewer grants.
+
+The room UI now shows each durable checkpoint, public KB rights status, local
+review findings and release blockers. It lists preview links only for artifacts
+matching the latest job's input revision. The older Documents page is explicitly
+historical and read-only: retired compilation actions and misleading approval
+claims have been removed. The backend still needs a concise package-level
+release/reviewer summary and citation-level semantic findings in the room API
+before the frontend can show exact accepted-package status or a useful finding
+drilldown. No current room draft is represented as ready to send.
+
+Fresh semantic material reviews use a versioned `semantic_v8` request. For each
+model-selected slide sentence, the request lists only memo spans sharing its
+cited source IDs; software binds the selected exact span and rejects any other
+index. The local model still decides whether a defect exists and authors the
+finding. Historical review requests retain their recorded contracts and exact
+replay. This is a source-binding improvement, not an independent assessment of
+investment quality.
+
+Private LibreOffice conversion now uses a short job-local 0700 directory and
+Unix IPC socket. Synthetic intro/pitch and revised IM editable/PDF pairs passed
+page and text checks, with privacy canaries for sibling files and socket/network
+access. Visual parity and complete production Office qualification remain open.
+The separate bundled UNO executable failed qualification; do not relax private
+isolation to make it pass. See [NEXT_AGENT.md](NEXT_AGENT.md) and the retained
+reports under ignored `runtime_qualification/` for exact scope.
+
 1. Install [Ollama](https://ollama.com/download) and confirm `ollama serve` is running. Pull the models you intend to route to (see **Model configuration** below) — nothing is downloaded automatically.
 2. `pip install -r requirements.txt` (add `-r requirements-dev.txt` for `pytest`/`httpx` to run the test suite).
-3. Backend: `python3 scripts/serve_local.py` — starts the FastAPI app on `http://localhost:8000` **without auto-reload** (a live background job can otherwise be silently interrupted by a reload; restart the process after backend edits instead).
-4. Frontend: `cd frontend && npm install && npm run dev` — Vite dev server on `http://localhost:5173`, the only origin the API's CORS policy allows in Phase 0.
+3. Backend: `python3 scripts/serve_local.py` — starts the FastAPI app on `http://localhost:8000` **without auto-reload**. Check active jobs before restarting. For the temporary local account, use the `--local-dev --without-worker` form above.
+4. Frontend: `cd frontend && npm install && npm run dev` — Vite dev server on `http://localhost:5173`, with `/api` proxied to the backend.
 5. CLI entry point (bypasses the web UI entirely): `python3 main.py "<what you want to do>"` — e.g. `"find promising fintech companies to incubate"` or `"screen this deal, I have the pitch deck ready"`.
 
 ### Model configuration
 
-All inference is local via Ollama unless a specific env var opts a path into the (currently user-approved, bounded) Anthropic path — see [CLAUDE.md](CLAUDE.md) for the current approval scope. No paid API, automatic model download, or silent downgrade happens without one of these being set explicitly.
+Preparation defaults to local Ollama. Private room workers explicitly use local
+inference. Product model selection rejects Claude Pro, Anthropic API and DeepSeek;
+historical provider modules remain in the tree but are not approved response routes.
+There is no automatic model download. Do not provide private room data to hosted
+inference.
 
 | Variable | Purpose | Default |
 |---|---|---|
 | `SOURCING_MODEL` | Short extraction / classification tasks (lead routing, directive classification) | `phi4-mini` |
 | `REASONING_MODEL` | Analytical work, screening, retries, review — thinking enabled | `qwen3:8b` (`qwen3:14b` auto-selected on machines with ≥24GB RAM) |
 | `PREPARATION_MODEL` | Fast preparation route for operations drafts | see `agents/inference/local_models.py` |
+| `PREPARATION_PROVIDER` | Public reasoning provider; room-private workers always use local | `local` |
+| `ELASTICSEARCH_URL` / `ELASTICSEARCH_API_KEY_FILE` / `ELASTICSEARCH_CA_FILE` | Controlled public KB/ES connection and TLS/authentication | unset |
 | `REVIEW_MODEL` / `ESCALATION_MODEL` | Alternate thinking models for review/escalation stages | falls back to `REASONING_MODEL` |
 | `RESEARCH_AGENT_CONTACT` | Real `"YourOrg contact@email.com"` — SEC EDGAR and Wikipedia both hard-require an identifying User-Agent per their published policies (Wikipedia 403s without one) | placeholder, must be set before relying on either beyond local smoke-testing |
-| `ANTHROPIC_API_KEY` / `ANTHROPIC_API_KEY_FILE` | Server-side key for the bounded public-evidence Anthropic path (`agents/inference/anthropic_api.py`) | unset — that path raises rather than silently falling back |
-| `ANTHROPIC_MODEL` / `PREPARATION_PROVIDER` / `PREPARATION_MAX_SECONDS` | Provider/model selection and time budget for the preparation path | see `agents/inference/local_models.py` |
+| `PREPARATION_MAX_SECONDS` | Time budget for the preparation path | see `agents/inference/local_models.py` |
 | `DISCOVERY_PLAYWRIGHT_MODULE` | Path to an installed Playwright module, for the browser regression scripts only (`scripts/check_discovery_ui.cjs`, `scripts/check_operations_ui.cjs`) | none |
 
-`scripts/configure_api_key.py` prompts for and privately stores an Anthropic key under `deployment/.secrets/` (gitignored, `0600`) — it never makes an API call itself.
+Historical provider configuration remains for compatibility. It is not part of
+the local-model product path or an instruction to configure hosted inference.
 
 ## Package layout
 
@@ -50,13 +179,35 @@ All inference is local via Ollama unless a specific env var opts a path into the
 
 ## API reference
 
-The FastAPI app (`api/main.py`) is self-documenting and this table is generated from its actual route table, but the interactive/raw forms are the ones that can never drift from the code:
+The FastAPI app (`api/main.py`) exposes current routes through OpenAPI. The
+historical deal/lead route summary below documents existing endpoints, including
+legacy workflows; it does not establish that every workflow is qualified for
+local-model-only investor output. Prefer the live schema and
+[`api/routers/rooms.py`](api/routers/rooms.py) for deal-room behavior.
 
 - **[`/docs`](http://localhost:8000/docs)** (Swagger UI) — expand any endpoint, fill a real request, **Try it out** against the live local backend. `/redoc` gives a read-only narrative view of the same schema.
 - **[`/openapi.json`](http://localhost:8000/openapi.json)** — the raw OpenAPI 3.1 spec.
 - **[`api/postman_collection.json`](api/postman_collection.json)** — import into Postman/Insomnia for a ready request tree with example bodies. Regenerate after a schema change: `python3 scripts/export_postman_collection.py` (fetches `/openapi.json` live).
 
-All routes are mounted under `/api`. `GET /api/health` returns `{"status": "ok"}` for a liveness check. No auth in Phase 0 — `tenant_id`/`reviewer` are supplied via request dependencies (`api/deps.py`), not a session. CORS is open only to `http://localhost:5173`.
+All routes are mounted under `/api`. `GET /api/health` returns `{"status": "ok"}` for a public liveness check. Business routes require a server-side session; writes require the session's CSRF token and exact configured Origin. Tenant/reviewer headers have no authority. The frontend uses the same-origin `/api` proxy.
+
+### `rooms` — active deal-room workflow
+
+| Method | Path | Purpose |
+|---|---|---|
+| `POST` | `/api/rooms/from-lead/{lead_id}/activate` | Start or reuse a private room job from a lead |
+| `POST` | `/api/rooms/from-public-kb/{source_id}/activate` | Import one public KB company into the user's private sandbox |
+| `POST` | `/api/rooms` | Start a direct company room |
+| `GET` | `/api/rooms/{room_id}` | Inspect job, checkpoints and artifacts |
+| `POST` | `/api/rooms/{room_id}/jobs/{job_id}/cancel` | Cancel queued/running work |
+| `GET` | `/api/rooms/{room_id}/artifacts/{artifact_id}/preview` | Authenticated draft preview |
+| `GET` | `/api/rooms/{room_id}/artifacts/{artifact_id}/download` | Final download, gated by exact-version validation and review |
+| `POST` | `/api/rooms/{room_id}/validate` | Validate a current private package |
+| `POST` | `/api/rooms/{room_id}/packages/{package_id}/release` | Release only when required gates pass |
+
+The following lead/deal/operations table records existing legacy routes. It is
+not a statement that those workflows pass the current local-model-only release
+contract.
 
 ### `leads` — Deal Sourcing Agent (§5.8)
 
@@ -127,7 +278,7 @@ Compile the CIM, the teaser's two-step draft + safe-to-send confirm, the pro-for
 | `POST` | `/api/deals/{deal_id}/compile/cim` | Compile the full comprehensive memo (NDA-gated) |
 | `POST` | `/api/deals/{deal_id}/compile/teaser/draft` | Draft the anonymized pre-NDA teaser |
 | `POST` | `/api/deals/{deal_id}/compile/teaser/{memo_id}/confirm` | Explicit human sign-off that the teaser draft doesn't leak identity, before it's released |
-| `POST` | `/api/deals/{deal_id}/compile/proforma` | Generate the forward projection (optional growth-rate override; defaults to holding ARR flat if none approved) |
+| `POST` | `/api/deals/{deal_id}/compile/proforma` | Legacy pro-forma route; not qualified as a current investor projection |
 | `POST` | `/api/deals/{deal_id}/analytics/rerun` | Re-render charts against currently approved fields |
 | `GET` | `/api/deals/{deal_id}/documents` | List every version of every document type (`document_type` filter) |
 | `GET` | `/api/deals/{deal_id}/documents/latest` | Latest version of one `document_type` |
@@ -182,11 +333,17 @@ The API-native equivalent of `main.py`'s CLI prompt router.
 
 ## Testing
 
+```sh
+.venv/bin/python -m pytest -q -p no:cacheprovider
+.venv/bin/python -m pytest -q tests/research tests/delivery tests/api/test_rooms.py tests/api/test_room_financial_phase.py tests/analysis/test_workbook_reconciliation.py tests/analysis/test_private_financial_worker.py tests/discovery/test_kb_candidate.py -p no:cacheprovider
+cd frontend && npm run build && npm run lint
 ```
-python3 -m pytest -q                                    # full offline suite
-python3 -m pytest tests/discovery/ -q                    # one subpackage
-python3 -m pytest --ignore=tests/api/test_api_leads_live.py --ignore=tests/api/test_api_review_retry_live.py -q   # skip network-dependent live tests
-```
+
+The focused research/delivery/room/financial/KB suite most recently passed
+676 tests with 5 skipped. That code result is separate from live model and
+investor acceptance. Local model diagnostics require a running Ollama instance;
+their raw responses and failure reports are retained under ignored
+`runtime_qualification/`. Do not overwrite a failed run to claim success.
 
 Live/manual checks (need Ollama running, hit real networks — not part of the offline suite):
 
@@ -199,8 +356,7 @@ node scripts/check_operations_ui.cjs
 
 ## Further reading
 
-- **[CLAUDE.md](CLAUDE.md)** — project context, locked-in decisions, conventions, and the current dated status log. Read this first, every session.
-- **[deal_automation_architecture.md](deal_automation_architecture.md)** — full design doc: agent flow, data model, guardrails, model/infra tiering, zero-budget data stack, roadmap.
-- **[SESSION_HANDOFF.md](SESSION_HANDOFF.md)** — detailed session-by-session build/validation log.
-- **[AGENTS.md](AGENTS.md)** — instructions for AI agents working in this repo.
-- **[evals/investment_preparation/](evals/investment_preparation/)** — practitioner-method sources, response evaluations, and preserved live-run evidence (including failures — several are regression fixtures, not to be "cleaned up").
+- [AGENTS.md](AGENTS.md): current repository instructions and reading order.
+- [SESSION_HANDOFF.md](SESSION_HANDOFF.md): dated implementation, failures and validation history.
+- [CLAUDE.md](CLAUDE.md) and [legacy architecture](deal_automation_architecture.md): historical module/design context; current plans take precedence.
+- [evals/investment_preparation/](evals/investment_preparation/): retained practitioner references, evaluations and failure fixtures. These are not cleanup candidates merely because they are old.

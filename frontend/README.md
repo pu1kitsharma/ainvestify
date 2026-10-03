@@ -1,32 +1,53 @@
-# React + TypeScript + Vite
+# AInvestify frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React, TypeScript and Vite UI for the local deal workspace. The backend owns sessions,
+private room state, job checkpoints and artifact release decisions; the UI displays
+those states and does not turn a draft into an accepted investor document.
 
-Currently, two official plugins are available:
+## Run locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+From the repository root, prepare the Python environment and start the backend
+without reload. For the temporary loopback development account, use:
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```sh
+.venv/bin/python scripts/serve_local.py --local-dev --without-worker
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+In a second terminal:
+
+```sh
+cd frontend
+npm install
+npm run dev
+```
+
+Open `http://127.0.0.1:5173`. Vite proxies `/api` to the loopback backend.
+Google OIDC requires a separately registered Web OAuth client; the temporary
+user ID/password option is limited to local development. See the root
+[README](../README.md#setup) for setup and sandbox details. Do not use a live
+room worker against unverified legacy data ownership.
+
+## Current UI surface
+
+- Signed-in dashboard, leads, company operations and existing deal pages.
+- Opening a lead's deal room activates a durable local job. The UI polls the
+  room for evidence, financial, material and validation checkpoints and can
+  cancel queued/running work.
+- Draft artifacts use authenticated preview routes. Final downloads require
+  the backend's exact-version package validation and reviewer grants.
+
+The current local-model material diagnostic produced editable/PDF pairs for a
+synthetic case, but semantic review and independent visual/content acceptance
+remain open. The UI must preserve those blocked and pending states. A lead,
+room draft or historical funding observation is not an investment recommendation.
+
+## Checks
+
+```sh
+cd frontend
+npm run build
+npm run lint
+```
+
+Backend tests and live qualification are separate; see [NEXT_AGENT.md](../NEXT_AGENT.md)
+for the latest exact status. The root [README](../README.md) lists repository checks.

@@ -1,5 +1,8 @@
 # AWS deployment assessment — 26 September 2026
 
+> Historical context: current instructions are in [AGENTS.md](../AGENTS.md) and the [local-to-cloud plan](../LOCAL_TO_CLOUD_RELEASE_PLAN.md). Older scope/provider/deployment statements below are superseded where they conflict. Preserve the historical evidence.
+
+
 Status: not deployed. No AWS resources created, credentials copied, database uploaded, or model requests started by this assessment.
 
 ## Follow-up: supported API integration

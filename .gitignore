@@ -233,3 +233,15 @@ __marimo__/
 # Deployment credentials stay outside source control and release archives.
 deployment/.secrets/
 deployment/.env
+
+# Private generated artifacts and local qualification output.
+private_artifacts/
+runtime_qualification/
+runtime_public_kb/
+
+# Local render diagnostics and scratch compiler output; never source artifacts.
+output/
+tmp/
+
+# Failed, machine-specific launchd draft; generate a portable scheduler config later.
+deployment/com.ainvestify.public-kb.plist

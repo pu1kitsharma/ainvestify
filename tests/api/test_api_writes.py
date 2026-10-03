@@ -110,7 +110,8 @@ def test_upload_document_ingests_and_advances_status(tmp_path, monkeypatch):
     # uploads/{deal_id}/{filename} -- see api/routers/deals.py's
     # upload_document docstring comment on the filename-collision bug this
     # avoids. The original filename is still the leaf name, one level down.
-    matches = list((tmp_path / "uploads" / deal.id).glob("*/acme_robotics_fact_sheet.pdf"))
+    from delivery.storage import scope_component
+    matches = list((tmp_path / "uploads" / scope_component(TENANT) / scope_component(deal.id)).glob("*/acme_robotics_fact_sheet.pdf"))
     assert len(matches) == 1
 
 

@@ -1,22 +1,11 @@
-"""
-Shared FastAPI dependencies.
-
-`sqlite3.Connection` isn't safe to share across threads the way the CLI's
-one long-lived process assumes (plan §2) -- so unlike the CLI, which opens
-one Store for its whole run, the API opens and closes one Store per
-request via Store's existing __enter__/__exit__.
-"""
-from typing import Optional
-
-from fastapi import Header
-
+"""Request-scoped persistence and server-derived sandbox/reviewer identity."""
+from __future__ import annotations
+import secrets
+import os
+from fastapi import Depends, HTTPException, Request
+from security.identity import COOKIE, resolve_session
+from security.oidc import app_origin
 from store import DEFAULT_DB_PATH, Store
-
-# Phase 0 is single-user (same convention main.py already uses) -- multi-
-# tenancy is designed for (every store method is tenant-scoped) but there's
-# no real auth yet, so this header is accepted for forward-compatibility
-# and defaults to the same tenant the CLI writes under.
-DEFAULT_TENANT_ID = "default_tenant"
 
 
 def get_store():
@@ -24,15 +13,36 @@ def get_store():
         yield store
 
 
-def get_tenant_id(x_tenant_id: Optional[str] = Header(default=None)) -> str:
-    return x_tenant_id or DEFAULT_TENANT_ID
+def valid_request_origin(value: str | None) -> bool:
+    """Accept both loopback spellings only in the explicit local dev runtime."""
+    origin = app_origin()
+    if value == origin:
+        return True
+    return bool(os.environ.get("APP_ENV") == "development"
+        and os.environ.get("ALLOW_LOOPBACK_HTTP") == "1"
+        and origin == "http://127.0.0.1:5173"
+        and value == "http://localhost:5173")
 
 
-# No real auth yet (plan §6 explicitly scopes that out for this phase) --
-# this identifies who a decision's audit trail should be attributed to,
-# the same role main.py's hardcoded `reviewer = "cli_user"` plays for the CLI.
-DEFAULT_REVIEWER = "api_user"
+def get_identity(request: Request, store=Depends(get_store)):
+    identity = resolve_session(store.conn, request.cookies.get(COOKIE))
+    if identity is None:
+        raise HTTPException(401, "Sign in to access your private sandbox.")
+    store.authenticated_identity = identity
+    if request.method not in {"GET", "HEAD", "OPTIONS"}:
+        try:
+            valid_origin = valid_request_origin(request.headers.get("origin"))
+        except ValueError:
+            raise HTTPException(503, "Application origin is not configured securely.")
+        if (not valid_origin
+                or not secrets.compare_digest(request.headers.get("x-csrf-token", ""), identity.csrf)):
+            raise HTTPException(403, "Request origin or CSRF token is invalid.")
+    return identity
 
 
-def get_reviewer(x_reviewer: Optional[str] = Header(default=None)) -> str:
-    return x_reviewer or DEFAULT_REVIEWER
+def get_tenant_id(identity=Depends(get_identity)) -> str:
+    return identity.tenant_id
+
+
+def get_reviewer(identity=Depends(get_identity)) -> str:
+    return identity.user_id

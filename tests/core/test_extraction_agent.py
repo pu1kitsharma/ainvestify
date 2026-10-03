@@ -17,9 +17,23 @@ from agents.core.extraction_agent import (
     _cross_check_arr_mrr_conflation,
     _cross_check_growth_rate,
     _cross_check_runway,
+    _money_unit,
 )
 from tests.conftest import make_extraction_result
-from schemas import FieldStatus
+from schemas import BlockType, DocBlock, Document, ExtractionResult, FieldStatus
+
+
+def test_money_units_preserve_explicit_inr_scale_without_assuming_usd():
+    document = Document(id='doc', tenant_id=TENANT, deal_id=DEAL,
+                        filename='Example Projections (INR Mn).xlsx', type='xlsx', storage_uri='private',
+                        blocks=[DocBlock(id='b1', document_id='doc', page=1, block_type=BlockType.TEXT,
+                                         coordinates={}, content='ARR 12.5')])
+    assert _money_unit(document, 'b1') == 'INR mn'
+    document.filename = 'projections.xlsx'
+    assert _money_unit(document, 'b1') is None
+    document.blocks[0].content = 'ARR INR 12.5 Mn; USD 1.2 million'
+    assert _money_unit(document, 'b1') is None
+    assert ExtractionResult(tenant_id=TENANT, deal_id=DEAL, document_id='doc').arr.unit is None
 
 
 # --- Schema regression: required-but-nullable fields ------------------

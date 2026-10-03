@@ -23,8 +23,8 @@ from __future__ import annotations
 import re
 from typing import Optional
 
-import ollama
 from pydantic import BaseModel
+from agents.inference.local_ollama import local_chat
 
 from schemas import (
     BlockType,
@@ -126,8 +126,8 @@ Rules, no exceptions:
 - If a field is not stated in the document, set value to null and reason to
   "not_found_in_source". Do NOT guess, infer, or fill in a "typical" value
   for a company of this type.
-- Numbers must be plain numbers (no "$" or "," or "%" characters) with the
-  unit implied by the field name.
+- Numbers must be plain numbers (no "$" or "," or "%" characters). Never
+  assume a currency from a field name; retain the source's currency and scale.
 - growth_rate_yoy is a percentage (e.g. "grew 45% year over year" -> 45).
   A growth MULTIPLE stated in prose (e.g. "grew ARR 2.3x") is NOT the same
   number as a percentage -- if the document only states a multiple like
@@ -209,6 +209,29 @@ def _to_extracted_value(llm_value: LLMValue, valid_block_ids: set[str], unit: Op
     )
 
 
+_MONEY_CURRENCY = re.compile(r'(?<![A-Za-z])(?:INR|USD|US\$|₹|Rs\.?)(?![A-Za-z])', re.I)
+_MONEY_SCALE = re.compile(r'\b(?:Mn|million|crore|lakh|lac|thousand|billion)\b', re.I)
+
+
+def _money_unit(document: Document, source_block_id: Optional[str]) -> Optional[str]:
+    """Preserve an explicit source currency/scale; an absent or mixed unit stays unknown."""
+    block = next((b for b in document.blocks if b.id == source_block_id), None)
+    for source in (str(block.content) if block else '', document.filename):
+        matches = list(_MONEY_CURRENCY.finditer(source))
+        currencies = {'INR' if m.group().casefold().startswith(('inr', 'rs')) or m.group() == '₹' else 'USD'
+                      for m in matches}
+        if len(currencies) > 1:
+            return None
+        if not currencies:
+            continue
+        currency = currencies.pop()
+        scales = {m.group().casefold() for match in matches for m in _MONEY_SCALE.finditer(source[match.end():match.end()+24])}
+        if len(scales) > 1:
+            return None
+        return currency + (' ' + next(iter(scales)) if scales else '')
+    return None
+
+
 def _cross_check_runway(result: ExtractionResult) -> None:
     """Independent cross-check pass (§5.3, §7 rule 2): recompute runway from
     cash_on_hand / burn_monthly and flag disagreement instead of resolving
@@ -218,6 +241,9 @@ def _cross_check_runway(result: ExtractionResult) -> None:
     runway = result.runway_months.value
 
     if cash is None or burn is None or runway is None:
+        return
+    if not result.cash_on_hand.unit or result.cash_on_hand.unit != result.burn_monthly.unit:
+        result.cross_check_flags.append('runway_months cross-check skipped: cash and burn units are unknown or incompatible.')
         return
     if burn == 0:
         result.cross_check_flags.append(
@@ -249,6 +275,9 @@ def _cross_check_growth_rate(result: ExtractionResult) -> None:
     growth_rate = result.growth_rate_yoy.value
 
     if arr is None or arr_prior is None:
+        return
+    if not result.arr.unit or result.arr.unit != result.arr_prior_year.unit:
+        result.cross_check_flags.append('growth_rate_yoy cross-check skipped: ARR units are unknown or incompatible.')
         return
     if arr_prior == 0:
         result.cross_check_flags.append(
@@ -432,7 +461,7 @@ def extract(document: Document, model: str = DEFAULT_MODEL, reviewer_feedback: O
     if reviewer_feedback:
         prompt += f"\n\nA human reviewer rejected a previous extraction attempt with this note -- take it into account: {reviewer_feedback}"
 
-    response = ollama.chat(
+    response = local_chat(
         model=model,
         messages=[{"role": "user", "content": prompt}],
         format=LLMExtraction.model_json_schema(),
@@ -443,14 +472,18 @@ def extract(document: Document, model: str = DEFAULT_MODEL, reviewer_feedback: O
     valid_block_ids = {b.id for b in document.blocks}
 
     result = ExtractionResult(tenant_id=document.tenant_id, deal_id=document.deal_id, document_id=document.id)
-    result.arr = _to_extracted_value(llm_extraction.arr, valid_block_ids, "USD")
-    result.arr_prior_year = _to_extracted_value(llm_extraction.arr_prior_year, valid_block_ids, "USD")
-    result.mrr = _to_extracted_value(llm_extraction.mrr, valid_block_ids, "USD")
+    result.arr = _to_extracted_value(llm_extraction.arr, valid_block_ids, _money_unit(document, llm_extraction.arr.source_block_id))
+    result.arr_prior_year = _to_extracted_value(llm_extraction.arr_prior_year, valid_block_ids, _money_unit(document, llm_extraction.arr_prior_year.source_block_id))
+    result.mrr = _to_extracted_value(llm_extraction.mrr, valid_block_ids, _money_unit(document, llm_extraction.mrr.source_block_id))
     result.growth_rate_yoy = _to_extracted_value(llm_extraction.growth_rate_yoy, valid_block_ids, "%")
-    result.burn_monthly = _to_extracted_value(llm_extraction.burn_monthly, valid_block_ids, "USD")
-    result.cash_on_hand = _to_extracted_value(llm_extraction.cash_on_hand, valid_block_ids, "USD")
+    result.burn_monthly = _to_extracted_value(llm_extraction.burn_monthly, valid_block_ids, _money_unit(document, llm_extraction.burn_monthly.source_block_id))
+    result.cash_on_hand = _to_extracted_value(llm_extraction.cash_on_hand, valid_block_ids, _money_unit(document, llm_extraction.cash_on_hand.source_block_id))
     result.runway_months = _to_extracted_value(llm_extraction.runway_months, valid_block_ids, "months")
     result.headcount = _to_extracted_value(llm_extraction.headcount, valid_block_ids, None)
+    for field in ('arr', 'arr_prior_year', 'mrr', 'burn_monthly', 'cash_on_hand'):
+        value = getattr(result, field)
+        if value.value is not None and value.unit is None:
+            result.cross_check_flags.append(f'{field} currency/scale is not established by its cited source; review before use.')
 
     if llm_extraction.cap_table_source_block_id in valid_block_ids:
         result.cap_table = [
@@ -474,8 +507,10 @@ def extract(document: Document, model: str = DEFAULT_MODEL, reviewer_feedback: O
         result.funding_history.append(FundingRound(
             round_name=r.round_name, amount=r.amount, date=r.date,
             lead_investor=r.lead_investor, source_block_id=r.source_block_id,
-            source_page=r.source_page,
+            source_page=r.source_page, unit=_money_unit(document, r.source_block_id),
         ))
+        if r.amount is not None and result.funding_history[-1].unit is None:
+            result.cross_check_flags.append('funding round currency/scale is not established by its cited source; review before use.')
 
     _cross_check_runway(result)
     _cross_check_growth_rate(result)

@@ -72,6 +72,7 @@ class Page:
     # Complete visible HTML blocks, before any preparation context budget.
     # Kept separately from flat text for callers that must not split sentences.
     content_blocks: list[str] = field(default_factory=list)
+    source_version_id: str | None = None
 
 
 class PageParser(HTMLParser):
@@ -89,6 +90,7 @@ class PageParser(HTMLParser):
         self.link_navigation = False
         self.content_blocks = []
         self.block_parts = []
+        self.metadata = []
 
     def flush_block(self):
         if self.block_parts:
@@ -100,6 +102,11 @@ class PageParser(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         attributes = dict(attrs)
+        if tag == 'meta' and (attributes.get('name', '').casefold() == 'description'
+                              or attributes.get('property', '').casefold() == 'og:description'):
+            description = ' '.join((attributes.get('content') or '').split())[:700]
+            if len(description) >= 30 and description not in self.metadata:
+                self.metadata.append(description)
         if tag in self.BLOCK_TAGS:
             self.flush_block()
         if tag not in {'area','base','br','col','embed','hr','img','input','link','meta','param','source','track','wbr'}:
@@ -171,11 +178,14 @@ def parse_page(url: str, html: str) -> Page:
             links.append({"url": target, "label": link["label"][:200],
                           **({"kind": link["kind"]} if "kind" in link else {})})
             seen.add(target)
-    text = " ".join(parser.parts)
+    # Publisher-authored description metadata is useful when a public site
+    # renders its body with JavaScript. Keep it marked as metadata evidence.
+    metadata = [f"[Publisher page description metadata] {item}" for item in parser.metadata]
+    text = " ".join(parser.parts + metadata)
     from agents.discovery.public_directories import parse_directory_entries
     entries = parse_directory_entries(url, html)
     blocks=[]; size=0
-    for block in parser.content_blocks:
+    for block in parser.content_blocks + metadata:
         if size+len(block)+bool(blocks)>24000:
             break
         size+=len(block)+bool(blocks);blocks.append(block)
@@ -188,12 +198,14 @@ def parse_page(url: str, html: str) -> Page:
 
 
 class PublicWebFetcher:
-    def __init__(self, read_timeout=5):
+    def __init__(self, read_timeout=5, min_interval=1):
         self.read_timeout = read_timeout
+        self.min_interval = min_interval
         self.robots: dict[str, RobotFileParser] = {}
         self.last_request: dict[str, float] = {}
 
-    def _request(self, url: str, deadline: float, allow_truncate: bool = False) -> tuple[int, dict, bytes]:
+    def _request(self, url: str, deadline: float, allow_truncate: bool = False,
+                 request_headers: dict[str, str] | None = None) -> tuple[int, dict, bytes]:
         from agents.preparation.preparation_budget import ACTIVE_BUDGET
         budget=ACTIVE_BUDGET.get()
         if budget:deadline=min(deadline,time.monotonic()+budget.remaining())
@@ -202,8 +214,10 @@ class PublicWebFetcher:
         remaining = deadline - time.monotonic()
         if remaining <= 0:
             raise SourceError("failed", "Source time budget exceeded.")
-        interval = max(0, 1 - (time.monotonic() - self.last_request.get(p.netloc, 0)))
+        interval = max(0, self.min_interval - (time.monotonic() - self.last_request.get(p.netloc, 0)))
         if interval:
+            if interval >= deadline - time.monotonic():
+                raise SourceError("partial", "Source rate limit exceeds the remaining request budget.")
             time.sleep(interval)
         self.last_request[p.netloc] = time.monotonic()
         kwargs = dict(host=addresses[0], port=p.port or (443 if p.scheme == "https" else 80),
@@ -216,7 +230,8 @@ class PublicWebFetcher:
         try:
             response = pool.urlopen("GET", urlunsplit(("", "", p.path or "/", p.query, "")),
                                     headers={"Host": p.netloc, "User-Agent": USER_AGENT,
-                                             "Accept": "text/html,text/plain;q=0.9", "Accept-Encoding": "identity"},
+                                             "Accept": "text/html,text/plain;q=0.9", "Accept-Encoding": "identity",
+                                             **(request_headers or {})},
                                     redirect=False, preload_content=False, assert_same_host=False)
             if response.status != 200:
                 return response.status, dict(response.headers), b""

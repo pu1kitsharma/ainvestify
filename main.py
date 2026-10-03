@@ -25,8 +25,8 @@ from __future__ import annotations
 import sys
 from typing import Optional
 
-import ollama
 from pydantic import BaseModel
+from agents.inference.local_ollama import local_chat
 
 from agents.core.planner_agent import handle_directive, promote_lead_to_deal, start_deal
 from agents.core.review_checkpoint import review_leads
@@ -106,7 +106,7 @@ User request: "{prompt}"
 
 Give a one-sentence reasoning. Return only the JSON object."""
 
-    response = ollama.chat(
+    response = local_chat(
         model=ROUTER_MODEL,
         messages=[{"role": "user", "content": instructions}],
         format=RouterDecision.model_json_schema(),

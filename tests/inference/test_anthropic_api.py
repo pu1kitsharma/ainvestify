@@ -33,13 +33,12 @@ def test_api_is_explicit_and_missing_key_never_falls_back(monkeypatch):
     monkeypatch.setenv('PREPARATION_PROVIDER', 'anthropic_api_public')
     monkeypatch.delenv('ANTHROPIC_API_KEY', raising=False)
     monkeypatch.delenv('ANTHROPIC_API_KEY_FILE', raising=False)
-    assert default_preparation_name().startswith('anthropic-api:')
-    model = make_preparation_model()
-    assert isinstance(model, ClaudeAPIModel) and model.public_only
     start = Mock()
     monkeypatch.setattr('agents.inference.anthropic_api.subprocess.Popen', start)
-    with preparation_budget(), pytest.raises(ValueError, match='server-side'):
-        run_api(model, 'authored_draft', 'test', '{}', Answer)
+    with pytest.raises(ValueError, match='local'):
+        default_preparation_name()
+    with pytest.raises(ValueError, match='local'):
+        make_preparation_model()
     start.assert_not_called()
 
 
@@ -83,14 +82,10 @@ def test_official_search_links_only_and_final_json_is_unchanged(monkeypatch):
               {'type': 'text', 'text': json.dumps(answer)}]
     start, response = fake_http(monkeypatch, blocks)
     attempts = []
-    with preparation_budget(PreparationBudget(10, max_requests=3)) as budget:
-        result, urls, queries, reference = navigate('Example', 'company', attempts, lambda: None)
-    assert urls == ['https://example.com/'] and queries == ['example company']
-    assert response_answer(attempts, reference) == answer
+    with pytest.raises(ValueError, match='local'):
+        navigate('Example', 'company', attempts, lambda: None)
     assert observed_search([response])[0] == {'https://example.com/': 'Example'}
-    assert budget.requests == 2
-    body = json.loads(start.return_value.communicate.call_args.kwargs['input'])
-    assert body['tools'] == [{'type': 'web_search_20250305', 'name': 'web_search', 'max_uses': 2}]
+    start.assert_not_called()
 
 
 @pytest.mark.parametrize('stop', ['max_tokens', 'pause_turn', 'refusal'])
@@ -124,9 +119,5 @@ def test_public_analysis_uses_api_transport(monkeypatch):
     from agents.analysis.company_analysis import AnalysisModel
     monkeypatch.setenv('PREPARATION_PROVIDER', 'anthropic_api_public')
     fake_http(monkeypatch, [{'type': 'text', 'text': '{"text":"Public analysis"}'}])
-    model = AnalysisModel()
-    payload = {'company': 'Example', 'sources': [], 'metric_candidates': [], 'period_candidates': [], 'answer_to_check': {}, 'correction_required': []}
-    model.approve('public_analysis', payload)
-    with preparation_budget():
-        result = model.generate_for_task('public_analysis', 'test', json.dumps(payload), Answer)
-    assert result.text == 'Public analysis' and model.last_route['provider'] == 'anthropic_api'
+    with pytest.raises(ValueError, match='local'):
+        AnalysisModel()

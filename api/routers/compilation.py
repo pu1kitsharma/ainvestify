@@ -1,25 +1,10 @@
-"""
-Compilation endpoints (plan §2/§4, milestone 4): compile the CIM; the
-teaser's two-step draft + safe-to-send confirm; the pro-forma with an
-optional growth-rate override; rerun analytics; fetch the document suite.
-
-Every write here delegates to the pure functions agents/core/planner_agent.py
-and agents/core/compilation_agent.py already built (Milestones 1 and 4) -- no
-compilation/anonymization logic lives in this file.
-"""
+"""Historical deal documents remain readable; template generation is retired."""
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 
-from agents.core.compilation_agent import CompilationBlockedError
-from agents.core.planner_agent import (
-    _run_compile,
-    _run_rerun_analytics,
-    apply_compile_proforma,
-    confirm_teaser_safe_to_send,
-    generate_teaser_draft,
-)
+from agents.core.planner_agent import _run_rerun_analytics
 from api.deps import get_reviewer, get_store, get_tenant_id
 from schemas import ChartArtifact, Deal, MemoVersion
 from store import Store
@@ -48,6 +33,11 @@ def _get_deal_or_404(store: Store, tenant_id: str, deal_id: str) -> Deal:
 
 def _current_release_status(store: Store, tenant_id: str, deal_id: str, versions: list[MemoVersion]):
     """Show effective approval, preserving the original review in storage."""
+    versions=[memo.model_copy(deep=True) for memo in versions]
+    for memo in versions:
+        if memo.structured_data:
+            for index,chart in enumerate(memo.structured_data.get('charts',[])):
+                chart['storage_uri']=f'api/deals/{deal_id}/legacy-charts/{memo.id}/{index}'
     lead = store.get_lead_by_promoted_deal_id(tenant_id, deal_id)
     if not lead or not store.get_workspace(tenant_id, lead_id=lead.id):
         return versions
@@ -67,11 +57,7 @@ def compile_cim_endpoint(
     store: Store = Depends(get_store),
     tenant_id: str = Depends(get_tenant_id),
 ):
-    deal = _get_deal_or_404(store, tenant_id, deal_id)
-    try:
-        return _run_compile(store, deal)
-    except CompilationBlockedError as e:
-        raise HTTPException(status_code=409, detail=str(e))
+    raise HTTPException(410, 'Legacy CIM templates are retired. Open the deal room for local-model materials and exact-artifact validation.')
 
 
 @router.post("/{deal_id}/compile/teaser/draft", response_model=MemoVersion)
@@ -81,11 +67,7 @@ def compile_teaser_draft_endpoint(
     store: Store = Depends(get_store),
     tenant_id: str = Depends(get_tenant_id),
 ):
-    deal = _get_deal_or_404(store, tenant_id, deal_id)
-    try:
-        return generate_teaser_draft(store, deal, body.business_description)
-    except CompilationBlockedError as e:
-        raise HTTPException(status_code=409, detail=str(e))
+    raise HTTPException(410, 'Legacy teaser templates are retired. Open the deal room for local-model materials and exact-artifact validation.')
 
 
 @router.post("/{deal_id}/compile/teaser/{memo_id}/confirm", response_model=MemoVersion)
@@ -97,14 +79,7 @@ def confirm_teaser_endpoint(
     tenant_id: str = Depends(get_tenant_id),
     reviewer: str = Depends(get_reviewer),
 ):
-    _get_deal_or_404(store, tenant_id, deal_id)
-    deal = store.get_deal(tenant_id, deal_id)
-    try:
-        return confirm_teaser_safe_to_send(store, deal, memo_id, reviewer, confirmed=body.confirmed)
-    except CompilationBlockedError as e:
-        raise HTTPException(status_code=409, detail=str(e))
-    except ValueError as e:
-        raise HTTPException(status_code=404, detail=str(e))
+    raise HTTPException(410, 'Legacy teaser release is retired. Use exact-version validation and review in the deal room.')
 
 
 @router.post("/{deal_id}/compile/proforma", response_model=MemoVersion)
@@ -115,11 +90,7 @@ def compile_proforma_endpoint(
     tenant_id: str = Depends(get_tenant_id),
     reviewer: str = Depends(get_reviewer),
 ):
-    deal = _get_deal_or_404(store, tenant_id, deal_id)
-    try:
-        return apply_compile_proforma(store, deal, reviewer, growth_rate_override=body.growth_rate_override)
-    except CompilationBlockedError as e:
-        raise HTTPException(status_code=409, detail=str(e))
+    raise HTTPException(410, 'Legacy pro forma templates are retired. Open the deal room for validated financial inputs and local-model materials.')
 
 
 @router.post("/{deal_id}/analytics/rerun", response_model=list[ChartArtifact])
@@ -160,3 +131,25 @@ def get_latest_document(
     if memo is None:
         raise HTTPException(status_code=404, detail=f"No {document_type!r} document for this deal yet")
     return _current_release_status(store, tenant_id, deal_id, [memo])[0]
+
+
+@router.get('/{deal_id}/legacy-charts/{memo_id}/{chart_index}')
+def legacy_chart(deal_id: str,memo_id: str,chart_index: int,store: Store=Depends(get_store),tenant_id: str=Depends(get_tenant_id)):
+    from pathlib import Path
+    import os
+    from fastapi.responses import Response
+    _get_deal_or_404(store,tenant_id,deal_id)
+    memo=store.get_memo_version(tenant_id,memo_id)
+    charts=(memo.structured_data or {}).get('charts',[]) if memo and memo.deal_id==deal_id else []
+    if chart_index<0 or chart_index>=len(charts):raise HTTPException(404,'Chart not found')
+    root=Path(__file__).resolve().parents[2]
+    allowed=root/'memo_output'/deal_id
+    path=root/charts[chart_index]['storage_uri']
+    if path.is_symlink() or allowed.is_symlink() or path.resolve()!=path.absolute() or allowed not in path.parents or path.suffix.lower()!='.png':
+        raise HTTPException(404,'Chart not available')
+    try:
+        fd=os.open(str(path),os.O_RDONLY|os.O_NOFOLLOW)
+        with os.fdopen(fd,'rb') as source:content=source.read(8*1024*1024+1)
+        if len(content)>8*1024*1024 or not content.startswith(b'\x89PNG\r\n\x1a\n'):raise ValueError()
+    except (OSError,ValueError):raise HTTPException(404,'Chart not available')
+    return Response(content,media_type='image/png',headers={'X-Artifact-State':'legacy-preview'})
