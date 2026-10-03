@@ -1,0 +1,721 @@
+{
+  "archive": "evals/investment_preparation/section-workflows/archived-raw-2026-10-04.tar.gz",
+  "format": "tar.gz",
+  "entries": [
+    {
+      "path": "evals/investment_preparation/section-workflows/analysis-loop-2026-09-26/arable-checkpoint-loss-failure.json",
+      "bytes": 302596,
+      "sha256": "a3d286e83b3c4647538a53d59ad6c1e50eba065964189277991865bf4d1da06c"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/analysis-loop-2026-09-26/arable-complete.json",
+      "bytes": 1244860,
+      "sha256": "a10584a056b38f2bc0a3e8141590ab2440746bc050ff3e08c1864f05dc77a3e2"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/analysis-loop-2026-09-26/arable-navigation-failure.json",
+      "bytes": 37144,
+      "sha256": "675e257d75d8f5e40136fdf5a8e91526f358db391e20f498629a4b9413c3b456"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/analysis-loop-2026-09-26/arable-patch-schema-failure.json",
+      "bytes": 1090947,
+      "sha256": "a84e4d79806d4eed3e858e6492c2a37a89907b92bda8e0e77b7fc52e9d5310ac"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/analysis-loop-2026-09-26/gocardless-complete.json",
+      "bytes": 1745511,
+      "sha256": "ad8936462dd91b632b55b97705f0431877f56128d7871c8ea33e1457a333d55d"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/analysis-loop-2026-09-26/verification.json",
+      "bytes": 2220,
+      "sha256": "5a1242bad7a9776fb86e56e76990ab6ebc5274b82ce8f68efc49cdded83340d3"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/analysis-recovery-2026-09-26/verification.json",
+      "bytes": 1409,
+      "sha256": "23d5fcf3ab307a32a2944226d889d109d1e920a4add2ac3066bcadeca6b2ba16"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/analysis-workflow-2026-09-26/cropx-attempt-01.json",
+      "bytes": 5236,
+      "sha256": "804ccde5c573eea4d44ca1e33e1f26854f3e5da965eea48f0e401ac20f0687df"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/analysis-workflow-2026-09-26/cropx-attempt-02.json",
+      "bytes": 192006,
+      "sha256": "22b0ab0f5a49384c825098eec23f59b52950554ec29ef6444055f6647a95e1a3"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/analysis-workflow-2026-09-26/cropx-attempt-03.json",
+      "bytes": 585247,
+      "sha256": "3e07ed43caf50b0904a177af7d9fb8f3f620de5bf7de5feabd3e85852617b904"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/analysis-workflow-2026-09-26/cropx-attempt-04.json",
+      "bytes": 602270,
+      "sha256": "2dbc7b3695424836c8e7b1084829258d0bae926e974091f4dc12b00cdd151181"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/analysis-workflow-2026-09-26/cropx-attempt-05.json",
+      "bytes": 256930,
+      "sha256": "85d976975cb748f877e2fe7f2706b6b3f741dc9b7f05a18f177aaf2acd048e3e"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/analysis-workflow-2026-09-26/cropx-attempt-06.json",
+      "bytes": 407211,
+      "sha256": "c08fcdf9decadb3312a6038fd8e389fbc9633d325f391df02f51a8bfccce6718"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/analysis-workflow-2026-09-26/cropx-attempt-07.json",
+      "bytes": 34493,
+      "sha256": "9d9d27292aa40061b4116a9cb6cda934f108f96f671c92f62e377fa9c6b27d8a"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/analysis-workflow-2026-09-26/cropx-attempt-08.json",
+      "bytes": 501936,
+      "sha256": "436213ad3fecc39456cfb8c64912cd74fe16ce86437bddc94e1d462d84b9d1d8"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/analysis-workflow-2026-09-26/cropx-attempt-09.json",
+      "bytes": 719996,
+      "sha256": "842abd957cc7a15f6c2c00fac0aa6919779bc74e089b63ad5edf5481de909fb0"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/analysis-workflow-2026-09-26/cropx-attempt-10.json",
+      "bytes": 874514,
+      "sha256": "b2f6444ea964f4c69fc7f0fc920e4e8c505e553d2180742e844179f335e317c9"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/analysis-workflow-2026-09-26/discovery-continuation.json",
+      "bytes": 44830,
+      "sha256": "d205772614fc6db643e9ff6f4ddc59b8449a6b32c4391b560c997b5240abcf2a"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/discovery-breadth-2026-09-26/agrotech-continuation.json",
+      "bytes": 613953,
+      "sha256": "72578147d1d54fd35464e8354b6ccda7e41a04f59df8aedc67c6f13ad7f08772"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/discovery-breadth-2026-09-26/agrotech-initial.json",
+      "bytes": 584611,
+      "sha256": "2fb0f78b614f24062c93107eeb2f7eb3974c3b246e3c5ae4796505c4ebb42428"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/discovery-breadth-2026-09-26/identity-reconciliation.json",
+      "bytes": 23726,
+      "sha256": "05c4fde5d97b388830e71ae8a4e5957bd9783606a01970a31e9706e5b259d9e9"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/discovery-breadth-2026-09-26/provenance-audit.json",
+      "bytes": 3274,
+      "sha256": "18f14964caf792b9d3be550c16d2a92b183871bee830d7e7b3ef43cbea786670"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/discovery-breadth-2026-09-26/verification.json",
+      "bytes": 853,
+      "sha256": "7145fe62beacad37af664095b16c2027b8f09c48685ec358258700a6952ffdef"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/founder-recovery-2026-09-26/arable-analysis-label-03.json",
+      "bytes": 962512,
+      "sha256": "96db5cb1adc4d6f248ef150acc2104a4ff3eab2176d31c106c1d05b45d6a9d2d"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/founder-recovery-2026-09-26/arable-analysis-patch-format-04.json",
+      "bytes": 1171465,
+      "sha256": "0851759d2072131420ebf5c9e42484dd2b933fd1cb44f8f40075be85c87a4368"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/founder-recovery-2026-09-26/arable-analysis-review-02.json",
+      "bytes": 680052,
+      "sha256": "2801e348d3bfd0b353c3456e34f580a5c301d180746e35d13a660f3d9723ada8"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/founder-recovery-2026-09-26/arable-analysis-scope-05.json",
+      "bytes": 1401781,
+      "sha256": "acf9f3a144db57dc44066ba4af06d4acdcd2a4a26fd7fcf197111ec49d9b589f"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/founder-recovery-2026-09-26/arable-analysis-timeout-01.json",
+      "bytes": 390807,
+      "sha256": "a7c247b6c881b3c52ec31f994f1ec7af7d744aef6f457c45de8e5f1d0b3f17c0"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/founder-recovery-2026-09-26/arable-analysis-timeout-06.json",
+      "bytes": 1664506,
+      "sha256": "c5c0fd13be16578f82c3ee6e7f2e76797289bc4c4864cf4a53de65e65dcdff7c"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/founder-recovery-2026-09-26/arable-founder-final.json",
+      "bytes": 296768,
+      "sha256": "de2c5f58d9dad01ad504441f9a81ea834b3e1c606de866e137051a1c4b7bfc4c"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/founder-recovery-2026-09-26/arable-request-limit-02.json",
+      "bytes": 233254,
+      "sha256": "d2cca5c92b1c148eabe5abcbb72ade20ee8d0d838b1f82cd39e5cb15a0238cd3"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/founder-recovery-2026-09-26/arable-source-failure-01.json",
+      "bytes": 33550,
+      "sha256": "24a8990825b6c334403d8da8e674e607af1ffab29375ff57cb01ba8f9704ee66"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/founder-recovery-2026-09-26/cropx-founder-final.json",
+      "bytes": 789734,
+      "sha256": "14e3c7d31e41f2dd29be3d5e51b427a55156ecbd3fc8b32efcbfb7e7ffd202cd"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/founder-recovery-2026-09-26/cropx-review-01.json",
+      "bytes": 710312,
+      "sha256": "0a471327accfbf622a858fcd5afc7c44f8170ad18f5399e561261abe8ba8f7ac"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/founder-recovery-2026-09-26/verification.json",
+      "bytes": 787,
+      "sha256": "2b3f336e87815fcfa97741347fced5b435917af322d9870e960e1fa1d065243d"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/audit.json",
+      "bytes": 12597,
+      "sha256": "d09b0445ad2341477d5090c7e3c50928e88fac6aa25063e1250b3a8193175e80"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/browser-check.json",
+      "bytes": 1414,
+      "sha256": "e3b98d6da2b90c86b21a9ceb9b92277e3e188d57febb89e52a38310972632d67"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/cache-check.json",
+      "bytes": 291,
+      "sha256": "a8d7af0644711419ebd28c44db5781d1d78bf5b3f74685e2fa34a8308864fc23"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/contract-recheck-cropx.json",
+      "bytes": 258647,
+      "sha256": "7004474c694f7488c2dcebb27dcf62dcb6788ef56741c8ccd9f2b3ad7789b339"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/contract-recheck-gocardless.json",
+      "bytes": 375411,
+      "sha256": "5fa6146d246208c8a64cbcc11c6490bb3c943db0efaf1c4449adfec5618c946d"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/cropx-input-audit/call-1.json",
+      "bytes": 6090,
+      "sha256": "be47afd10557980e77cb4f45d4b25fad8244fc73cba2084711f853063be75b50"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/cropx-input-audit/call-2.json",
+      "bytes": 6484,
+      "sha256": "fb2fa18172c4ce4317b96b3224ff02646e5577b5d7941a846854858338978ffd"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/cropx-public.json",
+      "bytes": 4228,
+      "sha256": "192b69ec70ff85a1d4dd1d9d69b749a7802233d3d84a0e2b29421fd8819e9be4"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/deployed-browser-check.json",
+      "bytes": 1414,
+      "sha256": "e3b98d6da2b90c86b21a9ceb9b92277e3e188d57febb89e52a38310972632d67"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/deployed-check.json",
+      "bytes": 1549,
+      "sha256": "b2981d9c955e1e9d2356b33e7c832c3ca171b86213767b991fd91db5b5203bbc"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/deployed-cropx.json",
+      "bytes": 361180,
+      "sha256": "c93aaf3128d699ff8e90a266371627d715d542145974d7ee000a609eda7ba3fc"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/deployed-gocardless.json",
+      "bytes": 538191,
+      "sha256": "1bc3c8603a36bfce7f969440792b08439e57007f4af54e800333b26283695982"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/export-check.json",
+      "bytes": 852,
+      "sha256": "f36a76ff7fbc863c5ddb0c3117495b78d3a74d0a45c027a630fed1c599f52f96"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/gocardless-bounded-review/call-1.json",
+      "bytes": 6730,
+      "sha256": "59e4e73584e085f6329d6261677ccf49d043add88a665996c587c71c3f6b77fd"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/gocardless-bounded-review/call-2.json",
+      "bytes": 6942,
+      "sha256": "d2eec003c5ea4be6d810086b244405fdd9ece93425bfcf437b73cb1b6f650e9a"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/gocardless-bounded-review/call-3.json",
+      "bytes": 2704,
+      "sha256": "d9ebfbc1f0df412f4146856a5815d46475a42452efc286ef47ced703821a619c"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/gocardless-bounded-review/call-4.json",
+      "bytes": 6516,
+      "sha256": "ee6abcbfe4470d7c5aeec2c5124032253890f39de5ad9b3010cd7662651f7d76"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/gocardless-complete-workflow/call-1.json",
+      "bytes": 6209,
+      "sha256": "6a9e2888d730c0a5267a63177153203a88087bc20e5eae20dd94e26c184f71c3"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/gocardless-complete-workflow/call-2.json",
+      "bytes": 2395,
+      "sha256": "7c27bbd128510486d3cc4e83c266dd17f885a6fcd6af53ec36ab11d69431894c"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/gocardless-complete-workflow/call-3.json",
+      "bytes": 4365,
+      "sha256": "ba2588d83c27f5b2d43ed0394ece388ad13011a9384f313d9d9cb1001e7a7a2e"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/gocardless-final-fresh/call-1.json",
+      "bytes": 6080,
+      "sha256": "7e26187e64adfcebc7ec39992cd3d6a2d63f11edc144e6e0e1659d7cf5b603ba"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/gocardless-final-fresh/call-2.json",
+      "bytes": 2151,
+      "sha256": "d63d5465de8929281957435e7c7238a7617e7d78818fb9f789cf00e5e73d538b"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/gocardless-input-audit/call-1.json",
+      "bytes": 6549,
+      "sha256": "2cefdad9391fa79ee94459cccb7a46e68b42fb75cbc0556eb47229a22dd6f26d"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/gocardless-input-audit/call-2.json",
+      "bytes": 2166,
+      "sha256": "07396965af746fef0649ad225a212b7a9d06011e0caf6687b11b48cbb18fb281"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/gocardless-targeted-correction/call-1.json",
+      "bytes": 6274,
+      "sha256": "4c123044ae31110710dba72a58581cb0610346e49b130f705c10ae4691077fe9"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/gocardless-targeted-correction/call-2.json",
+      "bytes": 6031,
+      "sha256": "c6bdf95c68eeff9168b01c859743b900e467a47c108fbeb6a08fdcc5bd4080e9"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/gocardless-targeted-correction/call-3.json",
+      "bytes": 2374,
+      "sha256": "ea4c2154ea65084f8d8265ba9fa815fffdaf236ccf7230ea99183b81d51341fc"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/gocardless-targeted-correction/call-4.json",
+      "bytes": 5751,
+      "sha256": "c897e5cf1418975c92d853a1cdbe47ea32b2e684fca4b4f05a544ce489f5b024"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/input-annotation-cropx.json",
+      "bytes": 326917,
+      "sha256": "e7017c303036a021cf9a5089b84be6a81ea0a42e6a3b9cc8a39e63263ede2d0b"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/input-annotation-gocardless.json",
+      "bytes": 493277,
+      "sha256": "5e0a2c301e09cb0f4664794f4aef45c0750c8f6657ec151c7dc0a65dfa7ceb56"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/live-cropx-attribution.json",
+      "bytes": 150847,
+      "sha256": "8ecbb2ef2c6e4346e38291c3656904331ccc874d66e782863a1b6d872f682efc"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/live-cropx-final.json",
+      "bytes": 184427,
+      "sha256": "579d80eabe2a4fe98874fdcc5a58661bba53e05ad30228bea597bf13bc01bdd3"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/live-cropx-first.json",
+      "bytes": 131886,
+      "sha256": "8db53505adf4ac003ee329550db792dd1bfb6c01fd25f2bdcfdc31d893466423"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/live-gocardless-attribution.json",
+      "bytes": 188441,
+      "sha256": "2568b9b66bfc92f4a68df44984912e6f89161085764abc47cb2ed56ef3935d83"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/live-gocardless-final.json",
+      "bytes": 256770,
+      "sha256": "a90d8c3dfef71b171ec7a01b90df96edc1a8a803c500b0740a766403099f262a"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/live-gocardless-first.json",
+      "bytes": 192929,
+      "sha256": "35f34963f9f7fc1db54af043c0d7edf1e265cf054b2bf81c86a49adc1416e9d5"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/generation-quality-2026-09-24/resume-recheck-gocardless.json",
+      "bytes": 447912,
+      "sha256": "5b34503b5211e58affe2661f884126e23ec0507628bb4bc3bece1297a95febb7"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/live-workflow-cases.json",
+      "bytes": 108100,
+      "sha256": "6b7eaa4773a87dfaec9d90feb6ca4ffc914ac7de6635e8416ff879de9592878a"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/local-contract-recovery-2026-09-24/pro-combined-first-pass/call-1.json",
+      "bytes": 6603,
+      "sha256": "5852db7745d43b684367249349deb8b37fa64a0a6e289018409687022be1ac06"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/local-contract-recovery-2026-09-24/pro-combined-first-pass/call-2.json",
+      "bytes": 1470,
+      "sha256": "b6415c0fc780f1e2bad2a1478231239683fefd300adc58ceb3b9f02321e83059"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/local-contract-recovery-2026-09-24/pro-reviewed-parser-first-pass/call-1.json",
+      "bytes": 6723,
+      "sha256": "5e9d70e1c1d666ef6d4761b27e7efeb4735b364544c4a5a5d577c074b38bcb44"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/local-contract-recovery-2026-09-24/pro-reviewed-parser-first-pass/call-2.json",
+      "bytes": 5761,
+      "sha256": "dfbe9a1e92d8cbf39bddbb17a4346f13c18d1df6db62d06871bb05a5c2d861c6"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/local-contract-recovery-2026-09-24/pro-section-review-first-pass/call-1.json",
+      "bytes": 6817,
+      "sha256": "7ef3de2679b9dfc788502cacc435f5196168d736e23006a94e34bf5ae774d6bf"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/paasa-v6-audit.json",
+      "bytes": 1563,
+      "sha256": "6938a46b9fc323c1753756a3535cefbec310e1eaa7b3b392d873f417e79a8e5e"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/paasa-v6-live.json",
+      "bytes": 171528,
+      "sha256": "ffb3eb0223bc1767708874d025ae23503a39f2e4be7c5373f58c8758b5642056"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/pro-subscription-diagnostic-2026-09-24/audit.json",
+      "bytes": 2681,
+      "sha256": "e813fc59391501cf0a0ad02e90ca888ccd9193d78d37b0700c453f92842d230f"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/pro-subscription-diagnostic-2026-09-24/gocardless-public.json",
+      "bytes": 28507,
+      "sha256": "090f996649425169fc0d834b0b365ff21bf061c6ded355c02b9303f7fa78ba6d"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/pro-subscription-diagnostic-2026-09-24/pro-gocardless/call-1.json",
+      "bytes": 3781,
+      "sha256": "e8dddedf68ceeb09d6b72066f7c89138d016d7be75bb0fbcf302bd7908ab4da9"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/pro-subscription-diagnostic-2026-09-24/pro-gocardless/call-2.json",
+      "bytes": 4162,
+      "sha256": "d31247f4e57e75a1193db46dfe0358de96d1d46ac2f1b17db1ecac49908cc443"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/public-research-2026-09-25/checkpoint-cropx.json",
+      "bytes": 2305540,
+      "sha256": "32713f169ba564a56118a773adc4a5e7590ba773a25fe737ce2803234edca96b"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/public-research-2026-09-25/checkpoint-gocardless.json",
+      "bytes": 2382160,
+      "sha256": "72a825d08f17a201e6122f45a1ce9475937049e8bcdd4a357d3f71707e433eb6"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/public-research-2026-09-25/deployed-check.json",
+      "bytes": 754,
+      "sha256": "0134683c6e807a6a942cd9b4b24b466152db55b88e0919b84b490ce2bfda7494"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/public-research-2026-09-25/deployed-cropx.json",
+      "bytes": 315462,
+      "sha256": "b68b5af8a1dd4560d466c35a74669285deaeabc482050ae3665240e115bc801d"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/public-research-2026-09-25/deployed-gocardless.json",
+      "bytes": 600657,
+      "sha256": "a59d5d7927a2e1712cf1f955057283787f9372c8d0c8d365d8ee1877e6ad8e32"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/public-research-2026-09-25/source_run_1367b782ddcf.json",
+      "bytes": 196120,
+      "sha256": "b37645906d864039c934fb987abbdc980498a280b21d869a134d6c29569cebbd"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/public-research-2026-09-25/source_run_3b5affb7db6d.json",
+      "bytes": 124016,
+      "sha256": "1b23c98d81aca0e7a67dce04450a8ba09bcbfff5c808216535cbc84ecc575193"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/public-research-2026-09-25/source_run_817434530ea1.json",
+      "bytes": 280981,
+      "sha256": "fd42e6c20786b0592777e67488d9069d1b00ea3ee7e14362fd2d0f8caae781e5"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/public-research-2026-09-25/source_run_8709197230ff.json",
+      "bytes": 125183,
+      "sha256": "181acd9f57bacc933503def6261a9272cd687b38a4b99732b9f5f14c124bad9b"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/public-research-2026-09-25/source_run_b202f1bef952.json",
+      "bytes": 30818,
+      "sha256": "87ebb37e6a72262a5374b98c854da5cae6680108634eefdbfe6e16c967f0cec4"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/public-research-2026-09-25/source_run_e9bc7930c9a7.json",
+      "bytes": 383103,
+      "sha256": "ac94c4a04102aa1683c21bc6309508b38eb3b65770a4b0561342249e78db555d"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/public-research-2026-09-25/source_run_f5c1bec2b143.json",
+      "bytes": 122652,
+      "sha256": "6f803d6949621cd417df2e8e1c4400df102b83e6f2ff45ec745a764c4a530472"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/readiness-plain-language/browser-check.json",
+      "bytes": 675,
+      "sha256": "4c5ed23a0f3182a0c91b39aaed256580012885654b77b158d4a3aeb3bc93f787"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/readiness-plain-language/verification.json",
+      "bytes": 191,
+      "sha256": "6cd3205b50f822100f891b7b91928283b09d675be051c2005e4ceb436342db02"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/readiness-plain-language/workspace-hashes-before.json",
+      "bytes": 2978,
+      "sha256": "b55753ce94f26804c35cbf0a08fdca413ca97b1f42d2d162709db2a945209c30"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v10-agrotech-search/adaptive-browser.json",
+      "bytes": 184,
+      "sha256": "42bceefa30665ae16ca03ec7e63189428037e11b407b12e92b6b6a7a06e4d0d9"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v10-agrotech-search/adaptive-start.json",
+      "bytes": 620,
+      "sha256": "44cc1bb2a03e98bcaa273f3c69f982b9bc83093033fc772aec8cd6dc7678b2ae"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v10-agrotech-search/lead_5d58877abb93.json",
+      "bytes": 6502,
+      "sha256": "60aae87e6272b211667372655247a0a4d5caa7ad1b836715a329b736ffab2926"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v10-agrotech-search/retest-start.json",
+      "bytes": 620,
+      "sha256": "f240baffbabe896766f45f85d9a027ce00ec43780a0ca1b1610995ec51be45da"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v10-generation-recovery/gocardless-before.json",
+      "bytes": 272394,
+      "sha256": "9e9387958df272dad8026594067ceac22d06cc96e2d795b1fa4d9af77e21ad85"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v10-generation-recovery/resume-start.json",
+      "bytes": 20098,
+      "sha256": "96689bd0acac8834e2f2d40e049777d4b3821ea97c1589a63f56bf733b7ed851"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v10-model-authored/discovery-current-start.json",
+      "bytes": 645,
+      "sha256": "cb84ae9f68cf8ede8fa377d10f7f33763ac05a3b58e9f9b4ea1e33d97a3610b3"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v10-model-authored/discovery-first.json",
+      "bytes": 48237,
+      "sha256": "9b30ea33764a59b041a62f8a483f2f946f39e4d9857e3d6bd6775a520104cf5d"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v10-model-authored/discovery-retry-start.json",
+      "bytes": 645,
+      "sha256": "b7aa5d685a807b819d3e7ed714c0ad3ec5cb468eb7ef4dabfeede02ab12f3b38"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v10-model-authored/discovery-start.json",
+      "bytes": 645,
+      "sha256": "58d2e7a5fa975eadc6a36ffb602e3e30ba20f0899c3ef2248148c0ad992468ca"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v10-model-authored/lead_3f0aee42d7ad-first-workspace.json",
+      "bytes": 75552,
+      "sha256": "844d0b0be5324cdb316165d676760a4f32ef5e4232237763f098e000911e582e"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v10-model-authored/preparation-final-failure.json",
+      "bytes": 221436,
+      "sha256": "408dbf48810b9e3c38d0c79c13bc6dfe0956e80e3d6c921d0cb092be1c4eed02"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v10-model-authored/preparation-latest-start.json",
+      "bytes": 19583,
+      "sha256": "991e03a42d532da1f5aec1d67bb828dbbf229cdf7221229e390e7250424197dd"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v10-model-authored/preparation-second-failure.json",
+      "bytes": 149899,
+      "sha256": "dd3b21cdd7a7d590b3e853a584ca5e1dc27e13e2866bd740ec6b8870f7d66bdf"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v10-model-authored/prepare-current-start.json",
+      "bytes": 19357,
+      "sha256": "551b0865b5dc90fe82a5f8c6403c7c517b57575ab5d12fcb7baa5a2ef119dea0"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v10-model-authored/source_run_4513f7e6a177.json",
+      "bytes": 77779,
+      "sha256": "ea4014dea5d5499e65da458124f2f94255975288a90a65eef2f67fa0edadfa06"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v10-model-authored/source_run_9f834e02927b.json",
+      "bytes": 48237,
+      "sha256": "9b30ea33764a59b041a62f8a483f2f946f39e4d9857e3d6bd6775a520104cf5d"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v10-model-authored/source_run_deb9bacc8d62.json",
+      "bytes": 16005,
+      "sha256": "00607f2dc8fa96e99c4dc6917079e34321ec74eb79966201799f18d459e2230b"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-readable-research/fresh-current-paasa.json",
+      "bytes": 84663,
+      "sha256": "4f5b7abf0fb1ae90da4426c729875f8ac75a37bc31ece658709149cecb0f48a3"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-readable-research/implementation-final.json",
+      "bytes": 739,
+      "sha256": "e4e0bfbebc53707b6ceec188f0583224f93f55bf9b4fd14375633fb542c43342"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-readable-research/implementation-verified.json",
+      "bytes": 739,
+      "sha256": "31a6e8cc67334fa2dfb9d1aa6168722b3f7b51cc24eff0046fae3d7e93b546d6"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-readable-research/implementation.json",
+      "bytes": 739,
+      "sha256": "2b77b66a9c54011154ac9be76640ed4069cb6ec379c6f4df3ff3a894677a8468"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-readable-research/live-waybill.json",
+      "bytes": 110763,
+      "sha256": "03ff9fb905feaa2df676bb3e79f29c2f68c6412f70a461880e9053b5b7d97035"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-readable-research/live/waybill.json",
+      "bytes": 279320,
+      "sha256": "85b124126e314286abf188828fbbdffbcb55ac06def9a7f9d34c51a4af7c8261"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-readable-research/paasa-before.json",
+      "bytes": 2123150,
+      "sha256": "37c662deac7c2d52059efa20dd163eefcd1323ba76d5c77570423896b6f00f4f"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-readable-research/waybill-final.json",
+      "bytes": 138485,
+      "sha256": "c37a91e8683731aad341dbac67b2e774a50b7521a3001f96f071bbd1f7bf00af"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-research-reliability/live-before.json",
+      "bytes": 1978480,
+      "sha256": "fdfe78b425911694d18ee15028216ad6007bd270f6a03f0c7371111cd9f0e53a"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-research-reliability/resend/resend_research.json",
+      "bytes": 124870,
+      "sha256": "e3f4a0668fd747495be0c1e4c3ad942041c38007f0cf459fdbb5d7e6235c85ce"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-service-binding/live-paasa-before.json",
+      "bytes": 1435025,
+      "sha256": "8aaf78a93b7fbfe5402531c7713909bfcf9c34177be3429b60938b2a3bf9421e"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-typed-review-bases/audit.json",
+      "bytes": 2989,
+      "sha256": "8463e2cb0a7ab45e14899a09d2030d7c1e8693507cff94cb1d3e7e9b498e93f4"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-unseen-source-cleanup/basigo_kenya.audit.json",
+      "bytes": 2211,
+      "sha256": "675e997db9fd40979c50fe596a3021f0a722ca01d3d1b2f437d9cb9f19579e91"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-unseen-source-cleanup/basigo_kenya.json",
+      "bytes": 64823,
+      "sha256": "453c2ea331121facd2ca518051474a541fd1979c86fcde1eb2d6081ec79b8585"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-unseen-source-cleanup/live-paasa-before.json",
+      "bytes": 1599434,
+      "sha256": "c3ea286ceeffae2c9bcd70cba8eda0c2e43fb0525a04f9de018a53b1623067fa"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-unseen-source-cleanup/live-paasa.audit.json",
+      "bytes": 554,
+      "sha256": "d1dea7f0befe8173dcf9239e7da9944832e96bb6bfc32bea02258abe5450793f"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-unseen-source-cleanup/oddbox_uk.audit.json",
+      "bytes": 2187,
+      "sha256": "ba2735c1f4ebda11479b55c8555dff0417d4f4c21c79c0b363a35d5cd959ec7e"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-unseen-source-cleanup/oddbox_uk.json",
+      "bytes": 69715,
+      "sha256": "b2325c5a08eec0acc6333aea1799e90ec156c79c67747da25c2542883ae4746b"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-unseen-source-cleanup/paasa-cost-input-retest/live-paasa-before.json",
+      "bytes": 1866742,
+      "sha256": "e44ff44c319d2afafdd810c032b190ea8d9cda4692564128c2d1c9fa997e98ac"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-unseen-source-cleanup/paasa-cost-input-retest/live-paasa.audit.json",
+      "bytes": 583,
+      "sha256": "3656ed6fb44c4b16400832be574d39ae90249535908187be81a857ca4a318d2d"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-unseen-source-cleanup/paasa-offer-repair/cache-check.json",
+      "bytes": 678,
+      "sha256": "989caae5196f9e501fad265e69dac70e8782210f1168d4d1415c43fe54044056"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-unseen-source-cleanup/paasa-offer-repair/live-paasa-before.json",
+      "bytes": 1900927,
+      "sha256": "260cbd8fef12c7b3fe1567bc0aa5b591162614f566189132458eb17dadc4fc35"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-unseen-source-cleanup/paasa-offer-repair/live-paasa.audit.json",
+      "bytes": 2607,
+      "sha256": "12945ab2c126b4115f7338264a899d768b1df6fbf9e606cc6303e64aafcd9a47"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-unseen-source-cleanup/paasa-refresh-retest/live-paasa-before.json",
+      "bytes": 1727278,
+      "sha256": "4c90bc1cd5a9085f99110968beaf8e71c701d942a5245366130aa06f8af16a53"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-unseen-source-cleanup/resend_us.audit.json",
+      "bytes": 2073,
+      "sha256": "9e60c9a6e59df1c5f7f014315f4a066a60f8df7b84c46cccd2884cdffdb72790"
+    },
+    {
+      "path": "evals/investment_preparation/section-workflows/v9-validated-methods/runtime-before.json",
+      "bytes": 676,
+      "sha256": "1e6e51bcba11b36c52aaaf11f1cdbccba7dbb5a3089ce93546670cc5c0df86d4"
+    }
+  ]
+}
