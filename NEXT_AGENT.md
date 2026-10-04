@@ -1,5 +1,51 @@
 # Next agent: execute the research pipeline
 
+## 4 October semantic material review capability checkpoint
+
+**Tested code:** Fresh material reviews now use the versioned `semantic_v10`
+contract. The model selects an enumerated slide sentence and quotes its exact
+challenged proposition; software attaches every offered, source-matched complete
+memo span and records finite source scope. Saved v1–v9 requests replay under
+their original contracts. Claude Code implemented fresh production and repair
+request wiring, a digest-pinned local model override and synthetic paired
+diagnostics. Codex agents implemented the review contract and audited the live
+failure. The combined research, delivery, room, financial and KB candidate
+suite passed **869 tests, 5 skipped** after the opt-in `semantic_v11` worker and
+scale diagnostic were added; `git diff --check` passed. The v11 worker takes
+one required-row call per deck, binds model-authored relations to exact frozen
+sentences and spans, replays recorded attempts, and blocks unknown/invalid
+rows. It is not the fresh production route. This is tested software, not
+material quality.
+
+**Live acceptance:** The installed `qwen3.5:9b` and `qwen3:14b` both failed the
+frozen v10 whole-deck synthetic defect/control pair. They found the planted
+false cash-receipt claim but also blocked clean, explicitly attributed source
+reports. The 14B thinking run also failed a later fixed-row holdout when an
+unrelated contract flag contaminated its classification task. Raw responses,
+model digests and scorecards remain under ignored
+`runtime_qualification/local_material_review_pair/` and
+`runtime_qualification/local_assertion_relation_probe/`.
+
+A separate **relation-only** synthetic probe (`assertion-relation-probe-v4`)
+removed that extra task. The installed 9B classified every clean sentence as
+supported and only the planted assertion as unsupported on two distinct
+four-row pairs: funding receipt and signed supply contracts. The two-call
+`v5` batch passed both pairs as well. These are bounded feasibility results.
+
+**Scale gate:** On the frozen model-authored v16 material (12 intro and 13
+pitch sentences), the 9B returned both required-row objects in 59 and 65
+seconds but three rows violated the relation/quote contract and several claims
+remained uncertain. The scorecard therefore reports `incomplete_fail_closed`.
+The installed 14B exhausted the 105-second bound on both decks and returned no
+accepted rows. Neither model passed scale acceptance. The v11 worker remains
+opt-in; do not make it the fresh route. No private Toffee case, forecast or
+investor package has passed live acceptance. The next action is to address the
+drafts' extra/misaligned source citations and overbroad claims through
+model-authored generation and a measured local capability evaluation; do not
+silently turn these raw failures into a pass. Independent content, financial
+and visual review remain mandatory.
+
+
 ## 4 October frontend and source-scoped review checkpoint
 
 **Tested code:** The frontend room panel now exposes durable workflow stages,

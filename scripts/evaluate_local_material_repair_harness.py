@@ -14,7 +14,8 @@ from agents.inference.local_models import LocalModel
 from agents.inference.model_authorship import digest
 from agents.research.material_slides import replay_material_rows, render_sections
 from scripts.evaluate_local_material_review_harness import (_slides,
-    MATERIAL_ROOT, OUTPUT_ROOT as REVIEW_ROOT)
+    FRESH_REVIEW_CONTRACT, MATERIAL_ROOT, OUTPUT_ROOT as REVIEW_ROOT,
+    require_supported_contract)
 from scripts.evaluate_local_memo_harness import installed_models
 from scripts.private_material_repair_worker import repair_materials
 from scripts.private_material_review_worker import review_materials
@@ -49,7 +50,7 @@ def _bound_review_request(base, recorded):
 
 def _re_review_request(base):
     """Apply the current contract only to a new, frozen re-review."""
-    versioned = {**base, 'review_contract': 'semantic_v8'}
+    versioned = {**base, 'review_contract': require_supported_contract(FRESH_REVIEW_CONTRACT)}
     return {**versioned, 'digest': digest(versioned)}
 
 

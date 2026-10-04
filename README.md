@@ -14,11 +14,17 @@ then [NEXT_AGENT.md](NEXT_AGENT.md) for the latest tested-code/live-acceptance s
 Historical success notices do not establish current investment quality.
 
 The installed local `qwen3.5:9b` produced synthetic intro and pitch PPTX/PDF pairs
-and an IM DOCX/PDF pair that passed structural and text-pair checks. The last completed live
-semantic material review remains blocked by wrong-source selections, and visual
-inspection found sparse slides and a dense memo. These are diagnostic outputs,
-not accepted investor materials. Code tests, PDF text parity and a passing
-model self-review cannot replace independent content, financial and visual review.
+and an IM DOCX/PDF pair that passed structural and text-pair checks. The live
+whole-deck semantic reviewer still fails a synthetic defect/control pair on
+false positive claims; the installed 14B also fails that pair. A smaller
+relation-only 9B probe passed two distinct synthetic pairs in one call per
+deck, but its 25-sentence scale run on frozen model-authored material failed
+closed. The installed 14B exhausted the per-deck time bound on that run. The
+relation worker is opt-in and has not become the fresh production reviewer.
+Visual inspection found sparse slides and a dense memo. These are
+diagnostic outputs, not accepted investor materials. Code tests, PDF text
+parity and model self-review cannot replace independent content, financial and
+visual review.
 
 ## Current plans
 
@@ -117,13 +123,17 @@ release/reviewer summary and citation-level semantic findings in the room API
 before the frontend can show exact accepted-package status or a useful finding
 drilldown. No current room draft is represented as ready to send.
 
-Fresh semantic material reviews use a versioned `semantic_v8` request. For each
-model-selected slide sentence, the request lists only memo spans sharing its
-cited source IDs; software binds the selected exact span and rejects any other
-index. The local model still decides whether a defect exists and authors the
-finding. Historical review requests retain their recorded contracts and exact
-replay. This is a source-binding improvement, not an independent assessment of
-investment quality.
+Fresh semantic material reviews use a versioned `semantic_v10` request. The
+model selects an enumerated slide sentence and quotes the exact proposition it
+challenges. Software attaches all offered memo spans sharing that sentence's
+cited source IDs, plus finite evidence-scope metadata; the model still decides
+whether a defect exists and authors the explanation. Historical requests keep
+their recorded contracts and exact replay. A synthetic-only relation probe can
+be run with `scripts/evaluate_local_assertion_relation_probe.py`; its scorecard
+does not release materials or change the production review route. The opt-in
+`semantic_v11` worker implements the same fixed-row shape but is held back by
+the failed scale diagnostic. See
+[NEXT_AGENT.md](NEXT_AGENT.md) for live failures and the next bounded gate.
 
 Private LibreOffice conversion now uses a short job-local 0700 directory and
 Unix IPC socket. Synthetic intro/pitch and revised IM editable/PDF pairs passed
