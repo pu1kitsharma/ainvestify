@@ -349,7 +349,8 @@ def test_accepted_run_without_challenge_is_blocked_and_never_promoted(tmp_path, 
     assert report['evaluation_state'] == 'blocked' and report['independent_review'] == 'pending'
 
     monkeypatch.setattr(harness, 'renderable_sections',
-                        lambda accepted, sources, attempts: [('Heading', 'Body text', 'refs')] * 8)
+                        lambda accepted, sources, attempts, projection=None: [
+                                ('Heading', 'Body text', 'refs')] * 8)
     report = harness.evaluate(fixture(tmp_path), tmp_path / 'challenged', names(),
                               passes=1, seconds=1, operator_attested=True)
     assert report['render_validation'] == 'pass' and report['rendered_sections'] == 8

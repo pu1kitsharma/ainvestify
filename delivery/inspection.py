@@ -7,6 +7,7 @@ from __future__ import annotations
 from io import BytesIO
 from pathlib import PurePosixPath
 from zipfile import ZipFile, BadZipFile
+from difflib import SequenceMatcher
 import hashlib
 import posixpath
 import re
@@ -163,6 +164,7 @@ def inspect_export_pair(editable: bytes, editable_format: str, pdf: bytes):
 
     PPTX exports must have one PDF page per slide. Text in the editable file
     must appear on its corresponding PDF page (or anywhere in a DOCX export).
+    For slides, also reject a substantial uninterrupted PDF-only text run.
     This does not validate chart data, visual layout or all PDF-only content.
     """
     if editable_format not in {"pptx", "docx"}:
@@ -230,6 +232,23 @@ def inspect_export_pair(editable: bytes, editable_format: str, pdf: bytes):
                             break
                 if len(findings) >= 20:
                     break
+                if editable_format == "pptx":
+                    # Text-preserving export must not add a substantive claim
+                    # absent from its editable slide. Short inserted tokens
+                    # (page numbers, glyph extraction differences) are left
+                    # for independent content review. Report a hash only.
+                    editable_tokens = re.findall(r"\w+", normalized(" ".join(values)))
+                    pdf_tokens = re.findall(r"\w+", target)
+                    if len(pdf_tokens) > 2_000 or len(editable_tokens) > 2_000:
+                        raise ValueError("export_pdf_text_scope_exceeded")
+                    for operation, _, _, start, stop in SequenceMatcher(
+                            None, editable_tokens, pdf_tokens, autojunk=False).get_opcodes():
+                        added = pdf_tokens[start:stop]
+                        if operation in {"insert", "replace"} and len(added) >= 6 and len(" ".join(added)) >= 30:
+                            findings.append({"code": "export_pdf_only_substantive_text",
+                                             "page": index + 1,
+                                             "text_sha256": hashlib.sha256(" ".join(added).encode()).hexdigest()})
+                            break
             text_status = "fail" if findings else "pass"
         except Exception as exc:
             findings.append({"code": "export_text_comparison_unavailable",

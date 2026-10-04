@@ -121,6 +121,13 @@ def test_exact_export_pair_catches_missing_or_extra_slide_pages():
         'First synthetic slide', 'Stale second slide']))
     assert stale['pair_status'] == 'fail'
     assert stale['findings'][0]['code'] == 'export_editable_text_missing_from_pdf'
+    added = inspect_export_pair(pptx, 'pptx', pdf_with_pages([
+        'First synthetic slide. This entirely new claim is present only in the exported PDF.',
+        'Second synthetic slide']))
+    assert added['pair_status'] == 'fail'
+    assert any(f['code'] == 'export_pdf_only_substantive_text' and f['page'] == 1
+               and len(f['text_sha256']) == 64 for f in added['findings'])
+    assert 'entirely new claim' not in str(added)
 
 
 def test_orphan_slide_part_is_not_counted_as_a_presented_slide():

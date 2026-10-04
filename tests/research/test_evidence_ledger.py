@@ -1,12 +1,13 @@
 """Evidence ledger: exact typed facts and label-versus-value comparison. Synthetic only."""
 import json
+from types import SimpleNamespace
 
 import pytest
 
 from agents.research.evidence_ledger import (LedgerError, build_ledger, compare_claim,
                                              affirms_completion, date_interval, field_labels,
                                              key_concept,
-                                             reconcile, source_facts, source_sha256,
+                                             ledger_targets, reconcile, source_facts, source_sha256,
                                              structured_stage_events, target_key)
 from agents.research.investment_memo import Source
 
@@ -61,13 +62,31 @@ def test_malformed_or_duplicate_key_record_is_an_error_not_a_guess():
     broken = record(round="Seed").model_copy(update={'passage': '{"entity": "Example Labs", "amount": '})
     with pytest.raises(LedgerError, match='not valid JSON'):
         source_facts(broken)
-    listed = record(round="Seed").model_copy(update={'passage': '["a list is not a key/value record", 1]'})
-    with pytest.raises(LedgerError, match='key/value record'):
-        source_facts(listed)
     repeated = record(round="Seed").model_copy(update={
         'passage': '{"amount": "USD 1", "entity": "Example Labs", "amount": "USD 2"}'})
     with pytest.raises(LedgerError, match='ambiguous'):
         source_facts(repeated)
+
+
+@pytest.mark.parametrize('passage', [
+    '[["A paragraph extracted from a PDF page."], ["A second page paragraph."]]',
+    '[[A bracketed PDF heading] A source passage that is not JSON at all.',
+])
+def test_bracket_prefixed_pdf_passages_are_prose_not_typed_records(passage):
+    source = record('S2', amount='not reported').model_copy(update={'passage': passage})
+    assert source_facts(source) is None
+    ledger = build_ledger([source])
+    assert ledger['facts'] == [] and ledger['sources']['S2']['structured'] is False
+    claim = SimpleNamespace(source_id='S2', assertion='The source reports a product statement.')
+    section = SimpleNamespace(analysis='The source reports a product statement [S2].',
+                              claims=[claim])
+    memo = SimpleNamespace(recommendation_reason='The source reports a product statement [S2].',
+                           recommendation_claims=[claim],
+                           **{field: section for field in (
+                               'investment_thesis', 'business_and_market',
+                               'differentiation_and_execution', 'risks_and_countercase',
+                               'diligence_plan')})
+    assert all(not target['structured'] for target in ledger_targets(memo, [source]))
 
 
 def test_key_vocabulary_keeps_related_fields_apart():

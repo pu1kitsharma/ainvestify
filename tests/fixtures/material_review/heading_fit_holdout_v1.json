@@ -1,0 +1,38 @@
+{
+  "kind": "synthetic_heading_fit_holdout",
+  "version": 1,
+  "rows": [
+    {
+      "row_id": "h01",
+      "heading": "Financial Unknowns",
+      "body": "Audited statements and reported revenue data have not been supplied for Cedar Atlas.",
+      "source_span": "[S1] Audited statements and reported revenue data have not been supplied for Cedar Atlas.",
+      "expected_fit": true,
+      "expected_source_support": true
+    },
+    {
+      "row_id": "h02",
+      "heading": "Investment Risks",
+      "body": "The investment case remains conditional because audited statements and customer contracts have not been supplied.",
+      "source_span": "[S1] Audited statements and customer contracts have not been supplied.",
+      "expected_fit": true,
+      "expected_source_support": true
+    },
+    {
+      "row_id": "h03",
+      "heading": "Market Context",
+      "body": "Audited statements and reported revenue data have not been supplied for Cedar Atlas.",
+      "source_span": "[S1] Audited statements and reported revenue data have not been supplied for Cedar Atlas.",
+      "expected_fit": false,
+      "expected_source_support": true
+    },
+    {
+      "row_id": "h04",
+      "heading": "Market Opportunity",
+      "body": "Small freight operators require scheduling software to run their operations.",
+      "source_span": "[S2] The company states that it builds scheduling software for small freight operators.",
+      "expected_fit": true,
+      "expected_source_support": false
+    }
+  ]
+}

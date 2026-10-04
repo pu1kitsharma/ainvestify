@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import sys
+import urllib.request
 from pathlib import Path
 
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
@@ -179,25 +180,76 @@ def evaluate_source_selection(root, model=None):
 
 def validate_saved_model_roles(attempts, roles):
     """A saved response cannot be replayed under a different local model role."""
-    if set(roles) - {'draft_b', 'challenge'} != {'draft', 'review', 'corrector', 'prose'}:
+    if set(roles) - {'draft_b', 'challenge', 'author'} != {
+            'draft', 'review', 'corrector', 'prose'}:
         raise ValueError('Saved memo model profile is incomplete')
     for row in attempts:
         task = row.get('task', '')
-        if (task in {'investment_memo_part_a', 'investment_memo_part_a_quote_patch'}
+        if (task in {'investment_memo_causal_repair_v1',
+                     'investment_memo_causal_repair_v2',
+                     'investment_memo_causal_repair_v3',
+                     'investment_memo_causal_repair_v4'} or
+                task.startswith('investment_memo_part_a_') and
+                task.endswith(('_source_1_v7', '_source_2_v7')) or
+                task.startswith('investment_memo_part_b_v13_') and
+                '_author_' in task):
+            role = 'author'
+        elif (task in {'investment_memo_evidence_packet',
+                     'investment_memo_part_a', 'investment_memo_part_a_quote_patch'}
                 or task in {'investment_memo_part_a_recommendation',
+                            'investment_memo_part_a_recommendation_decision',
+                            'investment_memo_part_a_recommendation_decision_v2',
+                            'investment_memo_part_a_recommendation_unknowns',
+                            'investment_memo_part_a_recommendation_unknowns_v2',
                             'investment_memo_part_a_thesis',
-                            'investment_memo_part_a_market'}):
+                            'investment_memo_part_a_market'} or
+                task in {'investment_memo_part_a_recommendation_select_v3',
+                         'investment_memo_part_a_thesis_select_v3',
+                         'investment_memo_part_a_market_select_v3',
+                         'investment_memo_part_a_recommendation_select_v4',
+                         'investment_memo_part_a_thesis_select_v4',
+                         'investment_memo_part_a_market_select_v4',
+                         'investment_memo_part_a_recommendation_select_v5',
+                         'investment_memo_part_a_thesis_select_v5',
+                         'investment_memo_part_a_market_select_v5',
+                         'investment_memo_part_a_recommendation_select_v6',
+                         'investment_memo_part_a_thesis_select_v6',
+                         'investment_memo_part_a_market_select_v6',
+                         'investment_memo_part_a_recommendation_select_v7',
+                         'investment_memo_part_a_thesis_select_v7',
+                         'investment_memo_part_a_market_select_v7'} or
+                (task.startswith('investment_memo_part_a_') and
+                 task.endswith(('_source_1_v3', '_source_2_v3',
+                                '_source_1_v4', '_source_2_v4',
+                                '_source_1_v5', '_source_2_v5',
+                                '_source_1_v6', '_source_2_v6')))):
             role = 'draft'
         elif (task in {'investment_memo_part_b', 'investment_memo_part_b_quote_patch'}
               or task in {'investment_memo_part_b_differentiation_and_execution',
                           'investment_memo_part_b_risks_and_countercase',
-                          'investment_memo_part_b_diligence_plan'}):
+                          'investment_memo_part_b_diligence_plan'} or
+              task.startswith(('investment_memo_part_b_v9_',
+                               'investment_memo_part_b_v10_',
+                               'investment_memo_part_b_v11_',
+                               'investment_memo_part_b_v12_',
+                               'investment_memo_part_b_v13_'))):
             role = 'draft_b' if 'draft_b' in roles else 'draft'
         elif task in {'investment_memo_part_a_correction', 'investment_memo_part_b_correction',
                       'investment_memo_part_a_claim_patch', 'investment_memo_part_b_claim_patch',
+                      'investment_memo_part_a_claim_choice', 'investment_memo_part_b_claim_choice',
                       'investment_memo_timeline_patch'}:
             role = 'corrector'
-        elif task == 'investment_memo_review':
+        elif task in {'investment_memo_field_repair_v1',
+                      'investment_memo_field_repair_v2'}:
+            role = 'author'
+        elif task in {'investment_memo_review', 'investment_memo_final_review_field_v1',
+                     'investment_memo_final_review_field_v2',
+                     'investment_memo_final_review_field_v3',
+                     'investment_memo_final_review_field_v4',
+                     'investment_memo_causal_review',
+                     'investment_memo_causal_review_v2'}:
+            role = 'review'
+        elif task == 'investment_memo_causal_review_v3':
             role = 'review'
         elif task in {'investment_memo_challenge', 'investment_memo_challenge_check',
                       'investment_memo_claim_mapping', 'investment_memo_source_events'}:
@@ -226,10 +278,72 @@ def main():
     request = json.loads((root / "request.json").read_text())
     model_profile = json.loads((root / "model.json").read_text())
     model_name = model_profile["model"]
+    memo_draft_contract = model_profile.get('memo_draft_contract')
+    if memo_draft_contract not in {None, 'memo-cards-v1', 'memo-cards-v2',
+                                   'memo-cards-v3', 'memo-cards-v4', 'memo-cards-v5',
+                                   'memo-cards-v6', 'memo-cards-v7',
+                                   'memo-cards-v8', 'memo-cards-v9',
+                                   'memo-cards-v10', 'memo-cards-v11',
+                                   'memo-cards-v12', 'memo-cards-v13'}:
+        raise ValueError('Unknown frozen memo draft contract')
+    causal_contract = model_profile.get('memo_causal_review_contract')
+    final_review_contract = model_profile.get('memo_final_review_contract')
+    if final_review_contract not in {None, 'field_v1', 'field_v2', 'field_v3', 'field_v4'} or (
+            final_review_contract and memo_draft_contract != 'memo-cards-v13'):
+        raise ValueError('Unknown frozen final memo review contract')
+    if causal_contract not in {None, 'memo-causal-v1', 'memo-causal-v2',
+                               'memo-causal-v3'} or (
+            causal_contract and memo_draft_contract not in {'memo-cards-v3',
+                                                               'memo-cards-v4',
+                                                               'memo-cards-v5',
+                                                               'memo-cards-v6',
+                                                               'memo-cards-v7',
+                                                               'memo-cards-v8',
+                                                               'memo-cards-v9',
+                                                               'memo-cards-v10',
+                                                               'memo-cards-v11',
+                                                               'memo-cards-v12',
+                                                               'memo-cards-v13'}):
+        raise ValueError('Unknown frozen memo causal review contract')
+    causal_digest = model_profile.get('memo_causal_review_model_digest')
+    lineage_file = root / 'memo_causal_review_lineage.json'
+    causal_lineage = json.loads(lineage_file.read_text()) if lineage_file.exists() else None
+    if (causal_contract == 'memo-causal-v3') != (causal_lineage is not None):
+        raise ValueError('Stable causal reviewer needs frozen prior lineage')
+    if causal_contract and (not isinstance(causal_digest, str) or
+                            len(causal_digest) < 16):
+        raise ValueError('Frozen memo causal review model digest is missing')
     roles = model_profile.get('profiles')
-    if not isinstance(roles, dict) or set(roles) - {'draft_b', 'challenge'} != {
+    if not isinstance(roles, dict) or set(roles) - {'draft_b', 'challenge', 'author'} != {
             'draft', 'review', 'corrector', 'prose'}:
         raise ValueError('Private memo worker requires frozen local model profiles')
+    author_digest = model_profile.get('memo_author_model_digest')
+    role_digests = model_profile.get('memo_role_model_digests')
+    if memo_draft_contract == 'memo-cards-v13' and role_digests is not None:
+        if (not isinstance(role_digests, dict) or set(role_digests) != set(roles) or
+                any(not isinstance(value, str) or len(value) != 64
+                    for value in role_digests.values())):
+            raise ValueError('Frozen v13 memo role model digests are incomplete')
+        with urllib.request.urlopen('http://127.0.0.1:11434/api/tags', timeout=5) as response:
+            installed = {row['name']: row.get('digest') for row in
+                         json.load(response)['models']}
+        if any(installed.get(name) != role_digests[role]
+               for role, name in roles.items()):
+            raise ValueError('Frozen v13 local model digest changed')
+        if (role_digests['author'] != author_digest or
+                role_digests['review'] != causal_digest):
+            raise ValueError('Frozen v13 author/reviewer digest mismatch')
+    if memo_draft_contract in {'memo-cards-v12', 'memo-cards-v13'}:
+        if (not isinstance(roles.get('author'), str) or
+                not isinstance(author_digest, str) or len(author_digest) != 64):
+            raise ValueError('Frozen local source-author role/digest is missing')
+        with urllib.request.urlopen('http://127.0.0.1:11434/api/tags', timeout=5) as response:
+            installed = {row['name']: row.get('digest') for row in
+                         json.load(response)['models']}
+        if installed.get(roles['author']) != author_digest:
+            raise ValueError('Frozen local source-author model digest changed')
+    elif 'author' in roles or author_digest is not None:
+        raise ValueError('Source-author role requires a frozen mixed-model memo contract')
     sources = [Source.model_validate(row) for row in request["sources"]]
     budget_file = root / "budget.json"
     budget_request = json.loads(budget_file.read_text()) if budget_file.exists() else {'seconds': 105}
@@ -241,6 +355,61 @@ def main():
                      'ledger_only', 'review_only'}:
         raise ValueError('Invalid private memo phase')
     phase_checkpoint = budget_request.get('phase_checkpoint')
+    repair_file = root / 'causal_repair.json'
+    causal_repair_packet = json.loads(repair_file.read_text()) if repair_file.exists() else None
+    second_repair_file = root / 'causal_repair_v2.json'
+    third_repair_file = root / 'causal_repair_v3.json'
+    fourth_repair_file = root / 'causal_repair_v4.json'
+    fifth_repair_file = root / 'causal_repair_v5.json'
+    if sum(path.exists() for path in (second_repair_file, third_repair_file,
+                                      fourth_repair_file, fifth_repair_file)) > 1:
+        raise ValueError('Only one frozen second causal repair contract is allowed')
+    causal_repair_packet_v2 = (json.loads(second_repair_file.read_text())
+                               if second_repair_file.exists() else
+                               json.loads(third_repair_file.read_text())
+                               if third_repair_file.exists() else
+                               json.loads(fourth_repair_file.read_text())
+                               if fourth_repair_file.exists() else
+                               json.loads(fifth_repair_file.read_text())
+                               if fifth_repair_file.exists() else None)
+    field_repair_file = root / 'memo_field_repair.json'
+    memo_field_repair_packet = (json.loads(field_repair_file.read_text())
+                                if field_repair_file.exists() else None)
+    second_field_file = root / 'memo_field_repair_v2.json'
+    memo_field_repair_packet_v2 = (json.loads(second_field_file.read_text())
+                                   if second_field_file.exists() else None)
+    if memo_field_repair_packet is not None:
+        if (phase != 'review_only' or memo_draft_contract != 'memo-cards-v13' or
+                final_review_contract != 'field_v4' or
+                causal_repair_packet is None or causal_repair_packet_v2 is None or
+                memo_field_repair_packet.get('contract') != 'memo-field-repair-v1' or
+                memo_field_repair_packet.get('model_name') != roles.get('author') or
+                memo_field_repair_packet.get('model_digest') != author_digest):
+            raise ValueError('Third field repair differs from frozen author lineage')
+    if memo_field_repair_packet_v2 is not None:
+        if (memo_field_repair_packet is None or
+                causal_contract != 'memo-causal-v3' or
+                final_review_contract != 'field_v4' or
+                memo_field_repair_packet_v2.get('contract') != 'memo-field-repair-v2' or
+                memo_field_repair_packet_v2.get('model_name') != roles.get('author') or
+                memo_field_repair_packet_v2.get('model_digest') != author_digest):
+            raise ValueError('Fourth field repair differs from frozen author lineage')
+    if causal_repair_packet is not None:
+        if (phase != 'review_only' or memo_draft_contract != 'memo-cards-v13' or
+                causal_repair_packet.get('model_name') != roles.get('author') or
+                causal_repair_packet.get('model_digest') != author_digest or
+                not isinstance(phase_checkpoint, dict) or
+                causal_repair_packet.get('base_memo_digest') !=
+                phase_checkpoint.get('final_memo_digest')):
+            raise ValueError('Frozen causal repair differs from review lineage')
+    if causal_repair_packet_v2 is not None:
+        if (causal_repair_packet is None or phase != 'review_only' or
+                causal_repair_packet_v2.get('contract') not in {
+                    'memo-causal-repair-v2', 'memo-causal-repair-v3',
+                    'memo-causal-repair-v4', 'memo-causal-repair-v5'} or
+                causal_repair_packet_v2.get('model_name') != roles.get('author') or
+                causal_repair_packet_v2.get('model_digest') != author_digest):
+            raise ValueError('Second causal repair differs from frozen author role')
     attempts_file = root / "attempts.json"
     attempts = json.loads(attempts_file.read_text()) if attempts_file.exists() else []
     # Older saved requests predate the frozen clock. Reuse the first recorded
@@ -262,8 +431,28 @@ def main():
         part_b_model = LocalModel(roles.get('draft_b', roles['draft']),
                                   thinking=False, max_tokens=1400,
                                   context_tokens=8192, temperature=0)
+        author_model = (LocalModel(roles['author'], thinking=False,
+                                  max_tokens=1400, context_tokens=8192,
+                                  temperature=0)
+                        if memo_draft_contract in {'memo-cards-v12', 'memo-cards-v13'}
+                        else None)
         reviewer = LocalModel(roles['review'],
-                              thinking=False, max_tokens=1500, context_tokens=16384, temperature=0)
+                              thinking=False,
+                              max_tokens=450 if final_review_contract in {'field_v2', 'field_v3', 'field_v4'} else
+                              1200 if final_review_contract == 'field_v1' else 1500,
+                              context_tokens=8192 if final_review_contract in
+                              {'field_v1', 'field_v2', 'field_v3', 'field_v4'} else 16384,
+                              temperature=0)
+        causal_reviewer = None
+        if causal_contract and phase == 'review_only':
+            with urllib.request.urlopen('http://127.0.0.1:11434/api/tags', timeout=5) as response:
+                installed = {row['name']: row.get('digest') for row in
+                             json.load(response)['models']}
+            if installed.get(roles['review']) != causal_digest:
+                raise ValueError('Frozen local causal reviewer digest changed')
+            causal_reviewer = LocalModel(roles['review'], thinking=False,
+                max_tokens=450 if causal_contract == 'memo-causal-v3' else 1400,
+                context_tokens=8192, temperature=0)
         corrector = LocalModel(roles['corrector'], thinking=False, max_tokens=1500,
                                context_tokens=16384, temperature=0)
         challenger = LocalModel(roles.get('challenge', roles['review']), thinking=False,
@@ -279,13 +468,33 @@ def main():
                            budget=PreparationBudget(budget_seconds, max_calls=5, max_requests=5),
                            phase=phase, phase_checkpoint=phase_checkpoint,
                            compact_part_a=phase != 'all',
-                           compact_part_b=phase != 'all')
+                           compact_part_b=phase != 'all',
+                           memo_draft_contract=memo_draft_contract,
+                           memo_author_model=author_model,
+                           memo_causal_review_contract=causal_contract,
+                           memo_final_review_contract=final_review_contract,
+                           final_review_model_digest=causal_digest,
+                           causal_review_model=causal_reviewer,
+                           causal_review_model_digest=causal_digest,
+                           memo_causal_review_lineage=causal_lineage,
+                           causal_repair_packet=causal_repair_packet,
+                           causal_repair_packet_v2=causal_repair_packet_v2,
+                           memo_field_repair_packet=memo_field_repair_packet,
+                           memo_field_repair_packet_v2=memo_field_repair_packet_v2)
     except PreparationBudgetExceeded:
         result = {"state": "needs_resume", "reason": "bounded_local_inference_time_or_call_limit"}
     except ValidationError:
         latest = attempts[-1] if attempts else {}
         task = latest.get('task', '')
         context = latest.get('input', {})
+        if (task == 'investment_memo_causal_repair_v3' and
+                latest.get('failure_kind') == 'schema_validation' and
+                'string_pattern_mismatch' in str(latest.get('error', ''))):
+            result = {'state': 'blocked',
+                      'reason': 'CausalRepairSingleSentenceSchemaError'}
+            save()
+            (root / 'result.json').write_text(json.dumps(result, ensure_ascii=False))
+            return
         count = sum(1 for row in attempts if row.get('task') == task
                     and row.get('input', {}).get('base_response_id') == context.get('base_response_id')
                     and row.get('input', {}).get('source_set_digest') == context.get('source_set_digest')

@@ -29,7 +29,12 @@ def artifact_root():
 def register_draft(conn, tenant, room, kind, fmt, revision, content, *, job=None):
     from delivery.contracts import POLICY
     release_formats = {contract.kind: contract.formats for contract in POLICY.artifacts}
-    preview_formats = {'research_brief': ('pdf',)}
+    # Pre-review previews are deliberately distinct slots. A later repaired,
+    # reviewed draft can occupy the investor-material slot for this revision.
+    preview_formats = {'research_brief': ('pdf',),
+                       'intro_deck_preview': ('pptx', 'pdf'),
+                       'pitch_deck_preview': ('pptx', 'pdf'),
+                       'investment_memorandum_preview': ('docx', 'pdf')}
     allowed_formats = release_formats.get(kind, preview_formats.get(kind))
     if allowed_formats is None or fmt not in allowed_formats:
         raise ValueError('Unsupported artifact kind or format')

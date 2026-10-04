@@ -1,15 +1,34 @@
 from concurrent.futures import ThreadPoolExecutor
+import json
 import pytest
 from store import Store
 from security.identity import provision_verified_identity
 from delivery.jobs import enqueue,claim,checkpoint,cancel,list_jobs
 from delivery.workflow_contracts import DealRoomActivated
+from delivery.jobs import _phase_cap
 
 
 def setup(db):
     with Store(db) as s:
         user,tenant=provision_verified_identity(s.conn,'https://accounts.google.com','synthetic')
     return DealRoomActivated(actor_id=user,tenant_id=tenant,workspace_id='room',input_revision='a'*64,workflow_version='v1')
+
+
+def test_versioned_causal_revision_review_cap_is_finite():
+    base = {'phase': 'review', 'checkpoint': {
+        'memo_draft_contract': 'memo-cards-v13',
+        'memo_causal_review_contract': 'memo-causal-v2'}}
+    assert _phase_cap(base) == 14
+    assert _phase_cap({**base, 'checkpoint': {**base['checkpoint'],
+                       'memo_revision': 'causal_v1'}}) == 14
+    for revision in ('causal_v2', 'causal_v3', 'causal_v4', 'causal_v5'):
+        assert _phase_cap({**base, 'checkpoint': {**base['checkpoint'],
+                           'memo_revision': revision}}) == 28
+    stable = {**base['checkpoint'], 'memo_causal_review_contract': 'memo-causal-v3',
+              'memo_final_review_contract': 'field_v4'}
+    for revision in ('stable_v1', 'field_v2'):
+        assert _phase_cap({**base, 'checkpoint': {**stable,
+                           'memo_revision': revision}}) == 28
 
 
 def test_concurrent_activation_restart_and_fencing(tmp_path):
@@ -53,6 +72,65 @@ def test_expiry_retries_are_bounded(tmp_path):
         assert list_jobs(s.conn,event.tenant_id,event.workspace_id)[0]['state']=='failed'
 
 
+@pytest.mark.parametrize('contract,cap', [(None, 6), ('memo-cards-v1', 8),
+                                          ('memo-cards-v2', 8), ('memo-cards-v3', 8),
+                                          ('memo-cards-v4', 8), ('memo-cards-v5', 8),
+                                          ('memo-cards-v6', 8), ('memo-cards-v7', 8),
+                                          ('memo-cards-v8', 30), ('memo-cards-v9', 30),
+                                          ('memo-cards-v10', 30), ('memo-cards-v11', 30),
+                                          ('memo-cards-v12', 30), ('memo-cards-v13', 30)])
+def test_draft_lease_reclaim_respects_frozen_packet_cap(tmp_path, contract, cap):
+    db=tmp_path/'jobs.db';event=setup(db)
+    with Store(db) as store:
+        enqueue(store.conn,event)
+        checkpoint_value = {} if contract is None else {'memo_draft_contract': contract}
+        store.conn.execute("UPDATE room_jobs SET phase='draft',checkpoint=? WHERE work_key=?",
+            (json.dumps(checkpoint_value), event.idempotency_key()))
+        store.conn.commit()
+        for index in range(cap):
+            job=claim(store.conn,now=100 + 11*index,lease_seconds=10)
+            assert (job['phase'],job['phase_attempt']) == ('draft',index+1)
+        assert claim(store.conn,now=100 + 11*cap) is None
+        assert list_jobs(store.conn,event.tenant_id,event.workspace_id)[0]['state']=='failed'
+
+
+@pytest.mark.parametrize('contract,causal,cap', [(None, None, 2), ('memo-cards-v2', None, 2),
+                                                 ('memo-cards-v3', None, 2),
+                                                 ('memo-cards-v3', 'memo-causal-v1', 14),
+                                                 ('memo-cards-v3', 'memo-causal-v2', 14),
+                                                 ('memo-cards-v4', None, 2),
+                                                 ('memo-cards-v4', 'memo-causal-v2', 14),
+                                                 ('memo-cards-v5', None, 2),
+                                                 ('memo-cards-v5', 'memo-causal-v2', 14),
+                                                 ('memo-cards-v8', None, 2),
+                                                 ('memo-cards-v8', 'memo-causal-v2', 14),
+                                                 ('memo-cards-v9', None, 2),
+                                                 ('memo-cards-v9', 'memo-causal-v2', 14),
+                                                 ('memo-cards-v10', None, 2),
+                                                 ('memo-cards-v10', 'memo-causal-v2', 14),
+                                                 ('memo-cards-v11', None, 2),
+                                                 ('memo-cards-v11', 'memo-causal-v2', 14),
+                                                 ('memo-cards-v12', None, 2),
+                                                 ('memo-cards-v12', 'memo-causal-v2', 14),
+                                                 ('memo-cards-v13', None, 2),
+                                                 ('memo-cards-v13', 'memo-causal-v2', 14)])
+def test_review_lease_reclaim_respects_frozen_causal_cap(tmp_path, contract, causal, cap):
+    db=tmp_path/'jobs.db';event=setup(db)
+    with Store(db) as store:
+        enqueue(store.conn,event)
+        checkpoint_value = {} if contract is None else {'memo_draft_contract': contract}
+        if causal:
+            checkpoint_value['memo_causal_review_contract'] = causal
+        store.conn.execute("UPDATE room_jobs SET phase='review',checkpoint=? WHERE work_key=?",
+            (json.dumps(checkpoint_value), event.idempotency_key()))
+        store.conn.commit()
+        for index in range(cap):
+            job=claim(store.conn,now=100 + 11*index,lease_seconds=10)
+            assert (job['phase'],job['phase_attempt']) == ('review',index+1)
+        assert claim(store.conn,now=100 + 11*cap) is None
+        assert list_jobs(store.conn,event.tenant_id,event.workspace_id)[0]['state']=='failed'
+
+
 def test_changed_inputs_fence_obsolete_work(tmp_path):
     db=tmp_path/'jobs.db';event=setup(db)
     with Store(db) as s:
@@ -90,7 +168,8 @@ def test_phases_have_independent_finite_attempts_and_monotonic_audit(tmp_path):
             ('source_selection',3,'financial_analysis'),
             ('financial_analysis',9,'draft'), ('draft',6,'correction'),
             ('correction',3,'ledger'), ('ledger',5,'review'),
-            ('review',2,'material_draft'), ('material_draft',6,'material_review'),
+            ('review',2,'material_draft'), ('material_draft',6,'material_preview'),
+            ('material_preview',2,'material_review'),
             ('material_review',2,'material_remediation'),
             ('material_remediation',1,'material_re_review'),
             ('material_re_review',2,'render'),
@@ -108,9 +187,9 @@ def test_phases_have_independent_finite_attempts_and_monotonic_audit(tmp_path):
                     with pytest.raises(ValueError,match='render pass'):
                         checkpoint(store.conn,job,{},state='queued')
                     checkpoint(store.conn,job,{'phase':phase_name},state='completed')
-        assert expected_attempt==40
+        assert expected_attempt==42
         assert claim(store.conn) is None
-        assert enqueue(store.conn,event)['attempt']==40
+        assert enqueue(store.conn,event)['attempt']==42
 
 
 def test_expired_material_lease_reclaims_through_sixth_attempt_only(tmp_path):

@@ -10,15 +10,117 @@ from scripts.private_investment_memo_worker import validate_saved_model_roles
 from scripts.private_investment_memo_worker import evaluate_source_selection, SourceSelection
 from agents.inference.model_authorship import digest
 from delivery.investment_memo_stage import resolve_memo_sources
+from delivery.investment_memo_stage import _prepare_causal_revision
+from delivery.investment_memo_stage import memo_base_directory, memo_directory
 
 
 def test_new_memo_uses_9b_draft_default(tmp_path, monkeypatch):
     monkeypatch.delenv('LOCAL_MEMO_DRAFT_MODEL', raising=False)
     monkeypatch.delenv('LOCAL_MEMO_PART_B_MODEL', raising=False)
+    monkeypatch.delenv('LOCAL_MEMO_DRAFT_CONTRACT', raising=False)
     profile = frozen_memo_model_profile(tmp_path / 'model.json', 'qwen3.5:9b')
     assert profile['profiles']['draft'] == 'qwen3.5:9b'
     assert profile['profiles']['draft_b'] == 'qwen3.5:9b'
     assert profile['profiles']['challenge'] == 'qwen3.5:9b'
+
+
+def test_fresh_v13_opt_in_pins_all_installed_local_roles(tmp_path, monkeypatch):
+    from io import BytesIO
+    monkeypatch.setenv('LOCAL_MEMO_DRAFT_CONTRACT', 'memo-cards-v13')
+    monkeypatch.setenv('LOCAL_MEMO_AUTHOR_MODEL', 'qwen3:14b')
+    monkeypatch.delenv('LOCAL_MEMO_DRAFT_MODEL', raising=False)
+    monkeypatch.delenv('LOCAL_MEMO_PART_B_MODEL', raising=False)
+    monkeypatch.delenv('LOCAL_MEMO_REVIEW_MODEL', raising=False)
+    monkeypatch.delenv('LOCAL_MEMO_CHALLENGE_MODEL', raising=False)
+    tags = {'models': [{'name': 'qwen3.5:9b', 'digest': 'a' * 64},
+                       {'name': 'qwen3:14b', 'digest': 'b' * 64}]}
+    stream = lambda: BytesIO(json.dumps(tags).encode())
+    monkeypatch.setattr('delivery.investment_memo_stage.urllib.request.urlopen',
+                        lambda *_args, **_kwargs: stream())
+    path = tmp_path / 'model.json'
+    profile = frozen_memo_model_profile(path, 'qwen3.5:9b')
+    assert profile['memo_draft_contract'] == 'memo-cards-v13'
+    assert profile['memo_causal_review_contract'] == 'memo-causal-v2'
+    assert profile['memo_author_model_digest'] == 'b' * 64
+    assert profile['memo_causal_review_model_digest'] == 'b' * 64
+    assert profile['memo_role_model_digests']['draft'] == 'a' * 64
+    assert profile['memo_role_model_digests']['author'] == 'b' * 64
+    assert profile['memo_role_model_digests']['review'] == 'b' * 64
+    monkeypatch.setenv('LOCAL_MEMO_DRAFT_CONTRACT', 'memo-cards-v2')
+    assert frozen_memo_model_profile(path, 'qwen3.5:9b') == profile
+
+
+def test_one_causal_revision_branch_preserves_blocked_result_and_replays(tmp_path):
+    source = Source(id='S1', url='https://example.invalid/report', title='Report',
+                    passage='Example Labs reports a pilot while commercial outcomes remain unverified.',
+                    version='report-v1', attribution='Synthetic report')
+    checkpoint = {'state': 'ledger_ready',
+                  'source_set_digest': digest([source.model_dump()]),
+                  'as_of_date': '2026-10-05', 'final_memo_digest': 'm' * 64}
+    job = {'checkpoint': {'memo_phase_checkpoint': checkpoint}}
+    profile = {'memo_draft_contract': 'memo-cards-v13',
+               'memo_causal_review_contract': 'memo-causal-v2',
+               'profiles': {'author': 'qwen3:14b', 'review': 'qwen3:14b'},
+               'memo_author_model_digest': 'a' * 64,
+               'memo_causal_review_model_digest': 'a' * 64}
+    request = {'company': 'Example Labs', 'sources': [source.model_dump()],
+               'as_of_date': '2026-10-05'}
+    (tmp_path / 'request.json').write_text(json.dumps(request))
+    (tmp_path / 'model.json').write_text(json.dumps(profile))
+    base = {'id': 'r1', 'task': 'investment_memo_part_a_recommendation_select_v7'}
+    review = {'id': 'r2', 'task': 'investment_memo_causal_review_v2',
+              'response_hash': 'b' * 64, 'raw_response': {'r01': {'relation':
+                'unsupported_consequence'}}, 'error': None}
+    attempts = [base, review]
+    finding = {'field': 'investment_thesis',
+               'sentence_id': 'investment_thesis.sentence_2',
+               'sentence': 'The pilot forces growth [S1].',
+               'challenged_clause': 'forces growth', 'premise_ids': ['S1'],
+               'source_evidence': [{'source_id': 'S1',
+                                    'exact_quotes': ['Example Labs reports a pilot']}],
+               'relation': 'unsupported_consequence', 'response_id': 'r2'}
+    result = {'state': 'blocked', 'reason': 'memo_causal_review_rejected',
+              'causal_review': {'review_contract': 'memo-causal-v2',
+                                'review': {'findings': [finding]}}}
+    (tmp_path / 'result.json').write_text(json.dumps(result))
+    assert _prepare_causal_revision(job, tmp_path, result, attempts, profile) == 'causal_v1'
+    branch = tmp_path / 'causal_v1'
+    assert json.loads((branch / 'attempts.json').read_text()) == [base]
+    assert json.loads((branch / 'causal_repair.json').read_text())['review_response_hash'] == 'b' * 64
+    assert json.loads((tmp_path / 'result.json').read_text()) == result
+    assert _prepare_causal_revision(job, tmp_path, result, attempts, profile) == 'causal_v1'
+    repaired = {'id': 'r3', 'task': 'investment_memo_causal_repair_v1',
+                'response_hash': 'c' * 64, 'raw_response': {'text': 'A bound sentence.'},
+                'error': None}
+    second_review = {**review, 'id': 'r4', 'response_hash': 'd' * 64,
+                     'input': {'memo_digest': 'n' * 64}}
+    second_finding = {**finding, 'response_id': 'r4',
+                      'sentence_id': 'diligence_plan.sentence_3',
+                      'field': 'diligence_plan'}
+    second_result = {**result, 'causal_review': {
+        'review_contract': 'memo-causal-v2',
+        'review': {'findings': [second_finding]}}}
+    (branch / 'result.json').write_text(json.dumps(second_result))
+    second_job = {'checkpoint': {**job['checkpoint'], 'memo_revision': 'causal_v1'}}
+    assert _prepare_causal_revision(second_job, branch, second_result,
+                                    [base, repaired, second_review], profile) == 'causal_v2'
+    second = tmp_path / 'causal_v2'
+    assert json.loads((second / 'attempts.json').read_text()) == [base, repaired]
+    assert json.loads((second / 'causal_repair_v2.json').read_text())[
+        'prior_repair_response_hash'] == 'c' * 64
+    assert json.loads((branch / 'result.json').read_text()) == second_result
+    assert _prepare_causal_revision({**second_job, 'checkpoint': {
+        **second_job['checkpoint'], 'memo_revision': 'causal_v2'}}, second,
+        second_result, [base, repaired, second_review], profile) is None
+
+
+def test_causal_revision_uses_child_memo_root_and_stable_source_selection_root():
+    job = {'tenant_id': 'tenant-one', 'workspace_id': 'room-one', 'id': 'job-one',
+           'checkpoint': {'memo_revision': 'causal_v1'}}
+    assert memo_directory(job) == memo_base_directory(job) / 'causal_v1'
+    assert memo_directory({**job, 'checkpoint': {}}) == memo_base_directory(job)
+    assert memo_directory({**job, 'checkpoint': {'memo_revision': 'causal_v2'}}) == (
+        memo_base_directory(job) / 'causal_v2')
 
 
 def test_new_memo_can_freeze_distinct_part_b_model(tmp_path, monkeypatch):
@@ -27,7 +129,8 @@ def test_new_memo_can_freeze_distinct_part_b_model(tmp_path, monkeypatch):
     path = tmp_path / 'model.json'
     frozen = frozen_memo_model_profile(path, 'qwen3.5:9b')
     assert frozen['profiles']['draft_b'] == 'qwen3.5:4b'
-    assert frozen['profile_version'] == 3
+    assert frozen['profile_version'] == 4
+    assert frozen['memo_draft_contract'] == 'memo-cards-v2'
     monkeypatch.setenv('LOCAL_MEMO_PART_B_MODEL', 'qwen3:14b')
     assert frozen_memo_model_profile(path, 'qwen3.5:9b') == frozen
 
@@ -43,6 +146,25 @@ def test_distinct_part_b_role_rejects_saved_wrong_model():
     with pytest.raises(ValueError, match='differs from its frozen role'):
         validate_saved_model_roles([
             {'task': 'investment_memo_part_b', 'model': 'qwen3.5:9b'}], roles)
+
+
+def test_v12_saved_author_role_is_distinct_and_frozen(tmp_path):
+    roles = {'draft': 'qwen3.5:9b', 'draft_b': 'qwen3.5:9b',
+             'author': 'qwen3:14b', 'review': 'qwen3.5:9b',
+             'corrector': 'qwen3.5:9b', 'prose': 'qwen3.5:9b'}
+    path = tmp_path / 'model.json'
+    path.write_text(json.dumps({'model': 'qwen3.5:9b', 'profiles': roles,
+        'memo_draft_contract': 'memo-cards-v12',
+        'memo_author_model_digest': 'a' * 64}))
+    assert frozen_memo_model_profile(path, 'qwen3.5:9b')['profiles']['author'] == 'qwen3:14b'
+    rows = [
+        {'task': 'investment_memo_part_a_recommendation_select_v7', 'model': 'qwen3.5:9b'},
+        {'task': 'investment_memo_part_a_recommendation_decision_source_1_v7', 'model': 'qwen3:14b'},
+        {'task': 'investment_memo_part_b_v13_diligence_plan_select', 'model': 'qwen3.5:9b'},
+        {'task': 'investment_memo_part_b_v13_diligence_plan_author_0', 'model': 'qwen3:14b'}]
+    validate_saved_model_roles(rows, roles)
+    with pytest.raises(ValueError, match='differs from its frozen role'):
+        validate_saved_model_roles([{**rows[-1], 'model': 'qwen3.5:9b'}], roles)
 
 
 def test_distinct_challenge_role_is_frozen_and_replay_checked(tmp_path, monkeypatch):
@@ -131,7 +253,7 @@ def test_accepted_memo_accepts_new_frozen_challenge_role(tmp_path, monkeypatch):
     monkeypatch.setenv('PREPARATION_MODEL', 'qwen3.5:9b')
     monkeypatch.setattr('delivery.investment_memo_stage.memo_directory', lambda job: tmp_path)
     monkeypatch.setattr('delivery.investment_memo_stage.renderable_sections',
-                        lambda accepted, sources, attempts: [('Investment thesis', 'Model text', [])])
+                        lambda accepted, sources, attempts, projection=None: [('Investment thesis', 'Model text', [])])
     source = Source(id='S1', url='https://source.example/company', title='Company record',
                     passage='A retained public source passage with enough text for the test.',
                     version='version-1', attribution='Public source')
@@ -407,7 +529,7 @@ def test_all_included_sources_over_memo_context_await_input(tmp_path):
 
 
 def test_selected_memo_sources_bind_full_inventory_and_changed_exclusion_blocks(tmp_path, monkeypatch):
-    monkeypatch.setattr('delivery.investment_memo_stage.memo_directory', lambda job: tmp_path)
+    monkeypatch.setattr('delivery.investment_memo_stage.memo_base_directory', lambda job: tmp_path)
     monkeypatch.setenv('PREPARATION_MODEL', 'qwen3.5:9b')
     monkeypatch.setenv('LOCAL_MEMO_DRAFT_MODEL', 'qwen3.5:4b')
     model = SelectionModel()
@@ -445,7 +567,7 @@ def test_selected_memo_sources_bind_full_inventory_and_changed_exclusion_blocks(
 
 
 def test_excluded_source_packet_must_match_retained_evidence(tmp_path, monkeypatch):
-    monkeypatch.setattr('delivery.investment_memo_stage.memo_directory', lambda job: tmp_path)
+    monkeypatch.setattr('delivery.investment_memo_stage.memo_base_directory', lambda job: tmp_path)
     monkeypatch.setenv('PREPARATION_MODEL', 'qwen3.5:9b')
     model = SelectionModel()
     def local_selection_worker(*args, **kwargs):
@@ -479,7 +601,7 @@ def test_excluded_source_packet_must_match_retained_evidence(tmp_path, monkeypat
 
 
 def test_duplicate_excluded_rows_cannot_hide_in_review_packet(tmp_path, monkeypatch):
-    monkeypatch.setattr('delivery.investment_memo_stage.memo_directory', lambda job: tmp_path)
+    monkeypatch.setattr('delivery.investment_memo_stage.memo_base_directory', lambda job: tmp_path)
     monkeypatch.setenv('PREPARATION_MODEL', 'qwen3.5:9b')
     model = SelectionModel()
     def worker(*args, **kwargs):
@@ -506,7 +628,7 @@ def test_duplicate_excluded_rows_cannot_hide_in_review_packet(tmp_path, monkeypa
 
 
 def test_oversized_selection_result_requires_exact_partition_and_digest(tmp_path, monkeypatch):
-    monkeypatch.setattr('delivery.investment_memo_stage.memo_directory', lambda job: tmp_path)
+    monkeypatch.setattr('delivery.investment_memo_stage.memo_base_directory', lambda job: tmp_path)
     monkeypatch.setenv('PREPARATION_MODEL', 'qwen3.5:9b')
     def forged_worker(*args, **kwargs):
         (tmp_path / 'selection_result.json').write_text(json.dumps({

@@ -1,6 +1,7 @@
 """Bounded deterministic room stages with durable checkpoints and scoped subprocesses."""
 from __future__ import annotations
 import json
+import hashlib
 from datetime import datetime, timezone
 from pathlib import Path
 import sys
@@ -15,6 +16,57 @@ from security.identity import has_access
 from store import Store
 
 SCRIPT=Path(__file__).resolve().parents[1]/'scripts/private_document_worker.py'
+PREVIEW_FILES = (
+    ('intro.pptx', 'intro_deck_preview', 'pptx'),
+    ('intro.pdf', 'intro_deck_preview', 'pdf'),
+    ('pitch.pptx', 'pitch_deck_preview', 'pptx'),
+    ('pitch.pdf', 'pitch_deck_preview', 'pdf'),
+    ('memo.docx', 'investment_memorandum_preview', 'docx'),
+    ('memo.pdf', 'investment_memorandum_preview', 'pdf'),
+)
+
+
+def frozen_material_preview(job, memo, material, title, *, timeout):
+    """Render once, freeze bytes before any artifact registration, then replay.
+
+    A lease may expire between registering the six artifacts. Retrying then
+    reads this exact private bundle, so occupied artifact slots cannot receive
+    different Office/PDF bytes from a second renderer invocation.
+    """
+    from agents.inference.model_authorship import digest
+    from delivery.investment_memo_stage import memo_directory
+    from delivery.material_stage import validate_material_checkpoint
+    accepted = validate_material_checkpoint(job, memo, material)
+    request = {'operation': 'render', 'title': title,
+               'memo_sections': memo['sections'],
+               'intro_sections': accepted['decks']['intro_deck']['sections'],
+               'pitch_sections': accepted['decks']['pitch_deck']['sections']}
+    scope = {'contract': 'material_preview_v1', 'tenant_id': job['tenant_id'],
+             'workspace_id': job['workspace_id'], 'input_revision': job['input_revision'],
+             'source_hash': memo['source_hash'], 'material_digest': digest(accepted),
+             'render_request_digest': digest(request)}
+    parent = memo_directory(job)
+    parent.mkdir(mode=0o700, parents=True, exist_ok=True)
+    frozen = parent / 'material_preview'
+    if not frozen.exists():
+        with tempfile.TemporaryDirectory(prefix='.material-preview-', dir=parent) as directory:
+            candidate = Path(directory)
+            (candidate / 'request.json').write_text(json.dumps(request, ensure_ascii=False))
+            font_root = Path('/Applications/LibreOffice.app/Contents/Resources/fonts/truetype')
+            run_private([sys.executable, SCRIPT], candidate, timeout=timeout,
+                extra_read=(font_root,) if font_root.is_dir() else ())
+            files = {name: hashlib.sha256((candidate / name).read_bytes()).hexdigest()
+                     for name, _, _ in PREVIEW_FILES}
+            (candidate / 'manifest.json').write_text(json.dumps({**scope, 'files': files},
+                                                             ensure_ascii=False))
+            candidate.rename(frozen)
+    manifest = json.loads((frozen / 'manifest.json').read_text())
+    if ({key: manifest.get(key) for key in scope} != scope or
+            set(manifest.get('files', {})) != {name for name, _, _ in PREVIEW_FILES} or
+            any(hashlib.sha256((frozen / name).read_bytes()).hexdigest() != manifest['files'][name]
+                for name, _, _ in PREVIEW_FILES)):
+        raise ValueError('Frozen material preview differs from accepted material or bytes')
+    return frozen, scope
 
 
 def public_kb_checkpoint(profile):
@@ -86,12 +138,73 @@ def process_one(db_path):
         started=time.monotonic()
         data=dict(job['checkpoint'])
         phase = job.get('phase', 'legacy')
-        phase_limit = jobs.PHASE_CAPS[phase]
+        phase_limit = jobs._phase_cap(job)
         def can_retry():
-            return (job.get('phase_attempt', job['attempt']) < phase_limit
+            limit = phase_limit
+            if phase == 'draft':
+                from delivery.investment_memo_stage import memo_directory
+                profile_path = memo_directory(job) / 'model.json'
+                if profile_path.is_file():
+                    contract = json.loads(profile_path.read_text()).get('memo_draft_contract')
+                    limit = jobs._phase_cap({**job, 'checkpoint': {
+                        **data, 'memo_draft_contract': contract}})
+            elif phase == 'review' and data.get('memo_revision') != job.get(
+                    'checkpoint', {}).get('memo_revision'):
+                limit = jobs._phase_cap({**job, 'checkpoint': data})
+            return (job.get('phase_attempt', job['attempt']) < limit
                     and (phase != 'legacy' or job['attempt'] < 3))
         def save(state='running',error=None, next_phase=None):
             if time.monotonic()-started>120:raise TimeoutError('room_pass_budget_exhausted')
+            if next_phase == 'draft' or phase == 'draft':
+                # The draft cap is tied to the memo contract frozen for this job.
+                # An older saved profile must keep its original six-pass limit.
+                from delivery.investment_memo_stage import memo_directory
+                memo_root = memo_directory(job)
+                profile_path = memo_root / 'model.json'
+                if profile_path.is_file():
+                    profile = json.loads(profile_path.read_text())
+                    contract = profile.get('memo_draft_contract')
+                    if contract not in {None, 'memo-cards-v1', 'memo-cards-v2',
+                                        'memo-cards-v3', 'memo-cards-v4',
+                                        'memo-cards-v5', 'memo-cards-v6',
+                                        'memo-cards-v7', 'memo-cards-v8',
+                                        'memo-cards-v9', 'memo-cards-v10',
+                                        'memo-cards-v11', 'memo-cards-v12',
+                                        'memo-cards-v13'}:
+                        raise ValueError('Unknown frozen memo draft contract')
+                    causal_contract = profile.get('memo_causal_review_contract')
+                    final_contract = profile.get('memo_final_review_contract')
+                    if final_contract not in {None, 'field_v1', 'field_v2', 'field_v3', 'field_v4'} or (
+                            final_contract and contract != 'memo-cards-v13'):
+                        raise ValueError('Unknown frozen final memo review contract')
+                    if causal_contract not in {None, 'memo-causal-v1',
+                                               'memo-causal-v2', 'memo-causal-v3'} or (
+                            causal_contract and contract not in {
+                                'memo-cards-v3', 'memo-cards-v4',
+                                'memo-cards-v5', 'memo-cards-v6',
+                                'memo-cards-v7', 'memo-cards-v8',
+                                'memo-cards-v9', 'memo-cards-v10',
+                                'memo-cards-v11', 'memo-cards-v12',
+                                'memo-cards-v13'}):
+                        raise ValueError('Unknown frozen memo causal review contract')
+                    if contract is None:
+                        data.pop('memo_draft_contract', None)
+                    else:
+                        data['memo_draft_contract'] = contract
+                    if causal_contract is None:
+                        data.pop('memo_causal_review_contract', None)
+                    else:
+                        data['memo_causal_review_contract'] = causal_contract
+                    if final_contract is None:
+                        data.pop('memo_final_review_contract', None)
+                    else:
+                        data['memo_final_review_contract'] = final_contract
+                elif (memo_root / 'attempts.json').exists():
+                    raise ValueError('Saved memo attempts lack a frozen model profile')
+                else:
+                    data['memo_draft_contract'] = 'memo-cards-v2'
+                    data.pop('memo_causal_review_contract', None)
+                    data.pop('memo_final_review_contract', None)
             jobs.checkpoint(store.conn,job,data,state=state,error=error,phase=next_phase)
         try:
             if not has_access(store.conn,job['actor_id'],job['tenant_id']):
@@ -255,7 +368,7 @@ def process_one(db_path):
                 save('queued', next_phase='financial_analysis')
                 return job['id']
             if memo.get('state') != 'accepted':
-                if phase in {'material_draft', 'material_review', 'material_remediation',
+                if phase in {'material_draft', 'material_preview', 'material_review', 'material_remediation',
                              'material_re_review', 'render'}:
                     raise ValueError('Materials require an accepted source-bound memo')
                 remaining = 120 - (time.monotonic() - started)
@@ -284,6 +397,37 @@ def process_one(db_path):
                 memo['coverage'] = coverage
                 data['investment_memo'] = memo
                 if memo['state'] == 'needs_resume':
+                    if memo.get('memo_revision') in {'causal_v1', 'causal_v2',
+                                                     'causal_v3', 'causal_v4',
+                                                     'causal_v5', 'field_v1', 'stable_v1',
+                                                     'field_v2'}:
+                        allowed_prior = {'causal_v1': None, 'causal_v2': 'causal_v1',
+                                         'causal_v3': 'causal_v2',
+                                         'causal_v4': 'causal_v3',
+                                         'causal_v5': 'causal_v4',
+                                         'field_v1': 'causal_v5',
+                                         'stable_v1': 'field_v1',
+                                         'field_v2': 'stable_v1'}[memo['memo_revision']]
+                        if data.get('memo_revision') != allowed_prior:
+                            raise ValueError('Unknown saved memo revision')
+                        from delivery.investment_memo_stage import memo_directory
+                        revision_job = {**job, 'checkpoint': {
+                            **job.get('checkpoint', {}),
+                            'memo_revision': memo['memo_revision']}}
+                        profile_path = memo_directory(revision_job) / 'model.json'
+                        if not profile_path.is_file():
+                            raise ValueError('Memo revision lacks frozen model profile')
+                        revision_profile = json.loads(profile_path.read_text())
+                        if revision_profile.get('memo_draft_contract') != data.get('memo_draft_contract'):
+                            raise ValueError('Memo revision changed frozen draft contract')
+                        for marker in ('memo_causal_review_contract',
+                                       'memo_final_review_contract'):
+                            frozen = revision_profile.get(marker)
+                            if frozen is None:
+                                data.pop(marker, None)
+                            else:
+                                data[marker] = frozen
+                        data['memo_revision'] = memo['memo_revision']
                     if not can_retry():
                         data['investment_memo'] = {**memo, 'state': 'awaiting_input',
                             'reason': 'bounded_local_memo_attempts_exhausted'}
@@ -313,6 +457,8 @@ def process_one(db_path):
                     save('awaiting_input')
                     return job['id']
                 if phase == 'review':
+                    from delivery.material_stage import FRESH_DRAFT_CONTRACT
+                    data.setdefault('material_draft_contract', FRESH_DRAFT_CONTRACT)
                     save('queued', next_phase='material_draft')
                     return job['id']
                 if phase == 'analysis':
@@ -327,7 +473,8 @@ def process_one(db_path):
                 save('awaiting_input')
                 return job['id']
             if phase == 'material_draft':
-                from delivery.material_stage import run_material_pass
+                from delivery.material_stage import (LocalMaterialModelInventoryUnavailable,
+                                                     run_material_pass)
                 remaining = 120 - (time.monotonic() - started)
                 if remaining < 20:
                     data['materials'] = {'state': 'needs_resume',
@@ -335,7 +482,11 @@ def process_one(db_path):
                     save('queued' if can_retry() else 'awaiting_input')
                     return job['id']
                 try:
-                    materials = run_material_pass(job, memo, timeout=min(110, remaining - 5))
+                    materials = run_material_pass(job, memo, timeout=min(110, remaining - 5),
+                        draft_contract=data.get('material_draft_contract', 'structured_v5'))
+                except LocalMaterialModelInventoryUnavailable:
+                    materials = {'state': 'needs_resume',
+                                 'reason': 'local_material_model_inventory_unavailable'}
                 except TimeoutError:
                     materials = {'state': 'needs_resume',
                                  'reason': 'private_material_worker_timeout'}
@@ -351,6 +502,40 @@ def process_one(db_path):
                 if materials['state'] != 'accepted':
                     save('awaiting_input')
                     return job['id']
+                from delivery.material_review_stage import FRESH_REVIEW_CONTRACT
+                data.setdefault('material_review_contract', FRESH_REVIEW_CONTRACT)
+                save('queued', next_phase='material_preview')
+                return job['id']
+            if phase == 'material_preview':
+                material = data.get('materials', {})
+                if material.get('state') != 'accepted' or material.get('source_hash') != current_hash:
+                    data['material_preview'] = {'state': 'awaiting_input',
+                        'reason': 'accepted_material_specs_required_for_preview'}
+                    save('awaiting_input')
+                    return job['id']
+                remaining = 120 - (time.monotonic() - started)
+                if remaining < 20:
+                    data['material_preview'] = {'state': 'needs_resume',
+                        'reason': 'room_pass_time_limit'}
+                    save('queued' if can_retry() else 'awaiting_input')
+                    return job['id']
+                try:
+                    frozen, scope = frozen_material_preview(job, memo, material,
+                        room.company_name, timeout=min(110, remaining - 5))
+                except TimeoutError:
+                    data['material_preview'] = {'state': 'needs_resume',
+                        'reason': 'private_material_preview_worker_timeout'}
+                    save('queued' if can_retry() else 'awaiting_input')
+                    return job['id']
+                save()  # Recheck the lease before publishing private draft slots.
+                current_room = store.get_workspace(job['tenant_id'], workspace_id=room.id)
+                if current_room is None or revision_for(store, current_room) != job['input_revision']:
+                    raise ValueError('Material preview input revision changed before registration')
+                artifact_ids = [register_draft(store.conn, job['tenant_id'], room.id,
+                    kind, fmt, job['input_revision'], (frozen / name).read_bytes(), job=job)
+                    for name, kind, fmt in PREVIEW_FILES]
+                data['material_preview'] = {**scope, 'state': 'accepted',
+                                            'artifact_ids': artifact_ids}
                 save('queued', next_phase='material_review')
                 return job['id']
             if phase == 'material_review':
@@ -369,7 +554,8 @@ def process_one(db_path):
                     return job['id']
                 try:
                     review = run_material_review_pass(job, memo, material,
-                        timeout=min(110, remaining - 5))
+                        timeout=min(110, remaining - 5),
+                        review_contract=data.get('material_review_contract'))
                 except TimeoutError:
                     review = {'state': 'needs_resume',
                               'reason': 'private_material_review_worker_timeout'}
@@ -436,7 +622,8 @@ def process_one(db_path):
                     return job['id']
                 try:
                     review = run_material_review_pass(job, memo, repair,
-                        timeout=min(110, remaining - 5), repaired=True)
+                        timeout=min(110, remaining - 5), repaired=True,
+                        review_contract=data.get('material_review_contract'))
                 except TimeoutError:
                     review = {'state': 'needs_resume',
                               'reason': 'private_material_re_review_worker_timeout'}

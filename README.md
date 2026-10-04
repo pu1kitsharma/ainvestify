@@ -9,16 +9,33 @@ missing/illustrative; a typical value cannot become a company fact. Human
 review/sign-off is mandatory before a document is released. This system does
 not contact investors, negotiate terms or run a raise.
 
-**Status (4 October 2026): not production-ready.** Start with [AGENTS.md](AGENTS.md),
+**Status (5 October 2026): not production-ready.** Start with [AGENTS.md](AGENTS.md),
 then [NEXT_AGENT.md](NEXT_AGENT.md) for the latest tested-code/live-acceptance split.
 Historical success notices do not establish current investment quality.
 
-The installed local `qwen3.5:9b` produced synthetic intro and pitch PPTX/PDF pairs
-and an IM DOCX/PDF pair that passed structural and text-pair checks. The last completed live
-semantic material review remains blocked by wrong-source selections, and visual
-inspection found sparse slides and a dense memo. These are diagnostic outputs,
-not accepted investor materials. Code tests, PDF text parity and a passing
-model self-review cannot replace independent content, financial and visual review.
+**Tested code:** The local `purpose_v10` path generated replayable synthetic
+intro and pitch decks with matching editable/PDF text. A private isolated
+harness ingested the supplied Toffee files read-only. The opt-in memo v13 route
+uses exact model-selected evidence spans, a 9B selector and digest-pinned 14B
+source-local authors; saved responses and phase checkpoints replay exactly.
+Versioned repairs, stable-row causal review and field-level final review have
+finite caps. A narrow ledger fix classifies PDF-extracted arrays as prose while
+keeping malformed typed structured records blocked.
+
+**Live private result:** All 22 PDF-derived source units bound. The model-authored
+memo passed local software gates after 52 recorded attempts, including
+source-local repairs, seven changed-row causal calls and six final-review field
+calls. Its acceptance scope is local model checks only. Independent content
+inspection then found two insufficiently supported claims, so it is not
+investor-approved. A subsequent `purpose_v13` branch saved four intro slide
+responses and two pitch slide responses. The intro replays as a four-slide
+draft; the pitch is incomplete. Neither has passed the complete review and
+export gates, and no investor PDF pair is accepted. The workbook preflight
+blocks validated forecast use; supplied financial data was not edited. Earlier
+failed raw branches remain preserved. No model-weight training occurred. PR #3
+remains a draft pending exact-package review. See [NEXT_AGENT.md](NEXT_AGENT.md)
+and [the 5 October handoff](SESSION_2026-10-05_HANDOFF.md) for the precise
+authorship and acceptance boundaries.
 
 ## Current plans
 
@@ -117,13 +134,17 @@ release/reviewer summary and citation-level semantic findings in the room API
 before the frontend can show exact accepted-package status or a useful finding
 drilldown. No current room draft is represented as ready to send.
 
-Fresh semantic material reviews use a versioned `semantic_v8` request. For each
-model-selected slide sentence, the request lists only memo spans sharing its
-cited source IDs; software binds the selected exact span and rejects any other
-index. The local model still decides whether a defect exists and authors the
-finding. Historical review requests retain their recorded contracts and exact
-replay. This is a source-binding improvement, not an independent assessment of
-investment quality.
+Fresh semantic material reviews use a versioned `semantic_v10` request. The
+model selects an enumerated slide sentence and quotes the exact proposition it
+challenges. Software attaches all offered memo spans sharing that sentence's
+cited source IDs, plus finite evidence-scope metadata; the model still decides
+whether a defect exists and authors the explanation. Historical requests keep
+their recorded contracts and exact replay. A synthetic-only relation probe can
+be run with `scripts/evaluate_local_assertion_relation_probe.py`; its scorecard
+does not release materials or change the production review route. The opt-in
+`semantic_v11` worker implements the same fixed-row shape but is held back by
+the failed scale diagnostic. See
+[NEXT_AGENT.md](NEXT_AGENT.md) for live failures and the next bounded gate.
 
 Private LibreOffice conversion now uses a short job-local 0700 directory and
 Unix IPC socket. Synthetic intro/pitch and revised IM editable/PDF pairs passed

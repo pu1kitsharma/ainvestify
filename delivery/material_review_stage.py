@@ -7,6 +7,8 @@ from pathlib import Path
 
 from agents.inference.model_authorship import digest
 from agents.inference.model_routing import validate_local_model_name
+from agents.research.material_relation_review import (_BATCH_CONTRACT, BATCH_OPTIONS,
+    _SENTENCE_CONTRACT, SENTENCE_OPTIONS)
 from delivery.investment_memo_stage import memo_directory
 from delivery.isolation import run_private
 from delivery.material_stage import validate_material_checkpoint
@@ -22,8 +24,33 @@ def _installed_digest(name):
     return value
 
 
+# The contract written into a NEW review request, first review or repaired
+# re-review alike. A request already on disk keeps the contract it recorded.
+FRESH_REVIEW_CONTRACT = 'semantic_v10'
+# Every contract a recorded request may carry; None is the first, unversioned one.
+RECORDED_REVIEW_CONTRACTS = (None, 'semantic_v2', 'semantic_v3', 'semantic_v4', 'semantic_v5',
+                             'semantic_v6', 'semantic_v7', 'semantic_v8', 'semantic_v9',
+                             'semantic_v10', _BATCH_CONTRACT, _SENTENCE_CONTRACT)
+
+
+def require_supported_contract(contract):
+    """Refuse a contract the review module does not implement.
+
+    The module answers an unknown contract with its first, unversioned
+    instruction. A new request must never be created that way, so a fresh
+    contract the module does not know is an error, not a fallback.
+    """
+    if contract in (_BATCH_CONTRACT, _SENTENCE_CONTRACT):
+        return contract
+    from agents.research.material_review import REVIEW_INSTRUCTION, review_instruction
+    if contract is not None and review_instruction({'review_contract': contract}) == REVIEW_INSTRUCTION:
+        raise ValueError(f'Material review module does not implement {contract}; '
+                         'refusing to fall back to the unversioned contract')
+    return contract
+
+
 def _review_request(job, memo, material, memo_root, *, repaired=False,
-                    review_contract='semantic_v8'):
+                    review_contract=FRESH_REVIEW_CONTRACT):
     if repaired:
         from delivery.material_repair_stage import validate_material_repair_checkpoint
         exact = validate_material_repair_checkpoint(job, memo, material)
@@ -33,8 +60,10 @@ def _review_request(job, memo, material, memo_root, *, repaired=False,
     name = profile['profiles'].get('review', profile['profiles']['draft'])
     validate_local_model_name(name)
     pin = {'name': name, 'digest': _installed_digest(name),
-           'options': {'thinking': False, 'max_tokens': 1200,
-                       'context_tokens': 16384, 'temperature': 0}}
+           'options': (BATCH_OPTIONS if review_contract == _BATCH_CONTRACT else
+                       SENTENCE_OPTIONS if review_contract == _SENTENCE_CONTRACT else
+                       {'thinking': False, 'max_tokens': 1200,
+                        'context_tokens': 16384, 'temperature': 0})}
     base = {'input_revision': job['input_revision'], 'source_hash': memo['source_hash'],
             'memo_digest': exact['memo_digest'], 'material_digest': digest(exact),
             'memo_sections': memo['sections'],
@@ -43,18 +72,37 @@ def _review_request(job, memo, material, memo_root, *, repaired=False,
             'review_model': pin}
     if review_contract is not None:
         base['review_contract'] = review_contract
+    # reader_v1 appends a source/version bibliography. Mark fresh requests so
+    # semantic evidence extraction can ignore those provenance-only lines.
+    # An already saved request retains its exact historical field set.
+    recorded_path = ((memo_root / 'material_re_review') if repaired else memo_root) / \
+        'material_review_request.json'
+    recorded_projection = (json.loads(recorded_path.read_text())
+                           if recorded_path.exists() else None)
+    if (memo.get('section_projection') in ('reader_v1', 'reader_v2') and
+            (recorded_projection is None or 'memo_section_projection' in recorded_projection)):
+        base['memo_section_projection'] = memo['section_projection']
+    if (memo.get('section_projection') == 'reader_v2' and
+            (recorded_projection is None or 'evidence_extraction' in recorded_projection)):
+        base['evidence_extraction'] = 'reader_v2_claim_pair_v1'
     base = json.loads(json.dumps(base, ensure_ascii=False))
     return {**base, 'digest': digest(base)}
 
 
-def _recorded_review_contract(path):
+def _recorded_review_contract(path, fresh_contract=FRESH_REVIEW_CONTRACT):
+    """The contract to rebuild a request with: the recorded one, or the fresh one.
+
+    A recorded v1-v8 request is never upgraded. Its instruction, schema and
+    payload are rebuilt under its own contract, so its saved response replays
+    exactly; only a request that does not exist yet is created under v9.
+    """
     if not path.exists():
-        return 'semantic_v8'
+        return require_supported_contract(fresh_contract)
     recorded = json.loads(path.read_text())
     contract = recorded.get('review_contract')
-    if contract not in (None, 'semantic_v2', 'semantic_v3', 'semantic_v4', 'semantic_v5', 'semantic_v6', 'semantic_v7', 'semantic_v8'):
+    if contract not in RECORDED_REVIEW_CONTRACTS:
         raise ValueError('Unknown recorded material review contract')
-    return contract
+    return require_supported_contract(contract)
 
 
 class _NoInference:
@@ -86,13 +134,15 @@ def validate_material_review_checkpoint(job, memo, material, review=None, *,
     return result
 
 
-def run_material_review_pass(job, memo, material, *, timeout, repaired=False):
+def run_material_review_pass(job, memo, material, *, timeout, repaired=False,
+                             review_contract=None):
     memo_root = memo_directory(job)
     root = memo_root / 'material_re_review' if repaired else memo_root
     root.mkdir(mode=0o700, parents=True, exist_ok=True)
     path = root / 'material_review_request.json'
     request = _review_request(job, memo, material, memo_root, repaired=repaired,
-        review_contract=_recorded_review_contract(path))
+        review_contract=_recorded_review_contract(path,
+            fresh_contract=review_contract or FRESH_REVIEW_CONTRACT))
     if path.exists():
         if json.loads(path.read_text()) != request:
             raise ValueError('Material review frozen memo, deck, or model changed')
