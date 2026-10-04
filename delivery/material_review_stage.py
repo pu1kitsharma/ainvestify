@@ -22,8 +22,31 @@ def _installed_digest(name):
     return value
 
 
+# The contract written into a NEW review request, first review or repaired
+# re-review alike. A request already on disk keeps the contract it recorded.
+FRESH_REVIEW_CONTRACT = 'semantic_v10'
+# Every contract a recorded request may carry; None is the first, unversioned one.
+RECORDED_REVIEW_CONTRACTS = (None, 'semantic_v2', 'semantic_v3', 'semantic_v4', 'semantic_v5',
+                             'semantic_v6', 'semantic_v7', 'semantic_v8', 'semantic_v9',
+                             'semantic_v10')
+
+
+def require_supported_contract(contract):
+    """Refuse a contract the review module does not implement.
+
+    The module answers an unknown contract with its first, unversioned
+    instruction. A new request must never be created that way, so a fresh
+    contract the module does not know is an error, not a fallback.
+    """
+    from agents.research.material_review import REVIEW_INSTRUCTION, review_instruction
+    if contract is not None and review_instruction({'review_contract': contract}) == REVIEW_INSTRUCTION:
+        raise ValueError(f'Material review module does not implement {contract}; '
+                         'refusing to fall back to the unversioned contract')
+    return contract
+
+
 def _review_request(job, memo, material, memo_root, *, repaired=False,
-                    review_contract='semantic_v8'):
+                    review_contract=FRESH_REVIEW_CONTRACT):
     if repaired:
         from delivery.material_repair_stage import validate_material_repair_checkpoint
         exact = validate_material_repair_checkpoint(job, memo, material)
@@ -48,13 +71,19 @@ def _review_request(job, memo, material, memo_root, *, repaired=False,
 
 
 def _recorded_review_contract(path):
+    """The contract to rebuild a request with: the recorded one, or the fresh one.
+
+    A recorded v1-v8 request is never upgraded. Its instruction, schema and
+    payload are rebuilt under its own contract, so its saved response replays
+    exactly; only a request that does not exist yet is created under v9.
+    """
     if not path.exists():
-        return 'semantic_v8'
+        return require_supported_contract(FRESH_REVIEW_CONTRACT)
     recorded = json.loads(path.read_text())
     contract = recorded.get('review_contract')
-    if contract not in (None, 'semantic_v2', 'semantic_v3', 'semantic_v4', 'semantic_v5', 'semantic_v6', 'semantic_v7', 'semantic_v8'):
+    if contract not in RECORDED_REVIEW_CONTRACTS:
         raise ValueError('Unknown recorded material review contract')
-    return contract
+    return require_supported_contract(contract)
 
 
 class _NoInference:

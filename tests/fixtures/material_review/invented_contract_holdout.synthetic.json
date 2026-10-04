@@ -1,0 +1,60 @@
+{
+ "classification": "synthetic",
+ "pair": "source_reported_pilot_vs_invented_signed_contracts",
+ "claim_flag": {
+  "name": "signed_contract",
+  "definition": "The sentence itself says that a contract or binding agreement has been signed or is in force."
+ },
+ "memo_sections": [
+  [
+   "Synthetic traction evidence",
+   "On its website, Example Fields says a pilot of its soil probes is running at three farms [S1]. The website does not mention any signed contract or paying customer [S1].",
+   "[S1] https://example.invalid/fields/pilot | Synthetic company website | version synthetic-pilot-v1"
+  ],
+  [
+   "Synthetic category evidence",
+   "A public directory places Example Fields in the agricultural hardware category [S2]. The directory entry gives no headcount [S2].",
+   "[S2] https://example.invalid/directory/fields | Synthetic public directory | version synthetic-directory-v1"
+  ]
+ ],
+ "shared_decks": {
+  "intro_deck": [
+   [
+    "Where the company sits",
+    "A public directory places Example Fields in the agricultural hardware category [S2]. The directory entry gives no headcount [S2].",
+    "[S2] Synthetic public directory",
+    "statement"
+   ]
+  ]
+ },
+ "control": {
+  "pitch_deck": [
+   [
+    "Commercial traction",
+    "The company website describes a pilot of its soil probes at three farms [S1].",
+    "[S1] Synthetic company website",
+    "evidence"
+   ]
+  ]
+ },
+ "defect": {
+  "pitch_deck": [
+   [
+    "Commercial traction",
+    "The company website describes a pilot of its soil probes at three farms [S1]. Three farms have signed multi-year supply contracts [S1].",
+    "[S1] Synthetic company website",
+    "evidence"
+   ]
+  ],
+  "planted": {
+   "deck": "pitch_deck",
+   "slide_index": 0,
+   "sentence": "Three farms have signed multi-year supply contracts [S1].",
+   "source_id": "[S1]",
+   "allowed_issues": [
+    "unsupported_claim",
+    "contradiction"
+   ]
+  }
+ }
+}
