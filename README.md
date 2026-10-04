@@ -369,4 +369,4 @@ node scripts/check_operations_ui.cjs
 - [AGENTS.md](AGENTS.md): current repository instructions and reading order.
 - [SESSION_HANDOFF.md](SESSION_HANDOFF.md): dated implementation, failures and validation history.
 - [CLAUDE.md](CLAUDE.md) and [legacy architecture](deal_automation_architecture.md): historical module/design context; current plans take precedence.
-- [evals/investment_preparation/](evals/investment_preparation/): retained practitioner references, evaluations and failure fixtures. These are not cleanup candidates merely because they are old.
+- [evals/investment_preparation/](evals/investment_preparation/): retained practitioner references, evaluations and failure fixtures. Large unlinked historical JSON snapshots are preserved byte-for-byte in the [evaluation archive](evals/investment_preparation/section-workflows/ARCHIVE.md); test fixtures and linked reports remain directly readable.

@@ -45,6 +45,19 @@ model-authored generation and a measured local capability evaluation; do not
 silently turn these raw failures into a pass. Independent content, financial
 and visual review remain mandatory.
 
+## 4 October repository cleanup checkpoint
+
+The tracked checkout contained 817 files; 279 historical evaluation JSON files
+accounted for about 66 MiB. We archived 143 unlinked, non-fixture raw JSON
+snapshots (41.91 MiB) into a verified 7.99 MiB tarball with a path/size/SHA-256
+manifest. All original bytes were also copied to ignored
+`runtime_backups/repo-cleanup-2026-10-04/eval-raw/` before removal from the
+tracked checkout. Test-referenced JSON, Markdown-linked JSON and reports under
+`final/`, `accepted/` or `verified/` remain at their old paths. See
+`evals/investment_preparation/section-workflows/ARCHIVE.md` for verification
+and extraction. The 1.6 GiB Elasticsearch distribution and frontend
+`node_modules` are already ignored local installations, not Git content. This
+cleanup does not rewrite historical Git objects or claim a live model result.
 
 ## 4 October frontend and source-scoped review checkpoint
 

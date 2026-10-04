@@ -117,6 +117,9 @@ Consult actual processes/jobs/configuration rather than old PID or status notice
 - Preserve live SQLite data, originals, uploads, raw responses, runtime backups
   and regression fixtures. Do not commit credentials, databases or private files.
   Failed reports under `final/`, `accepted/` or `verified/` remain valuable evidence.
+  Unlinked historical evaluation JSON is preserved byte-for-byte in the verified
+  archive documented at `evals/investment_preparation/section-workflows/ARCHIVE.md`;
+  test fixtures and linked failure reports remain at their original paths.
 - Do not reset company data. The September reset authorization was historical;
   its local backup is `runtime_backups/2026-09-15-ai-reset/`.
 - Check active jobs before any restart; use `scripts/serve_local.py` without reload.
