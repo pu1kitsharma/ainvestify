@@ -127,8 +127,8 @@ class DirectCompany(BaseModel):
     name: str = Field(min_length=2,max_length=200)
     website: str = Field(min_length=8,max_length=500)
     # A company adding itself states its engagement terms; it is locked on entry.
-    mandate_type: Literal["fundraising_advisory","incubation","sell_side_advisory"]
-    terms_summary: str = Field(min_length=10,max_length=1000)
+    mandate_type: Literal["fundraising_advisory","incubation","sell_side_advisory"] = "fundraising_advisory"
+    terms_summary: str = Field(default="",max_length=1000)
 
 
 @router.post("",status_code=201)

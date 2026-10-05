@@ -52,7 +52,8 @@ export default function Materials({roomId, files}: {roomId: string; files: Mater
     <span className="font-medium">{active.title} · PDF preview</span>
     <span className="text-xs text-slate-500">Private draft</span>
    </div>
-   <iframe key={active.pdf.id} title={`${active.title} PDF preview`} src={url(active.pdf.id, true)} className="h-[78vh] w-full bg-slate-100"/>
+   <iframe key={active.pdf.id} title={`${active.title} PDF preview`} src={url(active.pdf.id, true)} className="h-[75vh] min-h-[480px] w-full bg-slate-100"/>
+   <p className="border-t border-slate-200 bg-slate-50 px-4 py-2 text-xs text-slate-500">Preview blank? <a className="text-indigo-700 underline" href={url(active.pdf.id, true)} target="_blank" rel="noreferrer">Open the PDF in a new tab</a>.</p>
   </div> : <p className="mt-4 rounded-xl border border-dashed border-slate-300 bg-white p-6 text-sm text-slate-500">No materials have been generated for this company yet.</p>}
  </section>;
 }

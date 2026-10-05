@@ -114,10 +114,10 @@ export default function RoomPipeline({leadId}: {leadId: string}) {
  return <div>
   {(error || room.error) && <p role="alert" className="mb-3 text-sm text-rose-700">{error || room.error?.message}</p>}
   {roomId && <Materials roomId={roomId} files={currentArtifacts}/>}
-  {previousArtifacts > 0 && <p className="mb-3 text-xs text-slate-500">{previousArtifacts} file(s) belong to an earlier revision and are not shown.</p>}
   <details className="mb-6 rounded-xl border border-slate-200 bg-white p-4">
    <summary className="cursor-pointer text-sm font-medium text-slate-700">Pipeline details{headline ? ` · ${headline}` : ''}</summary>
    <div className="mt-3">
+    {previousArtifacts > 0 && <p className="mb-3 text-xs text-slate-500">{previousArtifacts} file(s) belong to an earlier revision and are not shown.</p>}
   {job && <>
    <p className="mt-3 text-xs text-slate-600">Local draft and model checks are separate from independent diligence, financial sign-off, visual review and release approval.</p>
    <p className="mt-1 text-xs text-slate-600">A passed local model check means the same local model workflow found no issue in its own draft. Independent content, financial and visual approval are not recorded by these checks, and no status here is investor acceptance.</p>
