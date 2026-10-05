@@ -1,5 +1,36 @@
 # Next agent: execute the research pipeline
 
+## 5 October no-inference code slice: content repair and distinct decks (latest)
+
+**Tested code (offline, synthetic only):** `memo_content_review` existed but was
+unwired, and nothing could repair the two fields the independent review flagged
+(`recommendation_reason`, `unknowns[i].why_it_matters`; they are not memo Sections,
+so `memo_field_repair` cannot touch them). New `agents/research/memo_content_repair.py`
+(`memo-content-repair-v1`) gives the local author one frozen call per blocked field
+over exact quotes/passages, binds the review finding, rejects typed citations,
+unselected numbers and unchanged text, and lets the model re-decide the
+recommendation. `replay_content_revision` replays review -> repair -> exact
+re-review with no model; `renderable_sections(content_revision=...)` renders the
+revised memo only if that replay accepts. `scripts/private_memo_content_worker.py`
+(sandboxed, one call per pass) and `scripts/evaluate_private_memo_content.py`
+(`prepare`/`advance`/`verify`) drive it beside the private memo without editing it.
+`purpose_v14` (`replay_purpose_v13(distinct=True)`) offers each deck slot only memo
+sentences earlier slots did not use and blocks a repeated heading; the saved
+private v13 attempts still replay unchanged (intro accepted from 4 responses, pitch
+`needs_call` market). `evaluate_private_material_acceptance.py --content-revision`
+binds a new materials branch to the revised memo and selects v14. Research+delivery
+suite: 1029 passed, 5 skipped (+12 new tests); `git diff --check` clean.
+
+**Live acceptance: none.** No model ran. The Toffee memo is still unapproved: the
+two flagged claims are unchanged in the saved memo. Before inference, offline checks
+show the real memo builds three content-review requests (~1.3-1.9K tokens each) and
+valid repair requests. Saved v13 headings/sentences overlap (three near-identical
+"market position" intro headings; pitch product repeats the intro product sentences),
+which v14 prevents but has not been run. Intro slide 4 copies the unknown's question
+and evidence_needed, not its why_it_matters. Next, once inference is authorized:
+`evaluate_private_memo_content.py` prepare/advance/verify, then a fresh v14 materials
+branch, then semantic, financial, visual and export review of the exact outputs.
+
 ## 5 October handoff after private review-copy request (latest)
 
 Read [SESSION_2026-10-05_HANDOFF.md](SESSION_2026-10-05_HANDOFF.md) for the exact

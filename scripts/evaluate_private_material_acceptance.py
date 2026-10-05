@@ -59,7 +59,8 @@ def _installed_digest(name: str) -> str:
     return pin
 
 
-def _memo_projection(memo_root: Path, *, material_draft_model: str | None = None) -> dict:
+def _memo_projection(memo_root: Path, *, material_draft_model: str | None = None,
+                     content_root: Path | None = None) -> dict:
     """Replay the accepted response IDs and reviewer against its original sources."""
     root = memo_root.resolve()
     if not root.is_relative_to(OUTPUT_ROOT.resolve()) or root == OUTPUT_ROOT.resolve():
@@ -105,13 +106,31 @@ def _memo_projection(memo_root: Path, *, material_draft_model: str | None = None
     sources = [Source.model_validate(row) for row in request['sources']]
     if result['accepted'].get('challenge', {}).get('source_set_digest') not in (None, digest(request['sources'])):
         raise ValueError('Accepted memo source set changed')
+    accepted, content = result['accepted'], None
+    if content_root is not None:
+        # A model-authored content repair, replayed from raw responses. The
+        # original memo stays untouched; materials bind to the revised digest.
+        from agents.research.memo_content_repair import replay_content_revision
+        from scripts.evaluate_private_memo_content import load_revision
+        croot = content_root.resolve()
+        if croot.parent != root.parent or not croot.is_relative_to(OUTPUT_ROOT.resolve()):
+            raise ValueError('Content revision must sit beside its private memo')
+        revision = load_revision(croot)
+        revised, record = replay_content_revision(accepted['memo'], sources, revision)
+        if record['state'] != 'accepted':
+            raise ValueError('Content revision is not accepted')
+        content = {'root': str(croot), 'record': record, 'revision': revision}
+        accepted = {**accepted, 'memo': revised.model_dump(mode='json')}
     sections = renderable_sections(result['accepted'], sources, attempts,
-                                   projection=profile.get('section_projection'))
+                                   projection=profile.get('section_projection'),
+                                   content_revision=content['revision'] if content else None)
     return {'company': request['company'], 'input_revision': request['input_revision'],
             'source_hash': digest(request['sources']), 'sections': sections,
-            'memo_digest': digest(result['accepted']),
-            'financial_unknown_candidates': financial_unknown_candidates(result['accepted']),
-            'memo_sentence_candidates': memo_sentence_candidates(result['accepted']),
+            'memo_digest': digest(accepted),
+            'content_revision': (None if content is None else
+                                 {'root': content['root'], 'record': content['record']}),
+            'financial_unknown_candidates': financial_unknown_candidates(accepted),
+            'memo_sentence_candidates': memo_sentence_candidates(accepted),
             'section_projection': profile.get('section_projection'),
             'draft_model': selected_draft,
             'review_model': profile['profiles']['review'],
@@ -125,21 +144,26 @@ def _memo_projection(memo_root: Path, *, material_draft_model: str | None = None
 
 
 def _frozen(memo_root: Path, output: Path, *, create: bool,
-            draft_model: str | None = None) -> dict:
+            draft_model: str | None = None, content_root: Path | None = None) -> dict:
     root = output.resolve()
     if not create:
         saved = json.loads((root / 'manifest.json').read_text())
         if draft_model is not None and draft_model != saved['draft_model']:
             raise ValueError('Frozen material draft model changed')
         draft_model = saved['draft_model']
-    projection = _memo_projection(memo_root, material_draft_model=draft_model)
+        saved_content = (saved.get('content_revision') or {}).get('root')
+        content_root = Path(saved_content) if saved_content else None
+    projection = _memo_projection(memo_root, material_draft_model=draft_model,
+                                  content_root=content_root)
     if (not root.is_relative_to(OUTPUT_ROOT.resolve()) or
             root == OUTPUT_ROOT.resolve() or root == memo_root.resolve() or
             root.parent != Path(projection['acceptance_root'])):
         raise ValueError('Material output must be beside its private memo diagnostic')
     manifest = json.loads(json.dumps({**projection,
         'contract': 'private-material-continuation-v1',
-        'draft_contract': 'purpose_v13',
+        # purpose_v14 (distinct slide sentences) is used only on a memo whose
+        # rationales passed the content review; older branches replay as v13.
+        'draft_contract': 'purpose_v14' if projection.get('content_revision') else 'purpose_v13',
         'review_contract': FRESH_REVIEW_CONTRACT}, ensure_ascii=False))
     require_supported_contract(FRESH_REVIEW_CONTRACT)
     if create:
@@ -191,10 +215,11 @@ def _material_replay(root: Path, manifest: dict) -> dict:
     return decks
 
 
-def run(memo_root: Path, output: Path, phase: str, *, draft_model: str | None = None) -> dict:
+def run(memo_root: Path, output: Path, phase: str, *, draft_model: str | None = None,
+        content_root: Path | None = None) -> dict:
     root = output.resolve()
     manifest = _frozen(memo_root, root, create=phase == 'prepare',
-                       draft_model=draft_model)
+                       draft_model=draft_model, content_root=content_root)
     if phase == 'prepare':
         return {'state': 'prepared', 'diagnostic_path': str(root)}
     if phase == 'draft':
@@ -303,9 +328,11 @@ def main() -> None:
     parser.add_argument('output', type=Path)
     parser.add_argument('phase', choices=('prepare', 'draft', 'review', 'render'))
     parser.add_argument('--draft-model', help='Installed local model for a new material branch')
+    parser.add_argument('--content-revision', type=Path,
+                        help='Accepted memo content-revision diagnostic beside the memo')
     args = parser.parse_args()
     result = run(args.memo_root, args.output, args.phase,
-                 draft_model=args.draft_model)
+                 draft_model=args.draft_model, content_root=args.content_revision)
     print(json.dumps(result, ensure_ascii=False))
 
 

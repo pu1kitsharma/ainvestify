@@ -640,8 +640,21 @@ def _v13_source_first_slide(item, candidates, sections):
                         source_sections=indexes, layout=item.layout)
 
 
-def replay_purpose_v13(kind, base_payload, attempts, sections, *, model_name=None):
-    """One source-first local model selection per slot, with exact raw replay."""
+SOURCE_FIRST_V14_INSTRUCTION = SOURCE_FIRST_V13_INSTRUCTION + (
+    ' Sentences in used_sentence_ids are already on earlier slides of this deck and are '
+    'not offered again. Your heading must differ from every entry in used_headings and '
+    'name this slide\'s own topic.')
+V14_CONTRACT = 'purpose-v14-distinct-memo-sentences-v1'
+
+
+def replay_purpose_v13(kind, base_payload, attempts, sections, *, model_name=None,
+                       distinct=False):
+    """One source-first local model selection per slot, with exact raw replay.
+
+    `distinct` (purpose_v14) offers each slot only memo sentences no earlier slot
+    of the same deck selected and rejects a repeated heading. Both are software
+    constraints on selection; the model still chooses the sentences and heading.
+    """
     if len({row.get('id') for row in attempts}) != len(attempts):
         raise ValueError('Duplicate material response identifier')
     candidates = base_payload.get('memo_sentence_candidates')
@@ -655,18 +668,29 @@ def replay_purpose_v13(kind, base_payload, attempts, sections, *, model_name=Non
     if len(rows) > len(slots):
         raise ValueError('Source-first deck exceeded its exact slide-call cap')
     slides, response_ids = [], []
+    used_ids, used_headings = [], []
     for index, slot in enumerate(slots):
         is_financial = slot == 'financial_unknown'
         options = financial if is_financial else candidates.get(slot)
+        if distinct and not is_financial and options:
+            options = [row for row in options if row['id'] not in used_ids]
+            if not options:
+                return {'state': 'blocked', 'reason': 'no_distinct_memo_sentences_left',
+                        'response_ids': response_ids}
         if not options:
             raise ValueError('Exact memo candidate coverage missing')
         payload = {key: base_payload[key] for key in
                    ('kind', 'input_revision', 'source_hash', 'memo_digest')}
         payload.update({'slot': slot, 'slot_index': index,
-                        'candidate_contract': 'purpose-v13-exact-memo-sentences-v1',
+                        'candidate_contract': (V14_CONTRACT if distinct else
+                                               'purpose-v13-exact-memo-sentences-v1'),
                         'candidates': options})
+        if distinct:
+            payload.update({'used_sentence_ids': list(used_ids),
+                            'used_headings': list(used_headings)})
         schema = _schema_v12_financial(options) if is_financial else _schema_v13(slot, options)
         instruction = (FINANCIAL_UNKNOWN_V12_INSTRUCTION if is_financial else
+                       SOURCE_FIRST_V14_INSTRUCTION if distinct else
                        SOURCE_FIRST_V13_INSTRUCTION)
         task = 'material_' + kind + '_' + slot
         if index >= len(rows):
@@ -687,6 +711,12 @@ def replay_purpose_v13(kind, base_payload, attempts, sections, *, model_name=Non
             item = schema.model_validate(response_answer(attempts, row['id']))
             slide = (_v12_financial_slide(item, options, sections) if is_financial else
                      _v13_source_first_slide(item, options, sections))
+            if distinct:
+                if slide.heading.strip().casefold() in used_headings:
+                    raise ValueError('Slide repeats an earlier heading in the same deck')
+                used_headings.append(slide.heading.strip().casefold())
+                if not is_financial:
+                    used_ids.extend(item.sentence_ids)
             slides.append(slide)
             if index == len(slots) - 1:
                 spec = CompactDeckSpec(slides=slides)

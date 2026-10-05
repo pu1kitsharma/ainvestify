@@ -245,3 +245,4 @@ tmp/
 
 # Failed, machine-specific launchd draft; generate a portable scheduler config later.
 deployment/com.ainvestify.public-kb.plist
+toffee/

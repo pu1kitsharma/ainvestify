@@ -29,7 +29,7 @@ def draft_materials(root: Path, model=None):
            for value in versions.values()) and len(attempts) > 5:
         raise ValueError('Purpose-first material attempts exceed five-call cap')
     if any(value in {'purpose_v7', 'purpose_v8', 'purpose_v9', 'purpose_v10',
-                     'purpose_v11', 'purpose_v12', 'purpose_v13'}
+                     'purpose_v11', 'purpose_v12', 'purpose_v13', 'purpose_v14'}
            for value in versions.values()) and len(attempts) > 12:
         raise ValueError('Single-slot material attempts exceed twelve-call cap')
     profile = json.loads((root / 'model.json').read_text())
@@ -54,9 +54,9 @@ def draft_materials(root: Path, model=None):
                    'source_hash': request['source_hash'], 'memo_digest': request['memo_digest'],
                    'sections': sections}
         version = request.get('replay_contracts', {}).get(kind, 'current')
-        if version in {'purpose_v12', 'purpose_v13'}:
+        if version in {'purpose_v12', 'purpose_v13', 'purpose_v14'}:
             payload['financial_unknown_candidates'] = request['financial_unknown_candidates']
-        if version == 'purpose_v13':
+        if version in {'purpose_v13', 'purpose_v14'}:
             payload['memo_sentence_candidates'] = request['memo_sentence_candidates']
         state = replay_material_rows(kind, payload, attempts, sections,
                                      model_name=frozen_name, contract_version=version)

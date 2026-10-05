@@ -687,7 +687,7 @@ def readable_excerpt(quote: str) -> str:
 
 
 def renderable_sections(result: dict, sources: list[Source], attempts: list[dict],
-                        projection=None):
+                        projection=None, content_revision=None):
     """Project only accepted model fields into the existing PDF/deck renderer.
 
     `projection` is the layout version frozen with the run. A run recorded
@@ -1062,6 +1062,11 @@ def renderable_sections(result: dict, sources: list[Source], attempts: list[dict
         replayed, pending = evaluate_attempts(memo, sources, attempts, causal_contract)
         if pending is not None or replayed != causal_record or replayed['state'] != 'accepted':
             raise ValueError('Memo causal review did not bind to the rendered memo')
+    if content_revision is not None:
+        # A post-acceptance content review repaired rationales; the exact raw
+        # review/repair/re-review responses must replay to this memo.
+        from agents.research.memo_content_repair import replay_content_revision
+        memo = replay_content_revision(memo, sources, content_revision)[0]
     validate_memo(memo, sources)
     by_id = {source.id: source for source in sources}
 

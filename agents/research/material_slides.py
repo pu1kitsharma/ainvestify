@@ -535,12 +535,13 @@ def replay_material_rows(kind, base_payload, attempts, sections, *, model_name=N
     if contract_version in {'purpose_v1', 'purpose_v2', 'purpose_v3', 'purpose_v4',
                             'purpose_v5', 'purpose_v6', 'purpose_v7', 'purpose_v8',
                             'purpose_v9', 'purpose_v10', 'purpose_v11', 'purpose_v12',
-                            'purpose_v13'}:
+                            'purpose_v13', 'purpose_v14'}:
         from agents.research.material_purpose_draft import (replay_purpose_rows,
             replay_purpose_v3, replay_purpose_v7, replay_purpose_v13)
         return (replay_purpose_v13(kind, base_payload, attempts, sections,
-                                  model_name=model_name)
-                if contract_version == 'purpose_v13' else
+                                  model_name=model_name,
+                                  distinct=contract_version == 'purpose_v14')
+                if contract_version in {'purpose_v13', 'purpose_v14'} else
                 replay_purpose_v7(kind, base_payload, attempts, sections,
                                  model_name=model_name, version=contract_version)
                 if contract_version in {'purpose_v7', 'purpose_v8', 'purpose_v9',

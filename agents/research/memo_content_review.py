@@ -116,47 +116,72 @@ def frozen_calls(memo, sources, contract):
     return calls
 
 
+RETRY_INSTRUCTION = INSTRUCTION + (
+    ' Your previous answer failed validation (reviewer_retry has the exact error). '
+    'Answer again with a reason under 600 characters.')
+
+
+def _retry_payload(payload, row):
+    return {**payload, 'reviewer_retry': {'validation_error': str(row.get('error'))[:500]}}
+
+
 def evaluate_attempts(memo, sources, attempts, contract):
+    """Replay recorded reviews. A schema-invalid answer gets one correction call."""
     calls = frozen_calls(memo, sources, contract)
     rows = [row for row in attempts if row.get('task') == TASK]
-    if len(rows) > len(calls):
-        raise ValueError('Content review exceeded distinct target count')
-    findings, response_ids = [], []
-    for row, (field_path, payload, schema) in zip(rows, calls):
-        if (row.get('input') != payload or row.get('instruction') != INSTRUCTION or
-                row.get('schema') != schema.model_json_schema() or
-                row.get('model') != contract['model_name'] or
-                any(row.get('routing', {}).get(key) != value
-                    for key, value in OPTIONS.items()) or
-                digest(row.get('raw_response')) != row.get('response_hash')):
-            raise ValueError('Saved content review differs from exact contract')
-        response_ids.append(row['id'])
-        try:
-            if row.get('error') or not row.get('raw_response'):
-                raise ValueError('No valid recorded reviewer answer')
-            answer = schema.model_validate(response_answer(attempts, row['id'])).model_dump()
-        except (ValidationError, ValueError, TypeError):
-            findings.append({'field_path': field_path, 'verdict': 'invalid_answer',
-                             'response_id': row['id'],
-                             'response_hash': row['response_hash']})
+    findings, response_ids, position = [], [], 0
+    for field_path, payload, schema in calls:
+        if position >= len(rows):
+            return {'state': 'needs_resume', 'response_ids': response_ids,
+                    'findings': findings, 'targets_recorded': len(
+                        {row['input']['field_path'] for row in rows}),
+                    'targets_total': len(calls)}, (field_path, payload, schema)
+        request, instruction, final = payload, INSTRUCTION, None
+        for attempt in range(2):
+            if position >= len(rows):
+                return {'state': 'needs_resume', 'response_ids': response_ids,
+                        'findings': findings, 'targets_recorded': len(
+                            {row['input']['field_path'] for row in rows}),
+                        'targets_total': len(calls)}, (field_path, request, schema)
+            row = rows[position]
+            position += 1
+            if (row.get('input') != request or row.get('instruction') != instruction or
+                    row.get('schema') != schema.model_json_schema() or
+                    row.get('model') != contract['model_name'] or
+                    any(row.get('routing', {}).get(key) != value
+                        for key, value in OPTIONS.items()) or
+                    digest(row.get('raw_response')) != row.get('response_hash')):
+                raise ValueError('Saved content review differs from exact contract')
+            response_ids.append(row['id'])
+            try:
+                if row.get('error') or not row.get('raw_response'):
+                    raise ValueError('No valid recorded reviewer answer')
+                final = schema.model_validate(response_answer(attempts, row['id'])).model_dump()
+                final = (final, row)
+                break
+            except (ValidationError, ValueError, TypeError):
+                if attempt == 0 and row.get('failure_kind') == 'schema_validation':
+                    request, instruction = _retry_payload(payload, row), RETRY_INSTRUCTION
+                    continue
+                findings.append({'field_path': field_path, 'verdict': 'invalid_answer',
+                                 'response_id': row['id'],
+                                 'response_hash': row['response_hash']})
+                break
+        if final is None:
             continue
+        answer, row = final
         if answer['verdict'] != 'supported_or_conditional':
-            findings.append({'field_path': field_path,
-                             'verdict': answer['verdict'],
+            findings.append({'field_path': field_path, 'verdict': answer['verdict'],
                              'focus_sentence_id': answer['focus_sentence_id'],
                              'exact_sentence': payload['sentences'][answer['focus_sentence_id']],
-                             'source_id': answer['source_id'],
-                             'reason': answer['reason'],
-                             'response_id': row['id'],
-                             'response_hash': row['response_hash']})
-    if len(rows) < len(calls):
-        return {'state': 'needs_resume', 'response_ids': response_ids,
-                'findings': findings, 'targets_recorded': len(rows),
-                'targets_total': len(calls)}, calls[len(rows)]
+                             'source_id': answer['source_id'], 'reason': answer['reason'],
+                             'response_id': row['id'], 'response_hash': row['response_hash']})
+    if position != len(rows):
+        raise ValueError('Content review exceeded distinct target count')
     return {'state': 'blocked' if findings else 'accepted',
             'reason': 'content_relation_not_supported' if findings else None,
             'response_ids': response_ids, 'findings': findings,
-            'targets_recorded': len(rows), 'targets_total': len(calls),
+            'targets_recorded': len(calls), 'targets_total': len(calls),
             'memo_digest': digest(Memo.model_validate(memo).model_dump(mode='json'))}, None
 
 
@@ -170,8 +195,9 @@ def review_memo_content(memo, sources, attempts, save, model, budget, *, contrac
             getattr(model, key, value) != value for key, value in OPTIONS.items()):
         raise ValueError('Content reviewer differs from pinned local role')
     _, payload, schema = call
+    instruction = RETRY_INSTRUCTION if 'reviewer_retry' in payload else INSTRUCTION
     try:
-        recorded_call(model, TASK, INSTRUCTION, payload, schema, attempts, save)
+        recorded_call(model, TASK, instruction, payload, schema, attempts, save)
     except Exception:
         if not attempts or attempts[-1].get('task') != TASK:
             raise
