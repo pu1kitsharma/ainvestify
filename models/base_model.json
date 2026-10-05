@@ -1,0 +1,8 @@
+{
+  "purpose": "Pinned base for LoRA fine-tuning; weights are downloaded, never committed",
+  "huggingface_repo": "mlx-community/Qwen3.5-9B-MLX-4bit",
+  "revision": "938d8919941c6e7efd3c7150eff7fe9d12afa631",
+  "quantization": {"bits": 4, "group_size": 64, "mode": "affine"},
+  "serves_as": "ollama qwen3.5:9b (Q4_K_M GGUF) - the 9B selector/reviewer/drafter role",
+  "download": "huggingface_hub.snapshot_download('mlx-community/Qwen3.5-9B-MLX-4bit', revision=<revision>, local_dir='models/base')"
+}

@@ -59,7 +59,8 @@ company text. Present state:
   needs gold for memo writing and review judgement, from several companies.
 - Setup used (not committed): an isolated `mlx-lm` venv and
   `mlx-community/Qwen3.5-9B-MLX-4bit` under ignored `runtime_qualification/finetune/`.
-  Re-download with `huggingface_hub.snapshot_download`; weights are not stored in Git.
+  The base is pinned in [models/base_model.json](models/base_model.json) and is downloaded, never committed;
+  trained adapters will be stored via Git LFS. See [models/README.md](models/README.md) for the AWS training recipe.
 - Serving: llama.cpp's converter supports Qwen3.5, but adapter-to-Ollama loading
   is unverified.
 

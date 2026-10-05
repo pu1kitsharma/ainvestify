@@ -246,3 +246,7 @@ tmp/
 # Failed, machine-specific launchd draft; generate a portable scheduler config later.
 deployment/com.ainvestify.public-kb.plist
 toffee/
+models/base/
+models/merged/
+models/gguf/
+models/data/
