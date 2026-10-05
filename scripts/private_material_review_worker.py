@@ -1,4 +1,7 @@
-"""One local reviewer call per private material review pass, at most two."""
+"""One local reviewer call per private material review pass, at most two.
+
+A request frozen as semantic_v11 is reviewed sentence by sentence, one call per deck
+(`review_relations`); every earlier contract keeps its recorded path unchanged."""
 from __future__ import annotations
 
 import json
@@ -11,6 +14,11 @@ from agents.preparation.preparation_budget import (PreparationBudget,
 from agents.research.material_review import (review_instruction, review_schema,
     compact_review_payload, project_review, unbound_block_withdrawn,
     TERMINAL_VALIDATION_BLOCK)
+from agents.research.material_relation_review import (DECKS, MAX_SECONDS, RELATION_CONTRACT,
+    RELATION_INSTRUCTION, RELATION_OPTIONS, RELATION_TASK, evaluate_attempts, frozen_calls,
+    _BATCH_CONTRACT, BATCH_INSTRUCTION, BATCH_OPTIONS, batch_calls, evaluate_batch_attempts,
+    _SENTENCE_CONTRACT, SENTENCE_INSTRUCTION, SENTENCE_OPTIONS, SENTENCE_MAX_SECONDS,
+    sentence_calls, evaluate_sentence_attempts)
 
 
 def _outcome(request, attempts, row, review):
@@ -36,6 +44,13 @@ def review_materials(root: Path, model=None):
     full = {key: value for key, value in request.items() if key != 'digest'}
     if request.get('digest') != digest(full):
         raise ValueError('Material review request digest changed')
+    if request.get('review_contract') == RELATION_CONTRACT:
+        # Opt-in: only a request already frozen as semantic_v11 takes this path.
+        return review_relations(root, request, model)
+    if request.get('review_contract') == _BATCH_CONTRACT:
+        return review_relation_batches(root, request, model)
+    if request.get('review_contract') == _SENTENCE_CONTRACT:
+        return review_relation_sentences(root, request, model)
     instruction = review_instruction(request)
     schema = review_schema(request)
     payload = compact_review_payload(request)
@@ -118,6 +133,112 @@ def review_materials_replay(root, request, attempts):
         return {'state': 'blocked' if len(attempts) >= 2 else 'needs_resume',
                 'reason': 'material_review_model_validation_failed'}
     return _outcome(request, attempts, row, review)
+
+
+def review_relations(root: Path, request, model=None):
+    """semantic_v11: one recorded call per deck, one call per pass, never a retry.
+
+    A restart replays the saved raw attempts and calls only a deck that has no
+    recorded attempt. Any recorded attempt that cannot be bound blocks.
+    """
+    calls = frozen_calls(request)                       # raises before any inference
+    attempts_file = root / 'material_review_attempts.json'
+    attempts = json.loads(attempts_file.read_text()) if attempts_file.exists() else []
+    result, deck = evaluate_attempts(request, attempts)
+    if result:
+        return result
+    if model is None:
+        model = LocalModel(request['review_model']['name'], **RELATION_OPTIONS)
+    seconds = json.loads((root / 'material_review_budget.json').read_text())['seconds']
+    budget = PreparationBudget(min(seconds, MAX_SECONDS), max_calls=1, max_requests=1)
+
+    def save():
+        temporary = attempts_file.with_suffix('.json.tmp')
+        temporary.write_text(json.dumps(attempts, ensure_ascii=False))
+        temporary.replace(attempts_file)
+
+    recorded = len(attempts)
+    payload, schema = calls[deck]
+    try:
+        with preparation_budget(budget):
+            recorded_call(model, RELATION_TASK, RELATION_INSTRUCTION, payload, schema,
+                          attempts, save)
+    except Exception:
+        if len(attempts) == recorded:                   # nothing was recorded for this deck
+            raise
+    result, deck = evaluate_attempts(request, attempts)
+    return result or {'state': 'needs_resume',
+                      'reason': 'material_relation_review_next_deck',
+                      'next_deck': deck, 'decks_recorded': list(DECKS[:len(attempts)])}
+
+
+def review_relation_batches(root: Path, request, model=None):
+    """v12: one small frozen row batch per pass; finite calls and exact replay."""
+    calls = batch_calls(request)
+    attempts_file = root / 'material_review_attempts.json'
+    attempts = json.loads(attempts_file.read_text()) if attempts_file.exists() else []
+    result, call = evaluate_batch_attempts(request, attempts)
+    if result:
+        return result
+    if model is None:
+        model = LocalModel(request['review_model']['name'], **BATCH_OPTIONS)
+    seconds = json.loads((root / 'material_review_budget.json').read_text())['seconds']
+    budget = PreparationBudget(min(seconds, MAX_SECONDS), max_calls=1, max_requests=1)
+
+    def save():
+        temporary = attempts_file.with_suffix('.json.tmp')
+        temporary.write_text(json.dumps(attempts, ensure_ascii=False))
+        temporary.replace(attempts_file)
+
+    _, _, _, payload, schema = call
+    recorded = len(attempts)
+    try:
+        with preparation_budget(budget):
+            recorded_call(model, RELATION_TASK, BATCH_INSTRUCTION, payload, schema,
+                          attempts, save)
+    except Exception:
+        if len(attempts) == recorded:
+            raise
+    result, next_call = evaluate_batch_attempts(request, attempts)
+    return result or {'state': 'needs_resume',
+                      'reason': 'material_relation_review_next_batch',
+                      'next_batch': next_call[0], 'batches_recorded': len(attempts),
+                      'batches_total': len(calls)}
+
+
+def review_relation_sentences(root: Path, request, model=None):
+    """v13: one complete-source sentence judgment per pass, at most 25 calls."""
+    calls = sentence_calls(request)
+    attempts_file = root / 'material_review_attempts.json'
+    attempts = json.loads(attempts_file.read_text()) if attempts_file.exists() else []
+    result, call = evaluate_sentence_attempts(request, attempts)
+    if result:
+        return result
+    if model is None:
+        model = LocalModel(request['review_model']['name'], **SENTENCE_OPTIONS)
+    seconds = json.loads((root / 'material_review_budget.json').read_text())['seconds']
+    budget = PreparationBudget(min(seconds, SENTENCE_MAX_SECONDS), max_calls=1,
+                               max_requests=1)
+
+    def save():
+        temporary = attempts_file.with_suffix('.json.tmp')
+        temporary.write_text(json.dumps(attempts, ensure_ascii=False))
+        temporary.replace(attempts_file)
+
+    _, _, _, payload, schema = call
+    recorded = len(attempts)
+    try:
+        with preparation_budget(budget):
+            recorded_call(model, RELATION_TASK, SENTENCE_INSTRUCTION, payload, schema,
+                          attempts, save)
+    except Exception:
+        if len(attempts) == recorded:
+            raise
+    result, next_call = evaluate_sentence_attempts(request, attempts)
+    return result or {'state': 'needs_resume',
+                      'reason': 'material_relation_review_next_sentence',
+                      'next_sentence': next_call[0], 'sentences_recorded': len(attempts),
+                      'sentences_total': len(calls)}
 
 
 def main():

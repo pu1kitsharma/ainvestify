@@ -1,0 +1,108 @@
+{
+  "scope": "public_synthetic_local_9b_diagnostics_only",
+  "base_git_commit": "91ddab8",
+  "exploratory_code_snapshot": "runtime_qualification/local_material_harness/evidence-contract-archive/material_slides.v1-v8.snapshot.py",
+  "exploratory_code_sha256": "ed1e758718911c2dc480557acc5752e1513caade6c6d7754980411eb47f1b8eb",
+  "note": "The exploratory source snapshot was uncommitted. The tracked implementation keeps executable legacy and evidence_v7/evidence_v8 replay; evidence_v1-v6 raw attempts are preserved but their contracts are no longer executable in the compact tracked code. No investor material was accepted. Purpose-first v1 and v2 are executable as exact one-response-per-deck replay contracts. Both fresh synthetic reader_v2 intro trials blocked; neither generated a pitch deck or accepted investor material.",
+  "runs": [
+    {
+      "contract": "evidence_v1",
+      "diagnostic_directory": "runtime_qualification/local_material_harness/2026-10-04-evidence-bound-9b-v1",
+      "request_digest": "b2946d4182490fff1770523db7ff40a1821eee6b6d52511ce558a41f865a23ed",
+      "attempts_sha256": "0aaaef316335b57e1f5bd2b3091a794b02436d24c12506478dcae321e5283a90",
+      "recorded_state": "needs_resume",
+      "recorded_reason": "intro_deck_model_validation_failed",
+      "assessment": "numbered evidence packet omitted complete funding claims; intro validation failed"
+    },
+    {
+      "contract": "evidence_v2",
+      "diagnostic_directory": "runtime_qualification/local_material_harness/2026-10-04-evidence-bound-9b-v2",
+      "request_digest": "5ba22756d0489794baf52e1dcf7ff6e0afa56b1be4f1a85a4e049d27dc563d7e",
+      "attempts_sha256": "8abf47a698cb29566b2873a87a5bd87d263ddc43e052344ef502079cc3b057d5",
+      "recorded_state": "needs_resume",
+      "recorded_reason": "intro_deck_model_validation_failed",
+      "assessment": "model selected extra, misaligned evidence indices; intro validation failed"
+    },
+    {
+      "contract": "evidence_v3",
+      "diagnostic_directory": "runtime_qualification/local_material_harness/2026-10-04-single-evidence-9b-v3",
+      "request_digest": "8c11af0d5f03bb26482ccb0b5f8d1357e50ffad21531fc2c08e6d448b622b660",
+      "attempts_sha256": "ac6c9d606cc0b54e5fcc44fed0f69f747292ccc8c4650a6adb599ff35dae8f6b",
+      "recorded_state": "needs_resume",
+      "recorded_reason": "intro_deck_model_validation_failed",
+      "assessment": "one-based option-selection error caused wrong funding source; intro validation failed"
+    },
+    {
+      "contract": "evidence_v4",
+      "diagnostic_directory": "runtime_qualification/local_material_harness/2026-10-04-source-keyed-9b-v4",
+      "request_digest": "4f16bc7f3d8ebd45ecece9cf4b5074de4361a2541b40397cc7d9264375fe1c6c",
+      "attempts_sha256": "5f49eb3e755e7fc3c356c073226c36dc788edd5f7701c90e9809aa497d896c34",
+      "recorded_state": "blocked",
+      "recorded_reason": "intro_deck_model_validation_failed",
+      "assessment": "correct source IDs, but financial_unknown funding slide repeated through final bounded patch"
+    },
+    {
+      "contract": "evidence_v5",
+      "diagnostic_directory": "runtime_qualification/local_material_harness/2026-10-04-source-gap-9b-v5",
+      "request_digest": "1942b66a13cdb72bc64c9625d304175450b09865f544776ddbf9252292b6329e",
+      "attempts_sha256": "4b3d7bf16e28f6424c072593daf8df4446d8086255e0c93a1718e794c2ea3578",
+      "recorded_state": "accepted",
+      "recorded_reason": null,
+      "assessment": "structural draft accepted; independent content review rejected status omission, generic checklist and sparse slides"
+    },
+    {
+      "contract": "evidence_v6",
+      "diagnostic_directory": "runtime_qualification/local_material_harness/2026-10-04-source-content-9b-v6",
+      "request_digest": "b61d7dd9e08d9961d29916760bea4e0ad700f341e30b12aac112170f6b8fbc61",
+      "attempts_sha256": "092e2779d6b32ceea9f57040800381fdc817aae902fd12e347e20c95757bdca8",
+      "recorded_state": "needs_resume",
+      "recorded_reason": "next_bounded_material_call",
+      "assessment": "intro structurally accepted; source S3 packet was paginated mid-JSON and omitted unknown status; pitch not run"
+    },
+    {
+      "contract": "evidence_v7",
+      "diagnostic_directory": "runtime_qualification/local_material_harness/2026-10-04-complete-source-9b-v7",
+      "request_digest": "746d6b08a5dbca1d6c1ddde389c0c89c0ae1e1baa5e9d135cc76bf7dfc96d068",
+      "attempts_sha256": "99564680b524d34d97615f79d24e0767d6a66d64b55e9a09214cd9892d2e9216",
+      "recorded_state": "accepted",
+      "recorded_reason": null,
+      "assessment": "structural draft accepted; independent content review rejected market-demand inference and lost self-report modality"
+    },
+    {
+      "contract": "evidence_v8",
+      "diagnostic_directory": "runtime_qualification/local_material_harness/2026-10-04-modality-9b-v8",
+      "request_digest": "d9289fc4ac0f21f2c289beb6989faf449c363ad38bd02fea4cce63791ab05e63",
+      "attempts_sha256": "185dc8381d68d8fb7e6b884e449510b91b16df8c11bf63f590706a67a8a467fc",
+      "recorded_state": "blocked",
+      "recorded_reason": "intro_deck_model_validation_failed",
+      "assessment": "intro blocked after model repeated financial_unknown purpose on funding timeline through final bounded patch"
+    },
+    {
+      "contract": "purpose_v1",
+      "diagnostic_directory": "runtime_qualification/local_material_harness/2026-10-04-purpose-first-example-9b-v1",
+      "request_digest": "8c02b6ea8af9918011c5bb7a2549c45b633b77286a30158481d9b9c7cc6c466c",
+      "attempts_sha256": "798514bc9595d3749ff01696f4853d75e808e2ece95ab22a8d6c6d3c22ad3d3f",
+      "recorded_state": "blocked",
+      "recorded_reason": "intro_deck_model_validation_failed",
+      "assessment": "sandbox loopback denied before model inference; raw connection error retained, no retry in this directory"
+    },
+    {
+      "contract": "purpose_v1",
+      "diagnostic_directory": "runtime_qualification/local_material_harness/2026-10-04-purpose-first-example-9b-v1-loopback",
+      "request_digest": "8c02b6ea8af9918011c5bb7a2549c45b633b77286a30158481d9b9c7cc6c466c",
+      "attempts_sha256": "b1e34657d76ed74a7760b4a1b14acabf121198d0f95e7db1aa73747dc0060f7d",
+      "recorded_state": "blocked",
+      "recorded_reason": "intro_deck_model_validation_failed",
+      "assessment": "installed 9B authored source IDs but omitted an explicit missing/unverified financial-evidence disclosure in the fixed financial_unknown slide"
+    },
+    {
+      "contract": "purpose_v2",
+      "diagnostic_directory": "runtime_qualification/local_material_harness/2026-10-04-purpose-first-example-9b-v2",
+      "request_digest": "e58384fa1652944b9f714e26dd7cd97353e3c566a60a3f6a868d1a7acb9e2c57",
+      "attempts_sha256": "0812c59ed5aa2802be95bc43176beb59866b8cd671a8849f8b8e77d1ed78f76f",
+      "recorded_state": "blocked",
+      "recorded_reason": "intro_deck_model_validation_failed",
+      "assessment": "explicit model-authored financial_status field and memo financial unknowns supplied; 9B produced a product slide below renderer length and weak financial-status wording"
+    }
+  ]
+}

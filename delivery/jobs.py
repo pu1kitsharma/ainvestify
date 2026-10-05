@@ -18,10 +18,17 @@ CREATE UNIQUE INDEX IF NOT EXISTS one_active_room_job ON room_jobs(tenant_id,wor
  WHERE state IN ('queued','running');
 """
 PHASE_CAPS = {"source_selection": 3, "financial_analysis": 9, "draft": 6, "correction": 3,
-              "ledger": 5, "review": 2, "material_draft": 6, "material_review": 2,
+              "ledger": 5, "review": 2, "material_draft": 6, "material_preview": 2,
+              "material_review": 2,
               "material_remediation": 1, "material_re_review": 2, "render": 1,
               "analysis": 3, "legacy": 3}
-PHASES = ("source_selection", "financial_analysis", "draft", "correction", "ledger", "review", "material_draft", "material_review", "material_remediation", "material_re_review", "render")
+EVIDENCE_PACKET_DRAFT_PASS_CAP = 8  # Eight source batches, then six bounded section calls.
+SOURCE_LOCAL_MEMO_DRAFT_PASS_CAP = 30  # Up to 27 distinct v8 tasks and three no-call yields.
+CAUSAL_MEMO_REVIEW_PASS_CAP = 14  # Up to twelve three-sentence calls plus two no-call yields.
+PURPOSE_GROUPED_MATERIAL_PASS_CAP = 12
+PURPOSE_SINGLE_SLOT_PASS_CAP = 15  # Twelve model calls plus three no-call yields.
+SEMANTIC_BATCH_REVIEW_PASS_CAP = 15  # Twelve review calls plus three no-call yields.
+PHASES = ("source_selection", "financial_analysis", "draft", "correction", "ledger", "review", "material_draft", "material_preview", "material_review", "material_remediation", "material_re_review", "render")
 COLUMNS = "id,tenant_id,workspace_id,actor_id,work_key,input_revision,state,attempt,phase,phase_attempt,lease_token,lease_until,checkpoint,error,created".split(",")
 SELECT_COLUMNS = ",".join(COLUMNS)
 
@@ -38,6 +45,62 @@ def _ensure_phase_columns(conn):
 def _phase_cap(job):
     if job["phase"] not in PHASE_CAPS:
         raise ValueError("Unknown room job phase")
+    if (job['phase'] == 'review' and
+            job.get('checkpoint', {}).get('memo_draft_contract') == 'memo-cards-v13' and
+            job.get('checkpoint', {}).get('memo_causal_review_contract') ==
+            'memo-causal-v2' and
+            job.get('checkpoint', {}).get('memo_revision') in
+            {'causal_v2', 'causal_v3', 'causal_v4', 'causal_v5', 'field_v1'}):
+        # Two substantive source-local repairs at most, with versioned shape
+        # correction and exact-raw citation replay; never a general retry cap.
+        return 28
+    if (job['phase'] == 'review' and
+            job.get('checkpoint', {}).get('memo_draft_contract') == 'memo-cards-v13' and
+            job.get('checkpoint', {}).get('memo_causal_review_contract') ==
+            'memo-causal-v3' and
+            job.get('checkpoint', {}).get('memo_revision') in
+            {'stable_v1', 'field_v2'}):
+        # Stable-row replay and changed-row judgments precede six field calls.
+        # This is a finite branch pass ceiling, not a per-answer retry budget.
+        return 28
+    if (job['phase'] == 'review' and
+            job.get('checkpoint', {}).get('memo_draft_contract') == 'memo-cards-v13' and
+            job.get('checkpoint', {}).get('memo_final_review_contract') in
+            {'field_v1', 'field_v2', 'field_v3', 'field_v4'}):
+        # Eight causal batches and six distinct field reviews, with two
+        # bounded no-call yields. These are not retries of a failed answer.
+        return 16
+    if (job["phase"] == "draft" and
+            job.get("checkpoint", {}).get("memo_draft_contract") in
+            {"memo-cards-v8", "memo-cards-v9", "memo-cards-v10",
+             "memo-cards-v11", "memo-cards-v12", "memo-cards-v13"}):
+        return SOURCE_LOCAL_MEMO_DRAFT_PASS_CAP
+    if (job["phase"] == "draft" and
+            job.get("checkpoint", {}).get("memo_draft_contract") in
+            {"memo-cards-v1", "memo-cards-v2", "memo-cards-v3", "memo-cards-v4",
+             "memo-cards-v5", "memo-cards-v6", "memo-cards-v7"}):
+        return EVIDENCE_PACKET_DRAFT_PASS_CAP
+    if (job["phase"] == "review" and
+            job.get("checkpoint", {}).get("memo_draft_contract") in
+            {"memo-cards-v3", "memo-cards-v4", "memo-cards-v5", "memo-cards-v6",
+             "memo-cards-v7", "memo-cards-v8", "memo-cards-v9",
+             "memo-cards-v10", "memo-cards-v11", "memo-cards-v12",
+             "memo-cards-v13"} and
+            job.get("checkpoint", {}).get("memo_causal_review_contract") in
+            {"memo-causal-v1", "memo-causal-v2"}):
+        return CAUSAL_MEMO_REVIEW_PASS_CAP
+    if (job["phase"] == "material_draft" and
+            job.get("checkpoint", {}).get("material_draft_contract") in
+            {"purpose_v7", "purpose_v8", "purpose_v9", "purpose_v10",
+             "purpose_v11", "purpose_v12", "purpose_v13"}):
+        return PURPOSE_SINGLE_SLOT_PASS_CAP
+    if (job["phase"] in {"material_review", "material_re_review"} and
+            job.get("checkpoint", {}).get("material_review_contract") == "semantic_v12"):
+        return SEMANTIC_BATCH_REVIEW_PASS_CAP
+    if (job["phase"] == "material_draft" and
+            job.get("checkpoint", {}).get("material_draft_contract") in
+            {"purpose_v3", "purpose_v4", "purpose_v5", "purpose_v6"}):
+        return PURPOSE_GROUPED_MATERIAL_PASS_CAP
     return PHASE_CAPS[job["phase"]]
 
 
@@ -102,10 +165,44 @@ def claim(conn, *, now=None, lease_seconds=150):
     try:
         _ensure_phase_columns(conn)
         conn.execute("""UPDATE room_jobs SET state=CASE WHEN phase_attempt>=CASE phase
-                WHEN 'source_selection' THEN 3 WHEN 'financial_analysis' THEN 9 WHEN 'draft' THEN 6
-                WHEN 'correction' THEN 3 WHEN 'ledger' THEN 5 WHEN 'review' THEN 2
-                WHEN 'material_draft' THEN 6 WHEN 'material_review' THEN 2
-                WHEN 'material_remediation' THEN 1 WHEN 'material_re_review' THEN 2
+                WHEN 'source_selection' THEN 3 WHEN 'financial_analysis' THEN 9
+                WHEN 'draft' THEN CASE WHEN json_extract(checkpoint,
+                    '$.memo_draft_contract') IN ('memo-cards-v8','memo-cards-v9','memo-cards-v10','memo-cards-v11','memo-cards-v12','memo-cards-v13') THEN 30
+                    WHEN json_extract(checkpoint,
+                    '$.memo_draft_contract') IN ('memo-cards-v1','memo-cards-v2','memo-cards-v3','memo-cards-v4','memo-cards-v5','memo-cards-v6','memo-cards-v7')
+                    THEN 8 ELSE 6 END
+                WHEN 'correction' THEN 3 WHEN 'ledger' THEN 5
+                WHEN 'review' THEN CASE WHEN json_extract(checkpoint,
+                    '$.memo_draft_contract')='memo-cards-v13' AND
+                    json_extract(checkpoint,'$.memo_causal_review_contract')='memo-causal-v2' AND
+                    json_extract(checkpoint,'$.memo_revision') IN
+                    ('causal_v2','causal_v3','causal_v4','causal_v5','field_v1')
+                    THEN 28 WHEN json_extract(checkpoint,
+                    '$.memo_draft_contract')='memo-cards-v13' AND
+                    json_extract(checkpoint,'$.memo_causal_review_contract')='memo-causal-v3' AND
+                    json_extract(checkpoint,'$.memo_revision') IN ('stable_v1','field_v2')
+                    THEN 28 WHEN json_extract(checkpoint,
+                    '$.memo_draft_contract')='memo-cards-v13' AND
+                    json_extract(checkpoint,'$.memo_final_review_contract')
+                    IN ('field_v1','field_v2','field_v3','field_v4')
+                    THEN 16 WHEN json_extract(checkpoint,
+                    '$.memo_draft_contract') IN ('memo-cards-v3','memo-cards-v4','memo-cards-v5','memo-cards-v6','memo-cards-v7','memo-cards-v8','memo-cards-v9','memo-cards-v10','memo-cards-v11','memo-cards-v12','memo-cards-v13') AND
+                    json_extract(checkpoint,'$.memo_causal_review_contract')
+                    IN ('memo-causal-v1','memo-causal-v2')
+                    THEN 14 ELSE 2 END
+                WHEN 'material_draft' THEN CASE
+                    WHEN json_extract(checkpoint,'$.material_draft_contract')
+                        IN ('purpose_v7','purpose_v8','purpose_v9','purpose_v10','purpose_v11','purpose_v12','purpose_v13')
+                        THEN 15
+                    WHEN json_extract(checkpoint,'$.material_draft_contract')
+                        IN ('purpose_v3','purpose_v4','purpose_v5','purpose_v6')
+                        THEN 12 ELSE 6 END
+                WHEN 'material_preview' THEN 2
+                WHEN 'material_review' THEN CASE WHEN json_extract(checkpoint,
+                    '$.material_review_contract')='semantic_v12' THEN 15 ELSE 2 END
+                WHEN 'material_remediation' THEN 1
+                WHEN 'material_re_review' THEN CASE WHEN json_extract(checkpoint,
+                    '$.material_review_contract')='semantic_v12' THEN 15 ELSE 2 END
                 WHEN 'render' THEN 1 ELSE 3 END
                 OR (phase='legacy' AND attempt>=3)
                 THEN 'failed' ELSE 'queued' END,
@@ -139,10 +236,11 @@ def checkpoint(conn, job, data, *, state="running", error=None, now=None, phase=
     if phase is not None and state != "queued":
         raise ValueError("Room job phase changes require a queued checkpoint")
     next_phase, next_phase_attempt = _next_phase(job, phase)
-    if state == "queued" and next_phase_attempt >= PHASE_CAPS[next_phase]:
+    next_cap = _phase_cap({"phase": next_phase, "checkpoint": data})
+    if state == "queued" and next_phase_attempt >= next_cap:
         if next_phase == "legacy":
             raise ValueError("A room job cannot exceed three bounded passes")
-        raise ValueError(f"A room job cannot exceed {PHASE_CAPS[next_phase]} bounded {next_phase} passes")
+        raise ValueError(f"A room job cannot exceed {next_cap} bounded {next_phase} passes")
     if state == "queued" and next_phase == "legacy" and job["attempt"] >= 3:
         raise ValueError("A room job cannot exceed three bounded passes")
     now = time.time() if now is None else now

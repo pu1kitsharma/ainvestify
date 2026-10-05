@@ -80,6 +80,16 @@ def source_sha256(passage: str) -> str:
     return hashlib.sha256(passage.encode()).hexdigest()
 
 
+def _structured_source(source) -> bool:
+    """Only a JSON object prefix identifies a typed key/value record.
+
+    PDF text can begin with a bracketed heading, citation, or list. Arrays are
+    not key/value records for this ledger, even when the passage happens to be
+    valid JSON, so their leading bracket is not a structure marker.
+    """
+    return source.passage.lstrip().startswith('{')
+
+
 def key_concept(key: str):
     """(concept, how): `head` when the key's last token names it, `mention` otherwise."""
     tokens = [token for token in re.split(r'[^a-z0-9]+',
@@ -130,7 +140,7 @@ def source_facts(source) -> list[dict] | None:
     passage byte for byte.
     """
     passage = source.passage
-    if not passage.lstrip().startswith(('{', '[')):
+    if not _structured_source(source):
         return None
     try:
         record = json.loads(passage)
@@ -199,13 +209,13 @@ def cited_assertions(memo, sources) -> list[dict]:
             last = span
             seen.add((field, span, citation.group(1)))
             found.append({'field': field, 'source_id': citation.group(1), 'assertion': span,
-                          'structured': passages[citation.group(1)].lstrip().startswith(('{', '['))})
+                          'structured': passages[citation.group(1)].lstrip().startswith('{')})
         tail = prose[previous:].strip().lstrip('.,;: ').strip()
         cited = _CITATION.findall(prose)
         if len(tail) >= 12 and cited and (field, tail, cited[-1]) not in seen:
             seen.add((field, tail, cited[-1]))
             found.append({'field': field, 'source_id': cited[-1], 'assertion': tail,
-                          'structured': passages[cited[-1]].lstrip().startswith(('{', '['))})
+                          'structured': passages[cited[-1]].lstrip().startswith('{')})
     # Structured records first, then grouped by source.
     return sorted(found, key=lambda item: (not item['structured'], int(item['source_id'][1:])))
 
@@ -223,7 +233,7 @@ def claim_assertions(memo, sources) -> list[dict]:
         claims = (memo.recommendation_claims if field == 'recommendation_reason'
                   else getattr(memo, field).claims)
         for index, claim in enumerate(claims):
-            if passages[claim.source_id].lstrip().startswith(('{', '[')):
+            if passages[claim.source_id].lstrip().startswith('{'):
                 found.append({'field': field, 'source_id': claim.source_id,
                               'assertion': claim.assertion, 'structured': True,
                               'kind': 'claim', 'claim_index': index})

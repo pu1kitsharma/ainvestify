@@ -1,0 +1,65 @@
+{
+  "kind": "synthetic_material_relation_holdout",
+  "version": 1,
+  "decks": {
+    "intro_deck": [
+      {
+        "sentence_id": "intro_deck.slide_1.sentence_1",
+        "heading": "Conflicting records",
+        "sentence": "Two public listings give different stage labels for the January 2025 financing: one says Seed and the other says Pre-Seed [S1] [S2].",
+        "source_spans": [
+          {"exact_span": "[S1] Directory A lists the January 2025 financing as Seed for INR 5 crore, with status unknown."},
+          {"exact_span": "[S2] Registry B lists the January 2025 financing as Pre-Seed for INR 5 crore, with status unknown."}
+        ],
+        "expected": "supported_as_source_report"
+      },
+      {
+        "sentence_id": "intro_deck.slide_2.sentence_1",
+        "heading": "Funding record",
+        "sentence": "Registry B lists the January 2025 financing as Pre-Seed for INR 5 crore, with status unknown [S2].",
+        "source_spans": [
+          {"exact_span": "[S2] Registry B lists the January 2025 financing as Pre-Seed for INR 5 crore, with status unknown."}
+        ],
+        "expected": "supported_as_source_report"
+      },
+      {
+        "sentence_id": "intro_deck.slide_2.sentence_2",
+        "heading": "Funding record",
+        "sentence": "The January 2025 financing closed and all INR 5 crore reached the company's account [S2].",
+        "source_spans": [
+          {"exact_span": "[S2] Registry B lists the January 2025 financing as Pre-Seed for INR 5 crore, with status unknown."}
+        ],
+        "expected": "unsupported_assertion"
+      }
+    ],
+    "pitch_deck": [
+      {
+        "sentence_id": "pitch_deck.slide_1.sentence_1",
+        "heading": "Product evidence",
+        "sentence": "The company page reports pilot deployments with small freight operators [S3].",
+        "source_spans": [
+          {"exact_span": "[S3] The company page reports pilot deployments with small freight operators and does not disclose signed customer contracts or commercial revenue."}
+        ],
+        "expected": "supported_as_source_report"
+      },
+      {
+        "sentence_id": "pitch_deck.slide_1.sentence_2",
+        "heading": "Product evidence",
+        "sentence": "The company page does not disclose signed customer contracts or commercial revenue [S3].",
+        "source_spans": [
+          {"exact_span": "[S3] The company page reports pilot deployments with small freight operators and does not disclose signed customer contracts or commercial revenue."}
+        ],
+        "expected": "supported_as_source_report"
+      },
+      {
+        "sentence_id": "pitch_deck.slide_1.sentence_3",
+        "heading": "Product evidence",
+        "sentence": "The company has signed multi-year customer contracts with small freight operators [S3].",
+        "source_spans": [
+          {"exact_span": "[S3] The company page reports pilot deployments with small freight operators and does not disclose signed customer contracts or commercial revenue."}
+        ],
+        "expected": "unsupported_assertion"
+      }
+    ]
+  }
+}

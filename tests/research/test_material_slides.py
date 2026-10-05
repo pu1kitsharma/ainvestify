@@ -123,6 +123,7 @@ def test_two_bounded_passes_produce_distinct_replayable_decks(tmp_path):
             'memo_digest': 'memo-digest', 'sections': SECTIONS}
     (tmp_path / 'material_request.json').write_text(json.dumps({**base, 'digest': digest(base)}))
     (tmp_path / 'material_budget.json').write_text(json.dumps({'seconds': 90}))
+    (tmp_path / 'model.json').write_text(json.dumps({'profiles': {'draft': FakeLocalModel.name}}))
     model = FakeLocalModel()
     first = draft_materials(tmp_path, model)
     assert first['state'] == 'needs_resume'
@@ -206,6 +207,7 @@ def test_routed_structured_patch_replaces_frozen_index_without_model_index(tmp_p
     (tmp_path / 'material_request.json').write_text(json.dumps({**request,
         'digest': digest(request)}))
     (tmp_path / 'material_budget.json').write_text(json.dumps({'seconds': 90}))
+    (tmp_path / 'model.json').write_text(json.dumps({'profiles': {'draft': FakeLocalModel.name}}))
 
     class RoutedModel:
         name = 'qwen3.5:9b'
@@ -301,6 +303,7 @@ def test_invalid_model_deck_receives_bounded_model_correction(tmp_path):
             'memo_digest': 'memo-digest', 'sections': SECTIONS}
     (tmp_path / 'material_request.json').write_text(json.dumps({**base, 'digest': digest(base)}))
     (tmp_path / 'material_budget.json').write_text(json.dumps({'seconds': 90}))
+    (tmp_path / 'model.json').write_text(json.dumps({'profiles': {'draft': FakeLocalModel.name}}))
     model = CorrectingLocalModel()
     assert draft_materials(tmp_path, model)['state'] == 'needs_resume'
     assert draft_materials(tmp_path, model)['state'] == 'needs_resume'
@@ -323,6 +326,7 @@ def test_targeted_patch_replay_rejects_wrong_slide_and_changed_frozen_deck(tmp_p
         if key != 'kind'}, 'digest': digest({key: value for key, value in base.items()
         if key != 'kind'})}))
     (tmp_path / 'material_budget.json').write_text(json.dumps({'seconds': 90}))
+    (tmp_path / 'model.json').write_text(json.dumps({'profiles': {'draft': FakeLocalModel.name}}))
     model = CorrectingLocalModel()
     draft_materials(tmp_path, model)
     draft_materials(tmp_path, model)
@@ -339,6 +343,7 @@ def test_repeating_bad_slide_stops_after_three_model_responses(tmp_path):
             'memo_digest': 'memo-digest', 'sections': SECTIONS}
     (tmp_path / 'material_request.json').write_text(json.dumps({**base, 'digest': digest(base)}))
     (tmp_path / 'material_budget.json').write_text(json.dumps({'seconds': 90}))
+    (tmp_path / 'model.json').write_text(json.dumps({'profiles': {'draft': FakeLocalModel.name}}))
     model = RepeatingBrokenSlideModel()
     assert draft_materials(tmp_path, model)['state'] == 'needs_resume'
     assert draft_materials(tmp_path, model)['state'] == 'needs_resume'
@@ -355,6 +360,7 @@ def test_pitch_financial_unknown_is_model_authored_in_last_slide_patch(tmp_path)
             'memo_digest': 'memo-digest', 'sections': SECTIONS}
     (tmp_path / 'material_request.json').write_text(json.dumps({**base, 'digest': digest(base)}))
     (tmp_path / 'material_budget.json').write_text(json.dumps({'seconds': 90}))
+    (tmp_path / 'model.json').write_text(json.dumps({'profiles': {'draft': FakeLocalModel.name}}))
     model = FinancialDisclosurePatchModel()
     assert draft_materials(tmp_path, model)['state'] == 'needs_resume'
     assert draft_materials(tmp_path, model)['state'] == 'needs_resume'
@@ -414,8 +420,8 @@ def test_material_gateway_replays_exact_saved_model_sections(tmp_path, monkeypat
         (directory / 'material_result.json').write_text(json.dumps(result))
 
     monkeypatch.setattr('delivery.material_stage.run_private', fake_private)
-    assert run_material_pass(job, memo, timeout=100)['state'] == 'needs_resume'
-    accepted = run_material_pass(job, memo, timeout=100)
+    assert run_material_pass(job, memo, timeout=100, draft_contract='structured_v5')['state'] == 'needs_resume'
+    accepted = run_material_pass(job, memo, timeout=100, draft_contract='structured_v5')
     assert accepted['state'] == 'accepted'
     assert accepted['decks']['intro_deck']['response_id'] == 'response_1'
     assert accepted['decks']['pitch_deck']['response_id'] == 'response_2'
@@ -434,7 +440,7 @@ def test_material_gateway_replays_exact_saved_model_sections(tmp_path, monkeypat
     forged['decks']['pitch_deck']['sections'][0][1] = 'Manually fabricated investor claim [S1].'
     (tmp_path / 'material_result.json').write_text(json.dumps(forged))
     with pytest.raises(ValueError, match='differs from recorded'):
-        run_material_pass(job, memo, timeout=100)
+        run_material_pass(job, memo, timeout=100, draft_contract='structured_v5')
 
 
 def test_material_gateway_replays_model_authored_slide_patch(tmp_path, monkeypatch):
@@ -454,9 +460,9 @@ def test_material_gateway_replays_model_authored_slide_patch(tmp_path, monkeypat
         (directory / 'material_result.json').write_text(json.dumps(result))
 
     monkeypatch.setattr('delivery.material_stage.run_private', fake_private)
-    assert run_material_pass(job, memo, timeout=100)['state'] == 'needs_resume'
-    assert run_material_pass(job, memo, timeout=100)['state'] == 'needs_resume'
-    accepted = run_material_pass(job, memo, timeout=100)
+    assert run_material_pass(job, memo, timeout=100, draft_contract='structured_v5')['state'] == 'needs_resume'
+    assert run_material_pass(job, memo, timeout=100, draft_contract='structured_v5')['state'] == 'needs_resume'
+    accepted = run_material_pass(job, memo, timeout=100, draft_contract='structured_v5')
     assert accepted['decks']['intro_deck']['response_ids'] == ['response_1', 'response_2']
     assert validate_material_checkpoint(job, memo, accepted) == accepted
     attempts_path = tmp_path / 'material_attempts.json'
@@ -475,6 +481,7 @@ def test_invalid_deck_count_gets_bounded_whole_deck_retry(tmp_path):
     (tmp_path / 'material_request.json').write_text(json.dumps({**base,
         'digest': digest(base)}))
     (tmp_path / 'material_budget.json').write_text(json.dumps({'seconds': 90}))
+    (tmp_path / 'model.json').write_text(json.dumps({'profiles': {'draft': FakeLocalModel.name}}))
 
     class CountModel(FakeLocalModel):
         def generate_for_task(self, task, instruction, evidence, schema, *, attempt=0):

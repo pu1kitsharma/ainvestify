@@ -23,7 +23,7 @@ def validate_room(store, tenant, room):
         # This private research preview is not an investor-package artifact.
         # Keep it inspectable in the room, but never treat it as a substitute
         # for the required PDF converted from the investment memorandum.
-        if artifact['kind'] == 'research_brief' and artifact['state'] == 'draft':
+        if artifact['kind'] == 'research_brief' or artifact['kind'].endswith('_preview'):
             continue
         content=artifact_bytes(tenant,artifact)
         contents[artifact['id']]=content

@@ -9,16 +9,66 @@ missing/illustrative; a typical value cannot become a company fact. Human
 review/sign-off is mandatory before a document is released. This system does
 not contact investors, negotiate terms or run a raise.
 
-**Status (4 October 2026): not production-ready.** Start with [AGENTS.md](AGENTS.md),
-then [NEXT_AGENT.md](NEXT_AGENT.md) for the latest tested-code/live-acceptance split.
-Historical success notices do not establish current investment quality.
+**Status (5 October 2026): not production-ready. No investor material is approved.**
+Start with [AGENTS.md](AGENTS.md), then [NEXT_AGENT.md](NEXT_AGENT.md) for the
+tested-code versus live-acceptance split. Historical success notices do not
+establish current investment quality.
 
-The installed local `qwen3.5:9b` produced synthetic intro and pitch PPTX/PDF pairs
-and an IM DOCX/PDF pair that passed structural and text-pair checks. The last completed live
-semantic material review remains blocked by wrong-source selections, and visual
-inspection found sparse slides and a dense memo. These are diagnostic outputs,
-not accepted investor materials. Code tests, PDF text parity and a passing
-model self-review cannot replace independent content, financial and visual review.
+| Area | State |
+|---|---|
+| Discovery, deal rooms, auth, durable jobs, API, frontend | Implemented and covered by the offline suite; live Google login not configured |
+| Local-model memo pipeline (`memo-cards-v13`) | Runs end to end on the private Toffee files; passes local software gates only |
+| Memo content repair (`agents/research/memo_content_repair.py`) | Runs live: review, model-authored rewrite, re-review. Does not yet converge: both the 9B and 14B reviewers still block the recommendation rationale and the EBITDA unknown |
+| Deck drafting (`purpose_v13` / `purpose_v14`) | v14 prevents repeated sentences and headings across a deck. No v14 deck has been generated live. The Toffee pitch deck is incomplete |
+| Fine-tuning | Tooling and data builder exist; **no model has been trained** (see below) |
+| Projection workbook | Preflight only; no forecast is validated or published |
+
+Product scope and plans are under **Current plans**. The model writes all
+company claims; software only retrieves, binds evidence, validates, calculates
+and renders.
+
+## Known issues
+
+1. **Memo review does not converge.** After three bounded repair rounds the local
+   reviewers contradict themselves (for example calling a rationale "correctly
+   scoped" and still `insufficient_evidence`). Prompt-level fixes are exhausted.
+2. **PDF ingestion loses content.** Text extraction interleaves columns, turns
+   rotated text into stray letters and yields almost nothing from slides whose
+   tables, charts or diagrams are images. The model cannot use what it never sees.
+3. **Deck structure does not match founder decks.** The pipeline uses fixed
+   slots (company, product, risk, ...). Founder decks also carry traction, team,
+   cap-table and market-map slides and table-style financial slides.
+4. **No tuned model exists.** Training a 9B LoRA exhausted Metal memory on a 16 GB
+   Mac (see **Local model fine-tuning**).
+5. **Projection workbooks** with hidden sheets and formulas are not reconciled.
+6. **Whole-repository tests are not green** (24 older failures in retired
+   legacy compilation endpoints, live-service tests and old preparation
+   expectations). The focused research/delivery suites pass.
+
+## Local model fine-tuning (experimental, incomplete)
+
+Only the model's weights may be adjusted to change its output; no code writes
+company text. Present state:
+
+- `scripts/build_deck_headline_sft.py` builds local-only SFT rows from supplied
+  gold decks, taking each slide's own title and italic subtitle font as the
+  target. `scripts/evaluate_deck_headline_mlx.py` scores a base or adapter model.
+  `agents/research/deck_headline.py` holds the shared task contract.
+- Result: the untuned 4-bit Qwen3.5 9B already scores 8/8 headings and 7/8
+  messages on held-out gold slides, so this task has no headroom. Useful training
+  needs gold for memo writing and review judgement, from several companies.
+- Setup used (not committed): an isolated `mlx-lm` venv and
+  `mlx-community/Qwen3.5-9B-MLX-4bit` under ignored `runtime_qualification/finetune/`.
+  The base is pinned in [models/base_model.json](models/base_model.json) and is downloaded, never committed;
+  trained adapters will be stored via Git LFS. See [models/README.md](models/README.md) for the AWS training recipe.
+- Serving: llama.cpp's converter supports Qwen3.5, but adapter-to-Ollama loading
+  is unverified.
+
+**Would more compute help?** It removes the memory limit and speeds iteration, so
+LoRA on the 9B (or the 14B author) and larger evaluation sets become practical.
+It does not by itself fix the reviewer contradictions, the ingestion gap or the
+slide-structure mismatch. Those need a gold training set across companies, a
+vision/layout-aware ingestion step and code changes.
 
 ## Current plans
 
@@ -58,6 +108,16 @@ Legacy data is not assigned to the first registrant. See handoff §48 for the ex
 implementation and qualification limits; full L1 acceptance is not claimed.
 
 ## Setup
+
+### Quick start
+
+1. Install [Ollama](https://ollama.com/download) and confirm `ollama serve` is running. Pull the models you intend to route to (see **Model configuration** below) — nothing is downloaded automatically.
+2. `pip install -r requirements.txt` (add `-r requirements-dev.txt` for `pytest`/`httpx` to run the test suite).
+3. Backend: `python3 scripts/serve_local.py` — starts the FastAPI app on `http://localhost:8000` **without auto-reload**. Check active jobs before restarting. For the temporary local account, use the `--local-dev --without-worker` form above.
+4. Frontend: `cd frontend && npm install && npm run dev` — Vite dev server on `http://localhost:5173`, with `/api` proxied to the backend.
+5. CLI entry point (bypasses the web UI entirely): `python3 main.py "<what you want to do>"` — e.g. `"find promising fintech companies to incubate"` or `"screen this deal, I have the pitch deck ready"`.
+
+### Configuration and sign-in
 
 Preparation now defaults to local inference without hosted fallback. The
 [public research setup](deployment/PUBLIC_RESEARCH_SETUP.md) describes a
@@ -117,13 +177,17 @@ release/reviewer summary and citation-level semantic findings in the room API
 before the frontend can show exact accepted-package status or a useful finding
 drilldown. No current room draft is represented as ready to send.
 
-Fresh semantic material reviews use a versioned `semantic_v8` request. For each
-model-selected slide sentence, the request lists only memo spans sharing its
-cited source IDs; software binds the selected exact span and rejects any other
-index. The local model still decides whether a defect exists and authors the
-finding. Historical review requests retain their recorded contracts and exact
-replay. This is a source-binding improvement, not an independent assessment of
-investment quality.
+Fresh semantic material reviews use a versioned `semantic_v10` request. The
+model selects an enumerated slide sentence and quotes the exact proposition it
+challenges. Software attaches all offered memo spans sharing that sentence's
+cited source IDs, plus finite evidence-scope metadata; the model still decides
+whether a defect exists and authors the explanation. Historical requests keep
+their recorded contracts and exact replay. A synthetic-only relation probe can
+be run with `scripts/evaluate_local_assertion_relation_probe.py`; its scorecard
+does not release materials or change the production review route. The opt-in
+`semantic_v11` worker implements the same fixed-row shape but is held back by
+the failed scale diagnostic. See
+[NEXT_AGENT.md](NEXT_AGENT.md) for live failures and the next bounded gate.
 
 Private LibreOffice conversion now uses a short job-local 0700 directory and
 Unix IPC socket. Synthetic intro/pitch and revised IM editable/PDF pairs passed
@@ -132,12 +196,6 @@ access. Visual parity and complete production Office qualification remain open.
 The separate bundled UNO executable failed qualification; do not relax private
 isolation to make it pass. See [NEXT_AGENT.md](NEXT_AGENT.md) and the retained
 reports under ignored `runtime_qualification/` for exact scope.
-
-1. Install [Ollama](https://ollama.com/download) and confirm `ollama serve` is running. Pull the models you intend to route to (see **Model configuration** below) — nothing is downloaded automatically.
-2. `pip install -r requirements.txt` (add `-r requirements-dev.txt` for `pytest`/`httpx` to run the test suite).
-3. Backend: `python3 scripts/serve_local.py` — starts the FastAPI app on `http://localhost:8000` **without auto-reload**. Check active jobs before restarting. For the temporary local account, use the `--local-dev --without-worker` form above.
-4. Frontend: `cd frontend && npm install && npm run dev` — Vite dev server on `http://localhost:5173`, with `/api` proxied to the backend.
-5. CLI entry point (bypasses the web UI entirely): `python3 main.py "<what you want to do>"` — e.g. `"find promising fintech companies to incubate"` or `"screen this deal, I have the pitch deck ready"`.
 
 ### Model configuration
 
@@ -339,8 +397,8 @@ The API-native equivalent of `main.py`'s CLI prompt router.
 cd frontend && npm run build && npm run lint
 ```
 
-The focused research/delivery/room/financial/KB suite most recently passed
-676 tests with 5 skipped. That code result is separate from live model and
+The focused research and delivery suites most recently passed
+1,029 tests with 5 skipped (research and delivery suites). That code result is separate from live model and
 investor acceptance. Local model diagnostics require a running Ollama instance;
 their raw responses and failure reports are retained under ignored
 `runtime_qualification/`. Do not overwrite a failed run to claim success.

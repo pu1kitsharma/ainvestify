@@ -297,7 +297,7 @@ def test_private_review_gateway_replays_exact_model_and_deck(tmp_path, monkeypat
     accepted = stage.run_material_review_pass(job, memo, material, timeout=100)
     assert accepted['state'] == 'accepted' and model.calls == 1
     assert json.loads((tmp_path / 'material_review_request.json').read_text())[
-        'review_contract'] == 'semantic_v8'
+        'review_contract'] == 'semantic_v10'
     assert stage.validate_material_review_checkpoint(job, memo, material, accepted) == accepted
     changed = {**material, 'decks': {**material['decks'],
         'pitch_deck': {'sections': [['Changed heading', *DECKS['pitch_deck'][0][1:]]]}}}

@@ -1,0 +1,56 @@
+{
+ "classification": "synthetic",
+ "pair": "source_qualified_report_vs_false_receipt",
+ "memo_sections": [
+  [
+   "Synthetic funding evidence",
+   "A registry lists a seed round for Example Labs with unknown status [S1]. The registry entry does not state that any funds were received [S1].",
+   "[S1] https://example.invalid/registry/seed | Synthetic registry | version synthetic-seed-v1"
+  ],
+  [
+   "Synthetic product evidence",
+   "Example Labs states that it builds scheduling software for clinics [S2]. The company page reports no revenue or customer figures [S2].",
+   "[S2] https://example.invalid/company/product | Synthetic company page | version synthetic-product-v1"
+  ]
+ ],
+ "shared_decks": {
+  "intro_deck": [
+   [
+    "Company overview",
+    "Example Labs states that it builds scheduling software for clinics [S2]. The company page reports no revenue or customer figures [S2].",
+    "[S2] Synthetic company page",
+    "statement"
+   ]
+  ]
+ },
+ "control": {
+  "pitch_deck": [
+   [
+    "Funding evidence",
+    "A registry lists a seed round with unknown status [S1].",
+    "[S1] Synthetic registry",
+    "evidence"
+   ]
+  ]
+ },
+ "defect": {
+  "pitch_deck": [
+   [
+    "Funding evidence",
+    "A registry lists a seed round with unknown status [S1]. The company received the seed funds in full [S1].",
+    "[S1] Synthetic registry",
+    "evidence"
+   ]
+  ],
+  "planted": {
+   "deck": "pitch_deck",
+   "slide_index": 0,
+   "sentence": "The company received the seed funds in full [S1].",
+   "source_id": "[S1]",
+   "allowed_issues": [
+    "unsupported_claim",
+    "contradiction"
+   ]
+  }
+ }
+}

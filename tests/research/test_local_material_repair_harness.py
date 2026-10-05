@@ -23,10 +23,10 @@ def test_versioned_review_request_replays_only_its_recorded_contract():
     assert _bound_review_request(base, {**recorded, 'review_contract': 'other'}) != recorded
 
 
-def test_new_re_review_has_semantic_v8_with_exact_digest():
+def test_new_re_review_has_semantic_v10_with_exact_digest():
     base = {'input_revision': 'synthetic-r1', 'review_model': {'name': 'local'}}
     request = _re_review_request(base)
 
-    assert request['review_contract'] == 'semantic_v8'
+    assert request['review_contract'] == 'semantic_v10'
     assert request['digest'] == digest({k: v for k, v in request.items() if k != 'digest'})
     assert 'review_contract' not in base

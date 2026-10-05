@@ -63,7 +63,8 @@ def reusable_intro(replay_from: Path, base, pinned_name):
 
 
 def evaluate(memo_output: Path, fixture: Path, output: Path, *, operator_attested=False,
-             replay_from: Path | None = None, resume_existing=False):
+             replay_from: Path | None = None, resume_existing=False,
+             contract_version='structured_v5'):
     if not operator_attested:
         raise ValueError('Public or synthetic fixture bytes require operator attestation')
     if not memo_output.resolve().is_relative_to(MEMO_OUTPUT_ROOT.resolve()):
@@ -78,7 +79,9 @@ def evaluate(memo_output: Path, fixture: Path, output: Path, *, operator_atteste
         raise ValueError('Memo fixture or acceptance is not exact')
     accepted = json.loads((memo_output / 'accepted.json').read_text())
     attempts = json.loads((memo_output / 'attempts.json').read_text())
-    sections = renderable_sections(accepted, sources, attempts)
+    # The memo run's own frozen layout; an earlier memo run has none and replays as recorded.
+    sections = renderable_sections(accepted, sources, attempts,
+                                   projection=profile.get('section_projection'))
     pinned = profile['models']['draft']
     if installed_models().get(pinned['name']) != pinned['digest']:
         raise ValueError('Installed local draft model digest changed')
@@ -93,9 +96,14 @@ def evaluate(memo_output: Path, fixture: Path, output: Path, *, operator_atteste
         raise ValueError('Existing material finalization cannot start a new replay')
     if replay_from is not None:
         prior_intro, replay_manifest = reusable_intro(replay_from, base, pinned['name'])
+    if contract_version not in {'structured_v5', 'purpose_v7', 'purpose_v8',
+                                'purpose_v9', 'purpose_v10', 'purpose_v11'}:
+        raise ValueError('Unsupported fresh diagnostic material contract')
+    if contract_version.startswith('purpose_v') and prior_intro is not None:
+        raise ValueError('Purpose-first cannot reuse a different frozen intro contract')
     request_base = {**base, 'replay_contracts': {
-        'intro_deck': 'v5' if prior_intro is not None else 'structured_v5',
-        'pitch_deck': 'structured_v5'}}
+        'intro_deck': 'v5' if prior_intro is not None else contract_version,
+        'pitch_deck': contract_version}}
     if resume_existing:
         saved_versions = json.loads((output / 'material_request.json').read_text()).get('replay_contracts')
         if saved_versions in ({'intro_deck': 'structured', 'pitch_deck': 'structured'},
@@ -139,7 +147,10 @@ def evaluate(memo_output: Path, fixture: Path, output: Path, *, operator_atteste
         passes = []
         result = {'state': 'not_started'}
     if result['state'] == 'not_started':
-        for number in range(len(passes) + 1, 7):
+        pass_cap = 15 if contract_version in {'purpose_v7', 'purpose_v8',
+                                              'purpose_v9', 'purpose_v10',
+                                              'purpose_v11'} else 6
+        for number in range(len(passes) + 1, pass_cap + 1):
             if installed_models().get(pinned['name']) != pinned['digest']:
                 result = {'state': 'blocked', 'reason': 'installed_model_digest_changed'}
                 break
@@ -199,10 +210,15 @@ def main():
     parser.add_argument('--operator-attested-public-or-synthetic', action='store_true')
     parser.add_argument('--replay-from', type=Path)
     parser.add_argument('--resume-existing', action='store_true')
+    parser.add_argument('--contract-version', choices=('structured_v5', 'purpose_v7',
+                                                      'purpose_v8', 'purpose_v9',
+                                                      'purpose_v10', 'purpose_v11'),
+                        default='structured_v5')
     args = parser.parse_args()
     print(json.dumps(evaluate(args.memo_output, args.fixture, args.output,
         operator_attested=args.operator_attested_public_or_synthetic,
-        replay_from=args.replay_from, resume_existing=args.resume_existing), indent=2))
+        replay_from=args.replay_from, resume_existing=args.resume_existing,
+        contract_version=args.contract_version), indent=2))
 
 
 if __name__ == '__main__':

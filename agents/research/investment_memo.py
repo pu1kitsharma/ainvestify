@@ -634,18 +634,112 @@ def generate_memo(company: str, sources: list[Source], *, model=None, review_mod
             "draft_response_id": draft_id, "review_response_id": review_id}
 
 
-def renderable_sections(result: dict, sources: list[Source], attempts: list[dict]):
-    """Project only accepted model fields into the existing PDF/deck renderer."""
+# How an accepted memo is laid out as (heading, body, sources) sections. None is the
+# first, unversioned layout and stays exactly as recorded runs were projected.
+# reader_v1 shows a structured source record as its fields instead of raw JSON and
+# lists each source's URL and version once, at the end, instead of in every section.
+# reader_v2 also takes the claim blocks out of the sections: each distinct model
+# assertion and each distinct exact quote appears once, in an evidence appendix
+# that is split only between whole lines, ahead of the one bibliography.
+FRESH_SECTION_PROJECTION = 'reader_v2'
+SECTION_PROJECTIONS = (None, 'reader_v1', 'reader_v2')
+_EVIDENCE_MARKER = "\n\nSource claims and exact excerpts:\n"
+_PAGE = 1150            # characters of body per layout section; the renderer allows 1200
+
+
+def _record_fields(value, prefix=''):
+    """(label, literal text) for every scalar of a parsed record, in record order."""
+    if isinstance(value, dict):
+        rows = []
+        for key, item in value.items():
+            rows += _record_fields(item, f'{prefix} {key}'.strip())
+        return rows
+    if isinstance(value, list):
+        if all(not isinstance(item, (dict, list)) for item in value):
+            return [(prefix, ', '.join(_record_fields(item)[0][1] for item in value) or 'none')]
+        rows = []
+        for index, item in enumerate(value, start=1):
+            rows += _record_fields(item, f'{prefix} {index}'.strip())
+        return rows
+    text = {None: 'not given', True: 'true', False: 'false'}.get(value, value) \
+        if value is None or isinstance(value, bool) else str(value)
+    return [(prefix, text)]
+
+
+def readable_excerpt(quote: str) -> str:
+    """A claim's exact quote as a reader sees it.
+
+    A quote that is a structured JSON record, or a run of its key/value pairs,
+    is laid out as `key: value` fields. Every key and every value is the
+    record's own text, in order; numbers keep their written form. Nothing is
+    summarised, and a quote that is not such a record is returned unchanged.
+    """
+    for candidate in (quote, '{' + quote.strip().strip(',') + '}'):
+        try:
+            record = json.loads(candidate, parse_float=str, parse_int=str)
+        except (TypeError, ValueError):
+            continue
+        if isinstance(record, dict) and record:
+            fields = '; '.join(f"{label.replace('_', ' ')}: {text}"
+                               for label, text in _record_fields(record))
+            return 'Source record: ' + fields + '.'
+    return 'Exact excerpt: ' + quote
+
+
+def renderable_sections(result: dict, sources: list[Source], attempts: list[dict],
+                        projection=None, content_revision=None):
+    """Project only accepted model fields into the existing PDF/deck renderer.
+
+    `projection` is the layout version frozen with the run. A run recorded
+    before versions existed has none and keeps its original sections exactly.
+    """
+    if projection not in SECTION_PROJECTIONS:
+        raise ValueError('Unknown memo section projection')
     memo = Memo.model_validate(result["memo"])
     review = (EvidenceReview if 'blocking' in result["review"] else Review).model_validate(
         result["review"])
     review_row = next((row for row in attempts
                        if row.get("id") == result["review_response_id"]), None)
-    if (review_row is None or review_row.get("task") != "investment_memo_review"
-            or review_row.get("input", {}).get("memo") != memo.model_dump()
-            or review_row.get("input", {}).get("sources") !=
-               [source.model_dump() for source in sources]):
-        raise ValueError("Reviewer did not inspect this exact memo and source set")
+    field_record = result.get('final_field_review')
+    if field_record is None:
+        if (review_row is None or review_row.get("task") != "investment_memo_review"
+                or review_row.get("input", {}).get("memo") != memo.model_dump()
+                or review_row.get("input", {}).get("sources") !=
+                   [source.model_dump() for source in sources]):
+            raise ValueError("Reviewer did not inspect this exact memo and source set")
+        review_input = review_row['input']
+    else:
+        if (not isinstance(field_record, dict) or
+                set(field_record) != {'contract', 'response_ids',
+                                      'ledger_binding_digest', 'company', 'as_of_date'} or
+                field_record['contract'] not in {'memo-final-field-v1',
+                                                 'memo-final-field-v2',
+                                                 'memo-final-field-v3',
+                                                 'memo-final-field-v4'} or
+                not isinstance(field_record['response_ids'], list) or
+                len(field_record['response_ids']) != 6 or
+                field_record['response_ids'][-1] != result['review_response_id'] or
+                review_row is None or
+                review_row.get('task') != (
+                    'investment_memo_final_review_field_v4'
+                    if field_record['contract'] == 'memo-final-field-v4' else
+                    'investment_memo_final_review_field_v3'
+                    if field_record['contract'] == 'memo-final-field-v3' else
+                    'investment_memo_final_review_field_v2'
+                    if field_record['contract'] == 'memo-final-field-v2' else
+                    'investment_memo_final_review_field_v1') or
+                not result.get('challenge')):
+            raise ValueError('Final field review provenance is incomplete')
+        from agents.research.staged_memo import reviewer_ledger_view
+        review_input = {'company': field_record['company'],
+                        'as_of_date': field_record['as_of_date'],
+                        'sources': [source.model_dump() for source in sources],
+                        'memo': memo.model_dump(),
+                        'evidence_ledger': reviewer_ledger_view(result['challenge'])}
+        from agents.research.staged_memo import funding_timeline_conflicts
+        discrepancies = funding_timeline_conflicts(sources)
+        if discrepancies:
+            review_input['reported_stage_date_discrepancies'] = discrepancies
     if "part_a_response_id" in result:
         from agents.research.staged_memo import (MemoPartA, MemoPartB, ProsePatchA,
                                                   ProsePatchB, apply_prose_patch,
@@ -660,10 +754,10 @@ def renderable_sections(result: dict, sources: list[Source], attempts: list[dict
         component_ids = result.get('part_a_component_ids')
         if component_ids is not None:
             from agents.research.part_a_components import (
-                replay_part_a_components, part_a_bundle_id)
-            if part_a_bundle_id(component_ids) != result['part_a_response_id']:
+                replay_part_a_components, part_a_bundle_id, _component_revision)
+            if part_a_bundle_id(component_ids, revision=_component_revision(attempts)) != result['part_a_response_id']:
                 raise ValueError('Part A component bundle identifier changed')
-            draft_payload = {key: review_row['input'][key] for key in (
+            draft_payload = {key: review_input[key] for key in (
                 'company', 'sources', 'as_of_date')}
             discrepancies = funding_timeline_conflicts(sources)
             if discrepancies:
@@ -675,7 +769,7 @@ def renderable_sections(result: dict, sources: list[Source], attempts: list[dict
         if section_ids is not None:
             if _part_b_bundle_id(section_ids) != result['part_b_response_id']:
                 raise ValueError('Part B section bundle identifier changed')
-            draft_payload = {key: review_row['input'][key] for key in (
+            draft_payload = {key: review_input[key] for key in (
                 'company', 'sources', 'as_of_date')}
             discrepancies = funding_timeline_conflicts(sources)
             if discrepancies:
@@ -709,9 +803,9 @@ def renderable_sections(result: dict, sources: list[Source], attempts: list[dict
                 task=f'investment_memo_part_{label.lower()}_claim_patch',
                 base_response_id=result['part_a_response_id' if label == 'A'
                                         else 'part_b_response_id'],
-                company=review_row['input']['company'],
+                company=review_input['company'],
                 source_set_digest=digest([source.model_dump() for source in sources]),
-                as_of_date=review_row['input'].get('as_of_date'), sources=sources)
+                as_of_date=review_input.get('as_of_date'), sources=sources)
             if replayed is None or replayed[1] != claim_patch_ids[label]:
                 raise ValueError('Claim patch cannot be replayed from its exact saved response')
             if label == 'A':
@@ -736,16 +830,16 @@ def renderable_sections(result: dict, sources: list[Source], attempts: list[dict
             if field not in field_ids:
                 continue
             current = part_a if field in _SINGLE_FIELDS_A else part_b
-            expected = single_claim_payload(review_row['input']['company'], field, current,
+            expected = single_claim_payload(review_input['company'], field, current,
                 base_response_id=result['part_a_response_id' if field in _SINGLE_FIELDS_A
                                         else 'part_b_response_id'],
                 source_set_digest=source_digest,
-                as_of_date=review_row['input'].get('as_of_date'))
+                as_of_date=review_input.get('as_of_date'))
             replay = isolated_field_result(current, field,
                 task='investment_memo_single_claim_' + field,
                 instruction=SINGLE_CLAIM_FIELD, base_payload=expected,
                 attempts=attempts, save=lambda: None,
-                as_of_date=review_row['input'].get('as_of_date'), company=expected['company'])
+                as_of_date=review_input.get('as_of_date'), company=expected['company'])
             if replay is None or replay[1] != field_ids[field]:
                 raise ValueError('Isolated prose response did not inspect its exact claim')
             changed = replay[0]
@@ -764,8 +858,8 @@ def renderable_sections(result: dict, sources: list[Source], attempts: list[dict
                                                    **part_b.model_dump()})
             replay = timeline_patch_sequence(before_timeline,
                 funding_timeline_conflicts(sources), sources,
-                {'company': review_row['input']['company'],
-                 'as_of_date': review_row['input']['as_of_date'],
+                {'company': review_input['company'],
+                 'as_of_date': review_input['as_of_date'],
                  'sources': [source.model_dump() for source in sources]},
                 source_digest, deepcopy(attempts), lambda: None, None,
                 SimpleNamespace(calls=0, max_calls=0))
@@ -779,15 +873,89 @@ def renderable_sections(result: dict, sources: list[Source], attempts: list[dict
             part_b = MemoPartB.model_validate({key: timeline_memo[key] for key in (
                 'differentiation_and_execution', 'risks_and_countercase',
                 'diligence_plan')})
+        repair_packets = result.get('causal_repair_packets')
+        if repair_packets is not None:
+            from types import SimpleNamespace
+            from agents.research.memo_causal_repair import repair_causal_sentence
+            if (not isinstance(repair_packets, dict) or
+                    set(repair_packets) != {'first', 'second', 'digest'} or
+                    not isinstance(repair_packets['first'], dict) or
+                    (repair_packets['second'] is not None and
+                     not isinstance(repair_packets['second'], dict)) or
+                    digest({'first': repair_packets['first'],
+                            'second': repair_packets['second']}) != repair_packets['digest']):
+                raise ValueError('Causal repair packet provenance changed')
+            replay_memo = Memo.model_validate({**part_a.model_dump(), **part_b.model_dump()})
+            replay_base = {key: value for key, value in review_input.items()
+                           if key in ('company', 'sources', 'as_of_date',
+                                      'reported_stage_date_discrepancies')}
+            from agents.research.staged_memo import challenge_revision
+            pre_repair = challenge_revision(part_a, part_b, sources, replay_base,
+                source_digest, result['part_a_response_id'], result['part_b_response_id'],
+                attempts, lambda: None, None, None,
+                SimpleNamespace(calls=0, max_calls=0))
+            if not isinstance(pre_repair, tuple):
+                raise ValueError('Pre-repair ledger cannot be replayed')
+            replay_memo = Memo.model_validate({**pre_repair[0].model_dump(),
+                                               **pre_repair[1].model_dump()})
+            for packet in (repair_packets['first'], repair_packets['second']):
+                if packet is None:
+                    continue
+                replayed = repair_causal_sentence(replay_memo, sources, packet,
+                    attempts, lambda: None, None,
+                    SimpleNamespace(calls=0, max_calls=0))
+                if replayed is None:
+                    raise ValueError('Causal repair raw response is missing')
+                replay_memo = replayed[0]
+            part_a = MemoPartA.model_validate({key: value for key, value in
+                replay_memo.model_dump().items() if key in MemoPartA.model_fields})
+            part_b = MemoPartB.model_validate({key: value for key, value in
+                replay_memo.model_dump().items() if key in MemoPartB.model_fields})
+        field_repair = result.get('memo_field_repair')
+        if field_repair is not None:
+            if (repair_packets is None or not isinstance(field_repair, dict) or
+                    set(field_repair) != {'packet', 'packet_digest', 'response_id'} or
+                    digest(field_repair['packet']) != field_repair['packet_digest']):
+                raise ValueError('Field repair packet provenance changed')
+            from types import SimpleNamespace
+            from agents.research.memo_field_repair import repair_memo_field
+            replayed = repair_memo_field(
+                Memo.model_validate({**part_a.model_dump(), **part_b.model_dump()}),
+                sources, field_repair['packet'], attempts, lambda: None, None,
+                SimpleNamespace(calls=0, max_calls=0))
+            if replayed is None or replayed[1] != field_repair['response_id']:
+                raise ValueError('Field repair cannot be replayed from saved model output')
+            part_a = MemoPartA.model_validate({key: value for key, value in
+                replayed[0].model_dump().items() if key in MemoPartA.model_fields})
+            part_b = MemoPartB.model_validate({key: value for key, value in
+                replayed[0].model_dump().items() if key in MemoPartB.model_fields})
+        second_field = result.get('memo_field_repair_v2')
+        if second_field is not None:
+            if (field_repair is None or not isinstance(second_field, dict) or
+                    set(second_field) != {'packet', 'packet_digest', 'response_id'} or
+                    digest(second_field['packet']) != second_field['packet_digest']):
+                raise ValueError('Second field repair packet provenance changed')
+            from types import SimpleNamespace
+            from agents.research.memo_field_repair import repair_memo_field
+            replayed = repair_memo_field(
+                Memo.model_validate({**part_a.model_dump(), **part_b.model_dump()}),
+                sources, second_field['packet'], attempts, lambda: None, None,
+                SimpleNamespace(calls=0, max_calls=0))
+            if replayed is None or replayed[1] != second_field['response_id']:
+                raise ValueError('Second field repair lacks exact saved model output')
+            part_a = MemoPartA.model_validate({key: value for key, value in
+                replayed[0].model_dump().items() if key in MemoPartA.model_fields})
+            part_b = MemoPartB.model_validate({key: value for key, value in
+                replayed[0].model_dump().items() if key in MemoPartB.model_fields})
         recorded_challenge = result.get('challenge')
-        bound_ledger = review_row['input'].get('evidence_ledger')
+        bound_ledger = review_input.get('evidence_ledger')
         if bool(recorded_challenge) != bool(bound_ledger) or (
                 result.get('challenge_field_patch_ids') and not recorded_challenge):
             raise ValueError('Challenge provenance is incomplete')
         if recorded_challenge:
             from types import SimpleNamespace
             from agents.research.staged_memo import challenge_revision, reviewer_ledger_view
-            base = {key: value for key, value in review_row['input'].items()
+            base = {key: value for key, value in review_input.items()
                     if key in ('company', 'sources', 'as_of_date',
                                'reported_stage_date_discrepancies')}
             replay = challenge_revision(part_a, part_b, sources, base, source_digest,
@@ -827,7 +995,7 @@ def renderable_sections(result: dict, sources: list[Source], attempts: list[dict
                 if field not in review_field_ids:
                     continue
                 current = part_a if field in _SINGLE_FIELDS_A else part_b
-                expected = review_field_payload(review_row['input']['company'], field, current,
+                expected = review_field_payload(review_input['company'], field, current,
                     base_response_id=result['part_a_response_id' if field in _SINGLE_FIELDS_A
                                             else 'part_b_response_id'],
                     source_set_digest=source_digest,
@@ -850,15 +1018,67 @@ def renderable_sections(result: dict, sources: list[Source], attempts: list[dict
         recorded_memo = {**part_a.model_dump(), **part_b.model_dump()}
     else:
         recorded_memo = response_answer(attempts, result["draft_response_id"])
-    if (recorded_memo != memo.model_dump()
-            or response_answer(attempts, result["review_response_id"]) != review.model_dump()
-            or not review_outcome(review.model_dump(), memo, sources)[0]):
+    if recorded_memo != memo.model_dump():
         raise ValueError("Only the exact reviewed model memo may be rendered")
+    if field_record is None:
+        if (response_answer(attempts, result["review_response_id"]) != review.model_dump()
+                or not review_outcome(review.model_dump(), memo, sources)[0]):
+            raise ValueError("Only the exact reviewed model memo may be rendered")
+    else:
+        from agents.research.memo_final_review import evaluate_attempts
+        reviewer = review_row['input'].get('review_model', {})
+        replayed, pending = evaluate_attempts(
+            memo, sources, field_record['ledger_binding_digest'], attempts,
+            {'version': field_record['contract'], 'model_name': review_row['model'],
+             'model_digest': reviewer.get('digest')},
+            field_record['company'], field_record['as_of_date'])
+        if (pending is not None or replayed is None or replayed['state'] != 'accepted' or
+                replayed['response_ids'] != field_record['response_ids'] or
+                replayed['review'] != review.model_dump() or
+                field_record['ledger_binding_digest'] != digest(result['challenge'])):
+            raise ValueError('Final field review did not bind to the rendered memo')
+    causal_rows = [row for row in attempts if row.get('task') in {
+                   'investment_memo_causal_review', 'investment_memo_causal_review_v2',
+                   'investment_memo_causal_review_v3'}]
+    causal_record = result.get('memo_causal_review')
+    if causal_rows or causal_record is not None:
+        task_kinds = {row['task'] for row in causal_rows}
+        stable = (isinstance(causal_record, dict) and
+                  causal_record.get('review_contract') == 'memo-causal-v3')
+        valid_tasks = (task_kinds in (
+            {'investment_memo_causal_review_v2'},
+            {'investment_memo_causal_review_v2', 'investment_memo_causal_review_v3'})
+            if stable else len(task_kinds) == 1)
+        if not causal_rows or not isinstance(causal_record, dict) or (
+                attempts.index(causal_rows[-1]) >= attempts.index(review_row)) or (
+                not valid_tasks):
+            raise ValueError('Memo causal review provenance is incomplete')
+        from agents.research.memo_causal_review import evaluate_attempts
+        causal_contract = {'version': causal_record.get('review_contract'),
+                           'model_name': causal_rows[0].get('model'),
+                           'model_digest': causal_record.get('model_digest')}
+        if stable:
+            causal_contract['prior_lineage'] = causal_record.get('prior_lineage')
+        replayed, pending = evaluate_attempts(memo, sources, attempts, causal_contract)
+        if pending is not None or replayed != causal_record or replayed['state'] != 'accepted':
+            raise ValueError('Memo causal review did not bind to the rendered memo')
+    if content_revision is not None:
+        # A post-acceptance content review repaired rationales; the exact raw
+        # review/repair/re-review responses must replay to this memo.
+        from agents.research.memo_content_repair import replay_content_revision
+        memo = replay_content_revision(memo, sources, content_revision)[0]
     validate_memo(memo, sources)
     by_id = {source.id: source for source in sources}
 
+    cited = {}
+    reader = projection in ('reader_v1', 'reader_v2')
+
     def references(text, claims):
         ids = dict.fromkeys([*_CITATION.findall(text), *(claim.source_id for claim in claims)])
+        cited.update(ids)
+        if reader:
+            # Name each source the section relies on; URL and version follow once.
+            return "\n".join(f"[{source_id}] {by_id[source_id].attribution}" for source_id in ids)
         value = "\n".join(f"[{source_id}] {by_id[source_id].url} | {by_id[source_id].attribution} | "
                           f"version {by_id[source_id].version}" for source_id in ids)
         if len(value) > 1200:
@@ -870,8 +1090,14 @@ def renderable_sections(result: dict, sources: list[Source], attempts: list[dict
         # every original character in order across layout-only sections.
         chunks = []
         remaining = body
-        while len(remaining) > 1150:
-            boundary = remaining.rfind(" ", 0, 1151)
+        while len(remaining) > _PAGE:
+            boundary = remaining.rfind(" ", 0, _PAGE + 1)
+            if projection == 'reader_v2':
+                # Break after a paragraph or a sentence where one ends in reach, so a
+                # layout section does not stop mid sentence. No character is dropped.
+                ends = [match.end() - 1 for match in re.finditer(
+                    r'\n\n|(?<=[.!?])["\')\]]*\s', remaining[:_PAGE + 1])]
+                boundary = max([end for end in ends if end >= _PAGE // 3], default=boundary)
             if boundary < 1:
                 raise ValueError("An unsplittable model field exceeds draft layout")
             chunks.append(remaining[:boundary + 1])
@@ -881,14 +1107,47 @@ def renderable_sections(result: dict, sources: list[Source], attempts: list[dict
         for index, chunk in enumerate(chunks):
             target.append((heading if index == 0 else heading + " (continued)", chunk, source_text))
 
+    def paged(heading, groups, prefix="", sources_for=None):
+        """Whole lines into layout sections. A group stays on one page when it fits."""
+        pages, page = [], []
+        size = lambda lines: len(prefix + "\n".join(lines))
+        for group in groups:
+            if page and size(page + group) > _PAGE:
+                pages.append(page)
+                page = []
+            for line in group:
+                if page and size(page + [line]) > _PAGE:
+                    pages.append(page)
+                    page = []
+                if size([line]) > 1200:
+                    raise ValueError("An evidence line exceeds draft layout")
+                page.append(line)
+        if page:
+            pages.append(page)
+        for index, lines in enumerate(pages):
+            sections.append((heading if index == 0 else heading + " (continued)",
+                             prefix + "\n".join(lines),
+                             sources_for(lines) if sources_for else ""))
+
     sections = []
+    evidence = {}           # (source_id, exact quote) -> its distinct assertions, in order
+
     def with_claims(prose, claims):
         # Claims and quotes are authored by the local model, checked against
         # exact retained passages, and shown to the reviewer and PDF reader.
-        evidence = "\n\nSource claims and exact excerpts:\n" + "\n".join(
+        if projection == 'reader_v2':
+            for claim in claims:
+                assertions = evidence.setdefault((claim.source_id, claim.quote), [])
+                if claim.assertion not in assertions:
+                    assertions.append(claim.assertion)
+            return prose
+        if projection == 'reader_v1':
+            return prose + _EVIDENCE_MARKER + "\n".join(
+                f"[{claim.source_id}] {claim.assertion} {readable_excerpt(claim.quote)}"
+                for claim in claims)
+        return prose + _EVIDENCE_MARKER + "\n".join(
             f"[{claim.source_id}] {claim.assertion} Exact excerpt: {claim.quote}"
             for claim in claims)
-        return prose + evidence
 
     append_body(sections, memo.recommendation.replace("_", " ").title(),
                 with_claims(memo.recommendation_reason, memo.recommendation_claims),
@@ -899,6 +1158,26 @@ def renderable_sections(result: dict, sources: list[Source], attempts: list[dict
                     references(section.analysis, section.claims))
     for item in memo.unknowns:
         append_body(sections, item.question, item.why_it_matters + "\n\n" + item.evidence_needed, "")
+    if projection == 'reader_v2':
+        # Every model claim, once: its assertions, then the exact quote they share.
+        groups = []
+        for (source_id, quote), assertions in evidence.items():
+            shown = readable_excerpt(quote)
+            if len(shown) > _PAGE - 100:
+                shown = "Exact excerpt: " + quote       # never trimmed to fit
+            groups.append([f"[{source_id}] {assertion}" for assertion in assertions]
+                          + [f"[{source_id}] {shown}"])
+        paged("Evidence appendix", groups, _EVIDENCE_MARKER,
+              lambda lines: "\n".join(
+                  f"[{source_id}] {by_id[source_id].attribution}"
+                  for source_id in dict.fromkeys(line[1:line.index("]")] for line in lines)))
+    if reader:
+        # One list of every cited source with its URL and retained version, in
+        # source order, split only between whole lines.
+        paged("Sources and retained versions",
+              [[f"[{source_id}] {by_id[source_id].url} | {by_id[source_id].attribution} | "
+                f"version {by_id[source_id].version}"]
+               for source_id in sorted(cited, key=lambda value: int(value[1:]))])
     if len(sections) > 30:
         raise ValueError("Memo exceeds supported draft section count")
     return sections

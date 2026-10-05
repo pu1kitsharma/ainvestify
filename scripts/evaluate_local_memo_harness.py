@@ -17,7 +17,8 @@ from pathlib import Path
 from agents.inference.local_models import LocalModel
 from agents.inference.model_authorship import digest
 from agents.preparation.preparation_budget import PreparationBudget, PreparationBudgetExceeded
-from agents.research.investment_memo import (Memo, Source, renderable_sections, review_outcome,
+from agents.research.investment_memo import (FRESH_SECTION_PROJECTION, Memo, Source,
+                                             renderable_sections, review_outcome,
                                              validate_memo, validate_sources)
 from agents.research.staged_memo import run_stage
 from scripts.private_investment_memo_worker import validate_saved_model_roles
@@ -155,7 +156,8 @@ def replay_attempts(previous: Path, *, data, pinned, phase_limits, seconds):
 
 def evaluate(fixture_path: Path, output: Path, names: dict[str, str], *, passes=3, seconds=105,
              operator_attested=False, phase_split=False, draft_passes=6,
-             ledger_passes=5, review_passes=2, replay_from=None):
+             ledger_passes=5, review_passes=2, replay_from=None,
+             memo_draft_contract='memo-cards-v2'):
     if not 1 <= passes <= 3 or not 1 <= seconds <= 105:
         raise ValueError('Evaluation is limited to three passes of at most 105 seconds')
     if not 1 <= draft_passes <= 6:
@@ -185,7 +187,11 @@ def evaluate(fixture_path: Path, output: Path, names: dict[str, str], *, passes=
                'phase_split': phase_split, 'phase_limits': phase_limits,
                'seconds_per_pass': seconds,
                'calls_per_pass': 5, 'requests_per_pass': 5,
-               'model_options': {role: model_options(role) for role in ROLES}}
+               'model_options': {role: model_options(role) for role in ROLES},
+               # Frozen with the run; a profile saved without it keeps the first layout.
+               'section_projection': FRESH_SECTION_PROJECTION,
+               **({'memo_draft_contract': memo_draft_contract}
+                  if replay_from is None else {})}
     if replay_provenance is not None:
         profile['replay_from'] = replay_provenance
     atomic_json(output / 'profile.json', profile)
@@ -225,7 +231,8 @@ def evaluate(fixture_path: Path, output: Path, names: dict[str, str], *, passes=
                 correction_model=models['corrector'], prose_model=models['prose'],
                 as_of_date=data['as_of_date'], budget=budget, phase=phase,
                 phase_checkpoint=checkpoint,
-                compact_part_a=phase_split, compact_part_b=phase_split)
+                compact_part_a=phase_split, compact_part_b=phase_split,
+                memo_draft_contract=profile.get('memo_draft_contract'))
             validate_saved_model_roles(attempts, role_names)
         except PreparationBudgetExceeded as exc:
             result = {'state': 'needs_resume', 'reason': 'bounded_time_or_call_limit',
@@ -301,7 +308,8 @@ def evaluate(fixture_path: Path, output: Path, names: dict[str, str], *, passes=
             # Draft-to-render: the production renderer rebuilds the memo from the
             # exact recorded responses. Nothing is written or registered; only the
             # count and the outcome are reported.
-            sections = renderable_sections(result['accepted'], sources, attempts)
+            sections = renderable_sections(result['accepted'], sources, attempts,
+                                           projection=profile.get('section_projection'))
             rendered_sections = len(sections)
             render_validation = 'pass' if sections and all(
                 heading and body for heading, body, _ in sections) else 'fail: empty section'
@@ -380,6 +388,14 @@ def main():
                         help='I inspected this fixture and attest it contains only public or synthetic data')
     parser.add_argument('--phase-split', action='store_true',
                         help='Use finite draft, correction, ledger and review pass budgets')
+    parser.add_argument('--memo-contract', choices=('memo-cards-v2', 'memo-cards-v3',
+                                                    'memo-cards-v4', 'memo-cards-v5',
+                                                    'memo-cards-v6', 'memo-cards-v7',
+                                                    'memo-cards-v8', 'memo-cards-v9',
+                                                    'memo-cards-v10', 'memo-cards-v11',
+                                                    'memo-cards-v12', 'memo-cards-v13'),
+                        default='memo-cards-v2',
+                        help='Fresh source-bound memo draft contract; saved replay stays frozen')
     parser.add_argument('--replay-from', type=Path,
                         help='New run from exact saved public/synthetic attempts; only ledger cap may increase')
     args = parser.parse_args()
@@ -393,7 +409,8 @@ def main():
                               draft_passes=args.draft_passes,
                               ledger_passes=args.ledger_passes,
                               review_passes=args.review_passes,
-                              replay_from=args.replay_from)))
+                              replay_from=args.replay_from,
+                              memo_draft_contract=args.memo_contract)))
 
 
 if __name__ == '__main__':
