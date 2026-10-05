@@ -11,7 +11,8 @@ type Work={id:string;lead_id:string;basis_hash:string;analyst_pack?:AnalystPack;
 export default function Dashboard(){
  const leads=useLeads();const deals=useDeals();
  const work=useQuery({queryKey:['operations','summary'],queryFn:()=>api.get<Work[]>('/api/operations/workspaces?summary=true'),...preparationRefresh});
- const companies=leads.data?.filter(l=>l.company_profile&&['reviewed','promoted_to_deal'].includes(l.status))||[];
+ const withWork=new Set(work.data?.map(w=>w.lead_id));
+ const companies=leads.data?.filter(l=>l.company_profile&&(['reviewed','promoted_to_deal'].includes(l.status)||withWork.has(l.id)))||[];
  const linked=new Set(leads.data?.map(l=>l.promoted_deal_id).filter(Boolean));
  const standalone=deals.data?.filter(d=>!linked.has(d.deal.id))||[];
  if(leads.isLoading||work.isLoading)return <p role="status">Loading your companies…</p>;

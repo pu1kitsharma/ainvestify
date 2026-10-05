@@ -19,5 +19,5 @@ function CompanyPreparation(){
  if(leadQuery.error||workspaces.error)return <p role="alert">{leadQuery.error?.message||workspaces.error?.message}</p>;
  if(!id)return <Navigate to="/" replace/>;
  const lead=leadQuery.data?.company_profile&&leadQuery.data.status!=='dismissed'?leadQuery.data:undefined;
- return lead?<><RoomPipeline key={`room-${id}`} leadId={id}/><PreparationWorkspace key={id} lead={lead} workspace={workspaces.data?.find(w=>w.lead_id===id)}/></>:<p>Company unavailable. <Link to="/">Your companies</Link></p>;
+ return lead?<PreparationWorkspace key={id} lead={lead} workspace={workspaces.data?.find(w=>w.lead_id===id)} materials={<RoomPipeline key={`room-${id}`} leadId={id}/>}/>:<p>Company unavailable. <Link to="/">Your companies</Link></p>;
 }

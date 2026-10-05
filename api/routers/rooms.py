@@ -174,7 +174,7 @@ def cancel_job(room_id: str,job_id: str,store=Depends(get_store),identity=Depend
 
 
 @router.get("/{room_id}/artifacts/{artifact_id}/preview")
-def preview(room_id: str,artifact_id: str,store=Depends(get_store),identity=Depends(get_identity)):
+def preview(room_id: str,artifact_id: str,inline: bool = False,store=Depends(get_store),identity=Depends(get_identity)):
     require_room(store,identity,room_id)
     artifact = get_artifact(store.conn,identity.tenant_id,artifact_id)
     if not artifact or artifact["workspace_id"] != room_id:
@@ -183,9 +183,12 @@ def preview(room_id: str,artifact_id: str,store=Depends(get_store),identity=Depe
         content = artifact_bytes(identity.tenant_id,artifact)
     except (OSError,ValueError):
         raise HTTPException(409,"Artifact integrity check failed")
-    return Response(content,media_type="application/octet-stream",headers={
-        "Content-Disposition":f'attachment; filename="DRAFT-{artifact_id}.{artifact["format"]}"',
-        "X-Artifact-State":"draft"})
+    # A draft PDF may be shown in the browser's own viewer; every other format,
+    # and any request without `inline`, stays an attachment.
+    show_inline = inline and artifact["format"] == "pdf"
+    return Response(content,media_type="application/pdf" if show_inline else "application/octet-stream",headers={
+        "Content-Disposition":f'{"inline" if show_inline else "attachment"}; filename="DRAFT-{artifact_id}.{artifact["format"]}"',
+        "X-Content-Type-Options":"nosniff","X-Artifact-State":"draft"})
 
 
 @router.get("/{room_id}/artifacts/{artifact_id}/download")

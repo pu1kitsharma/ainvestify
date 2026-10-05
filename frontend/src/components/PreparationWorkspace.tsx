@@ -87,7 +87,7 @@ function WorkSection({section:s,sectionKey,pack,title}:{section?:Section;section
  </section>;
 }
 
-export default function PreparationWorkspace({lead,workspace:w}:{lead:SourcedLead;workspace?:AnalystWorkspace}){
+export default function PreparationWorkspace({lead,workspace:w,materials}:{lead:SourcedLead;workspace?:AnalystWorkspace;materials?:React.ReactNode}){
  const [params,setParams]=useSearchParams();const client=useQueryClient();const [copyState,setCopyState]=useState('');
  const requested=params.get('tab');const alias=requested==='pitch'?'founder':requested==='diligence'?'readiness':requested;
  const stage=preparationStages.find(s=>s.id===alias)||preparationStages[0];
@@ -104,6 +104,7 @@ export default function PreparationWorkspace({lead,workspace:w}:{lead:SourcedLea
  return <div className="space-y-6">
   <Link to="/" className="text-sm text-slate-500">← My companies</Link>
   <header className="flex flex-wrap items-start justify-between gap-5"><div><h1 className="text-3xl font-semibold tracking-tight">{lead.company_name}</h1><p className="mt-2 text-slate-500">Research the opportunity. Propose your help. Prepare for investor conversations.</p>{lead.company_profile?.website&&<a href={lead.company_profile.website} target="_blank" rel="noreferrer" className="mt-2 inline-block text-sm text-indigo-600">Company website ↗</a>}</div>{stage.id!=='readiness'&&<button disabled={busy||prepare.isPending||allDrafts} onClick={()=>prepare.mutate(false)} className="rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold text-white disabled:opacity-50">{busy?'Preparing company work…':allDrafts?'Drafts prepared':pack?'Resume preparation':'Prepare company work'}</button>}</header>
+  {materials}
   {busy&&<div className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-indigo-50 p-4"><p role="status" className="text-sm text-indigo-800">{w?.automation?.phase||'Starting preparation'}{w?.company_analysis?.status!=='running'&&` · ${completeCount} sections saved`}</p>{w?.automation?.id&&<button disabled={stop.isPending} onClick={()=>stop.mutate()} className="text-sm font-semibold text-indigo-800">Stop current work</button>}</div>}
   {w?.automation?.status==='cancelled'&&<p role="status" className="text-sm text-slate-600">Preparation stopped. Saved sections remain available. Resume when you are ready.</p>}
   {(prepare.error||stop.error)&&<p role="alert" className="text-sm text-rose-700">{prepare.error?.message||stop.error?.message}</p>}
