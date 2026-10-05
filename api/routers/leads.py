@@ -8,10 +8,10 @@ from threading import BoundedSemaphore
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 
-from agents.core.planner_agent import promote_lead_to_deal, source_ib_targets, source_leads
+from agents.core.planner_agent import lock_lead, promote_lead_to_deal, source_ib_targets, source_leads
 from agents.core.review_checkpoint import apply_lead_decision
 from api.deps import get_reviewer, get_store, get_tenant_id
-from api.models import LeadDecisionRequest, PromoteLeadRequest, SourceLeadsRequest, WebSourceRequest
+from api.models import LeadDecisionRequest, LockCompanyRequest, PromoteLeadRequest, SourceLeadsRequest, WebSourceRequest
 from schemas import Deal, SourcedLead, WebSourcingRun, utcnow
 from agents.preparation.authored_discovery import source_companies
 from agents.inference.local_models import LocalModel
@@ -206,6 +206,25 @@ def decide_lead(
     store.save_lead(lead)
     store.append_audit_events([event])
     return lead
+
+
+@router.post("/{lead_id}/lock", response_model=Deal)
+def lock(
+    lead_id: str,
+    body: LockCompanyRequest,
+    store: Store = Depends(get_store),
+    tenant_id: str = Depends(get_tenant_id),
+):
+    """Accept a company: promote it to a deal and record the engagement mandate.
+
+    Idempotent. Investor materials and the private deal room are available only
+    after this decision; it is the accountable human gate before the shop works
+    on a company's material."""
+    lead = store.get_lead(tenant_id, lead_id)
+    if lead is None or lead.status.value == "dismissed":
+        raise HTTPException(status_code=404, detail="Lead not found")
+    deal = lock_lead(store, lead, body.mandate_type, body.terms_summary)
+    return deal
 
 
 @router.post("/{lead_id}/promote", response_model=Deal)

@@ -3,7 +3,7 @@ Request/response models that exist only to shape an API payload -- not
 persisted entities, so they don't belong in schemas.py alongside the
 Pydantic models store.py actually writes to disk.
 """
-from typing import Literal, Optional
+from typing import Optional
 
 from pydantic import BaseModel, Field, field_validator
 

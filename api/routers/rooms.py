@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 from urllib.parse import urlsplit
+from typing import Literal
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import Response
 from pydantic import BaseModel, ConfigDict, Field
@@ -14,6 +15,7 @@ from delivery import jobs
 from delivery.artifacts import get_artifact, artifact_bytes
 from delivery.room_mapping import plan_room_mapping
 from delivery.workflow_contracts import DealRoomActivated
+from agents.core.planner_agent import lock_lead
 from schemas import CompanyProfile, SourcedLead, new_id
 
 router = APIRouter(prefix="/api/rooms", tags=["rooms"])
@@ -64,6 +66,9 @@ def activate(store, identity, lead_id):
     lead = store.get_lead(identity.tenant_id,lead_id)
     if not lead or not lead.company_profile:
         raise HTTPException(404,"Company with a profile not found")
+    deal = store.get_deal(identity.tenant_id,lead.promoted_deal_id) if lead.promoted_deal_id else None
+    if deal is None or not deal.mandate_signed_at:
+        raise HTTPException(409,"Lock the company before preparing investor materials.")
     workspace = store.get_workspace(identity.tenant_id,lead_id=lead_id)
     if workspace is None:
         try:
@@ -121,6 +126,9 @@ class DirectCompany(BaseModel):
     model_config = ConfigDict(extra="forbid")
     name: str = Field(min_length=2,max_length=200)
     website: str = Field(min_length=8,max_length=500)
+    # A company adding itself states its engagement terms; it is locked on entry.
+    mandate_type: Literal["fundraising_advisory","incubation","sell_side_advisory"]
+    terms_summary: str = Field(min_length=10,max_length=1000)
 
 
 @router.post("",status_code=201)
@@ -143,6 +151,7 @@ def direct_company(body: DirectCompany,store=Depends(get_store),identity=Depends
         lead = SourcedLead(tenant_id=identity.tenant_id,company_name=profile.name,
             company_id=profile.id,company_profile=profile)
         store.save_lead(lead)
+    lock_lead(store,lead,body.mandate_type,body.terms_summary)
     return dict(activate(store,identity,lead.id),lead_id=lead.id)
 
 

@@ -2,7 +2,9 @@ import {useState} from 'react';
 import {Link, useSearchParams} from 'react-router-dom';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {api} from '../api/client';
-import type {SourcedLead} from '../api/types';
+import type {Deal,SourcedLead} from '../api/types';
+import LockCompany from './LockCompany';
+import {mandateLabel} from './mandate';
 import type {Metrics, MetricImport} from './CompanyMetrics';
 import CompanyAnalysis from './CompanyAnalysis';
 import type {CompanyAnalysisReport} from './CompanyAnalysis';
@@ -24,12 +26,12 @@ function stageStatus(pack:AnalystPack|undefined,keys:string[]){
  if(rows.some(s=>s&&['failed','needs_revision','review_failed','review_pending','blocked'].includes(s.status)))return 'Needs attention';
  return rows.some(s=>s?.status==='complete')?'Partial draft':'Not prepared';
 }
-export function PreparationSteps({pack,leadId,activeStage,onSelect,analysis}:{pack?:AnalystPack;leadId?:string;activeStage?:string;onSelect?:(id:string)=>void;analysis?:CompanyAnalysisReport}){
- return <nav aria-label="Company preparation" className={`grid gap-3 ${onSelect?'md:grid-cols-3':'sm:grid-cols-3'}`}>{preparationStages.map((stage,index)=>{
+export function PreparationSteps({pack,leadId,activeStage,onSelect,analysis,locked}:{pack?:AnalystPack;leadId?:string;activeStage?:string;onSelect?:(id:string)=>void;analysis?:CompanyAnalysisReport;locked?:boolean}){
+ return <nav aria-label="Company preparation" className={`grid gap-3 ${onSelect?'md:grid-cols-4':'sm:grid-cols-3'}`}>{preparationStages.map((stage,index)=>{
   const status=stage.id==='readiness'?(analysis?.answer?'Analysis available':analysis?.status==='running'?'In progress':analysis?.last_completed_analysis?.answer?'Saved analysis available':'Run analysis'):stageStatus(pack,stage.sections);
   const body=<>{onSelect&&<span className="text-xs font-semibold text-indigo-600">STEP {index+1}</span>}<span className="mt-1 block font-semibold">{stage.title}</span><span className="mt-1 block text-xs text-slate-500">{status}</span></>;
   return onSelect?<button key={stage.id} onClick={()=>onSelect(stage.id)} aria-current={activeStage===stage.id?'step':undefined} className={`rounded-xl border p-4 text-left transition-colors ${activeStage===stage.id?'border-indigo-400 bg-indigo-50 ring-1 ring-indigo-400':'border-slate-200 bg-white hover:border-indigo-200'}`}>{body}</button>:<Link key={stage.id} to={`/operations?lead=${leadId}&tab=${stage.id}`} className="rounded-lg bg-slate-50 p-3 text-sm hover:bg-indigo-50">{body}</Link>;
- })}</nav>;
+ })}{onSelect&&<button onClick={()=>onSelect('materials')} aria-current={activeStage==='materials'?'step':undefined} className={`rounded-xl border p-4 text-left transition-colors ${activeStage==='materials'?'border-indigo-400 bg-indigo-50 ring-1 ring-indigo-200':locked?'border-slate-200 bg-white hover:border-slate-300':'border-dashed border-slate-300 bg-slate-50 hover:border-slate-400'}`}><span className="text-xs font-semibold text-indigo-600">STEP 4</span><span className="mt-1 block font-semibold">Investor materials</span><span className="mt-1 block text-xs text-slate-500">{locked?'Deal room open':'Lock company to unlock'}</span></button>}</nav>;
 }
 export function NextPreparationLink({pack,leadId}:{pack?:AnalystPack;leadId:string}){
  const next=preparationStages.find(s=>stageStatus(pack,s.sections)!=='Draft available')||preparationStages[0];
@@ -87,9 +89,10 @@ function WorkSection({section:s,sectionKey,pack,title}:{section?:Section;section
  </section>;
 }
 
-export default function PreparationWorkspace({lead,workspace:w,materials}:{lead:SourcedLead;workspace?:AnalystWorkspace;materials?:React.ReactNode}){
+export default function PreparationWorkspace({lead,workspace:w,materials,deal}:{lead:SourcedLead;workspace?:AnalystWorkspace;materials?:React.ReactNode;deal?:Deal|null}){
  const [params,setParams]=useSearchParams();const client=useQueryClient();const [copyState,setCopyState]=useState('');
  const requested=params.get('tab');const alias=requested==='pitch'?'founder':requested==='diligence'?'readiness':requested;
+ const locked=!!deal?.mandate_signed_at;const showMaterials=alias==='materials';
  const stage=preparationStages.find(s=>s.id===alias)||preparationStages[0];
  const current=w?.analyst_pack?.version===PREPARATION_VERSION&&w.analyst_pack.basis_hash===w.basis_hash;
  const pack=current?w?.analyst_pack:undefined;
@@ -104,14 +107,15 @@ export default function PreparationWorkspace({lead,workspace:w,materials}:{lead:
  return <div className="space-y-6">
   <Link to="/" className="text-sm text-slate-500">← My companies</Link>
   <header className="flex flex-wrap items-start justify-between gap-5"><div><h1 className="text-3xl font-semibold tracking-tight">{lead.company_name}</h1><p className="mt-2 text-slate-500">Research the opportunity. Propose your help. Prepare for investor conversations.</p>{lead.company_profile?.website&&<a href={lead.company_profile.website} target="_blank" rel="noreferrer" className="mt-2 inline-block text-sm text-indigo-600">Company website ↗</a>}</div>{stage.id!=='readiness'&&<button disabled={busy||prepare.isPending||allDrafts} onClick={()=>prepare.mutate(false)} className="rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold text-white disabled:opacity-50">{busy?'Preparing company work…':allDrafts?'Drafts prepared':pack?'Resume preparation':'Prepare company work'}</button>}</header>
-  {materials}
   {busy&&<div className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-indigo-50 p-4"><p role="status" className="text-sm text-indigo-800">{w?.automation?.phase||'Starting preparation'}{w?.company_analysis?.status!=='running'&&` · ${completeCount} sections saved`}</p>{w?.automation?.id&&<button disabled={stop.isPending} onClick={()=>stop.mutate()} className="text-sm font-semibold text-indigo-800">Stop current work</button>}</div>}
   {w?.automation?.status==='cancelled'&&<p role="status" className="text-sm text-slate-600">Preparation stopped. Saved sections remain available. Resume when you are ready.</p>}
   {(prepare.error||stop.error)&&<p role="alert" className="text-sm text-rose-700">{prepare.error?.message||stop.error?.message}</p>}
   {stage.id!=='readiness'&&!allDrafts&&!busy&&w?.automation?.status==='failed'&&<div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900"><p>Preparation is incomplete. Resume to correct unfinished work; saved drafts are retained.</p><details className="mt-2"><summary className="cursor-pointer">What needs attention</summary><ul className="mt-2 list-disc space-y-2 pl-5">{preparationIssues(w.automation.error).map((issue,index)=><li key={index}>{issue}</li>)}</ul></details></div>}
   {w?.analyst_pack&&!current&&<p className="rounded-xl bg-amber-50 p-4 text-sm">Company inputs changed, or the preparation method was updated. Prepare current work; previous drafts remain in company records.</p>}
   {stage.id!=='readiness'&&pack?.record.coverage==='partial'&&<p className="text-sm text-slate-600">Source coverage is incomplete. Some content could not be collected or included; drafts use the retained source claims.</p>}
-  <PreparationSteps pack={pack} activeStage={stage.id} onSelect={changeStage} analysis={w?.company_analysis}/>
+  <PreparationSteps pack={pack} activeStage={showMaterials?'materials':stage.id} onSelect={changeStage} analysis={w?.company_analysis} locked={locked}/>
+  {locked&&<p className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-2.5 text-sm text-emerald-900"><strong>Locked</strong> · {mandateLabel(deal?.mandate_type)}{deal?.mandate_terms_summary?` · ${deal.mandate_terms_summary}`:''}</p>}
+  {showMaterials?(locked?materials:<LockCompany leadId={lead.id} company={lead.company_name}/>):<>
   <div className="flex flex-wrap items-start justify-between gap-4"><div><h2 className="text-xl font-semibold">{stage.question}</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">{stage.description}</p></div><div className="flex flex-wrap gap-3 text-sm font-semibold text-indigo-600">{stage.id==='founder'&&stageStatus(pack,stage.sections)==='Draft available'&&<button onClick={copy}>{copyState||'Copy proposal'}</button>}{downloads.filter(([doc])=>Object.values(pack?.sections||{}).some(s=>s.document===doc&&s.status==='complete')).map(([doc,label])=><a key={doc} href={`/api/operations/workspaces/${w?.id}/preparation-pack?document=${doc}`}>{label} ↓</a>)}</div></div>
   {stage.id==='founder'&&<p className="text-sm text-slate-500">Draft approach to the founders. No message has been sent.</p>}
   {stage.id==='research'&&<button className="text-left text-sm font-semibold text-indigo-600" onClick={()=>changeStage('readiness')}>Analyze metrics & future outlook →</button>}
@@ -121,5 +125,6 @@ export default function PreparationWorkspace({lead,workspace:w,materials}:{lead:
   </>:stage.sections.map(key=><WorkSection key={key} section={pack?.sections[key]} sectionKey={key} pack={pack}/>)}
   {pack&&<details className={panel}><summary className="cursor-pointer font-semibold">Company evidence · {pack.record.facts.length} source claims</summary><p className="mt-3 text-sm text-slate-500">Published claims may need corroboration. Missing public information is not proof of missing business activity.</p>{[...new Set(pack.record.facts.map(f=>f.category))].map(category=><div key={category} className="mt-5"><h3 className="text-sm font-semibold capitalize">{category.replaceAll('_',' ')}</h3>{pack.record.facts.filter(f=>f.category===category).map(f=><p key={f.id} className="mt-2 text-sm leading-6">{f.quote} {f.source_url&&<a className="text-indigo-600" href={f.source_url} target="_blank" rel="noreferrer">Source ↗</a>}</p>)}</div>)}</details>}
   <footer className="flex flex-wrap justify-between gap-3 border-t border-slate-200 pt-5 text-sm">{stage.id!=='readiness'&&<button disabled={busy||prepare.isPending} onClick={()=>prepare.mutate(true)} className="text-indigo-600 disabled:opacity-50">Refresh source research</button>}<Link to={`/operations?lead=${lead.id}&view=records`} className="text-slate-500">Company records & history →</Link></footer>
+ </>}
  </div>;
 }
