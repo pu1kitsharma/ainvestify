@@ -77,7 +77,7 @@ def test_isolated_model_snapshot_can_abstain_without_model_calls(secured,tmp_pat
     client,db,users=secured
     monkeypatch.setenv('PRIVATE_ARTIFACT_ROOT',str(tmp_path/'private'))
     sign_in(client,users[0])
-    created=client.post('/api/rooms',json={'name':'Synthetic fixture','website':'https://synthetic.example'}).json()
+    created=client.post('/api/rooms',json={'name':'Synthetic fixture','website':'https://synthetic.example','mandate_type':'fundraising_advisory','terms_summary':'Synthetic engagement terms'}).json()
     with Store(db) as store:
         job=claim(store.conn)
         room=store.get_workspace(users[0][1],workspace_id=created['workspace_id'])

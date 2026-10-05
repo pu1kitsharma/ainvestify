@@ -260,6 +260,18 @@ def promote_lead_to_deal(store: Store, lead: SourcedLead, name: Optional[str] = 
     return deal
 
 
+def lock_lead(store: Store, lead: SourcedLead, mandate_type: str, terms_summary: str) -> Deal:
+    """Accept a company: promote the lead to a deal and record the engagement
+    mandate. Idempotent. Investor materials and the private deal room exist only
+    for a locked company."""
+    deal = store.get_deal(lead.tenant_id, lead.promoted_deal_id) if lead.promoted_deal_id else None
+    if deal is None:
+        deal = promote_lead_to_deal(store, lead)
+    if not deal.mandate_signed_at:
+        deal = apply_sign_mandate(store, deal, mandate_type, terms_summary)
+    return deal
+
+
 def apply_sign_mandate(store: Store, deal: Deal, mandate_type: str, terms_summary: str) -> Deal:
     """Origination (§5.1 addendum, §2's Stage 2): the pitch-to-founder /
     RFP outcome. Purely a record of what was agreed -- this function does

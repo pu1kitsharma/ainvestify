@@ -31,7 +31,7 @@ def test_room_revision_binds_actual_local_memo_role_configuration(monkeypatch):
 def test_direct_entry_activation_reopen_worker_and_cross_tenant(secured):
     client,db,users=secured
     sign_in(client,users[0])
-    response=client.post('/api/rooms',json={'name':'Synthetic private company','website':'https://synthetic.example'})
+    response=client.post('/api/rooms',json={'name':'Synthetic private company','website':'https://synthetic.example','mandate_type':'fundraising_advisory','terms_summary':'Synthetic engagement terms'})
     assert response.status_code==201,response.text
     created=response.json();room_id=created['workspace_id']
     repeated=client.post(f"/api/rooms/from-lead/{created['lead_id']}/activate").json()
@@ -56,7 +56,8 @@ def test_room_memo_phases_have_separate_finite_budgets(secured, monkeypatch):
     client, db, users = secured
     sign_in(client, users[0])
     created = client.post('/api/rooms', json={
-        'name': 'Synthetic private company', 'website': 'https://synthetic.example'}).json()
+        'name': 'Synthetic private company', 'website': 'https://synthetic.example',
+        'mandate_type': 'fundraising_advisory', 'terms_summary': 'Synthetic engagement terms'}).json()
     sources = [Source(id='S1', url='https://one.example/company', title='One',
         passage='Synthetic company record with dated source evidence.', version='version-1',
         attribution='Synthetic public source'),
@@ -109,7 +110,7 @@ def test_private_preview_integrity_and_fail_closed_release(secured,tmp_path,monk
     client,db,users=secured
     monkeypatch.setenv('PRIVATE_ARTIFACT_ROOT',str(tmp_path/'artifacts'))
     sign_in(client,users[0])
-    created=client.post('/api/rooms',json={'name':'Synthetic company','website':'https://synthetic.example'}).json()
+    created=client.post('/api/rooms',json={'name':'Synthetic company','website':'https://synthetic.example','mandate_type':'fundraising_advisory','terms_summary':'Synthetic engagement terms'}).json()
     room_id=created['workspace_id']
     with Store(db) as s:
         room=s.get_workspace(users[0][1],workspace_id=room_id)
@@ -132,7 +133,7 @@ def test_private_preview_integrity_and_fail_closed_release(secured,tmp_path,monk
 
 def test_authenticated_legacy_preparation_route_queues_durable_work(secured,monkeypatch):
     client,db,users=secured;sign_in(client,users[0])
-    created=client.post('/api/rooms',json={'name':'Synthetic company','website':'https://synthetic.example'}).json()
+    created=client.post('/api/rooms',json={'name':'Synthetic company','website':'https://synthetic.example','mandate_type':'fundraising_advisory','terms_summary':'Synthetic engagement terms'}).json()
     def forbidden(*args,**kwargs):raise AssertionError('BackgroundTasks must not run authenticated room preparation')
     monkeypatch.setattr('api.routers.operations._prepare_job',forbidden)
     response=client.post(f"/api/operations/leads/{created['lead_id']}/preparation-jobs")

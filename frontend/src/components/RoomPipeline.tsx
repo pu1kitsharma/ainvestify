@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import {api} from '../api/client';
+import Materials from './Materials';
 
 type Checkpoint = {
  state?: string; phase?: string; reason?: string; error_count?: number; blockers?: string[];
@@ -33,13 +34,6 @@ const stages: {key: string; title: string}[] = [
  {key: 'material_re_review', title: 'Frozen re-review'},
  {key: 'validation', title: 'Release validation'},
 ];
-const artifactNames: Record<string, string> = {
- intro_deck: 'Introduction deck', pitch_deck: 'Pitch deck',
- investment_memorandum: 'Investment memorandum', research_brief: 'Research brief',
- intro_deck_preview: 'Unreviewed introduction deck',
- pitch_deck_preview: 'Unreviewed pitch deck',
- investment_memorandum_preview: 'Unreviewed investment memorandum',
-};
 const readable = (value: string) => value.replaceAll('_', ' ');
 const memoMilestones: Record<string, string> = {
  draft_ready: 'Model draft saved · correction next',
@@ -112,18 +106,18 @@ export default function RoomPipeline({leadId}: {leadId: string}) {
  const findings = job?.checkpoint.material_re_review?.review?.findings?.length ??
   job?.checkpoint.material_review?.review?.findings?.length;
 
- return <section className="mb-5 rounded-xl border border-slate-200 bg-white p-4" aria-label="Deal room workflow">
-  <h2 className="font-semibold">Deal room workflow</h2>
-  {error || room.error ? <p role="alert" className="mt-2 text-sm text-rose-700">{error || room.error?.message}</p> :
-   <p role="status" className="mt-2 text-sm text-slate-700">
-    {!roomId || room.isLoading ? 'Opening saved work…' : !job ? 'No room job has been recorded yet.' :
-     job.state === 'queued' ? 'Work queued for the local worker.' :
-     job.state === 'running' ? `Local worker is processing ${readable(job.phase || 'room work')}${revising ? ` (${revision.title.toLowerCase()})` : ''}.` :
-     job.state === 'awaiting_input' ? 'Work paused. Review the gates and missing inputs below.' :
-     job.state === 'blocked' ? 'Work blocked. Saved evidence and drafts remain available.' :
-     `Room job ${readable(job.state)}. Review release validation below.`}
-   </p>}
-
+ const headline = error || room.error ? null : !roomId || room.isLoading ? 'Opening saved work…' : !job ? 'No room job has been recorded yet.' :
+  job.state === 'queued' ? 'Work queued for the local worker.' :
+  job.state === 'running' ? 'The local worker is generating materials.' :
+  job.state === 'awaiting_input' ? 'Paused: needs your input.' :
+  job.state === 'blocked' ? 'Blocked: saved drafts remain available.' : `Job ${readable(job.state)}.`;
+ return <div>
+  {(error || room.error) && <p role="alert" className="mb-3 text-sm text-rose-700">{error || room.error?.message}</p>}
+  {roomId && <Materials roomId={roomId} files={currentArtifacts}/>}
+  <details className="mb-6 rounded-xl border border-slate-200 bg-white p-4">
+   <summary className="cursor-pointer text-sm font-medium text-slate-700">Pipeline details{headline ? ` · ${headline}` : ''}</summary>
+   <div className="mt-3">
+    {previousArtifacts > 0 && <p className="mb-3 text-xs text-slate-500">{previousArtifacts} file(s) belong to an earlier revision and are not shown.</p>}
   {job && <>
    <p className="mt-3 text-xs text-slate-600">Local draft and model checks are separate from independent diligence, financial sign-off, visual review and release approval.</p>
    <p className="mt-1 text-xs text-slate-600">A passed local model check means the same local model workflow found no issue in its own draft. Independent content, financial and visual approval are not recorded by these checks, and no status here is investor acceptance.</p>
@@ -182,15 +176,7 @@ export default function RoomPipeline({leadId}: {leadId: string}) {
    }}>Cancel work</button>}
   </>}
 
-  {!!currentArtifacts.length && <div className="mt-4 border-t border-slate-200 pt-4">
-   <h3 className="font-medium">Current revision draft files</h3>
-   <p className="mt-1 text-xs text-slate-600">Preview downloads are private drafts. Final download requires a separately validated and released exact version.</p>
-   <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-    {currentArtifacts.map(artifact => <li key={artifact.id}><a className="text-indigo-700 underline" href={`/api/rooms/${roomId}/artifacts/${artifact.id}/preview`}>
-     Preview draft {artifactNames[artifact.kind] || readable(artifact.kind)} ({artifact.format.toUpperCase()})
-    </a></li>)}
-   </ul>
-  </div>}
-  {previousArtifacts > 0 && <p className="mt-3 text-xs text-slate-600">{previousArtifacts} file(s) belong to an earlier room revision and are omitted from the current draft list.</p>}
- </section>;
+   </div>
+  </details>
+ </div>;
 }

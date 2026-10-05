@@ -14,7 +14,7 @@ from tests.api.test_authentication import secured, sign_in
 
 def _room(client, store, tenant):
     created = client.post('/api/rooms', json={
-        'name': 'Synthetic company', 'website': 'https://synthetic.example'}).json()
+        'name': 'Synthetic company', 'website': 'https://synthetic.example', 'mandate_type':'fundraising_advisory','terms_summary':'Synthetic engagement terms'}).json()
     room = store.get_workspace(tenant, workspace_id=created['workspace_id'])
     return room, revision_for(store, room)
 

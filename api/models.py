@@ -3,7 +3,7 @@ Request/response models that exist only to shape an API payload -- not
 persisted entities, so they don't belong in schemas.py alongside the
 Pydantic models store.py actually writes to disk.
 """
-from typing import Optional
+from typing import Literal, Optional
 
 from pydantic import BaseModel, Field, field_validator
 
@@ -80,6 +80,12 @@ class LeadDecisionRequest(BaseModel):
 
 class PromoteLeadRequest(BaseModel):
     name: Optional[str] = None
+
+
+class LockCompanyRequest(BaseModel):
+    """The accountable decision to engage a company: records the mandate."""
+    mandate_type: Literal["fundraising_advisory", "incubation", "sell_side_advisory"] = "fundraising_advisory"
+    terms_summary: str = Field(default="", max_length=1000)
 
 
 class CreateDealRequest(BaseModel):

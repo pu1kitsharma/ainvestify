@@ -29,11 +29,13 @@ def room_job(secured, monkeypatch, tmp_path, workbook_bytes=None):
     sign_in(client, users[0])
     created = client.post('/api/rooms', json={
         'name': 'Synthetic private company',
-        'website': 'https://synthetic.example'}).json()
+        'website': 'https://synthetic.example',
+        'mandate_type': 'fundraising_advisory', 'terms_summary': 'Synthetic engagement terms'}).json()
     tenant = users[0][1]
     with Store(db) as store:
         lead = store.get_lead(tenant, created['lead_id'])
-        deal = Deal(tenant_id=tenant, name='Synthetic private company')
+        deal = Deal(tenant_id=tenant, name='Synthetic private company',
+                    mandate_type='fundraising_advisory', mandate_signed_at='2026-01-01T00:00:00+00:00')
         store.save_deal(deal)
         lead.promoted_deal_id = deal.id
         store.save_lead(lead)
