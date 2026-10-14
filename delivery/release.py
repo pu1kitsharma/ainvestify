@@ -3,11 +3,17 @@ from __future__ import annotations
 import hashlib
 import json
 import secrets
+from datetime import datetime, timezone
+from pathlib import Path
 
 from delivery.artifacts import artifact_bytes, get_artifact
 from delivery.contracts import (POLICY, REQUIRED_MATERIAL_KINDS, ArtifactFile, ArtifactManifest, CheckResult,
     ReviewDecision, assess_release)
 from delivery.inspection import inspect_bytes, inspect_export_pair
+from delivery.compliance import (assess_compliance, official_source_hosts,
+    qualified_compliance_owners)
+from delivery.review_integrity import (financial_reviewer_grants,
+    retained_official_sources, room_evidence_inventory)
 
 
 def validate_room(store, tenant, room):
@@ -52,6 +58,9 @@ def validate_room(store, tenant, room):
         assumption_revision=hashlib.sha256(json.dumps(room.metric_updates,sort_keys=True).encode()).hexdigest(),
         material_revision=revision,renderer_version='draft-templates-v1',calculation_version='not_qualified',
         template_version='draft-v1',requested=requested,files=tuple(files))
+    if room.compliance_review is not None:
+        manifest = manifest.model_copy(update={
+            'compliance_revision': room.compliance_review.content_revision()})
     checks=[]
     for file in files:
         report=reports[file.artifact_id]
@@ -107,7 +116,42 @@ def evaluate_package(store,tenant,package_id):
     for user,role in store.conn.execute("""SELECT m.user_id,m.role FROM auth_memberships m JOIN auth_users u ON u.id=m.user_id
         WHERE m.tenant_id=? AND m.active=1 AND u.disabled=0""",(tenant,)):
         if role in grants:grants[role].add(user)
-    return assess_release(manifest,checks,reviews,observed_hashes=hashes,authorized_reviewers=grants)
+    record = room.compliance_review
+    as_of = datetime.now(timezone.utc).date()
+    # Financial membership alone never establishes professional qualification.
+    grants['financial'] = set()
+    financial_date_blockers = []
+    for review in reviews:
+        if review.role != 'financial':
+            continue
+        if review.reviewed_on is None or review.reviewed_on > as_of:
+            financial_date_blockers.append('financial_review_date_missing_or_invalid')
+            continue
+        qualified = financial_reviewer_grants(store.conn, tenant,
+            record.scope if record else None, as_of, reviewed_on=review.reviewed_on)
+        if review.reviewer_id in qualified:
+            grants['financial'].add(review.reviewer_id)
+    assessment = assess_release(manifest,checks,reviews,observed_hashes=hashes,authorized_reviewers=grants)
+    content_revision = record.content_revision() if record is not None else None
+    project = Path(__file__).resolve().parents[1]
+    source_register = project / 'deployment' / 'regulatory_sources.json'
+    compliance = assess_compliance(manifest_digest=manifest.digest(),
+        evidence_revision=manifest.evidence_revision,
+        scope=record.scope if record else None, matrix=record.matrix if record else None,
+        signoff=record.signoff if record else None,
+        qualified_owners=qualified_compliance_owners(store.conn, tenant),
+        official_source_hosts=official_source_hosts(source_register),
+        official_source_snapshots=retained_official_sources(source_register, project),
+        evidence_inventory=room_evidence_inventory(store, tenant, room, manifest.evidence_revision),
+        as_of=as_of)
+    blockers = (*assessment.blockers, *compliance.blockers, *financial_date_blockers)
+    for review in reviews:
+        if review.role == 'financial' and review.reviewer_id not in grants['financial']:
+            blockers = (*blockers, 'financial_owner_unqualified_for_scope')
+    if manifest.compliance_revision != content_revision:
+        blockers = (*blockers, 'compliance_content_revision_changed')
+    return assessment.model_copy(update={
+        'eligible_for_release': not blockers, 'blockers': blockers})
 
 
 def publish_package(store,tenant,package_id):

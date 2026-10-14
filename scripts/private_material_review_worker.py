@@ -49,6 +49,8 @@ def review_materials(root: Path, model=None):
         return review_relations(root, request, model)
     if request.get('review_contract') == _BATCH_CONTRACT:
         return review_relation_batches(root, request, model)
+    if request.get('review_contract') in {'semantic_v14', 'semantic_v15', 'semantic_v16', 'semantic_v17', 'semantic_v18', 'semantic_v19', 'semantic_v20'}:
+        return review_narrative_batches(root, request, model)
     if request.get('review_contract') == _SENTENCE_CONTRACT:
         return review_relation_sentences(root, request, model)
     instruction = review_instruction(request)
@@ -246,6 +248,32 @@ def main():
     result = review_materials(root)
     (root / 'material_review_result.json').write_text(json.dumps(result, ensure_ascii=False))
 
+
+
+
+
+def review_narrative_batches(root, request, model=None):
+    from agents.research.material_narrative_review import batch_calls, evaluate_attempts, task_for, instruction_for, options_for
+    calls = batch_calls(request)
+    file = root / 'material_review_attempts.json'
+    attempts = json.loads(file.read_text()) if file.exists() else []
+    result, call = evaluate_attempts(request, attempts)
+    if result: return result
+    if model is None: model = LocalModel(request['review_model']['name'], **options_for(request))
+    seconds = json.loads((root / 'material_review_budget.json').read_text())['seconds']
+    budget = PreparationBudget(min(seconds, MAX_SECONDS), max_calls=1, max_requests=1)
+    def save():
+        temporary = file.with_suffix('.json.tmp')
+        temporary.write_text(json.dumps(attempts, ensure_ascii=False)); temporary.replace(file)
+    before = len(attempts)
+    try:
+        with preparation_budget(budget):
+            recorded_call(model, task_for(request), instruction_for(request), call[3], call[4], attempts, save)
+    except Exception:
+        if len(attempts) == before: raise
+    result, next_call = evaluate_attempts(request, attempts)
+    return result or {'state':'needs_resume', 'reason':'material_narrative_review_next_batch',
+                      'next_batch':next_call[0], 'batches_recorded':len(attempts), 'batches_total':len(calls)}
 
 if __name__ == '__main__':
     main()

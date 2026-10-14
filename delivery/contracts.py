@@ -8,7 +8,8 @@ from __future__ import annotations
 
 import hashlib
 import json
-from typing import Annotated, Literal
+from datetime import date
+from typing import Annotated, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -22,6 +23,162 @@ CheckStatus = Literal["pass", "fail", "not_run", "unsupported", "not_applicable"
 
 class Contract(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
+
+
+class EvidenceTableColumn(Contract):
+    """Recorded labels for a bounded editable table; no numerical derivation."""
+    label: Annotated[str, Field(min_length=1, max_length=100)]
+    period: Annotated[str, Field(max_length=60)] = ""
+    unit: Annotated[str, Field(max_length=60)] = ""
+
+
+class EvidenceTableCell(Contract):
+    """An exact source-cell projection, not a model-authored financial value.
+
+    Upstream replay must bind value_ref/text to the immutable evidence table.
+    This shape validator deliberately cannot certify that evidence or its status.
+    """
+    text: Annotated[str, Field(max_length=180)]
+    status: Literal["source_reported", "projection", "illustrative", "missing"]
+    source_refs: tuple[Identifier, ...] = Field(default=(), max_length=4)
+    value_ref: Optional[Identifier] = None
+
+    @model_validator(mode="after")
+    def evidence_shape(self):
+        if len(set(self.source_refs)) != len(self.source_refs):
+            raise ValueError("Duplicate table cell source reference")
+        if self.status != "missing" and (not self.source_refs or self.value_ref is None):
+            raise ValueError("Nonmissing table cell requires immutable value and source references")
+        if self.status == "missing" and self.value_ref is not None:
+            raise ValueError("Missing table cell cannot bind a supplied value")
+        if not self.text.strip():
+            raise ValueError("Table cell requires explicit exact text or a missing label")
+        return self
+
+
+class EvidenceTableRow(Contract):
+    cells: tuple[EvidenceTableCell, ...] = Field(min_length=2, max_length=7)
+
+
+class EvidenceTable(Contract):
+    """Renderer input for a selected immutable source table.
+
+    The renderer lays out these bytes and refuses unreadable overflow. It does
+    not calculate, reconcile, approve or repair values. Table selection and
+    labels must project recorded local-model output; cell text must project the
+    corresponding original source values in a separately checked evidence view.
+    """
+    contract: Literal["evidence-table-v1"] = "evidence-table-v1"
+    table_id: Identifier
+    evidence_revision: Digest
+    columns: tuple[EvidenceTableColumn, ...] = Field(min_length=2, max_length=7)
+    rows: tuple[EvidenceTableRow, ...] = Field(min_length=1, max_length=36)
+
+    @model_validator(mode="after")
+    def rectangular(self):
+        if any(len(row.cells) != len(self.columns) for row in self.rows):
+            raise ValueError("Evidence table must be rectangular")
+        return self
+
+
+class EvidenceChartLiteral(Contract):
+    text: Annotated[str, Field(min_length=1, max_length=120)]
+    literal_unit_id: Identifier
+    literal_sha256: Digest
+
+    @model_validator(mode="after")
+    def literal_bytes(self):
+        import re
+        if self.text.lstrip().startswith('=') or re.match(r'(?i)^\s*(?:https?|ftp|mailto):', self.text):
+            raise ValueError('Unsafe source chart label cannot enter an editable workbook')
+        expected = hashlib.sha256(json.dumps(self.text, ensure_ascii=False,
+                                  separators=(',', ':')).encode()).hexdigest()
+        if self.literal_sha256 != expected:
+            raise ValueError('Chart original literal hash mismatch')
+        return self
+
+
+class EvidenceChartPoint(Contract):
+    numeric_literal: Annotated[str, Field(min_length=1, max_length=80)]
+    literal_unit_id: Identifier
+    literal_sha256: Digest
+
+    @model_validator(mode="after")
+    def finite_exact_number(self):
+        from decimal import Decimal, InvalidOperation
+        import math
+        import re
+        if not re.fullmatch(r'[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?',
+                            self.numeric_literal):
+            raise ValueError('Chart point requires an exact finite OOXML numeric literal')
+        try:
+            number = Decimal(self.numeric_literal)
+            plotted = float(number)
+        except (InvalidOperation, OverflowError):
+            raise ValueError('Unsupported source chart numeric literal')
+        # OOXML caches are rendered through native floating-point chart APIs.
+        # Refuse an observation whose original decimal value would be changed.
+        if not number.is_finite() or not math.isfinite(plotted) or Decimal(str(plotted)) != number:
+            raise ValueError('Source chart number cannot survive exact native chart conversion')
+        if abs(plotted) > 1e15:
+            raise ValueError('Source chart numeric range exceeds qualified renderer')
+        expected = hashlib.sha256(json.dumps(self.numeric_literal, ensure_ascii=False,
+                                  separators=(',', ':')).encode()).hexdigest()
+        if self.literal_sha256 != expected:
+            raise ValueError('Chart original numeric literal hash mismatch')
+        return self
+
+
+class EvidenceChartSeries(Contract):
+    name: EvidenceChartLiteral
+    points: tuple[EvidenceChartPoint, ...] = Field(min_length=1, max_length=12)
+
+
+class EvidenceChart(Contract):
+    """Complete single-axis original chart-cache observation, always unreviewed.
+
+    A separately checked original manifest supplies every name, category and
+    numeric literal. The renderer never asks a model to invent a data series.
+    Reproducible stored caches are not recalculated or financially qualified.
+    """
+    contract: Literal['evidence-chart-v1'] = 'evidence-chart-v1'
+    chart_unit_id: Identifier
+    chart_part: Annotated[str, Field(pattern=r'^ppt/charts/chart[1-9][0-9]*\.xml$')]
+    evidence_revision: Digest
+    source_sha256: Digest
+    cache_digest: Digest
+    plot_type: Literal['column_clustered', 'column_stacked', 'bar_clustered', 'line', 'pie']
+    categories: tuple[EvidenceChartLiteral, ...] = Field(min_length=1, max_length=12)
+    series: tuple[EvidenceChartSeries, ...] = Field(min_length=1, max_length=3)
+    source_refs: tuple[Identifier, ...] = Field(min_length=1, max_length=4)
+    source_status: Literal['source_cache_unreviewed'] = 'source_cache_unreviewed'
+    financial_validation: Literal['not_established'] = 'not_established'
+    recalculation: Literal['not_performed'] = 'not_performed'
+    period: Literal['unassessed'] = 'unassessed'
+    unit: Literal['unassessed'] = 'unassessed'
+    axis_count: Literal[0, 2]
+    external_dependencies: Literal[False] = False
+
+    @model_validator(mode="after")
+    def exact_cache_shape(self):
+        if len(set(self.source_refs)) != len(self.source_refs):
+            raise ValueError('Duplicate chart source reference')
+        if any(len(series.points) != len(self.categories) for series in self.series):
+            raise ValueError('Chart cache point/category count mismatch')
+        if self.plot_type == 'pie':
+            if self.axis_count != 0 or len(self.series) != 1:
+                raise ValueError('Only one complete original pie series without axes is supported')
+            values = [float(point.numeric_literal) for point in self.series[0].points]
+            if any(value < 0 for value in values) or sum(values) <= 0:
+                raise ValueError('Original pie cache requires nonnegative nonzero observations')
+        elif self.axis_count != 2:
+            raise ValueError('Chart requires exactly one original category/value axis pair')
+        payload = self.model_dump(mode='json', exclude={'cache_digest'})
+        expected = hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(',', ':'),
+                                  ensure_ascii=False, allow_nan=False).encode()).hexdigest()
+        if self.cache_digest != expected:
+            raise ValueError('Exact source chart cache digest mismatch')
+        return self
 
 
 class ArtifactContract(Contract):
@@ -90,6 +247,9 @@ class ArtifactManifest(Contract):
     template_version: Identifier
     requested: tuple[ArtifactKind, ...] = Field(min_length=1)
     files: tuple[ArtifactFile, ...] = ()
+    # New compliance content binds exact scope/rules. Absence preserves the
+    # historical manifest digest; production release still requires a review.
+    compliance_revision: Optional[Digest] = None
 
     @model_validator(mode="after")
     def unique_members(self):
@@ -103,6 +263,8 @@ class ArtifactManifest(Contract):
 
     def digest(self) -> str:
         payload = self.model_dump(mode="json")
+        if self.compliance_revision is None:
+            payload.pop("compliance_revision")
         payload["requested"] = sorted(payload["requested"])
         payload["files"] = sorted(payload["files"], key=lambda f: f["artifact_id"])
         return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
@@ -124,6 +286,9 @@ class ReviewDecision(Contract):
     reviewer_id: Identifier
     manifest_digest: Digest
     decision: Literal["approved", "rejected"]
+    # Absent on historical records. Production financial review cannot use an
+    # undated approval or retrospectively qualify it through a later grant.
+    reviewed_on: Optional[date] = None
 
 
 class ReleaseAssessment(Contract):

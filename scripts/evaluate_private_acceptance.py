@@ -22,7 +22,9 @@ OUTPUT_ROOT = Path(__file__).resolve().parents[1] / 'runtime_qualification/priva
 PROJECT = Path(__file__).resolve().parents[1]
 
 
-def prepare(inputs: list[Path], output: Path) -> dict:
+def prepare(inputs: list[Path], output: Path, *, contract: str = 'private-acceptance-ingest-v1') -> dict:
+    if contract not in {'private-acceptance-ingest-v1', 'private-acceptance-ingest-v2'}:
+        raise ValueError('Unknown private ingestion contract')
     if len(inputs) != 3 or sorted(path.suffix.lower() for path in inputs) != [
             '.pdf', '.pdf', '.xlsx']:
         raise ValueError('Exactly two PDFs and one XLSX are required')
@@ -38,7 +40,7 @@ def prepare(inputs: list[Path], output: Path) -> dict:
         checked.append(str(path.resolve()))
     root.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
     root.mkdir(mode=0o700, exist_ok=False)
-    request = {'contract': 'private-acceptance-ingest-v1', 'files': checked,
+    request = {'contract': contract, 'files': checked,
                'scope': 'local_diagnostic_only_no_deal_or_release'}
     descriptor = os.open(root / 'request.json', os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
     with os.fdopen(descriptor, 'w', encoding='utf-8') as output_file:

@@ -14,6 +14,10 @@ CREATE TABLE IF NOT EXISTS auth_sandboxes (id TEXT PRIMARY KEY, owner_id TEXT NO
 CREATE TABLE IF NOT EXISTS auth_memberships (
  tenant_id TEXT NOT NULL, user_id TEXT NOT NULL, role TEXT NOT NULL,
  active INTEGER NOT NULL DEFAULT 1, PRIMARY KEY(tenant_id,user_id));
+CREATE TABLE IF NOT EXISTS auth_reviewer_qualifications (
+ tenant_id TEXT NOT NULL, user_id TEXT NOT NULL, role TEXT NOT NULL,
+ qualification TEXT NOT NULL, active INTEGER NOT NULL DEFAULT 1,
+ PRIMARY KEY(tenant_id,user_id,role));
 CREATE TABLE IF NOT EXISTS auth_sessions (
  token_hash TEXT PRIMARY KEY, user_id TEXT NOT NULL, tenant_id TEXT NOT NULL,
  csrf TEXT NOT NULL, created REAL NOT NULL, touched REAL NOT NULL, expires REAL NOT NULL,

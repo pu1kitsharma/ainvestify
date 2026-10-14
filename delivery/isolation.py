@@ -13,7 +13,21 @@ import subprocess
 import sys
 
 
-def run_private(command, job_directory, *, timeout=120, extra_read=(), local_ipc=False, local_model=False):
+
+# The Unicode PDF renderer opens this application-supplied font directly.
+# Keep it a literal file capability, never an application/font-directory grant.
+READONLY_RENDER_FONTS = (
+    Path('/Applications/LibreOffice.app/Contents/Resources/fonts/truetype/DejaVuSans.ttf'),
+    Path('/Applications/LibreOffice.app/Contents/Resources/fonts/truetype/DejaVuSans-Bold.ttf'),
+)
+
+
+def _render_font_literals():
+    return [str(font) for font in READONLY_RENDER_FONTS
+            if font.is_file() and not font.is_symlink() and font.resolve() == font]
+
+def run_private(command, job_directory, *, timeout=120, extra_read=(), extra_read_literals=(),
+                local_ipc=False, local_model=False):
     if platform.system() != "Darwin" or not Path("/usr/bin/sandbox-exec").exists():
         raise RuntimeError("private_process_isolation_unavailable")
     job = Path(job_directory).resolve()
@@ -30,6 +44,16 @@ def run_private(command, job_directory, *, timeout=120, extra_read=(), local_ipc
     # Explicit deny rules override allow rules in Seatbelt. Express the allowlist
     # inside the denial's predicate instead of appending overlapping allows.
     readable = f'(literal "/") (literal {json.dumps(str(project))}) ' + " ".join(f"(subpath {json.dumps(p)})" for p in roots)
+    readable += ' ' + ' '.join(f'(literal {json.dumps(font)})' for font in _render_font_literals())
+    # Provenance replay can require exact immutable files from an earlier private
+    # job. Directory literals permit listing, without granting their descendants.
+    literal_paths = []
+    for item in extra_read_literals:
+        path = Path(item).absolute()
+        if path.is_symlink() or path.resolve() != path or not path.exists():
+            raise ValueError('Exact private read capability must be canonical and present')
+        literal_paths.append(str(path))
+    readable += ' ' + ' '.join(f'(literal {json.dumps(path)})' for path in literal_paths)
     writable = f'(subpath {json.dumps(str(job))}) (literal "/dev/null")'
     rules = ["(version 1)", "(allow default)", "(deny network*)",
         f"(deny file-read-data (require-not (require-any {readable})))",

@@ -14,10 +14,12 @@ merged models, GGUF files, training data derived from private documents.
 ## Reproducible training run (target: a GPU box with >= 24 GB memory)
 
 1. Download the pinned base (see `base_model.json`).
-2. Build data: `scripts/build_deck_headline_sft.py` is the template for a task
-   dataset (chat-ML text rows, non-thinking Qwen3.5 rendering, the exact system
-   prompt the runtime sends). Training data derived from private documents stays
-   local and ignored.
+2. Build data: [memo gold corpus](MEMO_GOLD_CORPUS.md) describes reviewed,
+   company-disjoint source-author/repair/reviewer intake. `scripts/build_memo_gold_sft.py`
+   validates and exports rows using the current local runtime prompt. The
+   deck-headline builder is a separate single-company experiment; its slide
+   split is not a held-out company evaluation. Training data derived from
+   private documents stays local and ignored.
 3. Train: `python -m mlx_lm lora --model models/base --train --data models/data
    --adapter-path models/adapters/<run-id> --num-layers 16 --batch-size 1
    --max-seq-length 2048 --grad-checkpoint --iters <N>` (MLX, Apple silicon). On

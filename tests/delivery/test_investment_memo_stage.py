@@ -249,16 +249,33 @@ def test_accepted_memo_rechecks_frozen_roles_before_rendering(tmp_path, monkeypa
         run_memo_pass(job, lead, [source], timeout=20)
 
 
-def test_accepted_memo_accepts_new_frozen_challenge_role(tmp_path, monkeypatch):
+@pytest.mark.parametrize('previously_accepted', [True, False])
+@pytest.mark.parametrize('version, repair_contract', [(3, None), (4, None), (5, None),
+                                                     (5, 'memo-content-repair-v5'), (5, 'memo-content-repair-v6')])
+def test_accepted_memo_accepts_new_frozen_challenge_role(tmp_path, monkeypatch, previously_accepted, version, repair_contract):
     monkeypatch.setenv('PREPARATION_MODEL', 'qwen3.5:9b')
     monkeypatch.setattr('delivery.investment_memo_stage.memo_directory', lambda job: tmp_path)
     monkeypatch.setattr('delivery.investment_memo_stage.renderable_sections',
-                        lambda accepted, sources, attempts, projection=None: [('Investment thesis', 'Model text', [])])
+                        lambda accepted, sources, attempts, projection=None, content_revision=None:
+                        [('Investment thesis', 'Model text', [])])
+    # This test isolates role acceptance; the content gate is tested separately.
+    monkeypatch.setattr('delivery.memo_content_stage.run_content_pass',
+                        lambda root, accepted, sources, profile, timeout, review_version, repair_contract=None: {
+                            'state': 'accepted', 'memo': accepted['memo'],
+                            'content_revision': {}, 'content_review': {'state': 'accepted'},
+                            'content_revision_path': str(root / f'content_v{review_version}'),
+                            'content_review_version': review_version,
+                            **({'content_repair_contract': repair_contract} if repair_contract else {})})
     source = Source(id='S1', url='https://source.example/company', title='Company record',
                     passage='A retained public source passage with enough text for the test.',
                     version='version-1', attribution='Public source')
     job = {'tenant_id': 'tenant', 'workspace_id': 'room', 'id': 'job',
            'input_revision': 'a' * 64}
+    job['checkpoint'] = {'workflow_contract': ('room-v31-blind-author-content-gate' if repair_contract == 'memo-content-repair-v6' else
+                                              'room-v30-author-scope-content-gate' if repair_contract else
+                                              'room-v29-blind-scope-content-gate' if version == 5 else
+                                              'room-v28-scope-content-gate' if version == 4
+                                              else 'room-v27-rationale-content-gate')}
     lead = SimpleNamespace(company_name='Synthetic company')
     (tmp_path / 'request.json').write_text(json.dumps({
         'company': lead.company_name, 'sources': [source.model_dump()],
@@ -273,9 +290,25 @@ def test_accepted_memo_accepts_new_frozen_challenge_role(tmp_path, monkeypatch):
         'part_a_response_id': 'response_1', 'part_b_response_id': 'response_2',
         'review_response_id': 'response_3'}}))
     (tmp_path / 'attempts.json').write_text('[]')
+    if not previously_accepted:
+        accepted_result = (tmp_path / 'result.json').read_text()
+        (tmp_path / 'result.json').write_text(json.dumps({'state': 'needs_resume'}))
+        def worker(*args, **kwargs):
+            (tmp_path / 'result.json').write_text(accepted_result)
+        monkeypatch.setattr('delivery.investment_memo_stage.run_private', worker)
+        monkeypatch.setattr('delivery.memo_content_stage.run_content_pass',
+            lambda *args, **kwargs: (_ for _ in ()).throw(
+                AssertionError('Content inference must use a separate pass')))
     result = run_memo_pass(job, lead, [source], timeout=20)
-    assert result['state'] == 'accepted'
-    assert result['sections'] == [('Investment thesis', 'Model text', [])]
+    if previously_accepted:
+        assert result['state'] == 'accepted'
+        assert result['content_review_version'] == version
+        assert result.get('content_repair_contract') == repair_contract
+        assert result['content_revision_path'] == str(tmp_path / f'content_v{version}')
+        assert result['sections'] == [('Investment thesis', 'Model text', [])]
+    else:
+        assert result['state'] == 'needs_resume'
+        assert result['phase'] == 'memo_content_review_pending'
 
 
 class PrivateStore:
@@ -694,3 +727,137 @@ def test_unfrozen_historical_memo_attempts_fail_clearly_without_rerun(tmp_path, 
     assert result['state'] == 'blocked'
     assert result['reason'] == 'legacy_model_profile_unfrozen'
     assert len(json.loads((tmp_path / 'attempts.json').read_text())) == 1
+
+
+@pytest.mark.parametrize('workflow,flow,coverage', [
+    ('room-v58-complete-source-concise-memo', 'memo-source-unit-flow-v6', 'diligence-source-coverage-v14'),
+    ('room-v59-sharded-source-adjudication', 'memo-source-unit-flow-v7', 'diligence-source-coverage-v15'),
+    ('room-v60-blind-group-source-assessment', 'memo-source-unit-flow-v8', 'diligence-source-coverage-v16'),
+    ('room-v61-supported-topic-groups', 'memo-source-unit-flow-v9', 'diligence-source-coverage-v17'),
+    ('room-v62-explicit-topic-status', 'memo-source-unit-flow-v10', 'diligence-source-coverage-v18'),
+    ('room-v63-source-quotes', 'memo-source-unit-flow-v11', 'diligence-source-coverage-v19'),
+])
+def test_complete_source_room_routes_and_retains_adjudicator_lineage(tmp_path, monkeypatch, workflow, flow, coverage):
+    from delivery import investment_memo_stage as stage
+    monkeypatch.setenv('PREPARATION_MODEL', 'qwen3.5:9b')
+    monkeypatch.setattr(stage, 'memo_directory', lambda job: tmp_path)
+    monkeypatch.setattr(stage, 'renderable_sections', lambda *args, **kwargs: [])
+    source = Source(id='S1', url='https://source.example/company', title='Synthetic record',
+        passage='A retained synthetic company source passage for route verification.',
+        version='version-1', attribution='Synthetic source')
+    job = {'tenant_id': 'tenant', 'workspace_id': 'room', 'id': 'job', 'input_revision': 'a' * 64,
+           'checkpoint': {'workflow_contract': workflow}}
+    if workflow == 'room-v63-source-quotes':
+        job['checkpoint'].update(financial_evidence_indexes={'inventory_digest': 'c' * 64},
+            financial_evidence_scope={'supplied_workbook_inventory_digest': 'c' * 64,
+                'semantic_coverage': 'unassessed', 'financial_validation': 'not_established',
+                'workbook_recalculation': 'not_performed'})
+    lead = SimpleNamespace(company_name='Synthetic company')
+    (tmp_path / 'request.json').write_text(json.dumps({'company': lead.company_name,
+        'sources': [source.model_dump()], 'input_revision': job['input_revision'], 'as_of_date': '2026-10-10'}))
+    (tmp_path / 'model.json').write_text(json.dumps({'model': 'qwen3.5:9b',
+        'memo_draft_contract': 'memo-cards-v13', 'memo_author_model_digest': 'b' * 64, 'profiles': {
+        'draft': 'qwen3.5:9b', 'review': 'qwen3.5:9b', 'corrector': 'qwen3.5:9b', 'prose': 'qwen3:14b',
+        'author': 'qwen3:14b', 'challenge': 'qwen3.5:9b'}}))
+    (tmp_path / 'result.json').write_text(json.dumps({'state': 'accepted', 'accepted': {
+        'memo': {'recommendation': 'defer_pending_evidence'}, 'part_a_response_id': 'response_1',
+        'part_b_response_id': 'response_2', 'review_response_id': 'response_3'}}))
+    if workflow == 'room-v63-source-quotes':
+        profile_path = tmp_path / 'model.json'
+        saved_profile = json.loads(profile_path.read_text())
+        saved_profile['room_financial_scope'] = job['checkpoint']['financial_evidence_scope']
+        profile_path.write_text(json.dumps(saved_profile))
+    (tmp_path / 'attempts.json').write_text('[]')
+    calls = []
+    pin = {'name': 'qwen3:14b', 'digest': 'b' * 64}
+    def content(*args, **kwargs):
+        calls.append(kwargs)
+        return {'state': 'accepted', 'memo': args[1]['memo'], 'content_revision': {},
+                'content_review': {'state': 'accepted'}, 'content_revision_path': str(tmp_path / 'content'),
+                'content_coverage_adjudicator_pin': pin, 'content_coverage_adjudicator_role': kwargs['coverage_adjudicator_role']}
+    monkeypatch.setattr('delivery.source_unit_content_stage.run_source_unit_pass', content)
+    result = run_memo_pass(job, lead, [source], timeout=20)
+    assert calls[0]['flow_contract'] == flow
+    assert calls[0]['coverage_contract'] == coverage
+    if workflow == 'room-v63-source-quotes':
+        assert calls[0]['coverage_batching_contract'] == 'source-interpretation-evidence-first-v3'
+        assert calls[0]['coverage_financial_scope'] == job['checkpoint']['financial_evidence_scope']
+    assert calls[0]['coverage_role'] == 'challenge'
+    assert calls[0]['coverage_adjudicator_role'] == ('author' if workflow in {'room-v59-sharded-source-adjudication', 'room-v60-blind-group-source-assessment', 'room-v61-supported-topic-groups', 'room-v62-explicit-topic-status', 'room-v63-source-quotes'} else 'prose')
+    assert calls[0]['section_author_contract'] == 'memo-section-units-author-v13'
+    assert result['content_coverage_adjudicator_pin'] == pin
+    assert result['content_coverage_adjudicator_role'] == calls[0]['coverage_adjudicator_role']
+    assert result['independent_review'] == 'pending'
+    if workflow == 'room-v63-source-quotes':
+        saved_profile['room_financial_scope'] = {**saved_profile['room_financial_scope'], 'financial_validation': 'qualified'}
+        profile_path.write_text(json.dumps(saved_profile))
+        with pytest.raises(ValueError, match='financial evidence scope changed'):
+            run_memo_pass(job, lead, [source], timeout=20)
+        assert len(calls) == 1
+
+
+def test_explicit_fresh_profile_overrides_environment_without_changing_saved_profile(tmp_path, monkeypatch):
+    from io import BytesIO
+    monkeypatch.setenv('LOCAL_MEMO_DRAFT_CONTRACT', 'memo-cards-v2')
+    monkeypatch.setattr('delivery.investment_memo_stage.urllib.request.urlopen',
+        lambda *args, **kwargs: BytesIO(json.dumps({'models': [
+            {'name': 'qwen3.5:9b', 'digest': 'a' * 64}, {'name': 'qwen3:14b', 'digest': 'b' * 64}]}).encode()))
+    path = tmp_path / 'model.json'
+    fresh = frozen_memo_model_profile(path, 'qwen3.5:9b', draft_contract='memo-cards-v13')
+    assert fresh['memo_draft_contract'] == 'memo-cards-v13'
+    assert fresh['profiles']['author'] == 'qwen3:14b'
+    assert fresh['memo_role_model_digests']['author'] == 'b' * 64
+    before = path.read_bytes()
+    with pytest.raises(ValueError, match='frozen profile'):
+        frozen_memo_model_profile(path, 'qwen3.5:9b', draft_contract='memo-cards-v2')
+    assert path.read_bytes() == before
+    assert frozen_memo_model_profile(path, 'qwen3.5:9b') == fresh
+
+
+def test_source_quote_financial_index_preserves_narrative_and_fingerprint_without_claim_approval(monkeypatch):
+    from delivery import financial_evidence_stage as financial
+    manifest = {'manifest_digest': 'a' * 64, 'cells': [{}, {}], 'packets': [{}], 'sheets': [{}]}
+    document = SimpleNamespace(id='financial_document', filename='synthetic.xlsx', type='xlsx',
+        storage_uri='/unused-private-original', blocks=[SimpleNamespace(id='row', content='Revenue invented by legacy row flattening')])
+    pdf = SimpleNamespace(id='private_pdf', filename='synthetic.pdf', type='pdf', blocks=[
+        SimpleNamespace(id='paragraph', content='The company reports a specific software product and distribution channel.')])
+    store = SimpleNamespace(get_documents_for_deal=lambda *args: [document, pdf])
+    lead = SimpleNamespace(tenant_id='tenant', company_name='Synthetic company',
+        company_profile=SimpleNamespace(provenance={}, evidence=[]))
+    room = SimpleNamespace(deal_id='deal')
+    context = {'workspace_id': 'room', 'job_id': 'job', 'input_revision': 'r' * 64}
+    calls = []
+    def loader(record, **kwargs):
+        calls.append(kwargs)
+        if not record:
+            raise ValueError('required retained financial index missing')
+        return manifest
+    monkeypatch.setattr(financial, 'load_financial_evidence', loader)
+    monkeypatch.setattr('delivery.storage.read_source_bytes', lambda path: b'synthetic original bytes')
+    sources, coverage = room_sources(store, lead, room, full_inventory=True, preserve_structure=True,
+        financial_indexes={'financial_document': {'state': 'indexed_source_only'}}, financial_job_context=context)
+    assert len(sources) == 1 and sources[0].url.startswith('private://private_pdf/')
+    assert calls[0]['workspace_id'] == 'room' and calls[0]['job_id'] == 'job'
+    assert coverage['financial_source_indexes'][0]['retained_cell_count'] == 2
+    assert coverage['financial_semantic_coverage'] == 'unassessed'
+    assert coverage['financial_validation'] == 'not_established'
+    assert coverage['complete_financial_understanding'] is False
+    first = source_fingerprint({'input_revision': 'r' * 64}, lead, sources, coverage['inventory_digest'])
+    manifest['manifest_digest'] = 'b' * 64
+    _, changed = room_sources(store, lead, room, full_inventory=True, financial_indexes={'financial_document': {'state': 'indexed_source_only'}})
+    assert first != source_fingerprint({'input_revision': 'r' * 64}, lead, sources, changed['inventory_digest'])
+    with pytest.raises(ValueError, match='financial index missing'):
+        room_sources(store, lead, room, full_inventory=True, financial_indexes={})
+
+
+def test_room_financial_scope_is_frozen_with_profile_and_never_promoted(tmp_path, monkeypatch):
+    scope = {'supplied_workbook_inventory_digest': 'c' * 64, 'semantic_coverage': 'unassessed',
+        'financial_validation': 'not_established', 'workbook_recalculation': 'not_performed'}
+    profile = frozen_memo_model_profile(tmp_path / 'model.json', 'qwen3.5:9b', financial_scope=scope)
+    original = (tmp_path / 'model.json').read_bytes()
+    assert profile['room_financial_scope'] == scope
+    assert frozen_memo_model_profile(tmp_path / 'model.json', 'qwen3.5:9b', financial_scope=scope) == profile
+    with pytest.raises(ValueError, match='financial evidence scope'):
+        frozen_memo_model_profile(tmp_path / 'model.json', 'qwen3.5:9b',
+            financial_scope={**scope, 'financial_validation': 'qualified'})
+    assert (tmp_path / 'model.json').read_bytes() == original

@@ -378,7 +378,7 @@ def _structured_quote_numbers(source: Source, quote: str) -> set[str]:
     return numbers
 
 
-def validate_memo(memo: Memo, sources: list[Source]) -> None:
+def validate_memo(memo: Memo, sources: list[Source], *, recommendation_number_checker=None, section_number_checker=None) -> None:
     """Check exact bindings and numeric coverage; semantic review is separate."""
     indexed = {source.id: source for source in sources}
     amount_sources = set()
@@ -395,6 +395,10 @@ def validate_memo(memo: Memo, sources: list[Source]) -> None:
                 amount_sources.add(source.id)
 
     def check_field(field: str, prose: str, claims: list[Claim]):
+        check_numbers = (recommendation_number_checker if field == 'recommendation_reason'
+                         and recommendation_number_checker is not None else
+                         section_number_checker if field in _FIELDS and section_number_checker is not None
+                         else _assertion_numbers)
         if _PROCESS_LEAK.search(prose):
             raise MemoValidationError(field, "internal workflow language is not company analysis")
         cited = set(_CITATION.findall(prose))
@@ -410,9 +414,9 @@ def validate_memo(memo: Memo, sources: list[Source]) -> None:
                 raise MemoValidationError(field, "claim quote is absent from its retained source")
             source_title = indexed[claim.source_id].title
             named_entity = source_title if source_title in claim.quote else None
-            assertion_numbers = _assertion_numbers(
+            assertion_numbers = check_numbers(
                 claim.assertion.replace(named_entity, '') if named_entity else claim.assertion)
-            quote_numbers = _assertion_numbers(
+            quote_numbers = check_numbers(
                 claim.quote.replace(named_entity, '') if named_entity else claim.quote)
             if assertion_numbers - quote_numbers:
                 raise MemoValidationError(field, "assertion contains numbers absent from its source quote")
@@ -434,11 +438,11 @@ def validate_memo(memo: Memo, sources: list[Source]) -> None:
                 if absence and not re.search(r'\b(?:verified|confirmed|received|actual)\b',
                                               absence.group(), re.I):
                     raise MemoValidationError(field, "source reports an amount that prose calls absent")
-            if not any(_assertion_numbers(span.replace(title, '') if title else span) <= numbers
+            if not any(check_numbers(span.replace(title, '') if title else span) <= numbers
                     for numbers, title in claim_number_sets[citation.group(1)]):
                 raise MemoValidationError(field, "numeric prose is not covered by its adjacent source claim")
             previous = citation.end()
-        if _assertion_numbers(prose[previous:]):
+        if check_numbers(prose[previous:]):
             raise MemoValidationError(field, "numeric prose needs an adjacent source citation")
 
     check_field("recommendation_reason", memo.recommendation_reason, memo.recommendation_claims)
@@ -1065,9 +1069,19 @@ def renderable_sections(result: dict, sources: list[Source], attempts: list[dict
     if content_revision is not None:
         # A post-acceptance content review repaired rationales; the exact raw
         # review/repair/re-review responses must replay to this memo.
-        from agents.research.memo_content_repair import replay_content_revision
-        memo = replay_content_revision(memo, sources, content_revision)[0]
-    validate_memo(memo, sources)
+        if content_revision.get('contract') in {'memo-source-unit-flow-v1','memo-source-unit-flow-v2','memo-source-unit-flow-v3','memo-source-unit-flow-v4','memo-source-unit-flow-v5'}:
+            from scripts.private_source_unit_worker import replay_source_unit_revision
+            memo = Memo.model_validate(replay_source_unit_revision(memo, sources, content_revision)[0])
+        else:
+            from agents.research.memo_content_repair import replay_content_revision
+            memo = replay_content_revision(memo, sources, content_revision)[0]
+    if (content_revision is not None and content_revision.get('contract') in {'memo-source-unit-flow-v1','memo-source-unit-flow-v2','memo-source-unit-flow-v3','memo-source-unit-flow-v4','memo-source-unit-flow-v5'}
+            and content_revision.get('author_contract') in {'memo-source-unit-author-v6','memo-source-unit-author-v7'}):
+        from agents.research.memo_source_unit_author import canonical_assertion_numbers
+        validate_memo(memo, sources, recommendation_number_checker=canonical_assertion_numbers,
+                      section_number_checker=canonical_assertion_numbers if content_revision.get('contract') in {'memo-source-unit-flow-v2','memo-source-unit-flow-v3','memo-source-unit-flow-v4','memo-source-unit-flow-v5'} else None)
+    else:
+        validate_memo(memo, sources)
     by_id = {source.id: source for source in sources}
 
     cited = {}

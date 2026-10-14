@@ -27,10 +27,23 @@ def _installed_digest(name):
 # The contract written into a NEW review request, first review or repaired
 # re-review alike. A request already on disk keeps the contract it recorded.
 FRESH_REVIEW_CONTRACT = 'semantic_v10'
+from agents.research.material_narrative_review import options_for as narrative_review_options
+
+def fresh_material_review_contract(job):
+    if job.get("checkpoint",{}).get("workflow_contract") in {"room-v57-full-relation-material-review", 'room-v58-complete-source-concise-memo', 'room-v59-sharded-source-adjudication', 'room-v60-blind-group-source-assessment', 'room-v61-supported-topic-groups', 'room-v62-explicit-topic-status', 'room-v63-source-quotes'}: return "semantic_v20"
+    if job.get("checkpoint",{}).get("workflow_contract") == "room-v56-inline-material-provenance": return "semantic_v19"
+    if job.get("checkpoint",{}).get("workflow_contract") == "room-v55-compact-material-review": return "semantic_v18"
+    if job.get("checkpoint",{}).get("workflow_contract") == "room-v54-typed-temporal-selector": return "semantic_v17"
+    if job.get("checkpoint",{}).get("workflow_contract") == "room-v53-attributed-period-selector": return "semantic_v16"
+    if job.get("checkpoint", {}).get("workflow_contract") in {"room-v51-temporal-material-scope", "room-v52-compact-material-selector"}: return "semantic_v15"
+    if job.get('checkpoint', {}).get('workflow_contract') == 'room-v50-complete-narrative-materials': return 'semantic_v14'
+    return _BATCH_CONTRACT if job.get('checkpoint', {}).get('workflow_contract') == 'room-v49-batched-material-review' else FRESH_REVIEW_CONTRACT
+
+
 # Every contract a recorded request may carry; None is the first, unversioned one.
 RECORDED_REVIEW_CONTRACTS = (None, 'semantic_v2', 'semantic_v3', 'semantic_v4', 'semantic_v5',
                              'semantic_v6', 'semantic_v7', 'semantic_v8', 'semantic_v9',
-                             'semantic_v10', _BATCH_CONTRACT, _SENTENCE_CONTRACT)
+                             'semantic_v10', _BATCH_CONTRACT, _SENTENCE_CONTRACT, 'semantic_v14', 'semantic_v15', 'semantic_v16', 'semantic_v17', 'semantic_v18', 'semantic_v19', 'semantic_v20')
 
 
 def require_supported_contract(contract):
@@ -40,7 +53,7 @@ def require_supported_contract(contract):
     instruction. A new request must never be created that way, so a fresh
     contract the module does not know is an error, not a fallback.
     """
-    if contract in (_BATCH_CONTRACT, _SENTENCE_CONTRACT):
+    if contract in (_BATCH_CONTRACT, _SENTENCE_CONTRACT, 'semantic_v14', 'semantic_v15', 'semantic_v16', 'semantic_v17', 'semantic_v18', 'semantic_v19', 'semantic_v20'):
         return contract
     from agents.research.material_review import REVIEW_INSTRUCTION, review_instruction
     if contract is not None and review_instruction({'review_contract': contract}) == REVIEW_INSTRUCTION:
@@ -56,14 +69,24 @@ def _review_request(job, memo, material, memo_root, *, repaired=False,
         exact = validate_material_repair_checkpoint(job, memo, material)
     else:
         exact = validate_material_checkpoint(job, memo, material)
+    if fresh_material_review_contract(job) in {_BATCH_CONTRACT, 'semantic_v14', 'semantic_v15', 'semantic_v16', 'semantic_v17', 'semantic_v18', 'semantic_v19', 'semantic_v20'} and review_contract != fresh_material_review_contract(job):
+        raise ValueError('Fresh room material review requires semantic_v12 batching')
     profile = json.loads((memo_root / 'model.json').read_text())
     name = profile['profiles'].get('review', profile['profiles']['draft'])
     validate_local_model_name(name)
     pin = {'name': name, 'digest': _installed_digest(name),
-           'options': (BATCH_OPTIONS if review_contract == _BATCH_CONTRACT else
+           'options': (narrative_review_options(review_contract) if review_contract in {_BATCH_CONTRACT, 'semantic_v14', 'semantic_v15', 'semantic_v16', 'semantic_v17', 'semantic_v18', 'semantic_v19', 'semantic_v20'} else
                        SENTENCE_OPTIONS if review_contract == _SENTENCE_CONTRACT else
                        {'thinking': False, 'max_tokens': 1200,
                         'context_tokens': 16384, 'temperature': 0})}
+    if fresh_material_review_contract(job) in {_BATCH_CONTRACT, 'semantic_v14', 'semantic_v15', 'semantic_v16', 'semantic_v17', 'semantic_v18', 'semantic_v19', 'semantic_v20'}:
+        core_pin = memo.get('content_core_reviewer_pin')
+        if not isinstance(core_pin, dict) or set(core_pin) != {'name', 'digest'}:
+            raise ValueError('Fresh material review requires accepted core reviewer role')
+        validate_local_model_name(core_pin['name'])
+        if _installed_digest(core_pin['name']) != core_pin['digest']:
+            raise ValueError('Installed material reviewer differs from accepted core reviewer')
+        pin = {**core_pin, 'options': narrative_review_options(review_contract)}
     base = {'input_revision': job['input_revision'], 'source_hash': memo['source_hash'],
             'memo_digest': exact['memo_digest'], 'material_digest': digest(exact),
             'memo_sections': memo['sections'],
@@ -85,6 +108,11 @@ def _review_request(job, memo, material, memo_root, *, repaired=False,
     if (memo.get('section_projection') == 'reader_v2' and
             (recorded_projection is None or 'evidence_extraction' in recorded_projection)):
         base['evidence_extraction'] = 'reader_v2_claim_pair_v1'
+    if review_contract in {'semantic_v14', 'semantic_v15', 'semantic_v16', 'semantic_v17', 'semantic_v18', 'semantic_v19', 'semantic_v20'}:
+        from delivery.material_stage import _financial_unknown_candidates, _memo_assertion_candidates
+        draft_contract = 'purpose_v18' if review_contract in {'semantic_v17','semantic_v18','semantic_v19','semantic_v20'} else 'purpose_v17' if review_contract == 'semantic_v16' else 'purpose_v16' if review_contract == 'semantic_v15' else 'purpose_v15'
+        base['financial_unknown_candidates'] = _financial_unknown_candidates(memo_root, memo, draft_contract)
+        base['memo_assertion_candidates'] = _memo_assertion_candidates(memo_root, memo, draft_contract)
     base = json.loads(json.dumps(base, ensure_ascii=False))
     return {**base, 'digest': digest(base)}
 
@@ -142,7 +170,7 @@ def run_material_review_pass(job, memo, material, *, timeout, repaired=False,
     path = root / 'material_review_request.json'
     request = _review_request(job, memo, material, memo_root, repaired=repaired,
         review_contract=_recorded_review_contract(path,
-            fresh_contract=review_contract or FRESH_REVIEW_CONTRACT))
+            fresh_contract=review_contract or fresh_material_review_contract(job)))
     if path.exists():
         if json.loads(path.read_text()) != request:
             raise ValueError('Material review frozen memo, deck, or model changed')
@@ -160,5 +188,6 @@ def run_material_review_pass(job, memo, material, *, timeout, repaired=False,
             return validate_material_review_checkpoint(job, memo, material,
                 expected_state='blocked', repaired=repaired)
         return {'state': result['state'], 'reason': result.get('reason', 'review_incomplete'),
-                'request_digest': request['digest']}
+                'request_digest': request['digest'],
+                **{key:result[key] for key in ('batches_recorded','batches_total') if key in result}}
     return validate_material_review_checkpoint(job, memo, material, repaired=repaired)

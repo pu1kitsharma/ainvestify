@@ -51,7 +51,7 @@ def revision_for(store, workspace):
         "extraction":extraction.model_dump() if extraction else None,
         "analysis_inputs":workspace.company_analysis.get("inputs",{}),
         "metric_imports":[{k:item.get(k) for k in ('id','source_name','text')} for item in workspace.metric_imports],
-        "workflow_contract":"room-v26-bounded-review-revision","local_model":selected_model,
+        "workflow_contract":"room-v62-explicit-topic-status","local_model":selected_model,
         "memo_draft_model":draft_model,"memo_draft_b_model":os.environ.get('LOCAL_MEMO_PART_B_MODEL', draft_model),
         "memo_draft_token_cap":1400,
         "memo_correction_model":selected_model,"memo_correction_token_cap":1500,
@@ -90,7 +90,7 @@ def activate(store, identity, lead_id):
         workspace.deal_id = expected_deal
         store.save_workspace(workspace,expected_revision=workspace.revision)
     event = DealRoomActivated(tenant_id=identity.tenant_id,actor_id=identity.user_id,
-        workspace_id=workspace.id,input_revision=revision_for(store,workspace),workflow_version="room-v26-bounded-review-revision")
+        workspace_id=workspace.id,input_revision=revision_for(store,workspace),workflow_version="room-v62-explicit-topic-status")
     try:
         job = jobs.enqueue(store.conn,event)
     except (ValueError,PermissionError) as exc:

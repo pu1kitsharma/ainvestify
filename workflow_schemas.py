@@ -2,6 +2,7 @@
 from typing import Literal, Optional
 from pydantic import BaseModel, Field
 from schemas import new_id, utcnow
+from delivery.compliance import ComplianceReviewRecord
 
 
 class DatasetSource(BaseModel):
@@ -150,6 +151,7 @@ class OperatingWorkspace(BaseModel):
     metrics: dict = Field(default_factory=dict)
     automation: Optional[AutomationRun] = None
     attestations: list[WorkspaceAttestation] = Field(default_factory=list)
+    compliance_review: Optional[ComplianceReviewRecord] = None
     events: list[dict[str, str]] = Field(default_factory=list)
     capabilities: dict[str, bool] = Field(default_factory=lambda: {
         "internal_research": True, "draft_preparation": True,

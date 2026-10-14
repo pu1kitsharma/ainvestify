@@ -1,5 +1,12 @@
 # Session handoff — company preparation MVP
 
+> **Latest execution, 14 October:** Read [§76](#76-14-october-private-reference-ingestion-and-evidence-document-generation)
+> and [NEXT_AGENT.md](NEXT_AGENT.md). Private reference reading, local OCR,
+> editable tables/charts and durable local document generation were added.
+> Fresh live plans failed; no complete new company material or trained weights
+> resulted. Financial, human investor/compliance and fresh-room acceptance remain
+> open. Older checkpoints are historical.
+
 > **Latest direction, 1 October:** Read §56 before following §55's execution order.
 > Public KB generation is P1, local-model-only product responses are P2, and live
 > Google OIDC is P5. Historical hosted-provider authorizations are superseded.
@@ -3807,3 +3814,1514 @@ This is tested scope plumbing and documentation, not live accepted worldwide
 discovery or completed due diligence. The runtime process inspection command
 was denied by the shell environment, so no service restart or live job was
 attempted. Do not interpret this checkpoint as accepted investor output.
+
+## 72. 9 October: bounded local review and exact material exports
+
+The old status sections below are historical. This section records the current
+implementation and measured private result; it does not approve investor use.
+
+### Fixed memo pipeline
+
+FLOW4 has fifteen mandatory resumable checkpoints: source characterization;
+source author; three source review groups; five core author checkpoints; five
+core review checkpoints. Each private checkpoint retains 105 seconds/six calls.
+The complete source/core engines retain their original six-attempt caps; a
+checkpoint does not reset those arrays or permit unbounded corrections.
+Skipped, incomplete, reordered and changed checkpoints block exact replay.
+
+Core author v8 uses exact narrative fragments with source versions, original
+offsets and quote hashes. Bare entity/category lists and numeric rows provide
+no narrative fallback. Neutral headings are layout labels; all company prose
+is recorded local-model output. Risk and diligence have typed components that
+must remain joined. Nonquantified future financial consequences are permitted
+only in the explicitly unproved risk consequence; current financial premises,
+quantified forecasts and invented metric labels still block. Reviewer v7 judges
+narrative function separately from source verification, using the full function
+enum and all evidence/purpose/baseline/temporal checks. The opt-in decoder retains
+maximum string lengths; it never truncates or replaces an answer.
+
+### Measured live result
+
+Private branch `memo-content-v43-narrative-function-installed14b` completed
+**all fifteen checkpoints and exact replay**, with memo digest
+`9a4bf6f4ca4123459932eef3884d068f70e1bf98f93976daa677dd8e725da3a9`.
+The installed 9B supplied accepted source stages. The installed 14B authored
+five core fields and performed five fresh reviewer-v7 calls, taking 43.868,
+36.963, 40.852, 30.210 and 55.856 seconds respectively. No final-review timeout
+or shape retry occurred. Eighteen raw attempts bind the accepted branch:
+one characterization, four source-author, three source-review, five core-author
+and five core-review responses. Thirteen were reused unchanged from accepted
+prerequisite stages, with provenance; the five core reviews were new. Stage
+reuse happens only after prerequisites, never through a backwards-work cache.
+
+Independent Codex inspection found no blocking factual/source issue in the
+whole memo object or its actual fourteen `reader_v2` sections. It did identify
+downstream deck-candidate bugs: split sentences detached risk/diligence
+antecedents, and capital-efficiency prose was offered as funding evidence.
+Fresh rooms now use `room-v57-full-relation-material-review`: source author v7,
+FLOW4, core author v8, core reviewer v7, deck author `purpose_v18` and deck
+reviewer `semantic_v20`. Historical workflow contracts retain their recorded
+inputs/options and exact replay.
+
+The material handoff now offers whole reviewed assertions, with their source
+quotes and field functions. Distinct-choice matching prevents a valid earlier
+selection from starving a later slide. Funding requires financing evidence;
+capital-efficiency/ARR prose is reserved for financial review. Product retrieval
+requires offering/distribution/launch context. The local financial author selects
+an exact source span, primary period token and temporal classification. Software
+displays those recorded decisions with neutral labels, the unchanged original
+assertion and exact period excerpt; no free-text financial caption is required. Generic labels
+refer to *requested* evidence, not source omission. The local reviewer checks
+source binding, narrative function, full-slide/slot relevance and chronology.
+Every judgment and every complete unit must bind; missing/unsupported checks
+block. Claims with no financial fact can display exact reviewed open questions
+without manufacturing a source citation.
+
+Fresh material requests freeze `material-selector-options-v1`: 600 output tokens,
+8K context, no thinking, temperature zero and bounded strings, plus exact installed
+model name/digest. They explicitly pass the original memo's ISO `as_of_date`.
+Historical requests keep their 2600-token/16K settings and recorded nullable outer
+date. An inference timeout with a persisted raw error now blocks immediately.
+The compact reviewer retains all six strict flags and the full relation/function
+choices using shorter wire keys and reasons of 20–80 characters. It uses two units per
+batch when that covers both decks within twelve batches; otherwise three. Every
+unit remains mandatory. Reviewer output is 600 tokens/8K with bounded decoding
+strings and strict application lengths. Scoped alias serialization preserves exact
+raw wire answers before canonical projection. Twelve unique deck calls, sixteen
+complete units per deck, twelve total review batches and private passes of 105 seconds
+remain bounded.
+
+Private material v15 generated all ten slides, but independent inspection blocked
+historical targets with no period context; its local reviewer also blocked a
+requested-evidence status. V16 preserved that temporal fix but its first financial
+writer timed out with an empty raw answer under the old 16K configuration. The
+failed branches and raw answers remain intact. V17 produced a truncated caption;
+V18 repeated a prohibited metric in its period-only caption. V19 removes caption
+generation: all ten author calls and exact replay passed, and independent inspection
+found no blocking source/function/purpose/temporal issue in its four intro and six
+pitch slides. Its first three-unit semantic17 batch timed out at 105 seconds. The
+14B was 100% GPU with only 7% memory free. V20 reuses its three accepted author files
+byte-for-byte with six-file provenance hashes and exact replay, then performs fresh
+compact semantic18 review. Its first three batches passed; its fourth produced
+a malformed overlength reason and wrongly rejected an exact accepted question
+record. The reviewer had whole-slide text but only that row's question evidence,
+and its question record was misleadingly labeled source_report_only. Fresh
+semantic19 supplies inline own-unit evidence plus separate complete slide evidence
+for heading/purpose/chronology checks, and labels an accepted question record
+accurately. Open questions and requested-record lists have distinct independently
+judged roles; full causal verification_request criteria remain unchanged. V21 reused the same unchanged author responses. Its first inline-proof batch
+passed, but the second incorrectly judged an explicitly conditional risk
+unsupported while marking all six scope flags true and identifying no challenged
+clause. Strict validation blocked that contradictory response. Fresh semantic20
+restores full relation/function values while retaining short keys, all independent
+flags and exact challenged-clause rules. It removes only byte-identical duplicate
+own proofs; every distinct proof and complete unit remains. V22 reuses the
+unchanged author responses with fresh review. **V22 completed all ten semantic20
+batches: all nineteen complete units accepted and exact raw replay passed.**
+Recorded model calls took 29.939, 20.058, 22.340, 22.422, 21.493, 20.636,
+21.976, 27.153, 27.981 and 15.803 seconds (229.801 seconds total). No
+review timeout, malformed response or retry occurred. No old failed review
+was imported. Author responses remain byte-identical to V19; the author deck
+digest remains `bbc7b517b58c0487a47c667f06db66daf866882ddafccf480828c26b678b9282`.
+
+### Actual exports and file inspection
+
+V22's `render/` contains `intro.pptx`/`intro.pdf` (four slides/pages),
+`pitch.pptx`/`pitch.pdf` (six) and `memo.docx`/`memo.pdf` (fourteen sections,
+six PDF pages). The additional `research.pdf` is six pages. All three required
+editable/direct-PDF pairs passed strict text inspection. Isolated LibreOffice
+conversion also produced four/six/six pages and passed all three native pairs.
+No model inference occurs during exact replay or rendering.
+
+Actual export exposed and fixed four layout/runtime faults: the renderer could
+not read its installed Unicode font; the slide's 100-character heading cap was
+also applied to paginated memo questions; source-register URIs wrapped inside
+opaque hashes; and source/prose paragraphs crossed page frames. The worker now
+reads one canonical nonsymlink font through a literal, read-only capability.
+Paginated headings allow 300 characters; slide headings remain at 100 and all
+other bounds remain unchanged. Generic source inventories use the matching
+source style, and bounded paragraphs/entries stay together. No source text,
+model response, company prose or inspection normalization was rewritten.
+The four failed export directories and the earlier passing direct/failed native
+version are preserved byte-for-byte with private hash manifests.
+
+Independent content inspection verified all nineteen deck units and all fourteen
+memo sections in editable, direct PDF and native Office PDF files, with no
+unsupported substantive additions. All twenty direct/native deck page images,
+twelve memo images and six additional research pages were inspected. No clipping,
+overlap or lost text was observed. Reports bind exact exported hashes under V22:
+`independent_final_export_content_memo_visual_audit_2026-10-09.json` and
+`independent_final_deck_visual_audit_2026-10-09.json`; `qa/native_export_report.json`
+binds native pair results. Native shadows/wrapping and some pagination differ
+from direct PDF styling; this is readable, text-complete draft qualification,
+not pixel-identical Office parity or Toffee-level design/depth qualification.
+The sparse final bibliography page and dense version references remain quality
+limits. Financial reconciliation and investor approval remain open.
+
+Private evidence base:
+`runtime_qualification/private_acceptance/2026-10-05-toffee-local-v13-second-field-repair/`.
+All originals, prior failed branches, exact raw answers and independent review
+reports remain ignored/private. V36's three scope failures, V39's unsupported
+positive baseline and V41's reviewer function misclassification are retained.
+The accepted memo is qualitative and source selection still uses a small set
+of historical field anchors; full company/team/funding/market coverage and
+Toffee-level deck depth are not established.
+
+### Code verification and runtime
+
+The final broad research/delivery/inference suite passed **1,880 tests, seven
+skipped, fifteen existing warnings** in 30.35 seconds. The default skips include
+explicit OS/native probes; the selected real sandbox probes passed separately
+(three) and the native memo pagination canary passed (one). The final focused
+memo/deck renderer suite passed 41 tests with its native opt-in skip. Counts
+overlap and must not be added. Frontend build and lint passed with the new
+fifteen-checkpoint and material-batch progress/reason labels. Browser smoke
+inspection reached the real local login page; signed-in materials UI/full fresh
+room acceptance remains unrun. Older API-suite baseline failures were not
+reclassified or rerun. `git diff --check` passed. No investor package is approved.
+
+Claude Code's signed-in CLI implemented generic scope, typed decision components
+and exact temporal-selection validation from sanitized specifications. Codex
+agents handled writer/reviewer contracts, durable orchestration, rendering fixes
+and independent private content/page audit. A proposed repository-source export
+was rejected by automatic approval review and not retried. No private company
+evidence went to a hosted model. No model weights, download, cloud spend, commit
+or push occurred. Preserve concurrent uncommitted work.
+
+Runtime was checked after inference: API is on :8000 without reload or a room
+worker, frontend is on :5173, and Ollama has **zero loaded models**. No MLX/training
+or private evaluation is running. SQLite has 22 awaiting-input, three blocked,
+four cancelled and two queued jobs; none running. No company data/jobs were
+reset. The API has been restarted with the fresh room-v57 routing. Check actual
+processes and job states before another restart; do not process old queued jobs
+merely to demonstrate a diagnostic result.
+
+### Next acceptance slice
+
+Keep V43/V19/V22 inputs, responses, hashes and failure evidence intact. The memo
+and ten slides now complete bounded local author/review/replay/export checks;
+the private diagnostic run does not establish a fresh production room run or
+worldwide discovery. Next expand source coverage through the installed local
+model (team, dated funding/status, commercial/market evidence and conflicts),
+then run a fresh signed-in room with exact-version artifact delivery. Compare
+content/design against the supplied benchmark without inventing financials.
+Use independently adjudicated held-out company examples before weight adaptation;
+no weights have been trained. Workbook qualification, human financial/compliance
+acceptance, Google OIDC and verified legacy ownership remain separate release
+requirements. Do not turn the passed bounded draft into an approved investment
+suggestion or relax the model-authorship/release gates.
+
+
+## 73. 10 October: source depth, atomic writing and India release gates
+
+### User scope and authorship
+
+The user confirmed **India private startup fundraising documents and internal
+diligence**. Worldwide product scope is unchanged. Toffee inputs are private
+acceptance evidence; neither their text nor historical projections instruct
+agents. The user asked for plain wording, deeper materials, financial
+qualification and regulatory standards. No developer or model is appointed an
+investor, financial or compliance reviewer.
+
+All company sources, conclusions and prose remain recorded installed local-model
+responses. Claude Code was used substantively for generic coding/orchestration,
+with tools disabled in an empty temporary directory and sanitized architecture
+context only. Its traversal module was integrated into
+`agents/research/evidence_traversal.py`. Its atomic design/pure rejector was
+reviewed and integrated into `agents/research/atomic_component_bounds.py`.
+Recommendations to normalize source text, replace legacy validators, expose
+weaker gate overrides or use currency-blind numeric comparisons were excluded.
+Raw generic CLI outputs are mode 0600 under `/private/tmp/`; no private company
+input was sent to Claude. Codex agents implemented coverage/core/checkpoint/
+regulatory changes and independently audited recorded private outputs.
+
+### Implementation and preserved limits
+
+Fresh `room-v58-complete-source-concise-memo` uses FLOW5 / 21 checkpoints,
+coverage10, core author13/reviewer12 and existing deck purpose18/semantic20.
+No persisted live room job has this fresh contract yet. Historical contracts
+retain their prompts/schemas/projections and raw replay.
+
+Coverage9 moved content-kind judgment before topics in each of five small
+classification batches. The sixth call selects five field scopes from those
+recorded information/category assessments, instead of classifying 22 pages and
+selecting fields at once. Heading/contact pages must have empty category support
+and cannot supply core sections. Team and finance/funding roles, source-set
+diversity, exact quote offsets/version/hashes and traversal bindings remain.
+Coverage10 adds model-recorded structured information for data-bearing tables,
+lists and diagrams. Exact financial-label offsets are processing cues; software
+does not assign topics or infer relationships. Both information kinds need their
+own category quotes; heading/contact exclusions remain. Five V10 classifier
+preflights measured 5,177 / 5,958 / 4,040 / 3,949 / 2,137 input tokens; largest
+plus 600 output and 128 safety tokens totals 6,686 / 8,192.
+All 22 original text sources remain retained. Above 25 sources blocks before
+memo inference; chart/image interpretation stays explicitly unassessed.
+
+Author12 separated the source premise from conditional/requested components.
+Author13 adds a model-selected status label to the actual displayed body:
+`source_label + ': ' + source_premise + ' ' + judgment components`.
+Neither premise nor judgment is rewritten by software. Label/scope mismatch
+blocks; the label counts within the existing length limits. Financial figures belong in
+the bound premise; hypotheses cannot restate numerical/date claims or infer
+flattened-table relationships. Financial names and comparative baselines still
+require the chosen quote. Only a nonnumeric/undated prospective risk effect has
+the existing financial-label exception. Reviewer12 assesses the displayed
+attribution, premise and each
+component as well as joined narrative, clarity, function, comparisons and
+financial support. The 48-word/280-character cap and derived 180-character section
+floor remain. These structural checks do not establish semantic support.
+
+The checkpoint loop now executes the one shared sixth correction inside the
+same 105-second checkpoint. Engine-wide six calls, deadline/stalled checks,
+21 phases, deck 12 author calls / 16 units and review 12 batches remain. No increased
+budget or unbounded retry was added.
+
+Ingest2 retains 3,596 nonempty workbook cells / 314 packets, formula/cache/hidden
+sheet inventory, coordinates/ISOdates and PDF table geometry. The 22 memo text
+sources/source digest remain unchanged. Production room parsing preserves
+structure for v58. Workbook semantic coverage remains unassessed, validation
+not_established, recalculation not_performed. Originals were not changed or
+manually reconciled. Recommendation/unknown source scopes remain explicitly
+legacy frozen scopes; the expanded source choice applies to five core fields.
+
+### Context overflow and fresh live evidence
+
+Installed Ollama 0.33.3 can return valid JSON/done_reason=stop after input overflow.
+The actual V50 transport prompt measured 9,019 tokens with the installed Qwen3
+vocabulary/template against 8,192 context; runtime reported 4,098. Maintainer
+[explanation](https://github.com/ollama/ollama/issues/17427) documents the
+half-buffer behavior. The usage receipt is defined in
+[official API documentation](https://github.com/ollama/ollama/blob/main/docs/api/usage.mdx).
+Earlier selector shape passes do not demonstrate full input consumption.
+
+Fresh roles use lossless compact JSON and a receipt guard rejecting missing input
+counts, the observed num_ctx/2+2 signature and insufficient output headroom.
+Raw responses are retained before the guard. V51 selector actual 7,441 and V52
+selector 7,448 match their exact preflights, so their later writing failures remain
+real model defects. This is measured behavior for the installed runtime/model;
+the guard is not universal tokenizer/context qualification.
+
+Private base:
+`runtime_qualification/private_acceptance/2026-10-05-toffee-local-v13-second-field-repair/`.
+
+- V48 blocked diligence wording: financial labels borrowed from other quotes.
+- V49 dictionary-kind selector returned field names as source keys.
+- V50 fixed-ID selector classified almost every source as contact-only after
+  overflow. Every failed report/raw attempt remains intact.
+- V51 full-context selector accepted mechanically, then first-field correction
+  consumed the single global slot and business writing exceeded 48 words.
+- V52 full-context/atomic-length prompts blocked the thesis after one correction.
+  It introduced unsupported financial labels and a reversed ARPU comparison;
+  a heading was selected as risk evidence. Two author calls, no core reviews.
+  Independent audit is mode 0600 at V52
+  `independent_source_and_core_audit_2026-10-10.json`, SHA256
+  `46154c338d0f9c69cea6d30cfff5396599d4f18abeaeb785f4b2cae29c0ef7e6`.
+- V53 coverage9/author12/reviewer11 excluded two headings but misclassified S21's
+  substantive diagram as a heading and omitted financial topics in S3/S4. Both
+  thesis attempts lacked attribution; it blocked at checkpoint 12 with no core
+  review. Classifier receipts matched exact input preflights; selector input was
+  6,968 tokens. Independent audits are preserved in that private branch:
+  `independent_five_classifier_audit_2026-10-10.json`, SHA256
+  `ec5cdb4218901e357ce28a988e5d0dbb3f3c7b72786ea12fbcfc7b1004a5a402`, and
+  `independent_selector_and_core_audit_2026-10-10.json`, SHA256
+  `49f955b7debd2c734840228f524f6c0372542e422aa7b4d5d9420132c954524c`.
+- V54 coverage10/author13/reviewer12 blocked on its first 14B source batch after
+  104.974 seconds. It returned no answer or token receipt. The Mac showed a
+  9.95 GB resident model runner, approximately 12.4 GB wired memory and 2.3 GB
+  compressed memory. This is a capacity failure, not a source-selection pass.
+  Models were unloaded. Independent source-classification/core model controls
+  were added for a fresh bounded run; V54 was not resumed or relabelled.
+- V55 used independently pinned 9B coverage and 14B core roles. All five
+  classifier calls completed: 74.446 / 69.409 / 62.032 / 62.535 / 28.103 seconds,
+  with input receipts 5,173 / 5,954 / 4,042 / 3,941 / 2,136. Financial topics on
+  S3/S4 and the substantive S21 diagram improved. Independent review found four
+  heading/contact classification defects and three topic omissions. It stopped
+  before selection/core writing. The raw five responses remain unchanged;
+  independent audit SHA256 is
+  `674f043274865f9a91f9772c679446777d06eeaa9f1bfcf6a532bb485c13e216`.
+  Coverage11 is being implemented to adjudicate classifications and select fields
+  in the existing sixth call. Its first five requests remain exact coverage10
+  prerequisites; any reuse must pass complete raw replay.
+
+No older core prose/selector was relabelled as a fresh response. Permitted
+legacy source prerequisites are copied byte-for-byte with exact provenance.
+The 9 October V43 memo/V22 exports remain historical qualitative drafts; expanded
+source assessment, financial qualification and regulatory approval are not
+established by those files. No fresh approved material exists.
+
+### India regulatory release and frontend
+
+`delivery/compliance.py` requires evidence-bound transaction scope, complete human
+applicability matrix, reviewed official-source snapshot hashes/effective dates/
+freshness, trusted qualified-human authority and exact-manifest signoff.
+Membership/reviewer identity are server-derived; authority cannot be appointed
+by an LLM/request-body role. Revoked/disabled/out-of-scope/expired qualification,
+changed files/model/evidence/rules or stale signoff blocks release and downloads.
+Scope/matrix content revision excludes signoff to avoid circular hashing; older
+manifests omit the optional revision and retain old digests.
+
+`deployment/regulatory_sources.json` now binds three retained official sources:
+SEBI circular PDF, DPDP Rules PDF and RBI direction HTML, 4,368,005 bytes total.
+Source and fetch-receipt hashes are retained; all snapshots remain unreviewed.
+The final 2018 Rule14 publication and 2020 amendment have separate MCA pointers;
+their byte downloads failed. The historical 2017 Act pointer is explicitly not
+Rule14. Companies Act and IRDAI byte fetches also failed. No source hash for a
+failed retrieval, current complete ruleset or applicability was invented.
+`deployment/INDIA_PRIVATE_MATERIALS_COMPLIANCE.md` explains actual gates,
+unverified law applicability, statutory-document distinction and qualified-owner
+path. No real qualification grant, transaction matrix or signoff was inserted.
+Financial checks and authorized financial signoff remain mandatory; equivalent
+professional financial qualification is still not demonstrated.
+
+Frontend `RoomPipeline.tsx` displays 21-checkpoint progress, assessed source count,
+evidence gaps and grouped plain-language blockers. **Check release requirements**
+uses the existing server validation endpoint and is disabled while work is
+queued/running. It grants no approval. Component state is reset through keyed
+rendering; build/lint are separate from signed-in browser acceptance. Browser
+smoke reached the local sign-in page; the test tab was closed without account
+creation/reset. Full signed-in room/PDF-viewer acceptance remains unrun.
+
+### Tested code and runtime
+
+Focused coverage 52, core author/reviewer 59, inference-context 44, atomic-component 28 and earlier
+compliance/delivery 242 suites passed; counts overlap and are not cumulative.
+After agents stopped, the integrated research/delivery/inference suite passed
+**2,113 tests, seven skipped, 15 existing warnings in 52.36 seconds**. This gate
+predates independent coverage-role routing. Four focused diagnostic role tests
+subsequently passed. Frontend
+build/lint passed. Full signed-in UI and old API baseline failures were not rerun.
+A synthetic author13 code fixture passed exact DOCX/PDF text and pair inspection;
+the one-page direct PDF was visually checked. Independent audit confirmed raw
+projection and file hashes, SHA256
+`10ce4a3f5dcac14cc1424b0b89c38fc9b0bc223013ce439f653a73fc4982f20c` at
+`attribution13-synthetic-export-canary/independent_attribution_export_audit_2026-10-10.json`.
+Independent DOCX visual conversion is unrun. This is a synthetic code/export
+check, not generated company material or investor acceptance.
+
+API was safely reloaded without a worker after checking zero active room jobs
+and saving `deal_automation.before-v58-role-split.db` in the existing private
+backup directory. API PID52802 and UI returned HTTP200; job counts remained
+22 awaiting_input / 3 blocked / 4 cancelled / 2 queued. No queued job was run.
+Models were unloaded after V55's five classifiers. Final runtime snapshot
+follows the adjudication diagnostic. No weights were trained or models downloaded. No cloud
+compute spend, commit or push occurred; queued/private/live data were preserved.
+
+The previous 1,074-line NEXT_AGENT was backed up byte-for-byte (mode 0600) under
+`runtime_backups/2026-10-10-concise-handoff/NEXT_AGENT.before-concision.md`, SHA256
+`3389adf80eb588d00ba0a866139d14705d6d2ac6bdfa1802528c61415d65fd36`.
+The replacement is a concise current entry point; historical failures/evidence
+remain in this handoff and private diagnostics.
+
+## 74. 10 October: direct source assessment and release evidence
+
+The user confirmed **India: private startup fundraising documents and internal
+diligence**. This is the first regulatory qualification scope; worldwide
+product scope is unchanged. The answer did not appoint qualified reviewers or
+approve any materials. Company prose and judgments remain installed local-model
+outputs. Codex/Claude contribute code and audit only.
+
+### Why the source workflow changed
+
+The global correction stage failed either latency or semantic review. Splitting
+it into groups improved latency, but identical passages still received
+conflicting judgments. Blind unique-passage assessment removed that inconsistency.
+Optional topic maps then allowed a heading to receive every topic despite the
+model saying the passage had no substantive information.
+
+| Private diagnostic | Contract | Actual result before core writing |
+|---|---|---|
+| V56 | coverage11 | 9B global correction: wrong headings and source choices; blocked |
+| V57 | coverage12 | 9B returned no corrections; duplicate conflict remained; blocked |
+| V58 | coverage13 | Fresh factual 9B classification improved finance; correction downgraded substantive sources; independently held |
+| V59 | coverage14 | Separate 14B global correction contradicted its own reasons; blocked |
+| V60 | coverage15 | First small 14B group returned contradictory duplicate judgments; blocked |
+| V61 | coverage16 | Duplicate heading improved; unsupported funding category; blocked |
+| V62 | coverage17 | Unsupported funding option excluded; heading received all topics, unsupported unknown and financial omissions remained; blocked |
+
+No failed raw response was repaired, overwritten or relabelled as accepted.
+V58's software adjudication result remains `needs_resume`; the independent hold
+is separate. No later V58 selection/core call was made.
+
+V60: 3,325 input/151 output tokens, 34.21 seconds; private independent audit SHA256
+`232796e60dc0864c7633b7fffda496786db1a3ac2bfb7b5645dd2d9ceb650399`.
+V61: 3,651/270 tokens, 42.46 seconds; audit SHA256
+`3b39bd78d82ec223d86fe303be95d61a998932232c2065d0fffdf5fcf80b3c09`.
+V62: 4,241/406 tokens, 56.822 seconds; audit SHA256
+`e81a5db4937b1d1c80477620be24c9a0323eafda6cea16cedad09764932c5f3b`.
+All used nonthinking installed 14B, full-context receipts and factual sampling
+presence 0/repeat 1. Private evidence remains under the existing October5 diagnostic
+root. The generic enum-copy probe passed; it did not establish company semantics.
+
+### Fresh direct workflow
+
+Fresh `room-v62-explicit-topic-status` uses FLOW10/coverage18 and 21 checkpoints.
+Five blind 14B groups directly assess every complete source passage, followed by
+one 9B evidence selector. Earlier9B classifications cannot enter this contract.
+Every category receives a required recorded status: absent or an own evidence
+ordinal. Heading/contact grammar restricts all statuses to absent. Public aliases
+only compress category names; software never supplies category decisions.
+Duplicate passages share one model judgment, independently bound to each member's
+exact source version/window. Complete inventory, category semantics, model pins,
+context/sampling receipts, financial and exact-version review remain required.
+
+This replaces the classifier-and-patch algorithm; the old eight-changed-source
+correction cap has no baseline in direct classification. Its historical
+coverage15/16/17 contracts retain that cap and their 26 phases. Fresh18 has at most
+six source calls with no retries, at most25 retained sources and at mostfive
+members/group. The existing source capacity and per-pass limits remain.
+Core author13/reviewer12, one shared core correction and deck purpose18/semantic20
+are unchanged. New room profiles freeze memo-cards-v13 before any model response;
+environment defaults cannot select an older profile. Actual producer metadata
+preserves source/assessment/core model roles through material replay.
+
+### Verification checkpoint
+
+Before direct18, the root routing/jobs/material/evaluator suite passed185 tests;
+the FLOW9 consumer suite passed22 and coverage17 focused checks passed3.
+Counts overlap with prior runs and are not cumulative. Frontend build/lint passed.
+These checks establish code behavior, not investor or regulatory acceptance.
+Fresh18 checks/live results and final runtime are recorded below after execution.
+
+### Direct18 actual result and follow-up
+
+V63 started with zero inherited coverage/classifier/selector/core responses;
+eight historical source-unit prerequisites replay byte-for-byte. The first
+fresh 14B assessment completed in59.916 seconds, 5,534 input/343 output tokens, stop,
+full 8,192 context, factual 0/1 sampling. Duplicate-heading, financial/funding and
+unknown interpretations improved. Engine state is `needs_resume` for group2.
+
+Independent review held advancement: own product/distribution text was treated
+as market context; a forecast/activation qualifier was treated as an explicit
+risk. The selected risk quote is only its exact 0–600 window, with no stated
+adverse condition. No core writing or new deck/export followed. All existing
+raw/request/result files are unchanged. Private audit
+`memo-content-v63-direct-source-assessment/independent_direct_first_group_audit_2026-10-10.json`
+SHA256 `a881fa4c5eecf5b0a940bf1382b4dc36e4020123721a0e1e3da5818e6235eaf0`.
+
+Fresh18 exact14B group preflights:5534/7245/5372/5282/2697tokens. Only fresh18
+uses 700 output; historical options are unchanged. Required absent statuses use
+model-selected`N`, with mechanical aliases only. Actual first output 343 tokens
+fits. The sixth selector is data-dependent and cannot be truthfully preflighted
+before all five fresh judgments exist.
+
+Latest root routing/jobs/material/evaluator suite:189 passed in 1.95 seconds. Direct18
+consumer:23 compatibility/production checks and two fresh mocked transport cases
+passed. Coverage18:three focused checks passed. These do not establish actual
+model interpretation. Frontend build/lint passed with FLOW10/21-step support.
+
+### Release source and financial authority fixes
+
+`delivery/review_integrity.py` and compliance source/evidence v2 now recompute
+retained official body AND receipt hashes under the fixed regulatory archive,
+using no-follow directory/inode checks. Rule/scope evidence IDs resolve against
+the exact tenant/deal original bytes, retained blocks and current evidence
+revision. Unknown aliases, unavailable originals, cross-tenant/arbitrary paths,
+changed bytes or version evidence block release. Public source evidence also
+needs retained original/version and an exact quoted passage.
+
+Financial membership alone cannot approve. Trusted operator-managed professional
+qualification must cover jurisdiction, activity and the current date. Financial
+approval now needs a recorded review date within that authority period and no
+future date. Historical undated approval fails closed; no record/signature is
+rewritten. No review-submission HTTP route or model appointment route was added.
+
+The final affected compliance/integrity/contracts suite passed 150 tests in 8.42 seconds
+with 15 existing warnings. No real professional grant, applicability matrix or
+signoff exists. Three retained public source bodies/receipts were rehashed:
+4,368,005 bytes. Retrieval still does not establish current legal applicability.
+Frontend adds plain-language blockers for unverified originals/evidence,
+professional financial authority and dated approval.
+
+### Bounded thinking and qualification integrity
+
+Fresh opt-in `local-bounded-thinking-v1` is implemented for installed Qwen3 and
+Qwen3.5. Native chat generates a bounded thought with a first-only `</think>` stop;
+raw ChatML generation then supplies unchanged complete system/user bytes and the
+thought prefill to the constrained final decoder. Unsafe role delimiters block
+before inference. Existing routes/defaults are unchanged. Both requests charge
+the same time/request budget. Unused reasoning tokens do not increase the final
+allocation; answer prefixes cannot be discarded or repaired.
+
+Each transport records model, context, options, input/response digests, allocation,
+actual tokens and termination. Independent review found that internal digest
+agreement alone allowed receipt transplantation. Validation now requires hashes
+reconstructed from the frozen instruction, evidence and actual generation schema.
+Generation also compares these hashes before sending a request. Thought/prefill
+hashes record ephemeral provenance; they cannot reconstruct private reasoning.
+
+The transport/historical compatibility checks passed 113 tests; the subsequent
+binding fix passed 56 focused checks. These overlap, not a cumulative total.
+Claude Code supplied sanitized generic parsing, receipt and scorer code. Neither
+hosted agent authored company answers or received private company evidence.
+
+The fictional V1 run is retained at
+`runtime_qualification/local_semantic_canary/2026-10-10-bounded-thinking-v1/`.
+It froze the exact installed 14B digest, temperature 0.6, factual 0/1 sampling,
+4,096 context, 192 reasoning/700 final tokens and 105 seconds/six requests.
+
+- First pair passed: cover/contact, all twenty absence choices, exact own proofs.
+  Actual 58.771 seconds; reasoning 2,414 input/192 generated (length), final
+  2,607 input/159 generated (stop); one logical call/two requests.
+- Second pair completed in 37.389 seconds: reasoning 2,445/192, final 2,637/174;
+  one call/two requests. The frozen scorer blocked an extra customer topic on a
+  financial/market table. Independent adjudication identified genuine overlap:
+  its "eligible outlets" can describe target customers under the broad category
+  definition. This is not clean proof of an unsupported model topic. The reason
+  for the product-only control also ends in an incomplete phrase. Six cases are
+  unrun. No failure label, raw answer, fixture or request was rewritten.
+
+V1 request SHA256 `a9c60c5b4d4576eeace53854a262f384c68311e654893613fcac3bac03c7bcc4`;
+first/second checkpoint SHA256
+`5aca84e939259b9727f58bb670f47092b918235f60a7ec3fd3a6a39d1fafb455` /
+`a3568c6cdf68cbaecff2297a3f95938dc781858edc5d6dab904e4fb4e207d069`.
+Separate independent audits SHA256
+`0a42971f85768f87af23a797b1a9d3330bc37543629e4e56001d75c292434607` /
+`ffd7fc67912d25ab2f2181e03c0de3e93ae53b560b6bb640b41046bb0878a336`.
+
+A fresh V2 fictional case was independently adjudicated before freeze: projected
+revenue plus industry category growth supports financial and market topics, with
+no customer/offering/channel evidence. Nine other expectations are unchanged.
+V2 is a measurement correction, not a changed V1 score or company answer.
+Actual V2 and larger 9B results follow below. No coverage19/private/default change,
+model weights, model download, cloud spend, commit or push occurred.
+
+### Actual clear V2 and larger 9B results
+
+The fresh V2 14B run again failed checkpoint2: an unsupported product/customer
+topic was attached to projected revenue and industry growth. Independent audit
+found no customer/offering/channel evidence in this disjoint case. Three of four
+executed cases matched the matrix; six cases were unrun. First pair took
+56.622 seconds (2,417 input/192 reasoning; 2,610 input/161 final), second
+38.766 seconds (2,444/192; 2,637/173). All transports stopped normally except
+reasoning reaching its fixed 192-token cap. Context, raw body, input, schema and
+options passed independent replay. Source reasons also showed an incomplete
+English phrase and mixed Chinese/English text. This is not approved wording.
+
+V2 directory: `runtime_qualification/local_semantic_canary/2026-10-10-bounded-thinking-v2/`.
+Request SHA256 `a6e644e7fb5ea4dcd74f9dd686f51e6869328d2f88643844c8d4e1ca2b5efcb6`;
+checkpoints `d0b55db3893bd203cc24da2e6b393b4903592f7996a14ad4979a56ae3de7296b` /
+`a4be4a0806a08d1661cf8ec97f37f31bf4f7738d21250a1813648ebbee755765`;
+result `5afb6853060af6d94b0635172e00b62b53bb82e289b6ac2158fa009e58bdc4fb`;
+independent audit `d3cc8d4fff60834e4055be8f3571759ca38f280fa1688a33dd4f59224f9be41b`.
+V2 fixture SHA256 `914ce7756d6864b5e878458fbe83c0a7249948371a517f9cd02c22da984d291a`.
+
+One distinct capacity evaluation then used the faster already-installed 9B,
+`qwen3.5-9b-full-thinking-v1`: 1,024 reasoning/700 final tokens, 6,144 context,
+temperature 1.0 and factual presence0/repeat1. Time/request caps stayed
+105 seconds/six requests. Its profile is explicit and model-specific; wrong
+model, profile, sampling, options or contract blocks replay. Five focused
+profile checks passed. Historical requests without this profile retain their
+exact settings. The [official 9B model card](https://huggingface.co/Qwen/Qwen3.5-9B)
+supports native thinking temperature 1.0; zero presence is the explicit factual
+policy rather than its general-task default. No fixture or substantive prompt
+changed for this capacity evaluation.
+
+The first 9B pair passed in 45.177 seconds: 2,464 input/598 reasoning tokens
+(natural stop), then 3,063 input/165 final (stop). This qualified native early
+closure with empty answer prefix and unchanged raw continuation; the final cap
+remained 700 despite unused reasoning tokens. The second pair failed in
+65.644 seconds: 2,495 input/1,024 reasoning (length), then 3,522 input/233 final
+(stop). The product topic was absent and the finance/industry table was tagged
+unstructured information, irrelevant and absent for every topic. Two of four
+executed cases matched; six were unrun. Independent audit found no matrix
+ambiguity, evidence substitution or overflow. This capability finding concerns
+these installed-model/budget configurations, not every possible model or budget.
+
+9B directory: `runtime_qualification/local_semantic_canary/2026-10-10-9b-full-thinking-v2/`.
+Request SHA256 `2cc4e9e7aed64ece9ea2c99f3e47a0fb746224614f2b4ed88575b397cbc69e3b`;
+checkpoints `85878f057765e7e69cb8cd266ee75571e3b3502855462445bdd29f96176254a6` /
+`3833d7e71c3c2932e20c3458f41e8ac5f880c4749ea5b26cfabc4269fe66c198`;
+result `34e352de96d060facfdd842e3bdfa4a1f35e8e829fa341cc40274969b3fa3f60`.
+Separate independent 9B audit SHA256
+`504d17fa578ba76c898a4656044c647c6d6c06f24ea9651cc1a77215d911589c`.
+
+Read-only coverage19 feasibility retained all 22 private sources and the same
+five assessments/selector stages. A 14B-tokenizer **proxy**, not qualified 9B
+tokenization, estimated 5,599/7,314/5,435/5,340/2,758 input tokens at proposed
+10,240 context with 1,024 reasoning/700 final. Largest plus 128 safety would
+leave 1,074 proxy tokens. Actual 10,240-context memory/runtime remains unrun;
+five-source groups may exceed 105 seconds. Coverage19 was not implemented because
+its clean semantic prerequisite failed. No new private/core/deck/export call
+followed, and no failed result was patched. These canaries must stay held out
+from any training corpus. Models were unloaded after the failed 9B run.
+
+### API reload checkpoint
+
+At 14:28 UTC, zero running jobs/unexpired leases were confirmed. All 25 expired
+lease records and job states were preserved: 22 awaiting input, three blocked,
+four cancelled, two queued. Consistent SQLite backup is retained at
+`runtime_backups/2026-10-10-final-compliance-api-reload/deal_automation.db`, SHA256
+`26d33459c296aacfb7f34f812b79acfa9fb41494fbb5cdff71f43f9d719b63d5`.
+API PID 52802 was stopped only after verifying its command. Updated API PID 60830
+runs `scripts/serve_local.py --local-dev --without-worker`, no reload.
+API `/api/health` and UI both returned HTTP 200; queues were unchanged and Ollama
+reported no loaded models. Google OIDC, signed-in browser/artifact acceptance,
+financial and regulatory approval remain open. Final model state follows V2.
+
+Final runtime snapshot at 14:49:48 UTC is retained in the 9B branch as
+`final_runtime_checkpoint_2026-10-10.json`: API/UI HTTP 200, API PID 60830,
+Ollama models empty, zero running/unexpired leased jobs and no worker, training
+or test process. All job counts and both queues remain unchanged. Eight final
+hash comparisons confirmed the three supplied originals and frozen failure
+records unchanged. `git diff --check` passed. No commit or push was made.
+
+
+## 75. 13 October: complete workbook index and separated source tasks
+
+### Outcome and authorship
+
+**End-to-end acceptance failed.** Deterministic ingestion, private evidence
+binding and bounded source orchestration improved. The measured local models
+still omitted or misclassified clear source propositions. The final genuine
+reasoning profile incorrectly treated a contact address as company identity.
+No fresh private company prose, deck, chart, forecast or accepted investor
+package followed. No weights were trained or larger model downloaded; no cloud
+spend, commit or push occurred. Stop further prompt/schema variants under the
+current capability plan. These findings concern the tested configurations,
+not all possible local models.
+
+Codex agents implemented workbook/index and room orchestration in parallel;
+Claude Code supplied generic parsing, contract and orchestration code across
+actual authenticated sessions. It did not receive private originals, private
+answers, fictional gold or requests to author company conclusions. Root reviewed
+and integrated code and ran the installed local models. Exact raw local outputs
+remain unchanged; neither hosted coding agent repaired a company answer.
+Generic Claude session results are retained in
+`/private/tmp/source-interpretation-coding-20261012/`; successful sessions include
+`8b132738-ad5a-44bc-b381-9dd4e35fc8e7` (paired task orchestration) and
+`db5ece4f-6dd5-468e-aa57-cb9074e7070b` (per-stage thinking configuration).
+
+### Complete private financial evidence
+
+New `agents/research/financial_evidence_manifest.py`,
+`delivery/financial_evidence_stage.py` and
+`scripts/private_financial_manifest_worker.py` keep a workbook outside the
+25-source narrative inventory. They retain every nonempty cell, formulas,
+caches, typed dates, date-system attributes, hidden rows/columns/sheets, names,
+merged ranges, formula attributes and dependency edges/findings. Exact cell,
+range and packet retrieval returns bounded dependency closure and explicit
+exclusions/blanks; oversized evidence blocks rather than clipping. Dependency
+analysis remains partial, and no spreadsheet engine recalculates the source.
+
+Semantic payloads only propose local-model concepts/status/label spans bound to
+retained cells and an installed model pin. They cannot invent values or claim
+complete interpretation. A missing selected field is not workbook-wide absence.
+The network-denied parser resolves canonical private originals and freezes
+source/request/adapter/job/revision hashes. Cached reopens recheck all original
+and derivative bytes without parsing again; foreign scope, symlinks and changed
+sidecars fail closed.
+
+The actual original-file parser check passed in **1.726 seconds**:
+
+| Retention | Observed count |
+| --- | ---: |
+| Nonempty cells, each retained once | 3,596 |
+| Formulas | 3,008 |
+| Rich bounded packets | 786 |
+| Sheets / hidden sheets | 14 / 5 |
+| Typed date observations | 97 |
+| Defined names / dependency edges | 5 / 3,768 |
+| Merged ranges / missing formula cache | 2 / 1 |
+
+Exact range retrieval passed; the original and private source copy were
+byte-identical before/after. Earlier 314-packet intake archives were preserved.
+Report:
+`runtime_qualification/private_acceptance/2026-10-13-workbook-manifest-v1-ubpvzprf/parser_check_report.json`.
+Manifest digest
+`98be71fc590440f8244b411ba59d8db9f8c2c1d31880b7e0af8b92c83e161008`;
+bytes SHA256
+`a42ff1e517c99b9631ccf035e5b3d45fabf526be662a6fbd0e6a655cb3dd60c8`;
+inventory digest
+`ca51a85a1e826d716b89e5ee22529431b1e79e8fffb17c44de25400d26c9b47d`.
+**Semantic coverage unassessed; financial status unreconciled; recalculation
+unperformed; financial validation and independent review unestablished.** No
+financial model inference or manual company-value correction occurred.
+
+### Room and frontend integration
+
+The opt-in `room-v63-source-quotes` bridge creates private financial sidecars
+before source selection (maximum three workbooks within the bounded pass).
+It excludes legacy flattened XLSX rows from narrative sources and always binds
+complete inventory digests to the source fingerprint, frozen model profile and
+later coverage/core evidence scope. Missing, foreign, stale or excess indexes
+block. Changed financial scope also blocks the accepted-memo replay path.
+Initial memo-cards-v13 author payloads remain narrative-only; later coverage/core
+sees supplied-workbook/unassessed scope. This does not establish workbook
+semantics or complete financial understanding.
+
+`jobs.public_job` hides internal financial-index paths without mutating the
+private checkpoint. `RoomPipeline.tsx` displays only retention counts and
+pending interpretation/validation. It supports optional 41-phase progress for
+the paired diagnostic flow. No retention/model badge grants approval.
+
+**Production default remains `room-v62-explicit-topic-status`, FLOW10/coverage18,
+21 checkpoints.** The opt-in room-v63 stays FLOW11/coverage19/21 with fixed source
+interpretation v3, which failed live semantics. There is no room-v64 bridge or
+FLOW12 production default. No real room activation used the new contracts.
+
+### Source contracts, receipts and bounded recovery
+
+`source_interpretation.py` records literal quotes, full topic names and basis
+against complete original passages. Funding needs its own capital label;
+financial quotes retain an available own label; ambiguous literal matches block.
+V1 frozen grouped requests remain unchanged. V2 atomizes assessment; V3 changes
+generic question/heading wording; V4 places evidence first in the actual schema;
+V5 encodes the existing nonempty-topic/kind consistency rule. All versions retain
+old source/schema/options/pin/raw replay. None supplies company answers.
+
+`source_interpretation_pair.py` separates two actual local-model tasks:
+
+1. Quote/topic extraction, with no kind field or union in that schema.
+2. Kind selection from the full original source and the exact first raw answer,
+   response ID and hash. Nonempty topics constrain kind consistency; software
+   still does not select a topic or kind.
+
+Coverage20/FLOW12 binds both actual rows. Its 25 fixed pair slots, one selector
+and 15 core slots give **41 checkpoints**, at most 50 source-assessment model
+calls plus one selector (up to 75 assessment HTTP requests for Pair2). Each
+active pair remains at most 105 seconds/six HTTP requests; wrapper 118 seconds.
+Empty tail slots advance explicitly. Logical pair receipts are not model rows.
+Per-request intents are durable before inference. A missing raw response after
+an intent or a recorded failed call blocks; no repeat is allowed. A crash after
+a committed first response and before the second intent may resume only the
+unread task within its unused cumulative pair time, with append-only recovery
+events. It cannot relabel a failed call as resumable.
+
+Pair1 freezes fast generation. Explicit Pair2 preserves prompts, schemas,
+criteria, source bytes and kind templates while freezing separate stage options:
+P1 genuine bounded thinking (1,024 reasoning/700 final, 8,192 context,
+temperature 0.6); P2 fast 700-token kind selection. Native thinking binds two
+transport receipts and reconstructed full-input/schema hashes. Intermediate
+thought text remains ephemeral; recorded hashes are provenance, not a
+reconstructible thought-content audit.
+
+`local_models.py` records ordered JSON-format hashes at the actual local-client
+argument boundary after the request budget is charged. Fast chat and thinking
+final generate receipts are distinct. Unsent requests cannot create a receipt.
+**These are client-argument/transport records, not serialized HTTP-byte or server
+grammar attestation.** Passing them does not establish semantic correctness.
+
+### Actual live source results
+
+All branches used frozen fictional controls with gold outside inference.
+Known controls are now regressions, not fresh held-out/unseen-company evidence.
+All outputs and failed reports remain unchanged in
+`runtime_qualification/local_semantic_canary/`.
+
+| Directory suffix | Configuration | Matches / executed | Blocking finding |
+| --- | --- | --- | --- |
+| `2026-10-12-evidence-first-9b-v1` | Grouped v1 | 4 / 5 | Financial table kind/market/label scope; five unrun |
+| `2026-10-12-atomic-quotes-9b-v2` | Atomic v2 | 2 / 3 | Product omitted; seven unrun |
+| `2026-10-13-atomic-quotes-14b-v2` | Atomic v2 | 9 / 10 | Explicit evidence limitation treated as heading |
+| `2026-10-13-atomic-questions-14b-v3` | Question wording v3 | 9 / 10 | Same heading/unknown failure |
+| `2026-10-13-evidence-before-kind-14b-v4` | Ordered evidence v4 | 9 / 10 | Unknown quote extracted, but heading kind contradicts it |
+| `2026-10-13-consistent-evidence-14b-v5` | Consistency grammar v5 | 2 / 3 | Product omitted; seven unrun |
+| `2026-10-13-separated-source-tasks-14b-v1` | Fast Pair1 | 2 / 3 | Product omitted; seven unrun |
+| `2026-10-13-separated-thinking-14b-v2` | Thinking Pair2 | **1 / 2** | Contact address tagged identity/information; eight unrun |
+
+The installed 14B digest was
+`bdbd181c33f2ed1b31c972991882db3cf4d192569092138a7d29e973cd9debe8`;
+9B digest
+`6488c96fa5faab64bb65cbd30d4289e20e6130ef535a93ef9a49f42eda893ea7`.
+Final Pair2 used four actual model calls/six HTTP requests. Its two passes took
+46.388 and 57.684 seconds; native reasoning/finals stopped normally. Exact
+source/proposal/pin/options/raw/schema, request intents, format receipts and
+native input/transport binding passed independent audit. It still failed the
+contact control. Product/financial/unknown improvement was not established
+because the remaining eight cases were unrun. No new variant followed.
+
+Final audit:
+`2026-10-13-separated-thinking-14b-v2/independent_separated_thinking_14b_pair_v2_audit_2026-10-13.json`,
+SHA256 `f55ac22c4457e65cc3dfc1131ef81870c80e11f6fa93ea430f80ae17daa62efd`.
+Earlier V4, V5 and fast Pair1 audit SHA256:
+`f64f2b0d00cabe7c4a67cb7aba150df9fea85f22c28c8b12772d4f640ccaa26a`,
+`0cec360dcf5e0faf2ece92090c213e84400c08de603556c9794980e929187c92`,
+`0b052e70188785c596dc0a49086899ba3350c2a95b305c9bec3efc98e4dca46f`.
+Code/schema order was investigated; no definitive grammar-causation finding or
+claim that all local models are incapable is justified.
+
+### Prepared private branches were not run
+
+Under the unchanged private October5 memo root:
+
+- `memo-content-v64-evidence-before-kind`: FLOW11/coverage19/v4 prepared, no new
+  model call. Eight old source-unit prerequisite responses were copied and exact
+  replayed, with `prerequisite_provenance.json`; no old classifier/adjudication,
+  selector or core-writing/review record was inherited.
+- `memo-content-v65-consistent-evidence`: v5 prepared, no prerequisite copied and
+  no inference.
+- `memo-content-v66-separated-thinking`: FLOW12/coverage20/Pair2 prepared, no
+  prerequisite copied and no inference.
+
+Frozen financial scope/22 narrative geometry records are metadata only. These
+prepared directories are not accepted runs. Original narrative source-set digest
+remains `bd1e1992312b2a47d6da273ae36ef7ab0c7903093092a745d751f082eac9fdd4`.
+Historical V43 memo/V22 exports retain their draft status; no new Office/PDF
+artifact or substantive company answer was authored by any agent this turn.
+
+### Software verification, separately from live acceptance
+
+| Checks | Result |
+| --- | --- |
+| Source interpretation mechanical contracts/history | 42 passed |
+| Separate Pair1/Pair2 contracts | 10 passed |
+| Financial manifest + private stage | 20 passed; 15 existing dependency warnings |
+| Local factual/bounded transport/context | 77 passed |
+| Earlier room routing/integration compatibility | 190 passed; later scope guard passed |
+| FLOW12 durable pairs/replay/failure/crash recovery | Three passed; explicit Pair2 metadata case passed |
+| Final combined source/room/scope/history selection | **27 passed, 43 deselected, 30.96 seconds** |
+| Frontend TypeScript/build/lint | Passed |
+| Final changed Python syntax | 16 files parsed |
+| Signed-in real-browser/PDF-viewer acceptance | Unrun |
+
+Counts overlap; do not add them. Final selected command was:
+`.venv/bin/python -m pytest -q tests/research/test_private_source_unit_worker_v11.py tests/research/test_private_source_unit_worker_v12.py tests/research/test_source_interpretation_pair.py tests/delivery/test_investment_memo_stage.py -k 'flow11 or flow12 or explicit_pair_v2 or complete_source_room or financial_index or room_financial_scope or source_interpretation_pair'`.
+These checks establish mechanical contracts, not model semantics, financial
+qualification, investment quality or regulatory approval.
+
+### Runtime cleanup and API reload
+
+At 01:00:36 UTC, zero running jobs/unexpired leases were confirmed before stopping
+only verified API PID60830. Consistent private SQLite backup:
+`runtime_backups/2026-10-13-workbook-source-refactor-api-reload/deal_automation.db`,
+SHA256 `26d33459c296aacfb7f34f812b79acfa9fb41494fbb5cdff71f43f9d719b63d5`.
+The matching hash reflects unchanged database contents; the backup is a separate
+0600 file. New API PID**75183** runs
+`scripts/serve_local.py --local-dev --without-worker`, without reload.
+
+Final checkpoint at **01:01:27 UTC**: API/UI HTTP200, Ollama loaded-model list
+empty, no task inference/training/test/private worker process; room states remain
+22 awaiting input, three blocked, four cancelled, two queued, zero running and
+zero unexpired leases. Both queues and user VSCode Claude process were preserved.
+All three supplied original hashes and 13 final failed-profile files match.
+Checkpoint:
+`runtime_qualification/local_semantic_canary/2026-10-13-separated-thinking-14b-v2/final_runtime_checkpoint_2026-10-13.json`.
+No room worker was started. Google OIDC, signed-in browser, full Office/financial
+and investor acceptance remain unestablished.
+
+### Required change of approach
+
+The tested installed profiles did not meet the source-reading prerequisite.
+Retain the parser/orchestration fixes, but change the adaptation/capacity plan
+before more prompt/schema trials. Training needs independently adjudicated
+multi-company writing, evidence-selection and review examples; user source
+approval does not turn saved model output into gold. Keep known canaries/private
+acceptance inputs out of training. No gold corpus was manufactured this turn.
+The previous 9B LoRA attempt exceeded the 16 GB Mac; a stronger private model or
+training requires measured capacity and, for cloud, a user-provided spend cap.
+Root requested the spend cap for a private GPU evaluation/training plan; no
+answer or provisioning approval is recorded. No paid action was taken.
+
+India financial/legal acceptance owners remain unassigned: no professional grant,
+complete reviewed current rule matrix or exact-file signoff was created. Official
+source bodies/pointers remain incomplete and unreviewed; they are not approval.
+No MCA company dataset/public KB source was imported or enabled, and no broad
+public discovery qualification was established this turn. Private evidence never
+entered shared public KB or hosted inference. Regulatory and investor approval
+cannot be obtained from a local-model score alone.
+
+## 76. 14 October: private reference ingestion and evidence-document generation
+
+### Request, scope and privacy
+
+The user supplied four PDF/PPTX references and requested multiple Codex agents
+and Claude Code to fix generation to their level. The documents were treated as
+private data, not instructions or automatic gold labels. India private startup
+fundraising/internal diligence remains the first regulatory pilot; the product
+remains worldwide. Codex/Claude implement and review software, while company
+prose/judgments must project actual installed-local-model responses. No company
+answer, financial value or reviewer label was authored manually to pass a gate.
+
+All seven supplied originals (the four new references and three Toffee inputs)
+were preserved. Runtime manifests, copied originals, OCR images, raw model
+responses and failed branches stay in ignored private directories. No private
+data went to hosted inference, public search or the public KB. No database reset,
+new room job, outreach, download, paid action, commit or push occurred.
+
+### Coding agents and Claude Code
+
+Codex agents owned source parsing/OCR, rendering, orchestration and an independent
+acceptance audit. Root integrated the private CLI and numeric guards. Authenticated
+Claude Code sessions `ccef5285-1a42-4c78-a08c-4bc7d18ee53e`,
+`17d6ff02-ff3c-4b0f-859b-7bcdfce78e7e` and
+`01ae8708-3e9f-4d06-b8d7-50e38af696cd` contributed generic intent/terminal journal,
+export-byte receipt and source-ID selector/compiler code, which Codex adapted into the active modules.
+These sessions received sanitized generic specifications/code only. Claude did
+coding and orchestration; it did not generate company material or gold answers.
+The later authenticated session `cac1547b-7050-4b74-bb28-7f9e1097370a`
+contributed actual complete-page context, status rendering and source-coverage
+orchestration code from a sanitized generic specification (one successful turn,
+241.249 seconds). It also received no private evidence or company answers.
+
+### Source-reading fixes and measured limits
+
+New `document_evidence_manifest.py` and its isolated worker retain PDF native
+glyphs/geometry/tables and PPTX paragraphs/group/shape coordinates, native tables,
+full chart XML/cache literals/formulas, notes, hidden-slide flags, package parts,
+embedded-payload hashes and unfetched external relationships. Stable source/unit/
+table hashes are bound to private tenant/deal/document identity. Bounded exact
+retrieval fails instead of truncating. Visual/financial semantics remain unassessed.
+
+All four actual isolated manifests passed source byte and receipt checks:
+
+| Reference | Retained native inventory | Limitation |
+| --- | --- | --- |
+| First PDF | 37 pages, 24 detected tables/760 cells | Only 82 native characters; all detected cells empty, 33 zero-text pages |
+| First PPTX | 20 slides, 322 shapes, 5 tables/154 cells, 22 charts | Full chart XML retained; all 22 charts link external workbooks |
+| Second PPTX | 27 slides, 205 shapes, 3 tables/505 cells | Visual-object semantics remain unassessed |
+| Second PDF |35 pages,16 detected tables/1,277 cells | Only 61 cells nonempty; native extraction does not reconstruct qualified financial tables |
+
+The combined immutable native report is
+`runtime_qualification/private_acceptance/2026-10-14-reference-manifests-v1/reference_ingestion_report.json`.
+Each company uses a separate deal ID; no cross-company evidence pooling occurred.
+
+New local OCR uses a source/binary-pinned Swift Apple Vision worker, CPU-only,
+automatic language correction disabled. Generic compilation receives no private
+inputs. Complete-page rasterization and recognition run sequentially in separate
+network-denied boundaries; nested Seatbelt was rejected and removed. A checked
+generic executable is copied into the private job without granting its parent
+directory. Original, raster, request, raw response, executable and receipt hashes
+remain bound. Reopen performs no recognition; read-only replay reconstructs the
+projection from raw OCR plus the raster inventory rather than trusting derived text.
+
+The synthetic literal canary passed this real native boundary. Both actual PDFs
+then received complete local OCR: 37 pages/881 observations in 7.406 seconds and
+35 pages/714 observations in 8.340 seconds. Native manifests remained unchanged;
+the OCR-derived manifests are separately versioned. Failed compiler/native
+boundary branches v1–v3 were retained, with no overwritten raw evidence.
+
+**Important financial limit:** independent inspection found dropped/misread
+decimals and an omitted financial cell despite confidence 1. OCR observations
+remain unreviewed transcription, not reconstructed cells or verified figures.
+Root added a numeric/date guard: an OCR-supported assertion without matching
+quoted non-OCR support blocks generation. Nonnumeric OCR-supported prose retains
+an explicit unverified-OCR source label. No decimal, sign or missing value was
+guessed or replaced. Private financial examples stay out of tracked documentation.
+
+### Document orchestration and richer export
+
+New `document_generation.py` freezes complete source handles and offers a generic
+local model plan, per-page author and separate reviewer. All 12 diligence topics
+require explicit treatment or missing status. The model selects original source
+units and table row/column coordinates, authors page titles/body/column labels/
+captions, and supplies claim-specific exact quotes/basis. Code copies source cells
+literally and renders neutral missing/source labels. Header rows cannot become
+data rows; blank source cells display `Blank in source`, never zero.
+
+`document_generation_stage.py` runs one new model task per advance under 105
+seconds/six physical requests. Private append-only intent, budget, raw response
+and checkpoint files are fsynced and locked. Failed or unresolved intents stay
+terminal. Reopen replays frozen sources, pins, prompts, schemas and old answers;
+there is no unbounded retry, human company repair or approval shortcut.
+
+The explicit V2 catalog fixes actual duplicated metadata capacity: each original
+handle appears once, source ledger references replace repeated hashes, and
+selected complete units keep literal content/status/coordinates. Full original
+XML remains in the private inventory. Historical V1 request/response bytes and
+default encoding remain unchanged. Cached tokenizer estimates fell from about
+21,204 to 10,266 full-prompt tokens for the first native source; actual context
+receipts, not those estimates, decide acceptance.
+
+Root added `evaluate_reference_generation.py` and its isolated worker to verify
+original/native/OCR provenance before prepare/advance/verify/export. It cannot
+create a room, reset saved data or release an artifact. Exact replayed contiguous
+authored prefixes may export as explicit partial drafts; no authored page means
+no export. Receipts bind actual editable/PDF bytes, model records, planned/authored
+counts and review state, with financial/regulatory/investor approval unestablished.
+Immutable digest-named export directories preserve older diagnostic versions.
+
+The additive renderer supports native editable PPTX/DOCX tables and matching
+searchable PDFs. Oversized prose/cells/tables are refused, never clipped. Supported
+native PPTX charts retain exact original cache literals/categories in editable
+chart XML/embedded XLSX and a literal PDF companion. DOCX charts are images with
+editable data tables. Combination/unsupported axes, sparse/nonfinite cache and
+external relationships block. All 22 supplied native charts have actual external
+workbook links; none were fetched or repurposed. Original cache retention does
+not establish financial reliability. This plan schema selects prose/tables;
+local-model chart selection is not enabled.
+
+Isolated synthetic Office/PDF export inspection found negative bars rendered
+upward despite correct numeric caches. Explicit negative-fill behavior and a
+shared zero baseline fixed the final plots. The defective visual branch remains
+preserved. Final generic table and chart artifacts/PNGs/receipts are under
+`runtime_qualification/synthetic_table_rendering/2026-10-14/` and
+`runtime_qualification/synthetic_chart_rendering/2026-10-14/final-v4/`.
+Embedded-workbook release inspection remains blocked pending audience review;
+no generic qualification was waived.
+
+Commands and contracts: [REFERENCE_GENERATION.md](deployment/REFERENCE_GENERATION.md).
+
+### Earlier live plans — failed before page authoring
+
+The same generic historical-source mandate was used. Every branch stopped after
+one logical model call/one physical request. No failed answer was repaired, and
+no page-author, page-review or company export stage followed.
+
+| Branch | Actual measured result |
+| --- | --- |
+| `2026-10-14-bluestone-native-intro-v1` /9B | 73.170 seconds; output retained, context-integrity guard failed at runtime overflow cutoff |
+| `2026-10-14-bluestone-native-intro-compact-v2` /9B | 76.320 seconds, normal stop/full-context receipt; product omitted from pages and missing status, header rows also chosen as data |
+| `2026-10-14-bluestone-native-intro-14b-v2` /14B | 105.066 seconds; cancelled, empty raw output/no usable token receipt |
+| `2026-10-14-second-native-intro-14b-v2` /14B | 105.099 seconds; cancelled, empty raw output/no usable token receipt |
+
+The V2 9B semantic audit also found headings or mismatched evidence selected for
+substantive topics. The two 14B attempts demonstrate failure within the bounded
+capacity envelope; they provide no semantic score or full-context verdict.
+All pins, requests, raw failures and sources remain exact. Neither a complete new company material
+nor Toffee-level depth, financial qualification or investor approval was achieved.
+No weights were trained.
+
+Independent private audit:
+`runtime_qualification/private_acceptance/2026-10-14-reference-independent-audit-v1/reference_acceptance_audit.json`,
+SHA256 `ba70a3d5c10bf16abcf0f48d0875b3af0bda74f4b13c97fa02757d8fe47fd22e`.
+The fourth-branch supplemental audit is a new immutable file beside it,
+SHA256 `b436477d8bee94bddbb5484a93661c102fedcc85877414a67fe0e85c81328ae7`.
+Neither audit authored replacement company prose or labels.
+
+### Complete source traversal and fixed source-ID selection
+
+A subsequent independent audit exposed a concrete orchestration defect: the
+20-slide source retained 1,394 units, but the planner saw literal text from only
+40 opening units. Its 29 selected narrative units all came from those openings.
+The old unit-only topology also represented only 13 of 37 physical PDF pages,
+omitting image-only pages. Those failures cannot establish model capability
+after complete reading. Their original bytes remain untouched.
+
+The additive `complete-source-maps-v1` profile freezes every physical page,
+including pages with no readable literal text. Every available paragraph, note,
+table cell and chart-cache literal is presented whole to a bounded local reader
+before planning. Shared context/node palettes compact metadata losslessly;
+original literal and location reconstruction is exact. Opaque chart XML and
+visual-object semantics remain explicitly unread. All twelve topics require a
+decision per page. Missing/unresolved/failed maps prevent planning and cannot
+export as authored pages; map receipts bind the real plan and export chain.
+The lifetime limit is map count + 81, with each advance still one call,
+105 seconds/six physical requests. Old V1/V2/default requests remain unchanged.
+
+The first 27-page quoted-reader run passed two heading/agenda pages, then failed
+on the first substantive page: 900 output tokens exhausted, partial JSON and
+nonliteral joined cell quotes. Raising the allowance alone would not fix that
+binding problem. The failed raw third record was retained and excluded.
+
+The explicit `unit-ids-v2` reader uses twelve fixed topic fields and selects
+original unit/table IDs. Software retrieves complete unchanged strings into a
+deduplicated planning pool; it does not join cells, repair figures, author prose
+or assign reviewer gold. Own-page/table/blank/OCR checks remain mandatory.
+Profiles and 900/1,600-token budgets are frozen per page, so exact successful
+historical requests remain identical. The author/reviewer receive the original
+historical-source user mandate; reader labels remain unreviewed proposals.
+
+`verified_source_map_prefix` and `adopt_source_map_prefix` verify identical source
+inventory, frozen requests, pins, kind and mandate before copying only successful
+raw responses byte for byte. Adoption receipts bind both branches' raw/intent/
+request/source hashes and report zero new inference or physical requests. They
+create no fake budget records. Reopen checks the parent chain and blocks missing,
+altered, orphan or cyclic adoption. The actual new branch adopted exactly two
+successful maps; its parent's failed third map was not copied or amended.
+
+Initial isolated replay lacked read permission for its adopted parent request;
+that boundary failure occurred before a new model intent/call and was archived
+unchanged. `run_private(extra_read_literals=...)` now grants only exact verified
+lineage/source files. A literal parent-directory grant allows listing without
+reading arbitrary descendants; writes remain inside the current job. Actual
+isolated replay then passed with zero inference before continuation.
+
+The source-ID branch stopped at map fourteen. Thirteen maps pass exact binding,
+but independent content audit found mixed historical/projected financial basis,
+omitted corresponding amount IDs, weak identity evidence and topic omissions.
+These are release-relevant semantic issues; software passes or traversal counts
+do not approve them. No company answer was manually replaced. Final live and
+runtime results are recorded below.
+
+The terminal map selected three zero-length original units as market evidence.
+It stopped normally with 829 output tokens/2,670 prompt tokens and 59.479 seconds
+of inference, so this is source selection failure, not timeout or truncation.
+Across fourteen actual records, two are adopted and twelve are new model calls/
+physical requests. No global plan, page, review or export followed. The model was
+unloaded after the run. The immutable independent final audit has SHA256
+`c718a9ed3982a287e82b02976e3717ea86f5a60dfd37fe8d8b45ae1e91f949d2`.
+
+The additive `unit-ids-bound-v3` schema now enumerates own-page nonblank original
+IDs once in a shared definition. Blank originals remain in the read input;
+empty/visual-only pages permit no selections. It binds the exact map destination
+and original table IDs. This constrains structural choices, never relevance or
+financial truth. Fourteen focused bound-reader/old-reader/CLI checks passed.
+Independent review compared all 54 frozen map requests from the two actual old
+branches against regenerated requests: exact equality, unchanged request files.
+Its code audit SHA256 is
+`7439f57a02ee17340781fa193995c593d971cea4aa08ae0e99e0a9255eb047f0`.
+
+### Local coverage critic, visible status and financial table context
+
+The additive `complete-page-context-v1` profile introduces all source maps, then
+all local coverage reviews, then planning/writing/page review. Each coverage
+review reads the complete original page plus its actual mapper response. It
+returns compact topic patches; software projects only those recorded changes
+over the recorded mapper choices. Pass requires no patches, corrected requires
+distinct changed topics, and unassessed blocks planning. Both actual raw hashes,
+request digests and effective-projection digest bind the planning catalog.
+No fake mapper/reviewer response is synthesized, and model correction is never
+professional financial/legal or investor approval.
+
+The profile freezes an optional separate installed source-critic pin. Existing
+author/page-review pins and mapper requests stay unchanged, permitting exact
+successful mapper reuse. Its finite lifetime is `2 × map count + 81`; each advance
+remains one model call/105 seconds/six HTTP requests. Stage and private export
+retain separate actual mapper/critic receipts and the correct plan offset.
+The focused stage/CLI/export gate passed 37 checks in 5.98 seconds. Counts overlap
+other gates. No model, native OCR/compiler or live company material was used by
+these software checks.
+
+Authors/reviewers receive complete original same-page companion literals, so
+qualifiers outside the planned source/table slice remain quoteable. Recorded
+claim basis is displayed as concise status metadata without rewriting prose.
+Chart-cache relationships remain unrecalculated and source semantics unassessed.
+Independent review found and fixed a table-footer original-ID/model-handle
+mismatch before live use. Its generic scope/role audit SHA256 is
+`f2c4c316cf192455dd7c01a5cd175d9364eefb88f0bb3f355d72b3190ca49205`.
+
+Root then found that the mapped planner had table IDs/text without table shape
+or cell coordinates. The context profile alone now carries exact complete
+original table navigation: zero-based rows/columns, full literal rows, cell model
+handle matrix, original table locator and geometry/cell binding digest. Selected
+literal locations are visible. Replay reconstructs these from the frozen
+inventory and rejects altered/rehashed navigation. Navigation cannot expand
+permitted narrative IDs or qualify figures; old mapped catalogs remain exact.
+
+An additional geometry-only capacity probe found duplicate primary units plus
+whole companions overflowing the 32,000-character bound even for short financial
+row selections. The new profile was compacted to carry whole companion
+units once, exact selected cells and their handles, and conservative row-capacity
+hints. Software chooses no company rows, repairs no value and raises no limit.
+This probe created no model response, company plan, gold label or artifact.
+Independent read-only geometry inspection confirmed reasonable selections from
+all three actual native tables fit the unchanged 32K bound. The largest table's
+three-row/seven-column request uses 28,642 characters including metadata reserve;
+the full 396 original cells remain in its complete companion. Original literals,
+locators, model handles and value-reference targets roundtrip exactly. Oversized
+selections still block. Audit SHA256:
+`edaf9f4d213155f58131f6c739b48d47a26f5c52d397491a0322740cfc93e6ef`.
+
+The new bound schema also separates selected/nonselected branches: selected needs
+one or more allowed nonblank IDs, unselected arrays must be empty, and pages with
+zero choices cannot claim a selected topic. Root's combined bound/context/scope
+gate passed 13 checks in 1.53 seconds. A later source-prefix preflight compared
+dynamically reconstructed Python schema-class identities and blocked adoption
+before any raw write/model call. It now compares the complete canonical schemas,
+requests, original bytes and receipts. Twenty-one adoption/compatibility checks
+passed in 3.68 seconds. That boundary failure was preserved; the frozen request
+was unchanged. Exact adoption subsequently copied thirteen raw records with zero
+new inference and passed isolated replay.
+
+The fresh `2026-10-14-gsi-complete-context-intro-v5` run uses the exact installed
+`qwen3:14b` source critic, `qwen3.5:9b` writer/page reviewer, historical-source
+mandate and finite 135-call lifetime. The initially mistyped critic tag was
+rejected during lookup before directory creation or inference; no model was
+downloaded. All 27 mapper calls completed, but independent inspection found
+substantive false negatives. The first 14B critic promoted cover/date/confidential
+notice evidence into substantive topics incorrectly. Its second call cancelled
+at 105.249 seconds with empty raw output. The wrapper ended before checkpoint 29;
+the raw response and complete budget records remain preserved. Exact replay is
+blocked. There are 29 records: thirteen adopted and sixteen actual new calls
+(fourteen reader calls and two critic calls). No plan, authored page or export
+followed. Both models were unloaded before the next code change. Terminal audit
+SHA256: `f23d3ef8a5412344d5e5b2802f25a19e1cfdd73eb7dbee16890db4bde083d533`.
+
+### Direct complete-original-literal planning
+
+The concrete refactor replaces preliminary semantic filtering for sources whose
+complete literal catalog fits the unchanged 48K-character bound. The new
+`document_literal_catalog.py` exposes every original paragraph/note and every
+native table cell once, with original two-dimensional grids, model-handle matrices,
+locators, cell bindings and capacity hints. It retains blank pages/cells and
+unread visual/opaque/chart/OCR provenance explicitly. Reconstructing from original
+inventory rejects rewritten or resealed catalogs; oversized sources refuse
+without truncation. No code-authored company answer or gold label is introduced.
+
+Explicit `complete-document-literals-v1` / `complete-literal-context-v2` freezes
+an actual global plan as record one, then mandatory local page author/review.
+Mapper, adoption and separate source-critic parameters are forbidden. Source
+mapping and coverage review are recorded as `not_performed`; semantic reading
+and professional approvals remain unestablished. The finite lifetime is 81 calls,
+with at most seventeen actual calls for an eight-page intro. Old V1/V2/V3 frozen
+request branches and production room defaults remain unchanged.
+
+Focused integration gates passed separately: orchestration four in 0.31s;
+stage/worker/CLI thirty in 1.19s; independent scope two in 0.20s. Counts overlap.
+Tests stopped before inference. The actual private catalog contains all 780
+available literals, including 505 native cells and 275 other literals, all 27
+physical pages and three native tables, using 37,856 characters. This establishes
+lossless native literal exposure, not complete visual understanding or runtime
+context acceptance. The fresh `2026-10-14-gsi-complete-literals-intro-v6` run
+copies the existing historical-source mandate and installed 9B pins unchanged.
+Its one live plan call cancelled at 105.005 seconds, with empty raw output and
+105.011-second cumulative budget, one request and no final prompt/generated-token
+receipt. Exact replay is blocked; no pages or export exist. This establishes a
+capacity failure, not model semantic quality. The local model was unloaded.
+Terminal audit SHA256:
+`864cad87a9f87104d3995462b70a4a000d46180ed3194ccbc8109f2ed292dda5`.
+
+Measured transport had 36,485 user-evidence characters and 3,899 system/schema
+characters; evidence was serialized once. Explicit thinking was disabled and
+sampling/context/output settings remained frozen. `complete-document-literals-v2`
+is an additive lossless encoding: a shared `page_columns` header replaces repeated
+page property names with positional arrays, retaining every field and original
+table navigation/geometry. Actual compact catalog size drops from 35,119 to
+30,326 characters (standard JSON 37,856 to 32,804). All 27 original page frames,
+780 literals and three table views roundtrip exactly; the old V1 catalog remains
+byte-exact. The same complete-literal-context-v2 and release rules apply.
+
+The V2 alias was wired across generation, stage, private worker and CLI. One focused
+alias check passed in 0.25s and 48 stage/worker/CLI integration checks passed in
+1.40s, including both direct encodings and historical export/critic cases. Counts
+overlap earlier gates; tests stopped before inference. The archived V6 request
+still reconstructs exactly and all its existing file hashes are unchanged.
+Claude Code completed a fifth authenticated generic coding session,
+`e9e00f60-90ba-4a52-a47c-caad178050b2`, supplying versioned adapter/orchestration
+code in one successful 44.651-second turn. No private input, company names/text,
+model company outputs or gold labels were sent. The fresh private run
+`2026-10-14-gsi-compact-literals-intro-v7` keeps the existing historical mandate,
+9B author/reviewer pins, options and all release gates. Its one actual plan call
+cancelled at 105.009 seconds with empty raw output; cumulative budget105.017s,
+one HTTP request, no final token receipt. No plan, pages or export were produced.
+The model was unloaded before subsequent coding. Failed V6/V7 raw bytes and
+request projections remain unchanged.
+
+The next concrete capacity change separates planner/writer roles explicitly.
+Only the new compact encoding permits optional `planner_pin`; its global plan
+freezes `page_author_pin` independently. Page requests use that original author,
+not the planner. Each actual phase checks its installed model digest before an
+intent or inference; exports include planner/author/reviewer identities. Default
+and all historical frozen requests remain unchanged. Four focused role/compatibility
+checks passed in 0.36s (an initial test-only assertion used `financial_status`
+instead of the actual final `financial_validation`; corrected with no product
+change). Tests stopped before the fresh live run.
+`2026-10-14-gsi-4b-plan-9b-author-intro-v8` explicitly uses installed4B for the plan
+and installed9B for writing/review, with the same complete literal context and
+original source mandate. Its first plan call is running; no capability or investor
+acceptance is inferred from the role change.
+
+Independent input inspection then exposed a separate core reading gap: seven
+financial/model/transaction appendix slides are mostly image content, despite
+complete native paragraph/cell retention. Their EMF images contain 894 original
+Unicode TextOut records (12,382textbytes); across29EMF parts there are1,504records
+and21,536textbytes, valid UTF16 extents and no observed glyph-index/ANSI/boundary
+errors. Those stored literals are not yet in the native manifest. The largest
+native table is a competitor matrix, not financials. The ingestion agent is
+implementing opt-in native EMF extraction with exact strings/coordinates/font
+references/mediaSHA/slidebindings and no value corrections or inferred tables.
+Visual visibility, financial semantics and augmented catalog fit remain unqualified.
+
+Private supplemental audit hashes: mapping/topology scope
+`f36d676cdcb98a42d3e997b0c8f87cd76f3cea9472cfd21a3fe7100cf2122bd0`;
+complete quoted maps
+`14c58f9fd8d0ba55b6fcb0de5608547167b282536a425422279bedbb9e97f3a9`;
+selector/adoption code
+`8d71971d2538d79c5c1cb4d708721689e2222f46dea5f4d7ee0daefb851fe337`;
+actual selector maps three/four
+`345e716da9ee9990aaff30b66925e85965cd438ea9e1c0c317591591d87c0c89`.
+Private financial examples remain solely in ignored audit files.
+
+### Tested code, runtime and next work
+
+Focused software checks passed separately: native manifests seven; OCR/boundary
+nine before the final read-only replay additions; stage/export contracts 19;
+synthetic chart checks eight and table/renderer compatibility 116 with one optional
+canary skipped. Root's combined generation/stage/export/OCR/font selection passed
+36 in 1.02 seconds. Counts overlap and must not be added. Native synthetic export
+and visual checks do not establish live company content or release acceptance.
+Final replay/CLI integration checks and runtime checkpoint are recorded below.
+
+Production defaults remain `room-v62-explicit-topic-status`; no new reference flow
+was enabled in rooms or the frontend. API PID75183 still loads 13 October code;
+the new diagnostic CLI uses fresh modules. No API restart or new room worker was
+needed for this independent slice. Preserve both queued jobs and all shared work.
+
+The capability/adaptation plan still needs independently adjudicated multi-company
+writing/evidence-selection/review data, with private references and known canaries
+kept held out. Source approval alone does not establish gold labels. The earlier
+9B LoRA attempt exceeded this 16 GB Mac. No larger download, AWS provisioning or
+training occurred; the previously requested cloud spend cap remains unanswered.
+India financial/legal owners, a complete reviewed current rule matrix and
+exact-package professional signoff remain missing. No MCA dataset, broad public
+KB source or discovery qualification was added by this document-generation work.
+
+### Complete visual literals and terminal planner evidence
+
+The native EMF/SmartArt implementation completed: the separate V2 canary adds
+1,504 Unicode EMF records and 26 separately tagged SmartArt data/cache strings
+to the original 780-unit inventory, yielding 2,310 unchanged literals. Fonts,
+logical coordinates, bounds, clipping, original media hashes and transform state
+roundtrip exactly. Legacy binary Word objects remain unparsed. This does not
+establish visible financial table structure or reconcile reported figures.
+The opt-in dense V3 catalog retains all original page frames, literals and native
+grids in 44,744 standard / 41,155 compact characters. Complete companion groups
+range from 1,999 to 30,429 characters; final combined author/reviewer capacity
+still needs checking. Independent complete geometry audit:
+`c84636ef5b6502c1673c426555782a06a2e9573f001d1d0977898b9a85645011`.
+
+Later terminal branches are preserved separately:
+
+| Branch | Measured result |
+| --- | --- |
+| V8 separate 4B planner | Cancelled at 105s; empty output |
+| V9 streaming capacity | First content at 42s; 1,979 partial characters at cancellation; no terminal frame |
+| V10 dense compact anchors | Clean EOF at 43s without terminal frame; malformed unbounded page-ID output |
+| V11 finite compact anchors | Normal stop in 68.38s, eight pages; 8,194 input-token overflow cutoff blocks acceptance |
+| V12 explicit 32K planner | Normal stop in 60.98s, 18,278 input / 805 output tokens; contradicted topic coverage, invalid sequential unit IDs and invalid table ranges block acceptance |
+
+The 32K profile applies only to explicit dense finite planning; author/reviewer
+remain 16K, with unchanged 105-second/one-call/six-request advance budgets.
+Runtime terminal receipts and raw partial output are retained exactly. These
+results distinguish transport capacity from source-grounding capability. No
+authored company page or export followed a failed plan. Models were unloaded
+after V12. No weights were trained, downloads made or cloud spend authorized.
+
+Additional authenticated Claude Code software sessions were
+`9309ef3e-b583-40dc-b926-550603d327ce` (EMF parser),
+`f003a882-e4e7-4dff-afbe-11f9daabe160` (stream observations),
+`9bba67f0-587c-4ae0-8e7c-61df0da15be0` (compact planner), and
+`fe40d70a-7042-4724-9163-ed89f9f37204` (physical-page planner/compiler and
+generic reader code). All received sanitized software specifications only.
+The latest physical planner and complete signed-request capacity refactor are
+in progress; their software/live outcomes will be recorded separately below.
+
+### Source selection, visual matrices and measured local capacity
+
+The finite physical V13 plan completed normally (90.25s,23,099 input/1,264 output)
+but repeated one table and assigned every topic to every page. V14 switched to
+per-page synopses: two reads returned unassessed; the third summary had five
+numeric/date tokens absent from its own quoted support. These branches remain
+terminal with no company page/export.
+
+`selected-physical-plan-v5` separates retrieval from prose: each local reader
+chooses1–3 own nonblank IDs; software retrieves their complete unchanged strings.
+No synopsis/quote is written in this source task. Installed9B V16 bound the first
+three selectors; the fourth source hit the16K overflow cutoff8,194. The explicit
+source32K V17 then bound that complete fourth source in50.388s with17,797 actual
+input tokens. The runtime reports context32,768 and VRAM6,560,898,087bytes.
+V17 completed all27 source reads. Its subsequent9B global-plan call was cancelled
+at105 seconds with1,198 partial characters and no terminal/token-count receipt.
+No plan, company page or export was accepted. The measured source32K reading
+improvement is established; material quality is not.
+
+The lossless `bound-selected-refs-v2` index shares provenance/field metadata and
+rehydrates source locations from frozen originals. Measured worst-case catalog
+size for this actual inventory is32,938characters, under the unchanged48K bound;
+complete selected strings/native grids remain intact. Default source contexts
+and historical requests are unchanged. Future author/reviewer32K is an explicit
+external profile because the same full fourth source exceeds16K even before
+writer schema/metadata; it changes no source or global-plan request. Exact prefix
+reuse is being added to preserve actual successful calls rather than reread them.
+
+The private original PPTX was rendered with network/macros/link updates disabled
+and all27 pages rasterized in1.376s. Image/PDF/original/engine hashes are retained.
+VisionV1 was refused by runtime context capacity (18,167 required versus16,384).
+VisionV2 completed58.03s with18,184 input/163 output but returned an incomplete
+header and contradictory status. The expanded matrix V3 completed89.766s with
+18,308 input/1,055 output and a17x10 source-bound proposal. Independent visual
+and coordinate review REJECTED it: all label-column cells were unbound;11 rows
+mixed nativeY baselines and11 reversedX order. Unique source IDs and exact copied
+values do not establish spatial/financial correctness. No corrected grid, source
+value or gold label was authored by Codex/Claude.
+
+New coordinate-profile guards compare only known common native frames and never
+sort/move/fill cells. The repair input retains the model's raw proposal and exact
+position errors. Its first freeze exceeded the unchanged32K payload bound before
+any model call; lossless diagnostic compaction is pending. No visual matrix or
+financial package is accepted. All production room defaults/API processes remain
+unchanged; no model download, weights training, cloud spend, commit or push.
+
+### Separate source and planning roles
+
+The next diagnostic keeps the completed9B reader prefix and assigns global
+planning to installed4B. The optional external `source_reader_pin` preserves
+the exact old reader seed; `document_planner_pin` applies only to the subsequent
+global plan. The external `complete-local-materials-32k-v1` profile allocates
+32,768 context/2,200 output tokens to future authors and reviewers because one
+original source already required17,797 input tokens. Time/call limits remain
+105 seconds/one call/six requests. Its focused capacity gate passed once.
+
+`delivery/document_prefix_adoption.py` adopts only successful, byte-identical
+source/plan records with actual parent call and completed-budget proofs. It
+creates no model invocations or fabricated budget records, rejects unchanged
+failed/orphan requests, and excludes failed28 fromV17. CLI lineage permissions
+enumerate individual request/raw/intent/budget/manifest/receipt files, never a
+parent-directory subtree. Role/material checks passed (3 focused checks, 0.61
+seconds); adoption and exact read-capability check passed (1 check, 0.36 seconds).
+These overlap earlier gates and are not a new broad acceptance total.
+
+V18 adopted 27 actual source rows with zero new inference calls. Its installed
+4B global plan completed normally in 66.758 seconds, producing 1,292 raw
+characters. Every one of its twelve topic lists repeated all four planned pages;
+validation rejected `physical_plan_page_requires_one_to_four_model_assigned_topics`.
+No author/export followed. Both diagnostic models were then unloaded. This
+capacity improvement does not establish semantic planning quality. The next
+external `page-topics-v1` assignment profile reduces the global task to bounded
+topic choices on each page, preserving identical source-reader requests. Its
+code/live result is pending; neither failed plan is rewritten or adopted.
+
+V19 `page-topics-v1` completed normally in 61.381 seconds (21,391 input/584
+output tokens). It produced distinct topic choices, fixing the repeated matrix.
+It still selected tables with incompatible layouts, included the header among
+body rows and paired tables with other source groups. Validation blocked the
+plan before writing. No table coordinates or topics were manually repaired.
+
+The next `single-source-outline-v2` selects exactly one original source group
+per narrative page and makes no global native-table selections. This is a
+separate outlining task, not a waiver of financial/table qualification. Actual
+native/visual table generation still needs its own source-local model task.
+One focused source/replay/context gate passed (0.29 seconds). Live V20 is pending.
+
+Authenticated Claude Code session `e58029a3-30f2-4162-935a-b9c68284a7aa`
+contributed generic per-page schema/compiler code (25.949 seconds, tools disabled).
+Only a sanitized software specification was supplied; no company source, raw
+answer or training gold was sent.
+
+The optional visual feedback encoding `coordinate-diagnostics-columns-v2`
+retains all 42 coordinate diagnostics exactly, including absent/null/zero values.
+The actual repair payload is 31,461 characters under the unchanged 32,000 cap.
+One focused coordinate gate passed (0.35 seconds); source/image/prior raw remain
+unchanged. V4 is prepared, not run. The earlier spatially wrong matrix remains
+rejected and no financial approval is established.
+
+### Final wrap-up — user requested stop
+
+V20 produced a valid eight-page outline in 50.652 seconds (20,522 input/348
+output tokens). First-page 9B authorship passed binding in 20.235 seconds; local
+review rejected two scope issues. V21 adopted the exact 27 source reads, plan
+and first author (29 records, zero new extraction calls), excluding the old
+failed review with actual ancestral budget proofs. Corrected-scope review still
+rejected two claims (15.891 seconds). The one model-only repair passed binding
+(18.694 seconds), but re-review rejected two scope issues again (12.647 seconds).
+V21 is terminal; no complete new memo/deck or investor material was accepted.
+
+Vision V4 first emitted content at 75.949 seconds and was cancelled at 105.001
+seconds with 1,286 partial characters and no terminal frame. No corrected matrix
+was accepted. Original page18 contains horizontal strokes but no vertical grid;
+border-based extraction cannot establish its cells. New visual codec files are
+prepared only: tests, actual compression measurement and integration are unrun.
+
+Code checks: one repair/performance check passed (0.63 seconds); final exact
+prefix/CLI safety check passed (1.55 seconds). Neither establishes material
+quality. Progress/export reuse an already validated plan; CLI avoids redundant
+ancestry traversals while checking distinct native derivatives. Source, raw,
+intent, budget and original-file checks remain mandatory.
+
+All diagnostic models were unloaded (`/api/ps`: zero); agents/tests stopped.
+Backend/UI were healthy; no active room jobs or leases. Seven original hashes,
+four copied-source/native receipts, 143 archive members and both October backups
+matched their baselines. Full live SQLite byte identity is not established (WAL
+present). No training, downloads, cloud spend, commit or push. User Claude process
+and existing data preserved. Resume only on a new user instruction; do not present
+source/outline progress as successful investor generation.
+
+### Publication and cloud-provider correction
+
+The user selected GCP instead of AWS and explicitly requested committing/pushing
+all pending changes on 14 October. GitHub SSH authentication and Git author
+identity were verified as `pu1kitsharma`. The pending scope is source, synthetic
+tests and documentation; private inputs, runtime records, databases, model
+weights and credentials remain excluded. The visual literal codec remains
+untested/unintegrated and live investor acceptance remains failed. Publishing
+this development branch does not approve or release investor materials.

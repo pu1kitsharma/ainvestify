@@ -15,7 +15,9 @@ import urllib.request
 
 from agents.inference.model_authorship import digest
 from agents.research.investment_memo import Source, renderable_sections
+from agents.research.material_relation_review import _BATCH_CONTRACT, BATCH_OPTIONS, _SENTENCE_CONTRACT, SENTENCE_OPTIONS
 from agents.research.material_slides import replay_material_rows, render_sections
+from agents.research.material_narrative_review import options_for as narrative_review_options
 from delivery.inspection import inspect_export_pair
 from delivery.isolation import run_private
 from delivery.material_review_stage import (FRESH_REVIEW_CONTRACT,
@@ -60,7 +62,7 @@ def _installed_digest(name: str) -> str:
 
 
 def _memo_projection(memo_root: Path, *, material_draft_model: str | None = None,
-                     content_root: Path | None = None) -> dict:
+                     content_root: Path | None = None, assertion_candidates=False, temporal_candidates=False, temporal_contract="purpose_v16") -> dict:
     """Replay the accepted response IDs and reviewer against its original sources."""
     root = memo_root.resolve()
     if not root.is_relative_to(OUTPUT_ROOT.resolve()) or root == OUTPUT_ROOT.resolve():
@@ -115,8 +117,53 @@ def _memo_projection(memo_root: Path, *, material_draft_model: str | None = None
         croot = content_root.resolve()
         if croot.parent != root.parent or not croot.is_relative_to(OUTPUT_ROOT.resolve()):
             raise ValueError('Content revision must sit beside its private memo')
-        revision = load_revision(croot)
-        revised, record = replay_content_revision(accepted['memo'], sources, revision)
+        content_request = json.loads((croot / 'content_request.json').read_text())
+        if content_request.get('flow_contract') is not None:
+            from scripts.private_source_unit_worker import (
+                FLOW, load_source_unit_revision, replay_source_unit_revision)
+            from delivery.source_unit_content_stage import _history, FLOW_V2, FLOW_V3, FLOW_V4, FLOW_V5
+            if content_request['flow_contract'] not in (FLOW, FLOW_V2, FLOW_V3, FLOW_V4, FLOW_V5):
+                raise ValueError('Unknown source-unit content flow')
+            if content_request['flow_contract'] in {FLOW_V4, FLOW_V5}:
+                # This diagnostic can select a separately pinned core writer.
+                # The original memo's historical role profile stays untouched.
+                core_pin = content_request.get('core_author_pin')
+                if (not isinstance(core_pin, dict) or set(core_pin) != {'name', 'digest'} or
+                        not isinstance(core_pin['digest'], str) or len(core_pin['digest']) != 64):
+                    raise ValueError('Source-unit core author requires an exact local role pin')
+                validate_local_model_name(core_pin['name'])
+                if _installed_digest(core_pin['name']) != core_pin['digest']:
+                    raise ValueError('Installed source-unit core author digest changed')
+            if content_request.get('section_author_contract') in {'memo-section-units-author-v7', 'memo-section-units-author-v8', 'memo-section-units-author-v9', 'memo-section-units-author-v10', 'memo-section-units-author-v11', 'memo-section-units-author-v12', 'memo-section-units-author-v13'}:
+                core_review_pin = content_request.get('core_reviewer_pin')
+                if (not isinstance(core_review_pin, dict) or set(core_review_pin) != {'name', 'digest'} or
+                        not isinstance(core_review_pin['digest'], str) or len(core_review_pin['digest']) != 64):
+                    raise ValueError('Source-unit core reviewer requires an exact local role pin')
+                validate_local_model_name(core_review_pin['name'])
+                if _installed_digest(core_review_pin['name']) != core_review_pin['digest']:
+                    raise ValueError('Installed source-unit core reviewer digest changed')
+            _history(croot, accepted=True, flow_contract=content_request['flow_contract'])
+            revision = load_source_unit_revision(croot)
+            revised_json, record = replay_source_unit_revision(accepted['memo'], sources, revision)
+            from agents.research.investment_memo import Memo
+            revised = Memo.model_validate(revised_json)
+            if content_request['flow_contract'] in {FLOW_V4, FLOW_V5} and record.get('core_author_pin') != content_request.get('core_author_pin'):
+                raise ValueError('Source-unit core author role differs from exact replay')
+            if content_request.get('section_author_contract') in {'memo-section-units-author-v7', 'memo-section-units-author-v8', 'memo-section-units-author-v9', 'memo-section-units-author-v10', 'memo-section-units-author-v11', 'memo-section-units-author-v12', 'memo-section-units-author-v13'} and record.get('core_reviewer_pin') != content_request['core_reviewer_pin']:
+                raise ValueError('Source-unit core reviewer role differs from exact replay')
+            if content_request.get('section_review_contract') is not None and record.get('section_review_contract') != content_request['section_review_contract']:
+                raise ValueError('Source-unit section reviewer contract differs from exact replay')
+            section_contract = content_request.get('section_author_contract')
+            if section_contract is not None and record.get('section_author_contract') != section_contract:
+                raise ValueError('Source-unit section author contract differs from exact replay')
+            content_result = json.loads((croot / 'content_result.json').read_text())
+            if (content_result.get('state') != 'accepted' or
+                    content_result.get('final_memo_digest') != digest(revised.model_dump(mode='json')) or
+                    content_result.get('content_review') != record):
+                raise ValueError('Source-unit content result differs from exact replay')
+        else:
+            revision = load_revision(croot)
+            revised, record = replay_content_revision(accepted['memo'], sources, revision)
         if record['state'] != 'accepted':
             raise ValueError('Content revision is not accepted')
         content = {'root': str(croot), 'record': record, 'revision': revision}
@@ -124,13 +171,33 @@ def _memo_projection(memo_root: Path, *, material_draft_model: str | None = None
     sections = renderable_sections(result['accepted'], sources, attempts,
                                    projection=profile.get('section_projection'),
                                    content_revision=content['revision'] if content else None)
+    if temporal_candidates:
+        from delivery.material_stage import _material_as_of
+        from agents.research.material_purpose_draft import memo_assertion_candidates_v16, financial_unknown_candidates_v16
+        if temporal_contract == "purpose_v18":
+            from agents.research.material_purpose_draft import financial_unknown_candidates_v18, memo_assertion_candidates_v18
+            financial_unknown_candidates_v16, memo_assertion_candidates_v16 = financial_unknown_candidates_v18, memo_assertion_candidates_v18
+        elif temporal_contract == "purpose_v17":
+            from agents.research.material_purpose_draft import financial_unknown_candidates_v17, memo_assertion_candidates_v17
+            financial_unknown_candidates_v16, memo_assertion_candidates_v16 = financial_unknown_candidates_v17, memo_assertion_candidates_v17
+        elif temporal_contract != "purpose_v16":
+            raise ValueError("Unsupported temporal material contract")
+        financial_packet = financial_unknown_candidates_v16(accepted)
+        narrative_packet = {'memo_assertion_candidates': {**memo_assertion_candidates_v16(accepted), 'as_of_date': _material_as_of(root)}}
+    elif assertion_candidates:
+        from agents.research.material_purpose_draft import memo_assertion_candidates, financial_unknown_candidates_v15
+        financial_packet = financial_unknown_candidates_v15(accepted)
+        narrative_packet = {'memo_assertion_candidates': memo_assertion_candidates(accepted)}
+    else:
+        financial_packet = financial_unknown_candidates(accepted)
+        narrative_packet = {'memo_sentence_candidates': memo_sentence_candidates(accepted)}
     return {'company': request['company'], 'input_revision': request['input_revision'],
             'source_hash': digest(request['sources']), 'sections': sections,
             'memo_digest': digest(accepted),
             'content_revision': (None if content is None else
                                  {'root': content['root'], 'record': content['record']}),
-            'financial_unknown_candidates': financial_unknown_candidates(accepted),
-            'memo_sentence_candidates': memo_sentence_candidates(accepted),
+            'financial_unknown_candidates': financial_packet,
+            **narrative_packet,
             'section_projection': profile.get('section_projection'),
             'draft_model': selected_draft,
             'review_model': profile['profiles']['review'],
@@ -143,6 +210,18 @@ def _memo_projection(memo_root: Path, *, material_draft_model: str | None = None
             'memo_root': str(root), 'acceptance_root': str(parent)}
 
 
+
+def _material_base(manifest):
+    base = {key: manifest[key] for key in ('input_revision','source_hash','memo_digest','sections',
+        'financial_unknown_candidates', 'memo_assertion_candidates' if manifest['draft_contract'] in {'purpose_v15','purpose_v16','purpose_v17','purpose_v18'} else 'memo_sentence_candidates')}
+    if 'author_options_contract' in manifest:
+        from delivery.material_stage import COMPACT_MATERIAL_AUTHOR_OPTIONS
+        base.update(author_options_contract=manifest['author_options_contract'],
+                    as_of_date=manifest['memo_assertion_candidates']['as_of_date'],
+                    draft_model={'name':manifest['draft_model'],'digest':manifest['draft_pin'],
+                                 'options':COMPACT_MATERIAL_AUTHOR_OPTIONS})
+    return base
+
 def _frozen(memo_root: Path, output: Path, *, create: bool,
             draft_model: str | None = None, content_root: Path | None = None) -> dict:
     root = output.resolve()
@@ -154,7 +233,7 @@ def _frozen(memo_root: Path, output: Path, *, create: bool,
         saved_content = (saved.get('content_revision') or {}).get('root')
         content_root = Path(saved_content) if saved_content else None
     projection = _memo_projection(memo_root, material_draft_model=draft_model,
-                                  content_root=content_root)
+                                  content_root=content_root, **({'temporal_candidates':True, 'temporal_contract':'purpose_v18' if create else saved['draft_contract']} if (create and content_root is not None) or (not create and saved['draft_contract'] in {'purpose_v16','purpose_v17','purpose_v18'}) else {'assertion_candidates':True} if not create and saved['draft_contract']=='purpose_v15' else {}))
     if (not root.is_relative_to(OUTPUT_ROOT.resolve()) or
             root == OUTPUT_ROOT.resolve() or root == memo_root.resolve() or
             root.parent != Path(projection['acceptance_root'])):
@@ -163,15 +242,16 @@ def _frozen(memo_root: Path, output: Path, *, create: bool,
         'contract': 'private-material-continuation-v1',
         # purpose_v14 (distinct slide sentences) is used only on a memo whose
         # rationales passed the content review; older branches replay as v13.
-        'draft_contract': 'purpose_v14' if projection.get('content_revision') else 'purpose_v13',
-        'review_contract': FRESH_REVIEW_CONTRACT}, ensure_ascii=False))
-    require_supported_contract(FRESH_REVIEW_CONTRACT)
+        'draft_contract': ('purpose_v18' if projection.get('content_revision') else 'purpose_v13') if create else saved['draft_contract'],
+        'review_contract': ('semantic_v20' if projection.get('content_revision') else 'semantic_v12') if create else saved['review_contract']}, ensure_ascii=False))
+    if (create and projection.get('content_revision')) or (not create and 'author_options_contract' in saved):
+        from delivery.material_stage import COMPACT_AUTHOR_OPTIONS_CONTRACT
+        manifest['author_options_contract'] = COMPACT_AUTHOR_OPTIONS_CONTRACT if create else saved['author_options_contract']
+    require_supported_contract(manifest['review_contract'])
     if create:
         root.mkdir(parents=True, exist_ok=False, mode=0o700)
         _write_new(root / 'manifest.json', manifest)
-        base = {key: manifest[key] for key in
-                ('input_revision', 'source_hash', 'memo_digest', 'sections',
-                 'financial_unknown_candidates', 'memo_sentence_candidates')}
+        base = _material_base(manifest)
         base['replay_contracts'] = {kind: manifest['draft_contract'] for kind in KINDS}
         _write_new(root / 'material_request.json', {**base, 'digest': digest(base)})
         _write_new(root / 'model.json', {'profiles': {'draft': projection['draft_model']}})
@@ -182,15 +262,15 @@ def _frozen(memo_root: Path, output: Path, *, create: bool,
 
 def _material_replay(root: Path, manifest: dict) -> dict:
     request = json.loads((root / 'material_request.json').read_text())
-    base = {key: manifest[key] for key in
-            ('input_revision', 'source_hash', 'memo_digest', 'sections',
-             'financial_unknown_candidates', 'memo_sentence_candidates')}
+    base = _material_base(manifest)
     base['replay_contracts'] = {kind: manifest['draft_contract'] for kind in KINDS}
     if (request != {**base, 'digest': digest(base)} or
             json.loads((root / 'model.json').read_text()) !=
             {'profiles': {'draft': manifest['draft_model']}}):
         raise ValueError('Material request differs from frozen memo')
     rows = json.loads((root / 'material_attempts.json').read_text())
+    from delivery.material_stage import _validate_draft_routes
+    _validate_draft_routes(request, rows)
     saved = json.loads((root / 'material_result.json').read_text())
     if saved.get('state') != 'accepted':
         raise ValueError('Model-authored decks are incomplete')
@@ -198,8 +278,9 @@ def _material_replay(root: Path, manifest: dict) -> dict:
     for kind in KINDS:
         payload = {**{key: base[key] for key in
                       ('input_revision', 'source_hash', 'memo_digest', 'sections',
-                       'financial_unknown_candidates', 'memo_sentence_candidates')},
+                       'financial_unknown_candidates', 'memo_assertion_candidates' if manifest['draft_contract'] in {'purpose_v15','purpose_v16','purpose_v17','purpose_v18'} else 'memo_sentence_candidates')},
                    'kind': kind}
+        if 'as_of_date' in base: payload['as_of_date'] = base['as_of_date']
         replayed = replay_material_rows(kind, payload, rows, manifest['sections'],
                                         model_name=manifest['draft_model'],
                                         contract_version=manifest['draft_contract'])
@@ -215,12 +296,78 @@ def _material_replay(root: Path, manifest: dict) -> dict:
     return decks
 
 
+
+def _reuse_material_draft(root: Path, source: Path, manifest: dict) -> dict:
+    """Fork accepted author evidence byte-for-byte; never import review state."""
+    source = source.resolve()
+    if (source == root or source.parent != root.parent or
+            not source.is_relative_to(OUTPUT_ROOT.resolve())):
+        raise ValueError('Reusable material draft must be a distinct private sibling')
+    names = ('manifest.json','material_request.json','model.json',
+             'material_attempts.json','material_result.json','draft_passes.json')
+    snapshots = {}
+    for name in names:
+        path = source / name
+        if path.is_symlink() or not path.is_file():
+            raise ValueError('Reusable material draft evidence is incomplete')
+        snapshots[name] = path.read_bytes()
+    original = {name: json.loads(raw) for name, raw in snapshots.items()}
+    old = original['manifest.json']
+    keys = ('input_revision','source_hash','memo_digest','sections','content_revision',
+            'draft_contract','draft_model','draft_pin','author_options_contract')
+    if any(old.get(key) != manifest.get(key) for key in keys):
+        raise ValueError('Reusable material author or memo contract changed')
+    if (original['material_request.json'] != json.loads((root/'material_request.json').read_text()) or
+            original['model.json'] != json.loads((root/'model.json').read_text())):
+        raise ValueError('Reusable frozen author inputs or model pin changed')
+    history = original['draft_passes.json']
+    if (not isinstance(history, list) or not 1 <= len(history) <= MAX_DRAFT_PASSES or
+            any(row != {'pass': index+1, 'state': 'accepted' if index == len(history)-1 else 'needs_resume'}
+                for index,row in enumerate(history))):
+        raise ValueError('Reusable author history is not terminal accepted')
+    saved, attempts = original['material_result.json'], original['material_attempts.json']
+    if (saved.get('state') != 'accepted' or saved.get('attempt_count') != len(attempts) or
+            saved.get('source_hash') != manifest['source_hash'] or
+            saved.get('memo_digest') != manifest['memo_digest'] or len(attempts) > 12):
+        raise ValueError('Reusable author result is not complete')
+    accepted_ids = [rid for kind in KINDS for rid in saved['decks'][kind]['response_ids']]
+    if (len(accepted_ids) != len(set(accepted_ids)) or
+            set(accepted_ids) != {row.get('id') for row in attempts} or
+            len(attempts) != len(accepted_ids) or
+            any('error' in row or not any(row.get('task','').startswith('material_'+kind+'_') for kind in KINDS)
+                for row in attempts)):
+        raise ValueError('Reusable evidence contains failed or non-author responses')
+    # Recompute routes, frozen prompts/schemas, raw answer equality, selected
+    # response IDs and every rendered section before copying anything.
+    _material_replay(source, old)
+    for name, raw in snapshots.items():
+        if (source/name).read_bytes() != raw:
+            raise ValueError('Reusable material evidence changed during replay')
+    imported = ('material_attempts.json','material_result.json','draft_passes.json')
+    for name in imported:
+        with os.fdopen(os.open(root/name, os.O_WRONLY|os.O_CREAT|os.O_EXCL, 0o600),'wb') as stream:
+            stream.write(snapshots[name]); stream.flush(); os.fsync(stream.fileno())
+    _material_replay(root, manifest)
+    provenance = {'contract':'private-material-author-fork-v1','source_root':str(source),
+        'source_files':{name:hashlib.sha256(raw).hexdigest() for name,raw in snapshots.items()},
+        'imported_files':list(imported),'author_response_ids':accepted_ids,
+        'author_attempt_count':len(attempts),'author_pass_count':len(history),
+        'review_state_imported':False,'replayed_state':'accepted'}
+    _write_new(root/'material_draft_fork.json',provenance)
+    return provenance
+
 def run(memo_root: Path, output: Path, phase: str, *, draft_model: str | None = None,
-        content_root: Path | None = None) -> dict:
+        content_root: Path | None = None, reuse_material_draft: Path | None = None) -> dict:
+    if reuse_material_draft is not None and phase != 'prepare':
+        raise ValueError('Material author reuse is allowed only during fresh prepare')
     root = output.resolve()
     manifest = _frozen(memo_root, root, create=phase == 'prepare',
                        draft_model=draft_model, content_root=content_root)
     if phase == 'prepare':
+        if reuse_material_draft is not None:
+            provenance = _reuse_material_draft(root, reuse_material_draft, manifest)
+            return {'state':'prepared','diagnostic_path':str(root),'draft_state':'accepted',
+                    'reused_author_responses':provenance['author_attempt_count']}
         return {'state': 'prepared', 'diagnostic_path': str(root)}
     if phase == 'draft':
         if _installed_digest(manifest['draft_model']) != manifest['draft_pin']:
@@ -257,10 +404,15 @@ def run(memo_root: Path, output: Path, phase: str, *, draft_model: str | None = 
                 'material_digest': digest(json.loads((root / 'material_result.json').read_text())),
                 'memo_sections': manifest['sections'], 'decks': decks,
                 'review_model': {'name': manifest['review_model'],
-                    'digest': manifest['review_pin'], 'options': {
-                        'thinking': False, 'max_tokens': 1200,
-                        'context_tokens': 16384, 'temperature': 0}},
-                'review_contract': FRESH_REVIEW_CONTRACT}
+                    'digest': manifest['review_pin'], 'options': (
+                    narrative_review_options(manifest['review_contract'])
+                    if manifest['review_contract'] in {'semantic_v18','semantic_v19','semantic_v20'} else BATCH_OPTIONS if manifest['review_contract'] in {_BATCH_CONTRACT, 'semantic_v14', 'semantic_v15', 'semantic_v16', 'semantic_v17', 'semantic_v18'} else
+                        SENTENCE_OPTIONS if manifest['review_contract'] == _SENTENCE_CONTRACT else
+                        {'thinking': False, 'max_tokens': 1200, 'context_tokens': 16384, 'temperature': 0})},
+                'review_contract': manifest['review_contract']}
+        if manifest['review_contract'] in {'semantic_v14', 'semantic_v15', 'semantic_v16', 'semantic_v17', 'semantic_v18', 'semantic_v19', 'semantic_v20'}:
+            base['financial_unknown_candidates'] = manifest['financial_unknown_candidates']
+            base['memo_assertion_candidates'] = manifest['memo_assertion_candidates']
         if manifest['section_projection'] in ('reader_v1', 'reader_v2'):
             base['memo_section_projection'] = manifest['section_projection']
         if manifest['section_projection'] == 'reader_v2':
@@ -330,9 +482,12 @@ def main() -> None:
     parser.add_argument('--draft-model', help='Installed local model for a new material branch')
     parser.add_argument('--content-revision', type=Path,
                         help='Accepted memo content-revision diagnostic beside the memo')
+    parser.add_argument('--reuse-material-draft', type=Path,
+                        help='Fork exact accepted author responses from a private sibling; no review reuse')
     args = parser.parse_args()
     result = run(args.memo_root, args.output, args.phase,
-                 draft_model=args.draft_model, content_root=args.content_revision)
+                 draft_model=args.draft_model, content_root=args.content_revision,
+                 reuse_material_draft=args.reuse_material_draft)
     print(json.dumps(result, ensure_ascii=False))
 
 

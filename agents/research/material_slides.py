@@ -455,9 +455,12 @@ def numeric_mentions(value):
 
 
 def validate_deck(spec: DeckSpec, sections, kind: str, *, audited_omission=False,
-                  economic_omission=False):
+                  economic_omission=False, reviewed_unknowns=None,
+                  reviewed_unknown_status_label='Financial evidence status'):
     if kind not in {'intro_deck', 'pitch_deck'}:
         raise ValueError('Unsupported deck kind')
+    if reviewed_unknown_status_label not in {'Financial evidence status', 'Requested financial evidence status'}:
+        raise ValueError('Unknown reviewed financial status label')
     count = len(spec.slides)
     if not ((2 <= count <= 5) if kind == 'intro_deck' else (5 <= count <= 10)):
         raise ValueError('Deck slide count outside its material contract')
@@ -472,7 +475,25 @@ def validate_deck(spec: DeckSpec, sections, kind: str, *, audited_omission=False
             raise ValueError(f'Slide references an unknown accepted memo section (slide {slide_number})')
         citations = set(re.findall(r'\[S[1-9][0-9]*\]', slide.body))
         if not citations:
-            raise ValueError(f'Slide lacks source citations (slide {slide_number})')
+            # Fresh purpose15 only: this is a paired open question and requested
+            # records copied from an exact reviewed, uncited Memo section.
+            matched = False
+            for unknown in reviewed_unknowns or []:
+                statuses = (('unverified', 'unknown') if reviewed_unknown_status_label == 'Requested financial evidence status' else
+                            ('unverified', 'unknown', 'not supplied', 'undisclosed'))
+                for status in statuses:
+                    exact = '\n'.join((f'{reviewed_unknown_status_label}: {status}.',
+                        'Open diligence question: ' + unknown['question'],
+                        'Evidence requested: ' + unknown['evidence_needed']))
+                    indexes = [i for i, (heading, body, bibliography) in enumerate(sections)
+                               if not bibliography and heading == unknown['question'] and
+                               unknown['evidence_needed'] in body]
+                    if (slide.body == exact and slide.source_sections in [[i] for i in indexes]
+                            and not numeric_mentions(slide.heading + '\n' + slide.body)
+                            and slide.layout in ('statement', 'evidence')):
+                        matched = True
+            if not matched:
+                raise ValueError(f'Slide lacks source citations (slide {slide_number})')
         allowed = set().union(*(source_tags[index] for index in slide.source_sections))
         if not citations <= allowed:
             raise ValueError(f'Slide cites a source absent from its bound memo sections (slide {slide_number})')
@@ -532,6 +553,18 @@ def _evidence_payload(base_payload, sections):
 def replay_material_rows(kind, base_payload, attempts, sections, *, model_name=None,
                          contract_version='current'):
     """Replay one deck's finite model responses and derive its sole next call."""
+    if contract_version == 'purpose_v16':
+        from agents.research.material_purpose_draft import replay_purpose_v16
+        return replay_purpose_v16(kind, base_payload, attempts, sections, model_name=model_name)
+    if contract_version == 'purpose_v18':
+        from agents.research.material_purpose_draft import replay_purpose_v18
+        return replay_purpose_v18(kind, base_payload, attempts, sections, model_name=model_name)
+    if contract_version == 'purpose_v17':
+        from agents.research.material_purpose_draft import replay_purpose_v17
+        return replay_purpose_v17(kind, base_payload, attempts, sections, model_name=model_name)
+    if contract_version == 'purpose_v15':
+        from agents.research.material_purpose_draft import replay_purpose_v15
+        return replay_purpose_v15(kind, base_payload, attempts, sections, model_name=model_name)
     if contract_version in {'purpose_v1', 'purpose_v2', 'purpose_v3', 'purpose_v4',
                             'purpose_v5', 'purpose_v6', 'purpose_v7', 'purpose_v8',
                             'purpose_v9', 'purpose_v10', 'purpose_v11', 'purpose_v12',
