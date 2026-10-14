@@ -18,7 +18,7 @@ CREATE UNIQUE INDEX IF NOT EXISTS one_active_room_job ON room_jobs(tenant_id,wor
  WHERE state IN ('queued','running');
 """
 PHASE_CAPS = {"source_selection": 3, "financial_analysis": 9, "draft": 6, "correction": 3,
-              "ledger": 5, "review": 2, "material_draft": 6, "material_preview": 2,
+              "ledger": 5, "review": 2, "content_review": 3, "material_draft": 6, "material_preview": 2,
               "material_review": 2,
               "material_remediation": 1, "material_re_review": 2, "render": 1,
               "analysis": 3, "legacy": 3}
@@ -28,7 +28,7 @@ CAUSAL_MEMO_REVIEW_PASS_CAP = 14  # Up to twelve three-sentence calls plus two n
 PURPOSE_GROUPED_MATERIAL_PASS_CAP = 12
 PURPOSE_SINGLE_SLOT_PASS_CAP = 15  # Twelve model calls plus three no-call yields.
 SEMANTIC_BATCH_REVIEW_PASS_CAP = 15  # Twelve review calls plus three no-call yields.
-PHASES = ("source_selection", "financial_analysis", "draft", "correction", "ledger", "review", "material_draft", "material_preview", "material_review", "material_remediation", "material_re_review", "render")
+PHASES = ("source_selection", "financial_analysis", "draft", "correction", "ledger", "review", "content_review", "material_draft", "material_preview", "material_review", "material_remediation", "material_re_review", "render")
 COLUMNS = "id,tenant_id,workspace_id,actor_id,work_key,input_revision,state,attempt,phase,phase_attempt,lease_token,lease_until,checkpoint,error,created".split(",")
 SELECT_COLUMNS = ",".join(COLUMNS)
 
@@ -45,6 +45,20 @@ def _ensure_phase_columns(conn):
 def _phase_cap(job):
     if job["phase"] not in PHASE_CAPS:
         raise ValueError("Unknown room job phase")
+    if job['phase'] == 'content_review' and job.get('checkpoint', {}).get('workflow_contract') in {'room-v62-explicit-topic-status', 'room-v63-source-quotes'}:
+        return 21
+    if job['phase'] == 'content_review' and job.get('checkpoint', {}).get('workflow_contract') in {'room-v59-sharded-source-adjudication', 'room-v60-blind-group-source-assessment', 'room-v61-supported-topic-groups'}:
+        return 26  # Five classifications, five adjudication shards, selection, fifteen core phases.
+    if job['phase'] == 'content_review' and job.get('checkpoint', {}).get('workflow_contract') == 'room-v58-complete-source-concise-memo':
+        return 22  # Five classifications, adjudication and selection, then fifteen existing phases.
+    if job['phase'] == 'content_review' and job.get('checkpoint', {}).get('workflow_contract') in {'room-v42-independent-author-checkpoints', 'room-v43-bounded-section-author', 'room-v44-literal-narrative-author', 'room-v45-narrative-section-budget', 'room-v46-structured-core-decisions', 'room-v47-prospective-risk-scope', 'room-v48-narrative-function-review', 'room-v49-batched-material-review', 'room-v50-complete-narrative-materials', 'room-v51-temporal-material-scope', 'room-v52-compact-material-selector', 'room-v53-attributed-period-selector', 'room-v54-typed-temporal-selector', 'room-v55-compact-material-review', 'room-v56-inline-material-provenance', 'room-v57-full-relation-material-review', 'room-v58-complete-source-concise-memo', 'room-v59-sharded-source-adjudication', 'room-v60-blind-group-source-assessment', 'room-v61-supported-topic-groups', 'room-v62-explicit-topic-status', 'room-v63-source-quotes'}:
+        return 15  # Five mandatory author and five reviewer checkpoints, finite engine caps unchanged.
+    if (job['phase'] == 'content_review' and
+            job.get('checkpoint', {}).get('workflow_contract') in {'room-v39-checkpointed-full-memo-gate', 'room-v40-native-claim-full-memo-gate', 'room-v41-structured-section-full-memo-gate', 'room-v42-independent-author-checkpoints', 'room-v43-bounded-section-author', 'room-v44-literal-narrative-author', 'room-v45-narrative-section-budget', 'room-v46-structured-core-decisions', 'room-v47-prospective-risk-scope', 'room-v48-narrative-function-review', 'room-v49-batched-material-review', 'room-v50-complete-narrative-materials', 'room-v51-temporal-material-scope', 'room-v52-compact-material-selector', 'room-v53-attributed-period-selector', 'room-v54-typed-temporal-selector', 'room-v55-compact-material-review', 'room-v56-inline-material-provenance', 'room-v57-full-relation-material-review', 'room-v58-complete-source-concise-memo', 'room-v59-sharded-source-adjudication', 'room-v60-blind-group-source-assessment', 'room-v61-supported-topic-groups', 'room-v62-explicit-topic-status', 'room-v63-source-quotes'}):
+        return 11  # Mandatory per-group review checkpoints, unchanged engine call bounds.
+    if (job['phase'] == 'content_review' and
+            job.get('checkpoint', {}).get('workflow_contract') == 'room-v38-full-memo-content-gate'):
+        return 5  # Three source phases plus two mandatory full-section coverage phases.
     if (job['phase'] == 'review' and
             job.get('checkpoint', {}).get('memo_draft_contract') == 'memo-cards-v13' and
             job.get('checkpoint', {}).get('memo_causal_review_contract') ==
@@ -92,10 +106,10 @@ def _phase_cap(job):
     if (job["phase"] == "material_draft" and
             job.get("checkpoint", {}).get("material_draft_contract") in
             {"purpose_v7", "purpose_v8", "purpose_v9", "purpose_v10",
-             "purpose_v11", "purpose_v12", "purpose_v13"}):
+             "purpose_v11", "purpose_v12", "purpose_v13", "purpose_v14", "purpose_v15", "purpose_v16", "purpose_v17", "purpose_v18"}):
         return PURPOSE_SINGLE_SLOT_PASS_CAP
     if (job["phase"] in {"material_review", "material_re_review"} and
-            job.get("checkpoint", {}).get("material_review_contract") == "semantic_v12"):
+            job.get("checkpoint", {}).get("material_review_contract") in {"semantic_v12", "semantic_v14", "semantic_v15", "semantic_v16", "semantic_v17", "semantic_v18", "semantic_v19", "semantic_v20"}):
         return SEMANTIC_BATCH_REVIEW_PASS_CAP
     if (job["phase"] == "material_draft" and
             job.get("checkpoint", {}).get("material_draft_contract") in
@@ -115,6 +129,14 @@ def _next_phase(job, requested):
     if current == "analysis":
         if requested != "render":
             raise ValueError("Room job phases must advance in order")
+        return requested, 0
+    if current == "review" and requested == "material_draft":
+        if job.get('checkpoint', {}).get('workflow_contract') in {
+                'room-v27-rationale-content-gate', 'room-v28-scope-content-gate',
+                'room-v29-blind-scope-content-gate', 'room-v30-author-scope-content-gate', 'room-v31-blind-author-content-gate', 'room-v32-source-unit-content-gate', 'room-v33-isolated-source-unit-content-gate', 'room-v34-isolated-source-unit-content-gate', 'room-v35-isolated-source-unit-content-gate', 'room-v36-isolated-source-unit-content-gate', 'room-v37-isolated-source-unit-content-gate', 'room-v38-full-memo-content-gate', 'room-v39-checkpointed-full-memo-gate', 'room-v40-native-claim-full-memo-gate', 'room-v41-structured-section-full-memo-gate', 'room-v42-independent-author-checkpoints', 'room-v43-bounded-section-author', 'room-v44-literal-narrative-author', 'room-v45-narrative-section-budget', 'room-v46-structured-core-decisions', 'room-v47-prospective-risk-scope', 'room-v48-narrative-function-review', 'room-v49-batched-material-review', 'room-v50-complete-narrative-materials', 'room-v51-temporal-material-scope', 'room-v52-compact-material-selector', 'room-v53-attributed-period-selector', 'room-v54-typed-temporal-selector', 'room-v55-compact-material-review', 'room-v56-inline-material-provenance', 'room-v57-full-relation-material-review', 'room-v58-complete-source-concise-memo', 'room-v59-sharded-source-adjudication', 'room-v60-blind-group-source-assessment', 'room-v61-supported-topic-groups', 'room-v62-explicit-topic-status', 'room-v63-source-quotes'}:
+            raise ValueError('Fresh room materials require the content review phase')
+        # Historical jobs/mocked legacy phases may retain their former transition.
+        # Fresh production memo output passes its versioned content gate first.
         return requested, 0
     if current == "material_review" and requested == "render":
         return requested, 0
@@ -148,9 +170,13 @@ def enqueue(conn, event):
                 conn.execute("UPDATE room_jobs SET state='cancelled',lease_token=NULL,lease_until=NULL,error='inputs_superseded' WHERE id=?",
                     (running[0],))
             job_id = "job_" + secrets.token_hex(16)
-            conn.execute("""INSERT INTO room_jobs(id,tenant_id,workspace_id,actor_id,work_key,input_revision,state,phase,created)
-                VALUES (?,?,?,?,?,?,'queued','source_selection',?)""", (job_id,event.tenant_id,event.workspace_id,
-                event.actor_id,event.idempotency_key(),event.input_revision,time.time()))
+            initial = ({'workflow_contract': event.workflow_version}
+                       if event.workflow_version in {
+                           'room-v27-rationale-content-gate', 'room-v28-scope-content-gate',
+                           'room-v29-blind-scope-content-gate', 'room-v30-author-scope-content-gate', 'room-v31-blind-author-content-gate', 'room-v32-source-unit-content-gate', 'room-v33-isolated-source-unit-content-gate', 'room-v34-isolated-source-unit-content-gate', 'room-v35-isolated-source-unit-content-gate', 'room-v36-isolated-source-unit-content-gate', 'room-v37-isolated-source-unit-content-gate', 'room-v38-full-memo-content-gate', 'room-v39-checkpointed-full-memo-gate', 'room-v40-native-claim-full-memo-gate', 'room-v41-structured-section-full-memo-gate', 'room-v42-independent-author-checkpoints', 'room-v43-bounded-section-author', 'room-v44-literal-narrative-author', 'room-v45-narrative-section-budget', 'room-v46-structured-core-decisions', 'room-v47-prospective-risk-scope', 'room-v48-narrative-function-review', 'room-v49-batched-material-review', 'room-v50-complete-narrative-materials', 'room-v51-temporal-material-scope', 'room-v52-compact-material-selector', 'room-v53-attributed-period-selector', 'room-v54-typed-temporal-selector', 'room-v55-compact-material-review', 'room-v56-inline-material-provenance', 'room-v57-full-relation-material-review', 'room-v58-complete-source-concise-memo', 'room-v59-sharded-source-adjudication', 'room-v60-blind-group-source-assessment', 'room-v61-supported-topic-groups', 'room-v62-explicit-topic-status', 'room-v63-source-quotes'} else {})
+            conn.execute("""INSERT INTO room_jobs(id,tenant_id,workspace_id,actor_id,work_key,input_revision,state,phase,checkpoint,created)
+                VALUES (?,?,?,?,?,?,'queued','source_selection',?,?)""", (job_id,event.tenant_id,event.workspace_id,
+                event.actor_id,event.idempotency_key(),event.input_revision,json.dumps(initial),time.time()))
             row = conn.execute(f"SELECT {SELECT_COLUMNS} FROM room_jobs WHERE id=?", (job_id,)).fetchone()
         conn.commit()
         return record(row)
@@ -190,19 +216,22 @@ def claim(conn, *, now=None, lease_seconds=150):
                     json_extract(checkpoint,'$.memo_causal_review_contract')
                     IN ('memo-causal-v1','memo-causal-v2')
                     THEN 14 ELSE 2 END
+                WHEN 'content_review' THEN CASE WHEN json_extract(checkpoint,'$.workflow_contract') IN ('room-v62-explicit-topic-status','room-v63-source-quotes') THEN 21 WHEN json_extract(checkpoint,'$.workflow_contract')='room-v61-supported-topic-groups' THEN 26 WHEN json_extract(checkpoint,'$.workflow_contract')='room-v60-blind-group-source-assessment' THEN 26 WHEN json_extract(checkpoint,'$.workflow_contract')='room-v59-sharded-source-adjudication' THEN 26 WHEN json_extract(checkpoint,'$.workflow_contract')='room-v58-complete-source-concise-memo' THEN 22 WHEN json_extract(checkpoint,'$.workflow_contract') IN ('room-v42-independent-author-checkpoints','room-v43-bounded-section-author','room-v44-literal-narrative-author','room-v45-narrative-section-budget','room-v46-structured-core-decisions','room-v47-prospective-risk-scope','room-v48-narrative-function-review','room-v49-batched-material-review','room-v50-complete-narrative-materials', 'room-v51-temporal-material-scope', 'room-v52-compact-material-selector', 'room-v53-attributed-period-selector', 'room-v54-typed-temporal-selector', 'room-v55-compact-material-review', 'room-v56-inline-material-provenance', 'room-v57-full-relation-material-review') THEN 15 WHEN json_extract(checkpoint,
+                    '$.workflow_contract') IN ('room-v39-checkpointed-full-memo-gate','room-v40-native-claim-full-memo-gate','room-v41-structured-section-full-memo-gate') THEN 11
+                    WHEN json_extract(checkpoint,'$.workflow_contract')='room-v38-full-memo-content-gate' THEN 5 ELSE 3 END
                 WHEN 'material_draft' THEN CASE
                     WHEN json_extract(checkpoint,'$.material_draft_contract')
-                        IN ('purpose_v7','purpose_v8','purpose_v9','purpose_v10','purpose_v11','purpose_v12','purpose_v13')
+                        IN ('purpose_v7','purpose_v8','purpose_v9','purpose_v10','purpose_v11','purpose_v12','purpose_v13','purpose_v14','purpose_v15','purpose_v16','purpose_v17','purpose_v18')
                         THEN 15
                     WHEN json_extract(checkpoint,'$.material_draft_contract')
                         IN ('purpose_v3','purpose_v4','purpose_v5','purpose_v6')
                         THEN 12 ELSE 6 END
                 WHEN 'material_preview' THEN 2
                 WHEN 'material_review' THEN CASE WHEN json_extract(checkpoint,
-                    '$.material_review_contract')='semantic_v12' THEN 15 ELSE 2 END
+                    '$.material_review_contract') IN ('semantic_v12','semantic_v14','semantic_v15','semantic_v16','semantic_v17','semantic_v18','semantic_v19','semantic_v20') THEN 15 ELSE 2 END
                 WHEN 'material_remediation' THEN 1
                 WHEN 'material_re_review' THEN CASE WHEN json_extract(checkpoint,
-                    '$.material_review_contract')='semantic_v12' THEN 15 ELSE 2 END
+                    '$.material_review_contract') IN ('semantic_v12','semantic_v14','semantic_v15','semantic_v16','semantic_v17','semantic_v18','semantic_v19','semantic_v20') THEN 15 ELSE 2 END
                 WHEN 'render' THEN 1 ELSE 3 END
                 OR (phase='legacy' AND attempt>=3)
                 THEN 'failed' ELSE 'queued' END,
@@ -231,6 +260,29 @@ def claim(conn, *, now=None, lease_seconds=150):
 
 
 def checkpoint(conn, job, data, *, state="running", error=None, now=None, phase=None):
+    frozen_workflow = job.get('checkpoint', {}).get('workflow_contract')
+    if frozen_workflow is not None:
+        if data.get('workflow_contract', frozen_workflow) != frozen_workflow:
+            raise ValueError('Room workflow contract cannot change during a job')
+        data = {**data, 'workflow_contract': frozen_workflow}
+    if frozen_workflow in {'room-v47-prospective-risk-scope', 'room-v48-narrative-function-review', 'room-v49-batched-material-review'} and data.get('material_draft_contract', 'purpose_v14') != 'purpose_v14':
+        raise ValueError('Fresh room material contract cannot downgrade from purpose_v14')
+    if frozen_workflow == 'room-v49-batched-material-review' and data.get('material_review_contract', 'semantic_v12') != 'semantic_v12':
+        raise ValueError('Fresh room material review cannot downgrade from semantic_v12')
+    if frozen_workflow in {'room-v57-full-relation-material-review', 'room-v58-complete-source-concise-memo', 'room-v59-sharded-source-adjudication', 'room-v60-blind-group-source-assessment', 'room-v61-supported-topic-groups', 'room-v62-explicit-topic-status', 'room-v63-source-quotes'} and (data.get('material_draft_contract','purpose_v18') != 'purpose_v18' or data.get('material_review_contract','semantic_v20') != 'semantic_v20'):
+        raise ValueError('Full relation material review requires purpose_v18/semantic_v20 contracts')
+    if frozen_workflow == 'room-v56-inline-material-provenance' and (data.get('material_draft_contract','purpose_v18') != 'purpose_v18' or data.get('material_review_contract','semantic_v19') != 'semantic_v19'):
+        raise ValueError('Inline provenance material review requires purpose_v18/semantic_v19 contracts')
+    if frozen_workflow == 'room-v55-compact-material-review' and (data.get('material_draft_contract','purpose_v18') != 'purpose_v18' or data.get('material_review_contract','semantic_v18') != 'semantic_v18'):
+        raise ValueError('Compact material review requires purpose_v18/semantic_v18 contracts')
+    if frozen_workflow == 'room-v54-typed-temporal-selector' and (data.get('material_draft_contract','purpose_v18') != 'purpose_v18' or data.get('material_review_contract','semantic_v17') != 'semantic_v17'):
+        raise ValueError('Typed temporal materials require purpose_v18/semantic_v17 contracts')
+    if frozen_workflow == 'room-v53-attributed-period-selector' and (data.get('material_draft_contract','purpose_v17') != 'purpose_v17' or data.get('material_review_contract','semantic_v16') != 'semantic_v16'):
+        raise ValueError('Attributed period material requires purpose_v17/semantic_v16 contracts')
+    if frozen_workflow in {'room-v51-temporal-material-scope', 'room-v52-compact-material-selector'} and (data.get('material_draft_contract', 'purpose_v16') != 'purpose_v16' or data.get('material_review_contract', 'semantic_v15') != 'semantic_v15'):
+        raise ValueError('Temporal material scope requires purpose_v16/semantic_v15 contracts')
+    if frozen_workflow == 'room-v50-complete-narrative-materials' and (data.get('material_draft_contract', 'purpose_v15') != 'purpose_v15' or data.get('material_review_contract', 'semantic_v14') != 'semantic_v14'):
+        raise ValueError('Complete narrative materials require purpose_v15/semantic_v14 contracts')
     if state not in {"running", "queued", "completed", "awaiting_input", "blocked", "failed"}:
         raise ValueError("Unsupported job transition")
     if phase is not None and state != "queued":
@@ -276,4 +328,8 @@ def list_jobs(conn, tenant, workspace):
 
 
 def public_job(job):
-    return {k: v for k, v in job.items() if k not in {"lease_token", "work_key", "actor_id"}}
+    result = {k: v for k, v in job.items() if k not in {"lease_token", "work_key", "actor_id"}}
+    if isinstance(result.get("checkpoint"), dict):
+        result["checkpoint"] = {key: value for key, value in result["checkpoint"].items()
+                                if key != "financial_evidence_indexes"}
+    return result

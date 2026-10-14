@@ -6,6 +6,7 @@ import json
 import os
 import shutil
 import tempfile
+import time
 import urllib.request
 from datetime import date
 from pathlib import Path
@@ -28,7 +29,8 @@ class LocalModelInventoryUnavailable(ValueError):
     """The installed loopback model inventory could not be frozen yet."""
 
 
-def room_sources(store, lead, room, *, full_inventory=False):
+def room_sources(store, lead, room, *, full_inventory=False, preserve_structure=False,
+                 financial_indexes=None, financial_job_context=None):
     """Use retained public KB passages and already-extracted private room blocks.
 
     The only public lookup is the source-supported public company name. Private
@@ -36,6 +38,7 @@ def room_sources(store, lead, room, *, full_inventory=False):
     """
     rows = []
     oversized = 0
+    financial_sources = []
     if lead.company_profile.provenance.get("origin") == "public_kb":
         bound_source = lead.company_profile.provenance.get("source_id")
         bound_version = lead.company_profile.provenance.get("source_version")
@@ -93,8 +96,40 @@ def room_sources(store, lead, room, *, full_inventory=False):
                              page["sha256"], page["attribution"]))
     if room.deal_id:
         for document in store.get_documents_for_deal(lead.tenant_id, room.deal_id):
+            if financial_indexes is not None and document.type == 'xlsx':
+                # Financial cells have their own complete private evidence index.
+                # No row is treated as a narrative source or silently discarded.
+                from delivery.financial_evidence_stage import load_financial_evidence
+                from delivery.storage import read_source_bytes
+                workbook_sha = hashlib.sha256(read_source_bytes(document.storage_uri)).hexdigest()
+                manifest = load_financial_evidence(financial_indexes.get(document.id, {}),
+                    tenant_id=lead.tenant_id, deal_id=room.deal_id,
+                    document_id=document.id, workbook_sha256=workbook_sha,
+                    **(financial_job_context or {}))
+                financial_sources.append({'document_id': document.id, 'filename': document.filename,
+                    'workbook_sha256': workbook_sha, 'manifest_digest': manifest['manifest_digest'],
+                    'retained_cell_count': len(manifest['cells']),
+                    'packet_count': len(manifest['packets']), 'semantic_coverage': 'unassessed',
+                    'financial_validation': 'not_established', 'workbook_recalculation': 'not_performed'})
+                continue
             for block in document.blocks:
-                content = block.content if isinstance(block.content, str) else json.dumps(block.content, ensure_ascii=False)
+                if preserve_structure and (document.type == 'xlsx' or not isinstance(block.content, str)):
+                    from datetime import date as date_type, datetime as datetime_type
+                    def source_scalar(value):
+                        if isinstance(value, (date_type, datetime_type)):
+                            return value.isoformat()
+                        raise TypeError('Unsupported retained document cell type')
+                    scope = ({'workbook_recalculation': 'not_performed',
+                              'financial_validation': 'not_established',
+                              'actual_results_origin': 'not_established',
+                              'currency_unit_period_semantics': 'unassessed'}
+                             if document.type == 'xlsx' else {})
+                    content = json.dumps({'block_type': block.block_type.value,
+                        'page': block.page, 'coordinates': block.coordinates,
+                        'content': block.content, **scope}, ensure_ascii=False,
+                        sort_keys=True, default=source_scalar)
+                else:
+                    content = block.content if isinstance(block.content, str) else json.dumps(block.content, ensure_ascii=False)
                 content = content.strip()
                 if not 30 <= len(content) <= 4000:
                     if len(content) > 4000:
@@ -144,6 +179,17 @@ def room_sources(store, lead, room, *, full_inventory=False):
     coverage['inventory_digest'] = _digest(json.dumps(
         [source.model_dump() for source in sources] if full_inventory else inventory_ids,
         sort_keys=True, ensure_ascii=False))
+    if financial_indexes is not None:
+        coverage.update(narrative_coverage_complete=coverage['coverage_complete'],
+            financial_source_indexes=financial_sources,
+            financial_source_inventory_digest=_digest(json.dumps(financial_sources,
+                sort_keys=True, ensure_ascii=False)),
+            financial_semantic_coverage='unassessed', financial_validation='not_established',
+            complete_financial_understanding=False)
+        coverage['inventory_digest'] = _digest(json.dumps({
+            'narrative_inventory_digest': coverage['inventory_digest'],
+            'financial_source_inventory_digest': coverage['financial_source_inventory_digest']},
+            sort_keys=True, ensure_ascii=False))
     return sources, coverage
 
 
@@ -210,7 +256,10 @@ def resolve_memo_sources(job, lead, inventory, coverage, *, timeout):
     from agents.inference.local_models import PreparationModel, shared_model_name
     model_name = shared_model_name(PreparationModel())
     try:
-        frozen_memo_model_profile(root / 'model.json', model_name)
+        frozen_memo_model_profile(root / 'model.json', model_name,
+            **({'financial_scope': job['checkpoint']['financial_evidence_scope']} if job.get('checkpoint', {}).get('workflow_contract') == 'room-v63-source-quotes' else {}),
+            **({'draft_contract': 'memo-cards-v13'} if job.get('checkpoint', {}).get('workflow_contract') in
+               {'room-v59-sharded-source-adjudication', 'room-v60-blind-group-source-assessment', 'room-v61-supported-topic-groups', 'room-v62-explicit-topic-status', 'room-v63-source-quotes'} else {}))
     except LocalModelInventoryUnavailable:
         return {'state': 'needs_resume', 'reason': 'local_model_inventory_unavailable'}
     except ValueError:
@@ -301,11 +350,17 @@ def resolve_memo_sources(job, lead, inventory, coverage, *, timeout):
     return {'state': 'complete', 'sources': selected, 'coverage': selected_coverage}
 
 
-def frozen_memo_model_profile(path, selected_model):
+def frozen_memo_model_profile(path, selected_model, *, draft_contract=None, financial_scope=None):
     """Pin every local model role before the first saved memo response."""
     from agents.inference.model_routing import validate_local_model_name
+    if draft_contract not in (None, 'memo-cards-v2', 'memo-cards-v13'):
+        raise ValueError('Unknown explicit memo draft contract')
     if path.exists():
         profile = json.loads(path.read_text())
+        if financial_scope is not None and profile.get('room_financial_scope') != financial_scope:
+            raise ValueError('Room financial evidence scope differs from frozen model profile')
+        if draft_contract is not None and profile.get('memo_draft_contract') != draft_contract:
+            raise ValueError('Memo draft contract differs from its frozen profile')
         if profile.get('model') != selected_model:
             raise ValueError('Memo model changed during a saved attempt')
         if 'profiles' in profile:
@@ -356,7 +411,9 @@ def frozen_memo_model_profile(path, selected_model):
     profile = {'model': selected_model, 'profiles': roles, 'profile_version': 4,
                'section_projection': FRESH_SECTION_PROJECTION,
                'memo_draft_contract': 'memo-cards-v2'}
-    requested_contract = os.environ.get('LOCAL_MEMO_DRAFT_CONTRACT', 'memo-cards-v2')
+    if financial_scope is not None:
+        profile['room_financial_scope'] = financial_scope
+    requested_contract = draft_contract or os.environ.get('LOCAL_MEMO_DRAFT_CONTRACT', 'memo-cards-v2')
     if requested_contract not in {'memo-cards-v2', 'memo-cards-v13'}:
         raise ValueError('Unknown fresh memo draft contract')
     if requested_contract == 'memo-cards-v13':
@@ -957,6 +1014,7 @@ def _prepare_second_field_revision(job, root, result, attempts, profile):
 def run_memo_pass(job, lead, sources, *, timeout, inventory_digest=None, phase='all',
                   phase_checkpoint=None):
     """Run local inference inside the room sandbox; keep attempts across passes."""
+    started = time.monotonic()
     if phase not in {'all', 'draft_only', 'analysis_only', 'correction_only',
                      'ledger_only', 'review_only'}:
         raise ValueError('Unknown memo phase')
@@ -1021,7 +1079,10 @@ def run_memo_pass(job, lead, sources, *, timeout, inventory_digest=None, phase='
                     "attempt_count": len(attempts), "private_attempts_path": str(root / "attempts.json")}
     if not accepted_before:
         try:
-            frozen_memo_model_profile(model_file, model_name)
+            frozen_memo_model_profile(model_file, model_name,
+                **({'financial_scope': job['checkpoint']['financial_evidence_scope']} if job.get('checkpoint', {}).get('workflow_contract') == 'room-v63-source-quotes' else {}),
+                **({'draft_contract': 'memo-cards-v13'} if job.get('checkpoint', {}).get('workflow_contract') in
+                   {'room-v59-sharded-source-adjudication', 'room-v60-blind-group-source-assessment', 'room-v61-supported-topic-groups', 'room-v62-explicit-topic-status', 'room-v63-source-quotes'} else {}))
         except LocalModelInventoryUnavailable:
             return {'state': 'needs_resume', 'reason': 'local_model_inventory_unavailable',
                     'attempt_count': 0, 'private_attempts_path': str(root / 'attempts.json')}
@@ -1089,6 +1150,12 @@ def run_memo_pass(job, lead, sources, *, timeout, inventory_digest=None, phase='
         from scripts.private_investment_memo_worker import validate_saved_model_roles
         profile = json.loads(model_file.read_text())
         roles = profile.get('profiles')
+        if (job.get('checkpoint', {}).get('workflow_contract') == 'room-v63-source-quotes'
+                and profile.get('room_financial_scope') != job['checkpoint'].get('financial_evidence_scope')):
+            raise ValueError('Fresh source-quote room financial evidence scope changed')
+        if (job.get('checkpoint', {}).get('workflow_contract') in {'room-v59-sharded-source-adjudication', 'room-v60-blind-group-source-assessment', 'room-v61-supported-topic-groups', 'room-v62-explicit-topic-status', 'room-v63-source-quotes'}
+                and profile.get('memo_draft_contract') != 'memo-cards-v13'):
+            raise ValueError('Fresh sharded room requires its frozen memo-cards-v13 profile')
         if not isinstance(roles, dict) or set(roles) - {'draft_b', 'challenge', 'author'} != {
                 'draft', 'review', 'corrector', 'prose'}:
             raise ValueError('Accepted memo lacks frozen local model roles')
@@ -1103,11 +1170,124 @@ def run_memo_pass(job, lead, sources, *, timeout, inventory_digest=None, phase='
         for name in roles.values():
             validate_local_model_name(name)
         validate_saved_model_roles(attempts, roles)
+        # Verify the original raw-author replay before any new model call.
+        renderable_sections(result["accepted"], sources, attempts,
+                            projection=profile.get('section_projection'))
+        if not accepted_before:
+            # The draft/review worker has its own call budget. Start the content
+            # phase in a new pass so two workers cannot spend six calls each.
+            return {'state': 'needs_resume', 'phase': 'memo_content_review_pending',
+                    'reason': 'next_bounded_content_review',
+                    'source_hash': source_fingerprint(job, lead, sources, inventory_digest),
+                    'attempt_count': len(attempts),
+                    'private_attempts_path': str(root / 'attempts.json')}
+        from delivery.memo_content_stage import run_content_pass
+        if job.get('checkpoint', {}).get('workflow_contract') in {'room-v32-source-unit-content-gate', 'room-v33-isolated-source-unit-content-gate', 'room-v34-isolated-source-unit-content-gate', 'room-v35-isolated-source-unit-content-gate', 'room-v36-isolated-source-unit-content-gate', 'room-v37-isolated-source-unit-content-gate', 'room-v38-full-memo-content-gate', 'room-v39-checkpointed-full-memo-gate', 'room-v40-native-claim-full-memo-gate', 'room-v41-structured-section-full-memo-gate', 'room-v42-independent-author-checkpoints', 'room-v43-bounded-section-author', 'room-v44-literal-narrative-author', 'room-v45-narrative-section-budget', 'room-v46-structured-core-decisions', 'room-v47-prospective-risk-scope', 'room-v48-narrative-function-review', 'room-v49-batched-material-review', 'room-v50-complete-narrative-materials', 'room-v51-temporal-material-scope', 'room-v52-compact-material-selector', 'room-v53-attributed-period-selector', 'room-v54-typed-temporal-selector', 'room-v55-compact-material-review', 'room-v56-inline-material-provenance', 'room-v57-full-relation-material-review', 'room-v58-complete-source-concise-memo', 'room-v59-sharded-source-adjudication', 'room-v60-blind-group-source-assessment', 'room-v61-supported-topic-groups', 'room-v62-explicit-topic-status', 'room-v63-source-quotes'}:
+            from delivery.source_unit_content_stage import run_source_unit_pass
+            content = run_source_unit_pass(root, result['accepted'], sources, profile,
+                timeout=max(0, timeout - (time.monotonic() - started)),
+                **({'flow_contract': ('memo-source-unit-flow-v11' if job.get('checkpoint', {}).get('workflow_contract') == 'room-v63-source-quotes' else 'memo-source-unit-flow-v10' if job.get('checkpoint', {}).get('workflow_contract') == 'room-v62-explicit-topic-status' else 'memo-source-unit-flow-v9' if job.get('checkpoint', {}).get('workflow_contract') == 'room-v61-supported-topic-groups' else 'memo-source-unit-flow-v8' if job.get('checkpoint', {}).get('workflow_contract') == 'room-v60-blind-group-source-assessment' else 'memo-source-unit-flow-v7' if job.get('checkpoint', {}).get('workflow_contract') == 'room-v59-sharded-source-adjudication' else 'memo-source-unit-flow-v6'), 'author_contract': 'memo-source-unit-author-v7',
+                    'section_author_contract': 'memo-section-units-author-v13', 'section_review_contract': 'memo-section-units-review-v12',
+                    'coverage_contract': ('diligence-source-coverage-v19' if job.get('checkpoint', {}).get('workflow_contract') == 'room-v63-source-quotes' else 'diligence-source-coverage-v18' if job.get('checkpoint', {}).get('workflow_contract') == 'room-v62-explicit-topic-status' else 'diligence-source-coverage-v17' if job.get('checkpoint', {}).get('workflow_contract') == 'room-v61-supported-topic-groups' else 'diligence-source-coverage-v16' if job.get('checkpoint', {}).get('workflow_contract') == 'room-v60-blind-group-source-assessment' else 'diligence-source-coverage-v15' if job.get('checkpoint', {}).get('workflow_contract') == 'room-v59-sharded-source-adjudication' else 'diligence-source-coverage-v14'),
+                    **({'coverage_batching_contract': 'source-interpretation-evidence-first-v3'} if job.get('checkpoint', {}).get('workflow_contract') == 'room-v63-source-quotes' else {}),
+                    'coverage_role': 'challenge', 'coverage_adjudicator_role': ('author' if
+                        job.get('checkpoint', {}).get('workflow_contract') in {'room-v59-sharded-source-adjudication', 'room-v60-blind-group-source-assessment', 'room-v61-supported-topic-groups', 'room-v62-explicit-topic-status', 'room-v63-source-quotes'} else 'prose'),
+                    'coverage_financial_scope': {'supplied_workbook_inventory_digest':
+                        (job.get('checkpoint', {}).get('financial_evidence_indexes', {}).get('inventory_digest') if job.get('checkpoint', {}).get('workflow_contract') == 'room-v63-source-quotes' else model_digest(job.get('checkpoint', {}).get('workbooks')) if job.get('checkpoint', {}).get('workbooks') else None),
+                        'semantic_coverage': 'unassessed', 'financial_validation': 'not_established',
+                        'workbook_recalculation': 'not_performed'}} if
+                   job.get('checkpoint', {}).get('workflow_contract') in {'room-v58-complete-source-concise-memo', 'room-v59-sharded-source-adjudication', 'room-v60-blind-group-source-assessment', 'room-v61-supported-topic-groups', 'room-v62-explicit-topic-status', 'room-v63-source-quotes'} else
+                   {'flow_contract': 'memo-source-unit-flow-v4', 'author_contract': 'memo-source-unit-author-v7',
+                    'section_author_contract': 'memo-section-units-author-v8', 'section_review_contract': 'memo-section-units-review-v7'} if
+                   job.get('checkpoint', {}).get('workflow_contract') in {'room-v48-narrative-function-review', 'room-v49-batched-material-review', 'room-v50-complete-narrative-materials', 'room-v51-temporal-material-scope', 'room-v52-compact-material-selector', 'room-v53-attributed-period-selector', 'room-v54-typed-temporal-selector', 'room-v55-compact-material-review', 'room-v56-inline-material-provenance', 'room-v57-full-relation-material-review', 'room-v58-complete-source-concise-memo', 'room-v59-sharded-source-adjudication', 'room-v60-blind-group-source-assessment', 'room-v61-supported-topic-groups', 'room-v62-explicit-topic-status', 'room-v63-source-quotes'} else
+                   {'flow_contract': 'memo-source-unit-flow-v4', 'author_contract': 'memo-source-unit-author-v7',
+                    'section_author_contract': 'memo-section-units-author-v8'} if
+                   job.get('checkpoint', {}).get('workflow_contract') == 'room-v47-prospective-risk-scope' else
+                   {'flow_contract': 'memo-source-unit-flow-v4', 'author_contract': 'memo-source-unit-author-v7',
+                    'section_author_contract': 'memo-section-units-author-v7'} if
+                   job.get('checkpoint', {}).get('workflow_contract') == 'room-v46-structured-core-decisions' else
+                   {'flow_contract': 'memo-source-unit-flow-v4', 'author_contract': 'memo-source-unit-author-v7',
+                    'section_author_contract': 'memo-section-units-author-v6'} if
+                   job.get('checkpoint', {}).get('workflow_contract') == 'room-v45-narrative-section-budget' else
+                   {'flow_contract': 'memo-source-unit-flow-v4', 'author_contract': 'memo-source-unit-author-v7',
+                    'section_author_contract': 'memo-section-units-author-v5'} if
+                   job.get('checkpoint', {}).get('workflow_contract') == 'room-v44-literal-narrative-author' else
+                   {'flow_contract': 'memo-source-unit-flow-v4', 'author_contract': 'memo-source-unit-author-v7',
+                    'section_author_contract': 'memo-section-units-author-v4'} if
+                   job.get('checkpoint', {}).get('workflow_contract') == 'room-v43-bounded-section-author' else
+                   {'flow_contract': 'memo-source-unit-flow-v4', 'author_contract': 'memo-source-unit-author-v7',
+                    'section_author_contract': 'memo-section-units-author-v3'} if
+                   job.get('checkpoint', {}).get('workflow_contract') == 'room-v42-independent-author-checkpoints' else
+                   {'flow_contract': 'memo-source-unit-flow-v3', 'author_contract': 'memo-source-unit-author-v7',
+                    'section_author_contract': 'memo-section-units-author-v3'} if
+                   job.get('checkpoint', {}).get('workflow_contract') ==
+                   'room-v41-structured-section-full-memo-gate' else
+                   {'flow_contract': 'memo-source-unit-flow-v3', 'author_contract': 'memo-source-unit-author-v7',
+                    'section_author_contract': 'memo-section-units-author-v2'} if
+                   job.get('checkpoint', {}).get('workflow_contract') ==
+                   'room-v40-native-claim-full-memo-gate' else
+                   {'flow_contract': 'memo-source-unit-flow-v3', 'author_contract': 'memo-source-unit-author-v7'} if
+                   job.get('checkpoint', {}).get('workflow_contract') ==
+                   'room-v39-checkpointed-full-memo-gate' else
+                   {'flow_contract': 'memo-source-unit-flow-v2', 'author_contract': 'memo-source-unit-author-v7'} if
+                   job.get('checkpoint', {}).get('workflow_contract') ==
+                   'room-v38-full-memo-content-gate' else
+                   {'author_contract': 'memo-source-unit-author-v6'} if
+                   job.get('checkpoint', {}).get('workflow_contract') ==
+                   'room-v37-isolated-source-unit-content-gate' else
+                   {'author_contract': 'memo-source-unit-author-v5'} if
+                   job.get('checkpoint', {}).get('workflow_contract') ==
+                   'room-v36-isolated-source-unit-content-gate' else
+                   {'author_contract': 'memo-source-unit-author-v4'} if
+                   job.get('checkpoint', {}).get('workflow_contract') ==
+                   'room-v35-isolated-source-unit-content-gate' else
+                   {'author_contract': 'memo-source-unit-author-v3'} if
+                   job.get('checkpoint', {}).get('workflow_contract') ==
+                   'room-v34-isolated-source-unit-content-gate' else
+                   {'author_contract': 'memo-source-unit-author-v2'} if
+                   job.get('checkpoint', {}).get('workflow_contract') ==
+                   'room-v33-isolated-source-unit-content-gate' else {}))
+        else:
+            content = run_content_pass(root, result['accepted'], sources, profile,
+                                       timeout=max(0, timeout - (time.monotonic() - started)),
+                                       review_version=(5 if job.get('checkpoint', {}).get('workflow_contract') in
+                                                       {'room-v29-blind-scope-content-gate', 'room-v30-author-scope-content-gate', 'room-v31-blind-author-content-gate'} else
+                                                       4 if job.get('checkpoint', {}).get('workflow_contract') ==
+                                                       'room-v28-scope-content-gate' else 3),
+                                       **({'repair_contract': 'memo-content-repair-v6'} if
+                                          job.get('checkpoint', {}).get('workflow_contract') ==
+                                          'room-v31-blind-author-content-gate' else
+                                          {'repair_contract': 'memo-content-repair-v5'} if
+                                          job.get('checkpoint', {}).get('workflow_contract') ==
+                                          'room-v30-author-scope-content-gate' else {}))
+        if content['state'] != 'accepted':
+            return {**content, 'phase': 'memo_content_review_pending',
+                    'attempt_count': len(attempts),
+                    'private_attempts_path': str(root / 'attempts.json')}
         sections = renderable_sections(result["accepted"], sources, attempts,
-                                       projection=profile.get('section_projection'))
+                                       projection=profile.get('section_projection'),
+                                       content_revision=content['content_revision'])
         return {"state": "accepted", "sections": sections,
                 "section_projection": profile.get('section_projection'),
-                "recommendation": result["accepted"]["memo"]["recommendation"],
+                "recommendation": content["memo"]["recommendation"],
+                "content_review": content["content_review"],
+                "content_revision_path": content["content_revision_path"],
+                **({key: content[key] for key in ("content_diligence_coverage", "content_coverage_pin", "content_coverage_role",
+                    "content_coverage_adjudicator_pin", "content_coverage_adjudicator_role") if key in content}),
+                **({"content_review_version": content["content_review_version"]} if
+                   "content_review_version" in content else {}),
+                **({"content_flow_contract": content["content_flow_contract"]} if
+                   "content_flow_contract" in content else {}),
+                **({"content_author_contract": content["content_author_contract"]} if
+                   "content_author_contract" in content else {}),
+                **({"content_section_review_contract": content["content_section_review_contract"]} if "content_section_review_contract" in content else {}),
+                **({"content_core_reviewer_pin": content["content_core_reviewer_pin"]} if "content_core_reviewer_pin" in content else {}),
+                **({"content_core_author_pin": content["content_core_author_pin"]} if "content_core_author_pin" in content else {}),
+                **({"content_section_author_contract": content["content_section_author_contract"]} if
+                   "content_section_author_contract" in content else {}),
+                **({"content_repair_contract": content["content_repair_contract"]} if
+                   content.get("content_repair_contract") is not None else {}),
+                "independent_review": "pending",
                 "source_hash": source_fingerprint(job, lead, sources, inventory_digest),
                 "part_a_response_id": result["accepted"]["part_a_response_id"],
                 "part_b_response_id": result["accepted"]["part_b_response_id"],

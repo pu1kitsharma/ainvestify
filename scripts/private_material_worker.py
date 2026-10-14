@@ -8,7 +8,7 @@ from agents.inference.local_models import LocalModel
 from agents.inference.model_authorship import digest, recorded_call
 from agents.preparation.preparation_budget import PreparationBudget, PreparationBudgetExceeded, preparation_budget
 from agents.research.material_slides import replay_material_rows, render_sections
-from delivery.material_stage import MATERIAL_AUTHOR_OPTIONS, _draft_model_pin, _installed_material_digest
+from delivery.material_stage import MATERIAL_AUTHOR_OPTIONS, _draft_model_pin, _installed_material_digest, _draft_options, _validate_draft_routes
 
 
 TASKS = ('intro_deck', 'pitch_deck')
@@ -29,15 +29,16 @@ def draft_materials(root: Path, model=None):
            for value in versions.values()) and len(attempts) > 5:
         raise ValueError('Purpose-first material attempts exceed five-call cap')
     if any(value in {'purpose_v7', 'purpose_v8', 'purpose_v9', 'purpose_v10',
-                     'purpose_v11', 'purpose_v12', 'purpose_v13', 'purpose_v14'}
+                     'purpose_v11', 'purpose_v12', 'purpose_v13', 'purpose_v14', 'purpose_v15', 'purpose_v16', 'purpose_v17', 'purpose_v18'}
            for value in versions.values()) and len(attempts) > 12:
         raise ValueError('Single-slot material attempts exceed twelve-call cap')
+    _validate_draft_routes(request, attempts)
     profile = json.loads((root / 'model.json').read_text())
     frozen_name = _draft_model_pin(request, profile)
     if request.get('draft_model') and _installed_material_digest(frozen_name) != request['draft_model']['digest']:
         raise ValueError('Installed material author differs from frozen model digest')
     if model is None:
-        model = LocalModel(frozen_name, **MATERIAL_AUTHOR_OPTIONS)
+        model = LocalModel(frozen_name, **_draft_options(request))
     elif model.name != frozen_name:
         raise ValueError('Supplied material author differs from frozen model')
     seconds = json.loads((root / 'material_budget.json').read_text())['seconds']
@@ -53,16 +54,19 @@ def draft_materials(root: Path, model=None):
         payload = {'kind': kind, 'input_revision': request['input_revision'],
                    'source_hash': request['source_hash'], 'memo_digest': request['memo_digest'],
                    'sections': sections}
+        if 'as_of_date' in request: payload['as_of_date'] = request['as_of_date']
         version = request.get('replay_contracts', {}).get(kind, 'current')
-        if version in {'purpose_v12', 'purpose_v13', 'purpose_v14'}:
+        if version in {'purpose_v12', 'purpose_v13', 'purpose_v14', 'purpose_v15', 'purpose_v16', 'purpose_v17', 'purpose_v18'}:
             payload['financial_unknown_candidates'] = request['financial_unknown_candidates']
         if version in {'purpose_v13', 'purpose_v14'}:
             payload['memo_sentence_candidates'] = request['memo_sentence_candidates']
+        if version in {'purpose_v15', 'purpose_v16', 'purpose_v17', 'purpose_v18'}:
+            payload['memo_assertion_candidates'] = request['memo_assertion_candidates']
         state = replay_material_rows(kind, payload, attempts, sections,
                                      model_name=frozen_name, contract_version=version)
         if state['state'] != 'accepted':
             if state['state'] == 'blocked':
-                return {'state': 'blocked', 'reason': f'{kind}_validation_retry_exhausted'}
+                return {'state': 'blocked', 'reason': f'{kind}_validation_retry_exhausted', **({'validation_detail': state.get('reason')} if request.get('author_options_contract') else {})}
             if budget.calls >= budget.max_calls:
                 return {'state': 'needs_resume', 'reason': 'next_bounded_material_call'}
             try:
@@ -70,6 +74,8 @@ def draft_materials(root: Path, model=None):
                     recorded_call(model, state['task'], state['instruction'],
                         state['payload'], state['schema'], attempts, save)
             except PreparationBudgetExceeded:
+                if attempts and attempts[-1].get('task') == state['task'] and attempts[-1].get('error'):
+                    return {'state':'blocked','reason':'material_author_budget_failed_recorded'}
                 return {'state': 'needs_resume', 'reason': 'material_pass_budget_exhausted'}
             except Exception:
                 # recorded_call persists the raw failure. Replay determines the
@@ -81,7 +87,7 @@ def draft_materials(root: Path, model=None):
             if state['state'] != 'accepted':
                 return {'state': 'blocked' if state['state'] == 'blocked' else 'needs_resume',
                         'reason': (f'{kind}_model_validation_failed' if state['state'] == 'blocked'
-                                   else 'next_bounded_material_call')}
+                                   else 'next_bounded_material_call'), **({'validation_detail': state.get('reason')} if request.get('author_options_contract') else {})}
         outputs[kind] = {'response_id': state['response_ids'][-1],
                          'response_ids': state['response_ids'],
                          'sections': render_sections(state['spec'], sections)}

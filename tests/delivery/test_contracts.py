@@ -1,5 +1,6 @@
 """Synthetic control-plane tests, not file/engine or investment acceptance."""
 import hashlib
+import json
 
 import pytest
 from pydantic import ValidationError
@@ -150,6 +151,20 @@ def test_digest_is_order_independent_and_scope_bound(package):
         "requested": tuple(reversed(manifest.requested))}).digest()
     for field in ("tenant_id", "workspace_id", "audience", "template_version", "renderer_version", "calculation_version"):
         assert manifest.digest() != manifest.model_copy(update={field: "changed"}).digest()
+
+
+def test_absent_compliance_revision_preserves_historical_digest(package):
+    manifest, _, _ = package
+    historical = manifest.model_dump(mode="json", exclude={"compliance_revision"})
+    historical["requested"] = sorted(historical["requested"])
+    historical["files"] = sorted(historical["files"], key=lambda item: item["artifact_id"])
+    expected = hashlib.sha256(json.dumps(historical, sort_keys=True,
+        separators=(",", ":")).encode()).hexdigest()
+    assert manifest.digest() == expected
+    reviewed = manifest.model_copy(update={"compliance_revision": digest("matrix")})
+    assert reviewed.digest() != expected
+    changed = reviewed.model_copy(update={"compliance_revision": digest("changed matrix")})
+    assert changed.digest() != reviewed.digest()
 
 
 def test_duplicate_files_and_unknown_formats_rejected(package):

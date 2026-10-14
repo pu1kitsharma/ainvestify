@@ -58,6 +58,9 @@ def _unknown_sources(item, sources, linked_source_ids=()):
 
 
 def frozen_calls(memo, sources, contract):
+    if contract.get("version") in {"memo-content-review-v2", "memo-content-review-v3", "memo-content-review-v4", "memo-content-review-v5"}:
+        from agents.research.memo_content_review_v2 import frozen_calls as v2_calls
+        return v2_calls(memo, sources, contract)
     memo = Memo.model_validate(memo)
     sources = [Source.model_validate(row) for row in sources]
     indexed = {source.id: source for source in sources}
@@ -127,6 +130,9 @@ def _retry_payload(payload, row):
 
 def evaluate_attempts(memo, sources, attempts, contract):
     """Replay recorded reviews. A schema-invalid answer gets one correction call."""
+    if contract.get("version") in {"memo-content-review-v2", "memo-content-review-v3", "memo-content-review-v4", "memo-content-review-v5"}:
+        from agents.research.memo_content_review_v2 import evaluate_attempts as v2_evaluate
+        return v2_evaluate(memo, sources, attempts, contract)
     calls = frozen_calls(memo, sources, contract)
     rows = [row for row in attempts if row.get('task') == TASK]
     findings, response_ids, position = [], [], 0
@@ -186,6 +192,9 @@ def evaluate_attempts(memo, sources, attempts, contract):
 
 
 def review_memo_content(memo, sources, attempts, save, model, budget, *, contract):
+    if contract.get("version") in {"memo-content-review-v2", "memo-content-review-v3", "memo-content-review-v4", "memo-content-review-v5"}:
+        from agents.research.memo_content_review_v2 import review_memo_content as v2_review
+        return v2_review(memo, sources, attempts, save, model, budget, contract=contract)
     result, call = evaluate_attempts(memo, sources, attempts, contract)
     if call is None:
         return result

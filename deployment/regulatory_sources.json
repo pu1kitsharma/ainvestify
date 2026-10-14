@@ -1,0 +1,323 @@
+{
+  "contract": "official-regulatory-reference-v1",
+  "research_checked_on": "2026-10-10",
+  "purpose": "Official-host admission and review pointers only; not a complete legal matrix or signoff.",
+  "scope": "India private startup fundraising and internal diligence; worldwide product remains supported.",
+  "qualified_owner": null,
+  "sources": [
+    {
+      "reference_id": "companies-act-2013",
+      "title": "Companies Act 2013, including Section 42",
+      "official_url": "https://www.indiacode.nic.in/bitstream/123456789/2114/5/A2013-18.pdf",
+      "host": "www.indiacode.nic.in",
+      "observation_status": "reference_observed",
+      "qualification_status": "unreviewed",
+      "source_sha256": null,
+      "effective_from": null,
+      "verified_on": null,
+      "note": "Official Act PDF, including Section 42, was readable through public web retrieval but timed out for local byte retention. No local source hash or complete 2026 amendment verification is claimed; statutory private-placement documents remain separate from generated materials.",
+      "catalog_url": "https://www.indiacode.nic.in/indiacode/handle/123456789/2114?view_type=browse",
+      "fetch_status": "unavailable",
+      "source_bytes_path": null,
+      "source_byte_length": null,
+      "retrieved_at": null,
+      "last_fetch_attempt_at": "2026-10-10T10:01:36.997453+00:00",
+      "retrieval_receipts": [
+        {
+          "receipt_path": "runtime_qualification/regulatory_sources/2026-10-10/companies-act-2013.receipt.json",
+          "receipt_sha256": "ecd8c9b522f140d0d0797702da769814418d67ab8fa306481b78d0b729674ee1",
+          "attempted_at": "2026-10-10T09:55:19.289121+00:00",
+          "fetch_status": "unavailable",
+          "http_status": null,
+          "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+        },
+        {
+          "receipt_path": "runtime_qualification/regulatory_sources/2026-10-10/companies-act-2013.attempt-02.receipt.json",
+          "receipt_sha256": "32be943354476da66f7a196a0415540e6cf5f11945c2952d832cc7613c73df22",
+          "attempted_at": "2026-10-10T09:59:36.597723+00:00",
+          "fetch_status": "unavailable",
+          "http_status": null,
+          "error": "timeout: The read operation timed out"
+        },
+        {
+          "receipt_path": "runtime_qualification/regulatory_sources/2026-10-10/companies-act-2013.attempt-03.receipt.json",
+          "receipt_sha256": "cacc5c01492e98dc15abae9d20fdeaec726660a8d146b179f3365b4c339c394a",
+          "attempted_at": "2026-10-10T10:01:36.997453+00:00",
+          "fetch_status": "unavailable",
+          "http_status": 0,
+          "error": "curl: (28) Operation timed out after 20010 milliseconds with 0 bytes received"
+        }
+      ]
+    },
+    {
+      "reference_id": "mca-official-rules",
+      "title": "Historical Companies (Amendment) Act 2017 pointer; not Rule 14",
+      "official_url": "https://www.mca.gov.in/Ministry/pdf/CAAct2017_05012018.pdf",
+      "host": "www.mca.gov.in",
+      "observation_status": "reference_observed",
+      "qualification_status": "unreviewed",
+      "source_sha256": null,
+      "effective_from": null,
+      "verified_on": null,
+      "note": "Preserved earlier Act amendment reference. It is not a final Rule 14 publication. Use the separate 2018 and 2020 Rule 14 references for qualified rule research.",
+      "fetch_status": "not_attempted"
+    },
+    {
+      "reference_id": "sebi-ia-master-2026",
+      "title": "SEBI Master Circular for Investment Advisers, 6 February 2026",
+      "official_url": "https://www.sebi.gov.in/sebi_data/attachdocs/feb-2026/1770375291405.pdf",
+      "host": "www.sebi.gov.in",
+      "observation_status": "source_bytes_retained",
+      "qualification_status": "unreviewed",
+      "source_sha256": "ab1d6f24e184cc2766052b9c3a0fc28ee237b9c2e02fae8d5129f5dd1970cdce",
+      "effective_from": null,
+      "verified_on": null,
+      "note": "Applicability depends on actual regulated activity; issuer materials alone do not establish an adviser or analyst mandate.",
+      "fetch_status": "source_bytes_retained",
+      "source_bytes_path": "runtime_qualification/regulatory_sources/2026-10-10/sebi-ia-master-2026.attempt-02.pdf",
+      "source_byte_length": 1351014,
+      "retrieved_at": "2026-10-10T09:59:28.418469+00:00",
+      "last_fetch_attempt_at": "2026-10-10T09:59:28.418469+00:00",
+      "retrieval_receipts": [
+        {
+          "receipt_path": "runtime_qualification/regulatory_sources/2026-10-10/sebi-ia-master-2026.receipt.json",
+          "receipt_sha256": "8bda1ad2b6b3bc5da515bb38873c20d943bec13e47c2791e1625f2012fd9c7e9",
+          "attempted_at": "2026-10-10T09:55:19.288873+00:00",
+          "fetch_status": "unavailable",
+          "http_status": null,
+          "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+        },
+        {
+          "receipt_path": "runtime_qualification/regulatory_sources/2026-10-10/sebi-ia-master-2026.attempt-02.receipt.json",
+          "receipt_sha256": "296756381f44644aaebce0fc3f43fe870c49d48c1ecaa0491a409b3a4d0a5242",
+          "attempted_at": "2026-10-10T09:59:28.418469+00:00",
+          "fetch_status": "source_bytes_retained",
+          "http_status": 200,
+          "error": null
+        }
+      ]
+    },
+    {
+      "reference_id": "rbi-foreign-investment",
+      "title": "RBI Master Direction: Foreign Investment in India",
+      "official_url": "https://www.rbi.org.in/scripts/FS_Notification.aspx?Id=11200",
+      "host": "www.rbi.org.in",
+      "observation_status": "source_bytes_retained",
+      "qualification_status": "unreviewed",
+      "source_sha256": "660dd0547590d7547193d559879d2d6d8f7176c536818f3af4a8db8bfb1d824a",
+      "effective_from": null,
+      "verified_on": null,
+      "note": "Retained official HTML labels itself updated through 15 June 2026. That publisher label is not qualified currentness verification. Residency, instrument, sector, later amendments and reporting remain undetermined.",
+      "fetch_status": "source_bytes_retained",
+      "source_bytes_path": "runtime_qualification/regulatory_sources/2026-10-10/rbi-foreign-investment.attempt-02.html",
+      "source_byte_length": 524047,
+      "retrieved_at": "2026-10-10T09:59:22.632134+00:00",
+      "last_fetch_attempt_at": "2026-10-10T09:59:22.632134+00:00",
+      "retrieval_receipts": [
+        {
+          "receipt_path": "runtime_qualification/regulatory_sources/2026-10-10/rbi-foreign-investment.receipt.json",
+          "receipt_sha256": "acc250a2acc09a408d6766f17dd4d8cdf027ef6a879496b3115479f2bcd6b7d4",
+          "attempted_at": "2026-10-10T09:55:19.295095+00:00",
+          "fetch_status": "unavailable",
+          "http_status": null,
+          "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+        },
+        {
+          "receipt_path": "runtime_qualification/regulatory_sources/2026-10-10/rbi-foreign-investment.attempt-02.receipt.json",
+          "receipt_sha256": "4bf4c6969c26729a4787db189d4858e7f91c99853101a22949d331083cd42a92",
+          "attempted_at": "2026-10-10T09:59:22.632134+00:00",
+          "fetch_status": "source_bytes_retained",
+          "http_status": 200,
+          "error": null
+        }
+      ]
+    },
+    {
+      "reference_id": "dpdp-rules-2025",
+      "title": "Digital Personal Data Protection Rules 2025, G.S.R.846(E)",
+      "official_url": "https://www.meity.gov.in/static/uploads/2025/11/53450e6e5dc0bfa85ebd78686cadad39.pdf",
+      "host": "www.meity.gov.in",
+      "observation_status": "source_bytes_retained",
+      "qualification_status": "unreviewed",
+      "source_sha256": "eabc7d05e013144615d78ddc0e8b9c9aac1920e814f4fad38ce6560951f5aa08",
+      "effective_from": null,
+      "verified_on": null,
+      "note": "Rule 1 has phased commencement. Later corrigenda, Act commencement and rule-specific dates need qualified verification.",
+      "fetch_status": "source_bytes_retained",
+      "source_bytes_path": "runtime_qualification/regulatory_sources/2026-10-10/dpdp-rules-2025.attempt-02.pdf",
+      "source_byte_length": 2492944,
+      "retrieved_at": "2026-10-10T09:59:25.432577+00:00",
+      "last_fetch_attempt_at": "2026-10-10T09:59:25.432577+00:00",
+      "retrieval_receipts": [
+        {
+          "receipt_path": "runtime_qualification/regulatory_sources/2026-10-10/dpdp-rules-2025.receipt.json",
+          "receipt_sha256": "a75e46d3590e8075b000bc9b97a0a9ace5c9055cf789edb4b90c63c34bbd0397",
+          "attempted_at": "2026-10-10T09:55:19.295289+00:00",
+          "fetch_status": "unavailable",
+          "http_status": null,
+          "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+        },
+        {
+          "receipt_path": "runtime_qualification/regulatory_sources/2026-10-10/dpdp-rules-2025.attempt-02.receipt.json",
+          "receipt_sha256": "f2f813ffa59fcaa0241039d58067a61e55056803374d3aae5727c89995cb5515",
+          "attempted_at": "2026-10-10T09:59:25.432577+00:00",
+          "fetch_status": "source_bytes_retained",
+          "http_status": 200,
+          "error": null
+        }
+      ]
+    },
+    {
+      "reference_id": "irdai-regulations-index",
+      "title": "IRDAI updated regulations index",
+      "official_url": "https://irdai.gov.in/updated-regulations",
+      "host": "irdai.gov.in",
+      "observation_status": "reference_observed",
+      "qualification_status": "unreviewed",
+      "source_sha256": null,
+      "effective_from": null,
+      "verified_on": null,
+      "note": "Sector licensing and applicable intermediary rules require actual regulated-activity evidence and current amendments.",
+      "fetch_status": "unavailable",
+      "source_bytes_path": null,
+      "source_byte_length": null,
+      "retrieved_at": null,
+      "last_fetch_attempt_at": "2026-10-10T09:59:37.800660+00:00",
+      "retrieval_receipts": [
+        {
+          "receipt_path": "runtime_qualification/regulatory_sources/2026-10-10/irdai-regulations-index.receipt.json",
+          "receipt_sha256": "7c0ccdae577cf77bdde67abb02c0f001b099c8ed0ce1f67d8b511973f8e464b2",
+          "attempted_at": "2026-10-10T09:55:19.295500+00:00",
+          "fetch_status": "unavailable",
+          "http_status": null,
+          "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+        },
+        {
+          "receipt_path": "runtime_qualification/regulatory_sources/2026-10-10/irdai-regulations-index.attempt-02.receipt.json",
+          "receipt_sha256": "3edb2375a5dab9f3efd30d5506082154f4e2d02c75bf68376f155bbdfe63c7f4",
+          "attempted_at": "2026-10-10T09:59:37.800660+00:00",
+          "fetch_status": "unavailable",
+          "http_status": null,
+          "error": "timeout: The read operation timed out"
+        }
+      ]
+    },
+    {
+      "reference_id": "mca-rule14-final-2018",
+      "title": "Final Companies (Prospectus and Allotment of Securities) Second Amendment Rules 2018, G.S.R.752(E)",
+      "official_url": "https://www.mca.gov.in/Ministry/pdf/RuleProspectusSecurities07_08082018.pdf",
+      "host": "www.mca.gov.in",
+      "publication_date_observed": "2018-08-07",
+      "note": "Final Gazette publication substitutes Rule 14. Local fetch failed TLS; public web retrieval was inaccessible. The similarly named India Code upload is prepublication style and was not substituted. This is a 2018 version reference, not a complete current ruleset or applicability decision.",
+      "fetch_status": "unavailable",
+      "observation_status": "reference_observed",
+      "source_sha256": null,
+      "source_bytes_path": null,
+      "source_byte_length": null,
+      "retrieved_at": null,
+      "last_fetch_attempt_at": "2026-10-10T10:01:20.064182+00:00",
+      "retrieval_receipts": [
+        {
+          "receipt_path": "runtime_qualification/regulatory_sources/2026-10-10/mca-rule14-final-2018.receipt.json",
+          "receipt_sha256": "319122f1b87a76285b42ce0a210ad7a4966ce023aa6676de4e36eb7a1f38eb1c",
+          "attempted_at": "2026-10-10T09:55:19.289574+00:00",
+          "fetch_status": "unavailable",
+          "http_status": null,
+          "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+        },
+        {
+          "receipt_path": "runtime_qualification/regulatory_sources/2026-10-10/mca-rule14-final-2018.attempt-02.receipt.json",
+          "receipt_sha256": "592a93b30c4d499007529badd895ce00d7f3d81be709b8a954db96a48480a49d",
+          "attempted_at": "2026-10-10T09:59:22.070679+00:00",
+          "fetch_status": "unavailable",
+          "http_status": null,
+          "error": "URLError: <urlopen error [SSL: TLSV1_ALERT_PROTOCOL_VERSION] tlsv1 alert protocol version (_ssl.c:1129)>"
+        },
+        {
+          "receipt_path": "runtime_qualification/regulatory_sources/2026-10-10/mca-rule14-final-2018.attempt-03.receipt.json",
+          "receipt_sha256": "79c27cfd67c0bf14f387c1282060c64f621aa6e72d20abc5ca176b5de48c7d6c",
+          "attempted_at": "2026-10-10T10:01:20.064182+00:00",
+          "fetch_status": "unavailable",
+          "http_status": 0,
+          "error": "curl: (35) LibreSSL/3.3.6: error:1404B42E:SSL routines:ST_CONNECT:tlsv1 alert protocol version"
+        }
+      ],
+      "qualification_status": "unreviewed",
+      "effective_from": null,
+      "verified_on": null
+    },
+    {
+      "reference_id": "mca-rule14-amendment-2020",
+      "title": "Companies (Prospectus and Allotment of Securities) Amendment Rules 2020, G.S.R.642(E)",
+      "official_url": "https://www.mca.gov.in/Ministry/pdf/SecuritiesAmendmentRules_16102020.pdf",
+      "host": "www.mca.gov.in",
+      "publication_date_observed": "2020-10-16",
+      "note": "Official Rule 14 amendment pointer; qualified review must establish the complete amendment chain. Local fetch failed TLS and public web retrieval returned 403. Publication date is not an accepted effective date or scope decision.",
+      "fetch_status": "unavailable",
+      "observation_status": "reference_observed",
+      "source_sha256": null,
+      "source_bytes_path": null,
+      "source_byte_length": null,
+      "retrieved_at": null,
+      "last_fetch_attempt_at": "2026-10-10T10:01:20.065935+00:00",
+      "retrieval_receipts": [
+        {
+          "receipt_path": "runtime_qualification/regulatory_sources/2026-10-10/mca-rule14-amendment-2020.receipt.json",
+          "receipt_sha256": "a9d1bd6ad033c348e0c4080eae9700a394d54ebd8b600577b81ec1f74bc2515a",
+          "attempted_at": "2026-10-10T09:55:19.289350+00:00",
+          "fetch_status": "unavailable",
+          "http_status": null,
+          "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+        },
+        {
+          "receipt_path": "runtime_qualification/regulatory_sources/2026-10-10/mca-rule14-amendment-2020.attempt-02.receipt.json",
+          "receipt_sha256": "1661c1874f44f0150ece2a7e9a61e54f9070356fc22e812287a8fe35d88dfd5a",
+          "attempted_at": "2026-10-10T09:59:22.069147+00:00",
+          "fetch_status": "unavailable",
+          "http_status": null,
+          "error": "URLError: <urlopen error [SSL: TLSV1_ALERT_PROTOCOL_VERSION] tlsv1 alert protocol version (_ssl.c:1129)>"
+        },
+        {
+          "receipt_path": "runtime_qualification/regulatory_sources/2026-10-10/mca-rule14-amendment-2020.attempt-03.receipt.json",
+          "receipt_sha256": "ce558ccf2522d3d47840132da0c9aca14169e346f3050d7810f573689847ebb0",
+          "attempted_at": "2026-10-10T10:01:20.065935+00:00",
+          "fetch_status": "unavailable",
+          "http_status": 0,
+          "error": "curl: (35) LibreSSL/3.3.6: error:1404B42E:SSL routines:ST_CONNECT:tlsv1 alert protocol version"
+        }
+      ],
+      "qualification_status": "unreviewed",
+      "effective_from": null,
+      "verified_on": null
+    }
+  ],
+  "retrieval_summary": {
+    "run_date": "2026-10-10",
+    "attempted_references": 7,
+    "retained_references": 3,
+    "unavailable_references": 4,
+    "unattempted_historical_pointers": 1,
+    "retained_total_bytes": 4368005,
+    "qualification_status": "unreviewed",
+    "qualified_owner": null,
+    "manifests": [
+      {
+        "path": "runtime_qualification/regulatory_sources/2026-10-10/retrieval_manifest.json",
+        "sha256": "47a20bd3cb44aa67720671e9e08917e8f2f0765de82c35e98b8dd9de499c7524"
+      },
+      {
+        "path": "runtime_qualification/regulatory_sources/2026-10-10/retrieval_manifest_attempt-02.json",
+        "sha256": "4e6a8e97b658575ce857c00efbc862c7fc04fd97c249c11253658257132fdf9a"
+      },
+      {
+        "path": "runtime_qualification/regulatory_sources/2026-10-10/retrieval_manifest_attempt-03.json",
+        "sha256": "112f4b5d64b27db0554a11e63f688ef460f602cb044aca91c66942320642c24b"
+      }
+    ],
+    "identity_inspection": {
+      "path": "runtime_qualification/regulatory_sources/2026-10-10/source_identity_inspection.json",
+      "sha256": "66ca4e2cd8cb03fa9ea0fbeeb4dc4bfbc4c19312dcc38ebafa35158df4433db2",
+      "purpose": "Format and document identity checks only; no legal qualification"
+    }
+  }
+}

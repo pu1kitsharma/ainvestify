@@ -51,8 +51,12 @@ def load_revision(content_root: Path) -> dict:
                  'rereview_attempts': rows(f'content_rereview_attempts_{number}.json')}
         if entry['repair_attempts'] or entry['rereview_attempts']:
             later.append(entry)
+    from scripts.private_memo_content_worker import effective_review_contract
+    contract = effective_review_contract(content_root, request)
+    if contract is None:
+        raise ValueError('Blind source characterization has not completed')
     record = {'contract': repair.REVISION_CONTRACT,
-              'review_contract': request['review_contract'],
+              'review_contract': contract,
               'author_pin': request['author_pin'],
               'base_memo_digest': digest(request['memo']),
               'review_attempts': rows('content_review_attempts.json'),
@@ -63,20 +67,28 @@ def load_revision(content_root: Path) -> dict:
     return record
 
 
-def run(memo_root: Path, output: Path, phase: str, *, review_model: str | None = None) -> dict:
+def run(memo_root: Path, output: Path, phase: str, *, review_model: str | None = None, review_version: str = 'memo-content-review-v3', calls_per_pass: int = 1, author_model: str | None = None, repair_contract: str | None = None) -> dict:
+    if calls_per_pass not in range(1, 7):
+        raise ValueError('Content pass permits one to six calls')
     memo_dir, request, profile, accepted = _memo_inputs(memo_root)
     root = output.resolve()
     if (not root.is_relative_to(OUTPUT_ROOT.resolve()) or root == memo_dir or
             root.parent != memo_dir.parent):
         raise ValueError('Content output must be beside its private memo diagnostic')
+    if review_version not in {'memo-content-review-v1', 'memo-content-review-v2', 'memo-content-review-v3', 'memo-content-review-v4', 'memo-content-review-v5'}:
+        raise ValueError('Unknown content review contract')
     if phase == 'prepare':
         reviewer = review_model or profile['profiles'].get('challenge') or profile['profiles']['review']
-        author = profile['profiles']['author']
+        author = author_model or profile['profiles']['author']
         body = {'memo': accepted['memo'], 'sources': request['sources'],
                 'memo_root': str(memo_dir),
-                'review_contract': {'version': review.CONTRACT, 'model_name': reviewer,
+                'review_contract': {'version': review_version, 'model_name': reviewer,
                                     'model_digest': _installed_digest(reviewer)},
                 'author_pin': {'name': author, 'digest': _installed_digest(author)}}
+        if repair_contract is not None:
+            if repair_contract not in {'memo-content-repair-v4', 'memo-content-repair-v5', 'memo-content-repair-v6'}:
+                raise ValueError('Unsupported opted-in repair contract')
+            body['author_pin']['repair_contract'] = repair_contract
         root.mkdir(parents=True, exist_ok=False, mode=0o700)
         _write_new(root / 'content_request.json', {**body, 'digest': digest(body)})
         return {'state': 'prepared', 'diagnostic_path': str(root)}
@@ -98,7 +110,7 @@ def run(memo_root: Path, output: Path, phase: str, *, review_model: str | None =
         history.append({'pass': len(history) + 1, 'state': 'started'})
         (_replace if history_file.exists() else _write_new)(history_file, history)
         budget_file = root / 'content_budget.json'
-        (_replace if budget_file.exists() else _write_new)(budget_file, {'seconds': 105})
+        (_replace if budget_file.exists() else _write_new)(budget_file, {'seconds': 105, 'max_calls': calls_per_pass})
         try:
             run_private([sys.executable, PROJECT / 'scripts/private_memo_content_worker.py'],
                         root, timeout=118, extra_read=(PROJECT / 'agents', PROJECT / 'schemas.py'),
@@ -128,10 +140,15 @@ def main() -> None:
     parser.add_argument('memo_root', type=Path)
     parser.add_argument('output', type=Path)
     parser.add_argument('phase', choices=('prepare', 'advance', 'verify'))
+    parser.add_argument('--calls-per-pass', type=int, choices=range(1, 7), default=1)
+    parser.add_argument('--review-version', choices=('memo-content-review-v1', 'memo-content-review-v2', 'memo-content-review-v3', 'memo-content-review-v4', 'memo-content-review-v5'),
+                        default='memo-content-review-v3')
+    parser.add_argument('--author-model')
+    parser.add_argument('--repair-contract', choices=('memo-content-repair-v4', 'memo-content-repair-v5', 'memo-content-repair-v6'))
     parser.add_argument('--review-model', help='Installed local model for the content reviewer')
     args = parser.parse_args()
     print(json.dumps(run(args.memo_root, args.output, args.phase,
-                         review_model=args.review_model), ensure_ascii=False))
+                         review_model=args.review_model, review_version=args.review_version, calls_per_pass=args.calls_per_pass, author_model=args.author_model, repair_contract=args.repair_contract), ensure_ascii=False))
 
 
 if __name__ == '__main__':

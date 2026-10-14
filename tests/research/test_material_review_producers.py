@@ -164,7 +164,9 @@ def test_recorded_v1_to_v9_request_replays_exactly_and_is_never_upgraded(product
 def test_unknown_recorded_contract_is_refused_and_v9_is_itself_replayable(production):
     root, job, memo, material, box = production
     assert stage._recorded_review_contract(root / 'absent.json') == IMPLEMENTED
-    assert set(RECORDED) | {FRESH, 'semantic_v12', 'semantic_v13'} == set(
+    assert set(RECORDED) | {FRESH, 'semantic_v12', 'semantic_v13', 'semantic_v14', 'semantic_v15',
+                            'semantic_v16', 'semantic_v17', 'semantic_v18', 'semantic_v19',
+                            'semantic_v20'} == set(
         stage.RECORDED_REVIEW_CONTRACTS)
     path = root / 'material_review_request.json'
     path.write_text(json.dumps({'review_contract': 'semantic_v99'}))

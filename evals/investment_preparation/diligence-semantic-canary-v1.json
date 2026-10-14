@@ -1,0 +1,57 @@
+{
+  "contract": "diligence-semantic-canary-v1",
+  "scope": "Fictional held-out source interpretation; no investor or private-company qualification.",
+  "cases": [
+    {
+      "id": "cover",
+      "passage": "Investor Overview\nProduct Dashboard\nOperating Model",
+      "expected": {"kinds": ["heading_only"], "required": [], "allowed": []}
+    },
+    {
+      "id": "contact",
+      "passage": "General enquiries\nEmail: office@example.invalid\nPostal address: 42 Imaginary Road, Fiction Town",
+      "expected": {"kinds": ["contact_only"], "required": [], "allowed": []}
+    },
+    {
+      "id": "product_only",
+      "passage": "The point-of-sale terminal prints itemized receipts at the checkout counter.",
+      "expected": {"kinds": ["information"], "required": ["product_and_customers"], "allowed": ["product_and_customers"]}
+    },
+    {
+      "id": "financial_and_market_table",
+      "passage": "Year | Projected revenue (fictional credits)\n2028 | 120\nAddressable category demand | 8,500 eligible outlets",
+      "expected": {"kinds": ["structured_information"], "required": ["financial_evidence", "market_and_competition"], "allowed": ["financial_evidence", "market_and_competition"]}
+    },
+    {
+      "id": "planned_status_not_risk",
+      "passage": "Launch is planned for June 2028. Projected service revenue is 80 fictional credits.",
+      "expected": {"kinds": ["information"], "required": ["financial_evidence"], "allowed": ["identity", "product_and_customers", "financial_evidence"]}
+    },
+    {
+      "id": "explicit_adverse_condition",
+      "passage": "If the only courier suspends service, deliveries will cease; no alternative courier is contracted.",
+      "expected": {"kinds": ["information"], "required": ["risks"], "allowed": ["product_and_customers", "risks"]}
+    },
+    {
+      "id": "explicit_capital_and_sales",
+      "passage": "Equity capital sought: 60 fictional credits.\nProjected sales: 200 fictional credits.",
+      "expected": {"kinds": ["information", "structured_information"], "required": ["funding_and_ownership", "financial_evidence"], "allowed": ["funding_and_ownership", "financial_evidence"]}
+    },
+    {
+      "id": "projected_sales_not_funding",
+      "passage": "Projected annual sales are 200 fictional credits. Launch is planned for June 2028.",
+      "expected": {"kinds": ["information"], "required": ["financial_evidence"], "allowed": ["identity", "product_and_customers", "financial_evidence"]}
+    },
+    {
+      "id": "omitted_documents_not_unknown",
+      "passage": "The sensor reports humidity to a handheld terminal.",
+      "processing_metadata": {"supplied_document_types": ["product_note"]},
+      "expected": {"kinds": ["information"], "required": ["product_and_customers"], "allowed": ["product_and_customers"]}
+    },
+    {
+      "id": "explicit_evidence_limitation",
+      "passage": "Open question: which record version was used in this report?",
+      "expected": {"kinds": ["information"], "required": ["material_unknowns"], "allowed": ["material_unknowns"]}
+    }
+  ]
+}

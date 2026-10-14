@@ -48,9 +48,7 @@ def test_isolated_parser_and_renderer_produce_real_files(tmp_path):
         'memo_sections':[['Synthetic fixture','Illustrative test content only','Synthetic source fixture']],
         'intro_sections':[['Synthetic fixture','Illustrative test content only','Synthetic source fixture','statement']],
         'pitch_sections':[['Synthetic evidence','Illustrative test content only','Synthetic source fixture','evidence']]}))
-    font_root=Path('/Applications/LibreOffice.app/Contents/Resources/fonts/truetype')
-    run_private([sys.executable,script],job,
-        extra_read=(font_root,) if font_root.is_dir() else ())
+    run_private([sys.executable,script],job)
     for name,fmt in [('intro.pptx','pptx'),('intro.pdf','pdf'),
                      ('pitch.pptx','pptx'),('pitch.pdf','pdf'),
                      ('memo.docx','docx'),('memo.pdf','pdf'),
@@ -85,3 +83,30 @@ def test_isolated_model_snapshot_can_abstain_without_model_calls(secured,tmp_pat
     assert isinstance(result['analyst_pack'],dict)
     assert list((tmp_path/'private').rglob('snapshot.db'))
     assert not result['analyst_pack'].get('sections')
+
+
+
+def test_renderer_font_is_readable_but_adjacent_application_and_private_data_are_not(tmp_path):
+    from delivery.isolation import READONLY_RENDER_FONTS
+    font=READONLY_RENDER_FONTS[0]
+    if not font.is_file():pytest.skip('Qualified runtime font is not installed')
+    adjacent=font.parent/'DejaVuSerif.ttf'
+    if not adjacent.is_file():adjacent=font.parents[3]/'Info.plist'
+    assert adjacent.is_file()
+    job=tmp_path/'job';job.mkdir()
+    private=tmp_path/'other-room.txt';private.write_text('synthetic-private-canary')
+    code="""
+import json,os
+from pathlib import Path
+font=Path(%r)
+result={'font_read':len(font.read_bytes())>1000}
+for key,path in [('adjacent_denied',Path(%r)),('private_denied',Path(%r))]:
+ try:path.read_bytes();result[key]=False
+ except PermissionError:result[key]=True
+try:
+ fd=os.open(font,os.O_WRONLY);os.close(fd);result['font_write_denied']=False
+except PermissionError:result['font_write_denied']=True
+print(json.dumps(result))
+"""%(str(font),str(adjacent),str(private))
+    assert json.loads(run_private([sys.executable,'-c',code],job))=={
+        'font_read':True,'adjacent_denied':True,'private_denied':True,'font_write_denied':True}

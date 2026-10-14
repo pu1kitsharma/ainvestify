@@ -1,7 +1,8 @@
 # Start here
 
 Current direction, 1 October 2026: build locally first, then qualify private
-self-hosted AWS deployment. Product scope is worldwide startup research,
+self-hosted GCP deployment (provider corrected by the user on 14 October 2026).
+Product scope is worldwide startup research,
 company due diligence, evidence-backed investment suggestions and investor
 materials. India pre-seed/seed is a bounded pilot and regression case, not a
 product geography or stage restriction. User briefs set any narrower mandate.
@@ -9,7 +10,7 @@ Latest execution order: P1 durable public KB generation for discovery and room
 research; P2 local-model-only answers across product workflows, retiring Claude
 and other hosted LLM response routes; P3 private Office/financial/artifact
 qualification; P4 integrated local acceptance; P5 live Google OIDC and verified
-legacy ownership before any multi-user release. P5 denotes priority, not an AWS
+legacy ownership before any multi-user release. P5 denotes priority, not an
 instance type or a waiver of authentication/isolation release gates.
 OAuth/OIDC registration and sign-in must provision a private user sandbox. Derive
 tenant/reviewer identity server-side; private rooms/files/jobs/caches are isolated
@@ -132,7 +133,7 @@ Consult actual processes/jobs/configuration rather than old PID or status notice
   validation must match exact versions. Passing software tests is not investment
   quality, financial diligence or regulatory sign-off.
 - No external outreach, fundraising execution, signing or investment action is
-  authorized. Plans do not authorize model downloads, paid inference or AWS spend.
+  authorized. Plans do not authorize model downloads, paid inference or cloud spend.
   Do not commit/push merely because an old checkpoint asked for it.
 
 ## Code and evidence navigation

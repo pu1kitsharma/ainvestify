@@ -226,7 +226,8 @@ def process_one(db_path):
             workbook_count = sum(document.type == 'xlsx' for document in documents)
             # Financial selection is finite. Do not parse an arbitrary upload
             # set before the financial phase can record that review is needed.
-            inventory_documents = documents if phase == 'legacy' or workbook_count <= 3 else []
+            inventory_documents = ([] if data.get('workflow_contract') == 'room-v63-source-quotes'
+                                   else documents if phase == 'legacy' or workbook_count <= 3 else [])
             for document in inventory_documents:
                 if document.type!='xlsx' or document.id in inventories:continue
                 if not has_access(store.conn,job['actor_id'],job['tenant_id']):raise PermissionError('revoked')
@@ -311,7 +312,79 @@ def process_one(db_path):
                 return job['id']
             from delivery.investment_memo_stage import (room_sources, resolve_memo_sources,
                                                          run_memo_pass, source_fingerprint)
-            inventory, coverage = room_sources(store, lead, room, full_inventory=True)
+            financial_indexes = None
+            if data.get('workflow_contract') == 'room-v63-source-quotes':
+                from delivery.financial_evidence_stage import run_financial_evidence_stage
+                from agents.inference.model_authorship import digest as evidence_digest
+                workbooks = sorted((document for document in documents if document.type == 'xlsx'), key=lambda doc: doc.id)
+                indexes = data.setdefault('financial_evidence_indexes', {'documents': {}})
+                records = indexes.setdefault('documents', {})
+                if len(workbooks) > 3 or set(records) - {doc.id for doc in workbooks}:
+                    reason = ('more_than_three_workbooks_need_reviewed_selection' if len(workbooks) > 3
+                              else 'financial_source_inventory_changed')
+                    data['financial_evidence'] = {'state': 'blocked', 'reason': reason,
+                        'workbook_count': len(workbooks), 'retained_cell_count': 0, 'packet_count': 0,
+                        'semantic_coverage': 'unassessed', 'financial_validation': 'not_established'}
+                    save('blocked', reason)
+                    return job['id']
+                for document in workbooks:
+                    remaining = 120 - (time.monotonic() - started)
+                    if remaining < 10:
+                        data['financial_evidence'] = {'state': 'blocked', 'reason': 'financial_index_room_budget_exhausted',
+                            'workbook_count': len(workbooks), 'retained_cell_count': sum(
+                                row.get('retained_cell_count', 0) for row in records.values()),
+                            'packet_count': sum(row.get('packet_count', 0) for row in records.values()),
+                            'semantic_coverage': 'unassessed', 'financial_validation': 'not_established'}
+                        save('blocked', 'financial_index_room_budget_exhausted')
+                        return job['id']
+                    # Cached stage verifies retained receipt/source/derivative hashes,
+                    # and only a genuinely absent source index starts its parser.
+                    indexed = run_financial_evidence_stage(store, job, document, timeout=min(30, remaining - 5))
+                    if indexed.get('state') != 'indexed_source_only':
+                        indexes.setdefault('failures', {})[document.id] = indexed
+                        reason = indexed.get('reason', 'financial_source_index_unavailable')
+                        data['financial_evidence'] = {'state': 'blocked', 'reason': reason,
+                            'workbook_count': len(workbooks), 'retained_cell_count': sum(
+                                row.get('retained_cell_count', 0) for row in records.values()),
+                            'packet_count': sum(row.get('packet_count', 0) for row in records.values()),
+                            'semantic_coverage': 'unassessed', 'financial_validation': 'not_established'}
+                        save('blocked', reason)
+                        return job['id']
+                    if document.id in records and records[document.id] != indexed:
+                        data['financial_evidence'] = {'state': 'blocked', 'reason': 'financial_source_index_changed',
+                            'workbook_count': len(workbooks), 'retained_cell_count': sum(
+                                row.get('retained_cell_count', 0) for row in records.values()),
+                            'packet_count': sum(row.get('packet_count', 0) for row in records.values()),
+                            'semantic_coverage': 'unassessed', 'financial_validation': 'not_established'}
+                        save('blocked', 'financial_source_index_changed')
+                        return job['id']
+                    records[document.id] = indexed
+                    save()
+                financial_indexes = records
+                indexes['inventory_digest'] = evidence_digest(records)
+                data['financial_evidence_scope'] = {
+                    'supplied_workbook_inventory_digest': indexes['inventory_digest'] if workbooks else None,
+                    'semantic_coverage': 'unassessed', 'financial_validation': 'not_established',
+                    'workbook_recalculation': 'not_performed'}
+                data['financial_evidence'] = {'state': 'indexed_source_only', 'workbook_count': len(workbooks),
+                    'retained_cell_count': sum(row['retained_cell_count'] for row in records.values()),
+                    'packet_count': sum(row['packet_count'] for row in records.values()),
+                    'semantic_coverage': 'unassessed', 'financial_validation': 'not_established'}
+                save()
+            inventory, coverage = room_sources(store, lead, room, full_inventory=True,
+                **({'financial_indexes': financial_indexes, 'financial_job_context': {
+                    'workspace_id': job['workspace_id'], 'job_id': job['id'], 'input_revision': job['input_revision']}}
+                   if data.get('workflow_contract') == 'room-v63-source-quotes' else {}),
+                preserve_structure=data.get('workflow_contract') in {'room-v58-complete-source-concise-memo', 'room-v59-sharded-source-adjudication', 'room-v60-blind-group-source-assessment', 'room-v61-supported-topic-groups', 'room-v62-explicit-topic-status', 'room-v63-source-quotes'})
+            if data.get('workflow_contract') in {'room-v58-complete-source-concise-memo', 'room-v59-sharded-source-adjudication', 'room-v60-blind-group-source-assessment', 'room-v61-supported-topic-groups', 'room-v62-explicit-topic-status', 'room-v63-source-quotes'} and len(inventory) > 25:
+                data['investment_memo'] = {'state': 'blocked',
+                    'reason': 'complete_diligence_inventory_exceeds_local_capacity',
+                    'coverage': coverage, 'retained_source_count': len(inventory),
+                    'bounded_source_capacity': 25}
+                data['materials'] = {'state': 'blocked',
+                    'reason': 'complete_diligence_inventory_exceeds_local_capacity'}
+                save('blocked', 'complete_diligence_inventory_exceeds_local_capacity')
+                return job['id']
             remaining = 120 - (time.monotonic() - started)
             if coverage.get('coverage_complete') is not True or coverage.get('source_count') > 30 or sum(
                     len(source.passage) for source in inventory) > 24000:
@@ -338,7 +411,10 @@ def process_one(db_path):
             # their file count is not independent corroboration.
             source_groups = memo_source_groups(coverage)
             inventory_digest = (coverage.get('inventory_digest')
-                                if coverage.get('selection_applied') else None)
+                                if coverage.get('selection_applied') or data.get('workflow_contract') == 'room-v63-source-quotes' else None)
+            if data.get('workflow_contract') == 'room-v63-source-quotes':
+                inventory_digest = evidence_digest({'narrative_inventory_digest': inventory_digest,
+                    'financial_source_inventory_digest': data['financial_evidence_indexes']['inventory_digest']})
             current_hash = source_fingerprint(job, lead, sources, inventory_digest)
             memo = data.get('investment_memo', {})
             recorded_hash = data.get('memo_source_hash') or memo.get('source_hash')
@@ -347,7 +423,7 @@ def process_one(db_path):
                                            'coverage': coverage}
                 save('blocked', 'source_version_changed')
                 return job['id']
-            if phase in {'correction', 'ledger', 'review'} and not recorded_hash:
+            if phase in {'correction', 'ledger', 'review', 'content_review'} and not recorded_hash:
                 raise ValueError('Memo phase lacks a saved source fingerprint')
             if issue := memo_coverage_issue(coverage):
                 data['investment_memo'] = {'state': 'awaiting_input', 'reason': issue,
@@ -387,7 +463,7 @@ def process_one(db_path):
                     memo_phase = ('draft_only' if phase == 'draft' else
                                   'correction_only' if phase == 'correction' else
                                   'ledger_only' if phase == 'ledger' else
-                                  'review_only' if phase == 'review' else
+                                  'review_only' if phase in {'review', 'content_review'} else
                                   'analysis_only' if phase == 'analysis' else 'all')
                     memo = run_memo_pass(job, lead, sources, timeout=min(110, remaining - 5),
                                          inventory_digest=inventory_digest, phase=memo_phase,
@@ -397,6 +473,10 @@ def process_one(db_path):
                 memo['coverage'] = coverage
                 data['investment_memo'] = memo
                 if memo['state'] == 'needs_resume':
+                    if memo.get('phase') == 'memo_content_review_pending' and phase == 'review':
+                        data['memo_source_hash'] = current_hash
+                        save('queued', next_phase='content_review')
+                        return job['id']
                     if memo.get('memo_revision') in {'causal_v1', 'causal_v2',
                                                      'causal_v3', 'causal_v4',
                                                      'causal_v5', 'field_v1', 'stable_v1',
@@ -450,21 +530,31 @@ def process_one(db_path):
                     data['memo_phase_checkpoint'] = memo
                     save('queued', next_phase='review')
                     return job['id']
-                if memo['state'] == 'accepted' and phase not in {'review', 'analysis', 'legacy'}:
+                if memo['state'] == 'accepted' and phase not in {'review', 'content_review', 'analysis', 'legacy'}:
                     raise ValueError('Memo accepted outside the bounded review phase')
                 if memo['state'] != 'accepted':
                     data['materials'] = {'state': 'awaiting_input', 'reason': 'local_memo_validation_failed'}
                     save('awaiting_input')
                     return job['id']
-                if phase == 'review':
-                    from delivery.material_stage import FRESH_DRAFT_CONTRACT
-                    data.setdefault('material_draft_contract', FRESH_DRAFT_CONTRACT)
-                    save('queued', next_phase='material_draft')
+                if phase in {'review', 'content_review'}:
+                    from delivery.material_stage import fresh_material_contract
+                    data.setdefault('material_draft_contract', fresh_material_contract(job))
+                    next_phase = ('content_review' if phase == 'review' and
+                        data.get('workflow_contract') in {
+                            'room-v27-rationale-content-gate', 'room-v28-scope-content-gate',
+                            'room-v29-blind-scope-content-gate', 'room-v30-author-scope-content-gate', 'room-v31-blind-author-content-gate', 'room-v32-source-unit-content-gate', 'room-v33-isolated-source-unit-content-gate', 'room-v34-isolated-source-unit-content-gate', 'room-v35-isolated-source-unit-content-gate', 'room-v36-isolated-source-unit-content-gate', 'room-v37-isolated-source-unit-content-gate', 'room-v38-full-memo-content-gate', 'room-v39-checkpointed-full-memo-gate', 'room-v40-native-claim-full-memo-gate', 'room-v41-structured-section-full-memo-gate', 'room-v42-independent-author-checkpoints', 'room-v43-bounded-section-author', 'room-v44-literal-narrative-author', 'room-v45-narrative-section-budget', 'room-v46-structured-core-decisions', 'room-v47-prospective-risk-scope', 'room-v48-narrative-function-review', 'room-v49-batched-material-review', 'room-v50-complete-narrative-materials', 'room-v51-temporal-material-scope', 'room-v52-compact-material-selector', 'room-v53-attributed-period-selector', 'room-v54-typed-temporal-selector', 'room-v55-compact-material-review', 'room-v56-inline-material-provenance', 'room-v57-full-relation-material-review', 'room-v58-complete-source-concise-memo', 'room-v59-sharded-source-adjudication', 'room-v60-blind-group-source-assessment', 'room-v61-supported-topic-groups', 'room-v62-explicit-topic-status', 'room-v63-source-quotes'}
+                        else 'material_draft')
+                    save('queued', next_phase=next_phase)
                     return job['id']
                 if phase == 'analysis':
                     save('queued', next_phase='render')
                     return job['id']
                 save()
+            if phase == 'content_review' and memo.get('state') == 'accepted':
+                from delivery.material_stage import fresh_material_contract
+                data.setdefault('material_draft_contract', fresh_material_contract(job))
+                save('queued', next_phase='material_draft')
+                return job['id']
             if draft_memo_issue(coverage, memo.get('recommendation')):
                 data['investment_memo'] = {**memo, 'state': 'awaiting_input',
                     'reason': 'single_source_requires_model_defer'}
@@ -502,8 +592,8 @@ def process_one(db_path):
                 if materials['state'] != 'accepted':
                     save('awaiting_input')
                     return job['id']
-                from delivery.material_review_stage import FRESH_REVIEW_CONTRACT
-                data.setdefault('material_review_contract', FRESH_REVIEW_CONTRACT)
+                from delivery.material_review_stage import fresh_material_review_contract
+                data.setdefault('material_review_contract', fresh_material_review_contract(job))
                 save('queued', next_phase='material_preview')
                 return job['id']
             if phase == 'material_preview':
