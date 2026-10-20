@@ -1,0 +1,11 @@
+{
+  "contract": "agentic-training-source-registry-v1",
+  "collection_enabled": false,
+  "sources": [
+    {"id": "sebi_public_filings", "scope": "DRHP/RHP", "rights_status": "pending_review", "training_allowed": false, "terms_evidence": null},
+    {"id": "sec_edgar", "scope": "S-1/F-1/10-K/XBRL", "rights_status": "pending_review", "training_allowed": false, "terms_evidence": null},
+    {"id": "issuer_investor_relations", "scope": "Listed-company investor and earnings decks", "rights_status": "pending_review", "training_allowed": false, "terms_evidence": null}
+  ],
+  "private_references": {"training_allowed": false, "status": "excluded_pending_explicit_separate_approval"},
+  "note": "Public accessibility does not establish training, retention or redistribution permission. Review each source and record terms evidence before enabling collection. No documents collected."
+}

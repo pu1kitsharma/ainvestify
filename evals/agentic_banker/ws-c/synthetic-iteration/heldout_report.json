@@ -1,0 +1,44 @@
+{
+  "answer_key_sha256": "cfee91dceb0ad574ab9f40f78ec116b26c0f43d81252a9e8f73ed6e4cf67438c",
+  "cases": [
+    {
+      "all_checks_matched": true,
+      "case_id": "1",
+      "checks": {
+        "flags": {
+          "reward": 1.0,
+          "status": "matched"
+        }
+      },
+      "environment": "E4",
+      "evidence_scope": "supplied_observations_only",
+      "investor_acceptance": false,
+      "reward": 1.0,
+      "semantic_review": "unsupported"
+    },
+    {
+      "all_checks_matched": true,
+      "case_id": "2",
+      "checks": {
+        "flags": {
+          "reward": 1.0,
+          "status": "matched"
+        }
+      },
+      "environment": "E4",
+      "evidence_scope": "supplied_observations_only",
+      "investor_acceptance": false,
+      "reward": 1.0,
+      "semantic_review": "unsupported"
+    }
+  ],
+  "contract": "agentic-banker-offline-rewards-v1",
+  "investor_acceptance": false,
+  "limitations": [
+    "No model run",
+    "No artifact inspection",
+    "No semantic or human review"
+  ],
+  "mean_reward": 1.0,
+  "weights_trained": false
+}

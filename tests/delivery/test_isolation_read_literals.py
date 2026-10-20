@@ -2,6 +2,8 @@
 import platform
 from pathlib import Path
 import sys
+import subprocess
+from types import SimpleNamespace
 
 import pytest
 
@@ -20,9 +22,34 @@ def test_literal_capability_rejects_links_and_absent_paths_before_starting_worke
     assert not (job/'worker.sb').exists()
 
 
+def _require_native_seatbelt():
+    # Probe the host's ability to APPLY an independent minimal policy. Merely
+    # having the executable is insufficient inside an enclosing macOS sandbox.
+    probe = subprocess.run(['/usr/bin/sandbox-exec', '-p',
+        '(version 1)(allow default)(deny network*)', '/usr/bin/true'],
+        capture_output=True, timeout=5)
+    if probe.returncode == 71 and probe.stderr.strip() == b'sandbox-exec: sandbox_apply: Operation not permitted':
+        pytest.skip('Mandatory native private-isolation check UNRUN: enclosing sandbox forbids Seatbelt sandbox_apply; rerun in a qualified native host')
+    assert probe.returncode == 0, 'Independent native Seatbelt capability probe failed unexpectedly'
+
+
+def test_native_probe_only_skips_exact_host_capability_denial(monkeypatch):
+    monkeypatch.setattr(subprocess, 'run', lambda *a, **k: SimpleNamespace(
+        returncode=71, stderr=b'sandbox-exec: sandbox_apply: Operation not permitted\n'))
+    with pytest.raises(pytest.skip.Exception, match='Mandatory native private-isolation check UNRUN'):
+        _require_native_seatbelt()
+    monkeypatch.setattr(subprocess, 'run', lambda *a, **k: SimpleNamespace(
+        returncode=65, stderr=b'sandbox-exec: invalid profile'))
+    with pytest.raises(AssertionError, match='unexpectedly'):
+        _require_native_seatbelt()
+    monkeypatch.setattr(subprocess, 'run', lambda *a, **k: SimpleNamespace(returncode=0, stderr=b''))
+    _require_native_seatbelt()
+
+
 @pytest.mark.skipif(platform.system()!='Darwin' or not Path('/usr/bin/sandbox-exec').exists(),
                     reason='The native private boundary is macOS Seatbelt')
 def test_exact_parent_row_read_allows_listing_but_denies_sibling_contents_and_writes(tmp_path):
+    _require_native_seatbelt()
     job=tmp_path/'job';job.mkdir(mode=0o700)
     parent=tmp_path/'parent';parent.mkdir(mode=0o700)
     allowed=parent/'response_1.json';allowed.write_bytes(b'synthetic immutable row')

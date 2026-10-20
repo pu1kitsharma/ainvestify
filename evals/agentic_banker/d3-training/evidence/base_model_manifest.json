@@ -1,0 +1,10 @@
+{
+  "purpose": "Tiny dry-run base for pipeline plumbing only; weights are never committed",
+  "huggingface_repo": "mlx-community/Qwen2.5-0.5B-Instruct-4bit",
+  "url": "https://huggingface.co/mlx-community/Qwen2.5-0.5B-Instruct-4bit",
+  "revision": "a5339a4131f135d0fdc6a5c8b5bbed2753bbe0f3",
+  "total_bytes": 289601064,
+  "downloaded": "2026-10-20, one free download authorised by the user (<2 GB)",
+  "download_method": "huggingface_hub.snapshot_download(revision=<revision>) via runtime_qualification/finetune/venv",
+  "local_dir": "runtime_qualification/agentic_banker/dryrun/base"
+}

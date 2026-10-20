@@ -1,0 +1,26 @@
+{
+  "adapter_verified": false,
+  "contract": "agentic-expert-iteration-offline-v1",
+  "heldout_evaluation_run": true,
+  "investor_acceptance": false,
+  "memorisation_probe": "unrun",
+  "real_training": "unsupported",
+  "samples": 1,
+  "selected": 1,
+  "split_manifest": {
+    "companies": 3,
+    "contract": "agentic-public-splits-v1",
+    "counts": {
+      "test": 1,
+      "train": 1,
+      "valid": 1
+    },
+    "coverage_thresholds_met": false,
+    "evidence_families": 3,
+    "release_qualified": false,
+    "sectors": 3
+  },
+  "status": "dry_run_plumbing_complete",
+  "trainer_callback_invoked": true,
+  "weights_trained": false
+}

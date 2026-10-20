@@ -1,5 +1,21 @@
 # Next agent: local diligence and investor materials
 
+## 16 October local software checkpoint
+
+The agentic banker Phase A tool/runtime scaffold is implemented locally with
+isolated workstreams. The second checkpoint registers explicit schemas and
+executes a fully scripted synthetic workbook → two-slide deck → memo session,
+with immutable draft manifests and exact-byte replay. No real model authored
+this fixture and no weights were trained. All prior private-material failures
+below remain unresolved; no investor release or production room integration
+is established. See `evals/agentic_banker/CHECKPOINT_2.md` and
+`deployment/AGENTIC_BANKER_LOCAL_EXECUTION.md` for current scope and next gates.
+
+Default pytest now keeps audited live-model/network/server checks opt-in and
+reports native sandbox capability denial as mandatory unrun. Offline test results
+never establish private isolation or full release acceptance. Do not run live
+inference, private inputs, downloads or cloud work from a test command implicitly.
+
 ## Current truth — 14 October 2026
 
 **Cloud provider correction:** the user has moved to GCP because AWS was not

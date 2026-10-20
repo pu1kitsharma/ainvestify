@@ -1,0 +1,244 @@
+{
+  "adapter": {
+    "dir": "/Users/divyangmishra/Desktop/deal_document/runtime_qualification/agentic_banker/dryrun/private/round-001/adapter",
+    "files": {
+      "0000030_adapters.safetensors": {
+        "bytes": 5877295,
+        "sha256": "2f5dcbe7c9ae28271e818ad38ff871af4061f5f1f4e7a657d07800619b6e01fe"
+      },
+      "adapter_config.json": {
+        "bytes": 1350,
+        "sha256": "872e744896958ace8a82cbc48afa28280dc6a48fb77d9113942f28351693fcdb"
+      },
+      "adapters.safetensors": {
+        "bytes": 5877295,
+        "sha256": "2f5dcbe7c9ae28271e818ad38ff871af4061f5f1f4e7a657d07800619b6e01fe"
+      }
+    },
+    "storage_policy": "ignored private path",
+    "trained_on_private": true
+  },
+  "adapter_verified": true,
+  "base_model": {
+    "declared": {
+      "download_method": "huggingface_hub.snapshot_download(revision=<revision>) via runtime_qualification/finetune/venv",
+      "downloaded": "2026-10-20, one free download authorised by the user (<2 GB)",
+      "huggingface_repo": "mlx-community/Qwen2.5-0.5B-Instruct-4bit",
+      "local_dir": "runtime_qualification/agentic_banker/dryrun/base",
+      "purpose": "Tiny dry-run base for pipeline plumbing only; weights are never committed",
+      "revision": "a5339a4131f135d0fdc6a5c8b5bbed2753bbe0f3",
+      "total_bytes": 289601064,
+      "url": "https://huggingface.co/mlx-community/Qwen2.5-0.5B-Instruct-4bit"
+    },
+    "files": {
+      "added_tokens.json": {
+        "bytes": 605,
+        "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b"
+      },
+      "config.json": {
+        "bytes": 783,
+        "sha256": "b045e57ea90b8f1b35f89f954b176a5c1faa02bd0af2c89bcec191239d66cef4"
+      },
+      "model.safetensors": {
+        "bytes": 278064920,
+        "sha256": "ddffab9cbc7bf6dde941c6724841eeca8981fcfa81ca20ff8efff1396326d153"
+      },
+      "model.safetensors.index.json": {
+        "bytes": 44209,
+        "sha256": "54001cb4c11197119c206dde28e7be08e5872aab6c6d271aed339ec77e84f870"
+      },
+      "special_tokens_map.json": {
+        "bytes": 613,
+        "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+      },
+      "tokenizer.json": {
+        "bytes": 7031673,
+        "sha256": "a8506e7111b80c6d8635951a02eab0f4e1a8e4e5772da83846579e97b16f61bf"
+      },
+      "tokenizer_config.json": {
+        "bytes": 7308,
+        "sha256": "f7c61e32b7a17d19bf8e7037dcb74079a833e53ea9801f24008cac68458f03b7"
+      },
+      "vocab.json": {
+        "bytes": 2776833,
+        "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      }
+    },
+    "path": "/Users/divyangmishra/Desktop/deal_document/runtime_qualification/agentic_banker/dryrun/base"
+  },
+  "config": {
+    "eval_max_tokens": 256,
+    "minimum_reward": 1.0,
+    "private_cap": 0.1,
+    "private_upweight": 3,
+    "role": "author",
+    "samples_per_case": 10,
+    "top_k": 2
+  },
+  "contract": "agentic-expert-iteration-real-v1",
+  "data_provenance": {
+    "excluded_private_cases": [
+      "syn-private-heldout"
+    ],
+    "held_out_deals": [
+      "fictional-co-test-2",
+      "fictional-co-test-3",
+      "fictional-co-valid-0",
+      "fictional-co-valid-1",
+      "fictional-private-sigma"
+    ],
+    "mix": {
+      "cap": 0.1,
+      "distinct_private_used": 1,
+      "private_available": 1,
+      "private_share": 0.07142857142857142,
+      "private_used": 1,
+      "public": 13,
+      "upweight": 3
+    },
+    "private_rows_sha256": "b2f63ba0a7e0a51b6f254c3f24e781472d1e58e564c1ca7d9b1b49e4878ade95",
+    "public_source_sha256": "ec171b7ce6912942d3ce3c2a5556807e904a18a4745a25d39e534da6cc219050",
+    "split_manifest": {
+      "companies": 24,
+      "contract": "agentic-public-splits-v1",
+      "counts": {
+        "test": 2,
+        "train": 20,
+        "valid": 2
+      },
+      "coverage_thresholds_met": false,
+      "evidence_families": 24,
+      "release_qualified": false,
+      "sectors": 3
+    },
+    "train_jsonl_sha256": "913ea8ba25fc125704c14923ef08ec04a86bdaee3d7df28affa7a884b855da45",
+    "trained_on_deals": [
+      "fictional-co-train-0",
+      "fictional-co-train-1",
+      "fictional-co-train-10",
+      "fictional-co-train-11",
+      "fictional-co-train-12",
+      "fictional-co-train-13",
+      "fictional-co-train-14",
+      "fictional-co-train-15",
+      "fictional-co-train-16",
+      "fictional-co-train-17",
+      "fictional-co-train-18",
+      "fictional-co-train-19",
+      "fictional-co-train-2",
+      "fictional-co-train-3",
+      "fictional-co-train-4",
+      "fictional-co-train-5",
+      "fictional-co-train-6",
+      "fictional-co-train-7",
+      "fictional-co-train-8",
+      "fictional-co-train-9",
+      "fictional-private-omega"
+    ],
+    "valid_overlaps_train": true
+  },
+  "environment": {
+    "peak_rss_mb_driver": 21.8,
+    "platform": "macOS-26.4.1-arm64-arm-64bit",
+    "python": "3.9.6",
+    "wall_seconds": 62.14
+  },
+  "heldout": {
+    "adapter_beats_base": true,
+    "adapter_mean_reward": 1.0,
+    "base_mean_reward": 0.5571428571428572,
+    "cases": 5
+  },
+  "hyper": {
+    "batch_size": 1,
+    "dropout": 0.0,
+    "grad_checkpoint": true,
+    "iters": 30,
+    "learning_rate": 5e-05,
+    "mask_prompt": true,
+    "max_seq_length": 512,
+    "num_layers": 8,
+    "rank": 8,
+    "scale": 20.0,
+    "seed": 0
+  },
+  "investor_acceptance": false,
+  "memorisation_probe": {
+    "adapter_rate": 0.0,
+    "base_rate": 0.0,
+    "excess_over_base": 0.0,
+    "facts": 2,
+    "gate": {
+      "max_adapter_rate": 0.05,
+      "max_excess_over_base": 0.02
+    },
+    "note": "Neither canary was in this round training data; expected rate 0 for the adapter.",
+    "passed": true
+  },
+  "quality_claim": "none",
+  "reward_stats": {
+    "cases_with_selection": 14,
+    "max_reward": 1.0,
+    "mean_reward": 0.5407709750566896,
+    "samples": 210,
+    "selected": 14,
+    "selected_mean_reward": 1.0
+  },
+  "role": "author",
+  "round_id": "round-001",
+  "trainer": {
+    "adapter_file": "adapters.safetensors",
+    "backend": "mlx_lora",
+    "command": [
+      "/Users/divyangmishra/Desktop/deal_document/runtime_qualification/finetune/venv/bin/python",
+      "-m",
+      "mlx_lm",
+      "lora",
+      "--model",
+      "/Users/divyangmishra/Desktop/deal_document/runtime_qualification/agentic_banker/dryrun/base",
+      "--train",
+      "--data",
+      "/Users/divyangmishra/Desktop/deal_document/runtime_qualification/agentic_banker/dryrun/private/round-001/data",
+      "--adapter-path",
+      "/Users/divyangmishra/Desktop/deal_document/runtime_qualification/agentic_banker/dryrun/private/round-001/adapter",
+      "--iters",
+      "30",
+      "--batch-size",
+      "1",
+      "--num-layers",
+      "8",
+      "--learning-rate",
+      "5e-05",
+      "--max-seq-length",
+      "512",
+      "--seed",
+      "0",
+      "--steps-per-report",
+      "5",
+      "--steps-per-eval",
+      "30",
+      "--save-every",
+      "30",
+      "-c",
+      "/Users/divyangmishra/Desktop/deal_document/runtime_qualification/agentic_banker/dryrun/private/round-001/data/mlx_lora.yaml",
+      "--grad-checkpoint",
+      "--mask-prompt"
+    ],
+    "hyper": {
+      "batch_size": 1,
+      "dropout": 0.0,
+      "grad_checkpoint": true,
+      "iters": 30,
+      "learning_rate": 5e-05,
+      "mask_prompt": true,
+      "max_seq_length": 512,
+      "num_layers": 8,
+      "rank": 8,
+      "scale": 20.0,
+      "seed": 0
+    },
+    "mlx_lm_version": "0.32.0",
+    "seconds": 5.86
+  },
+  "weights_trained": true
+}

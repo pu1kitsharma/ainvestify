@@ -1,0 +1,35 @@
+# GPU host (Linux, NVIDIA) training / evaluation environment. Ranges, not a lockfile: NOTHING here has been
+# installed or run on a GPU box yet (the dev Mac cannot). Freeze the resolved set after the first successful
+# smoke test:  pip freeze > deployment/gpu-freeze-<date>.txt  and pin from that.
+#
+# Python: 3.10-3.12 (the repo's Mac venv is 3.9; vLLM and recent torch need >=3.10).
+# CUDA:   driver must support the CUDA runtime bundled in the torch wheel. Check `nvidia-smi` (top-right
+#         "CUDA Version" is the MAX the driver supports). cu121/cu124/cu126 wheels need driver >= 525/550/560
+#         roughly; verify against the PyTorch install matrix for the exact torch you pick.
+# Install the torch wheel for your CUDA FIRST, e.g.
+#         pip install "torch>=2.4,<2.9" --index-url https://download.pytorch.org/whl/cu124
+#         then:  pip install -r requirements-gpu.txt
+#
+# Two venvs are recommended: (A) TRAINING (this file) and (B) SERVING (vLLM brings its own pinned torch, see
+# the vllm line). Mixing both in one venv frequently causes torch/CUDA ABI conflicts.
+-r requirements.txt
+
+# --- Training / evaluation (venv A) ---
+torch>=2.4,<2.9                 # CUDA wheel, see above
+transformers>=4.51,<5           # Qwen3 support landed in 4.51; unverified upper bound
+peft>=0.13,<1                   # LoRA adapters; PeftModel.from_pretrained used by training/gpu_generate.py
+trl>=0.20,<1                    # qlora_train.py uses SFTConfig(completion_only_loss=True) -> needs a recent TRL
+accelerate>=1.0,<2
+datasets>=2.20,<5
+bitsandbytes>=0.45,<1           # 4-bit NF4 for QLoRA; needs a matching CUDA runtime; Linux/NVIDIA only
+safetensors>=0.4.3
+huggingface_hub>=0.25           # snapshot_download for weights (see deployment/GPU_MACHINE_SETUP.md)
+sentencepiece>=0.2              # some tokenizers
+
+# --- Serving (venv B, install SEPARATELY; shown here for the version record) ---
+#   pip install "vllm==0.10.2"    # pinned to match deploy/gcp/vllm_config.env VLLM_VERSION; installs its own torch
+# (kept commented so `pip install -r requirements-gpu.txt` cannot replace the training torch.)
+
+# --- Optional ---
+# flash-attn>=2.6   # faster attention for training; compiles against the local CUDA toolkit, often painful; skip first
+# libreoffice-calc / bubblewrap are OS packages (apt install bubblewrap libreoffice-calc), not pip.

@@ -1,0 +1,7 @@
+{"deal":"Fictional Co","schema_version":1,"sources":{"deck":{"file":"deck.pdf","kind":"pdf"}},
+"facts":[
+{"id":"deck.p1.rev.FY23","label":"Revenue","value":120.5,"unit":"usd","scale":"mn","currency":"USD","period":"FY23","period_kind":"fy","provenance":"actual","source":"deck","locator":"p1"},
+{"id":"deck.p1.total_cost.FY23","label":"Total cost","value":80,"unit":"usd","scale":"thousand","currency":"USD","period":"FY23","period_kind":"fy","provenance":"actual","source":"deck","locator":"p1"},
+{"id":"deck.p2.rev.FY25","label":"Revenue","value":300,"unit":"usd","scale":"mn","currency":"USD","period":"FY25","period_kind":"fy","provenance":"company_projection","source":"deck","locator":"p2"},
+{"id":"deck.p3.claim","label":"Market position","value":"market leader","unit":"text","scale":"units","currency":null,"period":"none","period_kind":"none","provenance":"actual","source":"deck","locator":"p3"}
+]}

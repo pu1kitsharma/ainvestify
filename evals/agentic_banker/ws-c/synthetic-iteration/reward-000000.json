@@ -1,0 +1,15 @@
+{
+  "all_checks_matched": true,
+  "case_id": "0",
+  "checks": {
+    "flags": {
+      "reward": 1.0,
+      "status": "matched"
+    }
+  },
+  "environment": "E4",
+  "evidence_scope": "supplied_observations_only",
+  "investor_acceptance": false,
+  "reward": 1.0,
+  "semantic_review": "unsupported"
+}

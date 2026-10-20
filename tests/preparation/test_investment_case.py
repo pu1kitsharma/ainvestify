@@ -66,7 +66,10 @@ def test_readiness_queue_does_not_reuse_legacy_brief_and_is_idempotent(tmp_path)
  with Store(tmp_path/'db') as s:
   lead=company(s);tasks=BackgroundTasks()
   w=start_readiness(lead.id,tasks,s,'one')
-  assert len(tasks.tasks)==1 and tasks.tasks[0].kwargs['readiness'] is True
+  assert len(tasks.tasks)==1
+  assert tasks.tasks[0].kwargs['readiness'] is False
+  assert tasks.tasks[0].kwargs['analyst'] is True
+  assert tasks.tasks[0].args[-1] is False
   assert start_readiness(lead.id,tasks,s,'one').automation.id==w.automation.id
   assert len(tasks.tasks)==1
 

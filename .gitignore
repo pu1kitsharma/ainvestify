@@ -10,6 +10,12 @@ runtime_backups/
 
 # Claude Code local session state -- machine-local, not project source
 .claude/
+.worktrees/
+
+# Private agent trajectories, gold and training artifacts stay local.
+evals/agentic_banker/gold/
+evals/agentic_banker/private/
+training/runs/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

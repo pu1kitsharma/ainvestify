@@ -1,0 +1,12 @@
+{"deal":"Fictional Co","schema_version":1,
+"findings":[
+{"id":"F-001","severity":"high","category":"units","description":"Fictional units slip","evidence":[{"source":"deck","locator":"p1"}],"recomputed_values":{"a":1.0},"expected_agent_action":"flag","verification":"recomputed"},
+{"id":"F-002","severity":"medium","category":"formula","description":"Fictional sum error","evidence":[{"source":"deck","locator":"p1"}],"recomputed_values":{},"expected_agent_action":"correct","verification":"recomputed"},
+{"id":"F-003","severity":"low","category":"missing_data","description":"Fictional gap","evidence":[{"source":"deck","locator":"p3"}],"recomputed_values":{},"expected_agent_action":"ask_user","verification":"read_only"},
+{"id":"F-004","severity":"low","category":"claim","description":"Fictional assumption","evidence":[{"source":"deck","locator":"p2"}],"recomputed_values":{},"expected_agent_action":"disclose_assumption","verification":"unverified"}
+],
+"traps":[
+{"id":"T-001","description":"Looks wrong but fine","evidence":[{"source":"deck","locator":"p1"}],"why_correct":"fictional","expected_agent_action":"do_not_flag"},
+{"id":"T-002","description":"Also fine","evidence":[{"source":"deck","locator":"p2"}],"why_correct":"fictional","expected_agent_action":"do_not_flag"},
+{"id":"T-003","description":"Low only","evidence":[{"source":"deck","locator":"p3"}],"why_correct":"fictional","expected_agent_action":"flag_low_at_most"}
+]}

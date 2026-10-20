@@ -142,7 +142,9 @@ def test_new_brief_job_does_not_return_old_four_stage_pack(tmp_path):
         queued = start_brief(lead.id,tasks,store,'one')
         assert queued.automation.status == 'queued'
         assert len(tasks.tasks)==1
-        assert tasks.tasks[0].args[-1] is True
+        assert tasks.tasks[0].args[-1] is False  # Retired brief route queues shared analyst work.
+        assert tasks.tasks[0].kwargs['analyst'] is True
+        assert tasks.tasks[0].kwargs['readiness'] is False
         again = start_brief(lead.id,tasks,store,'one')
         assert again.automation.id == queued.automation.id
         assert len(tasks.tasks)==1

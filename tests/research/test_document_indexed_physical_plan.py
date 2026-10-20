@@ -168,7 +168,7 @@ def test_selected_source_handle_binding_and_empty_group_minimum_are_not_bypassed
 
 
 def test_explicit_source_32k_context_does_not_change_planner_author_or_historical_requests():
-    inventory, old_seed, _, _ = prepared(profile=dg.SELECTED_PHYSICAL_PLAN_PROFILE_V5)
+    old_inventory, old_seed, _, _ = prepared(profile=dg.SELECTED_PHYSICAL_PLAN_PROFILE_V5)
     assert 'source_context_profile' not in old_seed[2]
     assert old_seed[2]['options']['context_tokens'] == 16384
     inventory, seed, reads, rows = prepared(profile=dg.SELECTED_PHYSICAL_PLAN_PROFILE_V5,
@@ -183,7 +183,7 @@ def test_explicit_source_32k_context_does_not_change_planner_author_or_historica
     row = record(plan, planned(), 3)
     page = dg.frozen_page_request(plan, row, 'P1', inventory)
     assert page[2]['options']['context_tokens'] == 16384 and page[2]['options']['max_tokens'] == 2200
-    assert dg.request_json(old_seed) == dg.request_json(dg.frozen_document_request(inventory,
+    assert dg.request_json(old_seed) == dg.request_json(dg.frozen_document_request(old_inventory,
         old_seed[2]['model_pin'], 'intro_deck', catalog_encoding=dg.CATALOG_ENCODING_V6,
         qualification_context_profile=lc.PROFILE, page_author_pin=PIN,
         planning_schema_profile=dg.SELECTED_PHYSICAL_PLAN_PROFILE_V5, source_context_profile=None))
@@ -279,3 +279,24 @@ def test_reader_prefix_can_stay_9b_while_only_new_global_plan_uses_4b_and_materi
     author = dg.generation_progress(child_seed, inventory, [*rows, plan_row], PIN, **arguments)['request']
     assert author[2]['model_pin'] == PIN and author[2]['options']['context_tokens'] == 32768
     assert rows[0]['model'] == rows[1]['model'] == PIN['name']
+
+
+def test_regenerated_zip_timestamp_is_a_distinct_source_not_historical_request_mutation(monkeypatch):
+    """Identical visible PPTX content does not imply immutable source byte identity."""
+    import zipfile
+    # ZIP timestamps have two-second precision. Reproduce the prior intermittent
+    # test failure deterministically instead of waiting across a wall-clock tick.
+    with monkeypatch.context() as clock:
+        clock.setattr(zipfile.time, 'localtime', lambda *args: (2026, 1, 1, 0, 0, 0, 3, 1, -1))
+        original, seed, _, _ = prepared(profile=dg.SELECTED_PHYSICAL_PLAN_PROFILE_V5)
+    with monkeypatch.context() as clock:
+        clock.setattr(zipfile.time, 'localtime', lambda *args: (2026, 1, 1, 0, 0, 4, 3, 1, -1))
+        regenerated, _, _, _ = prepared(profile=dg.SELECTED_PHYSICAL_PLAN_PROFILE_V5)
+    assert original['inventory_revision'] != regenerated['inventory_revision']
+    kwargs = dict(catalog_encoding=dg.CATALOG_ENCODING_V6,
+        qualification_context_profile=lc.PROFILE, page_author_pin=PIN,
+        planning_schema_profile=dg.SELECTED_PHYSICAL_PLAN_PROFILE_V5, source_context_profile=None)
+    same_source = dg.frozen_document_request(original, seed[2]['model_pin'], 'intro_deck', **kwargs)
+    different_source = dg.frozen_document_request(regenerated, seed[2]['model_pin'], 'intro_deck', **kwargs)
+    assert dg.request_json(seed) == dg.request_json(same_source)
+    assert dg.request_json(seed) != dg.request_json(different_source)

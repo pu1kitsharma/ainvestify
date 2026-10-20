@@ -5325,3 +5325,61 @@ tests and documentation; private inputs, runtime records, databases, model
 weights and credentials remain excluded. The visual literal codec remains
 untested/unintegrated and live investor acceptance remains failed. Publishing
 this development branch does not approve or release investor materials.
+
+## 77. 15 October local agentic banker Phase A implementation
+
+The user requested starting the external agentic banker plan, keeping everything
+local, with multiple agents and Claude Code in VS Code. Three isolated worktrees
+from `c469ff3` produced workbook/document tools, runtime/roles/transport, and
+offline scoring/mock expert iteration. Coordinator integrated source without
+commits and added literal draft pack tools, endpoint policy and a VS Code
+workspace with a local-only Claude launcher. See `MULTI_AGENT_LOG.md` and
+`deployment/AGENTIC_BANKER_LOCAL_EXECUTION.md` for scope and limitations.
+
+No private model, gold, company figures or reference-derived answers were
+generated. No model download, training, cloud spend or service restart occurred.
+The same two queued room jobs were preserved. Real inference requires the
+explicit permission requested under the supplied plan; preflight is not inference.
+The full banker system, production room integration, formula/Office qualification,
+actual training and investor acceptance remain open. GCP remains deferred primary
+hosting, AWS fallback. Prior failed artifacts/raw records remain intact.
+
+Final software result: 86 focused tests passed. The wider suite recorded 3,450
+passed, 27 failed and seven skipped before final focused hardening; full-suite
+green is not established. Four selected failures reproduce unchanged baseline;
+one full-run failure passes in isolated baseline and integrated reruns. Remaining
+failures are not all baseline-classified. Details and local log path are recorded
+in `evals/agentic_banker/LOCAL_CHECKPOINT.md`. Final loopback check observed zero
+loaded models; room counts/queued jobs and zero active leases matched baseline.
+
+## 78. 16 October scripted tool checkpoint and offline test repair
+
+On the user's instruction to move to the next checkpoint, three workstreams
+implemented strict tool registration, runtime raw HTTP body receipts and terminal
+validation, and corrected offline regression fixtures. A host-scripted exercise
+now creates a synthetic live-formula workbook, two-slide editable deck with
+embedded data, and memo, then verifies immutable export/member/session hashes.
+This uses six synthetic response envelopes and zero real model calls. Native
+PPTX/DOCX exports remain drafts; no PDFs, forecast or investor release is claimed.
+
+Retired compilation routes are tested as 410 without writes. Historical document
+listing/approval withholding and concurrency use authenticated test fixtures.
+The earlier source-request mismatch came from independently regenerated PPTX ZIP
+timestamps; the test now preserves the original inventory and deterministically
+checks changed-byte rejection. No production validator or authentication rule
+was weakened. Audited live tests are explicit opt-in; native Seatbelt application
+denial is independently probed and reported as mandatory UNRUN, not a pass.
+
+Artifacts, exact hashes and open gates are recorded in
+`evals/agentic_banker/CHECKPOINT_2.md`. Original private files, archived failures,
+two queued room jobs and production services remain preserved. No inference,
+training, download, cloud action, commit or push was performed.
+
+Final checkpoint-2 offline result: **3,513 passed, 20 skipped**, zero failures,
+167.23 seconds; focused new-tool/runtime/environment result **127 passed**.
+Skipped live model/network/server, native private isolation and native Office
+checks remain unrun mandatory gates. `git diff --check` passed. Final room
+counts remain 22 awaiting input, three blocked, four cancelled and two queued,
+with zero active leases. Next local gate is supported formula evaluation and
+isolated final LibreOffice recalculation plus exported-file inspection, not
+production deployment or a claim of accepted model quality.

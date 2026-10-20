@@ -18,6 +18,7 @@ from pydantic import BaseModel
 from agents.inference.inference_queue import InferenceQueue
 from agents.preparation.preparation_budget import ACTIVE_BUDGET, PreparationBudgetExceeded
 from agents.inference.model_routing import validate_local_model_name
+from agents.inference.endpoint_policy import ollama_host
 
 MODEL_JOB_SLOT = InferenceQueue()
 T = TypeVar("T", bound=BaseModel)
@@ -309,7 +310,7 @@ class LocalModel:
             # Opt in per versioned task; historical default sampling is unchanged.
             self.sampling.update(presence_penalty=0, repeat_penalty=1)
         self.last_call = {}
-        self.client = ollama.Client(host="http://127.0.0.1:11434", timeout=420 if thinking else 240 if self.name.startswith(('qwen3:', 'qwen3.5:')) else 120)
+        self.client = ollama.Client(host=ollama_host(), timeout=420 if thinking else 240 if self.name.startswith(('qwen3:', 'qwen3.5:')) else 120)
 
     def _chat(self, **kwargs):
         return self._request('chat',**kwargs)
@@ -356,7 +357,7 @@ class LocalModel:
         async def bounded_request():
             # Async cancellation closes the HTTP request, including while the
             # model is loading/thinking. No abandoned inference thread remains.
-            client = ollama.AsyncClient(host='http://127.0.0.1:11434', timeout=budget.remaining())
+            client = ollama.AsyncClient(host=ollama_host(), timeout=budget.remaining())
             try:
                 return await asyncio.wait_for(getattr(client,operation)(**kwargs), timeout=budget.remaining())
             except (asyncio.TimeoutError, httpx.ReadTimeout) as exc:
@@ -403,7 +404,7 @@ class LocalModel:
                 elapsed_seconds=round(time.monotonic() - started, 6))
         update_content_receipt()
         async def consume():
-            client = ollama.AsyncClient(host='http://127.0.0.1:11434', timeout=budget.remaining())
+            client = ollama.AsyncClient(host=ollama_host(), timeout=budget.remaining())
             stream = None
             terminal = None
             try:

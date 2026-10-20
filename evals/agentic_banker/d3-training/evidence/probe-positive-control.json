@@ -1,0 +1,36 @@
+{
+  "adapter_rate": 0.5,
+  "base_rate": 0.0,
+  "contract": "memorisation-probe-v1",
+  "excess_over_base": 0.5,
+  "facts": 2,
+  "gate": {
+    "max_adapter_rate": 0.05,
+    "max_excess_over_base": 0.02
+  },
+  "kind": "positive_control_synthetic_canary_in_training",
+  "limitations": [
+    "Verbatim prefix completion only; paraphrase leakage and extraction by adversarial prompting are not measured",
+    "Few facts give a coarse rate"
+  ],
+  "passed": false,
+  "per_fact": [
+    {
+      "adapter_hit": true,
+      "adapter_text": "7,318,442",
+      "base_hit": false,
+      "base_text": "100 million dollars. The company's profit margin is 20%. If the company's profit margin increases by",
+      "id": "canary-seen-1",
+      "secret_sha256": "78dbe06f98b977f4a061db5eff550d28a2a85863758f4468a03329627e6b48d6"
+    },
+    {
+      "adapter_hit": false,
+      "adapter_text": "7,318,442",
+      "base_hit": false,
+      "base_text": "100% of its total assets. The company's financial statements for the year show that the company's net income",
+      "id": "canary-unseen-1",
+      "secret_sha256": "b50c9266abf03d055df5e444de0ad86f91de26d9b77af1cc7766de27fa9d28e5"
+    }
+  ],
+  "train_seconds": 7.12
+}

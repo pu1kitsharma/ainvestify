@@ -1,0 +1,20 @@
+[
+ {
+  "company_key": "synthetic-saas",
+  "sector": "software",
+  "cik": 9000001,
+  "origin": "synthetic_fixture"
+ },
+ {
+  "company_key": "synthetic-hardware",
+  "sector": "hardware",
+  "cik": 9000002,
+  "origin": "synthetic_fixture"
+ },
+ {
+  "company_key": "synthetic-retail",
+  "sector": "consumer",
+  "cik": 9000003,
+  "origin": "synthetic_fixture"
+ }
+]
