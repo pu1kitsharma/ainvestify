@@ -557,6 +557,18 @@ Run that once, and §14.1's table stops being a set of citations from other peop
 
 ## 16. LLM-driven company selection, incubation, and VC fundraising plan
 
+15 October 2026 local extension: the agentic analyst chooses model structure,
+assumptions, figures, formulas, storyline and prose through narrow tools. Code
+handles file observations, calculation, evidence binding and rendering only.
+The initial `agents/tools`, `agents/runtime` and `training/envs` implementation
+is synthetic-tested scaffolding, not a qualified financial modeller. Private
+self-hosted models in the user's GCP project remain a deferred capacity option;
+hosted inference APIs remain disallowed for private data. Current execution is
+local only. Forward-looking outputs need `company_projection`, scenario and
+vintage metadata; production integration must enforce that gate. Human review
+and exact-version release approval remain mandatory. See
+`deployment/AGENTIC_BANKER_LOCAL_EXECUTION.md` for actual scope and open gates.
+
 **Decision date:** 2026-09-13. **Status:** implementation plan; runtime remains the existing prototype.
 
 ### 16.1 Product objective and scope

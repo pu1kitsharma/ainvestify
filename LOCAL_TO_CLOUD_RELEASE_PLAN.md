@@ -1,5 +1,13 @@
 # Local implementation, production artifact validation, then private cloud
 
+**15 October local implementation branch:** the user requested beginning the
+agentic analyst plan using isolated workstreams, with all execution local.
+`deployment/AGENTIC_BANKER_LOCAL_EXECUTION.md` records this incremental Phase A
+work and its gates. It does not replace the privacy, source-rights, production
+integration or exact-file acceptance requirements below. GCP is the deferred
+primary deployment provider; AWS remains historical/fallback context. No cloud
+provisioning or spend is authorized by the implementation checkpoint.
+
 3 October 2026. Current execution plan following the user's request to build
 locally first, migrate later, and validate every deck, memorandum and spreadsheet
 before delivery. Section 0 is the fresh controlling end-to-end sequence; older

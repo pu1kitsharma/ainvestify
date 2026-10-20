@@ -1,0 +1,21 @@
+{
+  "answer_key_sha256": "5823b9406dacf34f3a5f3bc317ec3ba6bcb2d98918e2f835f3eb9ef1862789e3",
+  "cases": 5,
+  "malformed_outputs": 0,
+  "mean_reward": 1.0,
+  "outputs_sha256": "449a33dad3b0e592df590d61c8dace5343f3498200fb02325c3b3a59d9a81a29",
+  "per_case": {
+    "syn-private-heldout": 1.0,
+    "syn-test-2": 1.0,
+    "syn-test-3": 1.0,
+    "syn-valid-0": 1.0,
+    "syn-valid-1": 1.0
+  },
+  "raw_outputs": [
+    "{\"observations\": {\"flags\": {\"status\": \"observed\", \"value\": [\"comparator\"]}}}",
+    "{\"observations\": {\"flags\": {\"status\": \"observed\", \"value\": [\"units\"]}}}",
+    "{\"observations\": {\"flags\": {\"status\": \"observed\", \"value\": [\"scope\"]}}}",
+    "{\"observations\": {\"flags\": {\"status\": \"observed\", \"value\": [\"rounding\"]}}}",
+    "{\"observations\": {\"flags\": {\"status\": \"observed\", \"value\": [\"period\"]}}}"
+  ]
+}

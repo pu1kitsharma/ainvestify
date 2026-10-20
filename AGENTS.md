@@ -1,5 +1,18 @@
 # Start here
 
+15 October 2026 execution update: the user requested starting the agentic
+banker plan with multiple local workstreams and VS Code. Phase A is local only;
+deployment, model downloads and paid compute remain deferred. See
+`deployment/AGENTIC_BANKER_LOCAL_EXECUTION.md` and `MULTI_AGENT_LOG.md` for the
+implemented slice and open gates. Agents author model structure, assumptions,
+formulas, numbers and substantive prose; code supplies tools, evidence binding,
+calculation, validation and rendering. All forward-looking outputs require
+`company_projection` status plus their vintage and scenario. Existing required
+intro/pitch/IM and exact-file human release gates remain unchanged.
+Private reference-derived gold, trajectories and adapters must remain in approved
+private local storage, outside Git; no cloud upload or private training occurred.
+The new tool/runtime/scorer scaffolding is not a qualified banker system.
+
 Current direction, 1 October 2026: build locally first, then qualify private
 self-hosted GCP deployment (provider corrected by the user on 14 October 2026).
 Product scope is worldwide startup research,

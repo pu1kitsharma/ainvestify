@@ -1,237 +1,109 @@
-"""
-Coverage for the Milestone 4 compilation endpoints (api/routers/compilation.py):
-CIM, the teaser's two-step draft/confirm, pro-forma with override, rerun
-analytics, and the document-suite GET endpoints. Real matplotlib chart
-rendering runs here (agents/analytics_agent.generate_charts is deterministic,
-no LLM/network needed) -- only the CIM's narrative paragraph is skipped via
-include_narrative machinery already being off by default in these tests'
-data (no LLM call needed since compile_cim's own narrative failure path
-returns None on any exception, verified separately in test_compilation_agent.py).
-"""
-import shutil
+"""Retired generators fail closed; authenticated historical documents remain readable."""
 from pathlib import Path
 
-from tests.conftest import TENANT, make_extraction_result
-from fastapi.testclient import TestClient
+import pytest
 
-import api.deps as deps
 from agents.core.planner_agent import start_deal
-from api.main import app
-from schemas import CompanyProfile, FieldStatus, MemoVersion, SourcedLead
+from schemas import CompanyProfile, MemoVersion, SourcedLead
 from store import Store
-
-MEMO_OUTPUT_ROOT = Path(__file__).parent.parent.parent / "memo_output"
-
-
-def _client_for(db_path):
-    def override_get_store():
-        with Store(db_path) as s:
-            yield s
-
-    app.dependency_overrides[deps.get_store] = override_get_store
-    app.dependency_overrides[deps.get_tenant_id] = lambda: TENANT
-    app.dependency_overrides[deps.get_reviewer] = lambda: "alice"
-    return TestClient(app)
+from tests.api.test_authentication import secured, sign_in
 
 
-def _fully_approved_result(deal):
-    result = make_extraction_result(tenant_id=deal.tenant_id, deal_id=deal.id)
-    for name in ("arr", "arr_prior_year", "burn_monthly", "cash_on_hand", "runway_months", "headcount"):
-        getattr(result, name).status = FieldStatus.APPROVED
-    for name in ("mrr", "growth_rate_yoy"):
-        ev = getattr(result, name)
-        ev.status = FieldStatus.NOT_FOUND
-        ev.reviewed_at = "2026-01-01T00:00:00"
-    result.cap_table_status = FieldStatus.NOT_FOUND
-    result.cap_table_reviewed_at = "2026-01-01T00:00:00"
-    result.funding_history_status = FieldStatus.NOT_FOUND
-    result.funding_history_reviewed_at = "2026-01-01T00:00:00"
-    return result
+@pytest.mark.parametrize('suffix,payload', [
+    ('compile/cim', None),
+    ('compile/teaser/draft', {'business_description': 'Synthetic description'}),
+    ('compile/teaser/unknown/confirm', {'confirmed': True}),
+    ('compile/proforma', {'growth_rate_override': 42.0}),
+])
+def test_retired_compilation_is_410_without_artifact_or_memo_writes(secured, suffix, payload):
+    client, db, users = secured
+    sign_in(client, users[0])
+    tenant = users[0][1]
+    with Store(db) as store:
+        deal = start_deal(store, tenant, 'Synthetic company')
+        before = store.get_deal(tenant, deal.id).model_dump(mode='json')
+    # Check the actual historical artifact location without creating/deleting it.
+    output = Path(__file__).resolve().parents[2] / 'memo_output' / deal.id
+    assert not output.exists()
+    response = client.post(f'/api/deals/{deal.id}/{suffix}', json=payload)
+    assert response.status_code == 410
+    assert 'retired' in response.json()['detail']
+    assert not output.exists()
+    with Store(db) as store:
+        assert store.get_memo_versions(tenant, deal.id) == []
+        assert store.get_deal(tenant, deal.id).model_dump(mode='json') == before
 
 
-def _cleanup_memo_output(deal_id: str) -> None:
-    shutil.rmtree(MEMO_OUTPUT_ROOT / deal_id, ignore_errors=True)
+def test_authenticated_documents_filter_latest_and_tenant_isolation(secured):
+    client, db, users = secured
+    tenant = users[0][1]
+    with Store(db) as store:
+        deal = start_deal(store, tenant, 'Synthetic archive')
+        for kind, version in [('cim', 1), ('teaser', 1), ('cim', 2)]:
+            store.save_memo_version(MemoVersion(tenant_id=tenant, deal_id=deal.id,
+                version_number=version, content_uri='unused.md', document_type=kind))
+    url = f'/api/deals/{deal.id}/documents'
+    assert client.get(url).status_code == 401
+    sign_in(client, users[0])
+    all_docs = client.get(url)
+    assert all_docs.status_code == 200 and len(all_docs.json()) == 3
+    filtered = client.get(url, params={'document_type': 'cim'})
+    assert filtered.status_code == 200 and len(filtered.json()) == 2
+    assert all(row['document_type'] == 'cim' for row in filtered.json())
+    latest = client.get(url + '/latest', params={'document_type': 'cim'})
+    assert latest.status_code == 200 and latest.json()['version_number'] == 2
+    assert client.get(url + '/latest', params={'document_type': 'proforma'}).status_code == 404
+    sign_in(client, users[1])
+    assert client.get(url).status_code == 404
+    assert client.get(url + '/latest', params={'document_type': 'cim'}).status_code == 404
 
 
-def test_compile_cim_returns_structured_data(tmp_path):
-    db_path = tmp_path / "test.db"
-    store = Store(db_path)
-    deal = start_deal(store, TENANT, "Acme Robotics")
-    store.save_extraction_result(_fully_approved_result(deal))
-    store.close()
-
-    client = _client_for(db_path)
-    try:
-        r = client.post(f"/api/deals/{deal.id}/compile/cim")
-        assert r.status_code == 200
-        body = r.json()
-        assert body["document_type"] == "cim"
-        assert body["structured_data"] is not None
-        assert body["structured_data"]["financials"]["arr"]["value"] == 2_400_000
-        assert Path(body["content_uri"]).exists()
-    finally:
-        _cleanup_memo_output(deal.id)
-
-
-def test_compile_cim_blocked_before_review_returns_409(tmp_path):
-    db_path = tmp_path / "test.db"
-    store = Store(db_path)
-    deal = start_deal(store, TENANT, "Acme Robotics")
-    store.save_extraction_result(make_extraction_result(tenant_id=TENANT, deal_id=deal.id))  # not reviewed
-    store.close()
-
-    client = _client_for(db_path)
-    r = client.post(f"/api/deals/{deal.id}/compile/cim")
-    assert r.status_code == 409
-
-
-def test_teaser_draft_then_confirm_over_http(tmp_path):
-    db_path = tmp_path / "test.db"
-    store = Store(db_path)
-    deal = start_deal(store, TENANT, "Acme Robotics")
-    store.save_extraction_result(_fully_approved_result(deal))
-    store.close()
-
-    client = _client_for(db_path)
-    try:
-        draft = client.post(
-            f"/api/deals/{deal.id}/compile/teaser/draft",
-            json={"business_description": "A robotics platform for warehouse operators."},
-        )
-        assert draft.status_code == 200
-        memo = draft.json()
-        assert memo["approved_by"] is None  # draft only
-        assert "deal_name" not in memo["structured_data"]
-        assert "cap_table" not in memo["structured_data"]
-
-        confirmed = client.post(
-            f"/api/deals/{deal.id}/compile/teaser/{memo['id']}/confirm", json={"confirmed": True},
-        )
-        assert confirmed.status_code == 200
-        assert confirmed.json()["approved_by"] == "alice"
-
-        # Re-fetch to prove it's real persisted state, not just the response echo.
-        latest = client.get(f"/api/deals/{deal.id}/documents/latest", params={"document_type": "teaser"})
-        assert latest.json()["approved_by"] == "alice"
-    finally:
-        _cleanup_memo_output(deal.id)
-
-
-def test_confirm_teaser_unknown_memo_id_404(tmp_path):
-    db_path = tmp_path / "test.db"
-    store = Store(db_path)
-    deal = start_deal(store, TENANT, "Acme Robotics")
-    store.close()
-
-    client = _client_for(db_path)
-    r = client.post(f"/api/deals/{deal.id}/compile/teaser/does-not-exist/confirm", json={"confirmed": True})
-    assert r.status_code == 404
-
-
-def test_compile_proforma_with_override_over_http(tmp_path):
-    db_path = tmp_path / "test.db"
-    store = Store(db_path)
-    deal = start_deal(store, TENANT, "Acme Robotics")
-    store.save_extraction_result(_fully_approved_result(deal))
-    store.close()
-
-    client = _client_for(db_path)
-    try:
-        r = client.post(f"/api/deals/{deal.id}/compile/proforma", json={"growth_rate_override": 42.0})
-        assert r.status_code == 200
-        body = r.json()
-        assert body["document_type"] == "proforma"
-        assert body["approved_by"] == "alice"
-        assert body["structured_data"]["is_projected"] is True
-        assert "42.0" in body["structured_data"]["assumptions"][0]
-    finally:
-        _cleanup_memo_output(deal.id)
-
-
-def test_rerun_analytics_over_http(tmp_path):
-    db_path = tmp_path / "test.db"
-    store = Store(db_path)
-    deal = start_deal(store, TENANT, "Acme Robotics")
-    store.save_extraction_result(_fully_approved_result(deal))
-    store.close()
-
-    client = _client_for(db_path)
-    try:
-        r = client.post(f"/api/deals/{deal.id}/analytics/rerun")
-        assert r.status_code == 200
-        assert isinstance(r.json(), list)
-    finally:
-        _cleanup_memo_output(deal.id)
-
-
-def test_list_documents_filters_by_type(tmp_path):
-    db_path = tmp_path / "test.db"
-    store = Store(db_path)
-    deal = start_deal(store, TENANT, "Acme Robotics")
-    store.save_extraction_result(_fully_approved_result(deal))
-    store.close()
-
-    client = _client_for(db_path)
-    try:
-        client.post(f"/api/deals/{deal.id}/compile/cim")
-        client.post(f"/api/deals/{deal.id}/compile/proforma", json={})
-
-        all_docs = client.get(f"/api/deals/{deal.id}/documents")
-        assert len(all_docs.json()) == 2
-
-        cim_only = client.get(f"/api/deals/{deal.id}/documents", params={"document_type": "cim"})
-        assert len(cim_only.json()) == 1
-        assert cim_only.json()[0]["document_type"] == "cim"
-    finally:
-        _cleanup_memo_output(deal.id)
-
-
-def test_get_latest_document_404_when_none_exists(tmp_path):
-    db_path = tmp_path / "test.db"
-    store = Store(db_path)
-    deal = start_deal(store, TENANT, "Acme Robotics")
-    store.close()
-
-    client = _client_for(db_path)
-    r = client.get(f"/api/deals/{deal.id}/documents/latest", params={"document_type": "teaser"})
-    assert r.status_code == 404
-
-
-def test_authored_workspace_documents_without_legacy_release_step(tmp_path):
-    """New workspaces support reading documents, but cannot inherit release approval."""
+def test_authored_workspace_documents_cannot_inherit_legacy_approval(secured):
     from agents.analysis.operating_workflow import reconcile_workspace
-
-    db_path = tmp_path / "test.db"
-    with Store(db_path) as store:
-        deal = start_deal(store, TENANT, "Example company")
-        profile = CompanyProfile(tenant_id=TENANT, name=deal.name, website="https://company.example/",
-                                 provenance={"pipeline": "model_authored_v1"})
-        lead = SourcedLead(tenant_id=TENANT, company_name=deal.name,
+    client, db, users = secured
+    tenant = users[0][1]
+    sign_in(client, users[0])
+    with Store(db) as store:
+        deal = start_deal(store, tenant, 'Synthetic company')
+        profile = CompanyProfile(tenant_id=tenant, name=deal.name, website='https://company.example/',
+                                 provenance={'pipeline': 'model_authored_v1'})
+        lead = SourcedLead(tenant_id=tenant, company_name=deal.name,
                           company_profile=profile, promoted_deal_id=deal.id)
         store.save_lead(lead)
         workspace = reconcile_workspace(store, lead)
         assert workspace.work_items == []
+        memo = MemoVersion(tenant_id=tenant, deal_id=deal.id, version_number=1,
+            content_uri='unused.md', document_type='teaser', approved_by='historical reviewer',
+            approval_basis_hash=workspace.basis_hash)
+        store.save_memo_version(memo)
+    url = f'/api/deals/{deal.id}/documents'
+    for response in (client.get(url), client.get(url + '/latest?document_type=teaser')):
+        assert response.status_code == 200
+        body = response.json()
+        assert (body[0] if isinstance(body, list) else body)['approved_by'] is None
+    response = client.post(f'/api/deals/{deal.id}/compile/teaser/{memo.id}/confirm', json={'confirmed': True})
+    assert response.status_code == 410
+    with Store(db) as store:
+        assert store.get_memo_version(tenant, memo.id).approved_by == 'historical reviewer'
 
-    client = _client_for(db_path)
-    try:
-        url = f"/api/deals/{deal.id}/documents"
-        empty = client.get(url)
-        assert empty.status_code == 200
-        assert empty.json() == []
-        with Store(db_path) as store:
-            memo = MemoVersion(tenant_id=TENANT, deal_id=deal.id, version_number=1,
-                               content_uri="unused.md", document_type="teaser",
-                               approved_by="historical reviewer", approval_basis_hash=workspace.basis_hash)
-            store.save_memo_version(memo)
-        for response in (client.get(url), client.get(url + "/latest?document_type=teaser")):
-            assert response.status_code == 200
-            body = response.json()
-            assert (body[0] if isinstance(body, list) else body)["approved_by"] is None
-        confirmation = client.post(f"/api/deals/{deal.id}/compile/teaser/{memo.id}/confirm",
-                                   json={"confirmed": True})
-        assert confirmation.status_code == 409
-        assert "release checks" in confirmation.json()["detail"]
-        with Store(db_path) as store:
-            assert store.get_memo_version(TENANT, memo.id).approved_by == "historical reviewer"
-    finally:
-        app.dependency_overrides.clear()
+
+def test_rerun_analytics_over_authenticated_http(secured, tmp_path, monkeypatch):
+    """The remaining deterministic analytics route still persists actual charts."""
+    from tests.conftest import make_extraction_result
+    from schemas import FieldStatus
+    client, db, users = secured
+    tenant = users[0][1]
+    sign_in(client, users[0])
+    monkeypatch.chdir(tmp_path)  # Synthetic chart files never enter repository storage.
+    with Store(db) as store:
+        deal = start_deal(store, tenant, 'Synthetic analytics')
+        result = make_extraction_result(tenant_id=tenant, deal_id=deal.id)
+        result.arr.status = result.arr_prior_year.status = FieldStatus.APPROVED
+        store.save_extraction_result(result)
+    response = client.post(f'/api/deals/{deal.id}/analytics/rerun')
+    assert response.status_code == 200
+    assert response.json()
+    for chart in response.json():
+        assert Path(chart['storage_uri']).is_file()
+    with Store(db) as store:
+        assert len(store.get_charts(tenant, deal.id)) == len(response.json())

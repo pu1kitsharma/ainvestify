@@ -1,0 +1,9 @@
+{
+  "adapter_verified": false,
+  "unverified_callback_result": {
+    "adapter_created": false,
+    "kind": "mock_callback",
+    "selected_count": 1
+  },
+  "weights_trained": false
+}

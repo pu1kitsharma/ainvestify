@@ -37,3 +37,28 @@ def make_extraction_result(**overrides) -> ExtractionResult:
     )
     defaults.update(overrides)
     return ExtractionResult(**defaults)
+
+
+# Audited live modules; ordinary TestClient and mocked transport tests remain offline.
+_LIVE_MODULES = {
+    'tests/api/test_api_prompt.py',
+    'tests/api/test_api_leads_live.py',
+    'tests/api/test_api_review_retry_live.py',
+}
+_LIVE_CASES = {
+    'tests/core/test_concurrency.py::test_concurrent_document_uploads_to_same_deal_lose_no_document_id',
+}
+
+
+def pytest_addoption(parser):
+    parser.addoption('--run-live', action='store_true', default=False,
+                     help='Opt in to marked network/model/server integration checks; may require separate authorization.')
+
+
+def pytest_collection_modifyitems(config, items):
+    enabled = config.getoption('--run-live')
+    for item in items:
+        if item.nodeid.split('::', 1)[0] in _LIVE_MODULES or item.nodeid in _LIVE_CASES:
+            item.add_marker(pytest.mark.live_integration)
+        if item.get_closest_marker('live_integration') and not enabled:
+            item.add_marker(pytest.mark.skip(reason='Mandatory live integration unrun: opt in with --run-live; offline results are not release acceptance'))

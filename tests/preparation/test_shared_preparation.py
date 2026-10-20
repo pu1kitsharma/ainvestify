@@ -475,4 +475,6 @@ def test_migrating_old_work_does_not_restore_the_failed_long_reasoning_profile(t
         tasks=BackgroundTasks();start_analyst_preparation(lead.id,tasks,store,'one')
         kwargs=tasks.tasks[0].kwargs
         assert kwargs['analyst_model'] is None and kwargs['analyst_review_thinking'] is None
-        assert store.get_workspace('one',lead_id=lead.id).automation.model=='claude-pro-sonnet'
+        from agents.inference.subscription_model import default_preparation_name
+        assert store.get_workspace('one',lead_id=lead.id).automation.model==default_preparation_name()
+        assert not store.get_workspace('one',lead_id=lead.id).automation.model.startswith(('claude', 'anthropic', 'deepseek'))

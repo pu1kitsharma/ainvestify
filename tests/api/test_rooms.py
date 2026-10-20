@@ -94,7 +94,7 @@ def test_room_memo_phases_have_separate_finite_budgets(secured, monkeypatch):
             'source_hash': source_hash}
     monkeypatch.setattr(investment_memo_stage, 'run_memo_pass', fake_memo)
     for expected_phase in ('financial_analysis', 'draft', 'draft', 'draft', 'correction', 'ledger', 'review',
-                           'material_draft'):
+                           'content_review'):
         assert process_one(db) == created['job']['id']
         with Store(db) as store:
             job = store.conn.execute('SELECT phase,phase_attempt,attempt,state FROM room_jobs WHERE id=?',

@@ -21,9 +21,21 @@ def validate_local_model_name(name):
     """Accept an Ollama model identifier, never a provider or endpoint selector."""
     if (not isinstance(name, str) or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._/-]*(?::[A-Za-z0-9][A-Za-z0-9._-]*)?', name)
             or 'cloud' in name.casefold() or name.casefold() == 'claude-pro-sonnet'
-            or name.casefold().startswith(('anthropic-api:', 'deepseek-api:'))):
+            or name.casefold().startswith(('anthropic-api:', 'deepseek-api:', 'selfhosted:'))):
         raise ValueError('Routing requires an installed local model name for Ollama; hosted routes and URLs are not enabled.')
     return name
+
+
+def parse_model_route(name):
+    """Return ('ollama', name) or ('selfhosted', SelfHostedRoute). Hosted/cloud names are rejected.
+
+    `selfhosted:<model>` needs SELFHOSTED_BASE_URL on a private address (see endpoint_policy)
+    and a bearer token; it is never reachable through validate_local_model_name.
+    """
+    if isinstance(name, str) and name.startswith('selfhosted:'):
+        from agents.inference.endpoint_policy import resolve_selfhosted_route
+        return 'selfhosted', resolve_selfhosted_route(name)
+    return 'ollama', validate_local_model_name(name)
 
 
 def _number(name, default, minimum, maximum, integer=False):

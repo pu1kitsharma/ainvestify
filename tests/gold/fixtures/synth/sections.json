@@ -1,0 +1,5 @@
+{"deal":"Fictional Co","schema_version":1,"document_type":"banker_im","sections":[
+{"order":1,"id":"overview","title":"Overview","purpose":"p","required_content":["x"],"source_facts":["deck.p1.rev.FY23","deck.p1.total_cost.FY23"],"required":true},
+{"order":2,"id":"risks","title":"Risks","purpose":"p","required_content":["x"],"source_facts":["F-001"],"required":true},
+{"order":3,"id":"appendix","title":"Appendix","purpose":"p","required_content":[],"source_facts":[],"required":false}
+]}

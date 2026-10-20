@@ -1,0 +1,23 @@
+{
+  "callback_trust": "caller_responsible_for_local_only_callbacks",
+  "case_ids": [
+    "0",
+    "1",
+    "2"
+  ],
+  "dry_run": true,
+  "source_sha256": "a3b79b87765813ebf95d94982c29f7bd5006c31faddb231ac7ed8e4e2f4da8a5",
+  "split_manifest": {
+    "companies": 3,
+    "contract": "agentic-public-splits-v1",
+    "counts": {
+      "test": 1,
+      "train": 1,
+      "valid": 1
+    },
+    "coverage_thresholds_met": false,
+    "evidence_families": 3,
+    "release_qualified": false,
+    "sectors": 3
+  }
+}

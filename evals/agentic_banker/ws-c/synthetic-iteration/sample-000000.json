@@ -1,0 +1,22 @@
+{
+  "attempt": 0,
+  "case_id": "0",
+  "sample": {
+    "prediction": {
+      "case_id": "0",
+      "environment": "E4",
+      "observations": {
+        "flags": {
+          "status": "observed",
+          "value": 12
+        }
+      }
+    },
+    "trajectory": [
+      {
+        "content": "synthetic response",
+        "role": "assistant"
+      }
+    ]
+  }
+}

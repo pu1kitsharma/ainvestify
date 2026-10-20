@@ -1,0 +1,102 @@
+{
+ "contract": "c1-public-task-manifest-v1",
+ "counts_by_environment": {
+  "E1": 15,
+  "E2": 15,
+  "E3": 6,
+  "E4": 77,
+  "E5": 15,
+  "E6": 12,
+  "E7": 12
+ },
+ "counts_by_environment_and_split": {
+  "E1": {
+   "test": 5,
+   "train": 5,
+   "valid": 5
+  },
+  "E2": {
+   "test": 5,
+   "train": 5,
+   "valid": 5
+  },
+  "E3": {
+   "test": 2,
+   "train": 2,
+   "valid": 2
+  },
+  "E4": {
+   "test": 27,
+   "train": 27,
+   "valid": 23
+  },
+  "E5": {
+   "test": 5,
+   "train": 5,
+   "valid": 5
+  },
+  "E6": {
+   "test": 4,
+   "train": 4,
+   "valid": 4
+  },
+  "E7": {
+   "test": 4,
+   "train": 4,
+   "valid": 4
+  }
+ },
+ "counts_by_sector": {
+  "consumer": 52,
+  "hardware": 52,
+  "software": 48
+ },
+ "counts_by_split": {
+  "test": 52,
+  "train": 52,
+  "valid": 48
+ },
+ "coverage_vs_gate": {
+  "gate": {
+   "companies": 20,
+   "evidence_families": 50,
+   "sectors": 3
+  },
+  "gate_met": false,
+  "note": "Only SEC-origin companies whose source is human-enabled AND rights-approved count. Synthetic fixtures count as zero.",
+  "real_rights_approved": {
+   "companies": 0,
+   "evidence_families": 0,
+   "sectors": 0
+  },
+  "shortfall": {
+   "companies": 20,
+   "evidence_families": 50,
+   "sectors": 3
+  }
+ },
+ "keys_sha256": "69c39cc143f88296d8b6d38d9980ec39947e5ec571c63e9b60795afbe2b51f11",
+ "limitations": [
+  "Keys are arithmetic/reported facts, not independently adjudicated gold",
+  "E3 scenarios and E6 sections are unsupported (zero reward)",
+  "Not a memo-writing corpus; does not satisfy MEMO_GOLD_CORPUS reviewer requirements"
+ ],
+ "origins": {
+  "synthetic_fixture": 152
+ },
+ "plumbing_only": true,
+ "split_validation": {
+  "companies": 3,
+  "contract": "agentic-public-splits-v1",
+  "counts": {
+   "test": 52,
+   "train": 52,
+   "valid": 48
+  },
+  "coverage_thresholds_met": false,
+  "evidence_families": 12,
+  "release_qualified": false,
+  "sectors": 3
+ },
+ "tasks_sha256": "0accbb9da95329c7f7927401004a56a6dee1e0a67cdd4c4c411d35b26d4be47c"
+}

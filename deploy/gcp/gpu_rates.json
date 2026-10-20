@@ -1,0 +1,9 @@
+{
+  "verify_before_use": true,
+  "verified_on": null,
+  "note": "ESTIMATES from the 15 Oct plan (about INR 140-175/h spot A100 80GB). NOT verified. Re-check in the GCP pricing calculator (region asia-south1, Spot, incl. disk/egress), then set verify_before_use=false and verified_on=<date>. The ledger refuses to reserve while this flag is true.",
+  "machines": {
+    "a100-80gb-spot": {"inr_per_hour": 175.0, "gcp_machine_type": "a2-ultragpu-1g", "note": "upper end of estimate, deliberately conservative"},
+    "a100-40gb-spot": {"inr_per_hour": 130.0, "gcp_machine_type": "a2-highgpu-1g", "note": "fallback"}
+  }
+}

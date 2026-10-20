@@ -28,6 +28,7 @@ from pathlib import Path
 import pytest
 import requests
 from tests.conftest import TENANT, make_extraction_result
+from tests.api.test_authentication import secured, sign_in
 from fastapi.testclient import TestClient
 
 import api.deps as deps
@@ -49,21 +50,22 @@ def _client_for(db_path):
     return TestClient(app)
 
 
-def test_concurrent_requests_across_different_deals_all_succeed(tmp_path):
+def test_concurrent_requests_across_different_deals_all_succeed(secured):
     """Simulates several analysts (or tabs) working different deals at
     once. Every request must succeed -- none should hit sqlite3's
     "database is locked" under real thread-pool concurrency."""
-    db_path = tmp_path / "test.db"
+    client, db_path, users = secured
+    tenant = users[0][1]
+    sign_in(client, users[0])
     store = Store(db_path)
     deal_ids = []
     for i in range(10):
-        deal = start_deal(store, TENANT, f"Deal {i}")
-        result = make_extraction_result(tenant_id=TENANT, deal_id=deal.id)
+        deal = start_deal(store, tenant, f"Deal {i}")
+        result = make_extraction_result(tenant_id=tenant, deal_id=deal.id)
         store.save_extraction_result(result)
         deal_ids.append(deal.id)
     store.close()
 
-    client = _client_for(db_path)
 
     def approve_a_field(deal_id):
         return client.post(f"/api/deals/{deal_id}/review/fields/arr", json={"decision": "approve"})
@@ -76,12 +78,12 @@ def test_concurrent_requests_across_different_deals_all_succeed(tmp_path):
 
     store = Store(db_path)
     for deal_id in deal_ids:
-        result = store.get_extraction_result(TENANT, deal_id)
+        result = store.get_extraction_result(tenant, deal_id)
         assert result.arr.status.value == "approved"
     store.close()
 
 
-def test_concurrent_field_decisions_on_same_deal_never_silently_lose_one(tmp_path):
+def test_concurrent_field_decisions_on_same_deal_never_silently_lose_one(secured):
     """The second real race this pass found: two review decisions on the
     SAME deal's extraction result (even on two different fields) racing a
     plain get+mutate+save would let whichever save() commits second
@@ -94,14 +96,15 @@ def test_concurrent_field_decisions_on_same_deal_never_silently_lose_one(tmp_pat
     *did* land recorded correctly, and that none vanished silently: the
     number of 200s plus the number of 409s must account for every request,
     and every approved field must show up as approved with an audit event."""
-    db_path = tmp_path / "test.db"
+    client, db_path, users = secured
+    tenant = users[0][1]
+    sign_in(client, users[0])
     store = Store(db_path)
-    deal = start_deal(store, TENANT, "Acme Robotics")
-    result = make_extraction_result(tenant_id=TENANT, deal_id=deal.id)
+    deal = start_deal(store, tenant, "Acme Robotics")
+    result = make_extraction_result(tenant_id=tenant, deal_id=deal.id)
     store.save_extraction_result(result)
     store.close()
 
-    client = _client_for(db_path)
     fields = ["arr", "arr_prior_year", "burn_monthly", "cash_on_hand", "runway_months", "headcount"]
 
     def approve(field):
@@ -116,8 +119,8 @@ def test_concurrent_field_decisions_on_same_deal_never_silently_lose_one(tmp_pat
     succeeded = {field for field, r in results if r.status_code == 200}
 
     store = Store(db_path)
-    final_result = store.get_extraction_result(TENANT, deal.id)
-    audit = store.get_audit_log(TENANT, deal.id)
+    final_result = store.get_extraction_result(tenant, deal.id)
+    audit = store.get_audit_log(tenant, deal.id)
     store.close()
 
     # Every decision the API said succeeded must actually be reflected --
