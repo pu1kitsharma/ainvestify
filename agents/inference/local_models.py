@@ -19,6 +19,8 @@ from agents.inference.inference_queue import InferenceQueue
 from agents.preparation.preparation_budget import ACTIVE_BUDGET, PreparationBudgetExceeded
 from agents.inference.model_routing import validate_local_model_name
 from agents.inference.endpoint_policy import ollama_host
+from agents.inference.local_transport import transport_kwargs
+from agents.inference.runtime_options import hardware_runtime_options, validate_runtime_options
 
 MODEL_JOB_SLOT = InferenceQueue()
 T = TypeVar("T", bound=BaseModel)
@@ -66,7 +68,7 @@ def _validate_thinking_transport(receipt, routing):
             or type(options.get('num_ctx')) is not int
             or options.get('temperature') != routing['temperature']
             or {k: v for k, v in options.items() if k not in ('temperature', 'num_ctx', 'num_predict', 'stop')}
-               != routing['sampling']):
+               != {**routing['sampling'], **validate_runtime_options(routing.get('runtime_options'))}):
         raise ValueError('Bounded thinking changed its context or actual sampling policy.')
     for key in ('input_digest', 'response_digest', 'evidence_digest', 'source_messages_digest'):
         if not isinstance(receipt.get(key), str) or not re.fullmatch('[0-9a-f]{64}', receipt[key]):
@@ -239,7 +241,8 @@ def validate_stream_observation_receipt(routing, *, raw_response, expected_input
         raise ValueError('Local streaming terminal counters or thinking policy differ from their receipt.')
     if (type(routing.get('generated_tokens')) is not int or not 0 < routing['generated_tokens'] <= routing['max_tokens'] or
             receipt.get('actual_options_digest') != _transport_digest({'temperature': routing['temperature'],
-                'num_ctx': routing['context_tokens'], 'num_predict': routing['max_tokens'], **routing['sampling']})):
+                'num_ctx': routing['context_tokens'], 'num_predict': routing['max_tokens'], **routing['sampling'],
+                **validate_runtime_options(routing.get('runtime_options'))})):
         raise ValueError('Local streaming terminal omitted output counters or changed actual options.')
     if (not isinstance(raw_response, str) or receipt.get('content_sha256') != hashlib.sha256(raw_response.encode('utf-8')).hexdigest()
             or receipt.get('content_characters') != len(raw_response)
@@ -259,7 +262,7 @@ def validate_stream_observation_receipt(routing, *, raw_response, expected_input
 
 
 class LocalModel:
-    def __init__(self, name=None, *, thinking=False, max_tokens=2200, context_tokens=16384, temperature=None, reasoning_budget=None, bound_strings=False, compact_prompt=False, require_full_context=False, factual_sampling=False, bounded_thinking_contract=None, streaming_transport_contract=None):
+    def __init__(self, name=None, *, thinking=False, max_tokens=2200, context_tokens=16384, temperature=None, reasoning_budget=None, bound_strings=False, compact_prompt=False, require_full_context=False, factual_sampling=False, bounded_thinking_contract=None, streaming_transport_contract=None, runtime_options=None):
         if bounded_thinking_contract is not None and bounded_thinking_contract != BOUNDED_THINKING_V1:
             raise ValueError('Unsupported bounded thinking transport contract.')
         self.bounded_thinking_contract = bounded_thinking_contract
@@ -293,6 +296,8 @@ class LocalModel:
         self.require_full_context = require_full_context
         self.name = name or os.environ.get("SOURCING_MODEL", "phi4-mini")
         validate_local_model_name(self.name)
+        self.runtime_options = (hardware_runtime_options(self.name, context_tokens)
+                                if runtime_options is None else validate_runtime_options(runtime_options))
         # Explicit loopback host: no hosted endpoint, cloud fallback, model pull,
         # or paid inference can be triggered through this adapter.
         self.thinking = thinking
@@ -310,7 +315,7 @@ class LocalModel:
             # Opt in per versioned task; historical default sampling is unchanged.
             self.sampling.update(presence_penalty=0, repeat_penalty=1)
         self.last_call = {}
-        self.client = ollama.Client(host=ollama_host(), timeout=420 if thinking else 240 if self.name.startswith(('qwen3:', 'qwen3.5:')) else 120)
+        self.client = ollama.Client(host=ollama_host(), timeout=420 if thinking else 240 if self.name.startswith(('qwen3:', 'qwen3.5:')) else 120, **transport_kwargs())
 
     def _chat(self, **kwargs):
         return self._request('chat',**kwargs)
@@ -357,7 +362,7 @@ class LocalModel:
         async def bounded_request():
             # Async cancellation closes the HTTP request, including while the
             # model is loading/thinking. No abandoned inference thread remains.
-            client = ollama.AsyncClient(host=ollama_host(), timeout=budget.remaining())
+            client = ollama.AsyncClient(host=ollama_host(), timeout=budget.remaining(), **transport_kwargs(asynchronous=True))
             try:
                 return await asyncio.wait_for(getattr(client,operation)(**kwargs), timeout=budget.remaining())
             except (asyncio.TimeoutError, httpx.ReadTimeout) as exc:
@@ -404,7 +409,7 @@ class LocalModel:
                 elapsed_seconds=round(time.monotonic() - started, 6))
         update_content_receipt()
         async def consume():
-            client = ollama.AsyncClient(host=ollama_host(), timeout=budget.remaining())
+            client = ollama.AsyncClient(host=ollama_host(), timeout=budget.remaining(), **transport_kwargs(asynchronous=True))
             stream = None
             terminal = None
             try:
@@ -479,7 +484,7 @@ class LocalModel:
         finally:
             update_content_receipt()
 
-    def _generate_bounded_thinking(self, messages, spec, schema, sampling, started, queue_seconds, *, instruction):
+    def _generate_bounded_thinking(self, messages, spec, schema, sampling, started, queue_seconds, *, instruction, runtime_options):
         """Fresh protocol only: bounded thought, then a complete constrained JSON body.
 
         The thought/prefill exists only in memory. Digests and numeric receipts
@@ -524,7 +529,7 @@ class LocalModel:
 
         try:
             first_options = {'temperature': self.temperature, 'num_ctx': self.context_tokens,
-                             'num_predict': self.reasoning_budget, **sampling, 'stop': ['</think>']}
+                             'num_predict': self.reasoning_budget, **sampling, **runtime_options, 'stop': ['</think>']}
             response, first = transport('reasoning', 'chat', dict(model=self.name, messages=messages,
                                                                think=True, options=first_options))
             message = response.get('message') or {}
@@ -553,7 +558,7 @@ class LocalModel:
             prefill = '<think>\n' + thought + '\n</think>\n\n'
             routing['prefill_digest'] = _transport_digest(prefill)
             final_options = {'temperature': self.temperature, 'num_ctx': self.context_tokens,
-                             'num_predict': remaining, **sampling}
+                             'num_predict': remaining, **sampling, **runtime_options}
             # Preserve every system/user byte and bypass native chat rendering
             # for both Qwen families. Historical continuations remain untouched.
             prompt = ''.join('<|im_start|>' + m['role'] + '\n' + m['content'] + '<|im_end|>\n'
@@ -588,8 +593,11 @@ class LocalModel:
         # Explicit factual policy also survives an external sampling override.
         sampling = {**self.sampling, **({'presence_penalty': 0, 'repeat_penalty': 1}
                                       if self.factual_sampling else {})}
+        runtime_options = validate_runtime_options(self.runtime_options)
         self.last_call = {'model':self.name,'thinking':self.thinking,'temperature':self.temperature,'max_tokens':self.max_tokens,'context_tokens':self.context_tokens,
                           'factual_sampling':self.factual_sampling,'sampling':dict(sampling)}
+        if runtime_options:
+            self.last_call['runtime_options'] = dict(runtime_options)
         if self.bounded_thinking_contract is not None:
             self.last_call.update(bounded_thinking_contract=self.bounded_thinking_contract,
                                   reasoning_budget=self.reasoning_budget,
@@ -643,13 +651,13 @@ class LocalModel:
                 callback('generating', 0)
             if self.bounded_thinking_contract is not None:
                 return self._generate_bounded_thinking(messages, spec, schema, sampling, started, queue_seconds,
-                                                      instruction=instruction)
+                                                      instruction=instruction, runtime_options=runtime_options)
             response = self._chat(
                 model=self.name,
                 messages=messages,
                 **({} if self.thinking else {'format':spec}),
                 options={"temperature": self.temperature, "num_ctx": self.context_tokens, "num_predict": self.reasoning_budget or self.max_tokens,
-                         **sampling},
+                         **sampling, **runtime_options},
                 **({"think": 'high' if self.thinking else 'low'} if self.name.startswith('gpt-oss:') else
                    {"think": self.thinking} if self.name.startswith(('qwen3:', 'qwen3.5:', 'deepseek-r1:')) else {}),
             )
@@ -662,7 +670,7 @@ class LocalModel:
                 answer_prefix=response['message'].get('content','') or ''
                 prefill='<think>\n'+response['message']['thinking']+'\n</think>\n\n'+answer_prefix
                 final_options={'temperature':self.temperature,'num_ctx':self.context_tokens,
-                               'num_predict':self.max_tokens-prior_tokens,**sampling}
+                               'num_predict':self.max_tokens-prior_tokens,**sampling,**runtime_options}
                 if self.name.startswith('qwen3.5:'):
                     # Native Qwen3.5 chat rendering discards tagged reasoning
                     # with think=False. With think=True, observed continuations
@@ -693,6 +701,8 @@ class LocalModel:
                           'elapsed_seconds':round(time.monotonic()-started, 2), 'queue_seconds':round(queue_seconds,2),
                           'prompt_tokens':response.get('prompt_eval_count'), 'generated_tokens':prior_tokens+(response.get('eval_count') or 0),
                           'done_reason':response.get('done_reason')}
+        if runtime_options:
+            self.last_call['runtime_options'] = dict(runtime_options)
         if format_object_receipts is not None:
             self.last_call['format_object_receipts'] = format_object_receipts
         if self.bound_strings:
@@ -816,18 +826,26 @@ def shared_model_name(model):
 
 def generate_authored_task(model,task,instruction,evidence,schema,*,attempt=0):
     limits={'draft':2400,'research':1100,'work':1400,'founder':700,'review':1800,
-            'discovery_plan':550,'discovery_sources':400,'discovery_extract':1100,'discovery_assess':650}
+            'discovery_plan':550,'discovery_sources':400,'discovery_extract':1100,'discovery_assess':650,'discovery_match':1100}
     kind=task.removeprefix('authored_')
     if kind not in limits:raise ValueError('Unsupported model-authored task.')
     selected=shared_model_name(model)
     if kind=='review':selected=getattr(model,'review_model',selected)
     thinking=bool(getattr(model,'thinking',False))
+    if kind=='discovery_match':thinking=False
     if kind=='review' and getattr(model,'shared_review_thinking',None) is not None:
         thinking=model.shared_review_thinking
     natural_reasoning = thinking and bool(getattr(model, 'authored_natural_reasoning', False))
     output_limit = max(limits[kind], 2000) if natural_reasoning else limits[kind]+(512 if thinking else 0)
+    if kind=='discovery_match' and schema.model_json_schema().get('properties',{}).get('companies',{}).get('maxItems')==1:
+        output_limit=650  # Measured single-record role proof:335tokens; directories retain1100.
+    # Discovery's strict output fields and observed-span IDs must reach the
+    # decoder. Keep its existing model, context, output and pass budgets.
+    bounded_discovery = kind.startswith('discovery_') and not thinking
     adapter=LocalModel(selected,thinking=thinking,max_tokens=output_limit,temperature=0,context_tokens=8192,
-        reasoning_budget=512 if thinking and not natural_reasoning and selected.startswith(('qwen3:','qwen3.5:')) else None)
+        reasoning_budget=512 if thinking and not natural_reasoning and selected.startswith(('qwen3:','qwen3.5:')) else None,
+        bound_strings=bounded_discovery,compact_prompt=bounded_discovery,
+        require_full_context=bounded_discovery,factual_sampling=bounded_discovery)
     adapter.sampling={**adapter.sampling,'presence_penalty':0}
     callback=getattr(model,'on_activity',None)
     if callback:adapter.on_activity=lambda state,position:callback(state,position,task)

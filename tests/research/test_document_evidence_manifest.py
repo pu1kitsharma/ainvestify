@@ -183,10 +183,12 @@ def test_unsafe_duplicate_package_parts_cannot_claim_complete_retention():
         build(stream.getvalue(),'pptx')
 
 
-def test_local_ocr_proposals_keep_native_cells_and_scope_without_approval():
+@pytest.mark.parametrize('engine', ['AppleVision-VNRecognizeTextRequest',
+                                  'Tesseract5-eng-no-dictionary-correction'])
+def test_local_ocr_proposals_keep_native_cells_and_scope_without_approval(engine):
     original=build(pdf_bytes(),'pdf')
     wrapper={'page':2,'source_sha256':original['binding']['source_sha256'],
-             'image_sha256':'a'*64,'engine':'AppleVision-VNRecognizeTextRequest',
+             'image_sha256':'a'*64,'engine':engine,
              'coordinate_system':'normalized-bottom-left','language_correction':False,
              'observations':[{'text':'Source diagram label 100.35','confidence':0.81,
                               'bbox':[0.1,0.2,0.6,0.1]}]}

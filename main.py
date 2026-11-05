@@ -78,7 +78,7 @@ class RouterDecision(BaseModel):
     reasoning: str
 
 
-def classify_prompt(prompt: str) -> RouterDecision:
+def build_router_request(prompt: str) -> dict:
     instructions = f"""You are the top-level router for a system that sources and incubates
 early-stage companies, then screens them for helping them raise institutional
 funding. Classify the user's request into exactly one action:
@@ -106,12 +106,15 @@ User request: "{prompt}"
 
 Give a one-sentence reasoning. Return only the JSON object."""
 
-    response = local_chat(
-        model=ROUTER_MODEL,
-        messages=[{"role": "user", "content": instructions}],
-        format=RouterDecision.model_json_schema(),
-        options={"temperature": 0},
-    )
+    return {'model': ROUTER_MODEL, 'messages': [{'role': 'user', 'content': instructions}],
+            'format': RouterDecision.model_json_schema(), 'options': {'temperature': 0}}
+
+
+def classify_prompt(prompt: str) -> RouterDecision:
+    return project_router_response(prompt, local_chat(**build_router_request(prompt)))
+
+
+def project_router_response(prompt: str, response) -> RouterDecision:
     decision = RouterDecision.model_validate_json(response["message"]["content"])
 
     # Defense in depth, same principle as the citation-enforcement pattern

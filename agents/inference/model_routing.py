@@ -53,7 +53,7 @@ def machine_memory_gb():
         else:
             size = os.sysconf('SC_PHYS_PAGES') * os.sysconf('SC_PAGE_SIZE')
         return size / 1024**3
-    except (OSError, ValueError, subprocess.SubprocessError):
+    except (AttributeError, OSError, ValueError, subprocess.SubprocessError):
         return 16  # Conservative unknown-hardware default; never assume a large GPU.
 
 

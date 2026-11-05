@@ -176,8 +176,8 @@ def test_unsafe_workbook_is_blocked_without_inference_and_stays_blocked(tmp_path
     (lambda root: (root / 'model.json').write_text(json.dumps(
         {'profiles': {'financial': MODEL_NAME, 'review': MODEL_NAME}})),
      'model_profile_needs_exactly_one_financial_role'),
-    (lambda root: (root / 'budget.json').write_text(json.dumps({'seconds': 600})),
-     'budget_seconds_must_be_between_1_and_105'),
+    (lambda root: (root / 'budget.json').write_text(json.dumps({'seconds': 1200})),
+     'budget_seconds_must_be_between_1_and_900'),
     (lambda root: (root / 'model.json').unlink(), 'model.json_missing'),
 ])
 def test_invalid_request_is_blocked_before_any_inference(tmp_path, change, reason):

@@ -1,7 +1,7 @@
 from io import BytesIO
 
 from pypdf import PdfWriter
-from pypdf.generic import DictionaryObject, NameObject
+from pypdf.generic import ArrayObject, DictionaryObject, NameObject, NullObject, NumberObject
 from reportlab.pdfgen import canvas
 
 from delivery.inspection import inspect_bytes
@@ -35,6 +35,21 @@ def test_pdf_records_exact_page_geometry_and_blank_page_coverage():
 def test_pdf_page_actions_require_review_without_exposing_action_data():
     report = inspect_bytes(_pdf(page_action=True), "pdf")
     assert any(finding == {"code": "pdf_page_action_requires_review", "page": 1}
+               for finding in report["findings"])
+    assert report["structural_status"] == "fail"
+
+
+def test_initial_page_open_action_still_requires_review():
+    writer = PdfWriter()
+    writer.add_blank_page(width=720, height=405)
+    writer._root_object[NameObject("/OpenAction")] = ArrayObject([
+        writer.pages[0].indirect_reference, NameObject("/XYZ"),
+        NullObject(), NullObject(), NumberObject(0),
+    ])
+    output = BytesIO()
+    writer.write(output)
+    report = inspect_bytes(output.getvalue(), "pdf")
+    assert any(finding["code"] == "pdf_active_or_embedded_content_requires_review"
                for finding in report["findings"])
     assert report["structural_status"] == "fail"
 

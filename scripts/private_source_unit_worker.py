@@ -7,7 +7,7 @@ from agents.inference.model_authorship import digest
 from agents.inference.model_authorship import recorded_call
 from agents.inference.local_models import LocalModel
 from agents.inference.model_routing import validate_local_model_name
-from agents.preparation.preparation_budget import PreparationBudget, PreparationBudgetExceeded, preparation_budget
+from agents.preparation.preparation_budget import DOCUMENT_STEP_MAX_SECONDS, PreparationBudget, PreparationBudgetExceeded, preparation_budget
 from agents.research import rationale_evidence as evidence
 from agents.research import memo_source_unit_author as author_engine
 from agents.research import memo_source_unit_review as review_engine
@@ -497,7 +497,7 @@ def main():
     root = Path.cwd()
     limits = _load(root,'content_budget.json')
     if (type(limits['max_calls']) is not int or not 1 <= limits['max_calls'] <= 6 or
-        not isinstance(limits['seconds'],(int,float)) or not 0 < limits['seconds'] <= 105):
+        not isinstance(limits['seconds'],(int,float)) or not 0 < limits['seconds'] <= DOCUMENT_STEP_MAX_SECONDS):
         raise ValueError('Source-unit pass exceeds its fixed limits')
     previous = _load(root,'content_result.json',{})
     if previous.get('state') in {'accepted','blocked'}:
@@ -509,7 +509,7 @@ def main():
                        COVERAGE_PHASES_V7 if request.get('flow_contract') in {FLOW_V7, FLOW_V8, FLOW_V9} else
                        COVERAGE_PHASES_V6 if request.get('flow_contract') == FLOW_V6 else COVERAGE_PHASES_V5)
     phase = previous.get('next_phase',coverage_phases[0] if fresh else PHASES[0])
-    budget = PreparationBudget(limits['seconds'],max_calls=limits['max_calls'],max_requests=limits['max_calls'])
+    budget = PreparationBudget(limits['seconds'],max_calls=limits['max_calls'],max_requests=limits['max_calls'], document_step=True)
     with preparation_budget(budget):
         # Coverage is one recorded judgment per checkpoint. Core engines already
         # enforce their shared six-record cap and sole validation correction;
@@ -769,7 +769,7 @@ def record_source_pair_interruption(root, request, phase, elapsed_seconds):
         return proof
     limits = _load(Path(root), 'content_budget.json', {})
     allocation = limits.get('seconds')
-    if (type(allocation) not in {int, float} or not 0 < allocation <= 105 or
+    if (type(allocation) not in {int, float} or not 0 < allocation <= DOCUMENT_STEP_MAX_SECONDS or
             type(elapsed_seconds) not in {int, float} or elapsed_seconds < 0):
         return {'state': 'blocked', 'reason': 'source_pair_recovery_budget_invalid'}
     remaining = allocation - elapsed_seconds

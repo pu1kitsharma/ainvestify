@@ -1,0 +1,12 @@
+# Run from the repository root, after the multi-user release gates pass.
+# Set INVESTIFY_WEB_ROOT to the absolute frontend/dist path when running as a service.
+{
+	admin 127.0.0.1:2019
+	import logging.caddy
+	# HTTP access logging is intentionally not enabled (OIDC callback codes).
+}
+import routes.caddy
+
+investify.fyi {
+	import investify_routes
+}

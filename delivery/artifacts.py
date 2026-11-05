@@ -6,7 +6,8 @@ import secrets
 import hashlib
 from pathlib import Path
 
-from delivery.inspection import inspect_bytes, summarize_report
+from delivery.inspection import summarize_report
+from delivery.private_inspection import inspect_artifacts
 from delivery.storage import read_bytes, store_bytes
 
 SCHEMA = """
@@ -26,7 +27,8 @@ def artifact_root():
     return Path(os.environ.get("PRIVATE_ARTIFACT_ROOT", str(Path(__file__).resolve().parents[1] / "private_artifacts")))
 
 
-def register_draft(conn, tenant, room, kind, fmt, revision, content, *, job=None):
+def register_draft(conn, tenant, room, kind, fmt, revision, content, *, job=None,
+                   inspection_timeout=110):
     from delivery.contracts import POLICY
     release_formats = {contract.kind: contract.formats for contract in POLICY.artifacts}
     # Pre-review previews are deliberately distinct slots. A later repaired,
@@ -39,7 +41,8 @@ def register_draft(conn, tenant, room, kind, fmt, revision, content, *, job=None
     if allowed_formats is None or fmt not in allowed_formats:
         raise ValueError('Unsupported artifact kind or format')
     digest = hashlib.sha256(content).hexdigest()
-    report = inspect_bytes(content, fmt)
+    reports,_ = inspect_artifacts({'artifact': (fmt,content)},timeout=inspection_timeout)
+    report = reports['artifact']
     artifact_id = "artifact_" + secrets.token_hex(16)
     conn.execute('BEGIN IMMEDIATE')
     try:

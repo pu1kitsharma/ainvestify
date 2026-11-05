@@ -15,7 +15,7 @@ from pypdf import PdfReader
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from delivery.inspection import inspect_export_pair
-from delivery.libreoffice import convert, office_binary
+from delivery.libreoffice import convert, office_binary, pdf_export_argument, PDF_EXPORT_CONTRACT
 
 
 def _sha(content: bytes) -> str:
@@ -41,6 +41,8 @@ def qualify_pair(source: Path, name: str, output: Path) -> dict:
         "editable_sha256": _sha(editable),
         "native_pdf_sha256": _sha(native),
         "libreoffice_pdf_sha256": _sha(converted),
+        "pdf_export_contract": PDF_EXPORT_CONTRACT,
+        "pdf_export_argument": pdf_export_argument(fmt),
         "editable_format": fmt,
         "native_pages": native_pages,
         "libreoffice_pages": office_pages,

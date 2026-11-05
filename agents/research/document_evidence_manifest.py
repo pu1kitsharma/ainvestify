@@ -652,7 +652,8 @@ def attach_document_ocr(manifest, observations, *, expected_binding, packet_char
         if (wrapper['source_sha256']!=manifest['binding']['source_sha256'] or
                 not isinstance(wrapper['image_sha256'],str) or len(wrapper['image_sha256'])!=64 or
                 any(c not in '0123456789abcdef' for c in wrapper['image_sha256']) or
-                wrapper['engine']!='AppleVision-VNRecognizeTextRequest' or
+                wrapper['engine'] not in {'AppleVision-VNRecognizeTextRequest',
+                                          'Tesseract5-eng-no-dictionary-correction'} or
                 wrapper['coordinate_system']!='normalized-bottom-left' or
                 wrapper['language_correction'] is not False):
             raise ValueError('Local OCR source/raster/engine binding is invalid')

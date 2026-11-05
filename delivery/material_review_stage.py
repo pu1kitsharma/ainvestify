@@ -16,8 +16,8 @@ from scripts.private_material_review_worker import review_materials
 
 
 def _installed_digest(name):
-    with urllib.request.urlopen('http://127.0.0.1:11434/api/tags', timeout=5) as response:
-        rows = json.load(response)['models']
+    from agents.inference.local_transport import local_tags
+    rows = local_tags()['models']
     value = next((row.get('digest') for row in rows if row.get('name') == name), None)
     if not value:
         raise ValueError('Pinned local material reviewer is not installed')
@@ -28,6 +28,7 @@ def _installed_digest(name):
 # re-review alike. A request already on disk keeps the contract it recorded.
 FRESH_REVIEW_CONTRACT = 'semantic_v10'
 from agents.research.material_narrative_review import options_for as narrative_review_options
+from agents.preparation.preparation_budget import document_model_seconds
 
 def fresh_material_review_contract(job):
     if job.get("checkpoint",{}).get("workflow_contract") in {"room-v57-full-relation-material-review", 'room-v58-complete-source-concise-memo', 'room-v59-sharded-source-adjudication', 'room-v60-blind-group-source-assessment', 'room-v61-supported-topic-groups', 'room-v62-explicit-topic-status', 'room-v63-source-quotes'}: return "semantic_v20"
@@ -177,7 +178,7 @@ def run_material_review_pass(job, memo, material, *, timeout, repaired=False,
     else:
         path.write_text(json.dumps(request, ensure_ascii=False))
     (root / 'material_review_budget.json').write_text(json.dumps({
-        'seconds': max(1, min(105, timeout - 8))}))
+        'seconds': document_model_seconds(timeout)}))
     project = Path(__file__).resolve().parents[1]
     run_private([__import__('sys').executable, project / 'scripts/private_material_review_worker.py'],
                 root, timeout=timeout, extra_read=(project / 'agents', project / 'schemas.py'),

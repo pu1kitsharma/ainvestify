@@ -132,6 +132,7 @@ export interface SourcedLead {
   company_profile?: {
     name: string;
     website: string;
+    provenance?: { release_status?: string; current_operating_status?: string; financial_assessment?: string };
     discovery_source_url?: string | null;
     criteria_review?: { dimension: string; requirement: string; status: string; reason: string; evidence_needed: string; evidence_ids: string[] }[];
     growth_analysis?: { status: string; explanation: string; required: string; research_queries?: string[]; comparisons: { metric: string; before: string; after: string; unit: string; period_before: string; period_after: string; change_pct: number; source_url: string }[] };

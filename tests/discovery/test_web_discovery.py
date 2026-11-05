@@ -242,6 +242,7 @@ def test_api_accepts_brief_without_urls(tmp_path, monkeypatch):
         with Store(tmp_path / "api.db") as store:
             yield store
     def worker(store, run, **kwargs):
+        assert kwargs.pop('preliminary_only') is True
         return source_companies(store, run, model=Model(), fetcher=Fetcher(), search_provider=Search(), **kwargs)
     monkeypatch.setattr(routes, "source_companies", worker)
     monkeypatch.setattr(deps, 'app_origin', lambda: 'http://testserver')
@@ -288,9 +289,8 @@ def test_mwmbl_parses_api_results_without_using_snippets_as_evidence():
     from agents.discovery.web_discovery import MwmblSearch
     class Transport:
         def _request(self, url, deadline):
-            assert url.startswith("https://api.mwmbl.org/api/v1/search/?s=")
-            return 200, {}, json.dumps([{"url": "https://farm.example/", "title": [{"value": "Farm Works"}],
-                                       "extract": [{"value": "Unverified sales figures"}]}]).encode()
+            assert url.startswith("https://api.mwmbl.org/api/v2/search/?q=")
+            return 200, {}, json.dumps({"query":"farm India","number_of_results":1,"results":[{"url":"https://farm.example/","title":"Farm Works","content":"Unverified sales figures"}],"monthly_usage":None,"monthly_limit":None}).encode()
     assert MwmblSearch(Transport()).search("farm India") == [SearchHit("https://farm.example/", "Farm Works", "Unverified sales figures")]
 
 

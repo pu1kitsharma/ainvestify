@@ -16,6 +16,7 @@ from agents.research import memo_content_review as review
 from agents.research import memo_content_repair as repair
 from agents.research.investment_memo import Memo, Source, renderable_sections
 from scripts import build_memo_gold_sft as gold
+from training.private_storage import private_path
 
 PRIVATE_RUNS = gold.ROOT / 'runtime_qualification' / 'private_acceptance'
 TASK_NAMES = {review.TASK: 'memo_content_review', repair.TASK: 'memo_content_repair'}
@@ -27,11 +28,21 @@ def _family(source):
 
 
 def prepare(roots: list[Path], output: Path, *, company_key: str,
-            sector: str, approval_id: str, approved_on: str) -> dict:
-    base, destination = PRIVATE_RUNS.resolve(), output.resolve()
-    if (not destination.is_relative_to(gold.PRIVATE_DATA.resolve()) or
-            destination == gold.PRIVATE_DATA.resolve() or destination.exists()):
-        raise ValueError('Output must be a new directory under ignored models/data/')
+            sector: str, approval_id: str, approved_on: str,
+            private_root: Path | None = None, source_root: Path | None = None) -> dict:
+    base = PRIVATE_RUNS.resolve()
+    if source_root is not None:
+        base = private_path(source_root, root=private_root, repo_root=gold.ROOT)
+    if private_root is not None:
+        destination = private_path(output, root=private_root, repo_root=gold.ROOT)
+    else:
+        destination = output.resolve()
+        if (gold.PRIVATE_DATA.resolve().is_relative_to(gold.ROOT) or
+                not destination.is_relative_to(gold.PRIVATE_DATA.resolve()) or
+                destination == gold.PRIVATE_DATA.resolve()):
+            raise ValueError('Private candidate output requires an explicit outside-Git private root')
+    if destination.exists():
+        raise ValueError('Output must be a new immutable private directory')
     if not all(isinstance(value, str) and value.strip() for value in
                (company_key, sector, approval_id, approved_on)):
         raise ValueError('Explicit source-use approval and company identity are required')
@@ -176,7 +187,15 @@ if __name__ == '__main__':
     parser.add_argument('--sector', required=True)
     parser.add_argument('--approval-id', required=True)
     parser.add_argument('--approved-on', required=True)
+    parser.add_argument('--private-root', type=Path, required=True)
+    parser.add_argument('--source-root', type=Path,
+                        help='Approved imported diagnostics root under the same private root')
     args = parser.parse_args()
-    print(json.dumps(prepare(args.roots, args.output, company_key=args.company_key,
-                            sector=args.sector, approval_id=args.approval_id,
-                            approved_on=args.approved_on), indent=2))
+    try:
+        manifest = prepare(args.roots, args.output, company_key=args.company_key,
+                           sector=args.sector, approval_id=args.approval_id,
+                           approved_on=args.approved_on, private_root=args.private_root,
+                           source_root=args.source_root)
+    except Exception:
+        parser.exit(1, 'Candidate preparation blocked; inspect source records only in approved private tooling.\n')
+    print(json.dumps(manifest, indent=2))

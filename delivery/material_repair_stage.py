@@ -13,6 +13,7 @@ from delivery.material_stage import validate_material_checkpoint
 from delivery.material_review_stage import (_installed_digest,
     validate_material_review_checkpoint)
 from scripts.private_material_repair_worker import repair_materials
+from agents.preparation.preparation_budget import document_model_seconds
 
 
 def _repair_request(job, memo, material, blocked_review, memo_root):
@@ -91,7 +92,7 @@ def run_material_repair_pass(job, memo, material, blocked_review, *, timeout):
     else:
         path.write_text(json.dumps(request, ensure_ascii=False))
     (root / 'material_repair_budget.json').write_text(json.dumps({
-        'seconds': max(1, min(105, timeout - 8))}))
+        'seconds': document_model_seconds(timeout)}))
     project = Path(__file__).resolve().parents[1]
     run_private([__import__('sys').executable,
         project / 'scripts/private_material_repair_worker.py'], root, timeout=timeout,

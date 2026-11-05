@@ -99,8 +99,11 @@ def rerun_analytics_endpoint(
     store: Store = Depends(get_store),
     tenant_id: str = Depends(get_tenant_id),
 ):
-    deal = _get_deal_or_404(store, tenant_id, deal_id)
-    return _run_rerun_analytics(store, deal)
+    _get_deal_or_404(store, tenant_id, deal_id)
+    # Like the adjacent legacy templates, this renderer predates private
+    # artifact storage and the exact-file financial/material contracts.
+    # Preserve historical charts; do not create new repo-local derivatives.
+    raise HTTPException(410, 'Legacy chart generation is retired. Open the deal room for reviewed financial inputs and validated materials.')
 
 
 @router.get("/{deal_id}/documents", response_model=list[MemoVersion])

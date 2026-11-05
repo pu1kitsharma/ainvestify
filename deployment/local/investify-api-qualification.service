@@ -1,0 +1,29 @@
+# Local qualification instance only; it does not publish ports or run room jobs.
+[Unit]
+Description=Investify Linux API qualification (loopback only)
+After=network.target
+
+[Service]
+Type=simple
+User=investify
+Group=investify
+WorkingDirectory=/home/investify/app
+ExecStart=/home/investify/venv/bin/python -B /home/investify/app/scripts/serve_local.py --port 8001 --env-file /home/investify/private/server-qualification.env --without-worker
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=MPLCONFIGDIR=/home/investify/runtime/matplotlib
+UMask=0077
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=140
+KillMode=mixed
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/home/investify/private /home/investify/runtime
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+
+[Install]
+WantedBy=multi-user.target

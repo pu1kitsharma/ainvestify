@@ -9,7 +9,7 @@ from pathlib import Path
 from delivery.artifacts import artifact_bytes, get_artifact
 from delivery.contracts import (POLICY, REQUIRED_MATERIAL_KINDS, ArtifactFile, ArtifactManifest, CheckResult,
     ReviewDecision, assess_release)
-from delivery.inspection import inspect_bytes, inspect_export_pair
+from delivery.private_inspection import inspect_artifacts
 from delivery.compliance import (assess_compliance, official_source_hosts,
     qualified_compliance_owners)
 from delivery.review_integrity import (financial_reviewer_grants,
@@ -33,21 +33,24 @@ def validate_room(store, tenant, room):
             continue
         content=artifact_bytes(tenant,artifact)
         contents[artifact['id']]=content
-        reports[artifact['id']]=inspect_bytes(content,artifact['format'])
         files.append(ArtifactFile(artifact_id=artifact['id'],kind=artifact['kind'],format=artifact['format'],
             sha256=artifact['sha256'],size_bytes=len(content)))
     by_kind_format = {(file.kind, file.format): file for file in files}
     if len(by_kind_format) != len(files):
         raise ValueError('Multiple artifacts occupy one kind/format slot; select an exact version')
+    pairs=[]
     for kind, editable_format in (('intro_deck', 'pptx'), ('pitch_deck', 'pptx'),
                                   ('investment_memorandum', 'docx')):
         editable = by_kind_format.get((kind, editable_format))
         distribution = by_kind_format.get((kind, 'pdf'))
         if editable and distribution:
-            pair = inspect_export_pair(contents[editable.artifact_id], editable_format,
-                                       contents[distribution.artifact_id])
-            reports[distribution.artifact_id]['export_pair'] = pair
-            reports[distribution.artifact_id]['findings'].extend(pair['findings'])
+            pairs.append((editable.artifact_id,distribution.artifact_id))
+    reports, inspected_pairs=inspect_artifacts({file.artifact_id:(file.format,contents[file.artifact_id])
+                                              for file in files},pairs)
+    for pair in inspected_pairs:
+        report=pair['report']
+        reports[pair['pdf']]['export_pair']=report
+        reports[pair['pdf']]['findings'].extend(report['findings'])
     # A projection is an optional requested artifact. Its presence requires the
     # full XLSX contract; absent reviewed inputs never force a generated file.
     requested = (*REQUIRED_MATERIAL_KINDS,

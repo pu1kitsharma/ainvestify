@@ -86,12 +86,16 @@ def test_all_wrong_samples_fail_closed_before_training(tmp_path):
     assert (tmp_path / 'out/r1/failure.json').exists()
 
 
-def test_private_round_requires_ignored_private_path_and_caps_share(tmp_path):
+def test_private_round_requires_outside_git_path_and_caps_share(tmp_path):
     public, private = synthetic_rows(n_train=8)
     private_rows = [dict(private[0]), dict(private[1])]
-    with pytest.raises(ValueError, match='ignored private'):
+    with pytest.raises(ValueError, match='outside-Git private root'):
         run(tmp_path, root=tmp_path / 'models/adapters', private_rows=private_rows)
-    manifest, _ = run(tmp_path, root=tmp_path / 'runtime_qualification/agentic_banker/dryrun', private_rows=private_rows,
+    repo, private_root = tmp_path / 'repo', tmp_path / 'private'
+    repo.mkdir()
+    private_root.mkdir()
+    manifest, _ = run(tmp_path, root=private_root / 'dryrun', repo_root=repo,
+                      private_root=private_root, private_rows=private_rows,
                       config={'samples_per_case': 2, 'private_upweight': 5})
     mix = manifest['data_provenance']['mix']
     assert mix['private_used'] / (mix['public'] + mix['private_used']) <= 0.10
@@ -101,7 +105,11 @@ def test_private_round_requires_ignored_private_path_and_caps_share(tmp_path):
 
 def test_leave_one_deal_out_private_deal_is_evaluated_not_trained(tmp_path):
     public, private = synthetic_rows()
-    manifest, _ = run(tmp_path, root=tmp_path / 'runtime_qualification/x', private_rows=private,
+    repo, private_root = tmp_path / 'repo', tmp_path / 'private'
+    repo.mkdir()
+    private_root.mkdir()
+    manifest, _ = run(tmp_path, root=private_root / 'run', repo_root=repo,
+                      private_root=private_root, private_rows=private,
                       held_out_deals=['fictional-private-sigma'])
     prov = manifest['data_provenance']
     assert 'fictional-private-sigma' not in prov['trained_on_deals']

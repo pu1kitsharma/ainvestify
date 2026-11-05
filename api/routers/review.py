@@ -8,13 +8,14 @@ from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException
 
-from agents.core.extraction_agent import extract
+from delivery.extraction import extract_private, persist_private_result, require_current_access, ExtractionConflict
 from agents.core.review_checkpoint import (
     apply_cap_table_decision,
     apply_field_decision,
     apply_funding_history_decision,
     is_ready_for_compilation,
     recompute_deal_review_status,
+    REQUIRED_SCALAR_FIELDS,
 )
 from api.deps import get_reviewer, get_store, get_tenant_id
 from api.models import BlockDecisionRequest, FieldDecisionRequest, FieldDecisionResponse, ReviewPayload
@@ -51,12 +52,15 @@ def _load_deal_and_result(store: Store, tenant_id: str, deal_id: str):
     return deal, result, raw
 
 
-def _first_document(store: Store, tenant_id: str, deal_id: str) -> Optional[Document]:
+def _first_document(store: Store, tenant_id: str, deal_id: str, document_id=None) -> Optional[Document]:
+    if document_id is not None:
+        document = store.get_document(tenant_id, document_id)
+        return document if document and document.deal_id == deal_id else None
     documents = store.get_documents_for_deal(tenant_id, deal_id)
     return documents[0] if documents else None
 
 
-def _persist_and_respond(store: Store, deal, result, raw_before, outcome) -> FieldDecisionResponse:
+def _persist_and_respond(store: Store, deal, result, raw_before, outcome, document=None) -> FieldDecisionResponse:
     # Compare-and-swap, not a plain save: two review decisions on the same
     # deal (even on different fields) racing this same read-mutate-write
     # sequence would otherwise be a last-write-wins loss of whichever
@@ -66,7 +70,19 @@ def _persist_and_respond(store: Store, deal, result, raw_before, outcome) -> Fie
     # run a real multi-minute Ollama re-extraction (apply_field_decision's
     # retry_extraction) -- holding SQLite's write lock that long would
     # block every other write in the database, not just this deal's.
-    if not store.save_extraction_result_if_unchanged(result, raw_before):
+    if getattr(store, 'authenticated_identity', None) is not None:
+        try:
+            status = recompute_deal_review_status(result) if outcome.resolved else None
+            updated = persist_private_result(store, result, document, raw_before,
+                                             status=status, audit_events=outcome.audit_events)
+        except PermissionError as exc:
+            raise HTTPException(403, 'Review access expired or was revoked.') from exc
+        except ExtractionConflict as exc:
+            raise HTTPException(409, 'Review inputs changed; refresh before trying again.') from exc
+        return FieldDecisionResponse(outcome=outcome, extraction_result=result, deal=updated)
+    else:
+        saved = store.save_extraction_result_if_unchanged(result, raw_before)
+    if not saved:
         raise HTTPException(
             status_code=409,
             detail="This deal's review data changed while processing your request -- refresh and try again.",
@@ -79,6 +95,18 @@ def _persist_and_respond(store: Store, deal, result, raw_before, outcome) -> Fie
     return FieldDecisionResponse(outcome=outcome, extraction_result=result, deal=deal)
 
 
+def _private_retry(store, tenant_id, document, model, note):
+    try:
+        require_current_access(store, tenant_id)
+        return extract_private(document, model, note)
+    except PermissionError as exc:
+        raise HTTPException(403, 'Private review retry access expired or was revoked.') from exc
+    except (OSError, ValueError, RuntimeError, TimeoutError) as exc:
+        # Validation errors may contain private source/model text. Never echo
+        # them through the API or retry the failed request outside isolation.
+        raise HTTPException(422, 'Private review retry failed; saved inputs and diagnostics were retained.') from exc
+
+
 @router.post("/{deal_id}/review/fields/{field_name}", response_model=FieldDecisionResponse)
 def decide_field(
     deal_id: str,
@@ -89,12 +117,12 @@ def decide_field(
     reviewer: str = Depends(get_reviewer),
 ):
     deal, result, raw_before = _load_deal_and_result(store, tenant_id, deal_id)
-    if not hasattr(result, field_name):
+    if field_name not in REQUIRED_SCALAR_FIELDS:
         raise HTTPException(status_code=404, detail=f"No such field {field_name!r}")
-    document = _first_document(store, tenant_id, deal_id)
+    document = _first_document(store, tenant_id, deal_id, result.document_id)
 
     def retry_fn(doc, note):
-        return extract(doc, model=body.model, reviewer_feedback=note)
+        return _private_retry(store, tenant_id, doc, body.model, note)
 
     try:
         outcome = apply_field_decision(
@@ -104,8 +132,10 @@ def decide_field(
         )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+    except (OSError, RuntimeError, TimeoutError) as exc:
+        raise HTTPException(422, 'Private review retry failed; saved inputs and diagnostics were retained.') from exc
 
-    return _persist_and_respond(store, deal, result, raw_before, outcome)
+    return _persist_and_respond(store, deal, result, raw_before, outcome, document)
 
 
 @router.post("/{deal_id}/review/cap-table", response_model=FieldDecisionResponse)
@@ -117,10 +147,10 @@ def decide_cap_table(
     reviewer: str = Depends(get_reviewer),
 ):
     deal, result, raw_before = _load_deal_and_result(store, tenant_id, deal_id)
-    document = _first_document(store, tenant_id, deal_id)
+    document = _first_document(store, tenant_id, deal_id, result.document_id)
 
     def retry_fn(doc, note):
-        return extract(doc, model=body.model, reviewer_feedback=note)
+        return _private_retry(store, tenant_id, doc, body.model, note)
 
     try:
         outcome = apply_cap_table_decision(
@@ -129,8 +159,10 @@ def decide_cap_table(
         )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+    except (OSError, RuntimeError, TimeoutError) as exc:
+        raise HTTPException(422, 'Private review retry failed; saved inputs and diagnostics were retained.') from exc
 
-    return _persist_and_respond(store, deal, result, raw_before, outcome)
+    return _persist_and_respond(store, deal, result, raw_before, outcome, document)
 
 
 @router.post("/{deal_id}/review/funding-history", response_model=FieldDecisionResponse)
@@ -142,10 +174,10 @@ def decide_funding_history(
     reviewer: str = Depends(get_reviewer),
 ):
     deal, result, raw_before = _load_deal_and_result(store, tenant_id, deal_id)
-    document = _first_document(store, tenant_id, deal_id)
+    document = _first_document(store, tenant_id, deal_id, result.document_id)
 
     def retry_fn(doc, note):
-        return extract(doc, model=body.model, reviewer_feedback=note)
+        return _private_retry(store, tenant_id, doc, body.model, note)
 
     try:
         outcome = apply_funding_history_decision(
@@ -154,5 +186,7 @@ def decide_funding_history(
         )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+    except (OSError, RuntimeError, TimeoutError) as exc:
+        raise HTTPException(422, 'Private review retry failed; saved inputs and diagnostics were retained.') from exc
 
-    return _persist_and_respond(store, deal, result, raw_before, outcome)
+    return _persist_and_respond(store, deal, result, raw_before, outcome, document)

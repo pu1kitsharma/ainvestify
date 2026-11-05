@@ -6,11 +6,11 @@ and connection. robots.txt is respected; it is not a substitute for site terms.
 """
 from __future__ import annotations
 
-import io
 import ipaddress
 import re
 import socket
 import time
+import hashlib
 from dataclasses import dataclass, field
 from html.parser import HTMLParser
 from urllib.parse import urljoin, urlsplit, urlunsplit
@@ -73,6 +73,9 @@ class Page:
     # Kept separately from flat text for callers that must not split sentences.
     content_blocks: list[str] = field(default_factory=list)
     source_version_id: str | None = None
+    content_block_roles: list[str] = field(default_factory=list)
+    publisher_metadata: list[dict[str,str]] = field(default_factory=list)
+    source_document_sha256: str | None = None
 
 
 class PageParser(HTMLParser):
@@ -90,18 +93,28 @@ class PageParser(HTMLParser):
         self.link_navigation = False
         self.content_blocks = []
         self.block_parts = []
+        self.content_block_roles = []
+        self.block_role = None
         self.metadata = []
+        self.publication_metadata = []
 
     def flush_block(self):
         if self.block_parts:
             self.content_blocks.append(' '.join(self.block_parts))
+            self.content_block_roles.append(self.block_role or 'body')
             self.block_parts = []
+            self.block_role = None
 
-    BLOCK_TAGS = {'p','div','section','article','header','footer','main','ul','ol','li',
+    BLOCK_TAGS = {'p','div','section','article','aside','header','footer','main','ul','ol','li',
                   'table','tr','h1','h2','h3','h4','h5','h6','blockquote','br','hr'}
 
     def handle_starttag(self, tag, attrs):
         attributes = dict(attrs)
+        if tag=='meta' and (attributes.get('property') or '').casefold()=='article:published_time':
+            value=attributes.get('content') or ''
+            if value and len(value)<=100:
+                self.publication_metadata.append({'field':'publisher_publication_date','value':value,
+                    'tag':'meta','source_path':'meta[property="article:published_time"]@content'})
         if tag == 'meta' and (attributes.get('name', '').casefold() == 'description'
                               or attributes.get('property', '').casefold() == 'og:description'):
             description = ' '.join((attributes.get('content') or '').split())[:700]
@@ -154,6 +167,9 @@ class PageParser(HTMLParser):
             ui_label=(self.href or any(tag=='button' for tag,_ in self.text_scopes)) and value.casefold().rstrip(' →↗>') in {'skip to content','open main menu','close menu','log in','sign in','get started','learn more','read more'}
             if not self.in_title and not ui_label and not any(excluded for _, excluded in self.text_scopes):
                 self.parts.append(value)
+                if not self.block_parts:
+                    tags = {tag for tag,_ in self.text_scopes}
+                    self.block_role = next((role for role in ('aside','article','main','footer','header') if role in tags),'body')
                 self.block_parts.append(value)
             if self.in_title:
                 self.title.append(value)
@@ -161,10 +177,15 @@ class PageParser(HTMLParser):
                 self.anchor.append(value)
 
 
-def parse_page(url: str, html: str) -> Page:
+def parse_page(url: str, html: str, *, source_sha256=None) -> Page:
     parser = PageParser()
     parser.feed(html)
     parser.flush_block()
+    source_sha256=source_sha256 or hashlib.sha256(html.encode()).hexdigest()
+    title=' '.join(parser.title)
+    publisher_metadata=([{'field':'publisher_title','value':title,'tag':'title','source_path':'html/head/title'}] if title else [])
+    publisher_metadata+=parser.publication_metadata
+    publisher_metadata=[{**row,'source_url':url,'source_sha256':source_sha256} for row in publisher_metadata]
     links = []
     seen = set()
     # Keep navigation destinations for discovery, but spend the link budget on
@@ -184,17 +205,19 @@ def parse_page(url: str, html: str) -> Page:
     text = " ".join(parser.parts + metadata)
     from agents.discovery.public_directories import parse_directory_entries
     entries = parse_directory_entries(url, html)
-    blocks=[]; size=0
-    for block in parser.content_blocks + metadata:
+    blocks=[]; roles=[]; size=0
+    for block,role in zip(parser.content_blocks + metadata,parser.content_block_roles + ['metadata']*len(metadata)):
         if size+len(block)+bool(blocks)>24000:
             break
         size+=len(block)+bool(blocks);blocks.append(block)
+        roles.append(role)
     # A long body catalogue must not hide an observed primary pricing link
     # behind the link cap. Keep body-first discovery order and reserve at most
     # four slots for direct commercial destinations omitted by that cap.
     commercial=[link for link in links[100:] if urlsplit(link['url']).path.strip('/').casefold() in {'pricing','fees','tariff','plans'}][:4]
     selected_links=links[:100-len(commercial)]+commercial
-    return Page(url, " ".join(parser.title), text[:24000], selected_links, len(text) > 24000 or len(links) > 100, entries, blocks)
+    return Page(url, " ".join(parser.title), text[:24000], selected_links, len(text) > 24000 or len(links) > 100, entries, blocks,
+                content_block_roles=roles,publisher_metadata=publisher_metadata,source_document_sha256=source_sha256)
 
 
 class PublicWebFetcher:
@@ -314,10 +337,23 @@ class PublicWebFetcher:
             if encoding in {"identity", ""} and "application/pdf" in content_type:
                 if headers.get("X-Ainvestify-Truncated") == "true":
                     raise SourceError("partial", "PDF exceeds download budget; incomplete PDFs cannot be parsed.")
-                return parse_pdf(url, body)
+                # Network access ends before binary parsing. The isolated child
+                # receives only fetched bytes, never source URLs, DB or sessions.
+                from delivery.public_pdf import confined_pdf_payload, PublicPDFError
+                from agents.preparation.preparation_budget import ACTIVE_BUDGET
+                remaining = deadline - time.monotonic()
+                if budget := ACTIVE_BUDGET.get():
+                    remaining = min(remaining, budget.remaining())
+                try:
+                    page = confined_pdf_payload(body, timeout=min(20, remaining))
+                except PublicPDFError as exc:
+                    message = ('PDF has insufficient selectable text; OCR or company input is needed.'
+                               if str(exc) == 'insufficient_text' else 'Public PDF could not be parsed.')
+                    raise SourceError('partial', message) from exc
+                return Page(url, page['title'], page['text'], [], page['truncated'])
             if encoding not in {"identity", ""} or not any(t in content_type for t in ("text/html", "text/plain", "application/xhtml+xml")):
                 raise SourceError("blocked", "Only uncompressed HTML/text pages are supported in this collector.")
-            page = parse_page(url, body.decode("utf-8", errors="replace"))
+            page = parse_page(url, body.decode("utf-8", errors="replace"),source_sha256=hashlib.sha256(body).hexdigest())
             page.truncated = page.truncated or headers.get("X-Ainvestify-Truncated") == "true"
             if len(page.text) < 80:
                 raise SourceError("partial", "No usable page text; this source may require JavaScript or login.")
@@ -326,26 +362,12 @@ class PublicWebFetcher:
 
 
 def parse_pdf(url: str, body: bytes) -> Page:
-    """Collect bounded public PDF text; scanned documents remain explicit gaps."""
-    import pdfplumber
+    """Pure parser for trusted fixtures; product fetch uses confinement above."""
+    from delivery.public_pdf import parse_pdf_payload, PublicPDFError
     try:
-        with pdfplumber.open(io.BytesIO(body)) as pdf:
-            parts = []
-            size = 0
-            truncated = len(pdf.pages) > 10
-            for number, page in enumerate(pdf.pages[:10], 1):
-                text = page.extract_text() or ""
-                parts.append(f"[PDF page {number}] {text}")
-                size += len(text)
-                if size >= 24000:
-                    truncated = True
-                    break
-            text = " ".join(" ".join(parts).split())
-            if size < 80:
-                raise SourceError("partial", "PDF has insufficient selectable text; OCR or company input is needed.")
-            title = str((pdf.metadata or {}).get("Title") or "Public document")[:200]
-            return Page(url, title, text[:24000], [], truncated)
-    except SourceError:
-        raise
-    except Exception as exc:
-        raise SourceError("partial", "Public PDF could not be parsed.") from exc
+        page = parse_pdf_payload(body)
+        return Page(url, page['title'], page['text'], [], page['truncated'])
+    except PublicPDFError as exc:
+        message = ('PDF has insufficient selectable text; OCR or company input is needed.'
+                   if str(exc) == 'insufficient_text' else 'Public PDF could not be parsed.')
+        raise SourceError('partial', message) from exc

@@ -1,6 +1,8 @@
-import {useEffect, useState, type FormEvent, type ReactNode} from 'react';
+import {useEffect, useState, useSyncExternalStore, type FormEvent, type ReactNode} from 'react';
+import {QueryClientProvider} from '@tanstack/react-query';
 import {api, setCsrfToken} from '../api/client';
 import {AuthContext, type SignedInUser} from './AuthContext';
+import {identityKey, SessionBoundary, sessionNotifications} from '../api/sessionBoundary';
 
 type SignInConfig = {configured: boolean; local_password_enabled: boolean; login_url: string};
 
@@ -74,29 +76,50 @@ function SignIn({config}: {config: SignInConfig | null}) {
 }
 
 export default function AuthGate({children}: {children: ReactNode}) {
- const [user, setUser] = useState<SignedInUser | null>(null);
- const [loading, setLoading] = useState(true);
+ const [boundary] = useState(() => new SessionBoundary<SignedInUser>({
+  readIdentity: signal => api.get<SignedInUser>('/api/auth/me', {signal}),
+  setCsrf: setCsrfToken, broadcast() {},
+  navigate: () => window.location.replace('/'),
+ }));
+ const session = useSyncExternalStore(boundary.subscribe, boundary.getSnapshot);
+ const {user, checking: loading} = session;
  const [config, setConfig] = useState<SignInConfig | null>(null);
  useEffect(() => {
-  let live = true;
-  async function load() {
-   try {
-   const me = await api.get<SignedInUser>('/api/auth/me');
-    if (live) {setCsrfToken(me.csrf_token);setUser(me);setLoading(false);}
-   } catch {
-    if (live) {setUser(null);setCsrfToken('');}
-    try {const next = await api.get<SignInConfig>('/api/auth/config');if (live) setConfig(next);} catch { /* Sign-in shows server status. */ }
-    if (live) setLoading(false);
-   }
-  }
-  void load();
-  const expired = () => {setCsrfToken('');setUser(null);void api.get<SignInConfig>('/api/auth/config').then(next=>{if(live)setConfig(next);}).catch(()=>{});};
+  boundary.activate();
+  const signals = sessionNotifications(() => boundary.remoteChange());
+  boundary.setBroadcaster(() => signals.publish());
+  void boundary.revalidate('initial');
+  const expired = () => boundary.expire();
+  const focus = () => {if (document.visibilityState !== 'hidden') void boundary.revalidate('focus');};
+  const blur = () => boundary.suspend();
+  const visibility = () => {if (document.visibilityState === 'hidden') blur(); else focus();};
   window.addEventListener('session-expired', expired);
-  return () => {live = false;window.removeEventListener('session-expired', expired);};
- }, []);
- if (loading) return <div role="status" className="flex min-h-screen items-center justify-center bg-[#f5f7fa] text-sm font-medium text-slate-600"><span className="mr-3 h-5 w-5 animate-spin rounded-full border-2 border-indigo-200 border-t-indigo-600"/>Opening your workspace…</div>;
+  window.addEventListener('focus', focus); window.addEventListener('blur', blur);
+  document.addEventListener('visibilitychange', visibility);
+  return () => {
+   signals.close(); boundary.setBroadcaster(() => {}); boundary.stop();
+   window.removeEventListener('session-expired', expired);
+   window.removeEventListener('focus', focus); window.removeEventListener('blur', blur);
+   document.removeEventListener('visibilitychange', visibility);
+  };
+ }, [boundary]);
+ useEffect(() => {
+  if (user || loading) return;
+  let live = true;
+  void api.get<SignInConfig>('/api/auth/config').then(next => {if (live) setConfig(next);}).catch(() => {});
+  return () => {live = false;};
+ }, [user, loading, session.revision]);
+ const opening = <div role="status" className="flex min-h-screen items-center justify-center bg-[#f5f7fa] text-sm font-medium text-slate-600"><span className="mr-3 h-5 w-5 animate-spin rounded-full border-2 border-indigo-200 border-t-indigo-600"/>Opening your workspace…</div>;
+ if (!user && loading) return opening;
  if (!user) return <SignIn config={config}/>;
- return <AuthContext.Provider value={{user, signOut: async () => {
-  await api.post('/api/auth/logout');setCsrfToken('');window.location.assign('/');
- }}}>{children}</AuthContext.Provider>;
+ return <>{loading && opening}<div style={{display: loading ? 'none' : 'contents'}}>
+  <AuthContext.Provider key={`${identityKey(user)}:${session.revision}`} value={{user, signOut: async () => {
+   const pending = api.post('/api/auth/logout'); // Capture the current CSRF before clearing local state.
+   boundary.beginLogout();
+   try {await pending;} catch (error) {boundary.finishLogout(false); throw error;}
+   // Notify other tabs after the server revoked the cookie; an earlier probe
+   // could otherwise restore the still-valid pre-logout session.
+   boundary.finishLogout(); window.location.assign('/');
+  }}}><QueryClientProvider client={session.queryClient}>{children}</QueryClientProvider></AuthContext.Provider>
+ </div></>;
 }

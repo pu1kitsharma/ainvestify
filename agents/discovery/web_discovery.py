@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 import re
 import time
+import threading
 from dataclasses import dataclass
 from typing import Callable, Optional, Protocol
 from urllib.parse import parse_qs, urlencode, urlsplit
@@ -89,39 +90,61 @@ class DuckDuckGoSearch:
 
 
 class MwmblSearch:
-    """Documented unauthenticated v1 API; no key, billing or Super Search.
+    """Official anonymous v2 API: developer.mwmbl.org, no key or billing.
 
-    API contract: github.com/mwmbl/mwmbl, mwmbl/tinysearchengine/search.py.
-    Its independent index is smaller than commercial search indexes.
+    Anonymous limits are 1 request/second and 1,000/month per IP. An HTTP429
+    stops this provider; no alternate version, credentials or bypass is used.
     """
     name = "mwmbl"
+    _request_lock = threading.Lock()
+    _last_request = 0.0
 
     def __init__(self, fetcher=None):
         self.fetcher = fetcher or PublicWebFetcher(read_timeout=10)
+        self.last_metadata = {}
 
     def query_url(self, query: str) -> str:
-        return "https://api.mwmbl.org/api/v1/search/?" + urlencode({"s": query})
+        return "https://api.mwmbl.org/api/v2/search/?" + urlencode({"q": query})
 
     def search(self, query: str, limit: int = 6) -> list[SearchHit]:
-        # This fixed public API explicitly permits unauthenticated search.
-        # Reuse bounded, IP-validated transport; never follow API redirects.
-        status, headers, body = self.fetcher._request(self.query_url(query), time.monotonic() + 25)
+        from agents.preparation.preparation_budget import ACTIVE_BUDGET
+        budget = ACTIVE_BUDGET.get()
+        if not self._request_lock.acquire(timeout=min(25,budget.remaining()) if budget else 25):
+            raise SourceError('partial','Search request queue exceeded the bounded deadline.')
+        try:
+            wait = max(0,1-(time.monotonic()-MwmblSearch._last_request))
+            if budget and wait >= budget.remaining():
+                raise SourceError('partial','Search rate limit exceeds the remaining discovery budget.')
+            if wait: time.sleep(wait)
+            MwmblSearch._last_request = time.monotonic()
+            status, headers, body = self.fetcher._request(self.query_url(query), time.monotonic()+25)
+        finally:
+            self._request_lock.release()
         if status != 200:
-            raise SourceError("rate_limited" if status == 429 else "failed", f"Mwmbl search returned HTTP {status}.")
+            raise SourceError('rate_limited' if status==429 else 'blocked' if status==403 else 'failed',
+                              f'Mwmbl v2 search returned HTTP {status}.')
         try:
             data = json.loads(body)
-            if not isinstance(data, list):
-                raise ValueError("Expected result list")
+            if (not isinstance(data,dict) or not isinstance(data.get('query'),str)
+                    or type(data.get('number_of_results')) is not int or data['number_of_results']<0
+                    or not isinstance(data.get('results'),list)):
+                raise ValueError('Expected documented v2 result object')
+            for key in ('monthly_usage','monthly_limit'):
+                if data.get(key) is not None and (type(data[key]) is not int or data[key]<0):
+                    raise ValueError('Invalid anonymous quota metadata')
+            self.last_metadata = {key:data.get(key) for key in ('number_of_results','monthly_usage','monthly_limit')}
+            self.last_metadata['api_version'] = 'v2'
             hits = []
-            for item in data[:30]:
-                url = clean_destination(item["url"])
-                title = "".join(segment["value"] for segment in item["title"])
-                snippet = "".join(segment["value"] for segment in item.get("extract", []))
+            for item in data['results'][:60]:
+                if (not isinstance(item,dict) or not isinstance(item.get('url'),str)
+                        or not isinstance(item.get('title'),str) or not isinstance(item.get('content'),str)):
+                    raise ValueError('Invalid result row')
+                url = clean_destination(item['url'])
                 if url:
-                    hits.append(SearchHit(url, title[:200], snippet[:700]))
+                    hits.append(SearchHit(url,item['title'][:200],item['content'][:700]))
             return diversified_hits(hits)[:limit]
-        except (ValueError, KeyError, TypeError) as exc:
-            raise SourceError("failed", "Mwmbl returned an invalid search response.") from exc
+        except (ValueError,KeyError,TypeError) as exc:
+            raise SourceError('failed','Mwmbl v2 returned an invalid search response.') from exc
 
 
 # Operator-maintained discovery sources, not company recommendations. They are
@@ -234,8 +257,12 @@ class SearchSession:
     """Bounded multi-provider search with failure memory for the entire job."""
     name = "search_session"
 
-    def __init__(self, providers=None):
-        self.providers = providers if providers is not None else [DuckDuckGoSearch(), MwmblSearch()]
+    def __init__(self, providers=None, *, prefer_api=False):
+        # The documented search API avoids spending the discovery deadline on
+        # an HTML challenge. Its smaller index still falls through to the
+        # independent provider when it supplies fewer than six usable links.
+        defaults = [MwmblSearch(), DuckDuckGoSearch()] if prefer_api else [DuckDuckGoSearch(), MwmblSearch()]
+        self.providers = providers if providers is not None else defaults
         self.disabled = set()
         self.cache = {}
         self.retried = set()

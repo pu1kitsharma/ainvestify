@@ -1,0 +1,14 @@
+# Locally managed NAMED tunnel only. Never commit its credential JSON or token.
+# This is preparation, not an active tunnel or a multi-user release declaration.
+tunnel: REPLACE_WITH_TUNNEL_UUID
+credentials-file: C:/Users/gaura/AInvestifyPrivate/hosting/cloudflared/REPLACE_WITH_TUNNEL_UUID.json
+protocol: http2
+metrics: 127.0.0.1:18082
+no-autoupdate: true
+ingress:
+  - hostname: investify.fyi
+    service: http://127.0.0.1:8081
+    originRequest:
+      httpHostHeader: investify.fyi
+      connectTimeout: 10s
+  - service: http_status:404

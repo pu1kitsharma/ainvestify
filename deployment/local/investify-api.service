@@ -1,0 +1,29 @@
+# API only. Room workers and public routing require separate qualification.
+[Unit]
+Description=Investify private Linux API
+After=network.target
+
+[Service]
+Type=simple
+User=investify
+Group=investify
+WorkingDirectory=/home/investify/app
+ExecStart=/home/investify/venv/bin/python -B /home/investify/app/scripts/serve_local.py --env-file /home/investify/private/server.env --without-worker
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=MPLCONFIGDIR=/home/investify/runtime/matplotlib
+UMask=0077
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=140
+KillMode=mixed
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/home/investify/private /home/investify/runtime
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+
+[Install]
+WantedBy=multi-user.target

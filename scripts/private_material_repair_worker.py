@@ -39,7 +39,7 @@ def repair_materials(root: Path, model=None):
 
     if not attempts:
         seconds = json.loads((root / 'material_repair_budget.json').read_text())['seconds']
-        budget = PreparationBudget(seconds, max_calls=1, max_requests=1)
+        budget = PreparationBudget(seconds, max_calls=1, max_requests=1, document_step=True)
         try:
             with preparation_budget(budget):
                 recorded_call(model, 'material_review_slide_repair', instruction,

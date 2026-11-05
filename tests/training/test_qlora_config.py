@@ -39,7 +39,12 @@ def test_private_data_cannot_target_lfs_adapter_path(tmp_path):
     args.output_dir = str(tmp_path / 'models/adapters/run1')
     with pytest.raises(ValueError, match='private'):
         qlora_train.resolve_config(args)
-    args.output_dir = str(tmp_path / 'runtime_qualification/agentic_banker/private/run1')
+    repo, private = tmp_path / 'repo', tmp_path / 'private'
+    repo.mkdir()
+    private.mkdir()
+    args.repo_root, args.private_root = str(repo), str(private)
+    args.data_dir = str(data_dir(private))
+    args.output_dir = str(private / 'adapters/run1')
     assert qlora_train.resolve_config(args)['private'] is True
 
 

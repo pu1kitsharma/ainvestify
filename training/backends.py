@@ -139,7 +139,7 @@ class QloraBackend:
         self.extra_args = list(extra_args)
         self._run = runner or subprocess.run
 
-    def train_command(self, base_model, data_dir, adapter_dir, hyper, role, private):
+    def train_command(self, base_model, data_dir, adapter_dir, hyper, role, private, private_root=None):
         cmd = [self.python, str(HERE / 'qlora_train.py'), '--base-model', str(base_model),
                '--data-dir', str(data_dir), '--output-dir', str(adapter_dir), '--role', role]
         for key, flag in (('lora_r', '--lora-r'), ('lora_alpha', '--lora-alpha'), ('epochs', '--epochs'),
@@ -149,10 +149,13 @@ class QloraBackend:
                 cmd += [flag, str(hyper[key])]
         if private:
             cmd.append('--private')
+            if private_root is not None:
+                cmd += ['--private-root', str(private_root)]
         return cmd + self.extra_args
 
-    def train(self, base_model, data_dir, adapter_dir, hyper, log_path, role='author', private=False):
-        cmd = self.train_command(base_model, data_dir, adapter_dir, hyper, role, private)
+    def train(self, base_model, data_dir, adapter_dir, hyper, log_path, role='author', private=False,
+              private_root=None):
+        cmd = self.train_command(base_model, data_dir, adapter_dir, hyper, role, private, private_root)
         started = time.time()
         with open(log_path, 'w') as log:
             proc = self._run(cmd, stdout=log, stderr=subprocess.STDOUT, text=True)

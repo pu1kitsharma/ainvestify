@@ -11,6 +11,7 @@ from agents.inference.model_routing import validate_local_model_name
 from agents.research.material_slides import replay_material_rows, render_sections
 from delivery.investment_memo_stage import memo_directory
 from delivery.isolation import run_private
+from agents.preparation.preparation_budget import document_model_seconds
 
 
 TASKS = ('intro_deck', 'pitch_deck')
@@ -81,8 +82,8 @@ class LocalMaterialModelInventoryUnavailable(RuntimeError):
 
 def _installed_material_digest(name):
     try:
-        with urllib.request.urlopen('http://127.0.0.1:11434/api/tags', timeout=5) as response:
-            installed = {row['name']: row.get('digest') for row in json.load(response)['models']}
+        from agents.inference.local_transport import local_tags
+        installed = {row['name']: row.get('digest') for row in local_tags()['models']}
     except (OSError, TimeoutError, ValueError, KeyError, TypeError) as exc:
         raise LocalMaterialModelInventoryUnavailable('Local material model inventory unavailable') from exc
     value = installed.get(name)
@@ -501,7 +502,7 @@ def run_material_pass(job, memo, *, timeout, draft_contract=None,
         temporary.write_text(json.dumps(request, ensure_ascii=False))
         temporary.replace(request_file)
     (root / 'material_budget.json').write_text(json.dumps({
-        'seconds': max(1, min(105, timeout - 8))}))
+        'seconds': document_model_seconds(timeout)}))
     run_private([__import__('sys').executable, project / 'scripts/private_material_worker.py'],
                 root, timeout=timeout, extra_read=(project / 'agents', project / 'schemas.py'),
                 local_model=True)

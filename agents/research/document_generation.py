@@ -467,9 +467,15 @@ def _replay(request, row):
             row.get('model') != payload['model_pin']['name']):
         raise GenerationError('document_record_differs_from_frozen_request')
     options, route = payload['options'], row.get('routing', {})
+    bounded_review = (options.get('bounded_thinking_contract') is not None or
+        payload.get('review_capacity_profile') == 'qwen3-8b-bounded-material-review-v1')
+    if bounded_review:
+        from agents.research.bounded_material_review import validate_request
+        validate_request(task, payload, schema)
+    format_operation = 'generate' if bounded_review else 'chat'
     if (route.get('model') != payload['model_pin']['name'] or
             any(route.get(key) != value for key, value in options.items()) or
-            route.get('format_object_receipts') != [{'operation': 'chat',
+            route.get('format_object_receipts') != [{'operation': format_operation,
                 'model': payload['model_pin']['name'],
                 'format_order_digest': payload['generation_schema_order_digest']} ]):
         raise GenerationError('document_actual_model_options_or_format_changed')
@@ -482,7 +488,11 @@ def _replay(request, row):
     if not isinstance(raw, str) or not raw:
         raise GenerationError('complete_raw_document_response_required')
     _validate_exact_json(raw)
-    validate_full_context_receipt(route)
+    if bounded_review:
+        from agents.research.bounded_material_review import validate_receipts
+        validate_receipts(instruction, payload, schema, route, raw)
+    else:
+        validate_full_context_receipt(route)
     if options.get('streaming_transport_contract') is not None:
         from agents.inference.local_models import bounded_thinking_input_binding, validate_stream_observation_receipt
         validate_stream_observation_receipt(route, raw_response=raw,

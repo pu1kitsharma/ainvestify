@@ -12,7 +12,7 @@ from pathlib import Path
 
 from agents.inference.local_models import LocalModel
 from agents.inference.model_authorship import digest
-from agents.preparation.preparation_budget import (PreparationBudget,
+from agents.preparation.preparation_budget import (DOCUMENT_STEP_MAX_SECONDS, PreparationBudget,
     PreparationBudgetExceeded, preparation_budget)
 from agents.research import memo_content_repair as repair
 from agents.research import memo_content_review as review
@@ -88,7 +88,7 @@ def advance(root: Path, reviewer=None, author=None, *, budget=None, characterize
     sources = [Source.model_validate(row) for row in request['sources']]
     contract, pin = request['review_contract'], request['author_pin']
     seconds = json.loads((root / 'content_budget.json').read_text())['seconds']
-    budget = budget or PreparationBudget(seconds, max_calls=1, max_requests=1)
+    budget = budget or PreparationBudget(seconds, max_calls=1, max_requests=1, document_step=True)
     if contract['version'] in {'memo-content-review-v2', 'memo-content-review-v3', 'memo-content-review-v4', 'memo-content-review-v5'}:
         from agents.research import memo_content_review_v2 as reviewer_contract
     else:
@@ -178,7 +178,7 @@ def main():
     max_calls = limits.get('max_calls', 1)
     if not isinstance(max_calls, int) or isinstance(max_calls, bool) or not 1 <= max_calls <= 6:
         raise ValueError('Private content pass permits one to six calls')
-    budget = PreparationBudget(min(limits['seconds'], 105), max_calls=max_calls, max_requests=max_calls)
+    budget = PreparationBudget(min(limits['seconds'], DOCUMENT_STEP_MAX_SECONDS), max_calls=max_calls, max_requests=max_calls, document_step=True)
     for _ in range(max_calls):
         before = budget.calls
         result = advance(root, budget=budget)

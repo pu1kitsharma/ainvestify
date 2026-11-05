@@ -185,8 +185,13 @@ def enqueue(conn, event):
         raise
 
 
-def claim(conn, *, now=None, lease_seconds=150):
+def claim(conn, *, now=None, lease_seconds=None):
     now = time.time() if now is None else now
+    if lease_seconds is None:
+        # The lease must outlive one full room pass, including a longer
+        # operator-configured document step.
+        from agents.preparation.preparation_budget import document_step_seconds
+        lease_seconds = max(150, document_step_seconds() + 30)
     conn.execute("BEGIN IMMEDIATE")
     try:
         _ensure_phase_columns(conn)

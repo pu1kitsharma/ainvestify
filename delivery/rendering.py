@@ -5,13 +5,15 @@ import re
 
 
 def _pdf_font(*, bold=False):
-    """Embed a Unicode font when the qualified macOS runtime supplies one."""
+    """Embed the installed Unicode font; exported-file qualification is separate."""
     from pathlib import Path
     from reportlab.pdfbase import pdfmetrics
     from reportlab.pdfbase.ttfonts import TTFont
     name = 'RoomDejaVuSansBold' if bold else 'RoomDejaVuSans'
     filename = 'DejaVuSans-Bold.ttf' if bold else 'DejaVuSans.ttf'
     path = Path('/Applications/LibreOffice.app/Contents/Resources/fonts/truetype') / filename
+    if not path.is_file():
+        path = Path('/usr/share/fonts/truetype/dejavu') / filename
     if not path.is_file():
         name = 'RoomArialUnicode'
         path = Path('/System/Library/Fonts/Supplemental/Arial Unicode.ttf')
@@ -23,6 +25,19 @@ def _pdf_font(*, bold=False):
 
 
 EVIDENCE_DOCUMENT_CONTRACT = 'evidence-document-v1'
+ARGUMENT_MEMO_CONTRACT = 'source-bound-im-argument-layout-v1'
+
+
+def render_argument_memo(title, sections, *, format):
+    """Explicit depth-diagnostic export; old evidence-page limits do not change.
+
+    The caller must replay the immutable argument response before projecting
+    these fields. No prose is completed, rewritten or clipped by the renderer.
+    """
+    if format not in ('docx', 'pdf'):
+        raise ValueError('Argument memo supports only its editable/PDF pair')
+    renderer = render_memo if format == 'docx' else render_memo_pdf
+    return renderer(title, sections, document_contract=ARGUMENT_MEMO_CONTRACT)
 
 
 def render_evidence_document(title, sections, *, kind, format):
@@ -41,8 +56,11 @@ def render_evidence_document(title, sections, *, kind, format):
 
 
 def _checked_sections(sections, *, paginated=False, document_contract=None):
-    if document_contract not in (None, EVIDENCE_DOCUMENT_CONTRACT):
+    if document_contract not in (None, EVIDENCE_DOCUMENT_CONTRACT, ARGUMENT_MEMO_CONTRACT):
         raise ValueError('Draft document contract is unsupported')
+    argument = document_contract == ARGUMENT_MEMO_CONTRACT
+    if argument and not paginated:
+        raise ValueError('Argument memo layout cannot be used for deck slides')
     limit = 40 if document_contract else 30
     if not sections or len(sections) > limit:
         raise ValueError(f"Supported draft requires 1–{limit} sections")
@@ -50,12 +68,16 @@ def _checked_sections(sections, *, paginated=False, document_contract=None):
         if len(section) not in (3, 4, 5, 6):
             raise ValueError('Draft section shape is unsupported')
         heading, body, sources = section[:3]
+        if argument and len(section) != 3:
+            raise ValueError('Argument diagnostic has no qualified table/chart projection')
         if any(not isinstance(item, str) for item in (heading, body, sources)):
             raise ValueError('Draft section text must be literal strings')
         if any(len(item) > limit for item, limit in (
                 (heading, 300 if paginated else 100),
-                (body, 2000 if paginated and document_contract else 1200), (sources, 1200))):
+                (body, 6000 if argument else 2000 if paginated and document_contract else 1200), (sources, 1200))):
             raise ValueError("Draft section exceeds supported layout; split it before rendering")
+        if argument and any(len(block) > 1500 for block in body.split('\n\n')):
+            raise ValueError('Argument paragraph exceeds bounded page layout; model must split it')
         if len(section) == 4 and section[3] not in {
                 'statement', 'evidence', 'comparison', 'timeline'}:
             raise ValueError('Draft slide layout is unsupported')

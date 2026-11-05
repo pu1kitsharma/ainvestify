@@ -227,6 +227,7 @@ def test_web_api_job_history_validation_and_tenant_scope(tmp_path, monkeypatch):
         with Store(db) as store:
             yield store
     def fake_worker(store, run, **kwargs):
+        assert kwargs.pop('preliminary_only') is True
         return source_companies(store, run, model=FakeModel(), fetcher=FakeFetcher(), **kwargs)
     monkeypatch.setattr(routes, "source_companies", fake_worker)
     original = app.dependency_overrides.copy()

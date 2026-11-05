@@ -10,7 +10,7 @@ Guarantees enforced here (see tests/training):
     reach the sampler; unsupported/missing checks cannot be selected;
   * leave-one-deal-out: no deal is evaluated by an adapter trained on it;
   * private trajectories are upweighted but capped at <=10% of the mix, and a round
-    that touches private data may only write under ignored private paths;
+    that touches private data requires an explicit approved root outside Git;
   * the manifest is written exclusively (never overwritten) and made read-only.
 Nothing here claims investment-quality output; `quality_claim` is always 'none'.
 """
@@ -151,7 +151,7 @@ def base_model_info(base_dir, manifest=None):
 
 def run_round(*, round_id, public_rows, output_root, sampler, backend, base_model_dir, base_info,
               make_generator, private_rows=(), held_out_deals=(), config=None, hyper=None,
-              repo_root='.', probe_hook=None):
+              repo_root='.', probe_hook=None, private_root=None):
     """Run one round and return its manifest. `make_generator(base_dir, adapter_dir_or_None)`
     -> fn(prompts)->texts. `probe_hook(adapter_dir)` may run the memorisation probe."""
     cfg = {**DEFAULT_CONFIG, **(config or {})}
@@ -178,10 +178,12 @@ def run_round(*, round_id, public_rows, output_root, sampler, backend, base_mode
     if not eval_rows:
         raise ValueError('No held-out cases')
 
-    root = adapter_destination_ok(Path(output_root), trained_on_private=uses_private, repo_root=repo_root)
+    root = adapter_destination_ok(Path(output_root), trained_on_private=uses_private,
+                                  repo_root=repo_root, private_root=private_root)
     out = root / round_id
     out.mkdir(mode=0o700, parents=True, exist_ok=False)
-    adapter_dir = adapter_destination_ok(out / 'adapter', trained_on_private=uses_private, repo_root=repo_root)
+    adapter_dir = adapter_destination_ok(out / 'adapter', trained_on_private=uses_private,
+                                         repo_root=repo_root, private_root=private_root)
     (out / 'samples').mkdir(mode=0o700)
     started = time.time()
     try:
@@ -203,7 +205,7 @@ def run_round(*, round_id, public_rows, output_root, sampler, backend, base_mode
         _write_new(data_dir / 'valid.jsonl', valid_examples, jsonl=True)
         train_sha = sha256_file(data_dir / 'train.jsonl')
 
-        extra = {'role': role, 'private': uses_private} if backend.name == 'cuda_qlora' else {}
+        extra = {'role': role, 'private': uses_private, 'private_root': private_root} if backend.name == 'cuda_qlora' else {}
         train_info = backend.train(base_model_dir, data_dir, adapter_dir, hyper or {}, out / 'train.log', **extra)
 
         adapter_files = {p.relative_to(adapter_dir).as_posix(): {'bytes': p.stat().st_size, 'sha256': sha256_file(p)}
@@ -238,7 +240,7 @@ def run_round(*, round_id, public_rows, output_root, sampler, backend, base_mode
                         'adapter_mean_reward': adapter_eval['mean_reward'],
                         'adapter_beats_base': adapter_eval['mean_reward'] > base_eval['mean_reward']},
             'adapter': {'dir': str(adapter_dir), 'files': adapter_files, 'trained_on_private': uses_private,
-                        'storage_policy': 'ignored private path' if uses_private else 'public allowed'},
+                        'storage_policy': 'approved outside-Git private root' if uses_private else 'public allowed'},
             'memorisation_probe': probe if probe is not None else 'unrun',
             'environment': {'platform': platform.platform(), 'python': platform.python_version(),
                             'wall_seconds': round(time.time() - started, 2),

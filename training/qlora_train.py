@@ -10,8 +10,8 @@ imports happen only inside `run_training`.
 Role adapters: the dataset's system tag `[ROLE:<role>]` must equal --role, and the
 output goes to <output-dir>/<role>/, so author, QC and MD-reviewer adapters never
 share files or data. `--private` marks data derived from private deals: the output
-must then be under an ignored private root (training.envs.adapter_destination_ok),
-never models/adapters (Git LFS).
+and its dataset must then be under an explicit approved --private-root outside
+Git (training.envs.adapter_destination_ok).
 
 Requires: torch, transformers, peft, trl, bitsandbytes, datasets, accelerate.
 """
@@ -28,6 +28,8 @@ if str(REPO) not in sys.path:
 
 from training.chat_data import ROLES, read_jsonl, validate_dataset  # noqa: E402
 from training.envs.splits import adapter_destination_ok  # noqa: E402
+from training.private_storage import private_path  # noqa: E402
+from training.runtime_qualification import resolve_precision  # noqa: E402
 
 # Attention + MLP projections: valid for Qwen / Llama style decoders.
 DEFAULT_TARGET_MODULES = ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'gate_proj', 'up_proj', 'down_proj']
@@ -35,17 +37,20 @@ DEFAULT_TARGET_MODULES = ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'gate_proj', '
 
 def build_parser():
     p = argparse.ArgumentParser(description='QLoRA role-adapter training (CUDA host)')
-    p.add_argument('--base-model', required=True, help='HF repo id or local path (pin a revision with --revision)')
+    p.add_argument('--base-model', required=True, help='Checked local Transformers checkpoint; downloads are disabled')
     p.add_argument('--revision', default=None)
     p.add_argument('--data-dir', required=True)
     p.add_argument('--output-dir', required=True)
     p.add_argument('--role', required=True, choices=sorted(ROLES))
     p.add_argument('--private', action='store_true', help='data derived from private deals')
+    p.add_argument('--private-root', help='Existing approved storage directory outside Git')
     p.add_argument('--lora-r', type=int, default=16)
     p.add_argument('--lora-alpha', type=int, default=32)
     p.add_argument('--lora-dropout', type=float, default=0.05)
     p.add_argument('--target-modules', nargs='+', default=DEFAULT_TARGET_MODULES)
-    p.add_argument('--no-4bit', action='store_true', help='plain LoRA in bf16 (small models only)')
+    p.add_argument('--no-4bit', action='store_true', help='plain LoRA in selected precision (small models only)')
+    p.add_argument('--precision', choices=('auto', 'fp16', 'bf16'), default='auto',
+                   help='Auto uses FP16 on CUDA devices without native BF16')
     p.add_argument('--max-seq-length', type=int, default=4096)
     p.add_argument('--epochs', type=float, default=2.0)
     p.add_argument('--learning-rate', type=float, default=1e-4)
@@ -65,23 +70,26 @@ def resolve_config(args):
     if not 0 <= args.lora_dropout < 1 or args.epochs <= 0 or args.learning_rate <= 0:
         raise ValueError('Invalid dropout/epochs/learning rate')
     data = Path(args.data_dir)
+    if args.private:
+        data = private_path(data, root=args.private_root, repo_root=args.repo_root)
     train, valid = read_jsonl(data / 'train.jsonl'), read_jsonl(data / 'valid.jsonl') if (data / 'valid.jsonl').exists() else []
     validate_dataset(train, args.role)
     if valid:
         validate_dataset(valid, args.role)
     # One directory per role keeps author / QC / MD-reviewer adapters separate.
     out = adapter_destination_ok(Path(args.output_dir) / args.role, trained_on_private=args.private,
-                                 repo_root=args.repo_root)
+                                 repo_root=args.repo_root, private_root=args.private_root)
     return {
         'role': args.role, 'private': bool(args.private), 'base_model': args.base_model, 'revision': args.revision,
+        'precision': args.precision,
         'output_dir': str(out), 'quantization': None if args.no_4bit else
         {'load_in_4bit': True, 'bnb_4bit_quant_type': 'nf4', 'bnb_4bit_use_double_quant': True,
-         'bnb_4bit_compute_dtype': 'bfloat16'},
+         'bnb_4bit_compute_dtype': args.precision},
         'lora': {'r': args.lora_r, 'lora_alpha': args.lora_alpha, 'lora_dropout': args.lora_dropout,
                  'target_modules': list(args.target_modules), 'bias': 'none', 'task_type': 'CAUSAL_LM'},
         'sft': {'max_length': args.max_seq_length, 'num_train_epochs': args.epochs, 'learning_rate': args.learning_rate,
                 'per_device_train_batch_size': args.batch_size, 'gradient_accumulation_steps': args.grad_accum,
-                'seed': args.seed, 'gradient_checkpointing': True, 'bf16': True, 'lr_scheduler_type': 'cosine',
+                'seed': args.seed, 'gradient_checkpointing': True, 'lr_scheduler_type': 'cosine',
                 'warmup_ratio': 0.03, 'logging_steps': 5, 'save_strategy': 'epoch', 'report_to': 'none'},
         'data': {'train_rows': len(train), 'valid_rows': len(valid),
                  'train_sha256': hashlib.sha256((data / 'train.jsonl').read_bytes()).hexdigest()},
@@ -94,23 +102,35 @@ def to_prompt_completion(examples):
 
 
 def run_training(config, data_dir):  # pragma: no cover - needs CUDA stack
+    base = Path(config['base_model']).resolve()
+    if not base.is_dir() or not (base / 'config.json').is_file():
+        raise ValueError('Training requires an existing local checkpoint; model downloads are disabled')
+    checkpoint = json.loads((base / 'config.json').read_text())
+    quantization = checkpoint.get('quantization') or checkpoint.get('quantization_config') or {}
+    if isinstance(quantization, dict) and 'group_size' in quantization and 'quant_method' not in quantization:
+        raise ValueError('Packed MLX checkpoints require a separately qualified offline conversion before CUDA training')
     import torch
     from datasets import Dataset
     from peft import LoraConfig
     from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
     from trl import SFTConfig, SFTTrainer
 
+    if not torch.cuda.is_available():
+        raise ValueError('A qualified CUDA device is required; no CPU or hosted training fallback is used')
+    precision = resolve_precision(config.get('precision', 'auto'),
+                                  bf16_supported=torch.cuda.is_bf16_supported())
+    dtype = torch.bfloat16 if precision == 'bf16' else torch.float16
     quant = None
     if config['quantization']:
         q = dict(config['quantization'])
-        q['bnb_4bit_compute_dtype'] = getattr(torch, q['bnb_4bit_compute_dtype'])
+        q['bnb_4bit_compute_dtype'] = dtype
         quant = BitsAndBytesConfig(**q)
-    tok = AutoTokenizer.from_pretrained(config['base_model'], revision=config['revision'])
+    tok = AutoTokenizer.from_pretrained(str(base), revision=config['revision'], local_files_only=True)
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
-    model = AutoModelForCausalLM.from_pretrained(config['base_model'], revision=config['revision'],
-                                                 quantization_config=quant, torch_dtype=torch.bfloat16,
-                                                 device_map='auto')
+    model = AutoModelForCausalLM.from_pretrained(str(base), revision=config['revision'],
+                                                 quantization_config=quant, torch_dtype=dtype,
+                                                 device_map='auto', local_files_only=True)
     data = Path(data_dir)
     train = Dataset.from_list(to_prompt_completion(read_jsonl(data / 'train.jsonl')))
     valid_rows = read_jsonl(data / 'valid.jsonl') if (data / 'valid.jsonl').exists() else []
@@ -118,7 +138,7 @@ def run_training(config, data_dir):  # pragma: no cover - needs CUDA stack
     out = Path(config['output_dir'])
     out.mkdir(parents=True, exist_ok=False, mode=0o700)
     args = SFTConfig(output_dir=str(out / 'checkpoints'), eval_strategy='epoch' if valid else 'no',
-                     completion_only_loss=True, **config['sft'])
+                     completion_only_loss=True, bf16=precision == 'bf16', fp16=precision == 'fp16', **config['sft'])
     trainer = SFTTrainer(model=model, args=args, train_dataset=train, eval_dataset=valid,
                          processing_class=tok, peft_config=LoraConfig(**config['lora']))
     result = trainer.train()

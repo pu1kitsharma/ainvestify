@@ -24,18 +24,22 @@ endpoint itself, the same role handle_directive's if/elif plays for the CLI.
 """
 from fastapi import APIRouter, Depends, HTTPException
 
-from agents.core.planner_agent import CONTINUE_WORDS, DEFAULT_ACTION, PlannerDecision, classify_directive
+from agents.core.planner_agent import CONTINUE_WORDS, DEFAULT_ACTION, PlannerDecision
 from api.deps import get_store, get_tenant_id
 from api.models import DirectiveRequest, PromptRequest
-from main import RouterDecision, classify_prompt
+from main import RouterDecision
+from delivery.classification import classify_private
 from store import Store
 
 router = APIRouter(prefix="/api", tags=["prompt"])
 
 
 @router.post("/prompt/classify", response_model=RouterDecision)
-def classify(body: PromptRequest):
-    return classify_prompt(body.prompt)
+def classify(body: PromptRequest, store: Store = Depends(get_store)):
+    try:
+        return classify_private(store, 'prompt', body.prompt)
+    except (OSError, ValueError, RuntimeError) as exc:
+        raise HTTPException(503, 'Private text classification could not be completed.') from exc
 
 
 @router.post("/deals/{deal_id}/directive/preview", response_model=PlannerDecision)
@@ -54,4 +58,7 @@ def preview_directive(
             action=DEFAULT_ACTION[deal.status],
             reasoning="Plain continue -- using the deterministic next step for this state.",
         )
-    return classify_directive(deal, body.directive)
+    try:
+        return classify_private(store, 'directive', body.directive, deal=deal)
+    except (OSError, ValueError, RuntimeError) as exc:
+        raise HTTPException(503, 'Private directive classification could not be completed.') from exc

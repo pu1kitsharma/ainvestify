@@ -11,7 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from api.deps import get_tenant_id
 
 from api.routers import compilation, dashboard, deals, investors, leads, operations, prompt, research, review
-from api.routers import auth, rooms
+from api.routers import auth, deal_documents, diligence, rooms
 
 # Every sync `def` endpoint/dependency in this app (all of them -- see
 # api/deps.get_store's own docstring on why sqlite3 needs that) runs via
@@ -88,6 +88,8 @@ app.add_middleware(
 
 app.include_router(auth.router)
 app.include_router(rooms.router)
+app.include_router(deal_documents.router)
+app.include_router(diligence.router)
 for protected in (dashboard, deals, review, research, investors, leads, operations, prompt, compilation):
     app.include_router(protected.router, dependencies=[Depends(get_tenant_id)])
 

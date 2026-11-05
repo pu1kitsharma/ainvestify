@@ -22,6 +22,7 @@ concurrent-writer multi-tenant service.
 from __future__ import annotations
 
 import sqlite3
+import os
 from pathlib import Path
 from typing import Callable, Optional, Union
 
@@ -40,7 +41,7 @@ from schemas import (
     WebSourcingRun,
 )
 
-DEFAULT_DB_PATH = Path(__file__).parent / "deal_automation.db"
+DEFAULT_DB_PATH = Path(os.environ.get('INVESTIFY_DB_PATH') or Path(__file__).parent / 'deal_automation.db')
 
 _SCHEMA = """
 CREATE TABLE IF NOT EXISTS deals (

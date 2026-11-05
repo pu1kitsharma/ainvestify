@@ -12,12 +12,32 @@ class PreparationBudgetExceeded(RuntimeError):
 
 ACTIVE_BUDGET = ContextVar('preparation_inference_budget', default=None)
 
+# Private room document steps (memo, materials, review, repair, financial) are
+# background jobs. The operator may raise one step to 15 minutes through
+# DOCUMENT_STEP_SECONDS (user decision, 27 October 2026). Interactive discovery
+# and preparation keep their 120-second default; frozen diagnostic contracts
+# keep their recorded 105-second values.
+DOCUMENT_STEP_MAX_SECONDS = 900
+
+
+def document_step_seconds():
+    value = float(os.environ.get('DOCUMENT_STEP_SECONDS', '120'))
+    if not 0 < value <= DOCUMENT_STEP_MAX_SECONDS:
+        raise ValueError('DOCUMENT_STEP_SECONDS must be between 1 and 900.')
+    return value
+
+
+def document_model_seconds(timeout):
+    """Model budget inside one private worker, leaving export/parse headroom."""
+    return max(1, min(document_step_seconds() - 15, timeout - 8))
+
 
 class PreparationBudget:
-    def __init__(self, max_seconds=None, max_calls=24, max_requests=32):
+    def __init__(self, max_seconds=None, max_calls=24, max_requests=32, *, document_step=False):
         self.max_seconds = float(max_seconds if max_seconds is not None else os.environ.get('PREPARATION_MAX_SECONDS', '120'))
-        if not 0 < self.max_seconds <= 120 or not 0 < max_calls <= 100 or not 0 < max_requests <= 150:
-            raise ValueError('Preparation budgets require 0–120 seconds and bounded positive call/request counts.')
+        ceiling = DOCUMENT_STEP_MAX_SECONDS if document_step else 120
+        if not 0 < self.max_seconds <= ceiling or not 0 < max_calls <= 100 or not 0 < max_requests <= 150:
+            raise ValueError(f'Preparation budgets require 0–{ceiling} seconds and bounded positive call/request counts.')
         self.max_calls, self.max_requests = max_calls, max_requests
         self.started = time.monotonic()
         self.calls = self.requests = 0

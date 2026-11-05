@@ -1,6 +1,7 @@
 """Private queue import must preserve saved answers and pending labels."""
 import json
 import stat
+import pytest
 
 from agents.inference.model_authorship import digest
 from agents.research import memo_content_review as review
@@ -9,10 +10,13 @@ from scripts import prepare_memo_training_candidates as intake
 from tests.research.test_memo_gold_sft import _row
 
 
-def test_import_rejects_tampered_answer_and_keeps_labels_pending(tmp_path, monkeypatch):
-    runs, private = tmp_path / 'runs', tmp_path / 'data'
-    runs.mkdir()
+@pytest.mark.parametrize('explicit_storage', [False, True])
+def test_import_rejects_tampered_answer_and_keeps_labels_pending(tmp_path, monkeypatch,
+                                                               explicit_storage):
+    private = tmp_path / 'data'
+    runs = private / 'runs' if explicit_storage else tmp_path / 'runs'
     private.mkdir()
+    runs.mkdir()
     monkeypatch.setattr(intake, 'PRIVATE_RUNS', runs)
     monkeypatch.setattr(gold, 'PRIVATE_DATA', private)
     case = _row(1, 'test')
@@ -30,7 +34,9 @@ def test_import_rejects_tampered_answer_and_keeps_labels_pending(tmp_path, monke
     (runs / 'content_review_attempts.json').write_text(json.dumps([attempt, tampered]))
     out = private / 'queue'
     result = intake.prepare([runs], out, company_key='opaque-private-company',
-                            sector='synthetic', approval_id='user-approval', approved_on='2026-10-08')
+                            sector='synthetic', approval_id='user-approval', approved_on='2026-10-08',
+                            **({'private_root': private, 'source_root': runs}
+                               if explicit_storage else {}))
     assert result['candidate_counts'] == {'memo_content_review': 1}
     assert result['counts']['replay_or_target_validation_failed'] == 1
     candidate = json.loads((out / 'candidates.jsonl').read_text())

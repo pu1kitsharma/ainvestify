@@ -1,7 +1,7 @@
 """Validate reviewed memo examples and export local-only SFT/holdout rows.
 
 This does not create gold labels, run inference, train weights, or certify quality.
-The operator supplies independently adjudicated records under ignored models/data/.
+The operator supplies independently adjudicated records in approved local storage.
 """
 from __future__ import annotations
 
@@ -23,6 +23,7 @@ from agents.research import memo_content_review as review
 from agents.research.memo_bound_author import author_schema_v12
 from agents.research.part_a_components import LOCAL_REVISION_V13, _local_author_instruction
 from agents.research.investment_memo import Memo, Unknown, Source, _assertion_numbers
+from training.private_storage import private_path
 
 ROOT = Path(__file__).resolve().parents[1]
 PRIVATE_DATA = ROOT / 'models' / 'data'
@@ -269,15 +270,33 @@ def _chatml(instruction: str, payload: dict, schema, answer: str) -> str:
             answer + '<|im_end|>')
 
 
-def build(source: Path, output: Path) -> dict:
+def _private_derived(row) -> bool:
+    if not isinstance(row, dict):
+        return False
+    provenance = row.get('provenance')
+    sources = row.get('source_bundle')
+    return (row.get('private') is True or
+            (isinstance(provenance, dict) and
+             provenance.get('rights_status') == 'private_training_approved') or
+            (isinstance(sources, list) and any(isinstance(item, dict) and
+             str(item.get('url', '')).startswith('private://') for item in sources)))
+
+
+def build(source: Path, output: Path, *, private_root: Path | None = None) -> dict:
     """Export only adjudicated rows; never infer or manufacture target answers."""
-    root = PRIVATE_DATA.resolve()
-    source, output = source.resolve(), output.resolve()
-    _require(source.is_relative_to(root) and output.is_relative_to(root),
-             'Input and output must stay under ignored models/data/')
+    if private_root is not None:
+        source = private_path(source, root=private_root, repo_root=ROOT)
+        output = private_path(output, root=private_root, repo_root=ROOT)
+    else:
+        root = PRIVATE_DATA.resolve()
+        source, output = source.resolve(), output.resolve()
+        _require(source.is_relative_to(root) and output.is_relative_to(root),
+                 'Input and output must stay under ignored models/data/')
     raw = source.read_bytes()
     rows = [json.loads(line) for line in raw.decode('utf-8').splitlines() if line.strip()]
     _require(bool(rows), 'No reviewed gold rows')
+    _require(private_root is not None or not any(_private_derived(row) for row in rows),
+        'Private-derived gold requires an explicit outside-Git private root')
     identities, inputs, companies, families = set(), set(), {}, {}
     source_splits = {}
     exported = defaultdict(list)
@@ -357,10 +376,13 @@ def _write_private(path: Path, content: str) -> None:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('source', type=Path, help='Reviewed JSONL under ignored models/data/')
-    parser.add_argument('output', type=Path, help='New export directory under ignored models/data/')
+    parser.add_argument('source', type=Path, help='Reviewed JSONL in approved storage')
+    parser.add_argument('output', type=Path, help='New immutable export directory')
+    parser.add_argument('--private-root', type=Path,
+                        help='Existing approved directory outside Git; required for private-derived gold')
     args = parser.parse_args()
-    root = PRIVATE_DATA.resolve()
-    if not args.source.resolve().is_relative_to(root) or not args.output.resolve().is_relative_to(root):
-        parser.error('Input and output must stay under ignored models/data/')
-    print(json.dumps(build(args.source, args.output), indent=2))
+    try:
+        manifest = build(args.source, args.output, private_root=args.private_root)
+    except Exception:
+        parser.exit(1, 'Gold export blocked by storage, lineage, split or review gates; inspect inputs only in approved private tooling.\n')
+    print(json.dumps(manifest, indent=2))

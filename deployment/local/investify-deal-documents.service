@@ -1,0 +1,14 @@
+[Unit]
+Description=Investify deal-documents worker (phased fact base, IM and decks on loopback Ollama)
+After=network.target investify-api.service
+
+[Service]
+User=investify
+WorkingDirectory=/home/investify/app
+ExecStart=/home/investify/venv/bin/python -B /home/investify/app/scripts/deal_documents_worker.py --db /home/investify/private/app.db
+Restart=on-failure
+RestartSec=10
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

@@ -1,5 +1,7 @@
 # ainvestify
 
+Local machine hosting: [live investify.fyi setup, startup and remaining qualification gates](deployment/LOCAL_MACHINE_HOSTING.md).
+
 **Evidence-bound deal sourcing, diligence and investor-material generation, run on local models.**
 
 ## 1. Problem and scope

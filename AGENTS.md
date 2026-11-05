@@ -1,5 +1,12 @@
 # Start here
 
+27 October 2026 user decisions: private materials stay fully local, authored by
+a local 30B+ model across GPU VRAM and system RAM (configured: `qwen3:30b-a3b`).
+Private document steps may run up to 15 minutes (`DOCUMENT_STEP_SECONDS=900`);
+interactive discovery/preparation keep 120 seconds. The seven supplied references
+may be used as examples/training material, so they are no longer unseen
+acceptance tests. Details: NEXT_AGENT.md latest section.
+
 15 October 2026 execution update: the user requested starting the agentic
 banker plan with multiple local workstreams and VS Code. Phase A is local only;
 deployment, model downloads and paid compute remain deferred. See

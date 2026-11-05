@@ -1,0 +1,16 @@
+# Global runtime-log filter. Access logging remains disabled.
+# Proxy errors can contain request URIs, including an OIDC callback code.
+log default {
+	format filter {
+		wrap json
+		fields {
+			request>uri query {
+				delete code
+				delete state
+			}
+			request>headers>Cookie delete
+			request>headers>Authorization delete
+			resp_headers>Set-Cookie delete
+		}
+	}
+}

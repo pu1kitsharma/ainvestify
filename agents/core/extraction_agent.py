@@ -450,28 +450,37 @@ def _cross_check_citations_supported_by_content(result: ExtractionResult, docume
             )
 
 
-def extract(document: Document, model: str = DEFAULT_MODEL, reviewer_feedback: Optional[str] = None) -> ExtractionResult:
-    """Run the Structured Extraction Agent against one ingested document.
-
-    `reviewer_feedback` is used for the bounded reject-retry loop in the
-    human review checkpoint (§5.5): a rejected field is re-extracted with
-    the reviewer's note folded into the prompt, rather than blindly re-run.
-    """
+def build_extraction_request(document: Document, model: str = DEFAULT_MODEL,
+                             reviewer_feedback: Optional[str] = None) -> dict:
+    """Build the existing prompt/schema without performing inference."""
     prompt = EXTRACTION_INSTRUCTIONS.format(blocks=_render_blocks(document))
     if reviewer_feedback:
         prompt += f"\n\nA human reviewer rejected a previous extraction attempt with this note -- take it into account: {reviewer_feedback}"
 
-    response = local_chat(
-        model=model,
-        messages=[{"role": "user", "content": prompt}],
-        format=LLMExtraction.model_json_schema(),
-        options={"temperature": 0, "num_ctx": _estimate_num_ctx(prompt)},
-    )
+    return {'model': model, 'messages': [{"role": "user", "content": prompt}],
+            'format': LLMExtraction.model_json_schema(),
+            'options': {"temperature": 0, "num_ctx": _estimate_num_ctx(prompt)}}
+
+
+def extract(document: Document, model: str = DEFAULT_MODEL, reviewer_feedback: Optional[str] = None) -> ExtractionResult:
+    """CLI-compatible inference wrapper; API workers use the same projection.
+
+    Reviewer feedback still drives the existing bounded reject/retry logic.
+    The direct CLI transport and its options remain unchanged.
+    """
+    response = local_chat(**build_extraction_request(document, model, reviewer_feedback))
+    return project_extraction_response(document, response)
+
+
+def project_extraction_response(document: Document, response, *, model=None, extracted_at=None) -> ExtractionResult:
+    """Replay recorded model content through all existing provenance checks."""
     llm_extraction = LLMExtraction.model_validate_json(response["message"]["content"])
 
     valid_block_ids = {b.id for b in document.blocks}
 
-    result = ExtractionResult(tenant_id=document.tenant_id, deal_id=document.deal_id, document_id=document.id)
+    timestamp = {'extracted_at': extracted_at} if extracted_at is not None else {}
+    result = ExtractionResult(tenant_id=document.tenant_id, deal_id=document.deal_id,
+                              document_id=document.id, **timestamp)
     result.arr = _to_extracted_value(llm_extraction.arr, valid_block_ids, _money_unit(document, llm_extraction.arr.source_block_id))
     result.arr_prior_year = _to_extracted_value(llm_extraction.arr_prior_year, valid_block_ids, _money_unit(document, llm_extraction.arr_prior_year.source_block_id))
     result.mrr = _to_extracted_value(llm_extraction.mrr, valid_block_ids, _money_unit(document, llm_extraction.mrr.source_block_id))
@@ -480,6 +489,12 @@ def extract(document: Document, model: str = DEFAULT_MODEL, reviewer_feedback: O
     result.cash_on_hand = _to_extracted_value(llm_extraction.cash_on_hand, valid_block_ids, _money_unit(document, llm_extraction.cash_on_hand.source_block_id))
     result.runway_months = _to_extracted_value(llm_extraction.runway_months, valid_block_ids, "months")
     result.headcount = _to_extracted_value(llm_extraction.headcount, valid_block_ids, None)
+    if model is not None:
+        # Private replay binds attribution to the actual requested model; the
+        # CLI wrapper retains its existing metadata behavior.
+        for name in ('arr', 'arr_prior_year', 'mrr', 'growth_rate_yoy', 'burn_monthly',
+                     'cash_on_hand', 'runway_months', 'headcount'):
+            getattr(result, name).extraction_method = f'llm:{model}'
     for field in ('arr', 'arr_prior_year', 'mrr', 'burn_monthly', 'cash_on_hand'):
         value = getattr(result, field)
         if value.value is not None and value.unit is None:

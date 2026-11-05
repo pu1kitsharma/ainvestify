@@ -7,6 +7,7 @@ import PreparationWorkspace from '../components/PreparationWorkspace';
 import type {AnalystWorkspace} from '../components/PreparationWorkspace';
 import OperationsRecords from './OperationsRecords';
 import RoomPipeline from '../components/RoomPipeline';
+import CompanyDeal from '../components/CompanyDeal';
 export default function Operations(){
  const [params]=useSearchParams();
  return params.get('view')==='records'?<OperationsRecords/>:<CompanyPreparation/>;
@@ -17,9 +18,11 @@ function CompanyPreparation(){
  const dealId=leadQuery.data?.promoted_deal_id;
  const deal=useQuery({queryKey:['deal',dealId],queryFn:()=>api.get<Deal>(`/api/deals/${encodeURIComponent(dealId!)}`),enabled:!!dealId});
  const workspaces=useQuery({queryKey:['operations','summary',params.get('lead')],queryFn:()=>api.get<AnalystWorkspace[]>(`/api/operations/workspaces?summary=true&lead_id=${encodeURIComponent(params.get('lead')||'')}`),...preparationRefresh});
- if(leadQuery.isLoading||workspaces.isLoading||(!!dealId&&deal.isLoading))return <p role="status">Loading company work…</p>;
+ const documents=useQuery({queryKey:['deal-documents-room',id],queryFn:()=>api.get<{room_id:string|null}>(`/api/rooms/from-lead/${encodeURIComponent(id!)}/deal-documents`),enabled:!!id,retry:false});
+ if(leadQuery.isLoading||workspaces.isLoading||documents.isLoading||(!!dealId&&deal.isLoading))return <p role="status">Loading company work…</p>;
  if(leadQuery.error||workspaces.error)return <p role="alert">{leadQuery.error?.message||workspaces.error?.message}</p>;
  if(!id)return <Navigate to="/" replace/>;
  const lead=leadQuery.data?.company_profile&&leadQuery.data.status!=='dismissed'?leadQuery.data:undefined;
+ if(lead&&documents.data?.room_id)return <CompanyDeal key={id} lead={lead} roomId={documents.data.room_id}/>;
  return lead?<PreparationWorkspace key={id} lead={lead} workspace={workspaces.data?.find(w=>w.lead_id===id)} deal={deal.data} materials={<RoomPipeline key={`room-${id}`} leadId={id}/>}/>:<p>Company unavailable. <Link to="/">Your companies</Link></p>;
 }

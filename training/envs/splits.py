@@ -48,11 +48,9 @@ def validate_splits(rows, private_holdout_companies=()):
 # ---------------------------------------------------------------------------
 import math
 from pathlib import Path
+from training.private_storage import private_path
 
 PRIVATE_SHARE_CAP = 0.10
-# Directories that are git-ignored in this repository and may hold adapters
-# trained on (or influenced by) private deal data. Relative to the repo root.
-PRIVATE_ADAPTER_ROOTS = ('runtime_qualification', 'evals/agentic_banker/private')
 PUBLIC_ADAPTER_ROOT = 'models/adapters'
 
 
@@ -121,24 +119,12 @@ def mix_private_examples(public_examples, private_examples, upweight=3, cap=PRIV
                    'upweight': upweight, 'private_share': share, 'cap': cap}
 
 
-def adapter_destination_ok(path, *, trained_on_private, repo_root):
+def adapter_destination_ok(path, *, trained_on_private, repo_root, private_root=None):
     """Enforce where adapters may live. Returns the resolved path or raises.
 
-    Private-trained adapters: only under an ignored private root, never under
-    models/adapters (Git LFS). Public-only adapters may live in either.
+    Private-trained adapters require an explicit approved root outside Git.
+    Public-only adapters retain their existing destination policy.
     """
-    root = Path(repo_root).resolve()
-    target = Path(path).resolve()
-    try:
-        rel = target.relative_to(root)
-    except ValueError:
-        if trained_on_private:
-            raise ValueError('Private-trained adapter must be inside the repository private roots')
-        return target
-    rel_text = rel.as_posix()
-    in_public = rel_text == PUBLIC_ADAPTER_ROOT or rel_text.startswith(PUBLIC_ADAPTER_ROOT + '/')
-    in_private = any(rel_text == r or rel_text.startswith(r + '/') for r in PRIVATE_ADAPTER_ROOTS)
-    if trained_on_private and (in_public or not in_private):
-        raise ValueError('Private-trained adapters may only be stored under ignored private paths: '
-                         + ', '.join(PRIVATE_ADAPTER_ROOTS))
-    return target
+    if trained_on_private:
+        return private_path(path, root=private_root, repo_root=repo_root)
+    return Path(path).resolve()

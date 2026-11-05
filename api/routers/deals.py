@@ -9,6 +9,7 @@ same as the CLI's document_path convention, just written by the API instead
 of typed at a prompt.
 """
 from pathlib import Path
+import os
 
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 
@@ -20,7 +21,7 @@ from store import Store
 
 router = APIRouter(prefix="/api/deals", tags=["deals"])
 
-UPLOAD_ROOT = Path(__file__).parent.parent.parent / "uploads"
+UPLOAD_ROOT = Path(os.environ.get('PRIVATE_UPLOAD_ROOT') or Path(__file__).parent.parent.parent / 'uploads')
 
 
 def _get_deal_or_404(store: Store, tenant_id: str, deal_id: str) -> Deal:
@@ -97,7 +98,12 @@ def upload_document(
     with os.fdopen(fd,"wb") as output:
         output.write(content)
 
-    _run_ingest(store, deal, str(dest))
+    try:
+        _run_ingest(store, deal, str(dest), private=True)
+    except (OSError, ValueError, RuntimeError, TimeoutError) as exc:
+        # Exact originals and private worker diagnostics remain available for
+        # review. Never expose parser exception text or retry unsandboxed.
+        raise HTTPException(422, 'Private document ingestion failed; uploaded bytes were retained.') from exc
     if getattr(store,'authenticated_identity',None) is not None:
         lead=store.get_lead_by_promoted_deal_id(tenant_id,deal_id)
         if lead and store.get_workspace(tenant_id,lead_id=lead.id):
@@ -115,9 +121,13 @@ def run_extract(
 ):
     deal = _get_deal_or_404(store, tenant_id, deal_id)
     try:
-        return _run_extract(store, deal, body.model, reviewer_feedback=body.reviewer_feedback)
-    except RuntimeError as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        return _run_extract(store, deal, body.model, reviewer_feedback=body.reviewer_feedback, private=True)
+    except PermissionError as exc:
+        raise HTTPException(403, 'Private extraction access expired or was revoked.') from exc
+    except (OSError, ValueError, RuntimeError, TimeoutError) as exc:
+        from delivery.extraction import ExtractionConflict
+        status = 409 if isinstance(exc, ExtractionConflict) else 422
+        raise HTTPException(status, 'Private extraction failed; saved inputs and diagnostics were retained.') from exc
 
 
 @router.get("/{deal_id}/source-documents", response_model=list[Document])

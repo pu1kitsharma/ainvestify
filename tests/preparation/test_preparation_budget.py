@@ -116,6 +116,19 @@ def test_budget_configuration_is_bounded_and_defaults_to_users_two_minutes(monke
         with pytest.raises(ValueError):PreparationBudget(seconds)
 
 
+def test_document_steps_opt_in_to_fifteen_minutes_and_default_to_two(monkeypatch):
+    from agents.preparation.preparation_budget import document_model_seconds, document_step_seconds
+    monkeypatch.delenv('DOCUMENT_STEP_SECONDS',raising=False)
+    assert document_step_seconds()==120 and document_model_seconds(110)==102 and document_model_seconds(500)==105
+    monkeypatch.setenv('DOCUMENT_STEP_SECONDS','900')
+    assert document_model_seconds(885)==877 and document_model_seconds(2000)==885
+    assert PreparationBudget(885,document_step=True).max_seconds==885
+    with pytest.raises(ValueError):PreparationBudget(885)
+    with pytest.raises(ValueError):PreparationBudget(901,document_step=True)
+    monkeypatch.setenv('DOCUMENT_STEP_SECONDS','901')
+    with pytest.raises(ValueError):document_step_seconds()
+
+
 def test_expiring_before_review_keeps_candidate_without_another_writer(tmp_path):
     with Store(tmp_path/'db') as store:
         lead=company(store)

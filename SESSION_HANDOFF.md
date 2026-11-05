@@ -5383,3 +5383,516 @@ counts remain 22 awaiting input, three blocked, four cancelled and two queued,
 with zero active leases. Next local gate is supported formula evaluation and
 isolated final LibreOffice recalculation plus exported-file inspection, not
 production deployment or a claim of accepted model quality.
+
+
+## 79. 26 October: Windows local hosting preparation and private archive import
+
+The user requested thorough codebase review and local hosting of frontend, API
+and models behind investify.fyi, then supplied two local tar archives for import
+and future training. DNS is at Porkbun; other users need access. Router control,
+WAN address/CGNAT and Google OAuth registration remain unresolved.
+
+Implemented Caddy production/loopback-preview configs, read-only hosting preflight,
+bounded preview supervisor with checked SQLite backup, explicit backend --env-file
+loading, missing direct upload/HTTP dependencies, and a conservative Windows
+memory fallback. The public template serves only frontend/dist and preserves /api;
+models, ES, repo/private files and Caddy admin stay private. Callback runtime-log
+filters were tested with synthetic code/state values during a proxy error.
+The production template was adapted but never started on public ports.
+
+Both supplied original tar files remain unchanged in Downloads. A strict local
+importer rejects traversal, Windows special paths, links, case collisions and
+unsupported members; it retains per-file/archive hashes and verifies Ollama blob
+digests. Full private extraction is outside Git under the access-restricted
+AInvestifyPrivate/imports/2026-10-26 directory. Ollama registration added 23 blobs
+and seven tags, reused five blobs and one tag, and had zero conflicts. All
+initially installed models were preserved. No model generation or download ran.
+
+Training inventory: eight JSONL files / 532 candidate rows, 156 explicitly
+validation/test and no explicit train rows or two-reviewer adjudications.
+All 532 were rejected by the existing gold-intake validator. Eleven safetensors
+files include four adapters and Qwen2/Qwen3.5 quantized checkpoint configurations.
+The private training-assets.json binds these assets and records the requested
+training work plus open eligibility/platform/storage gates. No new weight update,
+adapter activation, source-to-gold promotion or private hosted processing occurred.
+
+Verification: frontend build/lint passed; Caddy preview validate and production
+adapt passed; actual loopback HTTP checks passed for SPA/static/API routing,
+anonymous 401, JSON API 404, private-path/local-login denial, callback log redaction
+and clean shutdown. Final focused offline selection: 63 passed. The wider room
+selection: 67 passed, two failed at pre-existing POSIX-only storage calls
+(O_DIRECTORY/O_NOFOLLOW), now recorded as Windows release blockers. Private
+worker isolation also rejects Windows; installing WSL alone does not solve the
+Linux local_model=True refusal. LibreOffice, local public KB and training runtime
+are absent/unqualified. Software routing passes do not establish multi-user,
+model, financial, compliance or exact-file investor acceptance.
+
+SQLite was backed up before the bounded API preview. No jobs/users were created,
+no room worker/collector/trainer was started, and test API/Caddy services stopped.
+No DNS, firewall, router, cloud resources, paid work, data reset, commit or push.
+Full audit, commands, port plan and next gates:
+[local-machine hosting](deployment/LOCAL_MACHINE_HOSTING.md).
+
+## 80. 26 October: live loopback preview, Google client and WSL restart checkpoint
+
+The user's later hosting authorization supersedes the earlier stopped preview
+state in section 79. API/Caddy are now running on loopback 8000/8080, using
+`scripts/local_hosting.py preview`, no reload and --without-worker. Current
+health is HTTP 200; auth/config reports Google configured and password login
+disabled. No public HTTP/HTTPS listener, worker, collector or inference started.
+Inspect actual PIDs, not this checkpoint, before touching any service.
+
+Through the user-authorized existing authenticated Chrome sessions, inspected
+Porkbun DNS and registered the Google Auth Platform brand/client. The client is
+`Investify local host` in existing project `local-turbine-511521-n0`; origin
+https://investify.fyi and callback https://investify.fyi/api/auth/callback.
+Google credentials were moved out of Downloads into restricted private hosting
+storage, configured in ignored deployment/.env with protected ACLs, and loaded
+after a job check/SQLite backup and bounded preview restart. Never print these
+files or client secrets. External consent audience is configured; publication,
+test users, actual callback/session provisioning and two-user isolation remain
+unqualified. No cloud compute, trial or billing resource was created.
+
+Porkbun's domain drawer shows the apex parking ALIAS pixie.porkbun.com plus mail
+records. Nothing was edited. No router/firewall change or public release took
+place. Direct read-only router access shows GPON Home Gateway. The supplied
+credentials were entered once in the existing router Chrome tab; authentication
+was not established and the page requests the default password. Do not guess or
+retry the same credentials automatically. No router credentials were saved in the
+repository. IGD discovery returned no router advertisement; WAN/CGNAT is unknown.
+Automatic approval review had earlier rejected launching a new Chrome router tab
+with only the reason 'blocked by policy'; it was not retried. The later existing
+router tab was supplied by the user and inspected directly.
+
+Installed official Microsoft WSL 3.0.3 after checking the release digest and valid
+Microsoft signature. The elevated bounded installer enabled VirtualMachinePlatform
+with NoRestart and wrote its receipt outside Git at
+`C:/Users/gaura/AInvestifyPrivate/hosting/wsl/installation.json`:
+installed=true, reboot_required=true, reboot_initiated=false, no distribution,
+private_worker_qualified=false. Windows must restart before Linux setup continues.
+Do not rerun the installer or weaken the Linux local_model=True guard; WSL alone
+does not implement the required model IPC/isolation boundary. No auto-reboot or
+boot task is installed. Preview services will need explicit resumption.
+
+A final read-only DB inventory found no jobs/leases/unowned records, and a fresh
+checked online backup is under
+`runtime_backups/local-hosting/20261026T132832Z-a03066a5/`. Existing imported
+models/evaluations remain outside Git as described in section 79. No model was
+loaded, generated, downloaded or trained; no investor artifact/release gate was
+changed. Resume with native Linux/runtime qualification and authenticated router
+WAN/forwarding checks after the actual reboot/login, then external DNS/TLS and
+live multi-user acceptance. The complete hosting goal remains unfinished.
+
+## 81. 26 October: Linux API cutover, native model IPC and unresolved public route
+
+Windows restarted at 19:10 IST; virtualization is active. Installed Ubuntu 24.04
+as WSL distribution Investify in the restricted private VHD. Configured mirrored
+networking, enabled firewall, 8 GB WSL RAM, six CPUs and 2 GB swap. Installed the
+application venv, bubblewrap, LibreOffice and fonts without model downloads or
+cloud compute. The Linux account investify has a 0700 home and no sudo grant.
+
+The API now runs as investify-api.service, user investify, loopback 8000,
+--without-worker. Windows Caddy serves localhost:8080 and Windows Ollama stays
+loopback:11434. Linux systemd alone did not keep WSL alive; the Windows supervisor
+deployment/local/start_local_host.ps1 holds a scoped WSL sleep process and Caddy.
+A current-user Startup shortcut launches it at login; next-login execution is
+not reboot-qualified. Its mutex/port guards refuse another supervisor. The old
+Windows API was stopped only after checking zero jobs/leases and creating a
+checked online backup. Its supervisor cleaned up the old Caddy. No room worker,
+collector, public listener or trainer was started.
+
+Active DB: /home/investify/private/app.db; all 24 original table counts and SQLite
+integrity were checked during cutover. The Windows original and backup at
+runtime_backups/local-hosting/20261026T141544Z-f8d81a14 are preserved. Uploads and
+artifacts are outside the Linux code snapshot, beneath /home/investify/private.
+Linux server.env is 0600 and contains the configured Google credentials; never
+print it or the Windows secret files. Source snapshot /home/investify/app has a
+SHA-256 manifest and venv /home/investify/venv. New explicit database/upload paths
+and hybrid frontend/Caddy paths support the split runtime. LOCAL_API_RUNTIME=wsl
+guards the configured Windows preview/API against reopening historical data.
+
+Implemented opt-in unix-ollama-v1 relay: a short private Unix socket is mounted
+at one fixed worker path while --unshare-all/no host network remains intact.
+Admission allows bounded local inference/metadata only, six requests and at most
+120 seconds, rejecting management/pull endpoints, hosted identifiers, credentials,
+redirects and excessive framing/body sizes. The transport handles sync/async,
+streaming, metadata pin reads and cancellation before the first upstream byte.
+No generic filesystem/network broker was introduced. Linux directory literals
+now refuse execution because a recursive bind would expose ungranted children;
+an exact directory-view solution and affected provenance acceptance remain open.
+
+Final focused Linux software selection: 263 passed, one Windows-only migration
+guard skipped there and passed separately on Windows. The final 18 native
+socket/storage checks passed with all core service security restrictions,
+including NoNewPrivileges, PrivateTmp, ProtectSystem, kernel/control-group
+protections, RestrictSUIDSGID and 0077 umask. These fake-model/synthetic checks do
+not establish live model quality or complete room/Office/privacy acceptance.
+
+Added the literal packaged /etc/libreoffice config capability required by Ubuntu's
+registry symlink; never grant all /etc. Installed DejaVu is used for Linux native
+PDF rendering. Synthetic private PPTX/DOCX->PDF conversion executes and visible/
+hidden workbook formulas recalculate correctly. The existing PDF active/embedded
+content gate rejects the converted files; it was not relaxed. Diagnostics and
+first failure log remain under /home/investify/runtime/runtime_qualification and
+/home/investify/runtime/office-diagnostic-1. OCR/public KB/native material and
+financial/visual/compliance/exact-version acceptance remain unqualified.
+
+One explicitly authorized synthetic qwen3.5:9b request traversed the real isolated
+socket to Ollama 0.40.11 and timed out at its 100-second client limit. Ollama
+recorded POST /api/chat HTTP 500 after 1m40s; it loaded no model afterward. Exact
+request/error/receipt: /home/investify/runtime/model-canary-e29c44cb1899. This was
+not company content or a quality answer. Separate real isolated GET tags/list and
+POST show succeeded (11 models, qwen35 architecture), so metadata transport works
+while generation capacity remains failed/unqualified. No generation retry,
+model substitution, private gold promotion or training occurred. Imported eval
+rows/adapters remain held out/unqualified under their existing private manifests.
+
+The operator also could not log into the router. Stop credential attempts; no
+reset, forwarding or DHCP change was made. Fresh IPv4: 101.0.63.189, changed after
+restart. Public IPv6 addresses exist, but external ingress is unknown. Two bounded
+synthetic IPv6 probes used address/port-specific temporary firewall rules; both
+rules are confirmed removed, with no listener on public 80/443. The first window
+expired around OS elevation; the synchronized second probe's external checker
+returned access denied (Cloudflare 1010). Do not bypass/retry that denial or call
+it evidence of ISP filtering. Receipts/logs are outside Git under private
+hosting/network. Porkbun still parks the apex ALIAS; DNS was not changed.
+
+Next gate is operator/ISP-assisted inbound routing or a separately qualified
+operator-controlled encrypted route, plus live Google callback/two-user
+acceptance. No public multi-user release, model/investor qualification, cloud
+spend, data reset, commit or push is established. Current runbook:
+[local-machine hosting](deployment/LOCAL_MACHINE_HOSTING.md).
+
+## 82. 26 October: GPU inference, PDF export and outbound route continuation
+
+This section supersedes the model/PDF/network observations in sections 79-81.
+The user explicitly requested parallel local agents and Claude Code to resolve
+hosting, inference timeouts, PDF validation and imported training assets. Existing
+private-data, evidence, authentication and exact-version release gates still apply.
+No cloud compute, model download, external outreach, investment action, commit or
+push was performed. The following are measured checks, not production acceptance.
+
+**PDF export.** The default LibreOffice 24.2.7.2 catalog contained an initial-page
+navigation `/OpenAction` array `[pageRef, /XYZ, null, null, 0]`, with no `/AA`,
+`/Names` or `/AcroForm`. The unchanged inspector correctly rejected it. Conversion
+now supplies a source-specific typed PDF filter: InitialPage=0, Magnification=0,
+UseTaggedPDF=true, ExportFormFields=false and IsAddStream=false. LibreOffice omits
+the unwanted action during generation; there is no post-export rewrite or gate
+relaxation. Exact source/output hashes and export parameters are retained in
+qualification reports. Accessibility structure remains present. Unit coverage
+also proves that even this inert OpenAction continues to fail validation.
+
+Native isolated intro/pitch/memo pairs pass structural/text/page checks; the
+three-page pitch includes a synthetic rupee amount. Old and fixed intro/memo PDF
+rasters at 108 dpi are pixel-identical, with identical text and geometry. The
+long-memo canary has five pages and all 20 paragraphs remain within single pages.
+Visible/hidden workbook formulas passed changed-input checks for 10 and 15.
+A purely numeric XLSX PDF remains rejected by the numeric-only-text policy;
+its failure is preserved, while a separately labeled synthetic workbook passes.
+Evidence under `/home/investify/runtime/`:
+
+- `pdf-export-fixed-ac295723eb/runtime_qualification/`: isolated renderer,
+  visible/hidden recalculation and labeled/numeric-only Calc PDF reports.
+- `pdf-export-regression-921b2a5180/report.json`: originals, fixed PDFs, source
+  bindings, catalog inventories, geometry/text and exact raster comparisons.
+- `pdf-office-pairs-8f52783f4c/converted/report.json`: all three editable/PDF pairs.
+- `pdf-bounded-memo-a9688400ef/report.json`: five-page/20-paragraph canary.
+- `pdf-staged-native-92b4760032/runtime_qualification/report.json`: staged runtime
+  LibreOffice native checks, four passed.
+
+Focused staged PDF/Linux isolation tests: 22 passed. Broader delivery suite:
+662 passed, eight skipped, four failed. Three failures are Apple Vision OCR tests
+requiring Darwin/swiftc; the fourth mocks Darwin without an available sandbox-exec
+backend. Do not report this suite as fully green or weaken those runtime gates.
+Full private provenance/Office/OCR, destination app and visual review remain open.
+
+**Inference.** Actual hardware is RTX 2060, 6 GB VRAM, approximately 24 GB system
+RAM. Ollama 0.40.11 runs the installed qwen3.5:9b Q4_K_M/9.7B model. The earlier
+100-second timeout was investigated with synthetic inputs: one default placement
+used 19/34 CUDA layers plus GPU multimodal projector, 58.22 seconds cold loading
+and 32.70 seconds prefilling just 20 tokens. On the same warmed 503-token
+structured control, default autofit took 21.02 seconds (67 output tokens,
+11.375 seconds generation), versus 8.92 seconds with explicit 33 layers/batch
+128/2,048 context (71 output tokens, 2.369 seconds generation). This is a
+configuration/capacity improvement, not a claim of general answer quality.
+
+The opt-in trusted server profile
+`LOCAL_OLLAMA_HARDWARE_PROFILE=rtx2060-qwen35-9b-v1` is active in the private
+server environment. Only qwen3.5:9b receives batch 128, 33 GPU layers through
+2,048 context or 31 through 16,384; larger contexts fail closed. Existing role
+models, defaults, requested context and six-call/120-second budgets are unchanged.
+Validated runtime options are frozen in receipts, including streamed/thinking
+validation, and this one trusted profile variable reaches local-model workers.
+No model-management endpoint, hosted response route or host-network grant was added.
+
+A direct synthetic 14,438-prompt-token/89-output-token stress run finished in
+35.42 seconds with normal stop but a wrong sum and unfinished prose. Its failed
+quality evidence remains at `gpu-long-context-fde10df71102`. The final actual
+LocalModel/bubblewrap/Unix relay streaming canary took 16.88 seconds for 5,786
+prompt tokens plus 30 output tokens, exact first/last markers, normal stop and
+one request at 16,384 context with 31-layer receipt; evidence is
+`gpu-adapter-canary-b75513f6ae49`. Observed loaded VRAM was 5,181,758,503 bytes;
+models were unloaded after testing. No production room output was accepted.
+Staged focused Linux suite: 132 passed, one skipped. Windows focused suite:
+124 passed, six skipped; an expanded Mac/symlink-oriented selection had three
+platform failures, which were not relabeled as passes.
+
+**Checked runtime integration.** PDF-only staging first verified each Linux
+target against its previous `.hosting-code-manifest.json` hash, archived original
+files/manifest and updated only five entries. Receipt:
+`code-stage-pdf-20261026T170951Z-1e6f7c92/receipt.json`. Inference staging separately
+verified the current manifest and archived four targets; receipt:
+`code-stage-gpu-8d03f67017e6/receipt.json`. No database/storage reset occurred.
+Restarts were coordinated with isolated inference work and performed only after
+zero running room jobs/leases. GPU integration restarted the API at 17:14:01 UTC;
+the trusted profile was confirmed inside the final worker. Loopback API health
+and frontend through Windows Caddy port 8080 passed. No room worker or collector
+is enabled; recheck current jobs/processes before any future service mutation.
+
+**Training intake.** A recursive metadata-only audit supersedes the original
+eight-JSONL/532-row inventory: 74 JSONL files / 1,552 rows comprise 156 memo
+candidates, 376 exclusions, 152 scorer keys, 152 synthetic fixtures, 470
+trajectories, 180 protocol events, 65 unqualified chat/text rows and one reward
+record. The audit records 494 duplicate rows. The 156 memo candidates pass
+runtime/source/schema checks, but all are explicitly test-only and pending
+adjudication. Zero rows are weight-update eligible. Preserved scorer keys,
+trajectories, synthetic fixtures and rejected historical responses are not
+independently reviewed training answers. Source-use permission and parsing
+success do not authorize holdout promotion or certify target correctness.
+
+Outside-Git private-storage and audit/training policy fixes were integrated
+through checked staging of 14 files; receipt:
+`/home/investify/runtime/code-stage-training-8c5f8bb3a5b3`. The staged native
+selection passed 57 tests. No weight update, adapter activation, model-role change,
+corpus export or private hosted processing occurred. Reviewed train/valid/test
+corpus separation, rights/adjudication, compatible pinned base and qualified
+private training runtime/capacity remain open gates. Keep originals, holdouts,
+failed attempts and private derivatives outside Git in approved storage.
+
+**Public outbound route and sign-in.** The frontend and Google sign-in now serve
+publicly at **https://investify.fyi**. The final ten-request smoke uses ordinary
+OS DNS without overrides and verified TLS: root/assets HTTP 200, API health HTTP
+200 with exact `ok`, auth config 200, anonymous auth/me 401, private APIs 503 and
+secret/upload/model paths 404. Plain HTTP returns 301 to HTTPS preserving the
+path, and CF-Ray is present. All checks pass; receipt is outside Git in private
+`hosting/network/public-domain-smoke.json`. Cloudflare Universal certificate is
+Active, Always Use HTTPS is enabled, and minimum TLS is 1.2.
+
+Router access remains unavailable; no credential guessing, reset or inbound-port
+grant occurred. The authenticated Cloudflare free zone is authoritative through
+`grace.ns.cloudflare.com` and `salvador.ns.cloudflare.com`. Former apex parking A
+records were replaced by a proxied CNAME targeting
+`f08301be-2c5b-4597-8888-f0e008da1a3a.cfargotunnel.com`. MX/SPF/DKIM/Google
+verification values were preserved after exact direct-authoritative comparisons.
+The named tunnel reports Healthy with four outbound connections and a private
+credential token file. Earlier temporary IPv6 probe rules remain removed. The
+earlier browser-access rejection is no longer blocking: the user subsequently
+opened the authenticated Cloudflare session used for the authorized setup.
+
+`deployment/local/start_outbound_host.ps1` independently owns Caddy 8081,
+cloudflared and a WSL keepalive, with ten-second API heartbeats that fail closed
+after three consecutive failures. Its observed supervisor PID was 18720; inspect
+actual processes before acting. Both preview/outbound Startup shortcuts are
+installed, but restart/reboot operation is untested. Native offline regressions
+passed: all six allowed auth paths reached a synthetic upstream, while 24 private/
+encoded GET/POST cases produced zero upstream hits and a wrong Host returned 404.
+A failing fake probe child now exits 2 with an explicit stopped/failure receipt.
+Both tests pass; no real API, tunnel credentials or internet were used. Evidence:
+`runtime_qualification/outbound-regression-20261026T1747/`. The earlier bounded
+synthetic Quick Tunnel also stopped at 180 seconds and never served the app.
+
+Two real Google accounts completed sign-in through Chrome and provisioned two
+separate sandbox owners with two memberships, zero foreign memberships and zero
+reviewer qualifications. Both subsequently logged out: two sessions revoked,
+zero active. Receipt: `/home/investify/runtime/public-oidc-acceptance.json`. These
+are live OIDC/provisioning/logout results, not full private room/file/job isolation
+acceptance. **Private workflow APIs remain 503 and the room worker stays off.**
+Cloudflare terminates public TLS; no public private-upload route is enabled.
+Financial/model quality, private provenance/workflow, visual/compliance and
+exact-file investor release gates remain open.
+
+Claude Code 2.1.310 was installed after checking Anthropic's signature and used
+the authenticated Pro account for an actual sanitized generic code/design review
+completed in 29.54 seconds. Tools, MCP, skills and hooks were disabled for the
+review invocation. No confidential documents, gold, trajectories, model responses
+or company answers were sent. Private receipts are under the existing outside-Git
+`hosting/claude-code/generic-review` directory. Claude's review is engineering
+assistance, not model authorship or investor approval.
+
+## 83. 27 October: authenticated public workflows and final host qualification
+
+This checkpoint supersedes section 82's auth-only/503 and worker-off status.
+**https://investify.fyi now exposes authenticated private workflows** through the
+named outbound Cloudflare route. The full `Caddyfile.tunnel` is active; the
+supervisor and backed-up Startup shortcut use `-Mode private-workflows`.
+`investify-api.service` is active (observed PID 7030), and the separate
+`investify-room-worker.service` is enabled and active. Reboot execution remains
+untested; inspect current processes and jobs/leases before changing services.
+
+The final staged backend selection passed 513 tests. Live loopback HTTP privacy
+acceptance passed 47 checks; public verification passed ten anonymous smokes and
+35 authenticated checks. These HTTP checks used temporary production-factory
+sessions for two already Google-verified identities, not fabricated Google
+callbacks. A separate fresh real Chrome Google callback reached My companies
+on the final frontend bundle; logout removed Sign out and restored Continue
+with Google. Real users/sessions and labelled synthetic fixtures remain preserved.
+Public report:
+`/home/investify/runtime/public-http-isolation-20261026T192851Z-67184ee2dc/report.json`.
+The final browser metadata is outside Git in private
+`hosting/network/final-browser-auth-smoke.json`.
+
+Private upload, extraction/review retry, text classification and inspection now
+use bounded private workers with recorded inputs/responses and parent validation.
+Frontend session checks passed all 15 tests, build and clean lint. Changed
+user/tenant **or session CSRF** forces full navigation before accepting the new
+context, preventing old work paused before HTTP from acquiring a new session's
+authority. Same-session focus checks remain soft; cross-tab notices contain only
+a deduplicated nonce/version. Final bundle `index-uwnVZMAr.js` has SHA-256
+`56e03f24501eb4e8331b071d665c048485388b9b7e3fbe091b293e31a953bbbf`;
+served bytes match. Evidence:
+`/home/investify/runtime/code-stage-frontend-final-933e41ace56b/`.
+
+The actual isolated qwen3.5:9b extraction canary passed in 20.111 seconds with
+744 prompt/269 output tokens and one request, correctly binding synthetic ARR
+120 and headcount 4; unreported fields stayed missing/unapproved. Receipt:
+`/home/investify/runtime/extraction-model-canary-a37b28332a1d/report.json`.
+One durable source-selection pass took 2.181 seconds with zero model calls/IP
+egress, indexed six synthetic passages and queued financial analysis; its exact
+fixture job was then cancelled. Evidence:
+`/home/investify/runtime/one-room-pass-20261026T191707Z-312b63cb39/`.
+Missing workbook formula caches still block financial computation. Earlier
+arithmetic/prose failures remain evidence; no final financial, investor-material,
+compliance, visual or training qualification is established. Zero imported rows
+are weight-update eligible; no training, adapter activation or paid compute occurred.
+
+Cloudflare is authoritative through `grace.ns.cloudflare.com` and
+`salvador.ns.cloudflare.com`. The old Porkbun apex now also points to
+104.21.31.42 / 172.67.174.243 to bridge stale ISP delegation caches; mail records
+were preserved. Both edges passed verified HTTPS. No router reset or global DNS
+setting change was needed. Cloudflare terminates public TLS; private processing
+and model inference remain on the local host.
+
+At documentation cutoff, the Linux manifest was
+`1ecaa8c951984e9ef5d2e07e7053873e00d941aa66acb7a70100cca1c5adbba0`.
+The coordinator's final source/documentation stage includes
+`scripts/qualify_live_http_isolation.py` and
+`scripts/qualify_public_http_isolation.py`; its subsequent manifest/receipt is
+authoritative under `/home/investify/runtime/code-stage-final-handoff-*/receipt.json`.
+This documentation update made no runtime, backend or service
+change. Preserve originals, raw failures, private data and current sessions;
+successful authenticated hosting does not authorize outreach or investor release.
+
+## 84. 27 October: public discovery repair and private reference qualification
+
+The reported zero-result run `source_run_d148153f58fe` is preserved. Its exact
+brief was `fintrch` with India geography; the local model interpreted fintech
+correctly. Poor search coverage, source parsing/binding and unsupported assessment
+prose caused the failure. This was not proof of an empty market or a GPU timeout.
+
+The authenticated Chrome owner retried that unchanged brief through the public
+website after the repair. **https://investify.fyi/leads?run=source_run_ead46f340149
+contains three preliminary candidates: CRED, Lentra and Paytm.** The requested
+target remains 20, so this is partial coverage. Five local-model requests completed
+normally with full-context receipts; a sixth additional-source request was
+cancelled at the 120-second inference budget (120.033 seconds measured usage).
+Those three retained results were not manufactured from the cancelled response.
+Actual first-to-final run timestamps include retrieval/persistence overhead.
+
+Each retained product quote was checked against its frozen model input, literal
+UTF-8 offsets, parent hash and same-company parent. Topic and India proofs bind to
+the company's own selected facts/title and recorded Evidence IDs. Literal article
+publication dates are 2023-10-05, 2022-11-14 and 2021-10-27 respectively. The Lentra
+date is publisher metadata, not its URL's date. Its observed external website was
+selected by the local model; the other two websites remain unverified. Current
+operating status is `not_verified`, financial assessment is `not_performed` and
+profile assessment is unset. These are research candidates, not investment
+recommendations or current-company diligence. Exact private metadata receipt:
+`/home/investify/runtime/public-discovery-evidence-audit-20261026T224357Z-9b03d28e/report.json`.
+The original run's raw stored data SHA-256 remains
+`ca812c5d5fe1368b6120bee3007201c9c30c99601fe5b8de363719295b0be558`.
+
+The discovery implementation now uses the documented fixed Mwmbl v2 endpoint,
+bounded rate handling and model-owned topic/geography arguments, plus observed
+source selection. Whole visible source paragraphs and structural roles survive
+parsing/cache. Literal publisher metadata is bound separately; date inference
+from URLs, other-company topic proof and publisher-as-company website are rejected.
+The server opts new discovery into fresh `preliminary_match_v3` responses with
+`selected_fact_roles_v3` proof: no failed financial narrative is reused. The
+`OWN_GEOGRAPHY` role is explicitly the nonempty union of selected location facts
+and an own-name-bound title. Legacy `COMPANY_LOCATION` still requires location
+facts; earlier rejected raw responses remain rejected. Canonical company profiles,
+reviewed decisions and workspace artifacts are preserved. Limits remain 120
+seconds, nine discovery calls/requests and full 8,192-token context checks.
+
+The prospective service-policy integration passed **361 tests, one explicit
+Office canary skipped**, with no live database. Evidence:
+`/home/investify/runtime/repair-integration-20261026T223728Z-37744414/report.json`.
+Thirty-one exact tested source files were installed after a fresh online backup
+of all 24 tables, successful SQLite quick check and zero active/queued jobs.
+The API and room worker restarted without reload and are active. Installed source
+manifest before final documentation is
+`469468772c64ec5c468883799d495bf2622a384df2649ee3704f9d191610b28b`;
+receipt: `/home/investify/runtime/repair-code-stage-20261026T223911Z-6cfd4797/receipt.json`.
+Frontend build and lint passed; live bundle is `index-CkV2puP3.js`. The public UI
+shows failure details, fresh retry for empty searches, preliminary/current-status
+and financial gaps, and source publication dates. All eight fresh anonymous public
+smokes passed: API health, authentication denials and blocked private paths.
+`/server.env` resolves to the identical public SPA HTML, not an environment file.
+
+All seven supplied samples are byte-exact, read-only private imports at
+`/home/investify/private/reference_samples/2026-10-27-5fd82b6dda/`; originals were
+rehashed unchanged. No document contents or private raw model responses went to
+hosted inference. Two actual Claude Code reviews used only sanitized engineering
+code with tools/MCP/hooks disabled; their findings informed the repairs.
+
+The image-only BlueStone memorandum now has an isolated Linux Tesseract path with
+source/raster/TSV/projection/runtime replay pins, bounded private outputs and no
+network. Native OCR/manifest tests passed 21 checks. Corrected-profile
+transcription processed all 37 pages in 22.686 seconds; 274 of 420 lines have
+minimum word confidence below 0.8. This remains unreviewed OCR, not validated
+financial data or table reconstruction. The qualification used checkout module
+paths; do not adopt it through a different installed path without fresh runtime
+pin qualification. Private report:
+`/home/investify/private/ocr_qualification/2026-10-27-b5d4d05441/report.json`.
+
+The actual projection workbook audit found 14 sheets, five hidden, 3,008 formulas,
+104 stored errors, one missing cache, 22 broken formula references, two broken
+defined names and 23 unsupported/unknown references. The unchanged converter gate
+returned `blocked_before_office`. No recalculation or invented repair occurred.
+Report: `/home/investify/private/workbook_qualification/2026-10-27-7db511acce/report.json`.
+The historical financial/projection evidence remains unreconciled.
+
+Material argument tooling passed 111 tests with one explicit Office canary skipped.
+Only one 1,185-character IM section passed local authorship and DOCX/PDF text/file
+checks. Same-model, non-independent semantic review returned REVISE; subsequent
+unsupported review bindings and correction failures remain recorded. A full-source
+14B reviewer used 96% GPU with approximately 5.274 GB VRAM but returned no answer
+within 105.113 seconds. This is a latency failure, not a semantic verdict. The
+complete editable/PDF intro, pitch and IM package, visual parity and exact-file
+financial/compliance/human release gates remain unqualified. A separate bounded
+8B reviewer-capacity branch remains outside this deployed snapshot. Its 140
+native regressions passed with zero skips, including 16 new receipt checks.
+One actual full-source probe then used 105.01 seconds of shared budget
+(107.115 seconds total), one call/two requests. The reasoning phase completed
+6,628 prompt tokens plus its bounded 256-token allocation with a valid first-phase
+context receipt. The final 900-token answer request returned no terminal response,
+body or counts before cancellation. No complete review, valid REVISE or patch was
+produced. The model used 4,746,641,407 bytes of VRAM at context 8,192, 28 GPU
+layers and batch 128, and was unloaded afterward. All 27 API security properties
+and 11 deployed discovery code hashes matched. These are preserved capacity
+failures, not expert, semantic or material acceptance. Private diagnostic directory:
+`/home/investify/private/reference_samples/2026-10-27-5fd82b6dda/review8b-thinking-b195bdaa3e`.
+
+Training intake passed 62 tests, but **zero rows are eligible and no training or
+adapter activation occurred**. All seven samples overlap three previously reserved
+acceptance families; five originals are hash-identical and two declaration-only
+versions remain unresolved. Current user source-use authorization is recorded
+separately from adjudication and split eligibility. Seven review requests and the
+source-family ledger remain private under
+`/home/investify/private/training_preparation/2026-10-27-seven-v1/`. The supplied
+packed MLX weights are not a qualified CUDA/Hugging Face training base; expanded
+large BF16 weights alone are approximately 18.819 GB against 7.76 GiB available
+to WSL before training overhead. CUDA trainer dependencies are absent. No blind
+dequantization, model download, fake reviewer approval or held-out training was
+performed. Actual hardware remains RTX 2060 6 GB VRAM and approximately 24 GB
+system RAM; no 32B model is installed. Hosting is live; final banker quality is not.

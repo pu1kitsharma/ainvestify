@@ -1,0 +1,42 @@
+# Shared routing. Serve only the compiled frontend, never the repository root.
+(investify_routes) {
+	root * "{$INVESTIFY_WEB_ROOT:frontend/dist}"
+	encode zstd gzip
+	header {
+		-Server
+		X-Content-Type-Options nosniff
+		Referrer-Policy no-referrer
+	}
+
+	# Old public artifact URLs and infrastructure are never static content.
+	@private_paths path /memo_output /memo_output/* /uploads /uploads/* /private_artifacts /private_artifacts/* /runtime_backups /runtime_backups/* /runtime_qualification /runtime_qualification/* /runtime_public_kb /runtime_public_kb/* /models /models/* /.git /.git/* /.env /deployment/.env /deal_automation.db /deal_automation.db-* /docs /redoc /openapi.json
+	handle @private_paths {
+		respond "Not found" 404
+	}
+	handle /api/auth/local-login {
+		respond "Not found" 404
+	}
+	@api path /api /api/*
+	handle @api {
+		request_body {
+			max_size 32MB
+		}
+		reverse_proxy 127.0.0.1:8000 {
+			# Preserve /api; FastAPI owns this prefix.
+			# Do not retry state-changing requests or log callback query strings.
+			flush_interval -1
+			transport http {
+				response_header_timeout 420s
+			}
+		}
+	}
+	handle /assets/* {
+		header Cache-Control "public, max-age=31536000, immutable"
+		file_server
+	}
+	handle {
+		header Cache-Control "no-cache"
+		try_files {path} /index.html
+		file_server
+	}
+}

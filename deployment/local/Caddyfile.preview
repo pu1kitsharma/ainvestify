@@ -1,0 +1,12 @@
+# Anonymous routing preview only. No public bind, ACME, or trust-store changes.
+{
+	admin off
+	import logging.caddy
+	auto_https off
+}
+import routes.caddy
+
+http://127.0.0.1:8080 {
+	bind 127.0.0.1
+	import investify_routes
+}

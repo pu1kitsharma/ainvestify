@@ -26,11 +26,23 @@ _web_slot = BoundedSemaphore(1)
 _worker_id = uuid.uuid4().hex
 
 
-def _run_web_job(db_path, run, body):
+def _attach_job_identity(store, tenant_id, actor_id):
+    """Revalidate the server-captured actor on each fresh background Store."""
+    from security.identity import Identity, has_access
+    membership = has_access(store.conn, actor_id, tenant_id) if actor_id else None
+    if membership is None:
+        raise PermissionError('Discovery preparation actor access is unavailable')
+    store.authenticated_identity = Identity(actor_id, tenant_id, membership[0], '')
+
+
+def _run_web_job(db_path, run, body, *, actor_id=None):
     prepared_lead = None
     try:
         with Store(db_path) as store:
-            result = source_companies(store, run, max_pages=body.max_pages, max_companies=body.max_companies)
+            if actor_id is not None:
+                _attach_job_identity(store, run.tenant_id, actor_id)
+            result = source_companies(store, run, max_pages=body.max_pages,
+                                      max_companies=body.max_companies, preliminary_only=True)
             if body.prepare_workflow and result.lead_ids and result.status != 'cancelled':
                 prepared_lead = result.lead_ids[0]
     except Exception as exc:
@@ -42,17 +54,19 @@ def _run_web_job(db_path, run, body):
     finally:
         _web_slot.release()
     if prepared_lead:
-        # One automatic first draft; never fan out into unbounded inference.
+        # Preserve authenticated room routing across the fresh Store boundary.
+        # An absent/revoked actor must never select legacy in-process inference.
         from api.routers.operations import _queue_prepare
         tasks = BackgroundTasks()
         try:
             with Store(db_path) as store:
+                _attach_job_identity(store, run.tenant_id, actor_id)
                 _queue_prepare(prepared_lead,tasks,store,run.tenant_id,analyst=True)
+                if tasks.tasks:
+                    raise RuntimeError('Authenticated preparation must use durable room jobs')
                 saved = store.get_web_run(run.tenant_id,run.id)
                 saved.generation_config['automatic_preparation_lead_id'] = prepared_lead
                 store.save_web_run(saved)
-            for task in tasks.tasks:
-                task.func(*task.args, **task.kwargs)
         except Exception as exc:
             with Store(db_path) as store:
                 saved = store.get_web_run(run.tenant_id,run.id)
@@ -79,8 +93,12 @@ def start_web_run(body: WebSourceRequest, background: BackgroundTasks,
                 raise HTTPException(422,'Continue the same search brief and geography, or start a new search.')
             excluded=list(dict.fromkeys([*previous.generation_config.get('exclude_names',[]),*[p.name for p in previous.company_profiles]]))
             run.generation_config.update(continuation_of=previous.id,exclude_names=excluded[-100:])
+        identity = getattr(store, 'authenticated_identity', None)
+        if identity is not None and identity.tenant_id != tenant_id:
+            raise HTTPException(403, 'Discovery actor scope is invalid')
         store.save_web_run(run)
-        background.add_task(_run_web_job, store.db_path, run, body)
+        background.add_task(_run_web_job, store.db_path, run, body,
+                            actor_id=identity.user_id if identity is not None else None)
         return run
     except Exception:
         _web_slot.release()

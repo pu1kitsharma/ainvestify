@@ -10,6 +10,13 @@ class Output(BaseModel):
     answer: str
 
 
+def test_windows_without_sysconf_uses_conservative_memory_default(monkeypatch):
+    from agents.inference import model_routing
+    monkeypatch.setattr(model_routing.platform, 'system', lambda: 'Windows')
+    monkeypatch.delattr(model_routing.os, 'sysconf', raising=False)
+    assert model_routing.machine_memory_gb.__wrapped__() == 16
+
+
 def test_16gb_machine_does_not_auto_load_14b_but_respects_explicit_override(monkeypatch):
     monkeypatch.setattr('agents.inference.model_routing.machine_memory_gb',lambda:16)
     for key in ('ESCALATION_MODEL','REVIEW_MODEL','MODEL_CONTEXT_TOKENS','REASONING_MAX_TOKENS'):

@@ -19,6 +19,7 @@ from agents.research.investment_memo import Memo, Source
 from agents.research import memo_content_repair as repair
 from agents.research.memo_content_review_v2 import FRESH_CONTRACT as CONTRACT
 from delivery.isolation import run_private
+from agents.preparation.preparation_budget import document_model_seconds
 
 PROJECT = Path(__file__).resolve().parents[1]
 
@@ -32,8 +33,8 @@ def _write(path, value):
 
 
 def _inventory():
-    with urllib.request.urlopen('http://127.0.0.1:11434/api/tags', timeout=5) as response:
-        return {row['name']: row.get('digest') for row in json.load(response)['models']}
+    from agents.inference.local_transport import local_tags
+    return {row['name']: row.get('digest') for row in local_tags()['models']}
 
 
 def _pins(profile, installed):
@@ -179,7 +180,7 @@ def run_content_pass(memo_root, accepted, sources, profile, *, timeout, review_v
             history[-1]['state'] = 'time_limit'
             _write(history_file, history)
             return {'state': 'needs_resume', 'reason': 'room_pass_time_limit'}
-        _write(root / 'content_budget.json', {'seconds': min(105, remaining - 8), 'max_calls': 6})
+        _write(root / 'content_budget.json', {'seconds': document_model_seconds(remaining), 'max_calls': 6})
         try:
             run_private([sys.executable, PROJECT / 'scripts/private_memo_content_worker.py'],
                         root, timeout=remaining, extra_read=(PROJECT / 'agents', PROJECT / 'schemas.py'),

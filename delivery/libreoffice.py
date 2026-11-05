@@ -12,6 +12,27 @@ from delivery.isolation import private_temp_root,run_private
 MAC_BINARY='/Applications/LibreOffice.app/Contents/MacOS/soffice'
 LINUX_CANDIDATES=('/usr/bin/soffice','/usr/local/bin/soffice','/usr/lib/libreoffice/program/soffice',
     '/opt/libreoffice/program/soffice','/snap/bin/libreoffice')
+PDF_EXPORT_CONTRACT='office-static-pdf-v1'
+
+
+def pdf_export_argument(source_format):
+    """Generate static PDFs at export, without rewriting their content afterward.
+
+    LO 24.2 maps InitialPage to a zero-based page index. Zero deliberately
+    supplies no initial page, so its default zoom does not create a catalog
+    OpenAction. Keep tags, render form controls as static content, and never
+    embed the original Office file. The PDF inspector remains authoritative.
+    https://help.libreoffice.org/latest/en-US/text/shared/guide/pdf_params.html
+    """
+    filters={'pptx':'impress_pdf_Export','docx':'writer_pdf_Export','xlsx':'calc_pdf_Export'}
+    options={
+        'InitialPage':{'type':'long','value':'0'},
+        'Magnification':{'type':'long','value':'0'},
+        'UseTaggedPDF':{'type':'boolean','value':'true'},
+        'ExportFormFields':{'type':'boolean','value':'false'},
+        'IsAddStream':{'type':'boolean','value':'false'},
+    }
+    return 'pdf:'+filters[source_format]+':'+json.dumps(options,separators=(',',':'))
 
 
 def find_binary(*,environ=None,system=None,which=None):
@@ -42,7 +63,14 @@ def office_read_roots(binary,*,system=None):
     system=system or platform.system()
     if system=='Linux':
         resolved=Path(binary).resolve()
-        return (resolved.parent.parent,)
+        roots=(resolved.parent.parent,)
+        # Ubuntu's immutable share/registry symlink targets this system config
+        # tree. Grant only it, only for the packaged installation; never all /etc.
+        configuration=Path('/etc/libreoffice')
+        if (resolved.is_relative_to('/usr/lib/libreoffice') and configuration.is_dir()
+                and not configuration.is_symlink() and configuration.resolve()==configuration):
+            roots += (configuration,)
+        return roots
     return (Path(binary).parents[2],)
 
 
@@ -83,9 +111,10 @@ def convert(content,source_format,target_format,*,timeout=90):
         # LibreOffice otherwise binds its single-instance OSL_PIPE socket in
         # /tmp.  The private worker permits Unix IPC only inside this job.
         # When /tmp is not writable, LibreOffice uses this bootstrap path.
+        export=pdf_export_argument(source_format) if target_format=='pdf' else target_format
         args=[binary,f'-env:UserInstallation={profile.as_uri()}',
             f'-env:OSL_SOCKET_PATH={job}','--headless','--nologo','--nodefault','--norestore',
-            '--convert-to',target_format,'--outdir',output,source]
+            '--convert-to',export,'--outdir',output,source]
         run_private(args,job,timeout=timeout,extra_read=office_read_roots(binary),local_ipc=True)
         target=output/f'input.{target_format}'
         if not target.is_file():raise RuntimeError('libreoffice_produced_no_output')

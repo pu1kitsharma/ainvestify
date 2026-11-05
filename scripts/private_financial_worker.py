@@ -26,7 +26,7 @@ from agents.analysis.workbook_reconciliation import (CONTRACT, MAX_BYTES, SCOPE,
 from agents.inference.local_models import LocalModel
 from agents.inference.model_authorship import digest
 from agents.inference.model_routing import validate_local_model_name
-from agents.preparation.preparation_budget import (PreparationBudget, PreparationBudgetExceeded,
+from agents.preparation.preparation_budget import (DOCUMENT_STEP_MAX_SECONDS, PreparationBudget, PreparationBudgetExceeded,
                                                    preparation_budget)
 
 MAX_PASSES = 3
@@ -93,8 +93,8 @@ def read_request(root: Path) -> dict:
     except ValueError as exc:
         raise RequestError('financial_model_is_not_a_local_model_name') from exc
     seconds = _load(root / 'budget.json', {'seconds': 105}).get('seconds')
-    if not isinstance(seconds, (int, float)) or isinstance(seconds, bool) or not 1 <= seconds <= 105:
-        raise RequestError('budget_seconds_must_be_between_1_and_105')
+    if not isinstance(seconds, (int, float)) or isinstance(seconds, bool) or not 1 <= seconds <= DOCUMENT_STEP_MAX_SECONDS:
+        raise RequestError('budget_seconds_must_be_between_1_and_900')
     binding = {'contract': CONTRACT, 'task': TASK, 'workbook_sha256': actual,
                'as_of_date': request['as_of_date'], 'model': model,
                'model_options': MODEL_OPTIONS, 'max_passes': MAX_PASSES,
@@ -150,13 +150,13 @@ def run(root: Path, model_factory=LocalModel) -> dict:
     try:
         # Replay first, with no model: a finished or blocked job never calls inference.
         outcome = analyse(None, PreparationBudget(request['seconds'], max_calls=CALLS_PER_PASS,
-                                                  max_requests=CALLS_PER_PASS + 2))
+                                                  max_requests=CALLS_PER_PASS + 2, document_step=True))
         if outcome['state'] == 'needs_resume':
             if len(passes['passes']) >= MAX_PASSES:
                 return finish({**outcome, 'state': 'blocked', 'reason': 'pass_limit_reached',
                                'passes_used': len(passes['passes'])})
             budget = PreparationBudget(request['seconds'], max_calls=CALLS_PER_PASS,
-                                       max_requests=CALLS_PER_PASS + 2)
+                                       max_requests=CALLS_PER_PASS + 2, document_step=True)
             before = len(attempts)
             try:
                 outcome = analyse(model_factory(binding['model'], **MODEL_OPTIONS), budget)

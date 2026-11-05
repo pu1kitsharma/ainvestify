@@ -9,6 +9,7 @@ import tempfile
 import time
 
 from delivery import jobs
+from agents.preparation.preparation_budget import document_step_seconds
 from delivery.inspection import summarize_report
 from delivery.isolation import run_private
 from delivery.artifacts import register_draft
@@ -136,6 +137,7 @@ def process_one(db_path):
         job=jobs.claim(store.conn)
         if job is None:return None
         started=time.monotonic()
+        pass_seconds=max(120,document_step_seconds())
         data=dict(job['checkpoint'])
         phase = job.get('phase', 'legacy')
         phase_limit = jobs._phase_cap(job)
@@ -154,7 +156,7 @@ def process_one(db_path):
             return (job.get('phase_attempt', job['attempt']) < limit
                     and (phase != 'legacy' or job['attempt'] < 3))
         def save(state='running',error=None, next_phase=None):
-            if time.monotonic()-started>120:raise TimeoutError('room_pass_budget_exhausted')
+            if time.monotonic()-started>pass_seconds:raise TimeoutError('room_pass_budget_exhausted')
             if next_phase == 'draft' or phase == 'draft':
                 # The draft cap is tied to the memo contract frozen for this job.
                 # An older saved profile must keep its original six-pass limit.
@@ -238,7 +240,7 @@ def process_one(db_path):
                     root=Path(directory)
                     (root/'input.bin').write_bytes(read_source_bytes(document.storage_uri))
                     (root/'request.json').write_text(json.dumps({'operation':'inspect','format':'xlsx'}))
-                    run_private([sys.executable,SCRIPT],root,timeout=max(1,120-(time.monotonic()-started)))
+                    run_private([sys.executable,SCRIPT],root,timeout=max(1,pass_seconds-(time.monotonic()-started)))
                     inventories[document.id]=summarize_report(json.loads((root/'result.json').read_text()))
                 save()
             data.setdefault('financial_model',financial_checkpoint(inventories))
@@ -262,7 +264,7 @@ def process_one(db_path):
                     if recorded.get(document.id, {}).get('state') not in
                     {'partial_evidence', 'blocked'}), None)
                 if pending is not None:
-                    remaining = 120 - (time.monotonic() - started)
+                    remaining = pass_seconds - (time.monotonic() - started)
                     if remaining < 25:
                         if can_retry():
                             save('queued')
@@ -277,8 +279,8 @@ def process_one(db_path):
                     as_of_date = datetime.fromtimestamp(job['created'],timezone.utc).date().isoformat()
                     recorded[pending.id] = run_financial_stage(
                         store, job, pending, model_name=shared_model_name(PreparationModel()),
-                        as_of_date=as_of_date, timeout=min(110,remaining-5),
-                        budget_seconds=105)
+                        as_of_date=as_of_date, timeout=min(pass_seconds-10,remaining-5),
+                        budget_seconds=pass_seconds-15)
                     save()
                     if recorded[pending.id]['state'] == 'needs_resume':
                         if can_retry():
@@ -328,7 +330,7 @@ def process_one(db_path):
                     save('blocked', reason)
                     return job['id']
                 for document in workbooks:
-                    remaining = 120 - (time.monotonic() - started)
+                    remaining = pass_seconds - (time.monotonic() - started)
                     if remaining < 10:
                         data['financial_evidence'] = {'state': 'blocked', 'reason': 'financial_index_room_budget_exhausted',
                             'workbook_count': len(workbooks), 'retained_cell_count': sum(
@@ -385,7 +387,7 @@ def process_one(db_path):
                     'reason': 'complete_diligence_inventory_exceeds_local_capacity'}
                 save('blocked', 'complete_diligence_inventory_exceeds_local_capacity')
                 return job['id']
-            remaining = 120 - (time.monotonic() - started)
+            remaining = pass_seconds - (time.monotonic() - started)
             if coverage.get('coverage_complete') is not True or coverage.get('source_count') > 30 or sum(
                     len(source.passage) for source in inventory) > 24000:
                 if remaining < 20:
@@ -394,7 +396,7 @@ def process_one(db_path):
                     save('queued' if can_retry() else 'awaiting_input')
                     return job['id']
                 selection = resolve_memo_sources(job, lead, inventory, coverage,
-                    timeout=min(110, remaining - 5))
+                    timeout=min(pass_seconds - 10, remaining - 5))
                 if selection['state'] != 'complete':
                     data['investment_memo'] = {'state': selection['state'],
                         'reason': selection['reason'],
@@ -447,7 +449,7 @@ def process_one(db_path):
                 if phase in {'material_draft', 'material_preview', 'material_review', 'material_remediation',
                              'material_re_review', 'render'}:
                     raise ValueError('Materials require an accepted source-bound memo')
-                remaining = 120 - (time.monotonic() - started)
+                remaining = pass_seconds - (time.monotonic() - started)
                 if remaining < 20:
                     exhausted = not can_retry()
                     data['investment_memo'] = {
@@ -465,7 +467,7 @@ def process_one(db_path):
                                   'ledger_only' if phase == 'ledger' else
                                   'review_only' if phase in {'review', 'content_review'} else
                                   'analysis_only' if phase == 'analysis' else 'all')
-                    memo = run_memo_pass(job, lead, sources, timeout=min(110, remaining - 5),
+                    memo = run_memo_pass(job, lead, sources, timeout=min(pass_seconds - 10, remaining - 5),
                                          inventory_digest=inventory_digest, phase=memo_phase,
                                          phase_checkpoint=data.get('memo_phase_checkpoint'))
                 except TimeoutError:
@@ -565,14 +567,14 @@ def process_one(db_path):
             if phase == 'material_draft':
                 from delivery.material_stage import (LocalMaterialModelInventoryUnavailable,
                                                      run_material_pass)
-                remaining = 120 - (time.monotonic() - started)
+                remaining = pass_seconds - (time.monotonic() - started)
                 if remaining < 20:
                     data['materials'] = {'state': 'needs_resume',
                                          'reason': 'room_pass_time_limit'}
                     save('queued' if can_retry() else 'awaiting_input')
                     return job['id']
                 try:
-                    materials = run_material_pass(job, memo, timeout=min(110, remaining - 5),
+                    materials = run_material_pass(job, memo, timeout=min(pass_seconds - 10, remaining - 5),
                         draft_contract=data.get('material_draft_contract', 'structured_v5'))
                 except LocalMaterialModelInventoryUnavailable:
                     materials = {'state': 'needs_resume',
@@ -603,7 +605,7 @@ def process_one(db_path):
                         'reason': 'accepted_material_specs_required_for_preview'}
                     save('awaiting_input')
                     return job['id']
-                remaining = 120 - (time.monotonic() - started)
+                remaining = pass_seconds - (time.monotonic() - started)
                 if remaining < 20:
                     data['material_preview'] = {'state': 'needs_resume',
                         'reason': 'room_pass_time_limit'}
@@ -611,7 +613,7 @@ def process_one(db_path):
                     return job['id']
                 try:
                     frozen, scope = frozen_material_preview(job, memo, material,
-                        room.company_name, timeout=min(110, remaining - 5))
+                        room.company_name, timeout=min(pass_seconds - 10, remaining - 5))
                 except TimeoutError:
                     data['material_preview'] = {'state': 'needs_resume',
                         'reason': 'private_material_preview_worker_timeout'}
@@ -622,7 +624,8 @@ def process_one(db_path):
                 if current_room is None or revision_for(store, current_room) != job['input_revision']:
                     raise ValueError('Material preview input revision changed before registration')
                 artifact_ids = [register_draft(store.conn, job['tenant_id'], room.id,
-                    kind, fmt, job['input_revision'], (frozen / name).read_bytes(), job=job)
+                    kind, fmt, job['input_revision'], (frozen / name).read_bytes(), job=job,
+                    inspection_timeout=min(110,pass_seconds-(time.monotonic()-started)-2))
                     for name, kind, fmt in PREVIEW_FILES]
                 data['material_preview'] = {**scope, 'state': 'accepted',
                                             'artifact_ids': artifact_ids}
@@ -636,7 +639,7 @@ def process_one(db_path):
                         'reason': 'accepted_material_specs_required_for_review'}
                     save('awaiting_input')
                     return job['id']
-                remaining = 120 - (time.monotonic() - started)
+                remaining = pass_seconds - (time.monotonic() - started)
                 if remaining < 20:
                     data['material_review'] = {'state': 'needs_resume',
                         'reason': 'room_pass_time_limit'}
@@ -644,7 +647,7 @@ def process_one(db_path):
                     return job['id']
                 try:
                     review = run_material_review_pass(job, memo, material,
-                        timeout=min(110, remaining - 5),
+                        timeout=min(pass_seconds - 10, remaining - 5),
                         review_contract=data.get('material_review_contract'))
                 except TimeoutError:
                     review = {'state': 'needs_resume',
@@ -678,7 +681,7 @@ def process_one(db_path):
                         'reason': 'quote_bound_review_block_required_for_repair'}
                     save('awaiting_input')
                     return job['id']
-                remaining = 120 - (time.monotonic() - started)
+                remaining = pass_seconds - (time.monotonic() - started)
                 if remaining < 20:
                     data['material_repair'] = {'state': 'awaiting_input',
                         'reason': 'material_repair_pass_time_limit'}
@@ -686,7 +689,7 @@ def process_one(db_path):
                     return job['id']
                 try:
                     repair = run_material_repair_pass(job, memo, material, blocked_review,
-                        timeout=min(110, remaining - 5))
+                        timeout=min(pass_seconds - 10, remaining - 5))
                 except TimeoutError:
                     repair = {'state': 'blocked',
                               'reason': 'private_material_repair_worker_timeout'}
@@ -704,7 +707,7 @@ def process_one(db_path):
                         'reason': 'accepted_material_repair_required'}
                     save('awaiting_input')
                     return job['id']
-                remaining = 120 - (time.monotonic() - started)
+                remaining = pass_seconds - (time.monotonic() - started)
                 if remaining < 20:
                     data['material_re_review'] = {'state': 'needs_resume',
                         'reason': 'room_pass_time_limit'}
@@ -712,7 +715,7 @@ def process_one(db_path):
                     return job['id']
                 try:
                     review = run_material_review_pass(job, memo, repair,
-                        timeout=min(110, remaining - 5), repaired=True,
+                        timeout=min(pass_seconds - 10, remaining - 5), repaired=True,
                         review_contract=data.get('material_review_contract'))
                 except TimeoutError:
                     review = {'state': 'needs_resume',
@@ -756,7 +759,7 @@ def process_one(db_path):
                         raise ValueError('Material lacks passing frozen semantic review')
                     validate_material_review_checkpoint(job, memo, material,
                         data.get('material_review'))
-                remaining = 120 - (time.monotonic() - started)
+                remaining = pass_seconds - (time.monotonic() - started)
                 if remaining < 15:
                     save('queued' if can_retry() else 'awaiting_input')
                     return job['id']
@@ -776,7 +779,8 @@ def process_one(db_path):
                                           ('memo.docx','investment_memorandum','docx'),
                                           ('memo.pdf','investment_memorandum','pdf'),
                                           ('research.pdf','research_brief','pdf')]:
-                        artifacts.append(register_draft(store.conn,job['tenant_id'],room.id,kind,fmt,job['input_revision'],(root/name).read_bytes(),job=job))
+                        artifacts.append(register_draft(store.conn,job['tenant_id'],room.id,kind,fmt,job['input_revision'],(root/name).read_bytes(),job=job,
+                            inspection_timeout=min(110,pass_seconds-(time.monotonic()-started)-2)))
                 data['materials']={**material, 'state':'draft', 'artifact_ids':artifacts}
             blockers = ['complete_formats_calculation_layout_and_exact_version_reviews_required']
             if source_groups < 2:

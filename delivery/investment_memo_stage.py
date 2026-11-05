@@ -19,6 +19,7 @@ from agents.research.investment_memo import (FRESH_SECTION_PROJECTION, Source,
 from delivery.artifacts import artifact_root
 from delivery.isolation import run_private
 from delivery.storage import scope_component
+from agents.preparation.preparation_budget import document_model_seconds
 
 
 def _digest(value):
@@ -265,7 +266,7 @@ def resolve_memo_sources(job, lead, inventory, coverage, *, timeout):
     except ValueError:
         return {'state': 'blocked', 'reason': 'memo_model_profile_changed'}
     (root / 'selection_budget.json').write_text(json.dumps(
-        {'seconds': max(1, min(105, timeout - 8))}))
+        {'seconds': document_model_seconds(timeout)}))
     project = Path(__file__).resolve().parents[1]
     try:
         run_private([__import__('sys').executable,
@@ -425,9 +426,8 @@ def frozen_memo_model_profile(path, selected_model, *, draft_contract=None, fina
         validate_local_model_name(roles['review'])
         roles['author'] = author
         try:
-            with urllib.request.urlopen('http://127.0.0.1:11434/api/tags', timeout=5) as response:
-                installed = {item['name']: item.get('digest') for item in
-                             json.load(response)['models']}
+            from agents.inference.local_transport import local_tags
+            installed = {item['name']: item.get('digest') for item in local_tags()['models']}
         except (OSError, TimeoutError, URLError, ValueError, KeyError, TypeError) as exc:
             raise LocalModelInventoryUnavailable('Local model inventory is unavailable') from exc
         digests = {role: installed.get(name) for role, name in roles.items()}
@@ -1097,7 +1097,7 @@ def run_memo_pass(job, lead, sources, *, timeout, inventory_digest=None, phase='
         # The child must stop and save before the outer private-runtime kill.
         # This file is per pass; it is not part of the immutable source request.
         (root / "budget.json").write_text(json.dumps({
-            "seconds": max(1, min(105, timeout - 8)), "phase": phase,
+            "seconds": document_model_seconds(timeout), "phase": phase,
             "phase_checkpoint": phase_checkpoint}))
         run_private([__import__("sys").executable, project / "scripts/private_investment_memo_worker.py"],
                     root, timeout=timeout, extra_read=[project / "agents", project / "schemas.py"], local_model=True)

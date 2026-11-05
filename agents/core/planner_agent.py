@@ -152,7 +152,7 @@ class PlannerDecision(BaseModel):
 
 # --- Routing -------------------------------------------------------------
 
-def classify_directive(deal: Deal, directive: str) -> PlannerDecision:
+def build_directive_request(deal: Deal, directive: str) -> dict:
     """Already fully non-interactive (no input()/print()) -- public so a
     future API's "preview what the planner would do" endpoint can call it
     directly, the same function the CLI's confirm step is built on."""
@@ -170,15 +170,21 @@ name that field in target_field using its schema name: {EXTRACTION_SCHEMA_FIELDS
 If they just want to proceed normally, pick the most natural next step.
 Give a one-sentence reasoning. Return only the JSON object."""
 
-    response = local_chat(
-        model=PLANNER_MODEL,
-        messages=[{"role": "user", "content": prompt}],
-        format=PlannerDecision.model_json_schema(),
-        options={"temperature": 0},
-    )
+    return {'model': PLANNER_MODEL, 'messages': [{'role': 'user', 'content': prompt}],
+            'format': PlannerDecision.model_json_schema(), 'options': {'temperature': 0}}
+
+
+def classify_directive(deal: Deal, directive: str) -> PlannerDecision:
+    return project_directive_response(deal, local_chat(**build_directive_request(deal, directive)))
+
+
+def project_directive_response(deal: Deal, response, *, strict=False) -> PlannerDecision:
+    valid = VALID_ACTIONS[deal.status]
     decision = PlannerDecision.model_validate_json(response["message"]["content"])
 
     if decision.action not in valid:
+        if strict:
+            raise ValueError('Classifier proposed an invalid action for the current deal state')
         # Small model picked outside the allowed set -- fall back to the
         # deterministic default rather than executing an invalid transition.
         return PlannerDecision(
@@ -341,8 +347,17 @@ def _run_view_demand_book(store: Store, deal: Deal) -> None:
               f"{', note: ' + c.notes if c.notes else ''}")
 
 
-def _run_ingest(store: Store, deal: Deal, document_path: str) -> None:
-    document = ingest_document(document_path, deal.tenant_id, deal.id)
+def _run_ingest(store: Store, deal: Deal, document_path: str, *, private=False) -> None:
+    if private:
+        from delivery.ingestion import ingest_upload
+        document = ingest_upload(document_path, deal.tenant_id, deal.id)
+        identity = getattr(store, 'authenticated_identity', None)
+        if identity is not None:
+            from security.identity import has_access
+            if not has_access(store.conn, identity.user_id, deal.tenant_id):
+                raise PermissionError('Room access revoked during private ingestion')
+    else:
+        document = ingest_document(document_path, deal.tenant_id, deal.id)
     store.save_document(document)
 
     def _append_document(d: Deal) -> None:
@@ -356,13 +371,26 @@ def _run_ingest(store: Store, deal: Deal, document_path: str) -> None:
     updated = store.update_deal(deal.tenant_id, deal.id, _append_document)
     deal.document_ids = updated.document_ids
     deal.status = updated.status
-    print(f"[Planner] Ingested {document.filename}: {len(document.blocks)} blocks.")
+    if not private:
+        print(f"[Planner] Ingested {document.filename}: {len(document.blocks)} blocks.")
 
 
-def _run_extract(store: Store, deal: Deal, model: str, reviewer_feedback: Optional[str] = None) -> ExtractionResult:
+def _run_extract(store: Store, deal: Deal, model: str, reviewer_feedback: Optional[str] = None,
+                 *, private=False) -> ExtractionResult:
     documents = store.get_documents_for_deal(deal.tenant_id, deal.id)
     if not documents:
         raise RuntimeError("No documents ingested for this deal yet.")
+    if private:
+        from delivery.extraction import extract_private, persist_private_result, require_current_access
+        document = documents[0]
+        if (document.tenant_id, document.deal_id) != (deal.tenant_id, deal.id):
+            raise ValueError('Private extraction document scope changed')
+        require_current_access(store, deal.tenant_id)
+        _, previous = store.get_extraction_result_with_raw(deal.tenant_id, deal.id)
+        result = extract_private(document, model, reviewer_feedback)
+        updated = persist_private_result(store, result, document, previous, status=DealStatus.EXTRACTED)
+        deal.status = updated.status
+        return result
     result = extract(documents[0], model=model, reviewer_feedback=reviewer_feedback)  # Phase 0: single-document deals
     store.save_extraction_result(result)
     deal.status = DealStatus.EXTRACTED

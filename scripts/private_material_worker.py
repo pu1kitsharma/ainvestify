@@ -42,7 +42,7 @@ def draft_materials(root: Path, model=None):
     elif model.name != frozen_name:
         raise ValueError('Supplied material author differs from frozen model')
     seconds = json.loads((root / 'material_budget.json').read_text())['seconds']
-    budget = PreparationBudget(seconds, max_calls=1, max_requests=1)
+    budget = PreparationBudget(seconds, max_calls=1, max_requests=1, document_step=True)
 
     def save():
         temporary = attempts_file.with_suffix('.json.tmp')

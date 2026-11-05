@@ -2,6 +2,8 @@ import {useEffect, useState} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import {api} from '../api/client';
 import Materials from './Materials';
+import DealDocuments from './DealDocuments';
+import Diligence from './Diligence';
 
 type Checkpoint = {
  state?: string; phase?: string; reason?: string; error_count?: number; blockers?: string[];
@@ -307,6 +309,8 @@ function RoomPipelineState({leadId}: {leadId: string}) {
   job.state === 'blocked' ? 'Blocked: saved drafts remain available.' : `Job ${readable(job.state)}.`;
  return <div>
   {(error || room.error) && <p role="alert" className="mb-3 text-sm text-rose-700">{error || room.error?.message}</p>}
+  {roomId && <DealDocuments roomId={roomId}/>}
+  {roomId && <Diligence roomId={roomId}/>}
   {roomId && <Materials roomId={roomId} files={currentArtifacts}/>}
   <details className="mb-6 rounded-xl border border-slate-200 bg-white p-4">
    <summary className="cursor-pointer text-sm font-medium text-slate-700">Pipeline details{headline ? ` · ${headline}` : ''}</summary>

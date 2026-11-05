@@ -54,16 +54,24 @@ def test_cap_cannot_be_raised_above_ten_percent():
         mix_private_examples([{}], [{}], upweight=0)
 
 
-def test_private_adapters_only_under_ignored_private_roots(tmp_path):
-    root = tmp_path
-    for ok in ('runtime_qualification/agentic_banker/x', 'evals/agentic_banker/private/x'):
-        adapter_destination_ok(root / ok, trained_on_private=True, repo_root=root)
-    for bad in ('models/adapters/run1', 'models/adapters', 'evals/agentic_banker/ws-c/x', 'other'):
+def test_private_adapters_require_explicit_storage_outside_git(tmp_path):
+    root, private = tmp_path / 'repo', tmp_path / 'private'
+    root.mkdir()
+    private.mkdir()
+    assert adapter_destination_ok(private / 'adapter', trained_on_private=True,
+                                  repo_root=root, private_root=private) == private / 'adapter'
+    for bad in ('models/adapters/run1', 'runtime_qualification/x', 'evals/agentic_banker/private/x', 'other'):
         with pytest.raises(ValueError):
-            adapter_destination_ok(root / bad, trained_on_private=True, repo_root=root)
+            adapter_destination_ok(root / bad, trained_on_private=True, repo_root=root,
+                                   private_root=private)
     with pytest.raises(ValueError):
         adapter_destination_ok(tmp_path.parent / 'outside', trained_on_private=True, repo_root=root)
     adapter_destination_ok(root / 'models/adapters/run1', trained_on_private=False, repo_root=root)
+    with pytest.raises(ValueError):
+        adapter_destination_ok(private / 'adapter', trained_on_private=True, repo_root=root)
+    with pytest.raises(ValueError):
+        adapter_destination_ok(private / 'adapter', trained_on_private=True,
+                               repo_root=root, private_root=tmp_path)
 
 
 def test_symlink_into_lfs_path_is_resolved(tmp_path):

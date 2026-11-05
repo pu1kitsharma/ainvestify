@@ -70,10 +70,11 @@ def run_financial_stage(store, job: dict, document, *, model_name: str,
     """
     from api.routers.rooms import revision_for
 
-    if not 1 <= timeout <= 120:
-        raise ValueError('Financial process timeout must be 1 to 120 seconds')
-    if not 1 <= budget_seconds <= 105:
-        raise ValueError('Financial model budget must be 1 to 105 seconds')
+    from agents.preparation.preparation_budget import DOCUMENT_STEP_MAX_SECONDS
+    if not 1 <= timeout <= DOCUMENT_STEP_MAX_SECONDS:
+        raise ValueError('Financial process timeout must be 1 to 900 seconds')
+    if not 1 <= budget_seconds <= DOCUMENT_STEP_MAX_SECONDS - 15:
+        raise ValueError('Financial model budget must be 1 to 885 seconds')
     date.fromisoformat(as_of_date)
     validate_local_model_name(model_name)
     tenant, workspace_id = job['tenant_id'], job['workspace_id']

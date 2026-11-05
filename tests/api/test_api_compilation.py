@@ -87,8 +87,8 @@ def test_authored_workspace_documents_cannot_inherit_legacy_approval(secured):
         assert store.get_memo_version(tenant, memo.id).approved_by == 'historical reviewer'
 
 
-def test_rerun_analytics_over_authenticated_http(secured, tmp_path, monkeypatch):
-    """The remaining deterministic analytics route still persists actual charts."""
+def test_retired_analytics_preserves_reviewed_inputs_without_repo_local_output(secured, tmp_path, monkeypatch):
+    """Reviewed extraction does not bypass the room artifact pipeline."""
     from tests.conftest import make_extraction_result
     from schemas import FieldStatus
     client, db, users = secured
@@ -101,9 +101,8 @@ def test_rerun_analytics_over_authenticated_http(secured, tmp_path, monkeypatch)
         result.arr.status = result.arr_prior_year.status = FieldStatus.APPROVED
         store.save_extraction_result(result)
     response = client.post(f'/api/deals/{deal.id}/analytics/rerun')
-    assert response.status_code == 200
-    assert response.json()
-    for chart in response.json():
-        assert Path(chart['storage_uri']).is_file()
+    assert response.status_code == 410
+    assert not (tmp_path / 'memo_output').exists()
     with Store(db) as store:
-        assert len(store.get_charts(tenant, deal.id)) == len(response.json())
+        assert store.get_charts(tenant, deal.id) == []
+        assert store.get_extraction_result(tenant, deal.id).model_dump() == result.model_dump()

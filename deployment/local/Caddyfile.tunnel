@@ -1,0 +1,18 @@
+# Private application behind the named outbound tunnel; API owns authorization.
+# Final investor artifacts still require their exact-file validation/reviews.
+{
+	admin off
+	auto_https off
+	import logging.caddy
+}
+import routes.caddy
+
+http://investify.fyi:8081 {
+	bind 127.0.0.1
+	import investify_routes
+}
+
+http://:8081 {
+	bind 127.0.0.1
+	respond "Not found" 404
+}

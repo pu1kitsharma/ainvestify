@@ -1,0 +1,30 @@
+# Enable only after private workflow acceptance; one bounded durable worker.
+[Unit]
+Description=Investify private durable room worker
+After=network.target investify-api.service
+Requires=investify-api.service
+
+[Service]
+Type=simple
+User=investify
+Group=investify
+WorkingDirectory=/home/investify/app
+ExecStart=/home/investify/venv/bin/python -B /home/investify/app/scripts/run_room_worker.py --env-file /home/investify/private/server.env --watch
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=MPLCONFIGDIR=/home/investify/runtime/matplotlib
+UMask=0077
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=140
+KillMode=mixed
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/home/investify/private /home/investify/runtime
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+
+[Install]
+WantedBy=multi-user.target

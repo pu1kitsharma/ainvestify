@@ -12,9 +12,18 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--port", type=int, default=8000)
+    parser.add_argument("--env-file", type=Path, help="Literal server-only KEY=VALUE configuration; no shell expansion")
     parser.add_argument("--without-worker",action="store_true",help="Run API only; use a separately supervised room worker")
     parser.add_argument("--local-dev",action="store_true",help="Explicit loopback HTTP frontend origin for local development only")
     args = parser.parse_args()
+    if args.env_file:
+        from scripts.local_hosting import read_env_file
+        try:
+            os.environ.update(read_env_file(args.env_file))
+        except (OSError, ValueError):
+            parser.error("Invalid or unreadable environment file")
+    if os.name == 'nt' and os.environ.get('LOCAL_API_RUNTIME') == 'wsl':
+        parser.error('API migrated to Investify WSL; use deployment/local/start_local_host.ps1')
     if args.local_dev:
         if os.environ.get("APP_ENV", "development") != "development":
             parser.error("--local-dev requires APP_ENV=development")

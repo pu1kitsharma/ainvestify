@@ -65,7 +65,7 @@ def review_materials(root: Path, model=None):
         model = LocalModel(model_pin['name'], thinking=False, max_tokens=1200,
                            context_tokens=16384, temperature=0)
     seconds = json.loads((root / 'material_review_budget.json').read_text())['seconds']
-    budget = PreparationBudget(seconds, max_calls=1, max_requests=1)
+    budget = PreparationBudget(seconds, max_calls=1, max_requests=1, document_step=True)
 
     def save():
         temporary = attempts_file.with_suffix('.json.tmp')

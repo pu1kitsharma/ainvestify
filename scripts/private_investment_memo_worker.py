@@ -12,7 +12,7 @@ from agents.inference.local_models import LocalModel
 from agents.inference.model_authorship import recorded_call, response_answer, digest
 from agents.research.investment_memo import Source
 from agents.research.staged_memo import run_stage
-from agents.preparation.preparation_budget import PreparationBudget, PreparationBudgetExceeded, preparation_budget
+from agents.preparation.preparation_budget import DOCUMENT_STEP_MAX_SECONDS, PreparationBudget, PreparationBudgetExceeded, preparation_budget
 
 
 class SourceDisposition(BaseModel):
@@ -87,7 +87,7 @@ def evaluate_source_selection(root, model=None):
     decisions = {}
     new_calls = 0
     seconds = json.loads((root / 'selection_budget.json').read_text())['seconds']
-    budget = PreparationBudget(seconds, max_calls=2, max_requests=4)
+    budget = PreparationBudget(seconds, max_calls=2, max_requests=4, document_step=True)
     for index, batch in enumerate(batches):
         payload = {'company': inventory['company'], 'input_revision': inventory['input_revision'],
             'inventory_digest': inventory['inventory_digest'], 'batch_index': index,
@@ -348,7 +348,7 @@ def main():
     budget_file = root / "budget.json"
     budget_request = json.loads(budget_file.read_text()) if budget_file.exists() else {'seconds': 105}
     budget_seconds = budget_request['seconds']
-    if not isinstance(budget_seconds, (int, float)) or not 1 <= budget_seconds <= 105:
+    if not isinstance(budget_seconds, (int, float)) or not 1 <= budget_seconds <= DOCUMENT_STEP_MAX_SECONDS:
         raise ValueError("Invalid private memo pass budget")
     phase = budget_request.get('phase', 'all')
     if phase not in {'all', 'draft_only', 'analysis_only', 'correction_only',
@@ -465,7 +465,7 @@ def main():
                            review_model=reviewer, challenge_model=challenger,
                            correction_model=corrector, prose_model=prose_reasoner,
                            as_of_date=as_of_date,
-                           budget=PreparationBudget(budget_seconds, max_calls=5, max_requests=5),
+                           budget=PreparationBudget(budget_seconds, max_calls=5, max_requests=5, document_step=True),
                            phase=phase, phase_checkpoint=phase_checkpoint,
                            compact_part_a=phase != 'all',
                            compact_part_b=phase != 'all',

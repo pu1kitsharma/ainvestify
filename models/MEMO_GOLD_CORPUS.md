@@ -18,7 +18,11 @@ Validation and test remain untouched during tuning.
 
 ## Record format
 
-Keep the reviewed JSONL input and all exports under ignored `models/data/`.
+Keep private-derived reviewed JSONL, exports and adapters in an approved private
+directory **outside Git**, and supply that existing directory as `--private-root`.
+Ignored checkout paths are historical locations, not approved destinations for
+new private training derivatives. Public/synthetic guard fixtures retain the
+legacy `models/data/` path for compatibility.
 Each line is one JSON object:
 
 ```json
@@ -74,9 +78,10 @@ families. Keep identifying content and private source text out of Git.
 ## Export and gate
 
 ```sh
-PYTHONPATH=. .venv/bin/python scripts/build_memo_gold_sft.py \
-  models/data/memo_gold/reviewed.jsonl \
-  models/data/memo_gold/exports/run-001
+PYTHONPATH=. .venv/bin/python -m scripts.build_memo_gold_sft \
+  /approved/private/memo_gold/reviewed.jsonl \
+  /approved/private/memo_gold/exports/run-001 \
+  --private-root /approved/private
 ```
 
 The output directory must be new. It contains `train.jsonl`, `valid.jsonl`,
@@ -118,9 +123,11 @@ It also does not support calling the observed nonconvergence an exact-input
 reviewer contradiction.
 
 ```sh
-PYTHONPATH=. .venv/bin/python scripts/prepare_memo_training_candidates.py \
-  models/data/memo_gold/new-private-queue \
-  runtime_qualification/private_acceptance/approved-run \
+PYTHONPATH=. .venv/bin/python -m scripts.prepare_memo_training_candidates \
+  /approved/private/memo_gold/new-private-queue \
+  /approved/private/imported-diagnostics/approved-run \
+  --private-root /approved/private \
+  --source-root /approved/private/imported-diagnostics \
   --company-key opaque-company-id --sector sector \
   --approval-id recorded-user-source-approval --approved-on 2026-10-08
 ```
@@ -129,3 +136,53 @@ This importer keeps answers pending. A source-use approval is not a declaration
 that every saved failed/repaired response is correct. The corpus needs reviewed
 labels across additional companies and an untouched baseline before training
 can demonstrate an improvement.
+
+## 26 October imported-asset intake correction
+
+`python -m scripts.audit_training_assets SOURCE_ROOT NEW_REPORT --private-root ROOT`
+reads bounded JSONL assets and stages only hashes, row references, classifications
+and gate results in a new immutable private report. It never changes a split,
+copies a prompt/target into a training corpus, makes a model call or trains weights.
+Reports contain no source passages, model answers, company names or raw errors.
+Existing private storage must already have the intended operating-system access
+controls; path validation does not confer source rights or configure Windows ACLs.
+
+The complete imported archive has 74 JSONL files and 1,552 rows. The earlier
+532-row memo subset contained 156 pending, test-only candidates and 376 exclusion
+records. All 156 candidates pass source/runtime target checks; that result is
+separate from substantive answer adjudication. None has approved review labels.
+The additional 152 task-input cases have 52 train, 48 validation and 52 test rows,
+all explicitly marked synthetic fixtures; their separate 152 scorer keys are
+evaluation assets, not approved assistant targets. Duplicate archive versions
+remain preserved, and held-out companies/documents are excluded from training.
+There are currently **zero weight-update-eligible memo rows**. Importing models
+and source-use approval cannot substitute for reviewed targets, frozen holdouts
+or a compatible measured training runtime.
+
+## 27 October renewed source permission and family audit
+
+The user's new instruction authorizes local training source use for seven supplied
+references. That permission is recorded independently from answer adjudication and
+prior acceptance reservations. `python -m scripts.prepare_reference_training`
+verifies imported original hashes, checks the archived original-source declarations
+and emits an immutable outside-Git family ledger plus per-source review requests.
+Unmatched references remain unassigned and unadjudicated; the tool does not assign
+every future input to test. A substring in a filename never establishes identity.
+
+For these seven actual inputs, five match archived originals byte for byte, and
+all seven match exact original-source filename declarations in three existing
+acceptance families. The two declaration-only matches retain unresolved version
+status. No independent new training family was found. Their review packets request
+version/evaluation reconciliation and explicitly prohibit training derivatives,
+including layout-only derivatives of held-out files. Rights permission does not
+turn a reference projection into a verified actual or a model answer into gold.
+
+`python -m scripts.qualify_training_runtime` inspects package availability, local
+model metadata, GPU capacity and packed tensor headers without loading weights.
+The recovered MLX affine checkpoints require separately qualified offline unpacking
+and exact Transformers architecture/tokenizer mapping before CUDA QLoRA. Header
+estimates exclude activations, gradients and optimizer state; they are not capacity
+acceptance. The CUDA trainer now selects FP16 when native BF16 is unsupported,
+rejects explicitly unsupported BF16 and requires an existing local checkpoint with
+`local_files_only=True`. It never downloads a missing model or silently trains an
+unconverted MLX checkpoint. No weights were updated or production model changed.

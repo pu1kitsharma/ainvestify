@@ -12,7 +12,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 
 from openpyxl import Workbook,load_workbook
 from delivery.inspection import inspect_bytes,summarize_report
-from delivery.libreoffice import convert,office_binary
+from delivery.libreoffice import convert,office_binary,pdf_export_argument,PDF_EXPORT_CONTRACT
 from delivery.rendering import render_intro,render_memo
 
 
@@ -41,8 +41,9 @@ def main():
         with tempfile.TemporaryDirectory(prefix='synthetic-office-diagnostic-') as directory:
             job=Path(directory);source=job/f'input.{fmt}';source.write_bytes(content)
             output=job/'output';output.mkdir()
+            export=pdf_export_argument(fmt) if target=='pdf' else target
             subprocess.run([str(office_binary()),f'-env:UserInstallation={(job/"profile").as_uri()}',
-                '--headless','--convert-to',target,'--outdir',str(output),str(source)],
+                '--headless','--convert-to',export,'--outdir',str(output),str(source)],
                 timeout=90,capture_output=True,check=True)
             return (output/f'input.{target}').read_bytes()
     sections=[('Synthetic qualification','Illustrative fixture only. No company facts.','Source: synthetic test fixture')]
@@ -54,6 +55,9 @@ def main():
             (root/(name+'.pdf')).write_bytes(pdf)
             inspection=inspect_bytes(pdf,'pdf')
             report['checks'][name]={'state':'pass' if inspection['structural_status']=='pass' else 'fail',
+                'source_sha256':hashlib.sha256(content).hexdigest(),
+                'pdf_export_contract':PDF_EXPORT_CONTRACT,
+                'pdf_export_argument':pdf_export_argument(name.split('.')[-1]),
                 'pdf_sha256':hashlib.sha256(pdf).hexdigest(),'inspection':summarize_report(inspection)}
         except Exception as exc:report['checks'][name]={'state':'fail','error_type':type(exc).__name__,'reason':str(exc)}
     for input_value in (10,15):

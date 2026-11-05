@@ -66,12 +66,17 @@ _LINUX_ETC_FILES = ("/etc/ld.so.cache", "/etc/ld.so.conf", "/etc/ld.so.conf.d", 
 
 
 def build_bwrap_command(command, job, *, bwrap, project, extra_read=(), extra_read_literals=(),
-                        local_ipc=False, local_model=False, prefixes=None):
+                        local_ipc=False, local_model=False, prefixes=None, model_socket=None):
     """Pure construction of the bubblewrap argv (no process started). Returns (argv, env)."""
-    if local_model:
+    if local_model and model_socket is None:
         # Seatbelt can allow a single localhost TCP port; bwrap cannot without sharing the host
         # network namespace. Refuse rather than widen the boundary.
         raise RuntimeError("private_process_isolation_local_model_unsupported_on_linux")
+    if model_socket is not None:
+        if not local_model or local_ipc:
+            raise ValueError('Inference and office workers must remain separate')
+        from delivery.model_ipc import validate_socket
+        model_socket = validate_socket(model_socket)
     prefixes = prefixes if prefixes is not None else [str(Path(sys.prefix).resolve()), str(Path(sys.base_prefix).resolve())]
     argv = [str(bwrap), "--unshare-all", "--die-with-parent", "--new-session", "--clearenv"]
     for entry in _LINUX_SYSTEM_DIRS:
@@ -90,6 +95,10 @@ def build_bwrap_command(command, job, *, bwrap, project, extra_read=(), extra_re
         path = Path(item).absolute()
         if path.is_symlink() or path.resolve() != path or not path.exists():
             raise ValueError("Exact private read capability must be canonical and present")
+        if path.is_dir():
+            # A bind of a directory would disclose all descendants, unlike a
+            # Seatbelt directory literal. Refuse until an exact projection exists.
+            raise RuntimeError('private_process_directory_literal_unsupported_on_linux')
         reads.append(str(path))
     seen = set()
     for path in reads:
@@ -101,6 +110,16 @@ def build_bwrap_command(command, job, *, bwrap, project, extra_read=(), extra_re
     argv += ["--bind", str(job), str(job), "--chdir", str(job)]
     env = {"PATH": "/usr/bin:/bin:/usr/sbin:/sbin", "HOME": str(job), "TMPDIR": str(job),
            "PYTHONDONTWRITEBYTECODE": "1", "PYTHONPATH": str(project), "LANG": "C.UTF-8"}
+    if local_model and os.environ.get('LOCAL_OLLAMA_HARDWARE_PROFILE'):
+        # Only a named, non-secret placement profile crosses the cleared env.
+        # Context, model identity, response limits and network isolation stay
+        # under their existing contracts. The adapter rejects unknown profiles.
+        env['LOCAL_OLLAMA_HARDWARE_PROFILE'] = os.environ['LOCAL_OLLAMA_HARDWARE_PROFILE']
+    if model_socket is not None:
+        from delivery.model_ipc import SANDBOX_SOCKET, SOCKET_ENV
+        argv += ['--dir', '/run/investify', '--ro-bind', str(model_socket), SANDBOX_SOCKET]
+        env.update({SOCKET_ENV: SANDBOX_SOCKET, 'OLLAMA_HOST': 'http://127.0.0.1:11434',
+                    'LOCAL_OLLAMA_HOST': 'http://127.0.0.1:11434'})
     for key, value in env.items():
         argv += ["--setenv", key, value]
     return argv + ["--", *map(str, command)], env
@@ -131,6 +150,17 @@ def run_private(command, job_directory, *, timeout=120, extra_read=(), extra_rea
         raise ValueError("A private job directory is required")
     project = Path(__file__).resolve().parents[1]
     if backend == "bwrap":
+        if local_model and os.environ.get('PRIVATE_MODEL_IPC') == 'unix-ollama-v1':
+            if local_ipc:
+                raise ValueError('Inference and office workers must remain separate')
+            from delivery.model_ipc import model_relay
+            from agents.preparation.preparation_budget import document_step_seconds
+            bounded = min(timeout, max(120, document_step_seconds()))
+            with model_relay(timeout=bounded) as model_socket:
+                argv, env = build_bwrap_command(command, job, bwrap=bwrap_binary(), project=project,
+                    extra_read=extra_read, extra_read_literals=extra_read_literals,
+                    local_model=True, model_socket=model_socket)
+                return _execute(argv, env, job, bounded)
         argv, env = build_bwrap_command(command, job, bwrap=bwrap_binary(), project=project, extra_read=extra_read,
                                         extra_read_literals=extra_read_literals, local_ipc=local_ipc, local_model=local_model)
         return _execute(argv, env, job, timeout)

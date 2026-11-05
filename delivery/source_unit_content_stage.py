@@ -10,6 +10,7 @@ from agents.inference.model_routing import validate_local_model_name
 from agents.research.investment_memo import Memo, Source
 from delivery.isolation import run_private
 from delivery.memo_content_stage import PROJECT, _inventory, _write
+from agents.preparation.preparation_budget import document_model_seconds
 
 FLOW = 'memo-source-unit-flow-v1'
 PHASES = ('source_characterization', 'source_unit_author', 'source_unit_review')
@@ -406,7 +407,7 @@ def run_source_unit_pass(memo_root, accepted, sources, profile, *, timeout, auth
         pin = request['coverage_adjudicator_pin'] if phase.startswith(('diligence_source_adjudication', 'diligence_source_pair')) and 'coverage_adjudicator_pin' in request else request['coverage_pin'] if flow_contract in {FLOW_V5, FLOW_V6, FLOW_V7, FLOW_V8, FLOW_V9, FLOW_V10, FLOW_V11, FLOW_V12} and phase in (COVERAGE_PHASES_V12 if flow_contract == FLOW_V12 else COVERAGE_PHASES_V10 if flow_contract in {FLOW_V10, FLOW_V11, FLOW_V12} else COVERAGE_PHASES_V7 if flow_contract in {FLOW_V7, FLOW_V8, FLOW_V9} else COVERAGE_PHASES_V6 if flow_contract == FLOW_V6 else COVERAGE_PHASES_V5) else request['core_reviewer_pin'] if section_author_contract in {'memo-section-units-author-v7', 'memo-section-units-author-v8', 'memo-section-units-author-v9', 'memo-section-units-author-v10', 'memo-section-units-author-v11', 'memo-section-units-author-v12', 'memo-section-units-author-v13'} and phase.startswith('memo_section_review_') else request['core_author_pin'] if flow_contract in {FLOW_V4, FLOW_V5, FLOW_V6, FLOW_V7, FLOW_V8, FLOW_V9, FLOW_V10, FLOW_V11, FLOW_V12} and phase.startswith('memo_section_author_') else request['reviewer_pin']
         if installed.get(pin['name']) != pin['digest']:
             return {'state': 'blocked', 'reason': 'source_unit_installed_model_changed'}
-        seconds = min(105, remaining - 8)
+        seconds = document_model_seconds(remaining)
         if recovering:
             from scripts.private_source_unit_worker import source_pair_recovery_budget
             seconds = min(seconds, source_pair_recovery_budget(root, request, result))
